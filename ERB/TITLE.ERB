@@ -1,0 +1,86 @@
+﻿;revからパクリ
+
+@SYSTEM_TITLE
+;TODO 输一次主角娘化，2次对手扶她化，第三次直接被调教————by 维德瑞
+;TODO 催眠：一个是给角色永久上无知，一个是对你先生自己上快速学习（和广域催眠一样，学习速度*成功效果）————by 群梅莉时不时在做梦哒
+;TODO 催眠：合意催眠能不能这样？催眠成功后好意和好感度获得乘1.5，先借贷500点好感度，第二天把这500点扣除？————by 群梅莉时不时在做梦哒
+;TODO 催眠：如果喜欢这一口
+;		往事件方向做，比如每天能催眠一次，这个事件完成后加许多经验，事件结束还原原本状态。
+;		这样和已有的口上内容不冲突，也能玩这种PLAY。
+;		如果可能的话，比如修改弹幕战，催眠后弹幕战是涩涩战斗这种，就是上面提到的无知PLAY这样
+;		————by 奶糖
+#DIM DYNAMIC check_saves
+;debug模式下看报错
+PRINTL 加载完毕
+;#;FORCEWAIT
+;删干净警告
+CLEARLINE 1
+LOADGLOBAL
+RESULT = GLOBAL
+
+RESETBGCOLOR
+IF GAMEBASE_VERSION == 0
+	WINDOW_TITLE = %GAMEBASE_TITLE% %eraTW_Version%
+ELSEIF GAMEBASE_VERSION < 0
+	WINDOW_TITLE = %GAMEBASE_TITLE% 0.00
+ENDIF
+RESULT  = 1
+LOCAL:2 = LINECOUNT
+
+CALL COMPOSE_SPRITE
+
+DO
+$ONCEANAIN
+	REDRAW 0
+	CLEARLINE LINECOUNT - LOCAL:2
+	FOR LOCAL:0, 0, 35
+		HTML_PRINT "<p align='center'><img src='TW_title" + TOSTR(LOCAL:0, "000") + "'></p>"
+	NEXT
+	ALIGNMENT CENTER
+	CUSTOMDRAWLINE ━
+	;PRINTFORML %GAMEBASE_TITLE%
+	;PRINTFORML \@ GAMEBASE_VERSION <= 0 ? %eraTW_Version% # %TOSTR(GAMEBASE_VERSION,"0,.###")% \@
+	;PRINTFORML %GAMEBASE_YEAR%
+	CALL HTMLPRINTL(@"<b>%GAMEBASE_TITLE%</b>",,, "ＭＳ 明朝")
+	CALL HTMLPRINTL(@"<b>%eraTW_Version%</b>",,, "ＭＳ 明朝")
+	CALL HTMLPRINTL(@"<b>(%GAMEBASE_YEAR%)</b>",,, "ＭＳ 明朝")
+	PRINTL
+	CALL HTMLPRINTL(@"汉化版仅为学习日语的交流之用，禁止对该版本的一切盗用、商用行为",,, "ＭＳ 明朝")
+	CALL HTMLPRINTL(@"%GAMEBASE_INFO%",,, "ＭＳ 明朝")
+	CUSTOMDRAWLINE ━
+	PRINTFORML [0] 进来了哦
+	PRINTFORML [1] 继续了哦
+	ALIGNMENT LEFT
+	REDRAW 1
+	INPUT
+	CUSTOMDRAWLINE ━
+	SELECTCASE RESULT
+		CASE 0
+			ALIGNMENT CENTER
+			check_saves = 0
+			FOR check_saves, 0, 20
+				CHKDATA check_saves
+				SIF !RESULT:0
+					BREAK
+			NEXT
+			SIF RESULT:0
+				CHKDATA 99
+			IF !RESULT:0
+				PRINTFORML 检测到已存在的存档，确定要开始新游戏吗？
+				CALL ASK_YN, "那当然", "再想想"
+				CUSTOMDRAWLINE ━
+			ELSE
+				VARSET RESULT
+			ENDIF
+			ALIGNMENT LEFT
+			IF !RESULT 
+				RESETDATA
+				ADDCHARA 0
+				BEGIN FIRST
+			ELSE
+				GOTO ONCEANAIN
+			ENDIF
+		CASE 1
+			CALL Real_Time_Save(1002)
+	ENDSELECT
+LOOP RESULT

@@ -1,0 +1,418 @@
+﻿;-------------------------------------------
+;時止め中（日常
+;-------------------------------------------
+@STOP67
+;PRINTFORMDL %CALLNAME:MASTER%は、時を止めたまま%STR:0%\@ STR:0 == "胸愛撫" || STR:0 == "肛门愛撫" || STR:0 == "阴蒂愛撫" || STR:0 == "手指插入" ? を行う #  \@事に、愉悦を覚えた
+;PRINTFORMDL 解除した際の慧音の反応が今から楽しみでならない
+PRINTFORMDL %CALLNAME:MASTER%在时间停止的情况下%STR:0%\@ STR:0 == "胸愛撫" || STR:0 == "肛门愛撫" || STR:0 == "阴蒂愛撫" || STR:0 == "手指插入" ? 的所作所为 #  \@、感受到了愉悦
+PRINTFORMDL 现在开始非常期待解除时慧音的反应
+
+;-------------------------------------------
+;睡眠中（日常
+;-------------------------------------------
+@SLEEP67
+IF TALENT:恋人
+	;PRINTFORML 「ん……ぬし……さまぁ…………やぁ……です…………」
+	PRINTFORML 「唔……你这人……真是的…………不要……这样啦…………」
+ELSE
+	;PRINTFORML 「やぁ……なに…………しか……たない……ひと…………」
+	PRINTFORML 「呀……什么啊…………真是……拿你没办法……呢…………」
+ENDIF
+;PRINTFORMDW 夢現のまどろみの中、慧音が露出笑容寝言を呟いた
+PRINTFORMDW 在睡梦中，露出笑容的慧音咕哝着梦话
+
+;-------------------------------------------
+;被逆推&性骚扰指令後counter
+;ARG,0なら被逆推中、1なら性骚扰指令後counter
+;-------------------------------------------
+@UFUFUTO67(ARG)
+IF !ARG
+	IF TALENT:恋人
+		PRINTFORMDW 慧音开心地笑着的同时,对%CALLNAME:MASTER%的反击撒娇撒痴
+	ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+		PRINTFORMDW 咯咯笑着的慧音开心地轻柔地要求%CALLNAME:MASTER%的反击
+	ELSEIF GETBIT (CFLAG:1670,0) || GETBIT (CFLAG:1670,1)
+		PRINTFORMDW 慧音不愉快地抿着嘴,瞪着要让她自己舒服
+	ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)
+		PRINTFORMDW 慧音害羞地脸红着,正努力让自己感到舒服
+	ENDIF
+ELSE
+	;指插入
+	IF SELECTCOM == 316
+		IF PALAM:1 == 9999
+			SELECTCASE RAND:3
+				CASE 2
+					PRINTFORML 「嗯、呜呜、嗯……、不行、明明不行的、我却想做」
+				CASE 1
+					PRINTFORML 「哈啊、唔嗯、"小穴很舒服吧"?　是的、但是、明明轮到我了」
+				CASE 0
+					PRINTFORML 「唔、哼嗯!　呀、已经、让我也来、唔嗯」
+			ENDSELECT
+		ELSEIF PALAM:1 >= 5000
+			SELECTCASE RAND:3
+				CASE 2
+					PRINTFORML 「……真的是、唔嗯、太过分的人了、所以要报复、呀啊!」
+				CASE 1
+					PRINTFORML 「嗯、唔、真是的、在这种地方、插入手指什么的」
+				CASE 0  
+					PRINTFORML 「哈啊、呜呜、不行、请不要摩擦膣内」
+			ENDSELECT
+		ELSEIF TALENT:恋人
+			PRINTFORML 「唔嗯……、主人的H、在这种地方、手指什么的……」
+			PRINTFORML 「"看起来很开心"?　嗯……、那个、那个……」 
+			PRINTFORML 「所以才这样做的」
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORML 「"小穴很舒服吧"?　会生气哦?」
+			PRINTFORML 「"明明你自己在做"?　……只是、一时兴起而已」
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)
+			PRINTFORML 「"想要更多地摩擦膣内吗"?　只是、我想做而已」
+		ENDIF
+	;クリor愛撫私处
+	ELSEIF SELECTCOM == 315
+		IF PALAM:0 == 9999
+			IF GETBIT(TALENT:性別,1)
+				SELECTCASE RAND:3
+					CASE 2
+						PRINTFORML 「嗯、我来做、不要摸小鸡鸡、呜啊!」
+					CASE 1
+						PRINTFORML 「哈啊哈啊……、小鸡鸡好热……、但是、我来做」
+					CASE 0
+						PRINTFORML 「呀啊、不要摩擦小鸡鸡、拜托、明明我在做」
+				ENDSELECT
+			ELSE
+				SELECTCASE RAND:3
+					CASE 2
+						PRINTFORML 「呜啊……、、在这种地方、不要摩擦那里、拜托」
+					CASE 1
+						PRINTFORML 「呀、不行、不行不行、如果那里被摩擦的话、会坏掉的」
+					CASE 0  
+						PRINTFORML 「唔嗯、呀、那里、不行、不能摩擦阴蒂、不行」
+				ENDSELECT
+			ENDIF
+		ELSEIF PALAM:0 >= 5000
+			IF GETBIT(TALENT:性別,1)
+				SELECTCASE RAND:3
+					CASE 2
+						PRINTFORML 「哈啊、哈啊……、嗯、请不要碰小鸡鸡、因为我要做」
+					CASE 1
+						PRINTFORML 「现在、轮到我了、所以啊、请把手从小鸡鸡上拿开」
+					CASE 0
+						PRINTFORML 「真是的、你太H了啊、嗯小鸡鸡不行」
+				ENDSELECT
+			ELSE
+				SELECTCASE RAND:3
+					CASE 2
+						PRINTFORML 「所以、所以说、那里不行。嗯、明明轮到我了……」
+					CASE 1
+						PRINTFORML 「生、生气了哦、嗯因为我在做啊」
+					CASE 0
+						PRINTFORML 、我也、想做啊、请不要玩弄阴蒂」
+				ENDSELECT
+			ENDIF
+		ELSEIF TALENT:恋人
+			PRINTFORML 「哈呜……、主人真是没办法呢」
+			PRINTFORML 「"明明很开心"?　……是的、所以、我才这样做」
+			PRINTFORML 「主人你不也很开心吗?　露出那样的笑容、不用说我也知道哦」
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORML 「嗯……真是的、%CALLNAME:MASTER%真是个坏人」
+			PRINTFORML 「我在做的时候、、请不要摩擦那里」
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)  
+			PRINTFORML 「"很舒服吗"?　是的、所以、我才这样回报你」
+		ENDIF
+	;肛门愛撫
+	ELSEIF SELECTCOM == 314
+		IF PALAM:2 == 9999
+			SELECTCASE RAND:3
+				CASE 2
+					PRINTFORML 「哈嗯,呀啊,用屁股什么的讨厌。我在做所以请拔出去」
+				CASE 1
+					PRINTFORML 「呀啊,屁股呀啊,你真是坏心眼,明明我在回敬你」
+				CASE 0
+					PRINTFORML 「屁股,不行,请不要捣乱,因为是我在做」
+			ENDSELECT
+		ELSEIF PALAM:2 >= 5000
+			SELECTCASE RAND:3
+				CASE 2
+					PRINTFORML 「嗯嗯!　请停下来!　因为轮到我做了」
+				CASE 1
+					PRINTFORML 「请不要玩弄屁股。你有那么讨厌被我做吗?」
+				CASE 0
+					PRINTFORML 「那里不行,嗯,真是的,请让我按照自己的意愿来」
+			ENDSELECT
+		ELSEIF TALENT:恋人
+			PRINTFORML 「主人,笨蛋……,哈呜,请不要玩弄屁股」
+			PRINTFORM 「"很舒服吧"?　
+			IF ABL:Ａ感覚 <= 1
+				PRINTFORM ……不舒服
+			ELSEIF ABL:Ａ感覚 <= 3
+				PRINTFORM ……那种感觉,也不坏
+			ELSE
+				PRINTFORM ……因为很舒服所以不行
+			ENDIF
+			PRINTFORML 」
+			PRINTFORML 「但是,现在是我在做,所以,请不要动手指」
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORM 「"用肛门感觉到的变态"?　
+			IF ABL:Ａ感覚 <= 1
+				PRINTFORM 只觉得恶心
+			ELSEIF ABL:Ａ感覚 <= 3 
+				PRINTFORM 不舒服哦
+			ELSE
+				PRINTFORM 感到舒服,什么的,哼嗯!
+			ENDIF
+			PRINTFORML 」
+			PRINTFORML 「…………现在,是我在做,请不要动手指,嗯」
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)
+			IF ABL:Ａ感覚 <= 1
+				PRINTFORML 「"臀缝很容易摩擦"?　……哈啊,明明是我在做,你真是个坏人」
+			ELSEIF ABL:Ａ感覚 <= 3
+				PRINTFORML 「"不好好揉开的话会很辛苦"?　……变态。现在轮到我了」
+			ELSE
+				PRINTFORML 「"肛门,已经,松了"?　哈,呼,即便如此,我更是在做啊」
+			ENDIF
+		ENDIF
+	;胸愛撫
+	ELSEIF SELECTCOM == 313
+		IF PALAM:3 == 9999
+			SELECTCASE RAND:3
+				CASE 2
+					PRINTFORML 「哈啊哈啊,嗯,胸部,好热……,但是,我也想做」
+				CASE 1
+					PRINTFORML 「哈呼,嗯呼,呀,胸部刺刺的……,哈呼,但是但是,轮到我了」
+				CASE 0 
+					PRINTFORML 「呀,不能玩弄乳头,因为是我在做所以请安静,嗯呜」
+			ENDSELECT
+		ELSEIF PALAM:3 >= 5000
+			SELECTCASE RAND:3
+				CASE 2
+					PRINTFORML 「你真是个变态呢。呀!　因为我在做」  
+				CASE 1
+					PRINTFORML 「明明是我在做,为什么要动手,咕呜……,『可爱的声音』?　真吵」
+				CASE 0
+					PRINTFORML 「哈呼……,所以说,明明是我在做,为什么,嗯呼」
+			ENDSELECT
+		ELSEIF TALENT:恋人
+			PRINTFORML 「主人大人?　有那么想摸我的胸部吗?」
+			PRINTFORML 「『摸起来很舒服』?　……哈啊,我也想玩弄主人你啊?」
+			PRINTFORML 「『随你喜欢』?　那我就随心所欲了哦」
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORML 「哈呼……,嗯,有那么喜欢胸部吗?　『当然最喜欢了』?」
+			PRINTFORML 「……哈啊,那就随你喜欢吧。我也要随心所欲了」
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)
+			PRINTFORML 「『胸部最棒了』?　呵呵,听你这么说我很高兴,但现在轮到我了」
+		ENDIF
+	;接吻
+	ELSEIF SELECTCOM == 312
+		PRINTFORM 慧音は、
+		IF TCVAR:20 > 0 && TCVAR:20 < 10
+			PRINTFORML 稍微拉开一点距离后,再次把嘴唇贴了过来
+		ELSEIF TCVAR:20 > 10 && TCVAR:20 < 20
+			PRINTFORML 带着一丝犹豫,简短地说出口,但还是像忍不住似的把脸凑了过来  
+		ELSEIF TCVAR:20 > 19 && TCVAR:20 < 30
+			PRINTFORML 紧紧地搂住你的脖子,努力地继续着接吻
+		ENDIF
+		PRINTL
+		SIF FLAG:口上色
+			CALLFORM M_KOJO_COLOR_K67
+		IF TALENT:恋人
+			PRINTFORML 「啾,嗯啾,啾噜……主人,再多一点,嗯啾啾……」
+			PRINTFORML 「『这么喜欢接吻吗』?　是的最喜欢了哦,啾啾啾啾」
+			PRINTFORML 「嗯啾,那也最喜欢,嗯啾啾,啾,啾噜」
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORML 「啾,啾……,接吻再多一点,啾,嗯啾,嗯」
+			PRINTFORML 「呵呵,%CALLNAME:MASTER%的嘴唇好美味,啾啾」
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)
+			PRINTFORML 「啊,不要逃,嗯啾啾啾噜,啾」
+		ENDIF
+	;尻撫で
+	ELSEIF SELECTCOM == 310
+		SELECTCASE TFLAG:193
+			CASE 2,3
+				PRINTFORML 「哈,请停止移动那只手。如果你不停下来的话我也有想法哦」
+			CASE 4
+				IF TALENT:恋人
+					PRINTFORML 「啊呜,嗯……,屁股被抚摸着,感觉很舒服」
+					PRINTFORML 「『那就再多一点』?　呵呵……,不过,我也想做给你哦」
+					PRINTFORML 「主人,只是想到被我做,就有感觉了吗?　我很高兴」
+				ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+					PRINTFORML 「啊呜……,真是的,明明我想做了,为什么还在揉呢?」
+					PRINTFORML 「『想听慧音淫荡的声音』?　真是没办法的人」
+				ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)
+					PRINTFORML 「啊呜,嗯,因为是我在做,所以请安静一点,嗯」
+				ENDIF
+		ENDSELECT
+	;掀裙子
+	ELSEIF SELECTCOM == 330
+		IF TALENT:恋人
+			PRINTFORML 「哈,要是主人也遭遇同样令人害羞的事就好了」
+			PRINTFORML 「『被慧音做只会成为奖赏』?　……变态」
+			PRINTFORML 「不过,对这样的主人,自己却无法讨厌,真是伤脑筋」
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORML 「『被看到很高兴吧』?　才没有那种事」
+			PRINTFORML 「现在是我在做,所以请保持安静」
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)  
+			PRINTFORML 「真是的,明明做了这种事,却说自己不想被做,是行不通的哦」
+		ENDIF
+	;抱きつき
+	ELSE
+		IF TALENT:恋人
+			PRINTFORML 「真是的,主人还真是个没办法的人呢」
+			PRINTFORML 「『是慧音被抱着感觉太好了才不好』?　可是,我也想对主人做各种事情啊」  
+			PRINTFORML 「所以现在,请安静地任我摆布吧」
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORML 「虽然被这样抱着很开心,但是我想做各种事情就有点困难了呢」
+			PRINTFORML 「『安静地被抱着就好』?　不要啊,我也想让%CALLNAME:MASTER%感到愉悦啊」
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕)
+			PRINTFORML 「哈,因为是我在做,所以请稍微放松手臂」
+		ENDIF
+	ENDIF
+ENDIF
+
+
+;-------------------------------------------
+;ペットが同じ部屋にいる際の一行地の文追加
+;ARG,0なら通常、1なら性骚扰
+;-------------------------------------------
+@PET67(ARG)
+DRAWLINE
+IF FLAG:70
+	PRINTFORMD %ANIMALNAME()%
+	IF GROUPMATCH(TIME:2,1,6,7)
+		PRINTFORMD 虽然陷入了沉睡
+	ELSE
+		PRINTFORMD 虽然身体开始活动
+	ENDIF
+	PRINTFORMDL ,但被困在了冻结的时间里
+ELSEIF ARG == 1
+	IF GROUPMATCH(TIME:2,1,6,7)
+		PRINTFORMD 看到熟睡的%ANIMALNAME()%,慧音
+		IF TALENT:恋人
+			PRINTFORMDL 露出了陶醉的表情注视着
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORMDL 露出了开心的笑容
+		ELSEIF GETBIT (CFLAG:1670,0)
+			PRINTFORMDL 带着愤怒瞪了过来  
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕) && !GETBIT (CFLAG:1670,1)
+			PRINTFORMDL 露出了苦笑
+		ELSE
+			PRINTFORMDL 露出了焦躁的表情瞪了过来
+		ENDIF
+	ELSE
+		IF TALENT:恋人
+			PRINTFORMDL 面对露出陶醉笑容的慧音,%ANIMALNAME()%不满地吐了口气
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			PRINTFORMDL 面对陶醉的慧音,%ANIMALNAME()%用奇怪的眼神看了过来
+		ELSEIF GETBIT (CFLAG:1670,0)  
+			PRINTFORMDL 面对露出焦躁表情的慧音,%ANIMALNAME()%龇牙咧嘴地威吓着
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕) && !GETBIT (CFLAG:1670,1)
+			PRINTFORMDL 面对不知为何有些高兴的慧音,%ANIMALNAME()%不知所措地徘徊着
+		ELSE
+			PRINTFORMDL 面对明显表现出不快的慧音,%ANIMALNAME()%发出了低吼
+		ENDIF
+	ENDIF  
+ELSE
+	IF GROUPMATCH(TIME:2,1,6,7)
+		IF TALENT:恋人
+			SELECTCASE RAND:2
+				CASE 0
+					PRINTFORMDL 慧音用温柔的目光注视着%ANIMALNAME()%的睡颜,然后以陶醉的表情凝视着这边
+				CASE 1
+					PRINTFORMDL 慧音轻轻抚摸着熟睡的%ANIMALNAME()%,然后用充满热情和湿润的眼眸望向这边
+			ENDSELECT
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			SELECTCASE RAND:2
+				CASE 0
+					PRINTFORMDL 慧音凝视着熟睡的%ANIMALNAME()%,朝这边露出微笑
+				CASE 1
+					PRINTFORMDL 对%ANIMALNAME()%的睡颜露出微笑,慧音直接用同样的笑容面向这边
+			ENDSELECT
+		ELSEIF GETBIT (CFLAG:1670,0)
+			SELECTCASE RAND:2
+				CASE 0
+					PRINTFORMDL 慧音正用温柔的表情注视着%ANIMALNAME()%的睡脸,注意到这边后皱起了眉头
+				CASE 1
+					PRINTFORMDL 对躺着的%ANIMALNAME()%微笑的慧音,看到这边后蹙起了眉
+			ENDSELECT
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕) && !GETBIT (CFLAG:1670,1)
+			SELECTCASE RAND:2
+				CASE 0
+					PRINTFORMDL 对熟睡的%ANIMALNAME()%露出微笑的慧音,用温柔的表情看向这边
+				CASE 1
+					PRINTFORMDL 一边轻轻抚摸着躺着的%ANIMALNAME()%,慧音一边投来微笑
+			ENDSELECT
+		ELSE
+			SELECTCASE RAND:2
+				CASE 0
+					PRINTFORMDL 对横躺着的%ANIMALNAME()%微笑后,慧音用冷淡的表情看向这边
+				CASE 1
+					PRINTFORMDL 慧音用温柔的眼神注视着熟睡的%ANIMALNAME()%,%CALLNAME:MASTER%片刻后才被注意到
+			ENDSELECT
+		ENDIF
+	ELSE
+		IF TALENT:恋人
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDL 无视%ANIMALNAME()%的撒娇,慧音朝这边微笑着
+				CASE 1
+					PRINTFORMDL 察觉到慧音的热情,%ANIMALNAME()%不满地哼哼着
+				CASE 2
+					PRINTFORMDL 面对朝这边露出微笑的慧音,%ANIMALNAME()%似乎在生闷气
+			ENDSELECT
+		ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDL 慧音一边朝这边微笑,一边照顾着%ANIMALNAME()%
+				CASE 1
+					PRINTFORMDL 面对%ANIMALNAME()%的催促,慧音露出苦笑照顾它的同时,将视线投向这边
+				CASE 2
+					PRINTFORMDL 慧音一边抚摸%ANIMALNAME()%的身体,一边用陶醉的表情凝视着这边
+			ENDSELECT
+		ELSEIF GETBIT (CFLAG:1670,0)
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDL 慧音虽然面露不悦,但还是温柔地抚摸%ANIMALNAME()%以让它安心
+				CASE 1
+					PRINTFORMDL %ANIMALNAME()%不解地看着用冷眼瞪视这边的慧音
+				CASE 2
+					PRINTFORMDL 慧音仿佛要保护%ANIMALNAME()%一般,赤裸地站立着
+			ENDSELECT
+		ELSEIF (GETBIT (CFLAG:1 ,0) || TALENT:思慕) && !GETBIT (CFLAG:1670,1)
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDL 慧音一边开心地照顾%ANIMALNAME()%,一边窥视着这边
+				CASE 1
+					PRINTFORMDL 慧音朝这边投以温和的微笑,照顾着%ANIMALNAME()%
+				CASE 2
+					PRINTFORMDL 慧音一边温柔地抚摸%ANIMALNAME()%,一边投来柔和的表情
+			ENDSELECT
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDL %CALLNAME:MASTER%被优先照顾%ANIMALNAME()%的慧音忽视了
+				CASE 1
+					PRINTFORMDL 抚摸%ANIMALNAME()%的慧音,朝这边投来敷衍的表情
+				CASE 2
+					PRINTFORMDL 慧音一边照顾靠过来的%ANIMALNAME()%,一边用冷漠的眼神看向这边
+			ENDSELECT
+		ENDIF
+	ENDIF
+ENDIF
+
+;-------------------------------------------
+;情感狀態の指定
+;ARGを入力しなければ、TARGET入力
+;CFLAG:清い交際 條件太難，可能會有個情感狀態5
+;-------------------------------------------
+@情感狀態(ARG)
+#FUNCTION
+SIF !ARG
+	ARG = TARGET
+IF TALENT:MASTER:恋人 == NO:67 || (TALENT:67:恋人 == NO:67 && TALENT:恋慕)
+	RETURNF 4
+ELSEIF TALENT:恋慕 || TALENT:184 || TALENT:185
+	RETURNF 3
+ELSEIF (ARG == 67 && GETBIT (CFLAG:ARG:1592,0)) || ((GETBIT (CFLAG:67:1 ,0) )) && TALENT:思慕
+	RETURNF 2
+ELSEIF TALENT:思慕
+	RETURNF 1
+ENDIF

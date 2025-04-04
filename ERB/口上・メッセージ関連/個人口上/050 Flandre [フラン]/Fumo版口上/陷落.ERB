@@ -1,0 +1,350 @@
+﻿
+;==================================================
+;陥落素質取得時
+;==================================================
+@M_KOJO_暮光碎片_EVENT_K50_21(ARG,ARG:1)
+;口上主はARG
+;--------------------------------------------------
+;填写检查（=0, 不显示、1, 显示）
+LOCAL = 1
+IF LOCAL
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;恋慕取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		IF CFLAG:50:1101 == 1
+			;单从文本上看的话，稳芙兰给人的感觉还是一种知性的感觉
+			;虽然但是，内容看起来容易让人误导为是在发情
+			;实际意思应该是爱慕之情对于这种性格的芙兰从而会引发的伪·性行为（只不过需要一点玩家的理解力吧，一般人点点点，实际上这段文本没多少阅读时间去理解来着）
+			;某种程度上说这也是一种推倒
+			;等等，这样写的话……感觉得把合意判定也扔过来这里
+			;可以丰富的功能似乎还有很多
+			;多恋人判定的话……宵暗之花的口上应该能参考一点
+			;我感觉还能处理一点，不过这部分我就自己塞私货了
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			PRINTFORMDL	最近，芙兰有些烦恼
+			PRINTFORMDL	又一次的，%CALLNAME:MASTER%闯入了芙兰的脑海
+			PRINTFORMDW
+			PRINTFORMDL	芙兰以为自己可以克制住自己的感情，就像她克制住自己的喜，怒，哀，乐一样，克制住自己的心不因%CALLNAME:MASTER%而悸动
+			PRINTFORMDL	但是芙兰失败了
+			PRINTFORMDW
+			PRINTFORML	「明明已经觉得，不会爱上%CALLNAME:MASTER%…到头来，我竟然还是不够理智啊」
+			PRINTFORMDL	芙兰依旧是面无表情，语气平淡，只是有种难以言表的感情在寻求着突破口
+			PRINTFORMDW
+			PRINTFORML	「495年的感情，果然无法根除吗」
+			PRINTFORMDW
+			PRINTFORMDW	芙兰决定去找%CALLNAME:MASTER%
+			PRINTFORMDL
+			PRINTFORMDL	曾经地下室的门总是锁上的，现如今已经因%CALLNAME:MASTER%弄坏，迟迟没有修复
+			PRINTFORMDL	曾经的红魔馆是那般的大与复杂，现如今不过是与%CALLNAME:MASTER%熟透的房屋
+			PRINTFORMDL	曾经的月夜满是无聊的虫鸣鸟音，现如今入目的满是%CALLNAME:MASTER%所见的星辰与月
+			PRINTFORMDW	
+			PRINTFORML	「%CALLNAME:MASTER%是在等人吗」
+			PRINTFORMDW
+			PRINTFORMDL	「芙兰？你怎么来了……」
+			PRINTFORMDW
+			PRINTFORML	「生命的基本意义在于生存和繁殖」
+			PRINTFORMDL	芙兰突然开口打断了%CALLNAME:MASTER%，像是对%CALLNAME:MASTER%解释，也像是在对自己劝慰
+			PRINTFORMDW
+			PRINTFORML	「生命的意义在于其生存、繁衍、进化和对环境的适应，以及在生态系统中所扮演的角色」
+			PRINTFORML	芙兰说着，慢慢向%CALLNAME:MASTER%靠近，直到将%CALLNAME:MASTER%逼到他的床边
+			PRINTFORMDW
+			PRINTFORML	「在生物学上，爱是一种本能的情感和行为，它促进了繁殖、亲子关系、社会联系和生存优势，是物种延续和适应环境变化的关键因素」
+			PRINTFORMDW
+			PRINTFORMDL	「芙兰……」
+			PRINTFORMDW
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			PRINTFORMW	「……」
+			PRINTFORMW	「……」
+			PRINTFORMDW
+			CALL PRINT_FACE, [[芙兰]], "通常", "全裸", "", ""
+			PRINTFORMDW
+			PRINTFORMDL	芙兰将%CALLNAME:MASTER%推到床上，慢条斯理的褪下自己的衣服，发饰，在床边叠放好，就这样全裸的展示在%CALLNAME:MASTER%面前，面色如故
+			PRINTFORMDW
+			PRINTFORMW	「我无法违背生物学上的本能」
+			PRINTFORMW	「我尝试过，在我的心跳第一次因%CALLNAME:MASTER%而加速的时候，我就下定了决心不要爱上%CALLNAME:MASTER%，我失败了」
+			PRINTFORMW
+			PRINTFORMDW	芙兰伸出手，解开%CALLNAME:MASTER%的上衣，露出其胸口
+			PRINTFORMDW	动作很轻，很慢，像是对待极为珍贵的艺术品，却毫不犹豫
+			PRINTFORMDL
+			CALL ASK_M("「反抗」",1,"「顺从」",0)
+			;仍未决定，因此这里暂时设置成完成不了的
+			PRINTFORMDL
+			IF RESULT == 0
+			PRINTFORMDW	「芙兰！」
+			PRINTFORMW	「……………」
+			PRINTFORMDW	「把衣服穿好吧」
+			PRINTFORMDW
+			PRINTFORMDL
+			PRINTFORMDW	「……为什么」
+			PRINTFORMDL	你终于从芙兰的眼中看到了不解
+			PRINTFORMDW
+			PRINTFORMDL	「你已经有了生理现象，但是…为什么？」
+			PRINTFORMDW
+			PRINTFORMDL	「爱是一种超越日常现实的精神追求」
+			PRINTFORMDW	%CALLNAME:MASTER%撇过头去，闭上眼，努力呼吸平静自己的心
+			PRINTFORMDW	「它不仅仅是一种简单的情感，而是一种深刻的生命体验，涉及到个人与宇宙、自然和艺术的连接」
+			PRINTFORMDW	「真正的爱情是纯粹、无私和永恒的…而不是单纯的繁衍」
+			PRINTFORMDL
+			PRINTFORMDL	%CALLNAME:MASTER%终于鼓起勇气再次看向芙兰，但是芙兰却已经穿戴好衣物
+			PRINTFORMDL
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			PRINTFORMW	「……」
+			PRINTFORMDL	见你说完，便替你整理好衣服，将你拉起后坐在了你的身边
+			PRINTFORMDW
+			PRINTFORML	「浪漫主义的爱情观」
+			PRINTFORMDW	芙兰的语气依旧，仿佛刚才的一切全都没有发生，你们就如同往常一样聊着
+			PRINTFORML	「抱歉，我的行为使你觉得收到屈辱了吧」
+			PRINTFORMDW
+			PRINTFORMDL	「不…老实说芙兰能主动来找我我还是挺开心的…」
+			PRINTFORMDW
+			PRINTFORML	「不，%CALLNAME:MASTER%」
+			PRINTFORMW	芙兰却摇了摇头
+			PRINTFORML	「我自顾自的越过了那条线，没有在乎你的感受，也没有在乎芙兰朵露.斯卡雷特」
+			PRINTFORMW	芙兰严肃的说，万年不变的脸上也罕见的露出了认真的表情
+			PRINTFORML	「我想告诉你一件事，一件关于芙兰朵露.斯卡雷特的事」
+			ELSEIF RESULT == 1
+			PRINTFORMW	%CALLNAME:MASTER%主动伸出手，揽住芙兰，将她抱在怀中
+			PRINTFORMW	吸血鬼的体温很低，但是%CALLNAME:MASTER%觉得自己正抱着这世间最为炽热的宝物，而那宝物也回应着%CALLNAME:MASTER%
+			PRINTFORMDL
+			PRINTFORMW	「在这个充满不确定性的世界里，你是我唯一确定的选择。我愿意用我的余生，与你共同构建一个确定的未来」
+			PRINTFORMW	「%CALLNAME:MASTER%，你愿意成为我，芙兰朵露.斯卡雷特的丈夫吗」
+			PRINTFORML
+			PRINTFORMW	「芙兰朵露，你愿意成为我，%CALLNAME:MASTER%的妻子吗」
+			PRINTFORMDL
+			PRINTFORMW	「用问题回答问题可不是一种礼貌的回应方式……」
+			PRINTFORMDL	
+			PRINTFORMDW	「我的答案与芙兰的答案相同」
+			PRINTFORMDL
+			PRINTFORMDL
+			PRINTFORMDW
+			PRINTFORMDW	芙兰似乎轻笑了一声
+			PRINTFORMW	「余生，请多指教」
+			PRINTFORMDW	
+		ELSEIF CFLAG:50:1102 == 1
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			PRINTFORMDW	
+		ELSEIF CFLAG:50:1103 == 1
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			
+			PRINTFORML
+		ELSEIF CFLAG:50:1104 == 1
+			CALL PRINT_FACE, [[芙兰]], "笑颜", "服", "", ""
+			PRINTFORML
+			
+		ENDIF
+		RETURN 1
+	ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;思慕取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		;私货：关乎立绘的都是
+		IF CFLAG:50:1101 == 1
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			PRINTFORMDL	最近，芙兰有些烦恼
+			PRINTFORML	%CALLNAME:MASTER%自顾自的侵入了自己的生活
+			PRINTFORMDW
+			PRINTFORML	%CALLNAME:MASTER%会向芙兰讲述一些事情，纵使芙兰并不感兴趣；
+			PRINTFORML	会向芙兰讲述一些笑话，即使芙兰并不觉得有趣；
+			PRINTFORML	会有意无意的触碰芙兰的身体，所幸芙兰可以控制住自己的厌恶；
+			PRINTFORML	会给芙兰带来一些食物，但是芙兰并不需要额外的进食；
+			PRINTFORML	会给芙兰泡制一些饮品，可是芙兰并不需要补水；
+			PRINTFORML	会帮芙兰整理地下室，即便地下室已经被极简到只剩一张床铺；
+			PRINTFORML	会自顾自的打扫地下室，虽然地下室与外界隔离到所有灰尘都只会是他带进来的……
+			PRINTFORMDW
+			PRINTFORML	\@ TALENT:MASTER:2 == 2 ? 他 # 她 \@，到底在想什么…
+			PRINTFORMDL	芙兰并不觉得自己表达出了与友善有关的话语或是动作
+			PRINTFORMDW
+			PRINTFORML	也许%CALLNAME:MASTER%有着特殊的爱好：
+			PRINTFORML	也可能是受人之托…
+			PRINTFORMW	又或者…
+			PRINTFORML	芙兰停止了猜测，即使答案呼之欲出。
+			PRINTFORMDW	
+		ELSEIF CFLAG:50:1102 == 1
+			;一个立绘一个对话，不过可能占的篇幅长了点（不过无所谓啦⌓‿⌓）
+			CALL PRINT_FACE, [[尤魔]], "笑颜", "服", "", ""
+			SETCOLOR 	0xE1EBFF
+			PRINTFORML	「不愧是芙兰呢，这么快就处理好了。」
+			PRINTFORMDL	尤魔笑着夸赞到，对于符合自己［胃口］的家伙，她从不吝啬口头上的夸赞
+			PRINTFORML	「不过居然如此的干净，利落，我还以为又要收拾四溅的碎片呢，怎么突然改变自己的工作风格了？」
+			PRINTFORMDW
+			CALL PRINT_FACE, [[芙兰]], "憤怒", "服", "", ""
+			SETCOLOR 	0xFF0000
+			PRINTFORML	「再多嘴，我就把你的舌头拉出来，绑到你的角上。」
+			PRINTFORMDL
+			CALL PRINT_FACE, [[尤魔]], "通常", "服", "", ""
+			SETCOLOR 	0xE1EBFF
+			PRINTFORML	「好好好，不问了，不问了。」
+			PRINTFORMDL	尤魔暗自啧了一声，她并不擅长应付这些个活了不知多久的还没死的家伙，要不是那个秘神强插一手，以及自己确实忌惮芙兰的能力，她更愿意独来独往。
+			PRINTFORMDW
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			SETCOLOR 	0xFF0000
+			PRINTFORMDL	对于尤魔的想法，芙兰并不知道，也不想知道，即使知道了也会不在乎，她现在只是在等那秘神过来，将自己带回红魔馆。
+			PRINTFORMDL	芙兰看着手中残存的碎片，以往的她会尽情的使用各种手段折磨她们，让她们意识清醒的看着自己从末端开始慢慢崩坏，直到她们彻底洒满地面之前…
+			PRINTFORMDL	但是…
+			PRINTFORMDW	
+			PRINTFORMDL	她们只是陶俑，只是灵魂…都是死体。
+			PRINTFORMDL	没有血液，没有肉块，没有脏器，没有尖叫，没有泪涕，没有恐惧…
+			PRINTFORMDW
+			PRINTFORML	「没有…没有…什么都…没有…」
+			PRINTFORMDL	姐姐禁止自己离开红魔馆，那个魔法使更是直接将自己困在地下室，能带自己的秘神却不会让自己有机会接触到活体，而饕餮同样的，被自己肢解了一次之后也不过是个死体…
+			PRINTFORML	
+			PRINTFORML	什么时候自己能破坏真正的活体？
+			PRINTFORML
+			PRINTFORMDL	芙兰
+			PRINTFORMDL	感觉无聊了…
+			PRINTFORMDW	…
+			PRINTFORMDW	…
+			PRINTFORMDW	…吗？
+			PRINTFORML	「%CALLNAME:MASTER%…哼哼哼…」
+			PRINTFORMDW	
+		ELSEIF CFLAG:50:1103 == 1
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			PRINTFORML
+			PRINTFORML	「最近…%CALLNAME:MASTER%总是来找芙兰呢…」
+			PRINTFORML	「明明芙兰是不可以接触的孩子…明明芙兰是可能会伤害%CALLNAME:MASTER%的怪物…可是…可是…」
+			PRINTFORMDL	芙兰带着期冀，从那个角落里起了身，向着%CALLNAME:MASTER%遗留下来的蜡烛慢慢靠近
+			PRINTFORMDW
+			PRINTFORM	「
+			SETCOLOR 	0xFFB3B2
+			PRINTFORM	%CALLNAME:MASTER%
+			SETCOLOR 	0xFE5353
+			PRINTFORM	的光…真的…真的…
+			SETCOLOR 	0xFFB3B2
+			PRINTFORM	好温暖啊……
+			SETCOLOR 	0xFE5353
+			PRINTFORML	」
+			PRINTFORM	「芙兰……真的能够触碰…
+			SETCOLOR 	0xFFB3B2
+			PRINTFORM	那样温暖的光吗……
+			SETCOLOR 	0xFE5353
+			PRINTFORML	」
+			PRINTFORMDL	芙兰颤抖着伸出了手…
+			PRINTFORMDL
+			PRINTFORMDW	然后…
+			PRINTFORMDL
+			PRINTFORMDL	崩坏。
+			PRINTFORMDW
+			PRINTFORM	「
+			SETCOLOR 	0xFFB3B2
+			PRINTFORM	%CALLNAME:MASTER%
+			SETCOLOR 	0xFE5353
+			PRINTFORML	…不要……」
+			PRINTFORMDL
+			PRINTFORMDL	地下室重新回到了黑暗之中。
+			PRINTFORMW
+			PRINTFORML	「……%CALLNAME:MASTER%……」
+			;添加一点表现力
+			PRINTFORMDW
+			PRINTFORML	「果然啊……」
+			PRINTFORML	「芙兰…是不可以奢求光的…芙兰…不应该奢求光啊…」
+			PRINTFORMW
+			PRINTFORMDL	吸血鬼是不会流泪的生物
+			PRINTFORMDL	只有无尽的悲伤逆流成河
+			PRINTFORML
+		ELSEIF CFLAG:50:1104 == 1
+			CALL PRINT_FACE, [[芙兰]], "笑颜", "服", "", ""
+			PRINTFORML
+			PRINTFORML	「下属！留在地下室住好不好！这样我一睁眼就是下属你啦！」
+			PRINTFORMDW
+			PRINTFORMDL	「不好，你姐姐会撕了我的。」
+			PRINTFORMDW
+			PRINTFORML	「诶？！为什么！明明咲夜都可以在姐姐大人的房子里留宿！」
+			PRINTFORMDW
+			PRINTFORMDL	「有没有一种可能，你也是住在你姐姐的房子里的…」
+			PRINTFORMDW
+			PRINTFORML	「嗯…是诶…」
+			PRINTFORMDL
+			PRINTFORMDL	姑且是被劝下来芙兰鼓着脸，低着头，%CALLNAME:MASTER%见状也颇为无奈，在简单的许诺了明天会给芙兰带草莓布丁蛋糕之后便匆匆离开了。
+			PRINTFORMDL	目送着%CALLNAME:MASTER%的离开，芙兰只觉得心里空落落的
+			PRINTFORMDW	……
+			PRINTFORMDL
+			;私货
+			CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+			PRINTFORMDW	明明今天已经玩的尽兴…
+			PRINTFORMDW	明明明天还会再见…
+			PRINTFORMDW	明明再次见面还会有草莓布丁蛋糕…
+			PRINTFORMDW
+			PRINTFORMDL	可是…心里还是空落落的…
+			PRINTFORML	「…… Servant or cake，that is a question.」
+			PRINTFORMDW
+			;思慕前乐芙兰看你先生还不如蛋糕么(˃ ⌑ ˂ഃ )
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;愛欲取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;愛人取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;炮友取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;接吻魔取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 6
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;自慰狂取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 7
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;ポルチオ性感取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 8
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;漏尿癖取得
+	;填写检查（=0, 不显示、1, 显示）
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 9
+		PRINTFORML
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1

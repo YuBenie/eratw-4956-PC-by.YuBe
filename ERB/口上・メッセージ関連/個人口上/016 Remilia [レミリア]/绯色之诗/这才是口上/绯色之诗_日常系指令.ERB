@@ -1,0 +1,3460 @@
+﻿;※※※※※※※※※※※※※※※※※※※※※※※※※
+;日常系指令
+;※※※※※※※※※※※※※※※※※※※※※※※※※
+;==================================================
+;300,会話
+;TFLAG:193(1=大成功 0=成功 -1=失敗 -2=大失敗（TARGET的教养等级比MASTER高出4级以上)
+;TCVAR:302(0=会話可能 1>=非恋慕時会話不能)
+;MARK:反発刻印(3以上=会話不能)
+;TCVAR:泥酔(1=通常成功or大失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_300
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+;可选项：关于地文描述的显示设置
+;如果返回0，则地文与口上都会显示；如果返回1，则地文会隐藏，口上会显示；如果返回2，则地文会显示，口上会隐藏；如果返回3则均会被隐藏
+;==================================================
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_300
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_300
+;指令共通メッセージ(TRAIN_MESSAGE) 
+;4.920之前的指令地文，是使用函数TRAIN_MESSAGE来控制的
+;如果删除它，例如「TARGET和你无聊地说着话」这种叙述将不显示，且您的口上不会自动启用口上色
+;下面是调用口上的主函数
+IF TALENT:恋慕 && TALENT:恋人
+;我的天我自己给自己加工作量受不鸟了
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_300_2
+ELSE
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_300_1
+ENDIF
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_300_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	; 当天有蕾咪举办的宴会
+	;-------------------------------------------------
+	IF FLAG:宴会開催FLAG == 6 && FLAG:36 == 0 && FLAG:35 > 0
+		$宴会_未陷落
+		IF CFLAG:20 == 2
+			; 宴会中
+			SELECTCASE BASE:酒気
+				CASE IS > (MAXBASE:酒気 / 10) * 5
+					;"酔酒"
+						SELECTCASE RAND:3
+						CASE 0
+						PRINTFORMDL	正想找蕾米莉亚搭话、却发现她的脸颊不知何时已经染上了一抹红晕
+						PRINTFORMDL	端着酒杯的手已经开始微微摇晃起来
+						PRINTFORMW	「宴会的收场、得交给咲夜了...」
+						PRINTFORMDL	像是没有看见你一般，蕾米莉亚自顾自地嘟囔着
+						CASE 1
+						PRINTFORML	「脑袋有点、晕乎乎的……」
+						PRINTFORML	蕾米莉亚脸颊红红的，身后的翅膀也耷拉了下来，整个人看起来有点软绵绵的
+						PRINTFORML	看样子醉得很厉害呢，这个样子不像是能搭话的状态
+						CASE 2
+						PRINTFORML	「仆从怎么、到处找人搭话啊...」
+						PRINTFORMW	「是想要对喝醉的女孩子动手动脚...吗？」
+						PRINTFORML	「可别...胡来哦，我会、盯着你的」
+						PRINTFORMDW	蕾米莉亚伸出手指指着%CALLNAME:MASTER%……的另一边，那里空无一人
+					ENDSELECT
+				CASE IS <= (MAXBASE:酒気 / 10) * 5
+					;"微醺"
+					SELECTCASE RAND:3
+						CASE 0
+						PRINTFORMDL	蕾米莉亚轻轻托着盛有%TEXTR("鬼殺酒/黑朗姆酒/貴腐紅酒/古酒/貴酿酒")%的酒杯、伴随烛火的摇曳，杯中的液体也在微微晃动
+						PRINTFORMDW	即便是你上前搭话，蕾米莉亚也是不紧不慢地双眸微闭、轻轻颔首，细细抿了一口浓香佳酿
+						PRINTFORMW	「不和其他女孩子打好关系、反而是来找上我吗？」
+						PRINTFORMW	「嘛、仆从来侍奉主人也是工作内容之一」
+						PRINTFORMDL	轻轻睁开一只眼，妖异的眼眸慵懒地看着你，红魔馆之主晃了晃手中的酒杯
+						PRINTFORMW	「与其说这么多...不来一杯吗？」
+						CASE 1
+						PRINTFORML	「宴会的主人和宾客的交流也是宴会必备的一环、不过仆从可不属于这一类哦……」
+						PRINTFORMW	「呵呵、露出了可爱的表情呢……开玩笑的」
+						PRINTFORMW	「欢迎参加我的宴会、仆从，尽情享受吧，可别太得意忘形喔」
+						CASE 2
+						PRINTFORML	「总觉得好像缺了点什么...」
+						PRINTFORMDL	蕾米莉亚看了你一眼
+						PRINTFORML	「对哦、这么说来，宴会也是到奏乐的环节了呢」
+						IF ABL:MASTER:音楽技能 > 3
+						PRINTFORML	「仆从，轮到你出场了、像你平时那样做就好」
+						PRINTFORML	「要是客人们向你扔什么东西的话...你要负责打扫干净哦」
+						ELSE
+						PRINTFORML	「不、仆从的话还是算了，让我找找看那对骚灵姐妹在哪……」
+						ENDIF
+					ENDSELECT
+			ENDSELECT
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+				PRINTFORML	「期待今晚的宴会吗？哼哼，毕竟这可是由我亲自举办的派对!」
+				PRINTFORMDW	蕾米莉亚骄傲地挺起了她那并不丰硕的胸脯
+				PRINTFORML	「我这次邀请了不少人过来，如果想要扩宽你的交际圈的话、倒是个不错的机会」
+				PRINTFORMW	「不过，让参宴的客人们高兴起来也是仆从的工作，你应该记住这一点」
+				PRINTFORML	「可别让我失望哦？」
+				PRINTFORMDL	说完，蕾米莉亚就忙着去指挥妖精女仆们干活了
+				PRINTFORMDL	虽然宴会还没开始，红魔馆内就已经弥漫了属于%TEXTR("红酒/白兰地/朗姆酒")%的浓浓的酒香……
+				CASE 1
+				PRINTFORMDW	想要向蕾米莉亚搭话，但是%TEXTR("对方好像在忙着指挥妖精女仆/对方好像在忙着布置宴会会场/在如此繁忙的环境下聊天似乎不是一个好提议")%
+				PRINTFORML	「%TEXTR("把这些盘子都端到大厅去/酒杯就用左边架子上的那些/那边的酒桶还是先放下吧/酒不够的话去地下室拿上来")%……嗯、仆从？你来得正好」
+				PRINTFORMDW	注意到你的到来，蕾米莉亚轻轻勾了勾手指，放在不远处的一个%TEXTR("装有芳香酒浆的木桶/雕刻着某个伟大主人的雕像/看着就很豪华的座椅")%晃悠悠地飘了过来
+				PRINTFORMDW	你下意识地伸出双臂将其抱住...比想象中得要重很多，你费了好一些劲才勉强抱起来
+				PRINTFORML	「哦？还挺能干的嘛、把这个放到宴会厅中间吧」
+				PRINTFORMDW	可能是终于出现了一个能干活的人，蕾米莉亚少见地露出了满意的表情
+				PRINTFORMDL	
+				PRINTFORMDL	%TEXTR("最终还是老老实实地完成了工作/趁蕾米莉亚看着其他地方的时候悄悄使用了时停的能力把工作完成了")%
+				CASE 2
+				PRINTFORML	「怎么还在这里愣着？你没有忘记今天是什么日子吧？」
+				PRINTFORMDW	蕾米莉亚只是看了你一眼就偏过头去了，似乎今天会很忙的样子
+				PRINTFORML	「是宴会啦、届时会有不少客人来到我的红魔馆里的」
+				PRINTFORMW	「作为我的仆从，今天你的工作就是帮忙把这次的宴会布置成全幻想乡最棒的宴会」
+				PRINTFORML	「去找一些力所能及的事情做吧，咲夜那边应该会需要你的帮忙的，做你最擅长的扫地也可以」
+				PRINTFORMDL	说完，她就去指挥其他妖精女仆们了，看着连酒瓶都端不稳的妖精女仆，红魔馆之主默默地叹了口气
+				PRINTFORMDL	
+				PRINTFORMDL	「唉、真不省心……」
+			ENDSELECT
+		ENDIF
+	;-------------------------------------------------
+	; 通用
+	ELSE
+	;-------------------------------------------------
+	IF TALENT:恋慕
+		SELECTCASE RAND:10
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		ENDSELECT
+	ELSEIF TALENT:思慕
+		SELECTCASE RAND:10
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		ENDSELECT
+	;-------------------------------------------------
+	; ↑接思慕
+	ELSEIF ABL:9 > 2
+	; 亲密从3开始算是朋友了
+	; ↓接非陷落、2以上亲密
+	;-------------------------------------------------
+		SELECTCASE RAND:11
+			CASE 0
+			PRINTFORMDL	谈论了一些近况……
+			PRINTFORML	「在红魔馆还适应吗？」
+			PRINTFORML	「也不是一定要做到咲夜那种程度的啦」
+			SIF ABL:MASTER:40 > 2 || ABL:MASTER:44 > 2
+				PRINTFORML	「不过倒是要比那些吃白饭的好点」
+			CASE 1
+			PRINTFORML	「有去过大图书馆吗？」
+			PRINTFORM	「那里很适合学习啊还有
+			CALL YUBE_LINETHROUGH("偷懒",0)
+			PRINTFORML	休息什么的，当然了，你得先让帕琪同意」
+			PRINTFORML	「不过要是见到了某个黑白魔法使一定要告诉我昂」
+			CASE 2
+			PRINTFORMDL	谈论了一下关于吸血鬼的饮食问题……
+			PRINTFORML	「吸血鬼平时都吃什么……」
+			PRINTFORML	「哈、我也是能吃人类食物、不是一定要吸血的啦」
+			PRINTFORML	「不过嘛……算了」
+			PRINTFORMDL	你松了一口气
+			CFLAG:16:1401 ++
+			; 真松了一口气吗？hh
+			CASE 3
+			PRINTFORML	「最好不要靠近地下室那边」
+			PRINTFORML	「要是少了一个仆人我可是很头疼的啊……」
+			IF CFLAG:50:18 == 1
+				PRINTFORML	「你·已·经·去·过·了？好吧」
+				PRINTFORML	「那孩子……不，还是算了」
+			ELSE
+				PRINTFORMDL	\@ TALENT:MASTER:11 == -1?	反而有点好奇起来了…… #	最好还是不要靠近吧……\@
+			ENDIF
+			CASE 4
+			PRINTFORMDL	谈论了一些听来的流言蜚语……
+			PRINTFORML	「外界的传闻啊……那和我有什么关系？」
+			PRINTFORML	「我并不需要在意他人的评价」
+			PRINTFORML	「唔……夸夸是例外、例外啦！」
+			CASE 5
+			PRINTFORMDL	刚想上去搭话……
+			PRINTFORML	「仆从，蹲下——！」
+			PRINTDL
+			PRINTFORMDL	……?
+			PRINTDL
+			PRINTFORML	「聊天总不能一直是我抬着头吧？」
+			PRINTFORML	「不嫌地面脏的话，你也可以跪着或者趴着喔，我可以原谅你的失礼」
+			PRINTFORML	「还是蹲着好点？唉、没意思」
+			CASE 6
+			PRINTFORML	「说这么多有点渴了，没有茶水之类的吗？」
+			PRINTFORMDL	好像说得是有点多了
+			CASE 7
+			PRINTFORML	「啊啦~嗯、是这样的说」
+			PRINTFORML	看起来完全没听进去
+			CASE 8
+			PRINTFORML	「看你好像经常扫来扫去呢，作为仆从还挺勤快的嘛」
+			IF GET_MAPID(CFLAG:MASTER:300) == 3
+				PRINTFORML	「对于认真工作的仆从有奖励！」
+				PRINTFORML	「以后也要好好地服侍我哦」
+				MONEY:2 += 20
+			ELSE
+				PRINTFORML	「不过啊，要是你能来红魔馆打扫就更好了」
+				PRINTFORMDL	蕾米莉亚有意无意地瞄了你一眼	
+			ENDIF
+			CASE 9
+			PRINTFORML	「……」
+			PRINTFORMDL	「……」
+			PRINTFORML	「真是的，想要聊天也得找个话题才对吧？」
+			PRINTFORML	「作为仆从得学会察言观色才对」
+			CASE 10
+			PRINTFORML	「仆从、去，把这个捡起来」
+			PRINTFORMDW	蕾米莉亚朝不远处扔出一枚筹码
+			PRINTDL
+			PRINTFORMDL	可恶，这是把我当什么人了！？
+			PRINTFORMDL	
+			IF TALENT:MASTER:自尊心 == 1
+				PRINTFORMDW	努力了克制住想要捡钱的欲望
+				PRINTFORMDL
+				PRINTFORML	「嚯~还挺有骨气的嘛，有点对你刮目相看了哟」
+				PRINTFORML	蕾米莉亚少见的、脸上露出了赞许的笑容
+			ELSE
+				PRINTDATADW
+				DATAFORM 要不是身体擅自动起来，这个槽怎么说都要吐出来
+				DATAFORM 在说出这话之前还是先学会怎么管住自己的身体吧……
+				DATAFORM 虽然很不愿意，但是身体似乎有着自己的想法
+				DATAFORM 默默地捡起地上的筹码放进兜里
+				ENDDATA
+				PRINTDL
+				PRINTFORMDL	赚钱嘛...不寒碜
+				MONEY:2 ++
+			ENDIF
+		ENDSELECT
+	;-------------------------------------------------
+	; ↑非陷落、亲密2以上
+	ELSE
+	; ↓非陷落、寻常
+	;-------------------------------------------------
+		SELECTCASE RAND:10
+			CASE 0
+			PRINTFORML	「嗯？有事？」
+			PRINTFORMDL	蕾米莉亚仅仅是瞥了你一眼
+			CASE 1
+			IF MAIN_MAP == 3
+			PRINTFORML	「虽然你是红魔馆的仆从，但也要知道什么地方能去什么地方不能去」
+			ELSE
+			PRINTFORML	「虽然我允许你在红魔馆自由行动了，但也要知道什么地方能去什么地方不能去」
+			ENDIF
+			PRINTFORML	「这是为了你好，理由？不需要」
+			CASE 2
+			PRINTFORML	「……」
+			PRINTFORMDL	「……」
+			PRINTFORMDL	彼此都没有说话……
+			CASE 3
+			PRINTFORML	「工作上的事？」
+			PRINTFORML	「这种事你去问咲夜就可以了」
+			CASE 4
+			PRINTFORML	「你看起来很闲嘛，仆从、来讲个笑话，不好笑的话我会把你挂在房顶上」
+			PRINTDL		
+			PRINTDL		……
+			PRINTDL		
+			PRINTDATADW
+			DATAFORM	讲了一个能把自己都逗笑的笑话
+			DATAFORM	讲了一个还算可以的笑话
+			DATAFORM	讲了一个冷笑话
+			DATAFORM	讲了一个自己以前的糗事
+			ENDDATA
+			PRINTDL		
+			PRINTFORMDL	……
+			PRINTFORMDL	根本没在听吧！？
+			CASE 5
+			PRINTFORML	「等等、你靠得有点近了」
+			PRINTFORML	「注意一点社交距离、我可不想被别人评价我的仆从一点礼仪都没有」
+			CASE 6
+			PRINTFORMDL	询问了一下关于筹码的事
+			PRINTFORML	「筹码你可以在红魔馆的赌场换成钱，所以在幻想乡当中筹码也是一种主要的货币」
+			PRINTFORML	「想要筹码吗？那就好好服侍我吧，根据你的表现我说不定会给你一点奖励喔」
+			CASE 7
+			PRINTFORML	「啊啦~嗯、是这样的说」
+			PRINTFORML	看起来完全没听进去
+			CASE 8
+			PRINTFORML	「有点无聊啊……仆从、来和我玩弹幕游戏吧」
+			PRINTFORML	「规则是...只能逃跑」
+			PRINTFORML	
+			PRINTFORML	那不就是单纯的被虐吗！？
+			CASE 9
+			PRINTFORML	「仆从、去，把这个捡起来」
+			PRINTFORMDL	蕾米莉亚朝不远处扔出一枚筹码
+			PRINTDL
+			PRINTFORMDL	可恶，这是把我当什么人了！？
+			PRINTFORMDL	
+			IF TALENT:MASTER:自尊心 == 1
+				PRINTFORMDW	努力了克制住想要捡钱的欲望
+				PRINTFORMDL
+				PRINTFORML	「嘛、没意思」
+				PRINTFORML	蕾米莉亚无聊地把头撇到另一边去了
+			ELSE
+				PRINTDATADW
+				DATAFORM 要不是身体擅自动起来，这个槽怎么说都要吐出来
+				DATAFORM 在说出这话之前还是先学会怎么管住自己的身体吧……
+				DATAFORM 虽然很不愿意，但是身体似乎有着自己的想法
+				DATAFORM 默默地捡起地上的筹码放进兜里
+				ENDDATA
+				PRINTDL
+				PRINTFORMDL	赚钱嘛...不寒碜
+				MONEY:2 ++
+			ENDIF
+		ENDSELECT
+	ENDIF
+	;-------------------------------------------------
+	ENDIF
+;--------------------------------------------------------------------------------------------------
+ENDIF
+PRINTDW
+RETURN 1
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_300_2
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	
+ENDIF
+RETURN 1
+
+
+
+;==================================================
+;301,泡茶
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_301
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_301
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_301
+IF TALENT:恋慕 && TALENT:恋人
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_301_2
+ELSE
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_301_1
+ENDIF
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_301_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	IF TALENT:恋慕
+		SELECTCASE RAND:10
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		ENDSELECT
+	ELSEIF TALENT:思慕
+		SELECTCASE RAND:10
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		ENDSELECT
+	ELSEIF ABL:9 > 2
+		SELECTCASE RAND:10
+		CASE 0
+		PRINTFORML	「想要我做一下评价？倒是很会找人嘛」
+		PRINTFORML	「……」
+		PRINTFORML	「对人类来说这种程度已经很不错了喔、当然了，和咲夜的比起来还是有一定差距的」
+		CASE 1
+		PRINTFORML	「这么说起来、仆从平时会喝茶的嘛……」
+		PRINTFORML	「虽然总是能看到你不知从哪里拿出来一杯泡好的茶、但是几乎没看你喝过」
+		CASE 2
+		PRINTFORML	「偶尔尝尝咲夜之外的茶、似乎也是一种新奇的体验」
+		CASE 3
+		PRINTFORML	吸溜~
+		PRINTFORML	刚泡好的茶、似乎还有点烫舌头，蕾米莉亚只是轻轻地在茶杯边缘小啜一口
+		CASE 4
+		PRINTFORML	「茶？给我的？」
+		IF TCVAR:351 >= 10
+		PRINTFORML	「今天喝得似乎有点多了、还是算了吧」
+		ELSE
+		PRINTFORML	「啊、麻烦你了，正好想喝呢」
+		ENDIF
+		CASE 5
+		PRINTFORML	「这是什么？茶嘛、看起来有点太淡了，和白开水差不多了哟」
+		CASEELSE
+			GOTO	陌生人泡茶
+		ENDSELECT
+	ELSE
+		$陌生人泡茶
+		SELECTCASE TFLAG:193
+			CASE 1
+				SELECTCASE RAND : 1
+					CASE 0
+					PRINTFORML	「是茶吗？还挺会察言观色的嘛」
+					PRINTFORML	「正好渴了哟」
+					PRINTFORMDL	%CALLNAME:MASTER%接过手里的茶一饮而尽了
+					PRINTFORMDL	应该是满意的吧
+					CASE 1
+					PRINTFORML	「嗯？这个味道……」
+					PRINTFORMDL	品尝了一口你泡的茶，蕾米莉亚小小惊讶了一下
+					PRINTFORML	「有下功夫呢……是向美玲求过经吗？」
+				ENDSELECT
+			CASE 0
+				SELECTCASE RAND : 2
+					CASE 0
+					PRINTFORML	「没加什么奇怪的东西吧？」
+					PRINTFORMDL	被怀疑地盯着
+					PRINTFORMDL	最后还是喝下去了
+					CASE 1
+					PRINTFORML	「可以去和咲夜学学，她会教你怎么泡的一手好茶」
+					PRINTFORML	「像你这杯……很明显鲜爽味不佳，茶香味淡薄、味道也不够醇厚……」
+					PRINTFORMDL	被数落一通了呢……
+					CASE 2
+					PRINTFORML	「你还真热衷于泡茶呢……」
+					PRINTFORMDL	接过茶杯的蕾米莉亚小啜一口，双眸轻闭、似乎在品味着茶的味道	
+					PRINTFORML	「嘛……算你过关」
+				ENDSELECT
+			CASEELSE
+				PRINTFORML	「茶？从哪里端出来的」
+				PRINTFORMDL	虽然有点疑惑，但蕾米莉亚还是喝了下去
+				PRINTDATAL
+				DATAFORM 「太凉了啦」
+				DATAFORM 「太烫了啦」
+				DATAFORM 「太苦了啦」
+				DATAFORM 「太淡了啦」
+				ENDDATA
+				PRINTDL
+				PRINTFORMDL	蕾米莉亚一边抱怨着、一边把手中的茶杯推回来
+				PRINTFORMDL	好挑剔啊……
+				PRINTFORMDL	不信邪的你决定亲自尝一下
+				PRINTFORMDL	好像没有反驳的底气了...
+		ENDSELECT
+	ENDIF
+	PRINTDW
+ENDIF
+TCVAR:351 ++
+RETURN 1
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_301_2
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	
+ENDIF
+RETURN 1
+
+
+;==================================================
+;302,身体接觸
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_302
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_302
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_302
+IF TALENT:恋慕 && TALENT:恋人
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_302_2
+ELSE
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_302_1
+ENDIF
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_302_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	IF FLAG:70
+	;-------------------------------------------------
+	; 通用
+	ELSE
+	$通用接触
+	;-------------------------------------------------
+		IF TALENT:恋慕
+
+		ELSEIF TALENT:思慕
+
+		ELSEIF ABL:9 > 2
+			SELECTCASE TFLAG:193
+				CASE 1
+				SELECTCASE RAND:4
+					CASE 0
+					PRINTFORML	「嗯？是想要和我出去走两圈吗？」
+					PRINTFORML	「好像也是时候了、去赏一下花如何？这也是培养你的品味的好机会」
+					CASE 1
+					IF ONCE("每日初次揉肩")
+					PRINTFORML	「想要帮我按摩肩膀吗、好像也不错」
+					PRINTFORML	「让我看看你今日的表现如何、力道不对我可是会批评的喔」
+					ELSE
+					PRINTFORML	「还想要再帮我按摩肩膀吗、唔、今天好像已经揉过了」
+					PRINTFORML	「果然还是算了，等我需要的时候再喊你吧」
+					ENDIF
+					CASEELSE
+					GOTO 无陷落通用接触
+				ENDSELECT
+				CASE 0
+				SELECTCASE RAND:6
+					CASE 0
+					PRINTFORML	「唯独这点妖精女仆们做的比你好呢、」
+					PRINTFORML	「什么意思？当然指的是你这种想要随意触碰主人的行为」
+					PRINTFORML	「算了，我想你也不会改的」
+					CASE 1
+					PRINTFORML	「注、意、点、社、交、距、离——」
+					PRINTFORML	「唉、总感觉在你面前提及这个词像是在对牛弹琴」
+					CASE 2
+					PRINTFORML	「衣服有点皱了吗、好像是哦——」
+					PRINTFORML	「帮我看看还有哪里没有整理好、可不能让外人看到不得体的一面啊」
+					CASE 3
+					PRINTFORML	「嗯？我在听」
+					CASE 4
+					PRINTFORML	「有什么有趣的事想要告诉我么、仆从？」
+					CASE 5
+					IF TCVAR:352 > 10
+					PRINTFORML	「……」
+					PRINTFORML	「你今天触碰的次数有点多呢」
+					PRINTFORML	「你该不会以为我一直没发现吧？」
+					ELSE
+					GOTO 通用接触
+					ENDIF
+				ENDSELECT
+				CASE -1
+				SELECTCASE RAND:6
+					CASE 0
+					PRINTFORML	在你刚伸出手的时候、蕾米莉亚的翅膀忽然动起来拍了你的手背一下
+					PRINTFORML	「不可以——」
+					CASE 1
+					PRINTFORML	「真得找个时间教导一下你什么是社交距离了」
+					PRINTFORML	「第一课、不要随便触碰别的女孩子」
+					CASE 2
+					PRINTFORML	「小手有点不老实哦？嘛、只要你别像某只老鼠一样喜欢顺走点什么东西，我也都会睁一只眼闭一只眼的啦」
+					PRINTFORML	「但是太过分的不可以、绝对禁止」
+					CASE 3
+					IF TCVAR:352 >= 15
+					PRINTFORML	你想要触碰蕾米莉亚，但是眨眼间、你发觉你的双脚慢慢离开了地面
+					PRINTFORMW	像是提猫咪一样、两条红色的锁链托着你的双臂、将你抬了起来
+					PRINTDL
+					PRINTFORMW	「今天有点过分了喔？作为仆从还是有点自觉性好点吧……」
+					PRINTFORMW	「要是我不阻止你的话、你肯定会得寸进尺的吧」
+					PRINTFORMW	「那么——惩罚游戏要做什么呢……」
+					PRINTDL
+					PRINTFORMDL		……
+					PRINTFORMDL	最后被蕾米莉亚%TEXTR("吊起来荡秋千、速度越来越快那种/像陀螺一样转着玩、有点头晕了/当成稻草人一样挂着一动不动的了")%
+					PRINTDL
+					PRINTFORMDL	——因为蕾米莉亚的惩罚、时间额外推进了{TCVAR:352}分钟——
+					ELSE
+					GOTO 通用接触
+					ENDIF
+					CASEELSE
+					GOTO 无陷落通用接触
+				ENDSELECT
+			ENDSELECT
+		ELSE
+		$无陷落通用接触
+			SELECTCASE TFLAG:193
+				CASE 1
+				SELECTCASE RAND:3
+					CASE 0
+					PRINTFORML	「呼……活动久了肩膀有点累」
+					PRINTFORML	「喂、仆从，来给我按摩一下吧」
+					CASE 1
+					PRINTFORML	「哦？对我的翅膀感兴趣吗？它们很漂亮、对吧。」
+					PRINTFORML	「我的心情不错、我姑且原谅你的失礼了」
+					CASE 2
+					PRINTFORML	「仆从、帮我拿一下这个」
+					PRINTFORML	从蕾米莉亚手上接过某个东西，不经意间触碰到了软滑的皮肤
+				ENDSELECT
+				CASE 0
+				SELECTCASE RAND:6
+					CASE 0
+					PRINTFORML	「想……摸摸手？」
+					PRINTFORML	「你知道你在干什么吗、人类」
+					CASE 1
+					PRINTFORML	假装没有注意到蕾米莉亚,“不小心”地碰了一下她的翅膀
+					PRINTFORML	「……喂、你是故意的吧、下次注意一点啊」
+					CASE 2
+					PRINTFORML	「衣服上沾了点灰吗？唔……我够不到」
+					PRINTFORML	「还是你来弄干净吧」
+					CASE 3
+					PRINTFORML	「嗯？有什么事吗？」
+					CASE 4
+					PRINTFORML	「干嘛——？」
+					PRINTFORML	蕾米莉亚连看都没看你一眼
+					CASE 5
+					IF TCVAR:352 > 10
+					PRINTFORML	「……」
+					PRINTFORML	「是我错觉么、感觉你今天一直在尝试着做些失礼的事」
+					PRINTFORML	「你该不会以为我一直没发现吧？」
+					ELSE
+					GOTO 通用接触
+					ENDIF
+				ENDSELECT
+				CASE -1
+				SELECTCASE RAND:5
+					CASE 0
+					PRINTFORML	蕾米莉亚瞪了一眼你伸过去的手
+					PRINTFORMW	「我不喜欢被别人触碰，尤其是人·类」
+					PRINTFORML	最后两个字蕾米莉亚咬字特别重
+					CASE 1
+					PRINTFORML	「我说啊……你这个人没有什么边界感吗」
+					PRINTFORML	「总之就是、离得太近了、对，离得远一点，就像现在这样」
+					CASE 2
+					PRINTFORML	「注意一点社交距离、这是风度，也是我所能容忍的范畴」
+					PRINTFORML	「你要是外面的那些家伙、这会儿你的手就已经不保了」
+					CASE 3
+					PRINTFORML	「唉、」
+					PRINTFORML	「待在那里别动、不要让我重复一遍」
+					PRINTFORML	「你靠得有点太近了」
+					CASE 4
+					IF TCVAR:352 >= 15 && ABL:9 <= 2
+					PRINTFORML	「嘛、管教不听话的仆从也是主人的义务」
+					PRINTFORML	蕾米莉亚显然已经对你不敬的行为失去了耐心
+					PRINTFORML	「那么...」
+					PRINTDL
+					PRINTFORMDW	啪——
+					PRINTDL
+					PRINTFORMDL	一个清脆的响指
+					PRINTFORMDL	一股袭来的失重感
+					PRINTFORMDW	一种紧缚的触感
+					PRINTFORMDL	你被一条条魔力凝结而成的锁链捆绑住身体、吊在半空中
+					PRINTFORMDW	现在说什么都晚了……你能隐约地看到蕾米莉亚平静的脸颊底下蕴含着的些微的怒火
+					PRINTDL
+					PRINTFORMW	「{TCVAR:352}次...在你那不知分寸的小脑袋反省之前、你就好好挂在那里吧」
+					PRINTDL
+					PRINTFORMDL	——因为蕾米莉亚的惩罚、时间额外推进了{TCVAR:352}分钟——
+					ELSE
+					GOTO 通用接触
+					ENDIF
+				ENDSELECT
+			ENDSELECT
+		ENDIF
+	TCVAR:352 ++
+	ENDIF
+ENDIF
+PRINTDW
+RETURN 1
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_302_2
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;303,道歉
+;TFLAG:193(2=点心盒成功 1=大成功 0=成功 -1=失敗 -2=点心盒失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_303
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_303
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_303
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_303_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_303_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE MARK:反発刻印
+	CASE IS > 2
+		IF TALENT:恋慕
+
+		ELSEIF TALENT:思慕
+			SELECTCASE TFLAG:192
+			CASE -1
+			CASEELSE
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:192
+			CASE IS < 0
+			PRINTFORMW	蕾米莉亚用猩红的眼瞳凶狠地盯着你、像是看着路边随时能够碾碎的蝼蚁一样
+			PRINTFORMDW	你开始后悔为什么自己要试着上前搭话了，因为你看到蕾米莉亚手掌处已经开始慢慢地泛起了淡淡的红光
+			PRINTFORMW	隐隐约约之中、一柄赤色的长枪凝聚成形，无形的压力开始挤压你的感官
+			PRINTFORMW	「在我对你的存在感到厌恶之前、你最好希望祈祷有用——」
+			PRINTFORMW	「现在,离开我的视野范围内，如果你还想要活命的话」
+			CASEELSE
+			ENDSELECT
+		ENDIF
+	CASE 2
+		IF TALENT:恋慕
+
+		ELSEIF TALENT:思慕
+			SELECTCASE TFLAG:192
+			CASE -1
+			CASEELSE
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:192
+			CASE IS < 0
+			PRINTFORML	「……滚」
+			PRINTFORML	蕾米莉亚丝毫没有掩饰自己的情绪、你光是呆在这里就有够她厌烦的了
+			CASEELSE
+			ENDSELECT
+		ENDIF
+	CASE 1
+		IF TALENT:恋慕
+
+		ELSEIF TALENT:思慕
+			SELECTCASE TFLAG:192
+			CASE -1
+			CASEELSE
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:192
+			CASE -2
+			PRINTFORML	「拿开、然后从我的视线里消失」
+			PRINTFORML	几乎是看都没看一眼的程度、大小姐一点也没有理会你，径直走开了
+			CASE -1
+			PRINTFORML	「你现在有点碍眼了，请自觉走到一边去」
+			PRINTFORML	蕾米莉亚很明显地对你保持着厌恶的态度
+			CASEELSE
+			ENDSELECT
+		ENDIF
+	CASEELSE
+		IF TALENT:恋慕
+
+		ELSEIF TALENT:思慕
+			SELECTCASE TFLAG:192
+			CASE -1
+				PRINTFORML	「你做出那种事、还敢奢求我来原谅你吗？」
+				PRINTFORML	蕾米莉亚的言语底下蕴含着愤怒
+				PRINTFORML	「在你好好反省之前，请不要待在我的视线范围里」
+			CASEELSE
+				PRINTFORML	「」
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:192
+			CASE -2
+				PRINTFORML	「……这就是你的诚意？」
+				PRINTFORML	蕾米莉亚瞥了一眼你手上的点心盒、并没有接过去
+				PRINTFORML	你只能怏怏收回递出去的点心盒
+			CASE -1
+				PRINTFORML	「……」
+				PRINTFORML	沉默，萦绕在你和蕾米莉亚之间，可见她并没有理会你
+				PRINTFORML	不过她看上去并没有太生气的样子、要不要再加把劲？
+			CASE 0
+				PRINTFORML	「说够了？那行吧、耳边总算清净了」
+				PRINTFORML	「可别误会,我只是不想再有苍蝇在我耳边嗡嗡嗡地飞来飞去而已」
+			CASE 1
+				PRINTFORML	「唉、行啦行啦吵死了」
+				PRINTFORML	「我原谅你了、满意了吗？本身我也没那么生气的啦」
+			CASE 2
+				PRINTFORML	「这是……你特意买的吗？」
+				PRINTFORML	「怎么突然拿出这个东西了...想让我消消气？」
+				PRINTFORML	「唔，算啦、看在你这么认真的份上，我就收下吧」
+			ENDSELECT
+		ENDIF
+	ENDSELECT
+ENDIF
+PRINTDW
+RETURN 1
+;==================================================
+;304,幫忙干活
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;CFLAG:350(仕事内容请参考 ERB\MOVEMENTS\JOB_仕事内容.ERB 
+;TCVAR:手伝えない(=2 代表帮忙也不会加快进度的工作、時間停止时不能帮忙的工作 永琳の診察等)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_304
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_304
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_304
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_304_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_304_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;時間停止中
+	IF FLAG:70
+	;通常
+	ELSE
+	ENDIF
+
+ENDIF
+RETURN 1
+;==================================================
+;305,索求膝枕
+;TFLAG:193(-5=MASTER的体型比TARGET大太多了(TALENT:MASTER:体型 > TALENT:体型 + 2) 1=大成功 0=成功 -1=失敗)(-5以外没有地文的差分)
+;ABL:親密(5以上=一边看着%CALLNAME:MASTER%的脸一边温柔的抚摸起来… 3以上=温柔地抚摸着%CALLNAME:MASTER%的头… 2以下=紧绷着身体一动不动…)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_305
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 = 0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_305
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_305
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_305_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_305_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	IF !CFLAG:1301
+		PRINTFORMW	「膝、膝枕？」
+		PRINTFORMW	「听着就是个变态的需求。需要怎么做...就是把膝盖当枕头、把头放上去？」
+		PRINTFORMW	「这种东西有什么好的，要想这么做去找真正的枕头不是更好吗？说到底...我为什么要为你的变态要求买单啊」
+		PRINTDL
+		PRINTFORMW	「什么叫『正因为是蕾米莉亚大小姐才有这个必要』……啊啊算了、看在你这么要求的份上，是这个样子……对吧？」
+		PRINTFORMW	在你的软磨硬泡之下，蕾米莉亚终于接受了你的要求、像自暴自弃一样地拍了拍自己白嫩柔软的大腿，示意你把脑袋放上去
+		PRINTDL
+		PRINTFORMW	「还、还愣着干什么，机会就只有这一次哦，事先说好、管好你的手可别乱摸」
+		PRINTFORMW	「唔……」
+		PRINTFORMW	等你轻轻地将脑袋枕上自己的大腿之后，蕾米莉亚不自觉地伸出小手轻轻地揉了揉你的头发、像是在照顾毛茸茸的宠物一样
+		PRINTFORMW	一会儿是摆弄你的头发、一会儿是捏捏你的耳朵、一会儿又像是按摩一样捏了捏你的脑袋
+		PRINTFORMW	尽管嘴上不饶人、但蕾米莉亚看起来似乎挺享受这种感觉的，以后会不会觉醒奇怪的属性呢……？
+		PRINTDL
+		PRINTFORMW	「在想什么呢、眼睛都闭上了，这种事情难道很舒服吗？」
+		PRINTFORMW	「好了、该起来了，都这么久腿都要麻了」
+		PRINTDL
+		PRINTFORMDL	美好的时间总是轻易流逝、下次，再试着提出请求吧
+		CFLAG:1301 ++
+	;-------------------------------------------------
+	; 通用
+	ELSE
+	;-------------------------------------------------
+		IF TALENT:恋慕
+		ELSEIF TALENT:思慕
+		ELSEIF ABL:9 > 2
+			IF ONCE("每日膝枕")
+			PRINTFORML	「仆从总是能脸不红心不跳地提出这种请求呢」
+			PRINTFORML	「在说这种话之前，你就没有思考过我们的关系吗？」
+			PRINTFORML	「算了、来吧，把你的脑袋交给我吧」
+			PRINTDL
+			PRINTFORMDL	枕在蕾米莉亚的腿上度过了一段悠闲的时光……
+			ELSE
+			PRINTFORML	「又来？你还真是不客气啊」
+			PRINTFORML	「乖乖躺下吧、可别乱动哦，不然下次不答应你了」
+			PRINTDL
+			PRINTFORMDL	%TEXTR("起来的时候发现自己的头发被揉乱了/起来的时候发现头发被打了几个结/起来的时候感觉脑袋被挠得有点飘飘然的了")%
+			ENDIF
+		ELSE
+			IF ONCE("每日膝枕")
+			PRINTFORML	「想要我的膝枕？如果我说不的话你会怎么样呢？」
+			PRINTFORML	「呵呵，看到了可爱的表情了，如果你能保证不要乱动的话、倒也不是不能同意你啦」
+			PRINTDL
+			PRINTFORMDL	枕在蕾米莉亚的腿上度过了一段悠闲的时光……
+			ELSE
+			PRINTFORML	「又想要膝枕了吗？你还真是热衷于这种事啊……」
+			PRINTFORML	「就当是解闷了，来吧——把你的脑袋交给我吧」
+			ENDIF
+		ENDIF
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;306,撫摸肚子
+;TFLAG:193(1=ABL:親密5以上且妊娠時 0=成功 -1=ABL:親密5以下)
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_306
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_306
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_306_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_306_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;時間停止中
+	IF FLAG:70
+	;通常
+	ELSE
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;307,捏臉蛋
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+	;TALENT:恋慕(一边露出害羞的表情一边做出反击…
+	;ABL:親密(5以上=也怯生生的把手伸向了%CALLNAME:PLAYER%的脸…
+	;ABL:従順(5以上=一边露出害羞的表情一边任%CALLNAME:PLAYER%为所欲为…
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_307
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗(注意：拥抱模式下必定成功)、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_307
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_307
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_307_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_307_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;時間停止中
+	IF FLAG:70
+	;睡眠中
+	ELSEIF CFLAG:睡眠
+	;通常
+	ELSE
+	ENDIF
+
+ENDIF
+RETURN 1
+;==================================================
+;308,捅臉頰
+;陪睡中限定指令
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_308
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗(注意：拥抱模式下必定成功)、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_308
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_308
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_308_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_308_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;睡眠中
+	IF CFLAG:睡眠
+	;通常
+	ELSE
+	ENDIF
+
+ENDIF
+RETURN 1
+;==================================================
+;309,摸頭
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;ABL:親密(5以上=通常成功時分岐
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_309
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗(注意：拥抱模式下必定成功)、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_309
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_309
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_309_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_309_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;時間停止中
+	IF FLAG:70
+	;睡眠中
+	ELSEIF CFLAG:睡眠
+	;通常
+	ELSE
+	ENDIF
+
+ENDIF
+RETURN 1
+;==================================================
+;331,泡茶(下药)
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_331
+;成否判定
+;TFLAG:192(-2=強制失敗(注、非强制中止指令）、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功(注、睡眠薬アイスティーは眠気を感じていると飲まない)
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_331
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_331
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_331_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_331_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;332,勸酒
+;TFLAG:193(0=劝酒成功 -1=劝酒失敗 -2=劝酒大失敗 -5=对方完全戒酒)
+;COM_STR(酒の名称)
+;ALCOHOL_TASTE(TFLAG:194)(15以上=很中意的样子 9以下=不合口味的样子)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_332
+;成否判定
+;TFLAG:192(-1＝強制失敗、0=根据COM文件决定
+;TFLAG:口上特殊補正 (如果在此处输入数字，则可以增加或减少ALCOHOL_TASTE，即对某种酒的喜好程度。)
+TFLAG:192 =0
+TFLAG:口上特殊補正 = 0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_332
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_332
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_332_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_332_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;333,聽牢騷
+;TFLAG:193(6=大成功(酔酒状态) 5=成功(酔酒状态) 4=失敗(酔酒状态) 3=大成功 2=成功 1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_333
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_333
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_333
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_333_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_333_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE TFLAG:193
+		CASE 6
+		;大成功（酔酒状态）
+		CASE 5
+		;成功（酔酒状态）
+		CASE 4
+		;失敗（酔酒状态）
+		CASE 3
+		;大成功
+		CASE 2
+		;成功
+		CASE 1
+		;失敗
+	ENDSELECT
+ENDIF
+RETURN 1
+;==================================================
+;334,碰杯
+;宴会限定指令
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;CFLAG:妊娠自覚状態(1=食事)
+;TALENT:酒耐性(-2=食事)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_334
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_334
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_334
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_334_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_334_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE TFLAG:193
+		CASE 1
+		;大成功
+		CASE 0
+		;成功
+		CASE -1
+		;失敗
+	ENDSELECT
+ENDIF
+RETURN 1
+;==================================================
+;335,照料
+;宴会限定指令
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_335
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_335
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_335
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_335_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_335_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE TFLAG:193
+		CASE 1
+		;大成功
+		CASE 0
+		;成功
+		CASE -1
+		;失敗
+	ENDSELECT
+ENDIF
+RETURN 1
+;==================================================
+;336,膝枕
+;ABL:親密(4以下=感覺不太好… 9以下=好像很害羞的様子…… 9以上=好像很幸福的様子……
+;TIME_PROGRESS(TFLAG:膝枕した)，时间间隔44以下=失敗
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_336
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_336
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_336
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_336_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_336_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	IF TFLAG:193 > 0
+	;寝ちゃった
+	ELSE
+	;除此以外
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;337,和孩子互动
+;地文内包含巨量差分，请自行查看ERB\口上・メッセージ関連\EVENT_MESSAGE_COM300.ERB
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_337
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_337
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_337
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_337_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_337_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	IF TFLAG:193 > 0
+	;寝ちゃった
+	ELSE
+	;除此以外
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;350,推倒（時姦時名为恶作剧
+;地文路径 ERB\口上・メッセージ関連\EVENT_MESSAGE_COM_押し倒し.ERB
+;TFLAG:194 (0=成功 1=有路人　2=不想在户外做　3=不想多人一起做　4=还没有做的心情（即使有合意）　100=有合意，但是因为口上特殊判定而强制失败
+;TCVAR:抱き寄せ初回　1=普通地获得合意　2=还没有KISS过就获得合意　3=媚药或者发情期时获得合意…　4=使用奇迹之石后获得合意
+;5=被逼迫要求做且无法拒绝(拥有胆怯素质才有可能触发) 6=被拒绝了，但是并不是不高兴　7=被普通地拒绝　8=被强硬地拒绝 9=即便禁止插入，也允许了推倒 98=口上内特殊判定加持时失敗 99=口上内特殊判定加持时成功
+;如果flagsetting内口上内特殊判定未设置为1，则特殊判定将不会生效
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_350
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_350
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_350_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_350_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;并不是都需要写，部分内容可以合并在一起
+	IF FLAG:70 
+	ELSEIF TFLAG:194 
+		;非初次，拒绝
+		SELECTCASE TFLAG:194
+			CASE 1 		;有路人
+
+			CASE 2		;不想在户外做
+
+			CASE 3 		;不想多人一起做
+
+			CASE 4 		;还没有做的心情（即使有合意）
+
+			CASE 100	;有合意，但是因为口上特殊判定而强制失败
+
+		ENDSELECT 
+	ELSEIF TCVAR:181
+		;初次拥抱，允许或失败都有
+		SELECTCASE TCVAR:181
+			CASE 1		;普通地获得合意
+
+			CASE 2		;还没有KISS过就获得合意
+
+			CASE 3		;媚药或者发情期时获得合意…
+
+			CASE 4		;使用奇迹之石后获得合意…
+
+			CASE 5		;被逼迫要求做且无法拒绝(拥有胆怯素质才有可能触发)
+
+			CASE 6		;被拒绝了，但是并不是不高兴
+
+			CASE 7		;被普通地拒绝
+
+			CASE 8		;被强硬地拒绝
+
+			CASE 9		;即便禁止插入，也允许了推倒
+
+			CASE 98		;口上内特殊判定加持时失敗
+
+			CASE 99		;口上内特殊判定加持时成功
+
+		ENDSELECT
+	ELSE 
+		;非初次 成功
+
+	ENDIF 
+ENDIF
+RETURN 1
+;==================================================
+;351,帯出去
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_351
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_351
+;带出去这个指令没有可用的TRAIN_MESSAGE
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_351_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_351_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;带TARGET离开
+	IF CFLAG:同行 == 60
+	;取消与TARGET的同行状态
+	ELSE
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;352,告白
+;FLAG:甲斐性無(1=失敗)
+;TFLAG:193 (1=成功 0=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_352
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_352
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_352
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_352_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_352_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;353,猥褻（睡眠时恶作剧）
+;FLAG:甲斐性無(1=失敗)
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_353
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_353
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_353_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_353_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;354,陪睡
+;CFLAG:衰弱(1以上=睡着了，微微扭动着身体
+;CFLAG:お招き(0以外=睡着了，微微扭动着身体
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_354
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_354
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_354_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_354_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;355,時間停止（应该仅限于对此时地文的修改（原文如此）
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_355
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_355
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_355_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_355_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;356,邀请去阴暗处
+;ABL:露出癖 + TALENT:羞恥心 >= 3 或者 无知 就能成功
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_356
+;成否判定
+;TFLAG:192(-1＝強制失敗、0=根据COM文件决定、1=強制成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_356
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_356
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_356_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_356_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;360,任憑擺佈
+;TCVAR:20(27=展示乳沟 32=从身前抱住 35=自己掀起裙子 53=乳交 73=洗面奶（用胸部搓脸） 77=要求吸乳头 85=Ｖ挿入状态 86=要求膣内射精 87=Ａ挿入状态 88=V插入时动腰 89=A插入时动腰
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_360
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_360
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_360_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_360_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE TCVAR:20 
+		CASE 27 	;展示乳沟
+
+		CASE 32 	;从身前抱住
+
+		CASE 35 	;自己掀起裙子
+
+		CASE 53 	;乳交
+
+		CASE 73 	;洗面奶（用胸部搓脸）
+
+		CASE 77 	;要求吸乳头
+
+		CASE 85 	;Ｖ挿入状态
+
+		CASE 86 	;要求膣内射精
+
+		CASE 87 	;Ａ挿入状态
+
+		CASE 88 	;V插入时动腰
+
+		CASE 89 	;A插入时动腰
+	
+	ENDSELECT
+ENDIF
+RETURN 1
+;==================================================
+;361,抵抗する
+;TCVAR:20(27=展示乳沟 32=从身前抱住 35=自己掀起裙子 53=乳交 73=洗面奶（用胸部搓脸） 77=要求吸乳头 85=Ｖ挿入状态 86=要求膣内射精 87=Ａ挿入状态 88=V插入时动腰 89=A插入时动腰
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_361
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_361
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_361_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_361_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE TCVAR:20 
+		CASE 27 	;展示乳沟
+
+		CASE 32 	;从身前抱住
+
+		CASE 35 	;自己掀起裙子
+
+		CASE 53 	;乳交
+
+		CASE 73 	;洗面奶（用胸部搓脸）
+
+		CASE 77 	;要求吸乳头
+
+		CASE 85 	;Ｖ挿入状态
+
+		CASE 86 	;要求膣内射精
+
+		CASE 87 	;Ａ挿入状态
+
+		CASE 88 	;V插入时动腰
+
+		CASE 89 	;A插入时动腰
+	
+	ENDSELECT
+ENDIF
+RETURN 1
+
+;==================================================
+;363,朗読
+;（持有 幼稚 时，携带特定书籍才可使用）
+;TFLAG:193(1=大成功 0=成功 -1=失敗)(没有地文分歧
+;CFLAG:陪睡中，在\@ INROOM(CFLAG:MASTER:現在位置) == 2 ? 床 # 鋪蓋 \@上讀起了書…
+;MASTER的体型大于TARGET，会在TARGET的膝枕上读书
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_363
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_363
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_363
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_363_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_363_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;364,撒豆子(萃香、勇儀、斯卡雷特姐妹可用
+;TFLAG:193(撒豆子参加的人数
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_364
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_364
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_364_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_364_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;365,素材購入
+;对象存在CFLAG:素材販売时才可使用
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_365
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_365
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_365_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_365_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;368,陪同行動 
+;如果某个技能等级为1以上，则会发生基于技能的自由行动
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_368
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_368
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_368_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_368_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE Activity_Type:TARGET
+		CASE 0
+			;▼思考事情［在思考什么］
+			;TFLAG:193,-1=TARGET随便敷衍过去了
+			;PRINTFORMW 
+		CASE 1
+			;▼游玩［一起玩］
+			;※[幼稚]限定
+			;TFLAG:193,1=气氛变得热烈了,-1=有点冷场了
+			;PRINTFORMW 
+		CASE 2
+			;▼食事［一起吃饭］
+			;TFLAG:193,-1=MASTER其实也没那么饿
+			;PRINTFORMW 
+		CASE 3
+			;▼吃小零食［一起吃小零食］
+			;※[妖精]种族角色、露米娅、古明地恋、幽幽子、紫苑等人会触发这个
+			;TFLAG:193,-1=MASTER其实也没那么饿
+			;PRINTFORMW 
+		CASE 4
+			;▼掃除［帮忙扫除］
+			;※[掃除係]限定，或者TARGET拥有污臭敏感 -1 或更少
+			;PRINTFORMW 
+		CASE 5
+			;▼運動［一起做运动］
+			;※拥有[音楽知識]或者无战斗能力则不会触发
+			;PRINTFORMW 
+		CASE 6
+			;▼読書［询问阅读感想］
+			;TFLAG:193,-1=沉浸在书中无法回话的样子
+			;PRINTFORMW 
+		CASE 7
+			;▼料理［帮忙做饭］→［求分点饭菜］
+			;TFLAG:193,2=一起做饭,0=肚子多少填满了,-1==MASTER并没有那么饿
+			;PRINTFORMW 
+		CASE 8
+			;▼演奏［协同合奏］or［进行伴奏］
+			;※TARGET拥有[音楽知識]（随着TALENT:音楽知識的种类而変化）
+			;TALENT:音楽知識,1=演奏,2=唱歌,3=跳舞
+			;TFLAG:193,1=兴致勃勃地,0=成功,-1=失敗,-2=没有可以用的乐器
+			;PRINTFORMW 
+		CASE 9
+			;▼採集［帮忙探集］
+			;※对象拥有采集等级
+			;PRINTFORMW 
+		CASE 10
+			;▼垂钓［一起钓鱼］
+			;TFLAG:193,-1=在钓鱼中的TARGET旁发呆
+			;PRINTFORMW 
+		CASE 11
+			;▼実験［帮忙做实验］
+			;※对象拥有调和等级
+			;PRINTFORMW 
+		CASE 12
+			;▼放松［一起放松］
+			;PRINTFORMW 
+		CASE 13
+			;▼晩酌［陪同喝酒］
+			;※酒耐性0以上才会触发
+			;PRINTFORMW 
+		CASE 14
+			;▼买东西［帮忙买东西］
+			;在有商店的位置才能触发
+			;PRINTFORMW 
+		CASE 15
+			;▼説教［去看看情况］
+			;※神霊・蓬莱人之外才会被说教
+			;PRINTFORMW 
+		CASE 16
+			;▼落穴［一起恶作剧］or［去看看情况］
+			;※三月精、琪露诺、克劳恩皮丝才会做这种事
+			;除此以外的人全都有可能掉坑里
+			;PRINTFORMW 
+		CASE 17
+			;▼制作雪雕［一起堆雪］
+			;※冬天限定
+			;PRINTFORMW 
+		CASE 18
+			;▼悠闲地缩进被炉［在被炉里放松］
+			;※冬天限定
+			;PRINTFORMW 
+	ENDSELECT
+ENDIF
+RETURN 1
+
+;自由行動判定用関数
+;如果您在与上述模板对应的 CASE 编号中返回 -1，这个自由行动将不会被触发
+@M_KOJO_緋色之诗_自由行動判定_K16(ARG)
+SELECTCASE ARG
+	;CASE 1, 2, 5
+	;	RETURN -1
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+;==================================================
+;402,就寝
+;TFLAG:193(0=通常 1=家族三人排成了川字)
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_402
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_402
+;就寝没有TRAIN_MESSAGE
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_402_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_402_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;403,休憩
+;CFLAG:TARGET:睡眠(1=陪在睡着的TARGET旁边睡了一会儿
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_403
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_403
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_403_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_403_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;405,外出(同行時变成约会
+;由于条件很复杂，需要参考ERB\コマンド関連\COMF\日常系\COMF405 出掛ける.ERB
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_405
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_405
+;出掛没有对应的TRAIN_MESSAGE
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_405_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_405_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;与TARGET约会开始了
+	IF CFLAG:同行
+	;与TARGET之外的人出发去约会了
+	ELSEIF CFLAG:MASTER:同行
+	;目送MASTER外出
+	ELSE
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;410,掃除
+;FLAG:70(1=時間停止中
+;TFLAG:193(0=钦佩地注视 1=一起帮忙扫地)
+;TFLAG:194(3=脏污程度高 2=脏污程度中 1=脏污程度低 0=脏污程度最小
+;OUTROOF(CFLAG:現在位置)(野外掃除时，冬天会变成扫雪
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_410
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_410
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_410_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_410_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	GOTO DEBUG_SETTING
+	IF FLAG:70
+		IF TALENT:恋慕
+
+		ELSEIF TALENT:思慕
+
+		ELSE
+		PRINTFORML	你在完全静止的世界里，独自拿着手里的扫帚清扫着地板的灰尘
+		PRINTFORML	娇小的吸血鬼萝莉就这样一动不动地站在那里，无论你怎么靠近她、怎么触碰她、怎么对她进行恶作剧，她都不会做出任何反应
+		PRINTFORML	但你仅仅只是在扫地、只是这样
+		ENDIF
+	ELSEIF RAND:20 == 1 
+		IF FIRSTTIME("整理物件_受伤") && TIME > 1140 && TIME < 1380 && GET_MAPID(CFLAG:MASTER:現在位置) == 3
+		$DEBUG_SETTING
+		PRINTFORMDW	哐啷——
+		PRINTDL
+		PRINTFORMDL 不远处传来的尖锐声吸引了%CALLNAME:MASTER%和蕾米莉亚的注意力，几只妖精女仆飞了过来，脸上满是慌张的神态，完全一副快要哭出来的表情
+		PRINTDL
+		HTML_PRINT "<font color='#FFC08E'>「对不起大小姐，我们搞砸了！」</font>"
+		PRINTDL
+		HTML_PRINT "<font color='#B5FC7B'>「都是加奈子的错！都是她吵着要玩接盘子游戏！」</font>"
+		PRINTDL
+		HTML_PRINT "<font color='#FCFE8E'>「什么嘛！不是你说要找点好玩的事情吗！」</font>"
+		PRINTDL
+		HTML_PRINT "<font color='#FFC08E'>「你们快别说了、大小姐要生气了啦！」</font>"
+		PRINTDL
+		HTML_PRINT "<font color='#B5FC7B'>「没错！现在当务之急是要收拾干净！」</font>"
+		PRINTDL
+		HTML_PRINT "<font color='#FCFE8E'>「谁打碎的盘子谁去」</font>"
+		PRINTDL
+		PRINTFORML	「唉……」
+		PRINTDL
+		PRINTFORMDL 在三只妖精女仆的叽叽喳喳声中，你看到了从她们飞来的方向、有几个破碎的盘子就那样可怜地躺在地上
+		PRINTFORMDL	不管在这之前发生过什么...这些盘子都已经碎了
+		PRINTFORMDL 盘子桑、请安息吧……
+		PRINTDL
+		PRINTFORML	「行了，事情我都了解了，你们去干别的事情吧」
+		PRINTFORML	「我会安排其他人来收拾的哟」
+		PRINTDL
+		PRINTFORML	出乎意料的是，蕾米莉亚并没有出言指责一句就把她们给打发走了
+		PRINTFORML	待那几位妖精女仆离去之后，你并没有看见所谓的“其他人”来到这里
+		PRINTDL
+		PRINTFORMW	「东张西望什么呢？是你出场的时候了\@TALENT:恋慕 || TALENT:思慕 ?唷，%CALLNAME:MASTER%~#,仆从\@」
+		PRINTFORMW	「去把那些垃圾收拾干净吧、再交给那些妖精女仆只怕会让我又有的愁的了」
+		PRINTFORMW	「\@TALENT:恋慕 || TALENT:思慕 ?相比之下还是交给%CALLNAME:MASTER%更放心一点嘛，毕竟%CALLNAME:MASTER%不会让我失望啊#这可是给你在我面前表现的机会，想让我对你改观吗,人类？\@」
+		PRINTFORMW	蕾米莉亚像是在用催促的语气让你快点干活
+		PRINTDL
+		PRINTBUTTON	"—整理碎片—","0"
+		TONEINPUTS 1, "碎片的边缘似乎有点锐利……", 1
+		PRINTDL
+		PRINTFORMDL	开始小心翼翼地收拾地上的碎片
+		CALL DQPRINT("······",1)
+		PRINTFORMDL	费了一番功夫、这才终于将地上的碎片打包进袋子里
+		PRINTFORMDL	只要将这袋子里的东西都扔掉就可以了...
+		PRINTDL
+		PRINTFORML	在你刚打算站起来的时候，视线恰好对上了属于吸血鬼的那双猩红的眼瞳
+		IF TALENT:恋慕 || TALENT:思慕
+		PRINTFORML	「怎么这么不小心、
+		ELSE
+		PRINTFORMDL	几乎是本能的、
+		ENDIF
+		ELSE
+		GOTO GENERAL_SWEEP
+		ENDIF
+	;-------------------------------------------------
+	; 通用扫除
+	ELSE
+	$GENERAL_SWEEP
+	;-------------------------------------------------
+		IF TALENT:恋慕
+		SELECTCASE RAND:10
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		ENDSELECT
+	ELSEIF TALENT:思慕
+		SELECTCASE RAND:10
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		ENDSELECT
+	;-------------------------------------------------
+	; 算是朋友的关系了
+	ELSEIF ABL:9 > 2
+	;-------------------------------------------------
+		SELECTCASE RAND:10
+			CASE 0
+			PRINTFORML	「为什么总能看见红魔馆里会出现污秽呢……」
+			PRINTFORML	「是咲夜工作有所怠慢了么……不、不可能……」
+			PRINTFORML	在你打扫的时候，蕾米莉亚盯着地上的灰尘自言自语道
+			CASE 1
+			PRINTFORML	在你醉心于扫除的时候，蕾米莉亚时不时轻轻地扇动她的翅膀
+			PRINTFORMW	在翅膀带起来的微风之下、本来静止不动的垃圾如同长了腿一样开始躲避你的扫帚
+			PRINTFORMW	「可曾设想过在吸血鬼的眼中是如何看待你们人类的？就像...这些地上的垃圾一样，脆弱、却喜欢无休止的挣扎……」
+			PRINTDL
+			PRINTFORMDW	「怎么看都像在拿我消遣吧……」
+			PRINTDL
+			PRINTFORML	「欸嘿~」
+			CALL CHANGE_CFLAG(2, 16, +5)
+			CALL CHANGE_CFLAG(4, 16, +1)
+			CASE 2
+			PRINTFORML	「本来还想将这块的工作交给妖精女仆来做、看起来仆从你工作得还挺勤快的嘛」
+			PRINTFORML	「不过、不知是不是我的错觉...总觉得你有点乐在其中的样子」
+			CASE 3
+			PRINTFORML	「要注意那些缝隙之类的地方唷、通常都会藏一些污垢在里面的」
+			PRINTFORML	「要是你也能像帕琪一样使用净尘的魔法就能轻松很多了、但你不会，所以还是老实地继续扫地吧~」
+			CASE 4
+			IF ONCE("扫除的失物")
+			PRINTFORML	你在扫地的时候，从某个角落扫出一个%TEXTR("小巧的发卡/可爱的蝴蝶结/女仆的缎带/看起来就很昂贵的羽毛笔")%，从外表上看起来似乎并没有沾上灰尘
+			PRINTFORML	「看来还是有人冒冒失失的啊...先交给我吧、失主很快就会来找的了……等等、擦干净一点再递给我啊」
+			ELSE
+			GOTO GENERAL_SWEEP
+			ENDIF
+			CASE 5
+			PRINTFORML	「要努力的干活唷~」
+			PRINTFORML	蕾米莉亚坐在舒服的小椅子上、看着你打扫地上的垃圾
+			CASE 6
+			PRINTFORML	「唔……」
+			PRINTFORMDL	实在脏乱不堪的地板让蕾米莉亚打自心底地露出嫌弃的表情
+			PRINTFORML	「仆从、快把这里打扫干净……咳、咳咳」
+			PRINTFORMDW	似乎被扬起来的灰尘影响到了
+			PRINTDL
+			PRINTFORMDL	你尽可能地保持动作幅度别那么大
+			CASE 7
+			PRINTFORMDW	叮当~
+			PRINTFORMDL	一枚筹码掉落到细碎的灰尘当中
+			PRINTFORMDW	你不动声色地将这枚野生的筹码捡起来放进自己的口袋当中
+			MONEY:2 ++
+			PRINTFORMW	「欸——你不嫌脏的嘛……」
+			PRINTDL
+			PRINTFORMDL	说这话的人一开始就不要丢到那里啊
+			CASE 8
+			PRINTFORMDL	你正打扫着地板上的灰尘，刚好在蕾米莉亚脚下还有一点
+			PRINTFORMDW	在你把扫帚移过去的时候，蕾米莉亚假装不在意一样缩了缩脚，走到了旁边的干净地板上
+			PRINTFORMDL	好、这下总算可以扫干净了
+			CASE 9
+			PRINTFORML	「怎么一副无精打采的样子啊……给我打起精神来」
+			PRINTFORML	「『%TEXTR("昨晚没有睡好/昨晚熬夜了/睡得不够")%』、哈，这跟我有什么关系啊」
+			PRINTFORML	完全一副和自己无关的样子
+		ENDSELECT
+	;-------------------------------------------------
+	; 通用
+	ELSE
+	;-------------------------------------------------
+		SELECTCASE RAND:10
+			CASE 0
+			PRINTFORML	「……」
+			PRINTFORMDL	在你打扫的时候，蕾米莉亚只是无言地看着你
+			PRINTFORMDL	毕竟、这只是你的本职工作
+			CASE 1
+			PRINTFORML	「打扫得还挺认真、倒是比妖精女仆们能干多了」
+			PRINTFORMDL	蕾米莉亚这么说着，然后瞪了一眼一旁无辜躺枪的某只妖精女仆
+			CASE 2
+			PRINTFORML	「好像经常看到你在附近打扫呢、这么卖力的工作是想要讨好我吗？」
+			PRINTFORML	「好好干活吧，我会给你奖金的喔」
+			CASE 3
+			PRINTFORML	「有在认真工作呢、仆从」
+			CASE 4
+			PRINTFORML	「那里、还有那里、那边的角落也要扫一下」
+			PRINTFORML	蕾米莉亚坐在一旁，给正在扫除的你指指点点
+			PRINTFORML	每指一个方向，你就得跑过去将那里的垃圾打扫干净
+			PRINTFORML	蕾米莉亚似乎在以这种方式从你身上取乐
+			CASE 5
+			PRINTFORML	在蕾米莉亚品茶的时候、你用扫帚仔细地清扫着地上的垃圾
+			CASE 6
+			PRINTFORML	「你看起来好像很热衷于做这种事」
+			PRINTFORML	「……」
+			PRINTFORMDL	蕾米莉亚似乎还想说什么，但还是收住了
+			CASE 7
+			PRINTFORML	「在扫除吗、要认真一点哦」
+			CASE 8
+			PRINTFORML	「为什么红魔馆里的总能看到有细碎的垃圾呢……」
+			PRINTFORML	「难不成是咲夜怠慢了？不应该啊...」
+			PRINTFORMDL	蕾米莉亚嘀咕着、而你只是闷头扫着自己的地
+			CASE 9
+			PRINTFORML	「无聊啊……」
+			PRINTFORMDL	你扫着地
+			PRINTFORML	「无聊啊……无聊啊……」
+			PRINTFORMDL	你继续扫着地
+			PRINTFORML	「好无聊啊……」
+			PRINTFORMDL	你还是、继续扫着地
+		ENDSELECT
+	ENDIF
+	ENDIF
+ENDIF
+PRINTDW
+RETURN 1
+;==================================================
+;411,戦闘訓練
+;TFLAG:194(3=夏天的烈日 2=危险的天气 1=恶劣的天气 0=屋内or通常天気
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_411
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_411
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_411_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_411_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;412,勉強
+;ABL:教養(ABL:MASTER:教養比较大=MASTER教导TARGET ABL:MASTER:教養比较小=TARGET教导MASTER
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_412
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_412
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_412_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_412_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE ABL:教養
+		CASE IS > ABL:MASTER:教養
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSEIF ABL:9 > 2
+			ELSE
+			ENDIF
+		CASE IS == ABL:MASTER:教養
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSEIF ABL:9 > 2
+			ELSE
+			ENDIF
+		CASE IS < ABL:MASTER:教養
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSEIF ABL:9 > 2
+				SELECTCASE RAND:5
+				CASE 0
+					PRINTFORML	「在学习吗？要好好加油噢」
+				CASE 1
+					PRINTFORML	「需要我的指导吗？我对于学习这一方面可是颇有心得的哦」
+				CASE 2
+					PRINTFORML	「有没有遇到难题啊~」
+				CASE 3
+					PRINTFORML	「仆从也会来这里学习啊、真是人不可貌相」
+					PRINTFORML	「能保持一个自律的心可是很难得的喔」
+				CASE 4
+					PRINTFORML	「要我出题考考你吗？让我看看仆从是不是真的在学习~」
+				CASEELSE
+					GOTO GENERAL_STUDY
+				ENDSELECT
+			ELSE
+			$GENERAL_STUDY
+				SELECTCASE RAND:4
+				CASE 0
+					PRINTFORML	蕾米莉亚并没有怎么关注你这边
+				CASE 1
+					PRINTFORML	蕾米莉亚有点无聊地盯着其他地方
+				CASE 2
+					PRINTFORML	蕾米莉亚在一旁惬意地品味着红茶
+				CASE 3
+					PRINTFORML	蕾米莉亚开始到处搜寻着可能藏在某处的小蛋糕
+				ENDSELECT
+			ENDIF
+	ENDSELECT
+ENDIF
+PRINTDW
+RETURN 1
+;==================================================
+;413,料理
+;TFLAG:194(100以上=禁断的菜单（跳蛋食物） 3=甜点 2=主食 1=軽食
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_413
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_413
+;TFLAG:194が100以上の場合のみ
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_413_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_413_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+ENDIF
+RETURN 1
+;==================================================
+;414,食事を取る
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;TFLAG:194(1=没有内裤时吃涮涮锅（原文如此，甚至会给该食物添加精力效果，详见HRND-257） 2=禁断的菜单（跳蛋食物） 31=興奮劑高湯 30=奶酪番茄沙拉 34=银吉獣料理
+;TCVAR:MASTER:308(bit0=浓郁味 bit1=薄味 bit3=激辛 bit4=激甘 bit5=芥末味 bit6=激酸
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_414
+;成否判定
+;TFLAG:192(-2=强制中止指令(非TARGET時強制失敗)、-1＝強制失敗、0=根据COM文件决定(非TARGET時強制成功)、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_414
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_414
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_414_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_414_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;415,招待吃飯
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;TCVAR:MASTER:308(bit0=浓郁味 bit1=薄味 bit3=激辛 bit4=激甘 bit5=芥末味 bit6=激酸
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_415
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_415
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_415
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_415_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_415_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;416,演奏
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;TFLAG:使用楽器(1=电子琴 2=钢琴 3=吉他 4=小号 5=小提琴)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_416
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_416
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_416
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_416_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_416_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;417,午睡
+;TFLAG:193(0=TARGET正抱着MASTER睡觉 1=TARGET枕在MASTER的大腿上睡觉 2=TARGET偷偷KISS了 3=TARGET偷看了寝颜 4=TARGET正在为MASTER做膝枕 5=TARGET正在摸MASTER的隐私部位
+;CFLAG:陪睡中，1=在身旁睡着
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_417
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_417
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_417_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_417_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;421,祈願
+;由于条件很复杂，需要参考ERB\指令関連\COMF\日常系\COMF421 願掛け.ERB
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_421
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_421
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_421_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_421_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;==================================================
+;422～430的指令，由于这些是特殊指令，因此在模板中不受支持
+;==================================================
+
+;==================================================
+;431,在浴室里放鬆
+;TFLAG:209(4=人里銭湯番台的女孩投来了愤怒的视线 1=进入銭湯
+;TFLAG:211(4=地底温泉番台的妖怪投来了愤怒的视线 1=进入温泉
+;TFLAG:194(1=已经洗过了，連続入浴不可
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_431
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_431
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_431_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_431_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;432,銭湯
+;这个是洗澡后的口上
+;TFLAG:209(4=人里銭湯番台的女孩投来了愤怒的视线 1=进入銭湯
+;TFLAG:211(4=地底温泉番台的妖怪投来了愤怒的视线 1=进入温泉
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_432
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_432
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_432_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_432_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;436,読書
+;TFLAG:193(选择文学书(1=神秘武术(文学？) 2=失敗 3=文学),选择実用書(4=失敗 5=実用書),选择小黄书(6=小薄本 7=保健体育 8=欲望涌上来了))
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_436
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_436
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_436_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_436_1
+;==================================================
+;440,等待
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_440
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_440
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_440_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_440_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;441,聽課(慧音専用
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_441
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_441
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_441_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_441_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;442,伐採
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_442
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_442
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_442_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_442_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;445,採集
+;TFLAG:193(採集物的物品ID, 0=『什么都没有找到』
+;TFLAG:194(这次采集到的物品数量
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_445
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_445
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_445_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_445_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;448,设下罠 \ 设下昆虫诱捕装置
+;TFLAG:193,
+;   -1=罠坏掉了
+;    0=罠还在那里
+;    1=捕获到了猎物
+;   10=设置了昆虫诱捕装置
+;   11=破弃了昆虫诱捕装置
+;   12=抓到了一个虫子
+;FLAG:194,猎物的编号
+;虫子的名称 可通过 MUSHI_NAME 来表示和确定
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_448
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_448
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_448_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_448_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;449,捕虫
+;TFLAG:193,
+;   -2=就算杀了你，也要得到它（百分百让虫子逃走）
+;   -1=索要虫子→拒否
+;    0=没有抓到
+;    1=MASTER抓到虫子了
+;    2=MASTER称赞TARGET抓到了虫子
+;    3=索要虫子→沮丧地让出了ー
+;    4=索要虫子→一脸得意地让出了ー
+;虫子的名称 可通过 MUSHI_NAME 来表示和确定
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_449
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_449
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_449_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_449_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;483,斗虫
+;TFLAG:193,
+;    1=１対１対戦
+;    2=３～４人戦
+;    3=２対２の团队戦
+;TFLAG:194是MASTER的排名（MASTER排名为1代表TARGET失败）
+;战斗期间的口上包含在事件系文件中
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_483
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_483
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_483_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_483_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;484,打西瓜
+;TFLAG:193,
+;   -1=失敗
+;    0=成功
+;    1=大成功
+;    2=木刀大成功
+;TFLAG:194
+;    0=正直者
+;    1=说谎者（原文如此）
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_484
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_484
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_484_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_484_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;==================================================
+;490,道具
+;TFLAG:193(使用道具的ID
+;TFLAG:194(使用的対象 0=MASTER,1=TARGET
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_490
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_490
+;アイテムにTRAIN_MESSAGEはない
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_490_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_490_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+
+;※※※※※※※※※※※※※※※※※※※※※※※※※
+;约会系指令
+;约会系口上实际上会在外出期间被触发
+;※※※※※※※※※※※※※※※※※※※※※※※※※
+[SKIPSTART]
+;目前未实装
+;==================================================
+;600,约会会話
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_600
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_600
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_600_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_600_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;==================================================
+;601,约会时身体接触
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_601
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_601
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_601_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_601_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;==================================================
+;602,约会时接吻
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_602
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_602
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_602_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_602_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+[SKIPEND]
+;==================================================
+;603,牽手
+;TFLAG:193(1=大成功 0=成功 -1=失敗)(失败时只会犹豫地握住手
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_603
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_603
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_603
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_603_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_603_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;==================================================
+;604,散步
+;约会时、CFLAG:現在位置代表MASTER移动的目标位置
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_604
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_604
+
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_604_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_604_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;605,繞道
+;TFLAG:193(1=大成功 0=成功 -1=失敗)(没有地文差分
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_605
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_605
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_605
+;寄り道するにはTRAIN_MESSAGEが無い
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_605_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_605_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;==================================================
+;610,請吃飯
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_610
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_610
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_610
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_610_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_610_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;==================================================
+;613,賺錢	[目前已弃用]
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_613
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_613
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_613
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_613_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_613_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;614,採購食材
+;TFLAG:193(1=購入且获得了约会経験 0=購入 -1=非購入)
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_614
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_614
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_614_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_614_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;615,吃便當
+;実行可能場所　地蔵小路,枝垂れ柳の下,霧の湖,玄武の沢,大蝦蟇の池,絶景の丘,山の湖,天界
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;ABL:料理技能(2未満=比较微妙 4未満=相当美味 4以上=絶品，最美味了)
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_615
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_615
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_615_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_615_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;617,邀請去甜品店
+;TFLAG:193(1=大成功 0=成功 -1=失敗)(地文分岐只是为了大成功而追加，并无实际加成
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_617
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_617
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_617
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_617_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_617_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;618,花屋
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_618
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_618
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_618_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_618_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;620,鈴奈庵
+;TFLAG:193(1=借好书了 0=没有借书
+;ITEM:10X (X=1戦術指南書 X=2調理指南書 X=3字引 X=4御伽草子
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_620
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_620
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_620_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_620_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;621,釣魚
+;COM_STR（釣れたもの　"釣れない","ローター","木片","紙切れ", またはアイテム名、魚の種類）
+;COM_STR（钓到的东西、“钓不到”、“转子/旋转部件”、“木片”、“纸片”或项目名、鱼的种类）
+;TFLAG:194(1000以上表示是TARGET钓到的)
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_621
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_621
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_621_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_621_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	IF TALENT:恋慕
+	;-------------------------------------------------
+		IF TFLAG:194 > 1000
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+
+				;守矢之守札
+				CASE 131
+
+				;跳蛋
+				CASE 21
+
+				;神秘珍宝
+				CASE 606, 609, 643
+
+				;木材
+				CASE 610
+
+				;青蛙
+				CASE 706
+
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+
+				;守矢之守札
+				CASE 131
+
+				;跳蛋
+				CASE 21
+
+				;神秘珍宝
+				CASE 606, 609, 643
+
+				;木材
+				CASE 610
+
+				;青蛙
+				CASE 706
+
+			ENDSELECT
+		ENDIF
+	;-------------------------------------------------
+	ELSEIF TALENT:思慕
+	;-------------------------------------------------
+		IF TFLAG:194 > 1000
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+
+				;守矢之守札
+				CASE 131
+
+				;跳蛋
+				CASE 21
+
+				;神秘珍宝
+				CASE 606, 609, 643
+
+				;木材
+				CASE 610
+
+				;青蛙
+				CASE 706
+
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+
+				;守矢之守札
+				CASE 131
+
+				;跳蛋
+				CASE 21
+
+				;神秘珍宝
+				CASE 606, 609, 643
+
+				;木材
+				CASE 610
+
+				;青蛙
+				CASE 706
+
+			ENDSELECT
+		ENDIF
+	;-------------------------------------------------
+	ELSEIF ABL:9 > 2
+	;-------------------------------------------------
+		SIF RAND:3 == 0
+			GOTO GENERAL_FISH
+		IF TFLAG:194 > 1000
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+				PRINTFORML	「诶——怎么会这样！？」
+				PRINTFORML	「再来、我要再钓一次」
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+				PRINTFORML	「好小一条啊……就不能来点大家伙吗」
+				PRINTFORML	可怜的小鱼被当作垃圾一样随手丢进了鱼篓里面
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+				PRINTFORML	「噢噢噢！这种感觉——！」
+				PRINTFORML	「果然是一条大鱼呢、哼哼~不愧是我」
+				PRINTFORML	「%TEXTR("带回去给咲夜吧，一定会非常好吃的！/红魔馆正好缺一个放鱼缸的地方")%」
+				;守矢之守札
+				CASE 131
+				PRINTFORML	「为什么会在水里也能钓到这东西啊！？」
+				PRINTFORML	「那帮家伙真的为了宣传什么事情都干得出来呢……」
+				;跳蛋
+				CASE 21
+				PRINTFORML	「唔！？」
+				PRINTFORML	对于自己一不小心钓上来的神秘物品、蕾米莉亚罕见地露出了慌张的神色
+				PRINTFORML	「什、什么都没有！」
+				PRINTFORML	似乎在极力掩饰着……
+				;神秘珍宝
+				CASE 606, 609, 643
+				PRINTFORML	「这好像是……%ITEMNAME:(TFLAG:193)%？」
+				IF TALENT:15 == 1
+					PRINTFORML	「哼哼、以后它就是红魔馆的珍宝了！」
+					PRINTFORML	「我要把这个%ITEMNAME:(TFLAG:193)%放在展览台上、让每一个来到红魔馆的人都看看这是我蕾米莉亚钓上来的东西！」
+					PRINTFORML	似乎兴致很高呢
+				ELSE
+					PRINTFORML	「倒是一个稀罕东西呢、不知道帕琪会不会感兴趣一点，等下带回去给她看看吧」
+				ENDIF
+				;木材
+				CASE 610
+				PRINTFORML	「鱼线也会钩到木头上面啊……」
+				PRINTFORML	「嘛、不过这种事情也不少见就是了」
+				;青蛙
+				CASE 706
+				PRINTFORML	「啧……钓了这玩意儿上来么」
+				PRINTFORML	蕾米莉亚一点也没有掩饰自己厌恶的情绪
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+				PRINTFORML	「钓鱼还是讲究的耐心...」
+				PRINTFORML	「下次再试试吧」
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+				PRINTFORML	「虽说只是一条小鱼、但至少还有所收获」
+				PRINTFORML	「人类、你会把希望寄托于下一次吗？」
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+				IF RAND:2 != 0
+				PRINTFORML	「这条鱼是%FISH_NAME(TFLAG:193)%，这可是水里的大家伙、用来做饭一定会很好吃的唷」
+				PRINTFORML	「既然是仆从钓上来的、那就随你处置吧，清蒸、红烧都可以」
+				ELSE
+				PRINTFORML	「竟然真的钓上来了吗……」
+				PRINTFORML	「仆从偶尔也有强运的时候呢、要不要趁着这个机会再多钓几条？」
+				ENDIF
+				;守矢之守札
+				CASE 131
+				PRINTFORML	「唉、那些家伙……」
+				PRINTFORML	「从水里钓出这个的次数可不少了吧！？」
+				PRINTFORML	「她们到底投放了多少进去啊！」
+				;跳蛋
+				CASE 21
+				PRINTFORML	「唔……这个东西……」
+				PRINTFORML	「你还是留着自己用吧」
+				PRINTFORML	蕾米莉亚别过头去、仿佛没看见过你钓上来什么东西一样
+				;神秘珍宝
+				CASE 606, 609, 643
+				PRINTFORML	「这个东西……好像是%ITEMNAME:(TFLAG:193)%，这可是一个稀有的宝贝」
+				PRINTFORML	「也就是说、你的运气不错唷」
+				;木材
+				CASE 610
+				PRINTFORML	「嘛、偶尔也会出现这种情况呢……」
+				PRINTFORML	「这也是命运中的一环，说不定下次你就会出大鱼呢」
+				;青蛙
+				CASE 706
+				PRINTFORML	「啧……别拿着这东西靠近我！」
+				PRINTFORML	「下次再钓上来这种东西就不要给我看了」
+			ENDSELECT
+		ENDIF
+	;-------------------------------------------------
+	ELSE
+	$GENERAL_FISH
+	;-------------------------------------------------
+		IF TFLAG:194 > 1000
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+				PRINTFORML	「咳、小小的失误罢了」
+				PRINTFORML	蕾米莉亚故作镇定地说道
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+				PRINTFORML	「总比什么都没有强」
+				PRINTFORML	听起来就像是在自我安慰的样子
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+				PRINTFORML	「啊啦~钓上来了一个大家伙」
+				PRINTFORML	「不、不好、这家伙挣扎得有点厉害、」
+				PRINTFORML	「可别以为...这样就能从我蕾米莉亚的手中逃走！」
+				;守矢之守札
+				CASE 131
+				PRINTFORML	「啧...这也是命运么」
+				;跳蛋
+				CASE 21
+				PRINTFORMW	「……」
+				PRINTFORML	看到钓上来的是什么东西之后、蕾米莉亚的脸都黑了下来
+				PRINTFORML	你感觉气氛开始变得压抑了
+				PRINTFORML	「唉、就当没有看到吧」
+				;神秘珍宝
+				CASE 606, 609, 643
+				PRINTFORML	「这好像是……%ITEMNAME:(TFLAG:193)%？」
+				PRINTFORML	「哼哼、以后它就是红魔馆的珍宝了！」
+				;木材
+				CASE 610
+				PRINTFORML	「我说怎么手感这么沉呢……原来是这东西啊……」
+				PRINTFORML	听起来很失望的样子
+				;青蛙
+				CASE 706
+				PRINTFORML	「还不如钓块木头上来呢……」
+				PRINTFORML	蕾米莉亚就差把“嫌弃”二字写在脸上了
+			ENDSELECT
+		ELSE
+			SELECTCASE TFLAG:193
+				;啥也没钓上来
+				CASE 0
+					SELECTCASE RAND : 2
+						CASE 0
+						PRINTFORML	「意料之内……」
+						CASE 1
+						PRINTFORML	「嘁——」
+						PRINTFORML	听到了某人的嘲笑声
+					ENDSELECT
+				;魚
+				CASE 1 TO 8, 10 TO 20, 22, 25, 26, 27, 29
+					SELECTCASE RAND : 2
+						CASE 0
+							PRINTFORML	「鱼，但是看起来就很普通的样子……」
+							PRINTFORML	蕾米莉亚在一旁给出了一般般的评价
+						CASE 1
+							PRINTFORML	「这一次也没有得到命运的眷顾啊……」
+					ENDSELECT
+				;m级别大鱼
+				CASE 9, 23, 24, 28, 30, 31
+				PRINTFORML	「喔——是个大家伙呢」
+				PRINTFORML	「快拿稳咯、可别让它给逃了！」
+				PRINTFORML	「是带回去做来吃呢……还是养着当作观赏鱼呢……」
+				PRINTFORML	蕾米莉亚自顾自地就开始决定起这条鱼的命运了
+				;守矢之守札
+				CASE 131
+				PRINTFORML	「这个东西也会在这种地方出现啊……」
+				;跳蛋
+				CASE 21
+				PRINTFORML	「嗯？你刚才钓上来什么东西吗？怎么你看起来鬼鬼祟祟的样子」
+				PRINTFORML	「快拿出来给我看看、」
+				PRINTFORML	「『唯独这个不可以』，这不就让我更好奇了吗！？」
+				;神秘珍宝
+				CASE 606, 609, 643
+				PRINTFORML	「这个东西……」
+				PRINTFORML	「%TEXTR("看上去就很珍贵啊/竟然连我都没有见过/好像在哪里见过，似乎是相当贵重的玩意儿")%，看来你也是被命运眷顾了」
+				;木材
+				CASE 610
+				PRINTFORML	「呵……」
+				PRINTFORML	从身旁投来了怜悯的视线
+				;青蛙
+				CASE 706
+				PRINTFORML	「这种东西快拿开啊」
+				PRINTFORML	蕾米莉亚毫不掩饰心中的厌恶
+			ENDSELECT
+		ENDIF
+	ENDIF
+	PRINTDW
+ENDIF
+RETURN 1
+;==================================================
+;626,土産屋
+;TFLAG:194(行動結果(-2=被赶出来了 -1=并没有买礼物 1=400点未満（BAD） 2=～699点（NOMAL） 3=700点以上（GOOD）
+;CFLAG:性格傾向会导致地文的分歧
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_626
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_626
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_626_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_626_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SELECTCASE TFLAG:194
+		;ひやかし
+		CASE -2
+		
+		;やっぱりやめる（見送り）
+		CASE -1
+		
+		;400点未満（BAD）
+		CASE 1
+		
+		;400点～699点（NOMAL）
+		CASE 2
+		
+		;700点以上（GOOD）
+		CASE 3
+		
+	ENDSELECT
+ENDIF
+RETURN 1
+;==================================================
+;660,読書
+;TFLAG:193(选择文学书(1=神秘武术(文学？) 2=失敗 3=文学),选择実用書(4=失敗 5=実用書),选择小黄书(6=小薄本 7=保健体育 8=欲望涌上来了))
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_660
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_660
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_660_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_660_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;698,進入房間
+;仅在外出期间进入TARGET的房间时显示
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_698
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_698
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_698_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_698_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;699,外出
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_699
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_699
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_699_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_699_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+;※※※※※※※※※※※※※※※※※※※※※※※※※
+;派生指令
+;※※※※※※※※※※※※※※※※※※※※※※※※※
+;==================================================
+;60,掏耳朵
+;先索求膝枕，後身体接触，身体接触会变成这个，是TARGET给MASTER掏耳朵
+;TFLAG:193(1=大成功 0=成功 -1=失敗)(失敗するのはTARGET
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_SCOM_K16_60
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_SCOM_K16_60
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_60
+CALL M_KOJO_緋色之诗_MESSAGE_SCOM_K16_60_1
+RETURN RESULT
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_60_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;61,抱枕
+;(TARGET睡眠時間or衰弱)陪睡时、前拥抱，後就寝，会让就寝变成这个
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_SCOM_K16_61
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_61
+CALL M_KOJO_緋色之诗_MESSAGE_SCOM_K16_61_1
+RETURN RESULT
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_61_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;62,亲額頭
+;前摸头，後接吻，会让接吻变成这个
+;TFLAG:193(1=大成功 0=成功 -1=失敗)(没有地文分歧
+;ABL:欲望(5以上=欲求不满的眼神
+;ABL:親密(5以上=脸变得通红
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_SCOM_K16_62
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_SCOM_K16_62
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_62
+CALL M_KOJO_緋色之诗_MESSAGE_SCOM_K16_62_1
+RETURN RESULT
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_62_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+;==================================================
+;63,更多的接吻
+;连续接吻，第二次会变成更多的接吻
+;由于条件很复杂，需要参考ERB\口上・メッセージ関連\EVENT_MESSAGE_COM500.ERB
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_SCOM_K16_63
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_SCOM_K16_63
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_63
+CALL M_KOJO_緋色之诗_MESSAGE_SCOM_K16_63_1
+RETURN RESULT
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_63_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	IF FLAG:70
+	ELSE
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;80,拉手
+;约会出发后道中时，牵手后会让牵手变成拉手
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@M_KOJO_緋色之诗_SUCCESS_SCOM_K16_80
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_SCOM_K16_80
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_80
+CALL M_KOJO_緋色之诗_MESSAGE_SCOM_K16_80_1
+RETURN RESULT
+@M_KOJO_緋色之诗_MESSAGE_SCOM_K16_80_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+
+ENDIF
+RETURN 1
+
+
+

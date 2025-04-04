@@ -1,0 +1,669 @@
+﻿;--------------------------------------------------------
+;When I want to have BREAKENG applied on the text without moving the entire text into LOCALS first
+;First we need to prepare the text by removing line breaks from PRINT instruction
+;use this regex PRINT(|FORM)(L|W) (.*) and replace with PRINTFORM $3
+;all line breaks will be replaced with <br>, additional line breaks can be inserted the same way
+;if there's any kind of WAIT in the text, use that line as the last one and then put WAIT after this function
+;colored text is not supported
+;--------------------------------------------------------
+@PRINT_BREAK(ARGS = "\n", ARGS:1)
+#DIMS DYNAMIC PARTS, 100
+#DIMS DYNAMIC strFlag, 100
+#DIM DYNAMIC nLength
+LOCALS '= HTML_TOPLAINTEXT(HTML_POPPRINTINGSTR())
+SPLIT LOCALS, "<br>", PARTS
+
+FOR LOCAL, 0, RESULT
+	SIF STRLENS(PARTS:LOCAL) == 0
+		CONTINUE
+		
+	VARSET nLength
+	;process the flags
+	IF STRCOUNT(PARTS:LOCAL, "<wait>")
+		PARTS:LOCAL '= REPLACE(PARTS:LOCAL, "<wait>", "")
+		strFlag:LOCAL = wait:
+	ENDIF
+	IF STRCOUNT(PARTS:LOCAL, "<right>")
+		PARTS:LOCAL '= REPLACE(PARTS:LOCAL, "<right>", "")
+		ALIGNMENT RIGHT
+	ENDIF
+	;cut a little shorter if there are double-width characters, add on demand
+	SIF STRCOUNT(PARTS:LOCAL, "↓|♪")
+		nLength = MAXWIDTH()-10
+	SIF SPLIT_CHECK(ARGS:1, "br") && LOCAL == 0 ;break line at the beginning
+		PRINTL
+	IF SPLIT_CHECK(ARGS:1, "dc")
+		PRINTSDL BREAKENG(PARTS:LOCAL, , ARGS, nLength)
+	ELSEIF SPLIT_CHECK(ARGS:1, "d")
+		CALL PRINT_DIALOGUE(PARTS:LOCAL)
+	ELSEIF SPLIT_CHECK(ARGS:1, "noLB")
+		PRINTS BREAKENG(PARTS:LOCAL, , ARGS, nLength)
+	ELSE
+		PRINTSL BREAKENG(PARTS:LOCAL, , ARGS, nLength)
+	ENDIF
+	ALIGNMENT LEFT
+	IF SPLIT_CHECK(strFlag:LOCAL, "wait")
+		WAIT
+	ENDIF
+NEXT
+
+SIF SPLIT_CHECK(ARGS:1, "wait") && STRLENS(PARTS:0)
+	WAIT
+
+;--------------------------------------------------------
+;returns a specified part of a split string
+;--------------------------------------------------------
+@SPLIT_SINGLE(ARGS:0, ARG:0 = 0, ARGS:1 = ":")
+#FUNCTIONS
+#DIMS DYNAMIC strSplit, 30
+
+LOCAL = RESULT
+
+SPLIT ARGS:0, ARGS:1, strSplit
+
+RESULT = LOCAL
+
+RETURNF strSplit:(ARG:0)
+
+;--------------------------------------------------------
+;modified the function in STR_BODY to be less restrictive (string:string:string, matching string, matching string, etc)
+;works similarly to GROUPMATCH, but with : split strings
+;--------------------------------------------------------
+@SPLIT_CHECK(ARGS:0, ARGS:1 = "NULL", ARGS:2 = "NULL", ARGS:3 = "NULL", ARGS:4 = "NULL", ARGS:5 = "NULL", ARGS:6 = "NULL", ARGS:7 = "NULL", ARGS:8 = "NULL", ARGS:9 = "NULL")
+#FUNCTION
+
+RETURNF STRCOUNT(ARGS:0, "(^|:)(" + ARGS:1 + "|" + ARGS:2 + "|" + ARGS:3 + "|" + ARGS:4 + "|" + ARGS:5 + "|" + ARGS:6 + "|" + ARGS:7 + "|" + ARGS:8 + "|" + ARGS:9 + ")($|:)")
+
+;customize the splitter
+@SPLIT_CHECK_C(ARGS:0, ARGS:1 = ":", ARGS:2 = "NULL", ARGS:3 = "NULL", ARGS:4 = "NULL", ARGS:5 = "NULL", ARGS:6 = "NULL", ARGS:7 = "NULL", ARGS:8 = "NULL", ARGS:9 = "NULL", ARGS:10 = "NULL")
+#FUNCTION
+
+RETURNF STRCOUNT(ARGS:0, "(^|" + "\\" + ARGS:1 + ")(" + ARGS:2 + "|" + ARGS:3 + "|" + ARGS:4 + "|" + ARGS:5 + "|" + ARGS:6 + "|" + ARGS:7 + "|" + ARGS:8 + "|" + ARGS:9 + "|" + ARGS:10 + ")($|" + "\\" + ARGS:1 + ")")
+
+;--------------------------------------------------------
+;simply continue last letter of the word
+;use ARG to set the size, 0 - random, -1 - disable slur, -2 - slur the vowels, -3 slur last vowel
+;--------------------------------------------------------
+@SLUR(ARGS, ARG)
+#FUNCTIONS
+#DIM nRand
+ARGS:0 '= SPLIT_G(ARGS:0, ":")
+nRand = RAND(2, 6)
+
+SIF ARG == -1 ;multiply none
+	RETURNF ARGS
+SIF ARG == -2 ;multiply every vowel
+	RETURNF replace(ARGS,"(?i)([aeiouy])?", "$1"*nRand)
+SIF ARG == -3 ;multiply only last vowel with negative lookahead
+	RETURNF replace(ARGS,"(?i)([aeiouy])(?!.*[aeiouy])", "$1"*nRand)
+SIF ARG == -4 ;multiply only first vowel
+	RETURNF replace(ARGS,"^(.*?)([aeiouy])", "$1" + "$2"*nRand)
+;multiply any last character
+RETURNF ARGS + SUBSTRING(ARGS, STRLENS(ARGS)-1, -1) * ( ARG > 0 ? ARG # nRand )
+
+@COUNT_CORRECT(ARG = 0, ARG:1 = 0, ARG:2 = 0, ARG:3 = 0, ARG:4 = 0, ARG:5 = 0, ARG:6 = 0)
+#FUNCTION
+LOCAL = 0
+FOR LOCAL:1, 0, 7
+	SIF ARG:(LOCAL:1)
+		LOCAL ++
+NEXT
+RETURNF LOCAL
+
+;FileName_COMMON.ERB ------------------------------- Rev1.01
+;TARGET性格強度判定
+;CALL		USER
+;ARG		ターゲットNO
+;RETURN		性格強度（＋強気, －弱気）
+;COMMENT	+3以上で強気、-1以下で弱気くらいかな
+;-----------------------------------------------------------
+@CHARA_DISPOS(T_NO)
+#FUNCTION
+#DIM T_NO
+LOCAL = 0
+FOR LOCAL:1,10,30
+	SIF TALENT:T_NO:(LOCAL:1) == 0
+		CONTINUE
+	SELECTCASE LOCAL:1
+		;Skip
+		CASE 20,25
+			;Do Nothing
+		;Boolean_Talent_True
+		CASE 26
+			LOCAL += TALENT:T_NO:(LOCAL:1)
+		;Boolean_Talent_False
+		CASE 21,22
+			LOCAL -= TALENT:T_NO:(LOCAL:1)
+		;Else_Talent
+		CASEELSE
+			LOCAL += TALENT:T_NO:(LOCAL:1)
+	ENDSELECT
+NEXT
+RETURNF LOCAL
+
+;-------------------------------------------------
+;check if character ARG:0 has childish properties
+;by default check both mind and body, where mind is just an infantile and body is just a midget (perfectly legal officer I swear on me mum)
+;-------------------------------------------------
+@IS_CHILD(ARG:0, ARGS:0)
+#FUNCTION
+SELECTCASE ARGS
+	CASE "age"
+		RETURNF TALENT:(ARG:0):年齢 < 0
+	CASE "mind"
+		RETURNF TALENT:(ARG:0):幼稚
+	CASE "body"
+		RETURNF GROUPMATCH(TALENT:(ARG:0):体型, -1, -2)
+CASEELSE
+	RETURNF (TALENT:(ARG:0):年齢 < 0 || (TALENT:(ARG:0):幼稚 && TALENT:(ARG:0):年齢 < 1)) && GROUPMATCH(TALENT:(ARG:0):体型, -1, -2)
+ENDSELECT
+
+@IS_SPERMARCHE(ARG)
+#FUNCTION
+RETURNF HAS_PENIS(ARG) && ( !IS_CHILD(ARG) || (IS_CHILD(ARG) && !IS_DOUTEI(ARG)) )
+
+;A more complete semen description
+;Does not work when the player is completely alone, has to have two characters as input
+;ARG - whose semen it is
+;ARG:1 - who the "target" is
+@SAMEN_DESCRIPTION_FULL(ARG,ARG:1)
+#FUNCTIONS
+VARSET LOCALS
+
+@PLURAL_PANTIES(ARGS)
+#FUNCTION
+RETURNF STRCOUNT(TOLOWER(ARGS), "bloomers|boxers|trunks|panties|scanties|drawers|spats|underpants|knickers")
+
+
+@FIX_DIALOGUE_STATUS
+FOR LOCAL, 0, CHARANUM
+	;edit - reset faulty dialogue switchers only (coming from old saves most likely)
+
+	;don't bother if the value is not tampered with
+	SIF !CFLAG:LOCAL:口上セレクタ
+		CONTINUE
+	;check if the main dialogue still works with it
+	TRYCCALLFORM M_KOJO_K{LOCAL}_{CFLAG:LOCAL:口上セレクタ}
+		SIF !RESULT
+			CFLAG:LOCAL:口上セレクタ = 0
+	CATCH
+		CFLAG:LOCAL:口上セレクタ = 0
+	ENDCATCH
+NEXT
+
+
+@CHARASORT_EX_TR
+#FUNCTION
+;the only issue here is that th98 characters start from range 201+, but it doesn't seem to be a big deal here?
+;reminder to update this list whenever new characters are added!!!
+VARSET RESULT, -1 ;set to -1 to include player character in the list
+{
+RESULT = MASTER,
+[[霊夢]], [[魔理沙]],
+[[露米亜]], [[大妖精]], [[琪露諾]], [[美鈴]], [[小悪魔]], [[帕秋莉]], [[咲夜]], [[蕾米莉亜]], [[芙兰]],
+[[蕾蒂]], [[橙]], [[愛麗絲]], [[莉莉Ｗ]], [[莉莉Ｂ]], [[莉莉喀]], [[梅露蘭]], [[露娜薩]], [[妖夢]], [[幽幽子]], [[藍]], [[紫]],
+[[萃香]],
+[[莉格露]], [[米斯蒂亜]], [[慧音]], [[帝]], [[鈴仙]], [[永琳]], [[輝夜]], [[妹紅]],
+[[文]], [[梅蒂欣]], [[幽香]], [[小町]], [[映姫]],
+[[静葉]], [[穣子]], [[雛]], [[荷取]], [[椛]], [[早苗]], [[神奈子]], [[諏訪子]],
+[[桑尼]], [[露娜]], [[斯塔]],
+[[阿求]],
+[[蓮子]], [[梅莉]],
+[[衣玖]], [[天子]],
+[[豊姫]], [[依姫]], [[鈴仙二號]],
+[[琪斯美]], [[山女]], [[帕露西]], [[勇儀]], [[覚]], [[阿燐]], [[阿空]], [[恋]],
+[[朱鷺子]],
+[[納茲琳]], [[小傘]], [[一輪]], [[村紗]], [[星]], [[白蓮]], [[鵺]],
+[[極]],
+[[華扇]],
+[[響子]], [[芳香]], [[青娥]], [[屠自古]], [[布都]], [[神子]], [[猯藏]],
+[[小鈴]], [[心]],
+[[若鷺姫]], [[蛮奇]], [[影狼]], [[弁弁]], [[八橋]], [[正邪]], [[針妙丸]], [[雷鼓]],
+[[菫子]], [[清蘭]], [[鈴瑚]], [[哆来咪]], [[探女]], [[克勞恩皮絲]], [[純狐]], [[赫喀提亞]],
+[[拉瓦爾]], [[合歡乃]], [[阿吽]], [[成美]], [[舞]], [[里乃]], [[隠岐奈]],
+[[女苑]], [[紫苑]],
+[[影華扇]],
+[[瓔花]], [[潤美]], [[久侘歌]], [[八千慧]], [[磨弓]], [[袿姫]], [[早鬼]], [[美宵]],
+[[尤魔]],
+[[美天]], [[慧ノ子]], [[ちやり]], [[日狭美]], [[残無]],
+[[ユウゲンマガン]], [[エリス]], [[サリエル]], [[魅魔]], [[キクリ]], [[コンガラ]],
+[[里香]], [[明羅]],
+[[艾倫]], [[小兎姫]], [[喀娜]], [[理香子]], [[千百合]], [[夢美]], [[留琴]],
+[[オレンジ]], [[胡桃]], [[艾麗]], [[夢月]], [[幻月]],
+[[サラ]], [[露易茲]], [[雪]], [[​舞​]], [[夢子]], [[神綺]],
+[[路人子]]
+}
+
+;prints text in a box, similarly to omikuji and moriya blanks, to simulate a letter
+;the box is always white, but the text uses the currently set color, allowing it to match a character's text color
+;LINES=the text to be uses, with the lines separated by a /
+;MINWIDTH=the minimum internal width of the box, in double-width characters
+;MAXWIDTH=the maximum width of the box. any lines bigger than this will automatically be split up into separate lines with BREAKENG
+;CENTERED=if 0, lines will be aligned left, if 1, lines will be centered
+@PRINT_LETTER(LINES, MINWIDTH = 10, MAXWIDTH = -1, CENTERED = 0)
+#DIMS LINES
+#DIM  MINWIDTH
+#DIM  MAXWIDTH
+#DIM  CENTERED
+#DIMS LINES_SPLIT, 20
+#DIM  LINE_COUNT_MISC
+#DIM DYNAMIC LINE_WIDTH
+
+SIF !STRLENS(LINES)
+    RETURN
+SIF MAXWIDTH < 0
+	MAXWIDTH = MAXWIDTH() / 2 - 2
+
+SPLIT LINES, "/", LINES_SPLIT
+LINE_COUNT_MISC = RESULT
+FOR LOCAL, 0, LINE_COUNT_MISC
+    LINE_WIDTH = MAX(LINE_WIDTH, STRLENS(LINES_SPLIT:LOCAL))
+NEXT
+;adjust to double-width characters
+SIF LINE_WIDTH % 2 == 1
+    LINE_WIDTH++
+LINE_WIDTH /= 2
+LINE_WIDTH = LIMIT(LINE_WIDTH, MINWIDTH, MAXWIDTH)
+
+PRINTFORMDL ┌%"─"*LINE_WIDTH%┐
+
+FOR LOCAL, 0, LINE_COUNT_MISC
+    LOCALS '= BREAKENG(LINES_SPLIT:LOCAL,,,LINE_WIDTH*2)
+	DEBUGPRINTFORML CONTENTS = "%LOCALS%"
+    LOCAL:1 = 0
+    WHILE STRFIND(LOCALS, "\n", LOCAL:1) >= 0
+        LOCAL:2 = STRFIND(LOCALS, "\n", LOCAL:1)
+        CALL PRINT_LETTER_LINE(SUBSTRING(LOCALS, LOCAL:1, LOCAL:2 - LOCAL:1), LINE_WIDTH, CENTERED)
+        LOCAL:1 = LOCAL:2 + 1
+    WEND
+    CALL PRINT_LETTER_LINE(SUBSTRING(LOCALS, LOCAL:1), LINE_WIDTH, CENTERED)
+NEXT
+
+PRINTFORMDL └%"─"*LINE_WIDTH%┘
+
+@PRINT_LETTER_LINE(LINE, LINE_WIDTH, CENTERED)
+#DIMS LINE
+#DIM  LINE_WIDTH
+#DIM  CENTERED
+#DIM  BLANK_SPACES
+#DIM  TEXT_LENGTH
+
+TEXT_LENGTH = STRLENS(LINE)
+BLANK_SPACES = LINE_WIDTH - ((TEXT_LENGTH + (TEXT_LENGTH % 2)) / 2)
+BLANK_SPACES = MAX(BLANK_SPACES, 0)
+
+PRINTFORMD ｜
+IF CENTERED
+	PRINTFORM %"　"*(BLANK_SPACES / 2)%%COND_STR(" ", TEXT_LENGTH % 2 == 1)%%LINE%%"　"*(BLANK_SPACES - (BLANK_SPACES / 2))%
+ELSE
+	PRINTFORM %LINE%%COND_STR(" ", TEXT_LENGTH % 2 == 1)%%"　"*BLANK_SPACES%
+ENDIF
+
+PRINTFORMDL ｜
+
+;note - needs WAIT for W effect
+;modified from COM616_EIRINSPEAK
+@CUTSCENESPEAK(ARGS, ARGS:1 = "通常", ARG, ARG:1 = 1)
+SIF ARGS:1 == "smile"
+	ARGS:1 '= "笑顔"
+SIF ARGS:1 == "blush"
+	ARGS:1 '= "発情"
+SIF ARGS:1 == "anger"
+	ARGS:1 '= "憤怒"
+SIF ARGS:1 == "surprise"
+	ARGS:1 '= "驚き"
+DEBUGPRINTFORML Calling SPTALK with args {ARG}, %ARGS:1%, 1, %ARGS%, 1
+CALL SPTALK, ARG, ARGS:1, 1, ARGS, 1
+SIF ARG:1 == 1
+	WAIT
+
+;some font names need double checking
+@CHKFONTNAME(ARGS)
+#FUNCTIONS
+#DIMS strProbFontName = "ＭＳ Ｐゴシック", "ＭＳ ゴシック", "メイリオ", "ＭＳ Ｐ明朝"
+#DIMS strFixedFontName = "MS PGothic", "MS Gothic", "Meiryo", "MS PMincho"
+FOR LOCAL, 0, VARSIZE("strProbFontName")
+	IF ARGS == strProbFontName:LOCAL && !CHKFONT(ARGS)
+		SIF CHKFONT(strFixedFontName:LOCAL);return fixed name if it works, otherwise just give up and return the original
+			RETURNF strFixedFontName:LOCAL
+	ENDIF
+NEXT
+
+RETURNF ARGS
+
+;returns the name for the dish with the specified id without affecting the existing values for held food
+@FOOD_NAME(DISH_NUM)
+#DIM DISH_NUM
+#DIMS TEMP_DISH_NAME
+#DIMS TEMP_DISH_TASTE
+#DIMS TEMP_DISH_COMMENT
+#DIM TEMP_DISH_ING,11
+#DIM TEMP_DISH_TIME
+#DIM TEMP_DISH_MAXLIMIT
+
+;temporarily store currently held data so we can use DISHDATA to retrieve the name
+TEMP_DISH_NAME '= DISH_NAME
+TEMP_DISH_TASTE '= DISH_TASTE
+TEMP_DISH_COMMENT '= DISH_COMMENT
+ARRAYCOPY "DISH_ING", "TEMP_DISH_ING"
+TEMP_DISH_TIME = DISH_TIME
+TEMP_DISH_MAXLIMIT = DISH_MAXLIMIT
+
+CALL DISHDATA(DISH_NUM)
+RESULTS '= DISH_NAME
+
+;reset values to previous
+DISH_NAME '= TEMP_DISH_NAME
+DISH_TASTE '= TEMP_DISH_TASTE
+DISH_COMMENT '= TEMP_DISH_COMMENT
+ARRAYCOPY "TEMP_DISH_ING", "DISH_ING"
+DISH_TIME = TEMP_DISH_TIME
+DISH_MAXLIMIT = TEMP_DISH_MAXLIMIT
+
+;generic version of K30_FIND_AROUND
+;Returns a random person at this location, prioritizing lovers and acquintances if desired 
+;ACQUAINTANCES: passes a list of priority characters
+;OPTION: 0 to prioritize lovers then acquaintances then everyone else, 1 to not prioritize anyone
+;		, 2 to prioritize lovers, but not acquaintances, 3 to prioritize acquaintances but not lovers
+;RANDOM_ACQUAINTANCE: if 0, acquaintances are prioritized as they are listed, if 1, a random acquaintance is picked
+@FIND_AROUND(ACQUAINTANCES, MODE = 0, RANDOM_ACQUAINTANCE = 0)
+#FUNCTION
+#DIM TARGETNUM
+#DIM DYNAMIC VALID_CHARA_COUNT
+#DIM REF ACQUAINTANCES
+#DIM MODE
+#DIM DYNAMIC SEARCH_MODE ;0=randoms, 1=acquiantances, 2=lovers
+#DIM CHARA
+#DIM RANDOM_ACQUAINTANCE
+#LOCALSIZE 人物数量上限
+VARSET LOCAL
+TARGETNUM = GET_TARGETNUM() 
+;部屋に映姫様一人なら当然0
+SIF TARGETNUM == 1
+	RETURNF 0
+
+FOR COUNT,1, TARGETNUM + 1
+	CHARA = TARGET:COUNT
+	;地獄の断頭台withジェロニモ状態を防ぐため口上主はスキップ
+	SIF CHARA == TARGET
+		CONTINUE
+
+	IF GROUPMATCH(MODE, 0, 2) ;lovers first
+		IF TALENT:CHARA:恋人
+			IF SEARCH_MODE < 2 ;discard the old list, increase priority
+				VARSET LOCAL
+				VALID_CHARA_COUNT = 0
+				SEARCH_MODE = 2
+			ENDIF
+			LOCAL:(VALID_CHARA_COUNT++) = CHARA
+			CONTINUE
+		ELSEIF SEARCH_MODE == 2 ;only lovers allowed at this point, discard
+			CONTINUE
+		ENDIF
+	ENDIF
+
+	IF GROUPMATCH(MODE, 0, 3) ;acquaintances second
+		IF FINDELEMENT(ACQUAINTANCES, CHARA) >= 0
+			IF SEARCH_MODE < 1 ;discard the old list, increase priority
+				VARSET LOCAL
+				VALID_CHARA_COUNT = 0
+				SEARCH_MODE = 1
+			ENDIF
+			LOCAL:(VALID_CHARA_COUNT++) = CHARA
+			CONTINUE
+		ELSEIF SEARCH_MODE == 1 ;only acquiantances allowed at this point, discard
+			CONTINUE
+		ENDIF
+	ENDIF
+
+	;配列のカウントは別で取りながら代入
+	LOCAL:(VALID_CHARA_COUNT++) = CHARA
+NEXT
+
+;この条件でここまで来たのはなんでだろう
+;ともかくエラー出さないためにヨシ！
+SIF VALID_CHARA_COUNT < 1
+	RETURNF 0
+
+SIF SEARCH_MODE == 1 && !RANDOM_ACQUAINTANCE ;pick first in list
+	RETURNF LOCAL:0
+
+;prioritize date partner amongst lovers, if possible
+SIF SEARCH_MODE == 2 && FLAG:デート相手 && TALENT:(FLAG:デート相手):恋人
+	RETURNF FLAG:デート相手
+
+;抽選してIDを決定
+RETURNF LOCAL:(RAND(VALID_CHARA_COUNT))
+
+@PRINT_BREAK_HTML(MAX_LINE_WIDTH)
+#DIM  MAX_LINE_WIDTH
+#DIMS HTML_SOURCE_TEXT
+#DIMS DYNAMIC HTML_RESULT_TEXT
+#DIM  DYNAMIC CURRENT_POS
+#DIM  DYNAMIC LINE_POS
+#DIM  TEXT_LENGTH
+#DIMS HTML_SEGMENT
+#DIMS ACTUAL_SEGMENT
+#DIM  HTML_SEGMENT_LENGTH
+#DIM  ACTUAL_SEGMENT_LENGTH
+#DIM  SPACE_POS
+SIF !MAX_LINE_WIDTH
+	MAX_LINE_WIDTH = MAXWIDTH()-19
+
+HTML_SOURCE_TEXT '= HTML_POPPRINTINGSTR()
+; DEBUGPRINTFORML Raw HTML line:
+; DEBUGPRINTFORML %HTML_SOURCE_TEXT%
+
+HTML_SOURCE_TEXT '= REPLACE(HTML_SOURCE_TEXT, "<br>", "") ;remove existing line breaks
+;STRFIND does not use REGEX, so we instead replace all target spaces with ␝ and work with that
+;this could probably be optimized with good use of REGEXPMATCH
+HTML_SOURCE_TEXT '= REPLACE(HTML_SOURCE_TEXT, " +(?![^<]*\>)", "␝")
+TEXT_LENGTH = STRLENS(HTML_SOURCE_TEXT)
+
+WHILE CURRENT_POS < TEXT_LENGTH
+	SPACE_POS = STRFIND(HTML_SOURCE_TEXT, "␝", CURRENT_POS)
+	IF SPACE_POS < 0
+		SPACE_POS = TEXT_LENGTH
+	ENDIF
+	HTML_SEGMENT_LENGTH = SPACE_POS + 1 - CURRENT_POS
+	HTML_SEGMENT '= SUBSTRING(HTML_SOURCE_TEXT, CURRENT_POS, HTML_SEGMENT_LENGTH)
+	ACTUAL_SEGMENT_LENGTH = STRLENS(HTML_TOPLAINTEXT(HTML_SEGMENT))
+
+	;if we ever get a segment that's too big to fit on one line, just throw it in there and start a new line
+	IF ACTUAL_SEGMENT_LENGTH > MAX_LINE_WIDTH
+		HTML_RESULT_TEXT += REPLACE(HTML_SEGMENT, "␝", "")
+		HTML_RESULT_TEXT += "<br>"
+		LINE_POS = 0
+		CURRENT_POS += HTML_SEGMENT_LENGTH
+		CONTINUE
+	ELSEIF LINE_POS + ACTUAL_SEGMENT_LENGTH > MAX_LINE_WIDTH
+		;new line
+		HTML_RESULT_TEXT += "<br>"
+		LINE_POS = 0
+	ENDIF
+	HTML_RESULT_TEXT += HTML_SEGMENT
+	LINE_POS += ACTUAL_SEGMENT_LENGTH
+	CURRENT_POS += HTML_SEGMENT_LENGTH
+WEND
+;restore spaces
+HTML_RESULT_TEXT '= REPLACE(HTML_RESULT_TEXT, "␝", " ")
+HTML_PRINT HTML_RESULT_TEXT
+
+;push player down, originally K41_PUSHDOWN
+@INSTANT_PUSHDOWN
+;挿入中は駄目
+TEQUIP:50 = -1
+TEQUIP:51 = -1
+;シャワー中はダメ
+TEQUIP:32 = 0
+;乳首吸い中はダメ
+TEQUIP:41 = 0
+;乳揉み中はダメ
+TEQUIP:42 = 0
+;継続キス
+TEQUIP:継続接吻 = 0
+CFLAG:MASTER:うふふ = 2
+TFLAG:COMABLE管理 = 3
+FOR LOCAL,1,GET_TARGETNUM() + 1
+	SIF TARGET:LOCAL <= 0
+		CONTINUE
+	SIF !SHIRAHU(TARGET:LOCAL)
+		CONTINUE
+	SIF GETBIT(FLAG:潜伏, 0) && !GETBIT(CFLAG:(TARGET:LOCAL):潜伏状態, 0) ;concealment, only apply to the target
+		CONTINUE
+	CFLAG:(TARGET:LOCAL):うふふ = 2
+NEXT
+TIME += 5
+
+;Originally K97_RUNOFF
+@RUNOFF(ARG, PASS_TIME = 1)
+#DIM PASS_TIME
+CFLAG:ARG:延迟 = 0
+CFLAG:ARG:行動 = 0
+BASE:ARG:工作量 = 0
+CFLAG:ARG:現在位置 = SUKIMA()
+CFLAG:ARG:拠点来訪 = 0
+CFLAG:ARG:同室 = 0
+IF FLAG:デート相手 == ARG
+	CFLAG:ARG:デート中 = -1
+	FLAG:デート相手 = 0
+ENDIF
+SIF PASS_TIME
+	TIME += 5
+CALL TARGETSET_CHACK
+
+; Like GIFT_DATE_EVENT, but without the date-specific text
+@GIFT_EVENT(CHARA)
+#DIM CHARA
+#DIM GIFT_ID
+#DIMS GIFT_NAME
+#DIM 渡した回数
+#DIM 点数
+#DIM 本人の評価点
+#DIMS GIFT_SENSE
+
+
+;点数は必要ないけど一応
+点数 = 0
+
+;贈り物生成
+CALL CREATE_GIFT_FROM_CHARA(CHARA, 701, 1000)
+GIFT_ID = RESULT
+GIFT_NAME = %RESULTS%
+GIFT_SENSE = %RESULTS:1%
+渡した回数 = GET_GIFTDATA(CFLAG:CHARA:送出的礼物, "回数") + 1
+本人の評価点 = RESULT:1
+;IDの設定
+GIFT_ID = 渡した回数 * 10000000000000000 + 点数 * 10000000000000 + DAY * 1000000000 + CFLAG:MASTER:デート中 * 10000000 + GIFT_ID
+GIFT_GAVE:CHARA:(渡した回数 % 100) = GIFT_ID
+CFLAG:CHARA:送出的礼物 = GIFT_ID
+CALL KOJO_MESSAGE_SEND("GIFT", 6, CHARA, GIFT_ID, 本人の評価点, GIFT_NAME, GIFT_SENSE)
+PRINTFORMW Received [%GIFT_NAME%] from %NAME_OUTPUT_TRANSLATION("CALLNAME", CHARA)%!
+
+;-------------------------------------------------
+;create written set of flags without magic numbers and FIRSTTIME abuse
+;original from SQ's CEVENT
+;@CEVENTはキャラクターごとの各種イベントの記録を参照する関数。経験済みなら１を、未経験なら０を返す
+;セットする時には@SET_CEVENTを用い、消去する際には@DEL_CEVENTを使う
+;記録にはcEventを使い、cEvent = イベント１/イベント２/ と"/"を用いて区切る
+;特殊なイベント群を作る際には、頭に"イベント名："とするのを推奨
+;また、記述と操作の都合により、全角の"："と"＾"、半角の"/"の使用は禁止
+;-------------------------------------------------
+@CEVENT(ARGS, ARG)
+#FUNCTION
+SIF ARG == 0 && TARGET
+	ARG = TARGET
+
+;ARGS = %ARGS%/
+
+;既にイベント経験済みかを調べる
+RETURNF SPLIT_CHECK_C(cEvent:ARG:0, "/", ARGS)
+
+@SET_CEVENT(ARGS, ARG)
+#FUNCTION
+SIF ARG == 0 && TARGET
+	ARG = TARGET
+
+;ARGS = %ARGS%/
+
+;経験済みなら追加せずに終了
+SIF SPLIT_CHECK_C(cEvent:ARG:0, "/", ARGS)
+	RETURNF 1
+
+;経験していないなら追加
+cEvent:ARG:0 = %cEvent:ARG:0%%ARGS%/
+
+@DEL_CEVENT(ARGS, ARG)
+#FUNCTION
+#DIMS DYNAMIC strTemp, 999 ;increase limit if needed
+#DIM nLoop
+SIF ARG == 0 && TARGET
+	ARG = TARGET
+
+;イベントごとに分解する
+SPLIT cEvent:ARG:0, "/", strTemp
+
+;一旦cEventを初期化
+cEvent:ARG:0 = 
+
+FOR nLoop, 0, VARSIZE("strTemp")
+	SIF strTemp:nLoop == ""
+		BREAK
+	;経験済みだった
+	SIF ARGS == strTemp:nLoop
+		CONTINUE
+
+	;経験していないなら戻す
+	cEvent:ARG:0 = %cEvent:ARG:0%%strTemp:nLoop%/
+NEXT
+
+@CLEAR_CEVENT(ARG)
+#FUNCTION
+cEvent:ARG:0 '= ""
+
+
+;create buttons
+;extra flags: onetime - show if the option can only be used once, even just viewing it, needs a flag in the following argument,
+;if using FIRSTTIME - make sure the non-activation flag is set for it or it'll trigger right there
+;-
+;status - show status of the setting (bool only), specify status in a split afterwards (eg: "status:Disabled:Enabled"); needs a flag in the following argument
+;cond - only accessible if the condition is true, needs a flag in the following argument
+@KOJO_OPTION_ITEM(ARGS, ARG = 1, strExtra, nFlag)
+#DIMS strExtra
+#DIM nFlag
+
+PRINTBUTTON @"[{ARG,2}] %ARGS%", ARG + 7000
+SIF SPLIT_CHECK(strExtra, "status")
+	PRINTFORM : \@ !nFlag ? %SPLIT_SINGLE(strExtra, 1)% # %SPLIT_SINGLE(strExtra, 2)% \@
+IF SPLIT_CHECK(strExtra, "onetime")
+	SETBIT KojoUpdateFlags:ARG, 0 ;set up a flag to let the input know
+	PRINTFORML
+	IF nFlag
+		CALL COLORMESSAGE("One-time option used. Character reset or NG+ is required to change it again.",C_YELLOW,0)
+		SETBIT KojoUpdateFlags:ARG, 1 ;option used
+	ELSE
+		CALL COLORMESSAGE("One-time option!",C_RED,0,1)
+	ENDIF
+ENDIF
+IF SPLIT_CHECK(strExtra, "cond") && !nFlag
+	SETBIT KojoUpdateFlags:ARG, 2 ;disable option
+	CALL COLORMESSAGE("　(Non-applicable)",C_GRAY)
+ENDIF
+PRINTFORML
+
+;----------------------------------------------------------------------
+;Checks if the strength of orgasm on one part is as strong or stronger than the threshold
+;ARG: Character to check
+;strengthNeed: Needed orgasm strength on any body part
+;----------------------------------------------------------------------
+@MIN_ORGASM_STRENGTH(ARG, strengthNeed)
+#FUNCTION
+#DIM strengthNeed
+#DIM isUnconscious
+;check all orgasm checks
+
+FOR LOCAL, 0, 4
+	SIF NOWEX:ARG:LOCAL >= strengthNeed
+		RETURNF 1
+NEXT
+RETURNF 0

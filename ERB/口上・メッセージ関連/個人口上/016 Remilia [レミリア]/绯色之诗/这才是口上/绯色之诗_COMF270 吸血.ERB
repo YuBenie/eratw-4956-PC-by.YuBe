@@ -1,0 +1,266 @@
+﻿;==================================================
+; TCVAR:350 吸血经验
+; TCVAR:351 吸血累计值
+; TCVAR:352 吸血不能
+;==================================================
+;==================================================
+;270,吸血
+;TFLAG:193(1=大成功 0=成功 -1=失敗)
+;==================================================
+@KOJO_緋色之诗_COM_NAME_K16_0
+    RESULTS = 吸血
+@KOJO_緋色之诗_COM_ABLE_K16_0
+;実行判定
+SIF !TFLAG:100
+	RETURN 0
+;一括管理
+; SIF GLOBAL_COMABLE(300)
+; 	RETURN RESULT
+;睡眠中
+SIF CFLAG:睡眠 && !CFLAG:陪睡中
+	RETURN 0
+;気力0
+SIF BASE:MASTER:気力 <= 0
+	RETURN 0
+;停止中は不可
+SIF FLAG:70
+	RETURN 0
+;非陷落不可
+SIF !TALENT:恋慕 || !TALENT:思慕
+	RETURN 0
+RETURN 1
+
+@KOJO_緋色之诗_COM_K16_0
+;-------------------------------------------------
+;-------------------------------------------------
+	;吸血超过阈值导致贫血禁止
+	IF TCVAR:352 
+		PRINTFORML 虽然想让%NAME_OUTPUT_TRANSLATION("CALLNAME", TARGET)%吸血，但是今天再吸血恐怕身体会吃不消
+		TIME += 10
+		IF CHK_DATENOW(CFLAG:TARGET:约会中)
+			DOWNBASE:体力 += 50
+			DOWNBASE:MASTER:体力 += 50
+			TFLAG:193 = -1
+		ELSE
+			DOWNBASE:体力 += 100
+			DOWNBASE:MASTER:体力 += 100
+			TFLAG:193 = -1
+		ENDIF
+		RETURN 1
+	ENDIF
+	IF MARK:反発刻印 >= 3
+		PRINTFORML %NAME_OUTPUT_TRANSLATION("CALLNAME", TARGET)%的眼神像是要把%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%吃了的样子
+		PRINTFORML 吸血……会死的吧？
+		SOURCE:反感 = 300
+		BASE:MASTER:気力 -= 100
+		RETURN -1
+	ENDIF
+
+	SELECTCASE TFLAG:192
+	;通常
+	CASE 0
+		LOCAL = RAND:100
+		LOCAL:1 = MIN(90 + GET_SUCCESS_RATE() / 5, 99)
+		;喝醉了的话不会大成功也不会失败
+		SIF TCVAR:烂醉
+			LOCAL = 50
+		IF LOCAL < 5
+			;7％大成功
+			TFLAG:193 = 1
+			TFLAG:98 = 1
+			EXP:MASTER:苦痛快楽経験 ++
+			EXP:TARGET:嗜虐快楽経験 ++
+			IF CHK_DATENOW(CFLAG:TARGET:约会中)
+				EXP:MASTER:約會経験 ++
+				EXP:TARGET:約會経験 ++
+			ENDIF
+		ELSEIF LOCAL >= LOCAL:1
+			;10～1％で失敗
+			TFLAG:193 = -1
+			TFLAG:98 = -1
+		ELSE
+			;普通成功
+			TFLAG:193 = 0
+			TFLAG:98 = 0
+		ENDIF
+	;強制成功or大成功
+	CASE 1
+		IF RAND:100 <= 7
+			TFLAG:193 = 1
+			TFLAG:98 = 1
+			EXP:MASTER:苦痛快楽経験 ++
+			EXP:TARGET:嗜虐快楽経験 ++
+			IF CHK_DATENOW(CFLAG:TARGET:约会中)
+				EXP:MASTER:約會経験 ++
+				EXP:TARGET:約會経験 ++
+			ENDIF
+		ELSE
+			TFLAG:193 = 0
+			TFLAG:98 = 0
+		ENDIF
+	;強制失敗
+	CASE -1
+		TFLAG:193 = -1
+		TFLAG:98 = -1
+	;指令終了
+	CASE -2
+		TFLAG:193 = -1
+		RETURN 0
+	ENDSELECT
+
+	;先发制人的时候不会失败
+	SIF TCVAR:20
+		TFLAG:193 = MAX(TFLAG:193,0)
+	IF CFLAG:TARGET:陪睡中
+		DOWNBASE:MASTER:体力 += 10
+		SOURCE:情愛 = 200
+	ELSE
+		DOWNBASE:体力 += 20
+		DOWNBASE:MASTER:体力 += 20
+	ENDIF
+
+	SIF ABL:MASTER:教養 < 3 && CFLAG:2 < 2000
+		TFLAG:193 = -2
+
+	;固定来源
+	SOURCE:歓楽 = 200
+
+	;ABL:親密をみる
+	IF ABL:親密 <= 1
+		SOURCE:歓楽 += (ABL:親密 * 30)
+	ELSEIF ABL:親密 <= 3
+		SOURCE:歓楽 += 200 + (ABL:親密 * 30)
+	ELSEIF ABL:親密 <= 5
+		SOURCE:歓楽 += 500 + (ABL:親密 * 30)
+	ELSEIF ABL:親密 <= 8
+		SOURCE:歓楽 += 750 + (ABL:親密 * 50)
+	ELSEIF ABL:親密 <= 10
+		SOURCE:歓楽 += 1000 + (ABL:親密 * 50)
+	ELSE
+		SOURCE:歓楽 += 1600 + (ABL:親密 * 30)
+	ENDIF
+
+
+	SOURCE:歓楽 = LIMIT(SOURCE:歓楽,0,5000)
+
+
+	SOURCE:受動 = 100 + 100 * ABL:従順
+	SOURCE:征服 = 100 + 100 * ABL:施虐属性
+
+	IF TFLAG:193 == -1 || TFLAG:193 == -2
+		TIMES SOURCE:歓楽 , 0.10
+		TIMES SOURCE:征服 , 0.50
+		TIMES SOURCE:受動 , 0.50
+	ELSEIF TFLAG:193 == 0
+		TIMES SOURCE:歓楽 , 1.00
+		TIMES SOURCE:征服 , 1.00
+		TIMES SOURCE:受動 , 1.00
+	ELSE
+		TIMES SOURCE:歓楽 , 2.00
+		TIMES SOURCE:征服 , 2.00
+		TIMES SOURCE:受動 , 2.00
+		TCVAR:301 += 50
+	ENDIF
+	SELECTCASE ABL:MASTER:話術技能
+		CASE 0
+			TIMES SOURCE:歓楽 , 0.20
+			TIMES SOURCE:征服 , 0.20
+			TIMES SOURCE:受動 , 0.20
+		CASE 1
+			TIMES SOURCE:歓楽 , 0.40
+			TIMES SOURCE:征服 , 0.40
+			TIMES SOURCE:受動 , 0.40
+		CASE 2
+			TIMES SOURCE:歓楽 , 0.70
+			TIMES SOURCE:征服 , 0.70
+			TIMES SOURCE:受動 , 0.70
+		CASE 3
+			TIMES SOURCE:歓楽 , 1.00
+			TIMES SOURCE:征服 , 1.00
+			TIMES SOURCE:受動 , 1.00
+		CASE 4
+			TIMES SOURCE:歓楽 , 1.20
+			TIMES SOURCE:征服 , 1.20
+			TIMES SOURCE:受動 , 1.20
+		CASEELSE
+			TIMES SOURCE:歓楽 , 1.50
+			TIMES SOURCE:征服 , 1.50
+			TIMES SOURCE:受動 , 1.50
+	ENDSELECT
+
+	; ;会話累積値
+	; IF CHK_DATENOW(CFLAG:TARGET:约会中)
+	; ;	TCVAR:301 += 150 / (4 + ABL:MASTER:話術技能)
+	; 	TCVAR:301 += 150 / (4 + MIN(ABL:MASTER:話術技能 + (FLAG:催眠強度 > 25) + (FLAG:催眠強度 > 50) + (FLAG:催眠強度 > 75), 6))
+	; ELSE
+	; ;	TCVAR:301 += 300 / (4 + ABL:MASTER:話術技能)
+	; 	TCVAR:301 += 300 / (4 + MIN(ABL:MASTER:話術技能 + (FLAG:催眠強度 > 25) + (FLAG:催眠強度 > 50) + (FLAG:催眠強度 > 75), 6))
+	; ENDIF
+	; IF TCVAR:301>100
+	; 	SETCOLOR C_RED
+	; 	PRINTFORML 会話累積値={TCVAR:301}
+	; 	RESETCOLOR
+	; ELSE
+	; 	PRINTFORML 会話累積値={TCVAR:301}
+	; ENDIF
+	; TIME += 10
+	; ;IF TARGET == 110
+	; ;	PRINTFORML 筆談したので稍微時間がかかった…
+	; ;	TIME += 15
+	; ;ENDIF
+	; EXP:MASTER:会話経験 ++
+	; IF CHK_DATENOW(CFLAG:TARGET:约会中)
+	; 	EXP:MASTER:約會経験 ++
+	; 	EXP:TARGET:約會経験 ++
+	; ENDIF
+
+	; ;相手が烂醉中だと効果大幅低減
+	; IF TCVAR:烂醉
+	; 	TIMES SOURCE:歓楽 , 0.10
+	; 	TIMES SOURCE:征服 , 0.10
+	; 	TIMES SOURCE:受動 , 0.10
+	; ENDIF
+	; RETURN 1
+
+
+PRINTFORML 「测试，这里是在数值计算里的」
+RETURN 1
+
+
+
+
+
+
+
+@M_KOJO_緋色之诗_SUCCESS_COM_K16_270
+;成否判定
+;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
+TFLAG:192 =0
+
+;==================================================
+;可选项：关于地文描述的显示设置
+;如果返回0，则地文与口上都会显示；如果返回1，则地文会隐藏，口上会显示；如果返回2，则地文会显示，口上会隐藏；如果返回3则均会被隐藏
+;==================================================
+@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_270
+RETURN 0
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_270
+;指令共通メッセージ(TRAIN_MESSAGE) 
+;4.920之前的指令地文，是使用函数TRAIN_MESSAGE来控制的
+;如果删除它，例如「TARGET和你无聊地说着话」这种叙述将不显示，且您的口上不会自动启用口上色
+;下面是调用口上的主函数
+CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_270_1
+RETURN RESULT
+
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_270_1
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;请在这个区间里输入口上的输出内容
+	PRINTFORMW	这里应该是正文
+ENDIF
+RETURN 1
+
+

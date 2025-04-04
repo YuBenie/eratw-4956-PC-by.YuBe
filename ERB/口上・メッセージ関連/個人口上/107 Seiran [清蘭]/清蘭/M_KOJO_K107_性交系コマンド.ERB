@@ -1,0 +1,2558 @@
+﻿
+;※※※※※※※※※※※※※※※※※※※※※※※※※
+;性交系コマンド
+;※※※※※※※※※※※※※※※※※※※※※※※※※
+;==================================================
+;性交系関数（水増し用）
+;どの体位でも使えるようなやつは纏めてここに
+;==================================================
+@SEIRAN_SEX
+;処女喪失
+IF TCVAR:破瓜 == 1
+	IF FLAG:時間停止
+		PRINTFORMDL %CALLNAME:MASTER%将坚挺的肉棒插入清兰的阴道。
+		PRINTFORMDW 一瞬感觉到有些阻碍，但毫不在意地向阴道深处推进…
+		PRINTFORMDL 感受到紧紧收缩的快感，清兰颤抖着意识到结合部有血流出。
+		PRINTFORMDW 未经同意污秽清兰的贞洁，这种背叛感让%CALLNAME:MASTER%的兴奋更加高涨……！
+	ELSEIF TALENT:恋人 || TALENT:恋慕
+		PRINTFORML 「啊……啊……」
+		PRINTFORMDL %CALLNAME:MASTER%将勃起的阴茎对准清兰的阴道口。
+		PRINTFORMDW …但清兰好像很紧张，身体绷紧导致插入困难…
+		PRINTFORML 「虽然说松开了力量……但是…没办法…！身体自己就这样了……！」
+		PRINTFORMDW 思考着该怎么办……%CALLNAME:MASTER%突然叫了清兰的名字。
+		PRINTFORMW 「嗯？怎么……啊呜！？」
+		CALL HPH_PRINT,@"「嗯…HPH 啊呜…♪啵…HPH 亲吻HPH 啊…啊…HPH」","L"
+		PRINTFORMDW 沉浸在充满甜蜜激烈的吻中，清兰眼神变得迷离，紧张也似乎有所缓解…
+		CALL HPH_PRINT,@"「啊呜…！…%CALLNAME:MASTER%谢谢…♪……没事了…来吧…HPH」","W"
+		PRINTFORMDL 缓缓推开清兰狭窄的阴道，用阴茎撑开……中途感觉到一阻碍。
+		PRINTFORMDW 清兰与%CALLNAME:MASTER%对视，清兰轻轻点头。%CALLNAME:MASTER%稍微缩回腰部…一口气插入深处。
+		PRINTFORML 「啊啊！！疼…！……痛……！」
+		PRINTFORMDW 从结合部开始，象征破处的血开始流出…清兰握紧双手忍受着疼痛…
+		PRINTFORMW 「呼…呼……插入了…？……吗…？」
+		PRINTFORMW 「原来如此…我，把处女给了%CALLNAME:MASTER%…好高兴…！」
+		PRINTFORMDL 清兰并非因疼痛而流泪，而是因为喜悦。看着她的脸，更加觉得她可爱。
+		PRINTFORMDW %CALLNAME:MASTER%尽量不给清兰太大负担，开始缓慢地动着腰部…
+	ELSE
+		PRINTFORML 「呜啊……」
+		PRINTFORML （%CALLNAME:MASTER%的…好大啊…！真的能进入我体内吗！？）
+		PRINTFORMDW 看着%CALLNAME:MASTER%勃起的阴茎，清兰不禁发出声音。
+		PRINTFORML 「那个，那个……我是第一次，所以…请温柔点好吗…？」
+		PRINTFORMDW 用阴茎推开清兰狭窄的阴道，慢慢地开始抽送腰部…
+		PRINTFORMW （啊……！真的进来了…！有点疼但…没有想象中那么痛苦……）
+		PRINTFORMDL 中途感觉到一种阻碍。很可能是处女膜。
+		PRINTFORMDW “清兰，我要来了，放松点”%CALLNAME:MASTER%这样说着稍微缩回腰部。
+		PRINTFORML （……诶？还没结束吗！？…难道还会更疼吗…！？）
+		PRINTFORMW 「%CALLNAME:MASTER%…等一下――」
+		PRINTFORMW 「啊呜！？疼…！啊……！！」
+		PRINTFORMDL 因为破处的疼痛，清兰流下了眼泪。血开始从结合部流出…
+		PRINTFORML 「呼…呼…唉…！明明说了等一下……%CALLNAME:MASTER%真是笨蛋…！」
+		PRINTFORMDW 直到清兰平静下来，%CALLNAME:MASTER%一直保持连接并继续爱抚清兰…
+	ENDIF
+;Ｖ挿入
+ELSEIF TEQUIP:50 == PLAYER
+;膣技術３以上
+	IF ABL:膣 >= 3
+		;今射精した
+		IF NOWEX:PLAYER:11
+			SELECTCASE RAND:7
+				CASE 0
+					PRINTFORMDL 大量的肉褶如波涌向%CALLNAME:MASTER%的肉棒。
+					PRINTFORMDL 强烈的快感让射精感迅速涌现……
+					CALL HPH_PRINT,@"「呵呵…♪想射了吗…？好的哦…尽情射吧…」","L"
+					PRINTFORMDW 清兰紧紧收缩阴道，接收从阴茎喷发出的大量精液……
+				CASE 1
+					CALL HPH_PRINT,@"「嗯啊啊啊HPH HPH %CALLNAME:MASTER%的JJHPH 变大了HPH 好大HPH HPH」","L"
+					PRINTFORMDL 清兰的花瓣带来的快感，%CALLNAME:MASTER%的阴茎已经快要爆炸了。
+					PRINTFORMDL 想要射精进入清兰的阴道…%CALLNAME:MASTER%刚想着，清兰就开始请求了。
+					CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH 请在里面HPH 射进来HPH」","L"
+					PRINTFORMDL %CALLNAME:MASTER%牢牢抓住清兰的腰，用阴茎顶住阴道深处—
+					CALL HPH_PRINT,@"「啊呜呜呜HPH 这不行HPH 快射HPH 快射出来啊HPH HPH HPH」","W"
+				CASE 2
+					CALL HPH_PRINT,@"「嘻嘻…HPH JJ，膨胀起来了HPH」","L"
+					CALL HPH_PRINT,@"「射出来HPH 快点HPH 快把我变成妈妈HPH」","L"
+					PRINTFORMDW %CALLNAME:MASTER%应允清兰的请求，射精进入清兰的阴道……
+				CASE 3
+					PRINTFORMDL 多次交合后，%CALLNAME:MASTER%已经完全了解她的弱点。
+					CALL HPH_PRINT,@"「呜啊啊HPH 那里不行HPH 那里太过HPH 被搓弄就会射出来HPH 射出来啊HPH HPH」","L"
+					PRINTFORMDL 达到巅峰，清兰的阴道剧烈收缩。
+					PRINTFORMDW 面对如此强烈的刺激，%CALLNAME:MASTER%忍不住—
+				CASE 4
+					CALL HPH_PRINT,@"「啊啊啊啊HPH 啊♪啊啊HPH 我HPH 快射了HPH」","L"
+					CALL HPH_PRINT,@"「嗯HPH %CALLNAME:MASTER%也？%CALLNAME:MASTER%也要射了吗？一起HPH 一起来HPH」","L"
+					CALL HPH_PRINT,@"「射了HPH HPH 啊啊—啊啊啊啊哈哈HPH HPH HPH」","L"
+					PRINTFORMDW 与清兰同时达到高潮……
+				CASE 5
+					PRINTFORMDL %CALLNAME:MASTER%无法忍受清兰的花瓣刺激，表示即将射精……
+					CALL HPH_PRINT,@"「啊…嗯嗯嗯HPH 等等！因为想一起HPH 射，再忍一点HPH 再忍一点HPH 求你了HPH」","L"
+					PRINTFORMDL 用力压抑下腹的高潮，%CALLNAME:MASTER%顽强地攻击清兰的弱点…
+					CALL HPH_PRINT,@"「啊啊HPH 啊HPH 就要射了HPH 射出来啊啊啊啊啊HPH HPH HPH」","L"
+					PRINTFORMDW 随着清兰的高潮，%CALLNAME:MASTER%释放了大量精液进入阴道……
+				CASE 6
+					CALL HPH_PRINT,@"「呼呼HPH 就要…射了HPH 嗯嗯HPH 快…射了HPH 嗯嗯HPH 就…」","L"
+					CALL HPH_PRINT,@"「嗯呼呼啊啊啊啊HPH HPH 不、不要HPH 现在、摸尾巴HPH 嗯嗯嗯嗯嗯—HPH HPH HPH」","L"
+					PRINTFORMDW 尾巴很敏感，摩擦后清兰立刻达到高潮。然后%CALLNAME:MASTER%也—
+			ENDSELECT
+		;前回射精した
+		ELSEIF TCVAR:102
+			SELECTCASE RAND:7
+				CASE 0
+					CALL HPH_PRINT,@"「%CALLNAME:MASTER%…♪ 更多…想要…HPH」","L"
+					PRINTFORMDW 对清兰说：“我也是”后，两人再次开始扭动腰部……
+				CASE 1
+					CALL HPH_PRINT,@"「呼呼HPH 呼呼HPH 呼呼…HPH」","L"
+					CALL HPH_PRINT,@"「………再来一次HPH」","L"
+					PRINTFORMDW 清兰再次开始扭动腰部……
+				CASE 2
+					CALL HPH_PRINT,@"「啊啊…HPH 呵呵♪尽管射出这么多HPH 还是这么硬HPH」","L"
+					CALL HPH_PRINT,@"「嘿…还可以继续吧HPH」","L"
+					PRINTFORMDW 清兰眼中仍然燃烧着情欲之火……%CALLNAME:MASTER%重新开始性交。
+				CASE 3
+					CALL HPH_PRINT,@"「嗯嗯HPH 呼呼HPH 呼呼…HPH 真厉害…HPH 射出好多HPH」","L"
+					CALL HPH_PRINT,@"「嗯啊啊HPH！？啊……？…%CALLNAME:MASTER%……？」","L"
+					PRINTFORMDL 这边的性欲还没有消耗殆尽。%CALLNAME:MASTER%在清兰高潮后粗暴地顶入她的阴道。
+					CALL HPH_PRINT,@"「呼呼呼HPH 等一下HPH 刚刚高潮了HPH 等我休息一下HPH 让我休息一下HPH」","L"
+					CALL HPH_PRINT,@"「啊HPH 啊HPH 这HPH 要射了HPH 再射一次吧HPH HPH 让我休息一下HPH」","W"
+				CASE 4
+					CALL HPH_PRINT,@"「呼…HPH 呼…HPH %CALLNAME:MASTER%…HPH 这样，会有宝宝吗…？」","L"
+					PRINTFORMDL “可能还需要更多的活动才能有宝宝”
+					CALL HPH_PRINT,@"「……♪ 是的，没错…HPH 还需要更多活动…吧HPH」","W"
+				CASE 5
+					PRINTFORMDL 在清兰的阴道内射出大量精液后，满足的%CALLNAME:MASTER%将阴茎抽出…
+					PRINTFORMDL —然而，清兰的阴道褶皱紧紧缠住阴茎，不肯放开……
+					CALL HPH_PRINT,@"「呵呵…HPH 不行…HPH 再一次…HPH 只再一次…吧HPH」","L"
+					PRINTFORMDW 到底能否只“再一次”呢……%CALLNAME:MASTER%的阴茎再次硬了起来…！
+				CASE 6
+					CALL HPH_PRINT,@"「嗯啊HPH 啊…HPH 还…硬硬的…HPH…里面，积存了很多污秽呢…HPH」","L"
+					CALL HPH_PRINT,@"「没关系…♪%CALLNAME:MASTER%的污秽……HPH 我会全部净化掉的…HPH」","L"
+					PRINTFORMDW 清兰再次扭动腰部，重新开始“净化活动”……
+			ENDSELECT
+		;插入继续
+		ELSE
+			SELECTCASE RAND:4
+				CASE 0
+					PRINTFORMDL %CALLNAME:MASTER%猛烈地扭动腰部，进行冲刺。
+					PRINTFORMDL 有规律的愉快声音在四周回荡…
+					CALL HPH_PRINT,@"「啊HPH 嗯嗯HPH 啊HPH 啊HPH 嘭嘭地HPH 淫荡的HPH 声音HPH」","L"
+					CALL HPH_PRINT,@"「呼呼HPH 更多HPH 更多HPH 多一点HPH 跟着我HPH」","W"
+				CASE 1
+					PRINTFORMDL %CALLNAME:MASTER%坚持擦拭清兰的敏感部位。
+					CALL HPH_PRINT,@"「啊啊HPH 那里太过了HPH 那里HPH 被搓弄就会射出来HPH」","L"
+					CALL HPH_PRINT,@"「好舒服HPH 太舒服了HPH 舒服得要发疯HPH」","W"
+				CASE 2
+					PRINTFORMDL %CALLNAME:MASTER%牢牢抓住清兰的腰，连续顶击阴道深处。
+					CALL HPH_PRINT,@"「啊呜呜HPH 嗯HPH 嗯呜HPH JJHPH 不停HPH 不停地碰到HPH」","L"
+					PRINTFORMDW 是动物本能在作祟吗，%CALLNAME:MASTER%的冲刺加速朝着射精方向发展……！
+				CASE 3
+					CALL HPH_PRINT,@"「啊HPH 啊HPH 嗯HPH 嗯呼HPH 太舒服了HPH 」","L"
+					CALL HPH_PRINT,@"「啊HPH 啊HPH 嗯HPH 嗯呜HPH 太过舒服了HPH 快要疯掉了HPH」","L"
+					PRINTFORMDW 清兰的阴道带来的快感让%CALLNAME:MASTER%无法停止腰部的运动……！
+			ENDSELECT
+		ENDIF
+	;それ以外
+	ELSE
+		;今射精した
+		IF NOWEX:PLAYER:11
+			SELECTCASE RAND:3
+				CASE 0
+					CALL HPH_PRINT,@"「啊呜呜HPH 啊啊HPH 啊啊HPH 啊啊HPH」","L"
+					CALL HPH_PRINT,@"「啊啊HPH 我HPH 要HPH 要HPH 射了HPH 射了HPH」","L"
+					PRINTFORMDL 颤抖着的清兰的阴道紧紧收缩。
+					PRINTFORMDW 受到这样的刺激，%CALLNAME:MASTER%也射精了—
+				CASE 1
+					CALL HPH_PRINT,@"「嗯呜HPH 啊HPH 啊啊…HPH %CALLNAME:MASTER%对不起…HPH 我，快要高潮了…HPH」","L"
+					PRINTFORMDL %CALLNAME:MASTER%也是如此。朝着高潮，加快了冲刺的速度—
+					CALL HPH_PRINT,@"「嗯呜啊！？那个HPH 那个不行HPH 太快HPH 被这样戳会HPH 啊…啊啊—」","L"
+					CALL HPH_PRINT,@"「啊啊啊啊啊啊啊啊HPH HPH HPH」","L"
+					PRINTFORMDW 听着清兰尖叫的声音，%CALLNAME:MASTER%尽情释放了所有精液……
+				CASE 2
+					CALL HPH_PRINT,@"「啊啊HPH 阴茎…还在抽搐着…HPH 还要、射出来吗…？」","L"
+					CALL HPH_PRINT,@"「嗯呜HPH 嗯…♪ 好的…HPH 射吧HPH 射满我的里面HPH」","L"
+					PRINTFORMDW 无法抵抗清兰甜蜜的请求，%CALLNAME:MASTER%射精了…
+			ENDSELECT
+		;上次已射精
+		ELSEIF TCVAR:102
+			SELECTCASE RAND:3
+				CASE 0
+					CALL HPH_PRINT,@"「呼…HPH 呼…HPH」","L"
+					CALL HPH_PRINT,@"（这…太厉害了HPH 头，都变白了—）","L"
+					CALL HPH_PRINT,@"「嗯呜啊啊啊HPH 等、等一下HPH 刚刚高潮了，还要HPH」","W"
+				CASE 1
+					CALL HPH_PRINT,@"「嗯HPH 嗯嗯…HPH 啊啊…HPH 肚子…好热啊HPH」","L"
+					CALL HPH_PRINT,@"「啊HPH 噗噗，噗噗地，射出好多HPH」","L"
+					CALL HPH_PRINT,@"「嗯…HPH 终于停下来了……呃…再一次，要…吗？」","L"
+					PRINTFORMDW 清兰的话语让%CALLNAME:MASTER%的下体再次升起热情……！
+				CASE 2
+					CALL HPH_PRINT,@"「啊啊HPH 阴茎…还在抽搐着…HPH 还要、射出来吗…？」","L"
+					CALL HPH_PRINT,@"「%CALLNAME:MASTER%的污秽……HPH 我会全部净化掉的…HPH」","L"
+					PRINTFORMDW 清兰再次扭动腰部，重新开始“净化活动”……
+			ENDSELECT
+		;插入继续
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					CALL HPH_PRINT,@"「啊啊啊HPH 啊啊HPH 那里HPH 这里HPH 用手指、到不了的地方…HPH」","L"
+					CALL HPH_PRINT,@"「啊HPH HPHPH 嗯HPH 啊啊HPH 别停HPH 别停下来HPH」","L"
+					CALL HPH_PRINT,@"「好舒服HPH 太舒服了HPH 快要疯掉HPH HPH」","L"	
+					PRINTFORMDW 无法通过自慰体验的快感，激起了清兰的欲望……！
+				CASE 1
+					CALL HPH_PRINT,@"「啊啊啊啊HPH HPH ……啊呜…？刚才的…？」","L"
+					CALL HPH_PRINT,@"「嗯啊啊啊HPH HPH HPH 这、这样…HPH …再多一点…♪」","L"
+					PRINTFORMDW 这就是清兰的弱点…%CALLNAME:MASTER%决定重点攻击这里。
+				CASE 2
+					CALL HPH_PRINT,@"「嗯…！ 嗯呜…HPH 啊啊HPH 这样的感觉…？」","L"
+					CALL HPH_PRINT,@"「嗯呜HPH 嗯嗯…HPH 这样的感觉…HPH 真搞不懂呢HPH HPH」","L"
+					PRINTFORMDW 清兰似乎还不习惯接受性交的快感。
+			ENDSELECT
+		ENDIF
+	ENDIF
+;Ａ挿入
+ELSEIF TCVAR:Ａ破瓜 == 1
+	IF FLAG:時間停止
+		PRINTFORMDL 时间停滞的清兰的肛门中插入了阴茎。
+		PRINTFORMDW 虽然感受到仿佛要被撕裂般的紧缩，但却体会到了夺取清兰肛门初体验的成就感。
+	ELSE
+		CALL HPH_PRINT,@"「嗯嗯HPH 啊HPH %CALLNAME:MASTER%…HPH 快点给我…HPH」","L"
+		PRINTFORMDL 将阴茎擦拭在女性器上，让爱液充分附着。
+		PRINTFORMDW 尽管对清兰保密，但这次的“行为”需要比平时更充分的润滑。
+		PRINTFORML 「——嗯啊啊！」
+		PRINTFORMDL 在清兰的肛门上也涂抹了爱液，清兰对意想不到的刺激发出奇怪的声音。
+		PRINTFORMW 「那个…%CALLNAME:MASTER%？为什么，要在屁股上…？」
+		PRINTFORMDL 已经足够了…%CALLNAME:MASTER%将阴茎对准清兰的肛门。
+		PRINTFORML 「诶？那个，等一下？……开玩笑吧…？」
+		PRINTFORMDL “我会温柔的，你放松点”说着，%CALLNAME:MASTER%向前推进腰部…！
+		PRINTFORMW 「不…不会吧！？等、等！！停——」
+		PRINTFORMW 「——啊啊！！！……啊…！啊……」
+		PRINTFORMDW %CALLNAME:MASTER%夺取了清兰的后方初体验。在仿佛要被撕裂的紧缩中，不由自主地发出呻吟声…
+		PRINTFORML 「啊……求求了…！…拔……出来…！」
+		PRINTFORMDW 看来突然这样有点过分了…%CALLNAME:MASTER%试图将阴茎从肛门中抽出…
+		CALL HPH_PRINT,@"「啊啊啊啊HPH HPH ……诶？ 刚才的…？」","L"
+		PRINTFORMDW 怀疑着，再次将阴茎推进。
+		CALL HPH_PRINT,@"「嗯嗯嗯啊啊啊HPH HPH 诶…诶…？为什么我，在屁股里…感觉到了…」","L"
+		PRINTFORMDW …看来问题不大。%CALLNAME:MASTER%开始缓慢地抽插。
+	ENDIF
+ELSEIF TEQUIP:51 == PLAYER
+	;Ａ感覚４以上
+	IF ABL:Ａ感覚 >= 4
+		;今射精した
+		IF NOWEX:PLAYER:11
+			SELECTCASE RAND:3
+				CASE 0
+					CALL HPH_PRINT,@"「啊啊HPH 啊HPH 啊啊HPH 嗯呜…好猛烈HPH」","L"
+					PRINTFORMDL 完全沉溺于肛交的清兰，边发出娇声，边接受着对尻的插入。
+					PRINTFORMDL 想要射精在尻里…%CALLNAME:MASTER%告诉清兰。
+					CALL HPH_PRINT,@"「嗯HPH 嗯HPH 给我吧HPH 射在屁股里HPH 给我HPH」","L"
+					PRINTFORMDW 将肛门紧紧夹住，清兰挤取出%CALLNAME:MASTER%的精液……！
+				CASE 1
+					CALL HPH_PRINT,@"「哈啊HPH 哈啊HPH 屁股HPH 感觉真好HPH」","L"
+					PRINTFORMDL 多次接受%CALLNAME:MASTER%的阴茎，清兰的肛门已经松弛到可以容纳和阴道一样的插入。
+					PRINTFORMDL %CALLNAME:MASTER%为了射精在清兰的肠道内，开始迅速地动起腰部…！
+					CALL HPH_PRINT,@"「啊啊HPH 要射了HPH 这样…不行的啊…！ 在屁股里射了啊啊啊HPH HPH HPH」","W"
+				CASE 2
+					PRINTFORMDL %CALLNAME:MASTER%像着了魔一般，不停地向清兰的屁股猛击。
+					PRINTFORMDL 和清兰一样，%CALLNAME:MASTER%也沉迷于肛交的快感中…
+					CALL HPH_PRINT,@"「啊啊HPH 太好了HPH 在屁股里HPH 在屁股里射了―HPH HPH 啊啊啊HPH HPH HPH」","L"
+					PRINTFORMDW 每次射出精液，清兰的肛门都会痉挛地收缩……
+			ENDSELECT
+		;上次已射精
+		ELSEIF TCVAR:104
+			SELECTCASE RAND:3
+				CASE 0
+					CALL HPH_PRINT,@"「啊啊啊…HPH 屁股…HPH 暖和呢……HPH HPH」","L"
+					PRINTFORMDL 接受着%CALLNAME:MASTER%的精液进入肠道，清兰露出陶醉的表情…
+					PRINTFORMDL 撩人的清兰表情让%CALLNAME:MASTER%的阴茎再次变硬…！
+					CALL HPH_PRINT,@"「呵呵…♪好的…HPH 再来，用屁股…吧HPH」","W"
+				CASE 1
+					CALL HPH_PRINT,@"「哈啊HPH 哈啊HPH 哈啊…HPH」","L"
+					PRINTFORMDL 每当清兰呼吸时，肛门会断断续续地收紧…
+					PRINTFORMDL 受到这种刺激，%CALLNAME:MASTER%的阴茎重新变硬了…！
+					CALL HPH_PRINT,@"「……HPH」","L"
+					PRINTFORMDW 和清兰对视后，轻轻点了点头。…%CALLNAME:MASTER%重新开始向屁股插入。
+				CASE 2
+					CALL HPH_PRINT,@"「哈…HPH 哈HPH 哈…HPH 嗯已经…屁股变松了…HPH」","L"
+					CALL HPH_PRINT,@"「%CALLNAME:MASTER%经常做这个……♪」","L"
+					PRINTFORMDW 清兰笑得有些开心。…当说要再来一次时，清兰张开屁股，吞下了男根。
+			ENDSELECT
+		;插入继续
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					CALL HPH_PRINT,@"「嗯呜…HPH 啊啊HPH 哈啊HPH 啊啊HPH」","L"
+					PRINTFORMDL 多次接受阴茎的清兰的肛门，适度的收紧给予快感。
+					PRINTFORMDW 清兰似乎也在享受快感，发出比以前更娇声的声音…
+				CASE 1
+					CALL HPH_PRINT,@"「嗯嗯HPH 啊啊…HPH 阴茎…HPH 屁股的洞，想要挠痒痒HPH」","L"
+					PRINTFORMDL 当%CALLNAME:MASTER%慢慢拔出阴茎时，屁肉紧紧缠绕着不愿放开…
+					CALL HPH_PRINT,@"「嗯…啊呜…啊啊HPH 那样HPH 深入里面HPH」","L"
+					PRINTFORMDW 再次深入时，清兰发出充满魅惑的喘息声。
+				CASE 2
+					CALL HPH_PRINT,@"「啊呜呜HPH…已经…不行了…！ %CALLNAME:MASTER%的错，让屁股，变得笨蛋了…HPH」","L"
+					CALL HPH_PRINT,@"「哪个更舒服呢…？…呜呜…！这种事，不懂HPH 啊啊HPH」","W"
+			ENDSELECT
+		ENDIF
+	;それ以外
+	ELSE
+		;今射精した
+		IF NOWEX:PLAYER:11
+			SELECTCASE RAND:3
+				CASE 0
+					CALL HPH_PRINT,@"「嗯咕咕HPH 啊HPH 阴茎…膨胀了HPH」","L"
+					CALL HPH_PRINT,@"「不行HPH 不行说过了HPH 屁股不是那里…啊啊HPH」","L"
+					PRINTFORMDL 快感让%CALLNAME:MASTER%眼前一片空白—
+					CALL HPH_PRINT,@"「啊…！谎言…！屁股里…热乎乎的东西…流出来了咕…HPH HPH」","W"
+				CASE 1
+					PRINTFORMDL 快到极限了…！"想要射精在清兰的屁股里"，加快了抽插速度。
+					CALL HPH_PRINT,@"「啊HPH 嘎HPH 不行HPH 拔出来HPH 不要在屁股里射精嘛HPH」","L"
+					PRINTFORMDL %CALLNAME:MASTER%被拒绝，试图拔出阴茎，但为时已晚—
+					CALL HPH_PRINT,@"「啊—咕咕咕咕咕HPH HPH …明明说了不行……！」","W"
+				CASE 2
+					PRINTFORMDL 射精感越来越强烈…加快腰部速度准备射精在屁股里。
+					CALL HPH_PRINT,@"「啊咕HPH 嗯嗯…！嗯咕HPH 嗯…咕…！」","L"
+					PRINTFORMDL 受到插入带来的疼痛，清兰无法言语，摇头拒绝射精。
+					PRINTFORMDW …%CALLNAME:MASTER%故意不理会，深深插入屁股内射精。
+			ENDSELECT
+		;上次已射精
+		ELSEIF TCVAR:104
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORML 「哈…哈…咕…咕…哈…哈…」
+					PRINTFORMDL 每当清兰呼吸时，肛门会断断续续地收紧…
+					PRINTFORML 「咕…%CALLNAME:MASTER%…可以了吧？…快点拔出来…」
+					CALL HPH_PRINT,@"「咕啊啊！？为什么又…硬起来了，让人困扰HPH」","W"
+				CASE 1
+					PRINTFORML 「嗯…咕…上呜…嗯呜…嗯呜…」
+					PRINTFORMDL 清兰流出精液的屁股，开始哭泣…
+					PRINTFORML 「%CALLNAME:MASTER%…！如果屁股再不恢复，你打算怎么办呢……」
+					PRINTFORMDL 不用担心，我会负责任，再次将肉棒对准清兰的屁股…
+					CALL HPH_PRINT,@"「诶！？等一下…啊啊HPH…屁股已经不想了HPH」","W"
+				CASE 2
+					PRINTFORML 「哈…哈…咕…！…%CALLNAME:MASTER%…！」
+					PRINTFORMDL 清兰泪眼盈盈地瞪着这边…难道不喜欢肛交吗…？
+					PRINTFORML 「理所当然吧！在屁股里做什么…这样，不是变态吗…！」
+					PRINTFORMDL 看着从屁股流出精液的清兰，回想起她刚才的痴态，阴茎再次变硬…！
+					CALL HPH_PRINT,@"「等等…！为什么变得这么硬—啊呜HPH 不要…！ 屁股已经不想了啦…！」","W"
+			ENDSELECT
+		;插入继续
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDL %CALLNAME:MASTER%不断向清兰的屁股插入。
+					PRINTFORMDL 从屁股微微张开的缝隙中传出的空气声，让清兰脸上泛起羞耻之色…
+					PRINTFORMW 「嗯…！不要…！求求你…别听进去…！」
+				CASE 1
+					CALL HPH_PRINT,@"「嗯咕咕HPH 在屁股里…太奇怪了吧…！」","L"
+					CALL HPH_PRINT,@"「在屁股里…！明明不该感觉舒服…不行却…嗯嗯HPH」","L"
+					PRINTFORMDW 清兰渐渐开始感受到快感…
+				CASE 2
+					PRINTFORML 「嗯…咕…！…嗯咕…！」
+					PRINTFORMDW 是快感超过疼痛，还是清兰面对屁股的插入无言接受…
+			ENDSELECT
+		ENDIF
+	ENDIF
+ENDIF
+;==================================================
+;60,正常位
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_60
+CALL M_KOJO_MESSAGE_COM_K107_60_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_60_1
+
+;-------------------------------------------------
+;立位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL && TFLAG:193
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;処女
+		IF TCVAR:破瓜 == 1
+			CALL SEIRAN_SEX
+			RETURN 1
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:100 == PLAYER
+		IF FLAG:70
+			PRINTFORMW 
+			RETURN 1
+		;膣技術３以上
+		ELSEIF ABL:膣 >= 3
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:4
+					CASE 0
+						CALL HPH_PRINT,@"「啊呜HPH 啊HPH 射了HPH 再射HPH HPH」","L"
+						CALL HPH_PRINT,@"「啊HPH %CALLNAME:MASTER%HPH %CALLNAME:MASTER%HPH HPH 亲吻HPH 想要亲吻HPH」","L"
+						CALL HPH_PRINT,@"「嗯嗯HPH 嗯咕咕HPH 嗯HPH 嗯咕咕咕咕HPH HPH HPH HPH」","L"
+						PRINTFORMDW 扶着清兰的一只脚，彼此热烈地亲吻着达到了顶点……
+					CASE 1
+						CALL HPH_PRINT,@"「啊啊HPH 啊HPH 好强烈HPH 真厉害HPH 好猛烈地碰撞着HPH HPH」","L"
+						CALL HPH_PRINT,@"「啊呜HPH 出来HPH 就这样HPH 射满里面HPH HPH」","L"
+						PRINTFORMDL 清兰紧紧缠绕着%CALLNAME:MASTER%的脖子，试图更深入连接。
+						PRINTFORMDW 在阴道肌肉紧紧夹住的刺激下，%CALLNAME:MASTER%无法抗拒—
+					CASE 2
+						PRINTFORMDL 扶着清兰，将她夹在墙壁间，抱起双腿，猛烈地冲击着阴道深处。
+						CALL HPH_PRINT,@"「啊呜HPH 啊HPH 不行HPH 力气用完了HPH 变得奇怪了HPH」","L"
+						CALL HPH_PRINT,@"「啊HPH 射了HPH 再射HPH 再射啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 清兰在高潮中腿部伸直……%CALLNAME:MASTER%也达到高潮，将精液射入清兰的子宫中。
+					CASE 3
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次已射精
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…HPH 哈…HPH 感觉，很好HPH HPH」","L"
+						PRINTFORMDL 清兰紧紧缠绕着%CALLNAME:MASTER%的脖子，表情显得恍惚而抽搐……
+						PRINTFORMDL 俯视脚下，两人的混合体液形成了一滩白色的水坑……
+						CALL HPH_PRINT,@"「这么多…射了…HPH 但…还不够…HPH…%CALLNAME:MASTER%呢？」","L"
+						PRINTFORMDW %CALLNAME:MASTER%没有回答，再次开始扭动腰部。
+					CASE 1
+						CALL HPH_PRINT,@"「啊哈哈……HPH 太热了…HPH 太多了…HPH HPH」","L"
+						PRINTFORMDL 倚在墙上，清兰一边溜下一边被匆忙扶住。
+						CALL HPH_PRINT,@"「嘿嘿…HPH 对不起，太舒服了腰软了…HPH」","L"
+						CALL HPH_PRINT,@"「嗯，没关系……再来一次…HPH」","L"
+						CALL HPH_PRINT,@"「呼啊啊…HPH 再…HPH 进来了HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「啊呜HPH 啊HPH 好舒服HPH」","L"
+						CALL HPH_PRINT,@"「阴茎到了HPH 深入到底HPH 好舒服HPH」","L"
+						PRINTFORMDW 清兰颤抖着腿，接受着快感…
+					CASE 1
+						CALL HPH_PRINT,@"「哈HPH 啊HPH 好强烈HPH」","L"
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH 更用力HPH」","L"
+						PRINTFORMDW 清兰的要求，回应着，专注攻击子宫。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ELSE
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「啊HPH 快要了HPH 要射了HPH」","L"
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH 亲吻HPH 想要亲吻HPH」","L"
+						PRINTFORMDW 拥抱着清兰，同时注入子宫，彼此交换热吻…
+					CASE 1
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH 我，要射了…HPH」","L"
+						CALL HPH_PRINT,@"「啊啊HPH 求你HPH 不要停HPH 」","L"
+						CALL HPH_PRINT,@"「啊HPH 啊HPH 射了HPH 射了呀呀呀HPH HPH HPH」","L"
+						PRINTFORMDW 扶着清兰的腿和身体，%CALLNAME:MASTER%射精了…
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次已射精
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…哈…HPH 感觉HPH 很好HPH」","L"
+						CALL HPH_PRINT,@"「嗯啊啊啊HPH HPH 等等HPH 快到了HPH 快到了呀呀HPH」","L"
+						PRINTFORMDL 在高潮之后被侵犯，清兰发出娇声。
+						PRINTFORMDW 两人体液混合形成的水坑发出噗噗的声音…！
+					CASE 1
+						CALL HPH_PRINT,@"「啊哈哈……HPH 太热了…HPH 太多了…HPH HPH」","L"
+						PRINTFORMDL 倚在墙上，清兰一边溜下一边被匆忙扶住。
+						CALL HPH_PRINT,@"「嘿嘿…HPH 对不起，太舒服了腰软了…HPH」","L"
+						CALL HPH_PRINT,@"「嗯，没关系……再来一次…HPH」","L"
+						CALL HPH_PRINT,@"「呼啊啊…HPH 再…HPH 进来了HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈HPH 啊HPH 这样HPH 感觉很舒服…HPH」","L"
+						PRINTFORMDW 面对面地享受着清兰蜜壺带来的快感…
+					CASE 1
+						CALL HPH_PRINT,@"「哈HPH 啊HPH 很强烈HPH」","L"
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH 更用力HPH」","L"
+						PRINTFORMDW 清兰的要求，回应着，专注攻击子宫。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+		;膣技術３以上
+	ELSEIF ABL:膣 >= 3
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「…嘿嘿HPH …站着做这个，心跳得好快呢…HPH」","L"
+				PRINTFORMDL 在面对面的姿势下，抬起清兰的一条腿，准备将硬邦邦的阴茎对准她的花蕊。
+				CALL HPH_PRINT,@"（啊HPH 来了，来了HPH %CALLNAME:MASTER%的…HPH 进来了―）","L"
+				CALL HPH_PRINT,@"「嗯嗯啊啊啊啊HPH HPH HPH ……啊HPH 大又硬HPH」","W"
+			CASE 1
+				PRINTFORMDL 保持直立姿势，互相摩擦性器…但还未插入。
+				PRINTFORMDL 周围传来黏糊糊的水声…
+				CALL HPH_PRINT,@"「嗯…HPH…嗯嗯…HPH…%CALLNAME:MASTER%…！ 别拖延…快点啊…！」","W"
+				PRINTFORMDL 将充分涂抹爱液的%CALLNAME:MASTER%的肉棒插入清兰的花蕊。
+				CALL HPH_PRINT,@"「啊啊啊啊HPH HPH HPH 终于来了…HPH %CALLNAME:MASTER%的小弟弟…HPH」","L"
+				PRINTFORMDW 清兰对心心念念的阴茎欢欣鼓舞，膣壁仿佛一齐缠绕以吸取精液…！
+		ENDSELECT
+		RETURN 1
+	ELSE
+		SELECTCASE RAND:2
+			CASE 0
+				PRINTFORML 「呜…真的要站着做吗？……」
+				PRINTFORML 「因、因为有点害怕…请好好支撑我…？」
+				PRINTFORMDL %CALLNAME:MASTER%牢牢支撑着清兰的腿和身体，向阴道深处进发。
+				CALL HPH_PRINT,@"「嗯嗯啊啊啊HPH 一下子…到底了HPH」","L"
+				PRINTFORMDW 清兰紧紧搂着%CALLNAME:MASTER%的脖子，身体颤抖着迎接快感……
+			CASE 1
+				CALL HPH_PRINT,@"「啊…HPH好厉害…HPH 心跳加速…♪」","L"
+				CALL HPH_PRINT,@"「啊HPH 插入…嗯嗯嗯嗯HPH HPH」","L"
+				PRINTFORMDL 面对面交织指缝，开始插入。
+				PRINTFORMDW 由于双腿合拢，阴道收紧感似乎比平时更强烈…！
+		ENDSELECT
+		RETURN 1
+	ENDIF
+ENDIF
+;-------------------------------------------------
+;正常位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;処女
+		IF TCVAR:破瓜 == 1
+			CALL SEIRAN_SEX
+			RETURN 1
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:100 == PLAYER
+		IF FLAG:70
+			PRINTFORMW 
+			RETURN 1
+		ELSEIF ABL:膣 >= 3
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「啊HPH 啊啊HPH 好、好像要高潮了HPH」","L"
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%也要高潮了吗HPH 我们一起、一起来HPH」","L"
+						CALL HPH_PRINT,@"「啊HPH 高潮――啊啊啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDL 清兰紧紧抱住%CALLNAME:MASTER%，达到了高潮。
+						PRINTFORMDW %CALLNAME:MASTER%无法忍受如此紧致，射精在清兰的阴道内―
+					CASE 1
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH %CALLNAME:MASTER%HPH」","L"
+						PRINTFORMDL 清兰将腿缠绕在%CALLNAME:MASTER%的腰上…这样就无法外射了…！
+						CALL HPH_PRINT,@"「我要HPH 想要在里面HPH 我想要%CALLNAME:MASTER%的孩子HPH」","L"
+						PRINTFORMDL 清兰的请求让%CALLNAME:MASTER%的理智崩溃了…！加快抽插，射入大量精子―
+						CALL HPH_PRINT,@"「啊HPH 啊HPH 热热的出来―嗯嗯嗯嗯嗯HPH HPH HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次射精了
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈HPH 哈HPH …嘿嘿HPH %CALLNAME:MASTER%…」","L"
+						CALL HPH_PRINT,@"「额…因为站不起来软绵绵的，就这样…吧HPH」","L"
+						PRINTFORMDW %CALLNAME:MASTER%再次插入清兰仰卧的身体…
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 啊HPH 啊HPH 尽管射精过那么多次HPH 还是、还是硬的HPH」","L"
+						CALL HPH_PRINT,@"「啊HPH 这么、激烈的话HPH 又、又要高潮了HPH」","L"
+						PRINTFORMDW %CALLNAME:MASTER%再次开始猛烈抽插。混合着两人体液的混合物从连接处溢出…
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「啊HPH 哈HPH 哈烈烈的HPH 紧紧地HPH 命中了HPH」","L"
+						CALL HPH_PRINT,@"「呜呜HPH 啊啊HPH 很舒服HPH 更HPH 更HPH」","L"
+						PRINTFORMDW 忍住想要射精的冲动，继续猛烈抽插清兰的深处…！
+					CASE 1
+						CALL HPH_PRINT,@"「嗯好HPH 是…啊HPH 嗯HPH 嗯…HPH」","L"
+						PRINTFORMDW 每一次插入，清兰都经历着轻微的高潮…
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ELSE
+			;现在射精了
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈啊啊HPH 啊啊啊HPH 哈、啊啊啊啊HPH HPH」","L"
+						CALL HPH_PRINT,@"「哈啊HPH 哈―嗯HPH 嗯咕HPH 咕咕咕HPH HPH HPH」","L"
+						PRINTFORMDW 同时亲吻着喘息着的清兰，%CALLNAME:MASTER%射精了。
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 很舒服HPH 快来HPH 大的来了HPH」","L"
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH %CALLNAME:MASTER%HPH 啊啊啊啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 清兰多次呼唤%CALLNAME:MASTER%的名字，%CALLNAME:MASTER%也忍耐不住――
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「嗯…啾…♪ 嗯咕…HPH 噗哈…」","L"
+						PRINTFORMDL 放开嘴唇寻求空气，两人之间形成了唾液之桥。桥随着重力而下落…
+						PRINTFORMDW 注视着桥的落下，仍然炽热的两人性器映入眼帘。―再次，彼此的欲望被点燃。
+					CASE 1
+						CALL HPH_PRINT,@"「啊啊…HPH 噗噗噗地…♪ 热热的来了HPH 嗯…HPH」","L"
+						PRINTFORMDL 随着不停的射精，清兰的身体微微颤抖…
+						PRINTFORMDW 等待射精结束有些烦人…%CALLNAME:MASTER%开始缓慢地动起腰来。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「…啊HPH…哈…嗯…！」","L"
+						CALL HPH_PRINT,@"「嗯咕…HPH %CALLNAME:MASTER%…再慢一点…！」","L"
+						PRINTFORMDW 是不是加快了节奏呢…%CALLNAME:MASTER%减缓了腰部的速度。
+					CASE 1
+						PRINTFORMDL 紧握住清兰的双手，凝视着她的脸。
+						CALL HPH_PRINT,@"「啊…HPH 不、不要看着我…HPH 因为…害羞嘛…！」","L"
+						PRINTFORMDW 清兰可爱的样子让人怜爱，%CALLNAME:MASTER%加快了腰部的速度…！
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	ELSEIF ABL:膣 >= 3
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「嘻嘻HPH 这才是最棒的感觉…有种在做爱的感觉呢…HPH」","L"
+				PRINTFORMDL %CALLNAME:MASTER%在正常位插入时，清兰满脸笑容地看着。
+				PRINTFORMDL 不由得心动，忘记了动腰，陶醉地凝视着…
+				CALL HPH_PRINT,@"「…被盯着看…还是有点害羞的呢……HPH」","W"
+			CASE 1
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…♪ 来吧…HPH」","L"
+				PRINTFORMDL 清兰张开腿和私处诱惑着…%CALLNAME:MASTER%仿佛被吸引般插入肉棒…
+				CALL HPH_PRINT,@"「啊哈啊哈啊…HPH HPH 来了HPH 来了啊啊啊HPH %CALLNAME:MASTER%的命根子HPH」","L"
+				PRINTFORMDW 清兰将腿缠绕在%CALLNAME:MASTER%的腰上，引导着往深处…！
+		ENDSELECT
+		RETURN 1
+	ELSE
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「啊…HPH …嗯嗯…HPH 嗯嗯咕咕HPH」","L"
+				CALL HPH_PRINT,@"「啊…嗯，没关系♪虽然还有点疼…没事的…HPH」","L"
+				PRINTFORMDL 清兰为了不让%CALLNAME:MASTER%担心，坚强地微笑着。
+				PRINTFORMDW "我会温柔对待你的"，%CALLNAME:MASTER%开始慢慢动起腰来。
+			CASE 1
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…已经没事了，来吧…HPH」","L"
+				PRINTFORMDL 被清兰张开腿和私处吸引，%CALLNAME:MASTER%插入了肉棒…
+				CALL HPH_PRINT,@"「嗯咕咕…HPH 全部进去了…？」","L"
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH 在我里面，好好享受吧…HPH」","W"
+		ENDSELECT
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;61,後背位
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_61
+CALL M_KOJO_MESSAGE_COM_K107_61_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_61_1
+;-------------------------------------------------
+;立位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL && TFLAG:193
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;処女
+		IF TCVAR:破瓜 == 1
+			CALL SEIRAN_SEX
+			RETURN 1
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:100 == PLAYER
+		IF FLAG:70
+			PRINTFORMW 
+			RETURN 1
+		ELSEIF ABL:膣 >= 3
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						PRINTFORMDL 抓住清兰的双臂，将她拉向自己。
+						PRINTFORMDL 将阴茎压向阴道深处，%CALLNAME:MASTER%尽情地射出精液…！
+						CALL HPH_PRINT,@"「嗯咕咕咕咕咕HPH HPH HPH」","L"
+						CALL HPH_PRINT,@"「啊…HPH 热热的…♪注入子宫中…HPH 充满啊啊啊…HPH HPH」","W" 
+					CASE 1
+						CALL HPH_PRINT,@"「啊啊HPH 啊嗯HPH 快要…要射出了HPH」","L"
+						PRINTFORMDL 我也快要达到高潮了……突然，清兰的兔耳出现在视野中。
+						PRINTFORMDL 为了更深入连接，%CALLNAME:MASTER%抓住了清兰的兔耳将她拉近。
+						CALL HPH_PRINT,@"「―嗯啊啊啊！？不要拉耳朵呀―呜啊啊啊啊HPH HPH HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次射精过
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…HPH 哈啊…HPH 哈…HPH」","L"
+						PRINTFORMDL 也许是高潮的疲劳，清兰和%CALLNAME:MASTER%肩并肩呼吸着。
+						PRINTFORMDL 随着呼吸，未尽入清兰阴道的精液滴滴答答地流出…
+						CALL HPH_PRINT,@"「哈…哈啊…HPH 嗯，精液流出了…再来一次吧…HPH」","W"
+					CASE 1
+						CALL HPH_PRINT,@"「哈HPH 哈…HPH %CALLNAME:MASTER%…HPH 嗯…啾…HPH」","L"
+						CALL HPH_PRINT,@"「啊呣…HPH 哩HPH 啾HPH 嗯…啾啾啾HPH」","L"
+						PRINTFORMDW 边与清兰交合边深情接吻，肉棒重新变得坚硬起来。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…HPH 哈啊…HPH 哈…HPH %CALLNAME:MASTER%HPH」","L"
+						CALL HPH_PRINT,@"「再来一点HPH 再来点激烈的HPH HPH」","L"
+						PRINTFORMDW 清兰双手撑在墙上，将自己交给了%CALLNAME:MASTER%…
+					CASE 1
+						CALL HPH_PRINT,@"「这样很好HPH 直到底HPH 不停地进入HPH 来了HPH HPH」","L"
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH 继续，更多…HPH 多多地刺激HPH」","L"
+						PRINTFORMDW 每次刺激清兰的子宫，阴道都会痉挛起来…！
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ELSE
+			;刚刚射精过
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈HPH 啊 HPH 啊啊HPH 不要HPH 进不去了咩…HPH」","L"
+						PRINTFORMDL 手撑在墙上支撑着身体的清兰，似乎随时都会倒下来。
+						PRINTFORMDL …突然，清兰挺立的兔耳映入眼帘。
+						PRINTFORMDL %CALLNAME:MASTER%抓住兔耳拉近，支撑清兰的身体。
+						PRINTFORML 「―好啊！？别…！你在做什么―」
+						CALL HPH_PRINT,@"「嗯啊啊啊啊啊HPH HPH 射出来了嗯咕咕咕咕咕HPH HPH HPH」","L"
+						PRINTFORMDW 意外的刺激让清兰达到高潮。在强烈的收缩中，%CALLNAME:MASTER%也―
+					CASE 1
+						CALL HPH_PRINT,@"「哈啊HPH 啊啊HPH 快到了HPH 很厉害的，要到了HPH」","L"
+						PRINTFORMDL 清兰也快要达到高潮了。%CALLNAME:MASTER%将阴茎深深插入，轻轻拉扯清兰的乳头。
+						CALL HPH_PRINT,@"「嗯啊啊HPH HPH 乳头，不要―啊啊啊啊啊啊HPH HPH HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…HPH 哈啊…HPH …还要继续吗…？」","L"
+						PRINTFORMDW 清兰摇动着臀部诱惑着这边…%CALLNAME:MASTER%再次插入清兰的阴道。
+					CASE 1
+						CALL HPH_PRINT,@"「哈…HPH 啊啊…HPH 射、好多…滴答滴答地流出来…HPH」","L"
+						PRINTFORMDL 将射精结束的阴茎从清兰身体中拔出，精液从阴道慢慢滴落。
+						PRINTFORMDW 看着清兰略带留恋的颤抖的阴道，%CALLNAME:MASTER%再次变得坚硬起来…！
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「啊呜HPH 哈、啊啊HPH 啊啊HPH」","L"
+						PRINTFORMDL 快感中手脚颤抖着，清兰接受着阴茎的刺入…
+						PRINTFORMDW 清兰那纯真的模样让%CALLNAME:MASTER%更加兴奋…！
+					CASE 1
+						CALL HPH_PRINT,@"「嗯呜HPH 这样、深深地HPH 粗糙地HPH」","L"
+						PRINTFORMDW 高潮即将来临，清兰的阴道开始痉挛…！
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ENDIF
+	ENDIF
+	;基本设定
+	;强制性行为中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	ELSEIF ABL:膣 >= 3
+		SELECTCASE RAND:2
+			CASE 0
+				PRINTFORMDL 让清兰背对这边，采取背后立位的姿势。
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH 已经准备好了…HPH 快点，快点HPH」","L"
+				PRINTFORMDL 清兰的私处已经如洪水般涌出爱液…难道她期待到如此程度吗。
+				PRINTFORMDW %CALLNAME:MASTER%一插入阴道―犹如被吞噬般被深深吞没进去…！
+			CASE 1
+				CALL HPH_PRINT,@"「嗯呜啊啊啊HPH HPH 一口气，深入…来了HPH HPH」","L"
+				PRINTFORMDL 从背后插入引诱着的清兰。阴道像在欢呼一样颤抖，将肉棒深深吞噬进去…
+				PRINTFORMDW 这样下去很快就会射精！为了稍事缓解，%CALLNAME:MASTER%开始粗暴地抽插…！
+		ENDSELECT
+		RETURN 1
+	ELSE
+		SELECTCASE RAND:3
+			CASE 0
+				PRINTFORMDL 让清兰背对这边，采取背后立位的姿势。
+				PRINTFORML 「唔…！不要太看着我啊……」
+				PRINTFORMDL 或许是出于羞耻，不仅是阴道，甚至肛门都在颤抖。
+				PRINTFORMDW 虽然想多看一会儿，但拖延也太残忍了…%CALLNAME:MASTER%将阴茎插入女性器官中。
+			CASE 1
+				CALL HPH_PRINT,@"「嗯…HPH 啊…♪ %CALLNAME:MASTER%…别拖延，快点…HPH」","L"
+				PRINTFORMDL 伴随着湿润的声音，%CALLNAME:MASTER%将阴茎在清兰阴道中摩擦涂抹着爱液。
+				PRINTFORMDL 我们的忍耐已经到了极限…抓住清兰的臀部，从背后插入…！
+				CALL HPH_PRINT,@"「哦啊啊…HPH…来了HPH %CALLNAME:MASTER%的命根子进来了HPH」","W"
+		ENDSELECT
+		RETURN 1
+	ENDIF
+ENDIF
+;-------------------------------------------------
+;後背位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;処女
+		IF TCVAR:破瓜 == 1
+			CALL SEIRAN_SEX
+			RETURN 1
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:100 == PLAYER
+		IF FLAG:70
+			PRINTFORMW 
+			RETURN 1
+		ELSEIF ABL:膣 >= 3
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						PRINTFORMDL 四脚趴在地上，清兰将臀部朝向这边，%CALLNAME:MASTER%抓住她的双臂，将她拉向自己。
+						PRINTFORMDL 将阴茎压向阴道深处，%CALLNAME:MASTER%尽情地射出精液…！
+						CALL HPH_PRINT,@"「嗯咕咕咕咕咕HPH HPH HPH」","L"
+						CALL HPH_PRINT,@"「啊…HPH 热热的…♪注入子宫中…HPH 充满啊啊啊…HPH HPH」","W" 
+					CASE 1
+						PRINTFORMDL 覆盖在四脚趴在地上的清兰身上，从上方用力顶击着她的腰部。
+						PRINTFORMDL 就像兔子交配一样的行为刺激着清兰的雌性本能…！
+						CALL HPH_PRINT,@"「嗯呜啊啊啊啊HPH 啊HPH 啊HPH 很舒服HPH 要射了HPH」","L"
+						CALL HPH_PRINT,@"「交尾HPH 我、射HPH 交尾中HPH 射了HPH 射了―啊啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 两只雄兔和雌兔发出类似咆哮的喘息声达到高潮……！
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次射精过
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…HPH 哈啊…HPH 喜欢被后面进入吗…HPH」","L"
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH 继续交尾吧HPH 生很多孩子HPH」","L"
+						PRINTFORMDW 看着汗津津的清兰乞求着，%CALLNAME:MASTER%的阴茎再次勃起…！
+					CASE 1
+						CALL HPH_PRINT,@"「哈啊…HPH 呼…HPH 很舒服啊…♪」","L"
+						PRINTFORMDL 保持臀部高抬的清兰躺在地上喘息。
+						PRINTFORMDL 看着从阴道流出的精液，%CALLNAME:MASTER%的阴茎重新变得坚硬…
+						CALL HPH_PRINT,@"「啊…HPH 好的HPH …射在里面HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						PRINTFORMDL %CALLNAME:MASTER%覆盖在四脚趴在地上的清兰身上，用力顶击着她的腰部。
+						CALL HPH_PRINT,@"「嗯啊HPH 啊HPH 哦HPH 啊HPH 这样HPH 不是性交HPH」","L"
+						CALL HPH_PRINT,@"「交尾HPH 我HPH 与%CALLNAME:MASTER%交尾HPH」","L"
+						PRINTFORMDW "交尾"这个动物般的词汇，激发了彼此的兴奋…！
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 啊啊HPH %CALLNAME:MASTER%HPH 再多HPH 更多地插入HPH」","L"
+						PRINTFORMDL 抓住清兰的手臂，拉近她，稍微粗暴地顶击着她的腰部。
+						PRINTFORMDW 刺激着子宫，清兰的阴道开始颤抖起来。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ELSE
+			;刚射精过
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「啊HPH 嗯HPH 射了HPH 射了HPH」","L"
+						CALL HPH_PRINT,@"「啊…HPH 啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 清兰的阴道紧紧地夹住。%CALLNAME:MASTER%抓住清兰的腰，达到高潮…
+					CASE 1
+						PRINTFORMDL 快到极限了。%CALLNAME:MASTER%在清兰耳边低声说着"想在阴道里射精"。
+						CALL HPH_PRINT,@"「哈HPH 哈HPH 可以HPH 在里面射精HPH」","L"
+						PRINTFORMDL 忍受着阴道收缩的刺激，%CALLNAME:MASTER%射精了―
+						CALL HPH_PRINT,@"「啊HPH 深HPH 深入射精HPH 嗯咕咕咕咕HPH HPH HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…HPH 哈啊…HPH 我、好像喜欢后入式…HPH」","L"
+						PRINTFORMDL 互相喘着粗气，沉浸在行为的余韵中。
+						PRINTFORMDW 小休片刻后，两人重新开始性交。
+					CASE 1
+						CALL HPH_PRINT,@"「哈…HPH 哈…HPH 不行了…稍微休息一下…」","L"
+						PRINTFORMDL 保持四脚趴在地上的姿势，清兰崩溃了。…%CALLNAME:MASTER%心生一丝恶作剧的念头―
+						CALL HPH_PRINT,@"「…？什么―啊啊HPH HPH 不行，现在不行HPH 不要碰尾巴啊HPH」","L"
+						CALL HPH_PRINT,@"「知道了HPH 再做一次也可以HPH 别碰尾巴HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈HPH 哈HPH 啊HPH 阴茎HPH 啪啪啪HPH」","L"
+						PRINTFORMDW 节奏地顶击着腰部，清兰颤抖着享受着。
+					CASE 1
+						PRINTFORMDL 伴随着湿湿的声音，%CALLNAME:MASTER%从后面侵犯清兰。
+						CALL HPH_PRINT,@"「嗯…HPH 不要发出羞耻的声音啊…！」","L"
+						PRINTFORMDW 四脚趴在地上，清兰脸红着俯伏着…
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ENDIF
+	ENDIF
+	;基本设置
+	;时姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	ELSEIF ABL:膣 >= 3
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH…来吧…HPH」","L"
+				PRINTFORMDL 清兰四脚趴在地上，双手拉开私处。
+				PRINTFORMDW 那里湿漉漉的，充满爱液，%CALLNAME:MASTER%毫不拖延地一口气插入…！
+			CASE 1
+				PRINTFORML 「嗯…♪ 这样…如何…？」
+				PRINTFORMDL 清兰抬高臀部，为%CALLNAME:MASTER%便于插入做准备。
+				PRINTFORMDW 作为回报，让她尽情享受…%CALLNAME:MASTER%慢慢地插入，品味着感觉。
+		ENDSELECT
+		RETURN 1
+	ELSE
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「好的…插进来…可以的…HPH」","L"
+				PRINTFORMDL 张开私处，抬高臀部，清兰做好接纳%CALLNAME:MASTER%的姿势。
+				PRINTFORML 「…快一点！别看着我，快点插进来！很害羞的！」
+				CALL HPH_PRINT,@"「啊…HPH 嗯嗯…进来了…啊HPH」","W"
+			CASE 1
+				CALL HPH_PRINT,@"「后面…做吗…？ 嗯嗯…HPH 啊HPH 进到最深处了HPH」","L"
+				PRINTFORMDL 抓住清兰的腰，从后面插入。
+				PRINTFORMDW 到达阴道深处时，清兰的阴道开始缠绕着%CALLNAME:MASTER%的阴茎…
+		ENDSELECT
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;62,正常位アナル
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_62
+CALL M_KOJO_MESSAGE_COM_K107_62_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_62_1
+;-------------------------------------------------
+;立位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL && TFLAG:193
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		IF FLAG:70
+			PRINTFORMDW
+			RETURN 1
+		;アナル処女
+		ELSEIF TCVAR:Ａ破瓜
+			CALL SEIRAN_SEX
+		ELSE
+			CALL SEIRAN_SEX
+		RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:101 == PLAYER
+		IF ABL:Ａ感覚 >= 4
+			;今射精した
+			IF NOWEX:PLAYER:11
+				CALL SEIRAN_SEX
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:104
+				CALL SEIRAN_SEX
+				RETURN 1
+			ELSE
+				CALL SEIRAN_SEX
+				RETURN 1
+			ENDIF
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	;Ａ感覚４以上
+	ELSEIF ABL:Ａ感覚 >= 4
+		PRINTFORML 「还想要后入式吗？…好吧，没办法了…♪」
+		PRINTFORMDL %CALLNAME:MASTER%站在面对面的姿势，抱起清兰的一条腿，插入张开的肛门…
+		CALL HPH_PRINT,@"「呼呼呼呼…HPH 阴茎HPH…进入了尻部，啊HPH」","L"
+		PRINTFORMDL 多次进行肛交的结果，清兰似乎也掌握了窍门。
+		PRINTFORMDW 流畅的抽插将%CALLNAME:MASTER%引向射精的边缘…！
+	RETURN 1
+	;其他情况
+	ELSE
+		PRINTFORML 「诶…又要后入式吗…？」
+		PRINTFORML 「我、我知道了……只有一次，可以…」
+		PRINTFORMDW 
+		PRINTFORML 「啊…嗯…！好了…所以…」
+		PRINTFORMDL 扶着清兰的一条腿让她靠在墙上，%CALLNAME:MASTER%将阴茎插入被爱抚得湿润的肛门。
+		PRINTFORMW 「嗯嗯…！好…好紧…！」
+		RETURN 1
+	ENDIF
+ENDIF
+;-------------------------------------------------
+;正常位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		IF FLAG:70
+			PRINTFORMDW
+			RETURN 1
+		;アナル処女
+		ELSEIF TCVAR:Ａ破瓜
+			CALL SEIRAN_SEX
+		ELSE
+			CALL SEIRAN_SEX
+		RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:101 == PLAYER
+		IF ABL:Ａ感覚 >= 4
+			;今射精した
+			IF NOWEX:PLAYER:11
+				CALL SEIRAN_SEX
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:104
+				CALL SEIRAN_SEX
+				RETURN 1
+			ELSE
+				CALL SEIRAN_SEX
+				RETURN 1
+			ENDIF
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	;Ａ感覚４以上
+	ELSEIF ABL:Ａ感覚 >= 4
+		PRINTFORML 「还想要后入式吗？…好吧，没办法了…♪」
+		PRINTFORMDL 清兰躺在背上，张开双腿，展示着肛门，%CALLNAME:MASTER%仿佛被吸引般插入了肛门…
+		CALL HPH_PRINT,@"「呼呼呼呼…HPH 阴茎HPH…进入了尻部，啊HPH」","L"
+		PRINTFORMDL 多次进行肛交的结果，清兰似乎也掌握了窍门。
+		PRINTFORMDW 流畅的抽插将%CALLNAME:MASTER%引向射精的边缘…！
+	RETURN 1
+	;其他情况
+	ELSE
+		PRINTFORML 「诶…又要后入式吗…？」
+		PRINTFORML 「我、我知道了……只有一次，可以…」
+		PRINTFORMDW 
+		PRINTFORML 「呼…呼…嗯，可以，但…真的要后入吗…？」
+		PRINTFORMDL 覆盖在躺在背上、张开双腿的清兰身上，%CALLNAME:MASTER%将阴茎插入被爱抚得湿润的肛门。
+		PRINTFORMW 「呼…！嗯…！嗯嗯…！好…好紧…！」
+		RETURN 1
+	ENDIF
+ENDIF
+
+;==================================================
+;63,後背位アナル
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_63
+CALL M_KOJO_MESSAGE_COM_K107_63_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_63_1
+;-------------------------------------------------
+;立位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL && TFLAG:193
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		IF FLAG:70
+			PRINTFORMDW
+			RETURN 1
+		;アナル処女
+		ELSEIF TCVAR:Ａ破瓜
+			CALL SEIRAN_SEX
+		ELSE
+			CALL SEIRAN_SEX
+		RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+		IF LOCAL:1 && TCVAR:101 == PLAYER
+		IF ABL:Ａ感覚 >= 4
+			;今射精した
+			IF NOWEX:PLAYER:11
+				CALL SEIRAN_SEX
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:104
+				CALL SEIRAN_SEX
+				RETURN 1
+			ELSE
+				CALL SEIRAN_SEX
+				RETURN 1
+			ENDIF
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	;Ａ感覚４以上
+	ELSEIF ABL:Ａ感覚 >= 4
+		PRINTFORML 「还想要后入式吗？…好吧，没办法了…♪」
+		PRINTFORMDL 清兰双手撑在墙上，背对%CALLNAME:MASTER%，稍作肛门爱抚，便插入阴茎…
+		CALL HPH_PRINT,@"「嗯啊啊啊啊HPH 阴茎HPH…进入了尻部，啊HPH」","L"
+		PRINTFORMDL 多次进行肛交的结果，清兰似乎也掌握了窍门。
+		PRINTFORMDW 流畅的抽插将%CALLNAME:MASTER%引向射精的边缘…！
+	RETURN 1
+	;其他情况
+	ELSE
+		PRINTFORML 「诶…又要后入式吗…？」
+		PRINTFORML 「我、我知道了……只有一次，可以…」
+		PRINTFORMDW 
+		PRINTFORML 「啊…嗯…！好了…所以…」
+		PRINTFORMDL 手撑在墙上，背对这边，清兰的腰被抓住，%CALLNAME:MASTER%将阴茎插入被爱抚得湿润的肛门。
+		PRINTFORMW 「呼…！啊…！嗯嗯…！好…好紧…！」
+		RETURN 1
+	ENDIF
+ENDIF
+;-------------------------------------------------
+;後背位
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		IF FLAG:70
+			PRINTFORMDW
+			RETURN 1
+		;アナル処女
+		ELSEIF TCVAR:Ａ破瓜
+			CALL SEIRAN_SEX
+		ELSE
+			CALL SEIRAN_SEX
+		RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+		IF LOCAL:1 && TCVAR:101 == PLAYER
+		IF ABL:Ａ感覚 >= 4
+			;今射精した
+			IF NOWEX:PLAYER:11
+				CALL SEIRAN_SEX
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:104
+				CALL SEIRAN_SEX
+				RETURN 1
+			ELSE
+				CALL SEIRAN_SEX
+				RETURN 1
+			ENDIF
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	;Ａ感覚４以上
+	ELSEIF ABL:Ａ感覚 >= 4
+		PRINTFORML 「还想要后入式吗？…好吧，没办法了…♪」
+		PRINTFORMDL 清兰四脚爬行，高高抬起臀部，%CALLNAME:MASTER%瞄准她的菊门，插入了阴茎…
+		CALL HPH_PRINT,@"「呼呼呼呼…HPH 阴茎HPH…进入了尻部，啊HPH」","L"
+		PRINTFORMDL 多次进行肛交的结果，清兰似乎也掌握了窍门。
+		PRINTFORMDW 流畅的抽插将%CALLNAME:MASTER%引向射精的边缘…！
+	RETURN 1
+	;其他情况
+	ELSE
+		PRINTFORML 「诶…又要后入式吗…？」
+		PRINTFORML 「我、我知道了……只有一次，可以…」
+		PRINTFORMDW 
+		PRINTFORML 「啊…嗯…！好了…所以…」
+		PRINTFORMDL 爱抚清兰四脚爬行的肛门，%CALLNAME:MASTER%插入了阴茎。
+		PRINTFORMW 「嗯嗯…！果然…好…好紧…！」
+		RETURN 1
+	ENDIF
+ENDIF
+;====================================================================
+;64,逆レイプする
+;紛らわしいが女あなたが上に乗るのであり、あなたが襲われるわけではない
+;====================================================================
+@M_KOJO_MESSAGE_COM_K107_64
+CALL M_KOJO_MESSAGE_COM_K107_64_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_64_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;調教者が処女
+		IF TCVAR:PLAYER:破瓜 == 1
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:PLAYER:100 == TARGET
+		;前回射精した
+		IF TCVAR:PLAYER:102
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;恋慕
+	IF TALENT:恋慕
+		PRINTFORMW 
+		RETURN 1
+	;屈服3
+	ELSEIF MARK:不埒刻印 == 3
+		PRINTFORMW 
+		RETURN 1
+	;それ以外
+	ELSE
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;65,騎乗位
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_65
+CALL M_KOJO_MESSAGE_COM_K107_65_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_65_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;処女
+		IF TCVAR:破瓜 == 1
+			CALL SEIRAN_SEX
+			RETURN 1
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:100 == PLAYER
+		IF FLAG:70
+			PRINTFORMW 
+			RETURN 1
+		ELSEIF ABL:膣 >= 3
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼呼HPH 嗯HPH 啊HPH %CALLNAME:MASTER%！亲亲HPH 想要亲亲HPH」","L"
+						CALL HPH_PRINT,@"「嗯嗯HPH 亲HPH 嗯HPH 亲亲HPH 嗯嗯HPH 嗯…HPH HPH」","L"
+						PRINTFORMDL 清兰倒在这里，贪婪地叠加双唇。
+						PRINTFORMDL %CALLNAME:MASTER%抓住清兰的臀部，扭动腰部，擦拭着阴道壁……！
+						CALL HPH_PRINT,@"「嗯噜嗯HPH 嗯嗯HPH 嗯嗯嗯嗯嗯HPH HPH HPH」","L"
+						PRINTFORMDW 双唇相接的同时，两人达到了高潮……
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 啊HPH 啊啊HPH %CALLNAME:MASTER%HPH 一起…高潮HPH」","L"
+						PRINTFORMDL 清兰握住手，与对方呼吸一致，相互扭动腰部。
+						PRINTFORMDL 当双方的腰部相碰的瞬间―两人的视野变得一片空白…
+						CALL HPH_PRINT,@"「啊HPH 高潮HPH 高潮咩HPH 呜啊啊啊啊HPH HPH HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次射精了
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「嗯噜HPH…亲HPH…啪啊…呼呼…呼呼…HPH」","L"
+						PRINTFORMDL 当清兰分开双唇时，唾液的丝线滴落下来。
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH 再来一次…HPH」","L"
+						PRINTFORMDW 清兰重新开始扭动腰部。刚刚高潮的阴茎被刺激，%CALLNAME:MASTER%发出可怜的声音…
+					CASE 1
+						CALL HPH_PRINT,@"「呼…HPH 呼…HPH %CALLNAME:MASTER%…HPH」","L"
+						PRINTFORMDL 清兰再次开始扭动腰部。湿湿的声音响起，两人的体液混合在一起…
+						PRINTFORMDW 不在意自己下半身的脏乱，两人互相撞击腰部。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%～♪感觉怎么样？很舒服吧HPH」","L"
+						PRINTFORMDL 清兰变换着节奏，用力或轻柔地刺激阴茎。
+						PRINTFORMDL 忍受着射精的冲动，%CALLNAME:MASTER%拼命点头表示同意…
+						CALL HPH_PRINT,@"「嘻嘻HPH 就算这样…我也在学习哦HPH」","L"
+						PRINTFORMW 「总是在性爱时欺负我……我也要回敬♪」
+					CASE 1
+						CALL HPH_PRINT,@"「呼啊HPH 啊HPH 很舒服HPH 腰，停不下来HPH HPH」","L"
+						CALL HPH_PRINT,@"「呼HPH 呼啊HPH %CALLNAME:MASTER%啊？%CALLNAME:MASTER%很舒服吗？」","L"
+						PRINTFORMDW %CALLNAME:MASTER%虽然在快感中颤抖，却勉强说出了"很舒服"的话语……
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ELSE
+			;刚刚射精了
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼…HPH 啊HPH 这个HPH 感觉真好―嗯噜HPH HPH HPH」","L"
+						PRINTFORMDL 清兰似乎达到了高潮，动作停止了…但是，%CALLNAME:MASTER%还没有高潮…！
+						CALL HPH_PRINT,@"「嗯噜啊啊啊HPH HPH 等一下HPH 笑哈HPH 高潮―」","L"
+						CALL HPH_PRINT,@"「啊啊―呼呼啊啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 清兰再次达到高潮。而%CALLNAME:MASTER%也―
+					CASE 1
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH…阴茎HPH…勃起了HPH」","L"
+						CALL HPH_PRINT,@"「好的HPH 射精HPH 想要射精在里面HPH」","L"
+						PRINTFORMDW 清兰加快腰部动作，试图从%CALLNAME:MASTER%身上榨取精液。不久%CALLNAME:MASTER%也达到了极限―
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼…HPH 呼…HPH 啊HPH 精液，好多…流出了HPH」","L"
+						PRINTFORMDL 清兰慈爱地抚摸着肚子。在某种挑逗性的动作下，肉棒再次变硬…
+						CALL HPH_PRINT,@"「啊……HPH …好的♪再来一次吧HPH」","L"
+						PRINTFORMDW 清兰再次开始扭动腰部……
+					CASE 1
+						CALL HPH_PRINT,@"「呼…啊…HPH 呼…稍微休息一下…」","L"
+						PRINTFORMDL 清兰倒在这里，将身体交给了对方。…这次轮到对方了。
+						CALL HPH_PRINT,@"「―嗯啊啊！？等一下HPH 别动HPH 刚高潮了，所以HPH」","L"
+						PRINTFORMDW %CALLNAME:MASTER%抓住清兰的臀部，扭动腰部，擦拭着阴道壁。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼啊HPH 啊HPH 这个感觉真好HPH 好舒服…HPH」","L"
+						PRINTFORMDL 清兰节奏地进行抽插运动，刺激着阴茎。
+						PRINTFORMDW 对方也不甘示弱，配合着节奏扭动腰部，发出娇喘声。
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 啊HPH…%CALLNAME:MASTER%，感觉好吗…？」","L"
+						PRINTFORMDL 清兰努力扭动腰部，试图让对方感受舒适。
+						PRINTFORMDW 尽管动作有些生涩，但这种感觉也很棒……
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ENDIF
+	ENDIF
+	;基本设置
+	;强奸中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	ELSEIF ABL:膣 >= 3
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH 插入了，安静点哦…HPH」","L"
+				PRINTFORMDL 清兰慢慢地吞噬着肉棒。
+				PRINTFORMW %CALLNAME:MASTER%原本打算动一动，但忍受着蜜穴的快感，只能尽力忍耐…！
+			CASE 1
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%，稍等一下♪马上…会让你感到舒服的…HPH」","L"
+				PRINTFORMDL 清兰将阴道摩擦在男根上，涂抹着爱液。
+				PRINTFORMDL 在非常焦急的刺激下，%CALLNAME:MASTER%恳求尽快插入。
+				PRINTFORMW 「让你久等了～…来了♪」
+				CALL HPH_PRINT,@"「嗯嗯HPH 呵…HPH 啊HPH 刚高潮了…HPH」","L"
+				PRINTFORMDW 虽然一下子插入深处，%CALLNAME:MASTER%咬牙忍住，艰难地控制着射精…！
+		ENDSELECT
+		RETURN 1
+	ELSE
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「我在上面…？知道了♪我会加油的…HPH」","L"
+				CALL HPH_PRINT,@"「嗯…HPH 啊啊啊…HPH HPH 插入了HPH %CALLNAME:MASTER%的阴茎HPH」","L" 
+				PRINTFORMDW 清兰握住%CALLNAME:MASTER%的手，开始扭动腰部……
+			CASE 1
+				CALL HPH_PRINT,@"「我…嗯…HPH %CALLNAME:MASTER%…让你感到舒服…HPH」","L"
+				PRINTFORML 「…嗯…？嗯…！啊，怎么回事？没插进去…！为、为什么…？」
+				PRINTFORMDL 因为爱液滑动，阴茎难以插入，清兰陷入苦战。
+				PRINTFORMDL 为了不让事情变得尴尬，抓住清兰的腰部，一口气插入阴道。
+				CALL HPH_PRINT,@"「啊啊啊HPH HPH HPH 哈哈…HPH 我想要让你感到舒服，结果…」","W"
+		ENDSELECT
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;66,騎乗位アナル
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_66
+CALL M_KOJO_MESSAGE_COM_K107_66_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_66_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		IF FLAG:70
+			PRINTFORMDW
+			RETURN 1
+		;アナル処女
+		ELSEIF TCVAR:Ａ破瓜
+			CALL SEIRAN_SEX
+		ELSE
+			CALL SEIRAN_SEX
+		RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+		IF LOCAL:1 && TCVAR:101 == PLAYER
+		IF ABL:Ａ感覚 >= 4
+			;今射精した
+			IF NOWEX:PLAYER:11
+				CALL SEIRAN_SEX
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:104
+				CALL SEIRAN_SEX
+				RETURN 1
+			ELSE
+				CALL SEIRAN_SEX
+				RETURN 1
+			ENDIF
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	;Ａ感覚４以上
+	ELSEIF ABL:Ａ感覚 >= 4
+		PRINTFORML 「还想用屁股呢？…唉，没办法了…♪」
+		PRINTFORMDL 清兰跨上%CALLNAME:MASTER%，张开臀部，将男根插入肛门…
+		CALL HPH_PRINT,@"「呼呼呼呼HPH 阴茎HPH…进入了屁股里…啊HPH」","L"
+		PRINTFORMDL 多次进行肛交的结果，清兰似乎掌握了窍门。
+		PRINTFORMDW 流畅的抽插让%CALLNAME:MASTER%走向了射精的边缘…！
+	RETURN 1
+	;其他情况
+	ELSE
+		PRINTFORML 「诶…还要用屁股吗…？」
+		PRINTFORML 「好、好吧…只一次，就一次…」
+		PRINTFORMDW 
+		PRINTFORML 「呼…！呼…！呼…！」
+		PRINTFORMDL 清兰或许仍然感到害怕，虽然将%CALLNAME:MASTER%的阴茎对准肛门，却保持不动…
+		PRINTFORMDL 受不了了，%CALLNAME:MASTER%抓住清兰的腰部，一口气将肉棒插入肛门。
+		PRINTFORMW 「啊…！啊……！ 呼啊…呼啊…呼啊…」
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;67,対面座位 騎乗位ほぼ使い回し
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_67
+CALL M_KOJO_MESSAGE_COM_K107_67_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_67_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;処女
+		IF TCVAR:破瓜 == 1
+			CALL SEIRAN_SEX
+			RETURN 1
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:100 == PLAYER
+		IF FLAG:70
+			PRINTFORMW 
+			RETURN 1
+		ELSEIF ABL:膣 >= 3
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%啊HPH 对不起HPH 我、忍不住了HPH HPH」","L"
+						PRINTFORMDL 似乎快要达到高潮，清兰紧紧抱住%CALLNAME:MASTER%，专心地扭动着腰部…！
+						CALL HPH_PRINT,@"「啊HPH 啊HPH 啊HPH 大大的来了HPH 啊啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 在紧紧的夹压下，仿佛在催促着尽快射精，%CALLNAME:MASTER%终于达到了极限…
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 啊HPH 啊HPH %CALLNAME:MASTER%HPH 一起…高潮HPH」","L"
+						PRINTFORMDL 紧紧拥抱着清兰，呼吸合拍地扭动腰部。
+						PRINTFORMDL 哗啦，两人的腰部相碰，瞬间白茫一片―两人陷入了高潮…
+						CALL HPH_PRINT,@"「啊啊HPH 高潮HPH 高潮啊HPH 啊啊啊啊啊啊HPH HPH HPH」","W"
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次射精过
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「嗯嗯HPH…啾HPH…啪啊…呼…呼…HPH」","L"
+						PRINTFORMDL 清兰分开双唇，唾液的丝线滴落下来…
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH 再来一次…HPH」","L"
+						PRINTFORMDW 清兰再次开始扭动腰部。刚刚高潮过的阴茎受到刺激，%CALLNAME:MASTER%发出无奈的声音…
+					CASE 1
+						CALL HPH_PRINT,@"「呼…HPH 呼…HPH %CALLNAME:MASTER%…HPH」","L"
+						PRINTFORMDL 清兰再次开始扭动腰部。湿湿的声音响起，两人的体液混合在一起…
+						PRINTFORMDW 无视自己下半身的污秽，两人互相撞击着腰部。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:4
+					CASE 0
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%～♪感觉怎么样？舒服吗HPH」","L"
+						PRINTFORMDL 清兰以变换节奏的方式抽送着阴茎，攻击着%CALLNAME:MASTER%。
+						PRINTFORMDL %CALLNAME:MASTER%竭力忍耐着射精的冲动…
+						CALL HPH_PRINT,@"「嘿嘿HPH 就算这样…我也在努力学习着呢HPH」","L"
+						PRINTFORMW 「总是在做爱的时候捉弄我……我也要回敬♪」
+					CASE 1
+						CALL HPH_PRINT,@"「呼呼HPH 啊HPH 感觉真好HPH 腰部、停不下来HPH HPH」","L"
+						CALL HPH_PRINT,@"「呼HPH 呼HPH %CALLNAME:MASTER%呀？%CALLNAME:MASTER%感觉舒服吗？」","L"
+						PRINTFORMDW %CALLNAME:MASTER%虽然在快感中颤抖，还是勉强说出了"舒服"这个词…
+					CASE 2
+						CALL HPH_PRINT,@"（啊啊HPH 这就是%CALLNAME:MASTER%的表情……♪）","L"
+						PRINTFORMDL 在%CALLNAME:MASTER%面前，清兰跳动着腰部。可爱的乳头紧贴在谦虚的胸前，让人不由自主―
+						PRINTFORMDL 看到清兰如此动人，%CALLNAME:MASTER%忍不住―
+						CALL HPH_PRINT,@"「嗯嗯HPH！？乳头…HPH 舔着、呜呜呜HPH」","W"
+					CASE 3
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ELSE
+			;刚刚射精过
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「哈…HPH 啊啊HPH 这个HPH 感觉好―嗯嗯HPH HPH HPH」","L"
+						PRINTFORMDL 清兰停止了动作…但是，%CALLNAME:MASTER%还没有达到高潮…！
+						CALL HPH_PRINT,@"「嗯啊啊啊啊HPH HPH 等一下HPH 等一下HPH 我要―」","L"
+						CALL HPH_PRINT,@"「啊啊啊―哈哈啊啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 清兰再次高潮。而%CALLNAME:MASTER%也―
+					CASE 1
+						CALL HPH_PRINT,@"「啊啊啊HPH…阴茎HPH…变硬了HPH」","L"
+						CALL HPH_PRINT,@"「好的HPH 射出来HPH 想要射在里面HPH」","L"
+						PRINTFORMDW 清兰加快腰部动作，试图从%CALLNAME:MASTER%身上榨取精液。终于，%CALLNAME:MASTER%也到达了极限―
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼…HPH 呼…HPH 啊HPH 精液，好多…流出来了HPH」","L"
+						PRINTFORMDL 清兰爱怜地抚摸着肚子。在某种挑逗性的动作下，肉棒再次变得坚硬…
+						CALL HPH_PRINT,@"「啊……HPH …好的♪再来一次吧HPH」","L"
+						PRINTFORMDW 清兰再次开始扭动腰部……
+					CASE 1
+						CALL HPH_PRINT,@"「呼…呼…HPH 呼呼…稍微休息一下…」","L"
+						PRINTFORMDL 清兰倒在这里，将身体交给了这边。…这次轮到这边了。
+						CALL HPH_PRINT,@"「—嗯啊啊！？等一下HPH 等一下HPH 刚刚高潮了，所以HPH」","L"
+						PRINTFORMDW %CALLNAME:MASTER%抓住清兰的臀部，向上推动腰部，摩擦着阴道壁。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:4
+					CASE 0
+						CALL HPH_PRINT,@"「呼HPH 啊HPH 这样真舒服HPH 正好HPH」","L"
+						PRINTFORMDL 清兰有节奏地进行插入运动，刺激着阴茎。
+						PRINTFORMDW 这边也不甘示弱，配合着节奏向上推动腰部，发出娇喘声。
+					CASE 1
+						CALL HPH_PRINT,@"「啊啊HPH 啊HPH…%CALLNAME:MASTER%，感觉舒服吗…？」","L"
+						PRINTFORMDL 清兰努力地扭动腰部，试图让这边感觉舒服。
+						PRINTFORMDW 尽管腰部动作有些生疏，但这种感觉也不错……
+					CASE 2
+						CALL HPH_PRINT,@"「嗯HPH 吮吸HPH 舔HPH 这样…HPH 嗯嗯HPH 吮吸舔舐HPH」","L"
+						PRINTFORMDW 清兰相互拥抱，交换着深情的吻，感受着彼此的体温。
+					CASE 3
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ENDIF
+	ENDIF
+	;基本设置
+	;时姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	ELSEIF ABL:膣 >= 3
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「嗯嗯HPH HPH 啊…啊…HPH 插入…啊…HPH」","L"
+				PRINTFORMDL 清兰跨坐在%CALLNAME:MASTER%的腿上。
+				PRINTFORMDL 心想着唇快要触碰的距离…清兰却渴望亲吻，这边便应允了。
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH 嗯HPH 吮吸HPH 嗯嗯HPH」","W"
+			CASE 1
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%的脸…HPH 这么近…HPH」","L"
+				CALL HPH_PRINT,@"「嗯…HPH 这个，我喜欢…HPH」","L"
+				PRINTFORMDW %CALLNAME:MASTER%支撑着清兰，缓慢地开始扭动腰部。
+				
+		ENDSELECT
+		RETURN 1
+	ELSE
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%的脸…HPH 这么近…HPH」","L"
+				PRINTFORMDL 清兰面对面坐着，相互凝视。感受到体温传递，心跳加快…
+				PRINTFORMDW %CALLNAME:MASTER%支撑着清兰，缓慢地开始扭动腰部。
+			CASE 1
+				CALL HPH_PRINT,@"「嗯嗯HPH HPH 这样插入…来了HPH」","W"
+				PRINTFORMDW 清兰和对视，采取面对面坐姿插入。感受到彼此的体温，心跳加快…！
+		ENDSELECT
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;68,背面座位
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_68
+CALL M_KOJO_MESSAGE_COM_K107_68_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_68_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		;処女
+		IF TCVAR:破瓜 == 1
+			CALL SEIRAN_SEX
+			RETURN 1
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:100 == PLAYER
+		IF FLAG:70
+			PRINTFORMW 
+			RETURN 1
+		ELSEIF ABL:膣 >= 3
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼呼HPH 呼呼HPH 啊HPH %CALLNAME:MASTER%！亲吻吧HPH 想要亲吻HPH」","L"
+						CALL HPH_PRINT,@"「嗯嗯HPH 亲吻HPH 吻吻HPH 亲吻HPH 亲亲HPH 嗯嗯HPH 嗯…HPH HPH」","L"
+						PRINTFORMDL 清兰转向这边，贪婪地重叠双唇。
+						PRINTFORMDL %CALLNAME:MASTER%搂着清兰，向上推动腰部，摩擦着阴道壁……！
+						CALL HPH_PRINT,@"「唔唔HPH 亲吻HPH 亲亲HPH 亲亲亲亲亲HPH HPH HPH」","L"
+						PRINTFORMDW 两人在接吻的同时达到了高潮……
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 啊HPH 啊HPH %CALLNAME:MASTER%HPH %CALLNAME:MASTER%HPH」","L"
+						PRINTFORMDL 清兰双手撑在%CALLNAME:MASTER%的腿上，不断地向上冲击着腰部。
+						CALL HPH_PRINT,@"「啊啊HPH 嗯嗯嗯HPH 射出来HPH 啊啊啊啊啊HPH HPH HPH」","W"
+						PRINTFORMDW 达到高潮后，清兰背部弯曲，颤抖着将精液射入清兰的阴道内―
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次射精过
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼呼HPH 呼呼HPH 肚子，暖暖的HPH」","L"
+						PRINTFORMDL 清兰靠近%CALLNAME:MASTER%。%CALLNAME:MASTER%感到担忧地询问―
+						CALL HPH_PRINT,@"「亲吻HPH …嘿，再来一次吧HPH」","L"
+						PRINTFORMDW 突如其来的吻和微湿的笑容让%CALLNAME:MASTER%的肉棒再次变得坚硬…
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 感觉，很好HPH」","L"
+						PRINTFORMDL 清兰倒在前方，可爱的尾巴映入眼帘。
+						PRINTFORMDW …%CALLNAME:MASTER%冲动地抓住尾巴，享受着触感。
+						CALL HPH_PRINT,@"「不行HPH HPH 尾巴很敏感的…HPH」","L"
+						CALL HPH_PRINT,@"「啊HPH HPH 不行…因为尾巴很敏感…HPH」","L"
+						PRINTFORMDW 虽然想继续抚摸，但听着清兰的娇声，肉棒重新变硬，于是重新开始插入…
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%！怎么样？舒服吗HPH」","L"
+						PRINTFORMDL 清兰以跳跃的节奏进行抽插，刺激着阴茎。
+						PRINTFORMDL %CALLNAME:MASTER%拼命忍耐着射精的冲动…
+						PRINTFORML 「啊～！不要在做爱时捉弄我…！这样…太过分了♪」
+						PRINTFORMDL 清兰扭动腰部，%CALLNAME:MASTER%被突如其来的刺激搞得情绪激动，发出可怜的尖叫声…
+						CALL HPH_PRINT,@"（啊…HPH 阴茎…在肚子里颤抖…♪这感觉，有点有趣呢…HPH）","W"
+					CASE 1
+						CALL HPH_PRINT,@"「呼呼HPH 啊HPH 感觉真好HPH 腰部、停不下来HPH HPH」","L"
+						PRINTFORMDL 清兰背对着这边，专心投入行为。%CALLNAME:MASTER%捏起了背部空旷的乳头。
+						CALL HPH_PRINT,@"「唔呼呼HPH 嗯HPH 再来…HPH 这样…更多…HPH」","L"
+						PRINTFORMDW 摩擦乳头的同时，%CALLNAME:MASTER%抬起臀部，将子宫顶向清兰，引导她到达高潮…！
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ELSE
+			;今射精した
+			IF NOWEX:PLAYER:11
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「啊…HPH 啊啊HPH 这感觉真好―嗯嗯嗯HPH HPH HPH」","L"
+						PRINTFORMDL 清兰似乎达到了高潮，停止了动作…但是，%CALLNAME:MASTER%还没有达到高潮…！
+						CALL HPH_PRINT,@"「嗯嗯啊啊啊啊HPH HPH 等等HPH 哦呵HPH 来了―」","L"
+						CALL HPH_PRINT,@"「啊啊―呼呼啊啊啊啊啊HPH HPH HPH」","L"
+						PRINTFORMDW 清兰再次达到高潮。而%CALLNAME:MASTER%也―
+					CASE 1
+						CALL HPH_PRINT,@"「%CALLNAME:MASTER%HPH…阴茎在HPH…勃起了HPH」","L"
+						CALL HPH_PRINT,@"「好的HPH 我要HPH 在里面射精HPH」","L"
+						PRINTFORMDW 清兰加快腰部动作，试图从%CALLNAME:MASTER%身上榨取精液。%CALLNAME:MASTER%也即将达到极限―
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			;上次射精过
+			ELSEIF TCVAR:102
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼…HPH 呼…HPH 很舒服…HPH 但是…」","L"
+						PRINTFORMDL …？清兰扭动身体，看向%CALLNAME:MASTER%。
+						CALL HPH_PRINT,@"「…这个…还是想看着%CALLNAME:MASTER%的脸，再来一次HPH」","L"
+						PRINTFORMDW …%CALLNAME:MASTER%的欲望再次被点燃…！
+					CASE 1
+						CALL HPH_PRINT,@"「呼…呼…HPH 啊HPH 很舒服…」","L"
+						PRINTFORMDL 清兰倒在这里，将身体交给了这边。…这次轮到这边了。
+						CALL HPH_PRINT,@"「—啊啊啊！？等一下HPH 等一下HPH 刚刚高潮了，所以HPH」","L"
+						PRINTFORMDW %CALLNAME:MASTER%从后面抱住清兰，向上推动腰部，摩擦着阴道壁。
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ELSE
+				SELECTCASE RAND:3
+					CASE 0
+						CALL HPH_PRINT,@"「呼呼HPH 啊HPH 很舒服HPH 腰部、停不下来HPH HPH」","L"
+						PRINTFORMDL 清兰专心投入行为，背对着这边。%CALLNAME:MASTER%捏起了背部空旷的乳头。
+						CALL HPH_PRINT,@"「唔呼呼HPH 嗯HPH 再来…HPH 这样…更多…HPH」","L"
+						PRINTFORMDW %CALLNAME:MASTER%抬起臀部，将子宫顶向清兰，引导她达到高潮…！
+					CASE 1
+						CALL HPH_PRINT,@"「啊HPH 啊HPH…%CALLNAME:MASTER%，感觉舒服吗…？」","L"
+						PRINTFORMDL 清兰努力地扭动腰部，试图让%CALLNAME:MASTER%感受舒适。
+						PRINTFORMDW %CALLNAME:MASTER%不安地看着清兰，这种举动有些可爱…
+					CASE 2
+						CALL SEIRAN_SEX
+				ENDSELECT
+				RETURN 1
+			ENDIF
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	ELSEIF ABL:膣 >= 3
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%…HPH 插进去了，静静地呆着哦…HPH」","L"
+				PRINTFORMDL 清兰缓慢地吞噬着自己的雌穴里的肉棒。
+				PRINTFORMDW %CALLNAME:MASTER%本打算动一动，但忍受着蜜壶带来的快感，已经是全力以赴了…！
+			CASE 1
+				CALL HPH_PRINT,@"「%CALLNAME:MASTER%，稍等一下…！马上…会让你感到舒服的…HPH」","L"
+				PRINTFORMDL 清兰用自己的阴道摩擦着男根，涂抹着爱液。
+				PRINTFORMDL 面对极度挑逗的刺激，%CALLNAME:MASTER%恳求快点插入。
+				PRINTFORMW 「让你久等了~…来吧♪」
+				CALL HPH_PRINT,@"「嗯嗯HPH HPH 啊…HPH 稍微，射出来了…HPH」","L"
+				PRINTFORMDW 虽然一下子插入深处，%CALLNAME:MASTER%咬紧牙关，努力忍住射精…！
+		ENDSELECT
+		RETURN 1
+	ELSE
+		SELECTCASE RAND:2
+			CASE 0
+				CALL HPH_PRINT,@"「啊啊啊…HPH HPH %CALLNAME:MASTER%的阴茎HPH 到达最深处了HPH 」","L" 
+				PRINTFORMDW 清兰在阴茎穿过阴道的快感中颤抖着身体……
+			CASE 1
+				CALL HPH_PRINT,@"「我要…嗯…HPH %CALLNAME:MASTER%…让你感受到快乐…HPH」","L"
+				PRINTFORML 「…嗯…？嗯…！啊，那个？没插进去…！为、为什么呢…？」
+				PRINTFORMDL 可能是因为爱液太滑，清兰很难将阴茎插入
+				PRINTFORMDL 于是%CALLNAME:MASTER%抱起清兰，一口气插入阴道。
+				CALL HPH_PRINT,@"「啊啊啊HPH HPH HPH 真是的…HPH 我想让你感到愉快，结果却…HPH」","W"
+		ENDSELECT
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;69,対面座位アナル
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_69
+CALL M_KOJO_MESSAGE_COM_K107_69_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_69_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		IF FLAG:70
+			PRINTFORMDW
+			RETURN 1
+		;アナル処女
+		ELSEIF TCVAR:Ａ破瓜
+			CALL SEIRAN_SEX
+		ELSE
+			CALL SEIRAN_SEX
+		RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+		IF LOCAL:1 && TCVAR:101 == PLAYER
+		IF ABL:Ａ感覚 >= 4
+			;今射精した
+			IF NOWEX:PLAYER:11
+				CALL SEIRAN_SEX
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:104
+				CALL SEIRAN_SEX
+				RETURN 1
+			ELSE
+				CALL SEIRAN_SEX
+				RETURN 1
+			ENDIF
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	;Ａ感覚４以上
+	ELSEIF ABL:Ａ感覚 >= 4
+		PRINTFORML 「又想要在屁股里做吗？…唉，没办法了…♪」
+		PRINTFORMDL 清兰面对着%CALLNAME:MASTER%，张开屁股，将男根插入其中…
+		CALL HPH_PRINT,@"「呼呼呼呼HPH 阴茎HPH…进入了，屁股里，啊HPH」","L"
+		PRINTFORMDL 多次进行肛交的结果，清兰似乎也掌握了窍门。
+		PRINTFORMDW 流畅的抽插将%CALLNAME:MASTER%引向射精…！
+	RETURN 1
+	;其他情况
+	ELSE
+		PRINTFORML 「诶…又要在屁股里做吗…？」
+		PRINTFORML 「嗯、我知道了……只有一次，可以…」
+		PRINTFORMDW 
+		PRINTFORML 「呼…！呼…！呼…！」
+		PRINTFORMDL 清兰似乎仍然害怕，虽然将%CALLNAME:MASTER%的阴茎放入肛门，但却保持着跨坐的姿势不动…
+		PRINTFORMDL 忍耐不住的%CALLNAME:MASTER%抓住清兰的腰，一口气将肉棒插入屁股里。
+		PRINTFORMW 「啊…！啊……！ 呼啊…呼啊…呼啊…」
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;70,背面座位アナル（立位から流用の手抜き）
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_70
+CALL M_KOJO_MESSAGE_COM_K107_70_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_70_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+		IF FLAG:70
+			PRINTFORMDW
+			RETURN 1
+		;アナル処女
+		ELSEIF TCVAR:Ａ破瓜
+			CALL SEIRAN_SEX
+		ELSE
+			CALL SEIRAN_SEX
+		RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 1
+	;-------------------------------------------------
+		IF LOCAL:1 && TCVAR:101 == PLAYER
+		IF ABL:Ａ感覚 >= 4
+			;今射精した
+			IF NOWEX:PLAYER:11
+				CALL SEIRAN_SEX
+				RETURN 1
+			;前回射精した
+			ELSEIF TCVAR:104
+				CALL SEIRAN_SEX
+				RETURN 1
+			ELSE
+				CALL SEIRAN_SEX
+				RETURN 1
+			ENDIF
+		ELSE
+			CALL SEIRAN_SEX
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;時姦中
+	IF FLAG:70
+		PRINTFORMW 
+		RETURN 1
+	;Ａ感覚４以上
+	ELSEIF ABL:Ａ感覚 >= 4
+		PRINTFORML 「又想要在屁股里做吗？…唉，没办法了…♪」
+		PRINTFORMDL 清兰背对%CALLNAME:MASTER%，跨坐上去，大大地张开屁股，将男根插入其中…
+		CALL HPH_PRINT,@"「呼呼呼呼HPH 阴茎HPH…进入了，屁股里，啊HPH」","L"
+		PRINTFORMDL 多次进行肛交的结果，清兰似乎也掌握了窍门。
+		PRINTFORMDW 流畅的抽插将%CALLNAME:MASTER%引向射精…！
+	RETURN 1
+	;其他情况
+	ELSE
+		PRINTFORML 「诶…又要在屁股里做吗…？」
+		PRINTFORML 「嗯，我知道了……只有一次，可以…」
+		PRINTFORMDW 
+		PRINTFORML 「呼…！呼…！呼…！」
+		PRINTFORMDL 由于背对着，无法看到表情，清兰似乎仍然害怕。她将%CALLNAME:MASTER%的阴茎放入肛门后保持不动…
+		PRINTFORMDL 忍耐不住的%CALLNAME:MASTER%抓住清兰的腰，一口气将肉棒插入屁股里。
+		PRINTFORMW 「啊…！啊……！ 呼啊…呼啊…呼啊…」
+		RETURN 1
+	ENDIF
+ENDIF
+;==================================================
+;71,二穴挿し
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_71
+CALL M_KOJO_MESSAGE_COM_K107_71_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_71_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;考えうる分岐が多すぎるので地の文の大まかな分岐だけ
+	;連続
+	IF PREVCOM == SELECTCOM
+		PRINTFORMW 
+		RETURN 1
+	;主人V挿入→助手A挿入
+	ELSEIF TCVAR:100 == MASTER
+		PRINTFORMW 
+		RETURN 1
+	;主人A挿入→助手V挿入
+	ELSEIF TCVAR:101 == MASTER
+		PRINTFORMW 
+		RETURN 1
+	;助手V挿入→主人A挿入
+	ELSEIF TCVAR:100 == ASSI
+		PRINTFORMW 
+		RETURN 1
+	;助手A挿入→主人V挿入
+	ELSEIF TCVAR:101 == ASSI
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;72,挿入Ｇスポット責め
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_72
+CALL M_KOJO_MESSAGE_COM_K107_72_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_72_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:101 == PLAYER
+		;前回射精した
+		IF TCVAR:104
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;恋慕
+	IF TALENT:恋慕
+		PRINTFORMW 
+		RETURN 1
+	;屈服3
+	ELSEIF MARK:不埒刻印 == 3
+		PRINTFORMW 
+		RETURN 1
+	;それ以外
+	ELSE
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;73,挿入子宮口責め
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_73
+CALL M_KOJO_MESSAGE_COM_K107_73_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_73_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:101 == PLAYER
+		;前回射精した
+		IF TCVAR:104
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;恋慕
+	IF TALENT:恋慕
+		PRINTFORMW 
+		RETURN 1
+	;屈服3
+	ELSEIF MARK:不埒刻印 == 3
+		PRINTFORMW 
+		RETURN 1
+	;それ以外
+	ELSE
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;74,Ｓ状結腸責め
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_74
+CALL M_KOJO_MESSAGE_COM_K107_74_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_74_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:101 == PLAYER
+		;前回射精した
+		IF TCVAR:104
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;恋慕
+	IF TALENT:恋慕
+		PRINTFORMW 
+		RETURN 1
+	;屈服3
+	ELSEIF MARK:不埒刻印 == 3
+		PRINTFORMW 
+		RETURN 1
+	;それ以外
+	ELSE
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;75,膣裏責め
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_75
+CALL M_KOJO_MESSAGE_COM_K107_75_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_75_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:101 == PLAYER
+		;前回射精した
+		IF TCVAR:104
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;恋慕
+	IF TALENT:恋慕
+		PRINTFORMW 
+		RETURN 1
+	;屈服3
+	ELSEIF MARK:不埒刻印 == 3
+		PRINTFORMW 
+		RETURN 1
+	;それ以外
+	ELSE
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;77,小人オナホ(針妙丸用？
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_77
+CALL M_KOJO_MESSAGE_COM_K107_77_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_77_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+	ENDIF
+	;-------------------------------------------------
+	;挿入継続
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && TCVAR:101 == PLAYER
+		;前回射精した
+		IF TCVAR:104
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;基本セット
+	;恋慕
+	IF TALENT:恋慕
+		PRINTFORMW 
+		RETURN 1
+	;屈服3
+	ELSEIF MARK:不埒刻印 == 3
+		PRINTFORMW 
+		RETURN 1
+	;それ以外
+	ELSE
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;95,疑似挿入
+;==================================================
+@M_KOJO_MESSAGE_COM_K107_95
+CALL M_KOJO_MESSAGE_COM_K107_95_1
+RETURN RESULT
+
+@M_KOJO_MESSAGE_COM_K107_95_1
+;-------------------------------------------------
+;記入チェック（=0, 非表示、1, 表示）
+LOCAL = 0
+;-------------------------------------------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;初めて
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	IF LOCAL:1 && FIRSTTIME(SELECTCOM)
+	ENDIF
+	;-------------------------------------------------
+	;記入チェック
+	LOCAL:1 = 0
+	;-------------------------------------------------
+	;処女か無自覚非処女の場合
+	IF LOCAL:1 && TFLAG:194
+		;欲情が高い場合の分岐
+		IF TFLAG:194 == 2
+			PRINTFORMW 
+			RETURN 1
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	;非処女
+	ELSE
+		;恋慕
+		IF TALENT:恋慕
+			PRINTFORMW 
+			RETURN 1
+		;それ以外
+		ELSE
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+ENDIF
+RETURN 1

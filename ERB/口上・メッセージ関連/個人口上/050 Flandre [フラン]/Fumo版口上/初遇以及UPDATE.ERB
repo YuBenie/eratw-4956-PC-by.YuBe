@@ -1,0 +1,797 @@
+﻿;-------------------------------------------------
+; eraTheWorld 4.800用 ○○口上（加入角色的名字）
+;-------------------------------------------------
+;关于他人的修改、润色、修改，请遵循同捆许可条款。
+
+;------ ｷﾘﾄﾘ ｶｲｼ -----------
+;eraTheWorld proto4.07补丁导入用 Ver1.13
+;使用模板
+;请先根据替换命令将K50变更为K（角色No）
+;角色No参照CSV文件夹的Chara文件 例(霧雨 魔理沙)：K50 =置換=> K11
+;
+;------ ｷﾘﾄﾘ ｵﾜﾘ -----------
+;**** FlagManagement **********************************************************
+[SKIPSTART]
+;CFLAG:50:1100 伪芙兰
+;CFLAG:50:1101 稳芙兰
+;CFLAG:50:1102 狂芙兰
+;CFLAG:50:1103 忧芙兰
+;CFLAG:50:1104 乐芙兰
+;CFLAG:50:1105 初始初期会话
+;CFLAG:50:1106 思慕初期会话
+;CFLAG:50:1107 恋慕初期会话
+;CFLAG:50:1108 恋人初期会话（如果有）
+CFLAG:50:1201 稳芙兰 学习特殊线分支
+[SKIPEND]
+;本口上にて使用しているCFLAG・TCVAR等
+;******************************************************************************
+
+
+;### 口上存在判定 ###################################
+@M_KOJO_K50_3(ARG)
+;名字还没定反正我就先这么念了
+RESULTS = _暮光碎片
+RESULTS:1 = 的四重存在,因为有四个芙兰所以是五倍的工作量
+;四人组有五个人很正常吧
+RETURN 1
+;如果这里设置了RESULTS，即使与另一个角色冲突，它也会正常运行。
+;我直接抱着FOMO佬的案子猛吸
+;设定为「EVENT」系事件。
+;M_KOJO_暮光碎片_TEST_EVENT_K50_1() 同一个角色的另一种口上。
+
+;在这里使用CFLAG等角色变量的情况下，需要用角色号码的指定
+
+;CFLAG:X:眠姦口上有 = 0
+;CFLAG:X:時間停止口上有 = 0
+;CFLAG:X:扮演口上有 = 0
+;CFLAG:X:破瓜中止口上有 = 0
+;CFLAG:X:口上内抱き寄せ判定_初回 = 0
+;CFLAG:X:口上内抱き寄せ判定_通常 = 0
+
+;这是口上的存在判定，如口上中有眠姦口上、時間停止口上就删除;符号，将0改为1
+
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;禁止推倒
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+
+;CFLAG：在禁止推倒为1的话，就不会主动推倒
+;以下是恋慕或者炮友到达之前不会推倒的使用例
+
+;IF !TALENT:X:恋慕 && !TALENT:X:炮友
+;CFLAG:X:推倒禁止 = 1
+;ELSE
+;CFLAG:X:推倒禁止 = 0
+;ENDIF
+
+;### 口上基本フラグ設定 #############################
+@M_KOJO_暮光碎片_FLAGSETTING_K50
+;FUMO武神我们喜欢你口牙
+;不管怎样就要给你一拳
+;乐芙兰默认开启
+IF FIRSTTIME("TALENT_CHANGE")
+TALENT:50:0 = 0 
+CSTR:50:処女喪失履歴 = 还没被任何人进入
+CFLAG:50:1100 		 = 0
+CFLAG:50:1101 		 = 0
+CFLAG:50:1102 		 = 0
+CFLAG:50:1103 		 = 0
+CFLAG:50:1104 		 = 1
+TALENT:50:胆量 	 	 = 0 
+TALENT:50:態度 	  	 = 0 
+TALENT:50:応答 	 	 = 0 
+TALENT:50:自尊心 	 = 0 
+;避免bug，先放在初见归零了，方便做芙兰自定义（？）
+ENDIF 
+;### 口上色判定 ###################################
+@M_KOJO_暮光碎片_COLOR_K50
+
+;这里可以改变角色口上的颜色
+;例：SETCOLOR 0xC07070
+
+; SETCOLOR 0xFFFF99
+
+;默认大黄色
+;整个芙兰翅膀一个字一个色嘻嘻嘻嘻嘻
+;好吧这当然是不可能的
+; 新增改进
+IF CFLAG:1101 == 1 ;稳芙兰
+	SETCOLOR 	0xFFFF99 ;浅黄
+ELSEIF CFLAG:1102 == 1  ;狂芙兰
+	SETCOLOR 	0xFF0000  ;鲜红
+ELSEIF CFLAG:1103 == 1 ;忧芙兰
+	SETCOLOR 	0xFE5353   ;原暗玫瑰色  改橘红了（姑且）
+ELSEIF CFLAG:1104 == 1 ;乐芙兰
+	SETCOLOR	0xFFFFCC ;象牙白
+ELSE
+	SETCOLOR 	0xFFFF99 ;浅黄
+ENDIF
+; 来自12/22的更新改进，试试看能不能通过条件自动选择颜色
+; 灵感来源：翻天空录Sama的觉口上
+; 说实话，当时差点就被觉大人钓成翘嘴了
+; 不过我是坚定的蕾咪厨
+; 五合一的芙兰应该，换一个颜色，到时再说吧
+[SKIPSTART]
+
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　♪　　♪
+　　　　　　　　　　　　　　　　　　　,. -───-- ､_　　　　/　　／
+　　　　　　　　　　　　　　 ｒｰ-､,.'"　　　　　　　　　　｀ヽ､.　　　　 ∧
+　　　　　　　　　　　　 　_」::::::i　　_ゝへ__ｒへ__ ﾉ_　_　　　｀l.　　　 V
+　　　　　　　　　　　　 く::::::::::｀i / ゝ--'─'--'-ヽ､_ﾄ-､__r'ﾍｲ　　　.i　　　　　　　　　　　　　,､_　   ,　､_
+　　　　　　　　　　　　∧＼::::::::ゝイ,.ｲﾉヽ!　ﾚ　ヽ,_｀ヽ7ヽ_｀Y´　 ／＜＞　　　　　　　　　　 ／　仁h　　 ／　　在
+　　　　　　　　　　　　V　r.Y ｨ"ﾚ´ﾉ　/,.ｨ ﾚ'　､!__ﾊ i iﾊ　ﾊ.i　　/>＞　　　　　　　　　　　　　／　　:il　 .／￣￣　|
+　　　　　　　　　　　　　ヽ　　/.|! 　⌒ ,＿__, ⌒　　 ﾊ　Ｖ〈|.| ,..!　　　　　　　　　　　　／　　　il .／　　ｆ￣|
+　　　　　　　　　　　　　＜〉ﾉ .|/l ./// ヽ_ ﾉ　///　ハﾉ i　|/∧　　　　　　　　　　　　　　／　　　　　 .／　   i  |
+　　　　　　　　　　　　 　　 〈,..|　ヽ、　　　　　　ｆ ‐--．.,.,＿＿＿　　　　　　　　　　／　　　　　 .／ 10-5 i　|
+　　　　　　　　　　　　　__,.ュ‐´ --‐｀‐　''　￣　　　　　　　　　　￣￣｀　''　―　．.,＿／　　　　　 ／＝＝＝＝i＝:｜
+　　　　　　　_,.．‐ '　´￣　　　　　　　　　Flanker　　　　　　　　　　　　　　　　　　　 ￣｀ '' ‐-´．.,＿＿_ χ　i |
+　　　 _,. ‐ ´　　　　　　　　　　 ‐　‐ ――――――――――ｚュェェェェ仁￣￣｀у￣￣￣￣､_￣ ７￣￣￣￣＜二二二二ニ＝―＿
+　― ´-　＿＿＿＿＿＿＿,.．ニニ--‐ｒ;;々"´￣￣ ｀|i|〕￣／､ﾐ及ュ ､_　;　　 i ｀'' 式ニニ三＿_」　　￣i￣￣￣￣ ――――｀三z〉―´――
+　　　　　　　　　　　　　　　　　　　　　　 ￣￣￣￣￣ |i| ／　 　｀Lｭi ｀ヽﾙl_＿ﾉ＿;_;_;_; ﾉ_;_;_;_;ﾉ_;|i|_;_;＿ﾉ;＿;＿＼|三Zニ- ´
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　 　 杉　　　　　　　￣￣￣￣￣￣ﾑ￣￣￣　 |i|　ヽ-‐ '´　　　＼__　-┘
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 ヽk‐､　　　　　　　　　　　　　/´句j　　　　/;;rhヽ
+　　　　　　　　　　　　　　      　　　　　　　　　　　　 {{_ク　　　　　　　　　　　　　.'、スﾉ　　　　';:;:U;:ﾉ
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 ｀´　　　　　　　　　　　　　　 ｀´　　　　　　｀´
+
+　　　　　　
+[SKIPEND]
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;"UPDATE判定"
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+@M_KOJO_暮光碎片_UPDATE_K50
+;口上独自的UPDATE用
+;请在ENCOUNTER专用设置独立分支标志的情况下使用
+;在UPDATE判定中使用CFLAG等角色变量的情况下，需要角色号码的指定。
+;（这地方一般不用改）
+PRINTFORMW	嘛,这里是口上UPDATE的地方吧
+PRINTFORML				————by.黑奴月白
+PRINTFORMW	为了方便测试，这里做支线设置吧
+PRINTFORMW	也就是说，这里
+PRINTFORMW	那么，开始吧
+$INPUT_UPDATE
+SIF FLAG:口上色
+	CALLFORM M_KOJO_暮光碎片_COLOR_K50
+PRINTDL
+	PRINTFORML 当前CFLAG:50:1100为 {CFLAG:50:1100}
+	PRINTFORML 当前CFLAG:50:1101为 {CFLAG:50:1101}
+	PRINTFORML 当前CFLAG:50:1102为 {CFLAG:50:1102}
+	PRINTFORML 当前CFLAG:50:1103为 {CFLAG:50:1103}
+	PRINTFORML 当前CFLAG:50:1104为 {CFLAG:50:1104}
+PRINTDL
+PRINTL [-1] - 这是什么？点一下
+PRINTL [0] - 变更伪芙兰
+PRINTL [1] - 变更稳芙兰
+PRINTL [2] - 变更狂芙兰
+PRINTL [3] - 变更忧芙兰
+PRINTL [4] - 变更乐芙兰
+PRINTL [5] - 结束
+INPUT
+SELECTCASE RESULT
+	CASE -1
+		PRINTFORMDW 原来是身体接触按钮！
+		CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+		TFLAG:193 = -1
+		CALL M_KOJO_暮光碎片_MESSAGE_COM_K50_302
+		TFLAG:193 = 0
+		; CALL 绯色之诗_测试(50,"_暮光碎片","COM",302)
+		; CALL @绯色之诗_测试(ARG,ARGS,ARGS:0,ARGS:1,ARG:0)
+		GOTO INPUT_UPDATE
+	CASE 0
+		IF CFLAG : 50 : 1100 == 1
+			PRINTFORMW	当前伪芙兰已开启
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1100 = 0
+			PRINTFORMW	变更了，伪芙兰已关闭
+			GOTO INPUT_UPDATE
+		ELSE
+			PRINTFORMW	当前伪芙兰已关闭
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1100 = 1
+			PRINTFORMW	变更了，伪芙兰已开启
+			GOTO INPUT_UPDATE
+		ENDIF
+	CASE 1
+		IF CFLAG : 50 : 1101 == 1
+			PRINTFORMW	当前稳芙兰已开启
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1101 = 0
+			PRINTFORMW	变更了，稳芙兰已关闭
+			GOTO INPUT_UPDATE
+		ELSE
+			PRINTFORMW	当前稳芙兰已关闭
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1101 = 1
+			PRINTFORMW	变更了，稳芙兰已开启
+			GOTO INPUT_UPDATE
+		ENDIF
+	CASE 2
+		IF CFLAG : 50 : 1102 == 1
+			PRINTFORMW	当前狂芙兰已开启
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1102 = 0
+			PRINTFORMW	变更了，狂芙兰已关闭
+			GOTO INPUT_UPDATE
+		ELSE
+			PRINTFORMW	当前狂芙兰已关闭
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1102 = 1
+			PRINTFORMW	变更了，狂芙兰已开启
+			GOTO INPUT_UPDATE
+		ENDIF
+	CASE 3
+		IF CFLAG : 50 : 1103 == 1
+			PRINTFORMW	当前忧芙兰已开启
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1103 = 0
+			PRINTFORMW	变更了，忧芙兰已关闭
+			GOTO INPUT_UPDATE
+		ELSE
+			PRINTFORMW	当前忧芙兰已关闭
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1103 = 1
+			PRINTFORMW	变更了，忧芙兰已开启
+			GOTO INPUT_UPDATE
+		ENDIF
+	CASE 4
+		IF CFLAG : 50 : 1104 == 1
+			PRINTFORMW	当前乐芙兰已开启
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1104 = 0
+			PRINTFORMW	变更了，乐芙兰已关闭
+			GOTO INPUT_UPDATE
+		ELSE
+			PRINTFORMW	当前乐芙兰已关闭
+			PRINTFORMW	.....
+			PRINTFORMW	....
+			PRINTFORMW	...
+			PRINTFORMW	..
+			PRINTFORMW	.
+			CFLAG:50:1104 = 1
+			PRINTFORMW	变更了，乐芙兰已开启
+			GOTO INPUT_UPDATE
+		ENDIF
+	CASE 5
+			PRINTFORMW	退出
+	CASEELSE
+			PRINTFORMW	好像输错了
+			PRINTFORMW	麻烦重新输一次吧~
+			PRINTDL
+			GOTO INPUT_UPDATE
+	ENDSELECT
+RESETCOLOR
+RETURN 1
+[SKIPSTART]
+梗预定
+不知为何出现在这里的神秘update按钮……
+芙兰图
+「明明是二创对吧」
+「给我把胸弄大点啊」
+给几个选项
+1不行真得贫乳
+	——就该这样
+2……
+若干选项
+X 既然都二创了那来个巨乳不过分吧
+	——不是，不能要啊不能要啊
+		芙兰全裸图
+			——哪怕真的是巨乳，差分也不会变的
+X+1 既然都这样了那再来个母乳
+	——不是，哥们？？？？？？
+	……
+	…………
+	………………
+	……………………
+	…………………………你无敌了
+不管选了什么
+巨乳都是不存在的口牙！
+[SKIPEND]
+RETURN 1
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;"ENCOUNTER"系事件（额外语法）
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+@M_KOJO_暮光碎片_ENCOUNTER_K50
+;初次见面、打招呼
+SIF FLAG:口上色
+	CALLFORM M_KOJO_暮光碎片_COLOR_K50
+PRINTL 相遇，即是偶然，也是必然
+PRINTL 命运簇拥着你们的相遇
+PRINTL 尽管你不相信命运，也不相信引力
+	;按照设定这段初遇口上应该只会在地下室触发，因此————
+IF CFLAG:MASTER:現在位置 == 318 || CFLAG:MASTER:現在位置 == 328 || CFLAG:MASTER:現在位置 == 329 || CFLAG:MASTER:現在位置 == 330 || CFLAG:MASTER:現在位置 == 331 || CFLAG:MASTER:現在位置 == 332 || CFLAG:MASTER:現在位置 == 333
+;接下来思考叠buff
+;前提得是有认识的或者和芙兰有缘分
+PRINTFORMW 芙兰朵露.斯卡雷特…
+PRINTFORMW %CALLNAME:MASTER%觉得自己以前似乎听说过关于这个名字的传言
+PRINTFORML 嗯…
+	IF  CFLAG:58:2 <= 500 || CFLAG:15:2 <= 500 || CFLAG:54:2 <= 500 || CFLAG:16:2 <= 500 || CFLAG:124:2 <= 500  || CFLAG:143:2 <= 500 || GETBIT	(CFLAG:31,	0) || GETBIT	(CFLAG:31,	1)
+	PRINTFORMW 似乎……在那里听过这个名字的样子……
+	PRINTFORMW %CALLNAME:MASTER%认为仅仅依靠第一印象判断为人尚且不妥
+	PRINTFORMW 根据自己所听到过的传闻来判断也不妨是一种选择才对
+	;判断红魔乡众人
+		$SELECT
+		RESETCOLOR
+		PRINTL
+			CALL ASK_M("那个门番似乎提过…",CFLAG:58:2 >= 500,"那个女仆似乎提到过…",CFLAG:15:2 >= 500,"那个魔法使似乎提到过…",CFLAG:54:2 >= 500,"那个吸血鬼似乎提到过…",CFLAG:16:2 >= 500,"那个秘神似乎提到过…",CFLAG:124:2 >= 500,"那个畜牲似乎提到过…",CFLAG:143:2 >= 500,"…自己曾和她…",GETBIT(CFLAG:31,	0) || GETBIT(CFLAG:31,	1),"好像脑袋里就记得这些了",1)
+		;根据输入选项进入不同的回忆
+		;加减一顿算，如果不想算的话
+		;只和尤魔对话——稳
+		;只和咲夜对话——狂
+		;只和蕾咪对话——忧
+		;以上都没触发的话默认进入乐
+			SELECTCASE RESULT
+			CASE 0
+				CALL PRINT_FACE, [[美鈴]], "微笑", "服", "", ""
+				PRINTFORMDW 「她啊，乃是馆主的妹妹。我虽是红魔馆的门番，但却并不能时常见到馆内的所有人…」
+				PRINTFORMDW 「但在下还是有信心记住所见过的所有人的，仅于在下而言，她与那馆主不愧姐妹。」
+				PRINTFORMDW 「不过毕竟止有几面之缘，在下也不自觉有管中窥豹之才，且背后定义她人着实为在下所不耻。」
+				PRINTDL
+				CALL ASK_M("我记得她是这么说的（-態度  +自尊心）",1,"不对，我好像记错了",1)
+				;PRINTDL [0] 我记得她是这么说的（-態度  +自尊心）
+				;PRINTDL [1] 不对，我好像记错了
+				;INPUT
+					IF RESULT == 0
+						PRINTDW 的确，不能妄下定论，不过……
+						PRINTDW 不愧和馆主是姐妹么
+						PRINTDW 「印象中的芙兰变得坦率并且自尊心高了」
+						IF TALENT:50:態度 != -1
+						TALENT:50:態度 = -1
+						ENDIF
+						IF TALENT:50:自尊心 != 1
+						TALENT:50:自尊心 = 1
+						ENDIF
+						GOTO SELECT
+					ELSEIF RESULT == 1
+						PRINTFORMDW 应该没这回事
+						PRINTFORMW 「当前未发生变化」
+						GOTO SELECT
+					ENDIF
+			CASE 1
+				CALL PRINT_FACE, [[咲夜]], "通常", "服", "", ""
+				PRINTFORMDW 「如您所见，这都是二小姐的杰作」
+				PRINTFORMDW 「这些碎片我马上就会清理掉，就不劳烦您了。」
+				PRINTFORMDW 「不，我并没有任何对二小姐的不满，但二小姐确实难以控制她强大的力量。」
+				PRINTFORMDW 「我虽为红魔馆的女仆长，可我效忠的始终只有蕾米莉亚大人一位，二小姐造成的麻烦也是大小姐的麻烦，身为她的女仆，我有义务处理，仅此而已。」
+				PRINTDL
+				CALL ASK_M("评价看起来很客观呢（-態度  +応答）",1,"有咲夜在的话还是能放心的吧",1)
+				;PRINTDL [0] 评价看起来很客观呢（-態度  +応答）
+				;PRINTDL [1] 有咲夜在的话还是能放心的吧
+				;INPUT 
+					IF RESULT == 0
+						PRINTDL 女仆长说的话应该是对的
+						PRINTDW 看来需要注意一点了
+						PRINTFORMW 「印象中的芙兰变得叛逆且傲慢了」
+						IF TALENT:50:態度 != -1
+						TALENT:50:態度 = -1
+						ENDIF
+						IF TALENT:50:応答 != 1
+						TALENT:50:応答 = 1
+						ENDIF
+						GOTO SELECT
+					ELSEIF RESULT == 1
+						PRINTFORMDW 那么，再去整理一下思绪吧
+						PRINTFORMW 「当前未发生变化」
+						GOTO SELECT
+					ENDIF
+			CASE 2
+				CALL PRINT_FACE, [[帕秋莉]], "憤怒", "服", "", ""
+				PRINTFORMDW 「与她的姐姐不同，她就是一个疯子。」
+				PRINTFORMDW 「我发怒了？是的，任谁看到自己准备细品的书变成碎尘，没有把罪魁祸首处以极刑都是我看在蕾米的面子上了。」
+				PRINTFORMDW 「所幸，这本书并不是孤本，但为了防止这种事情再次发生，我要去找蕾米谈谈。如果她这个妹妹还有羞耻心，那么就再也不要出现在图书馆里。」
+				PRINTDL
+				CALL ASK_M("情绪有点高呢……真的有这么严重？（+態度 -自尊心）",1,"再怎么说，评价也有点太主观了")
+				;PRINTDL [0] 情绪有点高呢……真的有这么严重？（+態度 -自尊心）
+				;PRINTDL [1] 再怎么说，评价也有点太主观了
+				;INPUT 
+					IF RESULT == 0
+						PRINTDL 性格上可能有点难办呢
+						PRINTDW 不过被别人这么评论自己可能也不好受吧
+						PRINTFORMW 「印象中的芙兰变得有点叛逆和自尊心低了」
+						IF TALENT:50:態度 != 1
+						TALENT:50:態度 = 1
+						ENDIF
+						IF TALENT:50:自尊心 != -1
+						TALENT:50:自尊心 = -1
+						ENDIF
+						GOTO SELECT
+					ELSEIF RESULT == 1
+						PRINTFORMDW 也许这只是气话也说不定吧
+						PRINTFORMW 「当前未发生变化」
+						GOTO SELECT
+					ENDIF
+			CASE 3
+				CALL PRINT_FACE, [[蕾米莉亜]], "微笑", "服", "", ""
+				PRINTFORMDW 「我啊，一直期待着她能够独当一面。」
+				PRINTFORMDW 「姐姐期待妹妹超越自己是什么很难理解的事情吗？」
+				PRINTFORMDW 「但是现在，她还太…幼稚了，也许当初任由她呆在地下室并不是最好的选择。」
+				PRINTFORMDW 「也许一直自顾自的，想要帮她铺平前方道路的我，在迈出第一步的时候，就已经做错了……」
+				PRINTDL
+				CALL ASK_M("也就是说，在一间任何探测器（？）都侦察不到的地下室……（-胆量 -応答）",1,"小孩子会忍不住偷溜出去玩？",1)
+				;PRINTDL [0] 也就是说，在一间任何探测器（？）都侦察不到的地下室……（-胆量 -応答）
+				;PRINTDL [1] 小孩子会忍不住偷溜出去玩？
+				;INPUT 
+					IF RESULT == 0
+						PRINTDW 	不过这么憋着不会憋出病么……
+						PRINTFORMW 「印象中的芙兰变得不仅胆怯还老实了」
+						IF TALENT:50:胆量 != -1
+						TALENT:50:胆量 = -1
+						ENDIF
+						IF TALENT:50: 応答 != -1
+						TALENT:50: 応答 = -1
+						ENDIF
+						GOTO SELECT
+					ELSEIF RESULT == 1
+						PRINTFORMDW 不知为何，脑袋里浮现出一个画面
+						PRINTFORMDW 姐姐，我逃出去了口牙！
+						PRINTFORMW 「当前未发生变化」
+						GOTO SELECT
+					ENDIF
+			CASE 4
+				CALL PRINT_FACE, [[隠岐奈]], "通常", "服", "", ""
+				PRINTFORMDW 「不得不承认，幻想乡中有趣的家伙越来越多了，紫那家伙还真是把这里维护的真好的~」
+				PRINTFORMDW 「但是啊，紫那家伙还是太迂腐了，自认为在维护那脆弱界限，可到底不过是鲁伯特之泪.」
+				PRINTFORMDW 「什么？不不不哈哈哈…还是让紫继续吧，我呢，就简单的修修补补，用用我的方法，就比如这些个小家伙…」
+				PRINTDL
+				CALL ASK_M("听起来意外的能派上用场呢（+胆量 -応答）",1,"听起来好像好厉害（º﹃º）",1)
+				;PRINTDL [0] 听起来意外的能派上用场呢（+胆量 -応答）
+				;PRINTDL [1] 听起来好像好厉害（º﹃º）
+				;INPUT 
+					IF RESULT == 0
+						PRINTDW 	应该是一个比较正经的人吧
+						PRINTFORMW 「印象中的芙兰变得坚强同时还带有一点老实了」
+						IF TALENT:50:胆量 != 1
+							TALENT:50:胆量 = 1
+						ENDIF
+						IF TALENT:50: 応答 != -1
+							TALENT:50: 応答 = -1
+						ENDIF
+						GOTO SELECT
+					ELSEIF RESULT == 1
+						PRINTFORMDW 到头来还是不清楚，还是先不想了
+						PRINTFORMW 「当前未发生变化」
+						GOTO SELECT
+					ENDIF
+			CASE 5
+				CALL PRINT_FACE, [[尤魔]], "笑颜", "服", "", ""
+				PRINTFORMDW 「嘛…毕竟是成功杀死我一次的家伙，不容小觑啊。」
+				PRINTFORMDW 「不过也没办法，畜牲界里玩蛮力的脑子比不过我，玩脑子的蛮力不过我，我也很难有成长嘛。」
+				PRINTFORMDW 「啧…喂，没看出我是因为不想继续这个话题才要提起畜牲界嘛！咬你哦！」
+				PRINTDL
+				CALL ASK_M("难道说……芙兰是一个很厉害的人！？（+胆量 +自尊心）",1,"因为怕被真的咬所以就直接跑走了",1)
+				;PRINTDL [0] 难道说……芙兰是一个很厉害的人！？（+胆量 +自尊心）
+				;PRINTDL [1] 因为怕被真的咬所以就直接跑走了
+				;INPUT 
+					IF RESULT == 0
+						PRINTDW 有点期待见到本尊了。
+						PRINTFORMW 「印象中的芙兰变得既坚强自尊心又高了」
+						IF TALENT:50:胆量 != 1
+						TALENT:50:胆量 = 1
+						ENDIF
+						IF TALENT:50: 自尊心 != 1
+						TALENT:50: 自尊心 = 1
+						ENDIF
+						GOTO SELECT
+					ELSEIF RESULT == 1
+						PRINTFORMDW 当时似乎因为逃跑就没继续想这事了
+						PRINTFORMW 「当前未发生变化」
+						GOTO SELECT
+					ENDIF
+			CASE 6
+				CALL PRINT_FACE, [[芙兰]], "笑颜", "服", "", ""
+					;这里写芙兰的捏~不知道捏~
+						PRINTFORMDW	由于FUMO佬还在鸽
+						PRINTFORMDW	因此这部分暂时没弄出来
+						CALL PRINT_FACE, [[芙兰]], "憤怒", "服", "", ""
+					;这里塞塞芙兰的话
+					GOTO SELECT
+			CASE 7
+				CALL PRINT_FACE, [[芙兰]], "通常", "服", "", ""
+					PRINTFORMDW 虽然对于芙兰的认知都是基于传言构成的
+					PRINTFORMDW 不过经过%CALLNAME:MASTER%的深思熟虑之后
+					PRINTFORMDW %CALLNAME:MASTER%印象中芙兰的身影越发清晰可见
+					PRINTFORMDL 
+					PRINTFORMDW 所以，芙兰朵露.斯卡雷特就是这样的人吧
+					PRINTFORMDW 那么，接下来该怎么和她相处呢？
+					PRINTDL
+					;这里应该就是接下来根据四维判断初见口上的地方了吧
+			CASEELSE
+					PRINTFORMDW	不好，走神了
+					PRINTFORMDW	再好好想想……
+					PRINTDL
+				GOTO SELECT
+			ENDSELECT
+			
+	ELSE ;没人认识或者好感度都不够也没有跟芙兰有缘分
+		PRINTFORMDW 嘛……
+		PRINTFORMDW 初来乍到，还没和周围的人打好关系呢
+		PRINTFORMDW 应该，只是从妖精女仆那里听过传闻而已吧
+		PRINTDL 
+		CFLAG:50:1100 = 1
+		;以防万一
+		;这里就设置成进伪芙兰线的必要了
+	ENDIF
+	;接下来是四+1等分的芙兰
+	[SKIPSTART]
+	梳理一下
+	稳芙芙 坚强，坦率，傲慢，自尊心高
+	狂芙芙 坚强，叛逆，傲慢，自尊心高
+	忧芙芙 膽怯，坦率，老实，自尊心低
+	乐芙芙 坚强，坦率，傲慢，自尊心低
+	（-態度  +自尊心）
+	（-態度  +応答）
+	（+態度 -自尊心）
+	（-胆量 -応答）
+	（+胆量 -応答）
+	（+胆量 +自尊心）
+	[SKIPEND]
+	IF 	CFLAG:1100 == 1
+		;伪芙兰 这么看来这条线就跟素质没关系了,默认全是0
+		PRINTFORMDW 早些时候就听说过红魔馆的地下室是不对外开放的地区
+		PRINTFORMDW 不过说归说，进来这里似乎并没有任何阻挠的样子
+		PRINTFORMDL 要是真有什么危险的话，自己利用时间停止也能应付过去吧
+		PRINTFORMDL 但是真的来到了地下室，却是一股寒意从脊背流向全身
+		PRINTDW
+		PRINTFORMDL %CALLNAME:MASTER%因为身边突然安静下来的空气紧张得全身汗毛直立起来
+		PRINTFORMDL 作为操控时间的大师，早已习惯了因时间停止而凝滞下来的空气
+		PRINTDW
+		PRINTFORMDL 但是很明显，自己并没有使用时停的能力，一种莫名的压迫感隐藏在身边的空气当中
+		PRINTFORMDL 漆黑的地下室中，就在%CALLNAME:MASTER%的附近
+		PRINTFORMDL 已经能感受到了，未知存在的气息
+		PRINTDW
+		PRINTFORMDL 「又是，没有被制为点心的人类啊～」
+		PRINTFORMDL 令人惶惶不安的轻咛伴随着银铃般的笑声自黑暗中响起
+		PRINTDW
+		PRINTFORMDW 「你是来陪芙兰玩的嘛～」
+		PRINTFORMDW 「呵呵呵呵～不过啊，芙兰我现在……」
+		PRINTDL
+		PRINTFORMW 少女的声音戛然而止，除了%CALLNAME:MASTER%的心跳之外，听不到任何声音
+		PRINTDL
+		IF ABL:MASTER:教養 >= 3 ;教养大于等于B
+		PRINTDL [0] 发生什么了？ 
+		;稳芙芙 
+		ENDIF
+		IF ABL:MASTER:戦闘能力 >= 3
+		PRINTDL [1] 装神弄鬼的家伙	
+		;狂芙芙 
+		ENDIF
+		IF CFLAG:16:2 >= 1000 ;姐姐大人~
+		PRINTDL [2] 你好？我是来交朋友的	
+		;忧芙芙 
+		ENDIF
+		PRINTDL [3] …………
+		;这里是默认开启	乐芙芙 
+		INPUT
+			SELECTCASE RESULT
+				CASE 0 ;稳
+					CFLAG:1101 = 1
+					CFLAG:1102 = 0
+					CFLAG:1103 = 0
+					CFLAG:1104 = 0
+					GOTO BRANCH
+				CASE 1 ;狂
+					CFLAG:1101 = 0
+					CFLAG:1102 = 1
+					CFLAG:1103 = 0
+					CFLAG:1104 = 0
+					GOTO BRANCH
+				CASE 2 ;忧
+					CFLAG:1101 = 0
+					CFLAG:1102 = 0
+					CFLAG:1103 = 1
+					CFLAG:1104 = 0
+					GOTO BRANCH
+				CASE 3 ;乐
+					CFLAG:1101 = 0
+					CFLAG:1102 = 0
+					CFLAG:1103 = 0
+					CFLAG:1104 = 1
+					GOTO BRANCH
+			ENDSELECT
+	ENDIF
+
+	[SKIPSTART]
+	稳芙芙 坚强，坦率，傲慢，自尊心高
+	狂芙芙 坚强，叛逆，傲慢，自尊心高
+	忧芙芙 膽怯，坦率，老实，自尊心低
+	乐芙芙 坚强，坦率，傲慢，自尊心低
+	只要出现	自尊心高 +坦率||坚强  = 稳
+	只要出现	叛逆 +傲慢||自尊心高  = 狂
+	只要出现	老实 +自尊心低||胆怯  = 忧
+	反正乐是默认的上面没触发就乐吧，乐是混沌
+	[SKIPEND]
+
+	IF TALENT:自尊心 == 1 && TALENT:態度 != -1;自尊心高,稳,同时出现叛逆和自尊心高的情况优先判别给狂
+		IF TALENT:応答 == 1 || TALENT:胆量 == 1 
+				TALENT:50:胆量 	 	 = 1 
+				TALENT:50:態度 	 	 = -1 
+				TALENT:50:応答 	 	 = 1 
+				TALENT:50:自尊心 	 = 1 
+				CFLAG:1101 = 1
+				CFLAG:1102 = 0
+				CFLAG:1103 = 0
+				CFLAG:1104 = 0
+				GOTO BRANCH
+		ENDIF
+	ENDIF
+	IF TALENT:態度 == -1 ;叛逆，狂
+		IF TALENT:応答 == 1 || TALENT:自尊心 == 1 
+				TALENT:50:胆量 	 	 = 1 
+				TALENT:50:態度 	 	 = 1 
+				TALENT:50:応答 	 	 = 1 
+				TALENT:50:自尊心 	 = 1 
+				CFLAG:1101 = 0
+				CFLAG:1102 = 1
+				CFLAG:1103 = 0
+				CFLAG:1104 = 0
+				GOTO BRANCH
+		ENDIF
+	ENDIF
+	IF TALENT:応答 == -1 ;老实，忧
+		IF TALENT:胆量 == -1 || TALENT:自尊心 == -1 
+				TALENT:50:胆量 	 	 = -1 
+				TALENT:50:態度 	 	 = -1 
+				TALENT:50:応答 	 	 = -1 
+				TALENT:50:自尊心 	 = -1 
+				CFLAG:1101 = 0
+				CFLAG:1102 = 0
+				CFLAG:1103 = 1
+				CFLAG:1104 = 0
+				GOTO BRANCH
+		ENDIF
+	ENDIF
+				;这里塞乐芙兰，上面没触发的默认触发乐芙兰
+				TALENT:50:胆量 	 	 = 1 
+				TALENT:50:態度 	 	 = -1 
+				TALENT:50:応答 	 	 = 1 
+				TALENT:50:自尊心 	 = -1 
+				CFLAG:1101 = 0
+				CFLAG:1102 = 0
+				CFLAG:1103 = 0
+				CFLAG:1104 = 1
+				GOTO BRANCH
+	PRINTL
+	PRINTL
+	$BRANCH
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+			IF CFLAG:1101 == 1 ;稳芙兰
+					PRINTFORML 「人类。」
+					PRINTFORMDW 略显冷淡的声音自%CALLNAME:MASTER%身后响起。
+					PRINTDL
+					PRINTFORML 「我并不觉得未经主人允许便闯入她人房间是理所应当的行为。」
+					PRINTFORMDW %CALLNAME:MASTER%回过身去，一片漆黑之中亮其数道彩色暗光，勉强映射出一位少女的身形。
+					PRINTDL
+					PRINTFORML 「上帝规定，只有吸血鬼被邀请时才能进入人类的房屋，这句话反过来也一样。」
+					PRINTFORMDL 鲜红的线条自少女的手部亮起，而后便是丝丝热量，当热量增加，线条也变为了一把燃烧的巨剑。
+					PRINTFORMDW 火光虽是映射着，但%CALLNAME:MASTER%只能勉强少女那冷漠的面庞。
+					PRINTDL
+					PRINTFORMW 「你应该庆幸，我能够压制住将你粉碎的想法，也升不起玩弄你的念头。」
+					PRINTDL
+					PRINTFORMDL 巨剑燃烧着，却是越来越小，最后缩成了一拳大的火球，又不断坍缩，成为了一个只是在辐射着白光的红色光点，飘浮在少女掌中。
+					PRINTFORMDL 热量不再，但却是将整个地下室照亮，%CALLNAME:MASTER%也终于看清少女了少女的样貌
+					PRINTFORMDL 她的头发呈现淡淡的金黄色，扎着侧马尾，有一对闪烁着七色光芒的神秘翅膀……
+					PRINTDW
+					PRINTFORMW 「芙兰朵露.斯卡雷特，红魔馆馆主之妹。现在，无论是你好奇心驱使前来探查红魔馆地下室的恶魔，还是受人之托前来拜访，亦或是其他理由，我只给你一分钟时间，之后还请离开这里。」
+					PRINTDL
+					PRINTFORMDW	「芙兰已获得坚强，坦率，傲慢，自尊心高」
+			
+			ELSEIF CFLAG:1102 == 1  ;狂芙兰
+					PRINTFORML 	「呵呵呵……哈哈哈哈！」
+					PRINTFORMDW 狂妄的笑声自%CALLNAME:MASTER%面前响起，一双鲜红的眼睛自黑暗中亮起，诡异的七色暗光映射出一位瘦弱少女的身影
+					PRINTDL
+					PRINTFORMDW 少女垂着双手，略微侧头，即使看不清她的表情，但断断续续的笑声，还是让%CALLNAME:MASTER%看到了她那扭曲的笑容
+					PRINTFORMDL
+					PRINTFORMW 	「Here's Flan～」
+					PRINTDL
+					PRINTFORMDW 少女动了，与之一起动的，是%CALLNAME:MASTER%的——一种在岸上却宛如溺水的无力感
+					PRINTDL
+					PRINTDL
+					PRINTFORMDW The · World ! !	时间停止吧 ！
+					PRINTDW
+					PRINTDW
+					PRINTFORMW 	「…呵呵…躲开了呢。」
+					PRINTFORMDL 少女直起身子，仍是笑着，大幅度仰头，看向借助时停来到自己身后的%CALLNAME:MASTER%
+					PRINTDW
+					PRINTFORML 	「I want to play a game.All work and no play makes Flan a dull Vamp～」
+					PRINTDW
+					PRINTFORMDL 这是个疯子…
+					PRINTFORMDL 纵使%CALLNAME:MASTER%见多识广也没曾见过这般难以理解的人
+					PRINTFORMDL 却见她突然举起双手，而后慢慢划下
+					PRINTDL
+					PRINTFORMW 	「叫吧～地下室里没人会听到你的声音…呵呵呵呵～」
+					PRINTFORMDW 随着她的手臂落下，巨大的轰鸣声自头顶突然冒出，无数碎石砸在%CALLNAME:MASTER%身上
+					PRINTDL
+					PRINTFORMDW 这里要塌？！
+					PRINTFORMDW 不对，似乎并非如此
+					PRINTFORMDL 正当%CALLNAME:MASTER%打算暂停时间，逃离这里的时候，声音停止了
+					PRINTFORMDW 地下室的天花板上洒下几道光柱，洒在罪魁祸首之上，而她仍是侧着头，盯着%CALLNAME:MASTER%
+					PRINTFORMW	「土与水属性的法阵呢…总有一天，我要把那个魔法使的脊椎制成项链…呵呵呵呵呵…」
+					PRINTDL
+					PRINTFORMDW ……
+					PRINTFORMDW 安全了…
+					PRINTFORMDW	暂时的。
+					PRINTDL
+					PRINTFORMDW	「芙兰已获得坚强，叛逆，傲慢，自尊心高」
+			
+			ELSEIF CFLAG:1103 == 1 ;忧芙兰
+					PRINTFORMW 	「啊…抱歉…唔…不要来找芙兰，芙兰可能会伤害到你的。」
+					PRINTFORMDW 微微颤抖的声音自黑暗中传来，顺着声音望去，但无奈，还是太黑了。
+					PRINTDL
+					PRINTFORMDW 「芙兰…是吗，不要害怕，我见过你的姐姐，蕾米莉亚。」
+					PRINTDL
+					PRINTFORMW	「姐姐…」
+					PRINTFORMDW 她的语气中显露着明显的悲伤，暗淡的光自房间的角落亮起，一名少女似乎正坐在那里。
+					PRINTDL
+					PRINTFORMDW %CALLNAME:MASTER%慢慢靠近，可随着自己每走一步，那光便颤抖一分。
+					PRINTFORML 	「不要再靠近了…芙兰是会伤害到你的…」
+					PRINTFORMDW 当少女再一次开口时，%CALLNAME:MASTER%已经蹲在了少女身前，没有犹豫，向她伸出了手
+					PRINTFORMDL 少女似乎看向了%CALLNAME:MASTER%，%CALLNAME:MASTER%也露出了自认为很是和善的笑容，却先把自己惹笑了。
+					PRINTFORMDL 良久无言，但光已然不再剧烈颤抖。
+					PRINTDW
+					PRINTFORMW 	「芙兰…会伤害你的…芙兰不想伤害你。」
+					PRINTDL
+					PRINTDL
+					PRINTFORMDW %CALLNAME:MASTER%没有说话，只是仍然笑着，伸出自己的手。
+					PRINTFORMDW 虽然…少女始终没有牵上。
+					PRINTDL
+					PRINTFORMDW	「芙兰已获得胆怯，坦率，老实，自尊心低」
+			
+			ELSEIF CFLAG:1104 == 1 ;乐芙兰
+					PRINTFORML 	「哦呀！人类！」
+					PRINTFORMDW 充满活力的声音自%CALLNAME:MASTER%身边响起，一名少女不知何时跃上了%CALLNAME:MASTER%的肩膀，将%CALLNAME:MASTER%搂住
+					PRINTDL
+					PRINTFORMW 	「就决定是你啦～你来当芙兰的下属吧！」
+					PRINTDL
+					PRINTFORMDW 「嗯？」
+					PRINTDL
+					PRINTFORMDW 没等%CALLNAME:MASTER%反应过来，自顾自的说着。
+					PRINTFORMW 	「嗯嗯嗯～姐姐曾说咲夜是世界第一棒的下属，那你就当个世界第二棒就好！」
+					PRINTFORMW 	「记住了哦！身为我的下属，每天起来第一件事要说芙兰世界第二可爱，芙兰的姐姐大人世界第一可爱！啊，还有还有～要每天默念三次芙兰真可爱！哼哼哼哼哼～」
+					PRINTFORMDL 少女从%CALLNAME:MASTER%的背上跳下，三两步绕到%CALLNAME:MASTER%身前，向%CALLNAME:MASTER%伸出手
+					PRINTDW
+					PRINTFORMW 	「所以～你没有拒绝，就是答应啦～要不要芙兰也给你取个名字？只会比咲夜差一点点哦！」
+					PRINTFORMDW %CALLNAME:MASTER%终于是反应过来面前的少女在干什么，但自己的手已经被她牵住，向着门外走去
+					PRINTDL
+					PRINTDW    「芙兰已获得坚强，坦率，傲慢，自尊心低」
+					;甜死我了，加了99个甜味料
+			ENDIF
+ENDIF ;这段应该只会在地下室触发的初次会面
+;如果可以的话，应该也得写一个非地下室的会面吧，我记得芙兰晚上会去大厅来着
+
+RETURN 1
+
+

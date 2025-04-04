@@ -1,0 +1,4284 @@
+﻿
+;**** FlagManagement **********************************************************
+;本口上使用的CFLAG・TCVAR的用途等
+; CFLAG:1400 吸血play的既成事实
+; CFLAG:1401 想吸你的血了
+; CFLAG:1301 初次索要膝枕记录
+; CFLAG:1410	傲娇标记开关
+; CFLAG:1420
+; CFLAG:1430	
+; CFLAG:1440 败者食尘察觉
+; CFLAG:1441 会话临时用
+; TCVAR:350 每日会话次数
+; TCVAR:351 每日泡茶次数
+; TCVAR:352 每日身体接触次数
+; 我在想，为什么只能由玩家对人物有认知上的概念？
+; 玩家是一个虚拟的，理应没有形象的
+; 对蕾咪而言，玩家在与蕾咪增进感情的时候，同样也是蕾咪了解玩家的契机
+; 目前暂时打算将这个判定放到COUNTER系
+;
+;
+;******************************************************************************
+;### 口上存在判定 ###################################
+@M_KOJO_K16_3(ARG)
+RESULTS = _緋色之诗
+RESULTS:1 = 緋色之诗，也许没有发布那天
+RETURN 1
+;这是对存在的判断，请不要注释掉
+;不要做任何其他的处理
+
+;### 口上基本フラグ設定 #############################
+@M_KOJO_緋色之诗_FLAGSETTING_K16
+;口上的基本标志设置应在此处完成
+;请使用以下注释内的标志，必要时取消注释
+;此处的变量名是日文原版的变量名，请参考CSV\CFLAG.CSV文件内的变量名进行修正
+
+;请将此处的 X 替换为角色编号
+
+;将眠姦口上有、時間停止口上有、なりきり（扮演模式）口上有这些CFLAG变量设置为 1 ，才能在眠姦、時間停止、扮演模式时显示口上
+;否则，以上情况中，你的角色将不会有任何反应
+;CFLAG:X:眠姦口上有 = 0
+;CFLAG:X:時間停止口上有 = 0
+;CFLAG:X:なりきり口上有 = 0
+
+;当 破瓜キャンセル口上有 设置为1时，在第一次插入时会触发@M_KOJO_EVENT_K16_LOST_VIRGIN_STOP并根据结果来决定是否成功
+;CFLAG:X:破瓜キャンセル口上有 = 0
+
+;口上内抱き寄せ判定_初回と口上内抱き寄せ判定_通常に1を入れると、M_KOJO_EVENT_K16_PERMISSIONで押し倒しの成否を操作できます
+;如果设置为1，初次以及通常的推倒，可以用M_KOJO_EVENT_K16_PERMISSION控制是否成功推倒
+
+;CFLAG:X:口上内抱き寄せ判定_初回 = 0
+;CFLAG:X:口上内抱き寄せ判定_通常 = 0
+
+;设置为1时，将无法推倒（但是时醉睡奸不一定不能）
+;以下是一个例子，在无恋慕并且无炮友时禁止推倒
+
+;IF !TALENT:X:恋慕 && !TALENT:X:セフレ
+;	CFLAG:X:押し倒し禁止 = 1
+;ELSE
+;	CFLAG:X:押し倒し禁止 = 0
+;ENDIF
+
+;如果你把来訪不能设置为 1 ，角色不住在主地图时将不会来访
+;以下是一些用途示例，效果是让角色在见面之前不会来访
+
+;IF !CFLAG:X:面識
+;	CFLAG:X:来訪不能 = 1
+;ELSE
+;	CFLAG:X:来訪不能 = 0
+;ENDIF
+
+;注、如果您需要修改角色的初始设置，请在下方IF ENDIF期间添加
+;请不要修改FIRSTTIME("TALENT_CHANGE")，这个可以让修改仅修改一次
+;以下是一个例子，效果是初始设定为处女并修正处女丧失履历
+
+;IF FIRSTTIME("TALENT_CHANGE")
+;TALENT:X:0 = 0 
+;CSTR:X:処女喪失履歴 = 还没被任何人进入
+;ENDIF 
+;
+;### 口上色判定 ###################################
+@M_KOJO_緋色之诗_COLOR_K16
+
+;这里可以通过SETCOLOR设置自己的口上颜色
+;在系统启用口上色设定后才可以触发
+;例：SETCOLOR 0xC07070
+IF MARK:16:反発刻印 >= 2
+	SETCOLOR 0xFF0000
+ELSEIF	TCVAR:16:発情
+	SELECTCASE CFLAG:16:340
+	CASE 0 TO 300
+	SETCOLOR 0xF3E4FF
+	CASE 301 TO 400 
+	SETCOLOR 0xF5DCF5
+	CASE 401 TO 500 
+	SETCOLOR 0xF7D4EB
+	CASE 501 TO 600 
+	SETCOLOR 0xF9CCE1
+	CASE 601 TO 650 
+	SETCOLOR 0xFBB0D7
+	CASE 651 TO 700 
+	SETCOLOR 0xFDBCCD
+	CASE 700 TO 1000 
+	SETCOLOR 0xFFB6C1
+	ENDSELECT
+ELSE
+	SETCOLOR 0xF3E4FF
+ENDIF
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;"UPDATE判定"
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+@M_KOJO_緋色之诗_UPDATE_K16
+;口上独自的UPDATE用
+;当您专门为 ENCOUNTER 准备了自己的分支标志时，请使用它（原文如此）
+;在UPDATE判断中使用字符变量（如CFLAG）时，不会有自动填充，需要自己指定角色编号
+;
+;目前可作为口上自定义设置用，可以控制一些功能是否开启
+; ————————————————————————————————————————————————————————————————————————————————————
+; 目前的打算：
+; 设计一个特殊线，进入这条线预计会大修框架
+; 来自3/16的修改——关于败者食尘的差分
+; 如果玩家与蕾咪达成恋慕/恋人之后、将会触发进入特殊线的分支
+; 执行一段初遇的文本之后，插入一段玩家的喃喃自语，接着将用DQPRINT输出一段询问内心的话（这段话可能是由后面会设计的妖精女仆说噢）
+; ~这样真的好吗？~
+; ~毫无疑问的是、蕾米莉亚已经把你忘记了~
+; ~大小姐还会是那个大小姐，但很明显，对她来说、你已不·再·是·唯·一~
+; ~败者食尘，只是让你回到了既定命运的起点~
+; ~也许在你的努力之下、你们会再次相爱~
+; ~也许在这一世的命运之中，你们会渡过不一样的人生~
+; 点一下
+; ~但是，这样真的好吗？~
+; ~如果……连你都要忘记的话~
+; ~如果……你甘愿就这样保持着现状的话~
+; ~如果……这也是所谓的「命运」的话~
+; 三个选项，其中两个都是正常开放且进入正常线的（大概）
+; [0] - 这样的话……也好
+; [1] - 顺应命运
+; [16] - 抓住命运 (此举将会扣除你当前一半的TSP！！！)  ————这个选项用黑色藏一下
+; 反正这是为了败者食尘差分的，就只写16选项了
+; 选择之后，前面的文本将会全部被加上删除线！
+; ……是了
+; 唯独这段内心的感情，是绝对、无论如何都不可割舍的存在
+; ~待添加~
+; ~待添加~
+; 「啊啦……%CALLNAME:MASTER%？」
+; 熟悉的声音，将你从恍惚之中带了出来
+; 声音之中带有七分的不解、二分的怀疑、以及……一分的喜悦
+; 「为什么……我会知道你的名字呢？人类」
+
+; ————————————————————————————————————————————————————————————————————————————————————
+
+$INPUT_UPDATE
+CALL FRONT_绯色之诗_AA(0)
+PRINTFORMW	嘛,这里是口上UPDATE的地方吧
+PRINTFORML				————by.想被蕾咪咬手手的月白
+PRINTFORMW	为了方便测试，这里做支线设置吧
+PRINTFORMW	也就是说，这里
+PRINTFORMW	那么，开始吧
+SIF FLAG:口上色
+	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+PRINTDL
+PRINTL [0] - 这是什么？点一下
+PRINTL [1] - 一些作者想要的小改动
+PRINTL [1] - 一些作者的碎碎念
+PRINTL [999] - 退出啦
+INPUT
+SELECTCASE RESULT
+	CASE 0
+	PRINTFORMW	关于思慕函数的测试
+	CALL M_KOJO_緋色之诗_EVENT_K16_21(2)
+	PRINTDL
+	GOTO INPUT_UPDATE
+	CASE 1
+	PRINTFORML	哈喽~
+	PRINTFORML	首先呢感谢游玩大小姐的“绯色之诗”口上
+	PRINTFORML	老实说我不打算发布这个口上的，毕竟作者本人比较内向、社恐嘛……哈哈
+	PRINTFORML	那不发布口上的话这段话给谁看的？
+	PRINTFORMW	大概率给自己（作者纯纯精分）？又或者有幸看到这个口上的某人吧……哈哈（会是谁呢……）
+	PRINTFORML	好了该进入正题~
+	PRINTFORML	因为我本身并非元老级、资深级车万人……哎呀理由去看[2]就行啦~
+	PRINTFORML	简单而言，就是可能会因为作者本人的xp问题而可能会导致的ooc啦~
+	PRINTFORML	而点进来这个按钮呢正好与这个相关~
+	PRINTFORMW	首先——！
+	PRINTFORMW	本口上的大小姐是没有[无知]的喔，不然某些地方演绎起来太尴尬了
+	PRINTDL
+	CALL ASK_YN("好好好","不好不好")
+	IF !RESULT
+	PRINTFORML	感谢理解~
+	PRINTFORMW	蕾米莉亚失去了[无知]
+	PRINTFORMW	祝你游戏愉快~
+	ELSE
+	PRINTFORML	嘛，意见不同也是没办法的事
+	PRINTFORMW	不过也不会影响游戏的进行就对啦~
+	PRINTFORMW	祝你游戏愉快~
+	ENDIF
+	PRINTDL
+	PRINTFORMW	……且慢
+	PRINTFORMW	接下来才是……有关作者xp的地方……
+	PRINTFORMW	你是否也是一个……傲娇控？
+	PRINTFORMW	傲娇永远都不能退环境口牙！（怒吼）
+	PRINTFORMW	你，是否愿意背负可能会ooc的风险，来打开这个……开关呢！？
+	PRINTFORMW	内容只多不少的，真的！我保证……(可能、可能会让逆告白之类的各种事件有点……小变化)
+	PRINTDL
+	CALL ASK_YN("这个按钮……要按下去啊！！！")
+	IF !RESULT
+	; CFLAG:16:1410 = 1
+	PRINTFORML	你同意了是吧！？你同意了是吧！？
+	PRINTFORMW	不能反悔喔！？我要启动这个标签了喔
+	PRINTFORMW	开玩笑的啦，如果你不喜欢的话,别打上[傲娇]开关就行，一般也就逆告白之类的小事件会有变化啦
+	PRINTFORMDL	那么……是否要为蕾米莉亚加上[傲娇]呢？
+	PRINTDL
+	CALL ASK_YN("打开","关闭")
+		IF !RESULT
+		; TALENT:16:14 = 1
+		PRINTDL
+		PRINTFORMW	蕾米莉亚获得了[傲娇]
+		PRINTFORMW	看在同好的份上告诉你一个情报吧~
+		PRINTFORM	本口上部分文本会跟自机的素质相关喔，可能会影响部分行动什么什么的
+		SETCOLOR	0X1C1C1C
+		PRINTFORMW	         如果自机也有傲娇的话……嚯嚯，蕾米莉亚可是会主动出击的喔
+		SIF FLAG:口上色
+			CALLFORM M_KOJO_緋色之诗_COLOR_K16
+		PRINTFORMW	那么，祝你游戏愉快~
+		ELSE
+		ENDIF
+	ELSE
+	PRINTFORMW	呜呜呜我都没做按钮了你都能到这里
+	PRINTFORMW	泪目了~
+	PRINTFORMW	不要的话……那就算了
+	PRINTFORMW	再次，祝你游戏愉快~(商业笑容)
+	ENDIF
+	GOTO INPUT_UPDATE
+	CASE 2
+	PRINTFORML	哈喽啊~
+	PRINTFORML	待施工啦~
+	GOTO INPUT_UPDATE
+	CASE 999
+	CASEELSE
+	GOTO INPUT_UPDATE
+ENDSELECT
+PRINTFORMDL	
+PRINTDW
+RETURN 1
+
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;"ENCOUNTER"系事件（额外语法）
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+@M_KOJO_緋色之诗_ENCOUNTER_K16
+;TALENT的变更也可以在此处修改（但是，在见面前查看角色信息还是会显示更改前的信息，所以仅作为一个见面可修改选项）
+IF TALENT:MASTER:妖怪 == 3
+	CALL 初遇_吸血鬼差分
+	; 吸血鬼差分
+ELSE
+	CALL 初遇_人类差分
+	; 正常人类差分
+ENDIF
+RETURN 1
+
+; 人类
+@初遇_人类差分
+#DIM DYNAMIC 命运 
+命运 = FLAG:周回数 + 1
+
+SIF FLAG:口上色
+	CALL M_KOJO_緋色之诗_COLOR_K16
+IF	GETBIT	(CFLAG:31,	0) || GETBIT	(CFLAG:31,	1)
+		PRINTFORMDL	
+		[SKIPSTART]
+		败者食尘——
+		这是一种回溯时间的能力——
+		是一种将过去的一切否定，让世界重新转动的能力。
+		不管%CALLNAME:MASTER%是抱着怎样的心情去使用这份能力
+		在幻想乡曾经一起生活的点点滴滴都已经成为了过去
+		不过，在命运的指引下——
+		[SKIPEND]
+	IF MAIN_MAP == 3
+
+
+		[SKIPSTART]
+		%CALLNAME:MASTER%还是回到了这座矗立在雾之湖边上的，充满了回忆的红魔馆
+		尽管，这些回忆现在仅仅只存在于%CALLNAME:MASTER%一个人身上
+		不会再有别的人会记得，至少，%CALLNAME:MASTER%是这么想的
+		怀着复杂的心情，%CALLNAME:MASTER%再一次地成为了红魔馆的新人
+		正如一切都理所应当的那样，红魔馆的妖精女仆们基本都没有对这位新来的同事有多大的反应
+		不过%CALLNAME:MASTER%也不在乎就是了
+
+		凭借着败者食尘之前积攒下来的经验，%CALLNAME:MASTER%很自然而然地处理起了红魔馆的杂务
+		餐具的擦拭，盆栽的摆放，地板的清扫，就连厨房的准备工作也一并解决了
+		若是有机会的话，甚至还可以泡杯茶喝，喊上红魔馆的众人一起——
+
+		IF CFLAG:15:18 == 1
+		; 认不认识咲夜都做一个差分
+		SETCOLOR 0x8b9ddd
+		咔嗒——
+		清脆而又轻微的钟表齿轮声音响起，穿着蓝色仆从装束的银发女仆忽然出现在你的面前
+		来者正是红魔馆的女仆长，同时也是%CALLNAME:MASTER%的上司，%NAME:15%
+		%NAME:15%举止优雅地向你轻轻鞠了个躬
+		CALL PRINT_FACE, [[咲夜]], "通常", "服", "", ""
+		「没想到阁下已经如此习惯馆内的事务，着实让我感到惊讶」
+		「很难想象阁下是刚来到红魔馆的新人，不过，阁下能有如此能力对于大小姐来说也是好事」
+		「那么，请容许我冒昧问一句」
+		%NAME:15%微微顿了一顿，眼神也变得锐利起来
+		「阁下与大小姐是什么关系呢？」
+
+		突如其来的问题让%CALLNAME:MASTER%不禁吓了一跳
+		难道，败者食尘被发现了吗？
+		不安感萦绕在%CALLNAME:MASTER%的心头
+		尽管如此，表面上仍然表现出冷静的样子
+
+		「不，怎么可能呢」
+		「大小姐是我所敬仰的存在」
+		INPUT
+		SELECTCASE RESULT
+			CASE 0
+
+				「我也只是刚来红魔馆不久，对于大小姐的所知也是传闻居多」
+				「有人说，大小姐是一个非常可怕的人」
+				「也有人说，大小姐会亲切地对待红魔馆里的各位」
+				「同样的，在外面也流传着关于红色的恶魔的事情」
+				「不管再怎么样——」
+				「至今，我也还没跟大小姐正式会过面」
+				「至于关系……不，怎么可能呢」
+
+				听到你的回答之后，%NAME:15%深深地看了你一眼
+			CASEELSE
+				「能够侍奉大小姐，是我的荣幸」
+				「对此之外的，我别无所求」
+				「正因如此，大小姐是我所敬仰的存在」
+
+				没有所谓的掩饰，只需要真情实感就可以了
+				在说完这些话的时候，你才发觉那不经意间浮现在自己脸上的笑意
+				
+				似乎是很满意你的回答，%NAME:15%的表情明显缓和下来
+		ENDSELECT
+		「失礼了，%CALLNAME:MASTER%阁下，我并非为了刁难而来」
+		「只是，最近的大小姐状态有点不对劲」
+		「巧合的是，%CALLNAME:MASTER%阁下的出现很好地吻合了这个时间点」
+		「不，阁下误会了」
+		「只是觉得，%CALLNAME:MASTER%阁下去看一下大小姐比较好」
+		「那么……」
+		「失礼了」
+
+		告辞了%NAME:15%之后
+		ELSE
+		忙活了好一段的时间，周围已经没有什么事情可以干了
+		因为%CALLNAME:MASTER%的卖力工作，周围的妖精女仆和哥布林们也开始摸鱼起来了
+		「最近，大小姐好像嘴里一直念叨着什么呢，好像是没听过的名字」
+		「应该是
+		ENDIF
+		; 直接飞去小露台
+		CFLAG:MASTER:現在位置 = 27
+		CFLAG:16:現在位置 = 27
+		经过了一番寻找，最后
+		来到了蕾米莉亚房间的小露台，和以前一样，蕾米莉亚总是喜欢待在这个地方
+		[SKIPEND]
+		IF TIME > 1080 && TIME < 1200
+		PRINTFORMDL	似是被夕阳的余晖浸染，娇小的身躯裹上了一层淡淡的金边，少女轻捧着盛有红茶的瓷杯
+		ELSE
+		PRINTFORMDL	静谧的夜空之下，随着清风摇曳的发丝，由皎洁的月光为其染上淡淡的幽光，少女轻捧着盛有红茶的瓷杯
+		ENDIF
+		PRINTFORMDL	少女的慵懒与优雅乃是点缀此番画卷的韵脚，然而，你的到来打破了此刻的宁静
+		PRINTFORMDL	如同一根羽毛落入这平静的湖面，少女的心境泛起了丝丝涟漪
+		PRINTFORMDL	品酌红茶的朱唇轻轻离开了杯沿，似是无奈，又似是解脱般地轻轻叹了一口气
+		SETCOLOR 0xFF0000
+		PRINTFORMW	永远鲜红的幼月——
+		PRINTFORMD	被称作
+		PRINTFORM	红魔馆之主
+		PRINTFORMDW	的少女就在这里
+		PRINTFORMDW	也是，你一直以来所挂念的少女
+		PRINTFORMDL
+		PRINTFORMW	她在等你
+		PRINTFORMDL
+		PRINTFORMDW	你停下了脚步，早已打好腹稿的言语却在此刻如鲠在喉
+		CALL FRONT_绯色之诗_AA(5)
+		PRINTFORMW	「故地重游的感觉，如何？」
+		PRINTFORMW	「终于想到要来见我了吗，%CALLNAME:MASTER%?」
+		PRINTFORMW	「我们之间，也是老相识了吧」
+		PRINTFORMW	「现在·还·敢站在我面前的你，我该怎么称呼呢？」
+		PRINTFORMW	「人类?」
+		PRINTFORMW	「擅自闯入红魔馆的不速之客？」
+		PRINTFORMW	「仆从？」
+		PRINTFORMW	「杂鱼？」
+		; 会这么说么……我想表现出那种，不把人类当回事的感觉
+		PRINTFORMW	「还是说——」
+		PRINTFORMW	「……我的骑士？」
+		PRINTFORMDW	最后一个词语落下的时候，与之相随的，是%CALLNAME:MASTER%的心跳也跟着慢了一拍
+		PRINTFORMDW	蕾米莉亚用锐利的目光紧紧盯着你这边
+		CALL ASK_M("「……」",1)
+		PRINTFORMW	「不愿意回答吗？事到如今还是不愿意承认吗？」
+		PRINTFORMW	「你也知道的吧，我是」
+		PRINTFORMW	「『操纵命运的吸血鬼』」
+		PRINTFORMW	「『命运会让我们再次相会的』」
+		PRINTFORMW	「而你……」
+		CALL FRONT_绯色之诗_AA(0)
+		PRINTFORMW	说话间，蕾米莉亚的声音逐渐哽咽起来
+		PRINTFORMW	「『玩弄我们之间感情的%CALLNAME:MASTER%』」
+		PRINTFORMW	「真的以为……我什么都不知道吗」
+		PRINTFORMW	「%CALLNAME:MASTER%是大骗子！」
+		PRINTFORMW	「一句话不说，就这样...擅自……」
+		PRINTFORMW	「就这样抛弃了我...还有我们的誓言」
+		PRINTFORMW	「我还以为，只是我自己回到了过去」
+		PRINTFORMW	「可是……%CALLNAME:MASTER%的命运，还有我的命运...仍然还...」
+		PRINTFORMW	「我们的感情……在%CALLNAME:MASTER%的心中究竟被当做了什么」
+		PRINTFORMW	「如果……」
+		PRINTFORMW	「曾经发生过的一切对%CALLNAME:MASTER%来说都不过是泡影」
+		PRINTFORMW	「那又是为何要让我如此不可救药地爱上了你啊」
+		PRINTFORMW	「我们一起在红魔馆的日子对%CALLNAME:MASTER%来说是那么毫无价值的吗」
+		PRINTFORMW	「%CALLNAME:MASTER%不是好奇嘛……」
+		PRINTFORMW	「为什么我还会记得这些…明明咲夜她们…全都忘记了」
+		PRINTFORMW	「这就是『命运』啊」
+		PRINTFORMW	「从%CALLNAME:MASTER%踏进红魔馆的那一步开始」
+		PRINTFORMW	「我就全都想起来了啊……」
+		PRINTFORMW	「包括...我们的第一次相遇」
+		PRINTFORMW	「和%CALLNAME:MASTER%相拥时的温暖，我仍然还能记得」
+		PRINTFORMW	「和%CALLNAME:MASTER%约会的每一分每一秒，我都在不断地回味」
+		PRINTFORMW	「还有...第一次向%CALLNAME:MASTER%献出我的初吻……」
+		SIF CFLAG:MASTER:現在位置 == 27
+			PRINTFORMW	「我们也是在这个地方，向命运许下守护终生的誓言」
+		PRINTFORMW	「是%CALLNAME:MASTER%，教会了我什么是喜欢...」
+		PRINTFORMW	「这一切的一切……」
+		PRINTFORMW	「如果，你决定了要全部舍弃掉的话……」
+		PRINTFORMW	「我也可以做到……就当不认识%CALLNAME:MASTER%，从来都没见过%CALLNAME:MASTER%…………」
+		PRINTFORMW	「今后，%CALLNAME:MASTER%和我，形同路人……」
+		PRINTFORMW	「可是为什么……」
+		PRINTFORMW	「为什么%CALLNAME:MASTER%又要自作主张地回到这里」
+		PRINTFORMW	「自顾自地在红魔馆扫地」
+		PRINTFORMW	「做着和以前没两样的事情……」
+		PRINTFORMW	「这不就让我……」
+		PRINTFORMDL
+		PRINTFORMW	「想要...再一次爱上你吗」
+		PRINTFORMDL
+		CALL FRONT_绯色之诗_AA(6)
+		PRINTFORMDW	随着最后一句话的说出，眼泪如同崩毁的决堤一般从蕾米莉亚的眼中流出
+		PRINTFORMDW	你这才知道，一直以来的
+		PRINTFORMDW	%CALLNAME:MASTER%
+		; PRINTFORMW	「是……」
+		; PRINTFORMW	「%CALLNAME:MASTER%吗？」
+		; SIF CFLAG:MASTER:現在位置 == 27
+		; 	PRINTFORM	緋色的月光温柔地浸洒在这块小小的露台上，这里是曾经的二人彼此许下约定的地方
+		; 	; 是异变吧！？
+		; PRINTFORMDL
+		; SETCOLOR 0xFFB6C1
+		; PRINTFORMDW	蕾米莉亚转过身来，彼此的视线于此刻相交
+		; PRINTFORMDW	这是无言的话语
+		; PRINTFORMDW	这是无需触及的相拥
+		; PRINTFORMDW	这是不带任何欲望与情绪的精神接吻
+		; CALL FRONT_绯色之诗_AA(0)
+		; PRINTFORMW	「%CALLNAME:MASTER%……」
+		; PRINTFORMW	「很熟悉的名字呢」
+		; PRINTFORMDW	「……」
+		; PRINTFORMW	「很好奇嘛？记得%CALLNAME:MASTER%的名字什么的……」
+		; PRINTFORMW	「你知道的喔——」
+		; PRINTFORMW	「我是，『操纵命运的吸血鬼』」
+		; PRINTFORMW	「而你，『玩弄我们之间感情的%CALLNAME:MASTER%』」
+		; PRINTFORMW	「真可笑啊……哈哈哈……你说对吧？%CALLNAME:MASTER%」
+		; PRINTDL
+		; CALL ASK_M("「不是这样的……」",1,"「蕾米……莉亚」",1)
+		; PRINTDL
+		; PRINTFORMW	「骗子……」
+		; PRINTFORMW	「%CALLNAME:MASTER%是大骗子！」
+		; CALL FRONT_绯色之诗_AA(3)
+		; PRINTFORMDW	蕾米莉亚深深埋着头，双手颤抖地抓紧了胸口，眼泪从脸颊滴落到手指之间
+		; PRINTFORMDW	如同是在自嘲一般地笑着……
+		; PRINTFORMW	「难道对%CALLNAME:MASTER%来说……」
+		; PRINTFORMW	「我们一起…在红魔馆的日子……」
+		; PRINTFORMW	「甚至……我们的第一次见面」
+		; PRINTFORMW	「……我们的第一次约会」
+		; PRINTFORMW	「……我们从最开始的相识到最后的相恋」
+		; PRINTFORMW	「曾经也是在这个地方……你向我许下命运的誓言」
+		; PRINTFORMW	「……这所有的一切…都不过是一场，过家家的游戏吗？哈哈……」
+		; PRINTFORMW	「你说过以后要带我去玩更多好玩的东西」
+		; PRINTFORMW	「你说过…只要有你在就永远不会让我受委屈」
+		; PRINTFORMW	「你说过……永远都不会背叛我、离开我」
+		; PRINTFORMW	「你说过…………」
+		; PRINTFORMW	「今后也会永远地和我在一起的啊……」
+		; PRINTFORMW	「难道这些，对%CALLNAME:MASTER%来说……」
+		; PRINTFORMW	「难道……」
+		; PRINTFORMW	「难道…………」
+		; PRINTFORMW	「这些全都被抛弃了吗呜哇啊啊啊啊——」
+		; PRINTFORMW	「%CALLNAME:MASTER%……」
+		; PRINTFORMW	「你告诉我啊……呜呜呜……」
+		; PRINTFORMW	「难道是因为……」
+		; PRINTFORMW	「%CALLNAME:MASTER%是人类吗……」
+	ELSE
+		PRINTFORMDL
+	ENDIF
+		[SKIPSTART]
+		究竟是哪里出了差错
+		败者食尘否定了一切，唯独遗漏了命运
+		————————————————————
+		待补充
+		————————————————————
+		轻轻地摇了摇头，将脑袋里的杂念抛开
+		就像曾经那样，轻轻地弯下了腰，如同骑士一般将手放在胸前单膝下跪
+		「今后还请多多关照，大小姐」
+		[SKIPEND]
+ELSE
+	IF MAIN_MAP == 3
+	PRINTDL
+	PRINTFORMDL	红魔馆，乃是矗立在雾之湖边上的一座红色奢华的洋馆
+	PRINTFORMDL	馆内的一切，无论是墙壁、吊灯、雕塑、还是彩色玻璃大窗户，甚至就连古朴的地板都在彰显着馆主的品味
+	PRINTFORMDL	如此硕大且奢华的洋馆平时都由号称完美女仆的%NAME:15%照料
+	PRINTFORMDL	即便这样，理应一尘不染的红魔馆不知为何总能看到有细碎的垃圾出现
+	PRINTDL
+	PRINTFORMDL	\@ CFLAG:15:18 == 1 ? 因为已经和女仆长打过了招呼， # 难以压抑内心想要打扫的冲动，\@%CALLNAME:MASTER%开始自顾自地清扫起馆内的垃圾
+	PRINTDL
+	PRINTFORML	不知从什么时候开始，总能感受到一股莫名的视线……
+	PRINTDL
+	RESETCOLOR
+	CALL ASK_YN("停下手中的工作","也许只是错觉")
+	SIF FLAG:口上色
+	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+		IF !RESULT
+			PRINTDL
+			PRINTFORMDW	压抑着内心的不安，%CALLNAME:MASTER%停下了手中的工作
+			PRINTDL
+			PRINTFORMW	「你是新来的仆从吧？」
+			PRINTFORMW	「本以为会跟哥布林和妖精女仆一样」
+			PRINTFORMW	「不过看起来似乎还要能干一点」
+		ELSE
+			PRINTDL
+			PRINTFORMDW	决定无视这种异样的感觉，还是扫地更为重要一点
+			PRINTDL
+			PRINTFORMW	「我说啊——」
+			PRINTFORMW	「你是新来的仆从吧？」
+			PRINTFORMW	「对于人类而言，工作态度是及格了」
+			PRINTFORMW	「但是作为仆从，主人来到面前都没有反应可是相当扣分的」
+		ENDIF
+	PRINTDL
+	PRINTFORMDL	循声看去，一个身穿粉白色哥特式洋装的少女站在前方的不远处
+	PRINTFORMDL	从外表来看仅有十岁小孩大，蓝紫色的头发上顶着一个和衣服同样颜色的苞帽
+	PRINTFORMDL	绯色的眼眸、似是不经意般在嘴角露出的虎牙、暗红的巨大蝠翼在身后舒展
+	PRINTFORMDL	在红魔馆内能有如此打扮的人，你只听说过一个...
+	PRINTDW
+	PRINTFORMDW	红魔馆之主，这座洋馆的主人—— %NAME:16%
+	PRINTDL
+	PRINTFORMDW	馆内的一切，都属于面前的这位优雅而充满威严的少女
+	PRINTDL
+	PRINTFORMDW	即便是……
+	PRINTDL
+	SETCOLOR 0xFF0000
+	PRINTFORMW	你的生命
+	SIF FLAG:口上色
+	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+	PRINTDL
+	PRINTFORMDW 恍惚之间，蕾米莉亚已然来到%CALLNAME:MASTER%的面前
+	PRINTDL
+	CALL FRONT_绯色之诗_AA(4)
+	PRINTDL
+	PRINTFORMDL	背后的蝙蝠翅膀轻轻晃动，少女微微歪了歪头看着你，似乎是察觉到你的紧张，如艺术品般精致的脸颊不经意间浮现出了淡淡的笑容
+	PRINTFORMDL	少女的身姿有如暗夜中的玫瑰，优雅而又威严
+	PRINTDW
+	PRINTFORMW	「人类...告诉我，你的名字是什么」	
+	PRINTFORMW	「嗯，%CALLNAME:MASTER%是吗……」	
+	PRINTFORMW	「很好、仆从！\@CFLAG:15:18 == 1 ? 看样子你已经跟咲夜打过招呼了 # 具体工作的事情你去问咲夜就可以了 \@」
+	PRINTDL	
+	PRINTFORMDW	看来自己的名字没有被对方记住呢...
+	PRINTDL	
+	PRINTFORMW	「那么...仆从，竖起你的耳朵听好了——」	
+	PRINTFORMW	「吾之名为 —— Remilia·Scarlet ！」	
+	PRINTFORMW	「乃是这座整个幻想乡中最伟大的洋馆的主人，同时也是幻想乡中最威严的吸血鬼！」	
+	PRINTFORMW	「……」	
+	PRINTFORMW	「啊啦~看你的表情，是在害怕吸血鬼吗？」
+	PRINTFORMW	「放心，我是不会做出随便袭击人类这种没有品味的事情的」	
+	PRINTFORMW	「不过身为我的仆从，这点基本的胆识是必修课」
+	PRINTDL
+	PRINTFORMDW	少女的笑容收敛起来，用锐利的眼神看着%CALLNAME:MASTER%
+	PRINTDL
+	PRINTFORMW	「话又说回来……」
+	PRINTFORMW	「除了咲夜外，你还是第一个被允许能在我的红魔馆里自由行动的人类呢」	
+	PRINTFORMW	「你知道为什么吗？」
+	PRINTDL
+	PRINTFORMDL	对于突然抛出的问题，虽然有点摸不着头脑，但面前的这位可是自己的雇主
+	PRINTFORMDW	还是，回答一下比较好
+	PRINTDL
+	RESETCOLOR
+	CALL ASK_M("因为工作比较认真",1,"因为看上去很强的样子",ABL:MASTER:戦闘能力>4,"因为是外界人",1,"因为自己比较特殊",FLAG:周回数>0)
+	SIF FLAG:口上色
+	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+		SELECTCASE RESULT
+			CASE 0
+				PRINTDL
+				PRINTFORMDL
+				PRINTFORML	「」
+			CASE 1
+				PRINTDL
+				PRINTFORMDL
+				PRINTFORML	「」
+			CASE 2
+				CFLAG:16:1441 = 1
+				PRINTDL
+				PRINTFORMDL
+				PRINTFORML	「」
+			CASE 3
+				PRINTDL
+				PRINTFORMDL	说出这话的时候，其实内心就有点后悔了
+				PRINTFORMDL	要是因此被追问下去的话、感觉很容易就会暴露时间停止的能力
+				PRINTFORMDW	这是自己关键的底牌，还是好好想想怎么搪塞过去吧
+				PRINTDL
+				PRINTFORMW	「果然是这样么...」
+				PRINTFORMW	「虽然不·同·于咲夜，但看样子你也是一个拥有特殊能力的人类」
+				PRINTFORMW	「这也就能解释你身上为什么会...」
+				PRINTDL
+				PRINTFORMDL	蕾米莉亚的脸上露出了"果然如此"的表情
+				PRINTFORMDW	但是很明显，少女似乎想去了另一个方向
+				PRINTDL
+				PRINTFORMDW	"不同于咲夜" 是吗...看来时停的能力没有暴露
+				PRINTDL
+				PRINTFORMW	「怎么，一副松了一口气的表情」
+				PRINTFORMW	「看来你的身上还藏着更多的秘密没有吐出来……」
+				PRINTFORMW	「不想说吗？我有的是时间，姑且就先让你保持一下神秘感吧」
+				; PRINTFORMDL	「我对此很感兴趣...」
+		ENDSELECT
+	; PRINTFORMW	「嗯？你觉得很好奇？突然问这个问题什么的...」
+	; PRINTFORMW	「嘛、我可是掌控命运的吸血鬼」
+	; PRINTFORMW	「我能看见每一个人身上的命运，自然也包括现在站在我面前的这位新来的人类仆从」
+	; PRINTFORMW	「每个人都有从襁褓的苏生、最后到归于垂暮的这一过程」
+	; PRINTFORMW	「然而、属于你的命运...很特别」
+	; PRINTFORMW	「如果说一个人的命运是一条绳子，那么其度过一生的历程就如同一颗串在绳子上的珠子，从绳子的一端移动到另一端」
+	PRINTFORMW	「……」
+	PRINTFORMW	「怎么你反而一副很好奇的样子...想知道为什么我会这样问？」
+	PRINTFORMW	「我没理由告诉你，就如同你也有你的秘密一样」
+	PRINTDL	
+	PRINTDL		吸血鬼少女似乎在隐瞒什么
+	$追问_为什么这么问
+	CALL ASK_YN("追问下去","……")
+		IF !RESULT
+			SELECTCASE ABL:MASTER:話術技能 || ABL:MASTER:教養
+			CASE ABL:MASTER:話術技能 > 2
+				PRINTFORMDW	凭借三寸不烂之舌，成功说服了面前的这位吸血鬼少女
+			CASE ABL:MASTER:教養 > 4
+				PRINTFORMDW	凭借着平日里的日积月累，成功让面前的这位吸血鬼少女有聊下去的意愿
+			CASEELSE
+				IF FIRSTTIME("能力不够啦")
+				PRINTFORMDW	尽管很想追问，但是绞尽脑汁也没有想出能让对方开口的话术
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL		似乎吸血鬼少女并不想跟你说话呢……
+				GOTO 追问_为什么这么问
+				ELSE
+				PRINTFORMDW	再问下去的话，对方可能会不高兴了，%CALLNAME:MASTER%识趣地闭上了嘴
+				PRINTFORMDW	(当前能力不够喔~要是之前有好好练级就好了~)
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL		似乎吸血鬼少女并不想跟你说话呢……
+				GOTO 追问_为什么这么问
+				ENDIF
+			ENDSELECT
+			PRINTDL
+			PRINTFORMW	「你还真是锲而不舍啊，好奇心这么旺盛吗？」
+			PRINTFORMW	「要我说，我们还只是第一次见面吧」
+			PRINTFORMW	「算了，就告诉你吧」
+			PRINTFORMW	「简单而言，我能看见其他人的命运」
+				SELECTCASE FLAG:周回数
+					CASE 0
+					PRINTFORMW	「但是，\@CFLAG:16:1441 == 1 ?你的命运伊始于不久之前，这是否与你是外界人有关呢…… #你的命运充满了不确定性，即便是我也不能看清属于你的命运 \@」
+					CASE 1
+					PRINTFORMW	「但是，我还是第一次见到有人能够拥有两种截然不同的命运」
+					PRINTFORMW	「其中一条分明已经走到了尽头，但是另一条却还在延续...」
+					CASE 2 
+					PRINTFORMW	「但是，你的身上竟然会有三种截然不同的命运」
+					PRINTFORMW	「即便是在幻想乡，你也是我看到的唯一一个拥有这样命运的人」
+					CASE 3 TO 5
+					PRINTFORMW	「但是，怎么会有人像你这样……好几条命运纠缠在一起……」
+					PRINTFORMW	「在幻想乡当中，你是我看到的唯一一个拥有这样命运的人」
+					CASEELSE
+					PRINTFORMW	「但是，你身上的命运也...有点太夸张了，就像一团凌乱的毛线团一样卷在一起」
+					PRINTFORMW	「简直是闻所未闻，要是被那个博丽的巫女知道一定会把你当异变处理掉的吧……」
+				ENDSELECT
+			PRINTFORMW	「……」
+			PRINTFORMW	「虽然不能理解你身上的奇怪命运，但你也算是一个有趣的观察对象」
+			PRINTFORM	「
+		ELSE
+			PRINTFORMW	
+			PRINTFORM	「总之，
+		ENDIF
+			PRINTFORMW	在我的耐心消磨完毕之前，好好侍奉我吧，仆·从」
+			PRINTFORMW	「至少可别让我无聊喔~」
+			PRINTDL	
+	ELSE
+		IF GET_MAPID(CFLAG:MASTER:300) == 3
+		PRINTFORMDL	你漫步在这座充满了独特气息的洋馆之内
+		PRINTFORMDL	深红色的砖墙以及嵌在墙上的深色彩窗让洋馆有一种莫名的压抑，\@TIME > 1080 && TIME < 1200 ?即便现在正是夕阳也要拉上窗帘，就好像是在刻意地躲避着什么…… #夜晚已至，馆内的气氛逐渐变得躁动…… \@
+		PRINTFORMDL	你不禁停下了脚步……
+		PRINTDL	
+		PRINTFORMDL	一个外表看起来只有十岁的少女正在和一个女仆打扮的人说着话,似乎是察觉到你的到来，\@CFLAG:MASTER:300 == CFLAG:15:300 ?对方鞠了个躬后就突然消失了 #对方向你轻轻地鞠了个躬\@
+		PRINTFORMDL	少女用余光瞥了你一眼，一股凉意从脊背传递到脖子上……
+		PRINTDL	
+		PRINTFORMDL	
+		PRINTFORMDL	
+		PRINTFORMDL	「」
+		PRINTFORMDL	「」
+		ELSE
+		PRINTFORMW	「啊咧、人类？还以为又是哪个妖怪呢」
+		PRINTDL
+		PRINTFORMDW	一丝稍微有点不礼貌的话语让%CALLNAME:MASTER%不禁顿足，追循着声音……
+		PRINTDL
+		PRINTFORMD	%CALLNAME:MASTER%遇见了一位有点特别的 
+		CALL YUBE_LINETHROUGH("萝莉",0)
+		PRINTFORMDW	 少女
+		PRINTDL
+		PRINTFORMDL	待在幻想乡已经有了些许时日，%CALLNAME:MASTER%见过了形形色色的人和妖怪们，本以为自己已经习惯了和不同种族的少女们相处，但眼前的这位却带给了你一种新奇的感觉
+		PRINTFORMDL	粉白的衣装，蓝紫色的发丝，头上那顶系有蝴蝶结的苞帽，以及，从背后长出来的巨大蝠翼
+		PRINTDL
+		PRINTFORMDW	灵动的眼眸轻轻跳动着，正如同你在观察着少女一样，她也在打量着你
+		PRINTDL
+		PRINTFORMDL	为何会觉得眼前的这位少女很“特别”呢……
+		PRINTDL
+		PRINTFORMDW	\@ FLAG:周回数 == 0 ?兴许是因为对方身上那种独特的气质吧 #如同细水长流般，这是一种无法触碰、虚无缥缈的感觉，或许是少女的能力？你并不清楚 \@
+		PRINTDL
+		CALL FRONT_绯色之诗_AA(7)
+		PRINTFORMDW	少女发言打断了%CALLNAME:MASTER%的思绪
+		PRINTDL
+		PRINTFORMW	「我说啊、你的身上似乎有什么秘密呢」
+			IF 命运 > 1
+			PRINTFORMW	「同时背负着{命运}条命运之人，有趣……」
+			PRINTFORMW	「这是你的能力？可你怎么看都是一个普通的人类呢」
+			PRINTFORMW	「你真的不是隐居在哪的老妖怪吗？」
+			PRINTFORMW	「不用急着说出来，“命运”还很长」
+			ELSE
+			PRINTFORMW	「命运在你身上衍生出无数的可能性，有趣」
+			PRINTFORMW	「这么看来与你的相遇也并非偶然……」
+			ENDIF
+			PRINTFORMW	「不过，没想到这次出来还有如此收获……」
+			PRINTDL
+			PRINTFORMDL	完全没有顾及你的意思，少女只是一昧自顾自地说话
+			PRINTFORMDW	少女似乎对你感兴趣起来了，只不过……你有一种成为猎物的感觉
+			PRINTDL
+			PRINTFORMW	「啊啦 自我介绍一下」
+			PRINTFORMW	「吾之名为 —— Remilia·Scarlet ！」	
+			PRINTFORMW	「乃是这座整个幻想乡中最伟大的洋馆的主人，同时也是幻想乡中最威严的吸血鬼！」	
+			PRINTFORMW	「……」
+			PRINTFORMW	「唔？看你的表情，是在害怕吸血鬼吗？」
+			PRINTFORMW	「放心，我是不会做出随便袭击人类这种没有品味的事情的」	
+			PRINTFORMW	「至少在弄清楚你的秘密之前……呵呵呵呵~」
+			PRINTDL
+			PRINTFORMDL	名为%NAME:16%的吸血鬼萝莉用小手捂着嘴巴轻笑起来
+			PRINTFORMDL	虽然从气质上来看很成熟、优雅的样子，但似乎、其实意外地有点孩子气呢
+			PRINTDL
+			PRINTFORMW	「咳咳、嗯~那么，人类，有没有兴趣为我工作啊」
+			PRINTFORMW	「也不是一定要求你来红魔馆，我也需要一个出行时的仆从、其他时间随你支配，当然了、薪水什么的不是问题」
+			PRINTFORMDL	%CALLNAME:TARGET%轻轻打了一个响指，一张报纸飞到你的手中
+			PRINTFORMDL	仔细一瞧，那正是“文文春新报”
+			PRINTFORMDL	┏━━━━━━━━━━━━━━━━━━┓
+			PRINTFORMDL	┃%" 想不想在幻想乡最潇洒的职场工作?",36,LEFT%┃
+			PRINTFORMDL	┃%"             红魔馆",36,LEFT%┃
+			PRINTFORMDL	┃%"          女仆妖精募集中",36,LEFT%┃
+			PRINTFORMDL	┃%"             <待遇>",36,LEFT%┃
+			PRINTFORMDL	┃%"        衣食住完备！ 制服报销",36,LEFT%┃
+			PRINTFORMDL	┃%"     充满威严的雇主与温柔的上司",36,LEFT%┃
+			PRINTFORMDL	┃%"        可以交到很多的朋友！",36,LEFT%┃
+			PRINTFORMDL	┃%" 薪水请与雇主面谈。有经验者优先。",36,LEFT%┃
+			PRINTFORMDL	┃%"       如家一般舒适的职场",36,LEFT%┃
+			PRINTFORMDL	┃%"           充满笑颜的",36,LEFT%┃
+			PRINTFORMDL	┃%"           快乐每一天",36,LEFT%┃
+			PRINTFORMDL	┗━━━━━━━━━━━━━━━━━━┛
+			PRINTFORMDW	
+			PRINTFORMDL	「……」
+			PRINTFORMDL	有点微妙呢……
+			PRINTFORMDW	听起来怎么都不像是会吃亏的买卖
+			PRINTDL
+			PRINTFORMW	「那个天狗的报纸某种程度上说倒是省下要我说明的功夫，如何？有没有意愿？」
+			PRINTDL
+			PRINTFORMW	嗯……该怎么选择呢
+			CALL ASK_YN("同意","拒绝")
+			PRINTDL
+			IF !RESULT
+			PRINTFORML	听到你给出了肯定的答复后，少女也是满意地点了点头
+			CALL CHANGE_CFLAG(2, 16, +50)
+			CALL CHANGE_CFLAG(4, 16, +10)
+			PRINTDL
+			PRINTFORMW	「很上道嘛、人类，我就知道你不会拒绝的」
+			PRINTFORMW	「今后你就作为仆从好好服侍我吧，只要别让我感到无聊就行」
+			PRINTDL
+			PRINTFORML	(还以为要用上那个呢……)
+			PRINTFORMDW	你听到%CALLNAME:TARGET%小声嘀咕了一下，似乎把什么东西收起来了
+			CALL CHANGE_CFLAG(2, 16, +10)
+			PRINTDL
+			ELSE
+			PRINTFORML	听到你给出了否定的答复后，少女并没有太意外
+			PRINTFORML	反倒是……意料之内？
+			PRINTDL
+			PRINTFORMW	「选择拒绝吗？哼，没关系、我会让你改口的」
+			PRINTDL
+			PRINTFORMDL	%CALLNAME:TARGET%拿出一袋子筹码摆在%CALLNAME:MASTER%面前
+			PRINTFORMDL	里面竟然有整整100枚筹码！
+			PRINTFORMDL	对等同于白给的钱视若无睹简直是对灵魂的亵渎！
+			PRINTDL
+			PRINTFORMW	「怎么样？做出你的选择吧」
+			PRINTFORMDL	少女戏谑地看着你
+			PRINTDL
+			PRINTFORMDL	看着面前的巨款，你不禁咽了一口唾沫
+			PRINTDL
+			PRINTFORML	[0] 同意
+			PRINTFORM	[1] 
+			CALL YUBE_LINETHROUGH("拒绝",0)
+			PRINTFORML	主要是她给得实在是太多了
+			MONEY:2 += 100
+			PRINTDW
+			PRINTFORMW	「很好，契约成立——」
+			PRINTFORMW	「今后你就作为仆从好好服侍我吧，只要别让我感到无聊就行」
+			ENDIF
+		PRINTFORMW	「既然是仆从的话，」
+		ENDIF
+	ENDIF
+ENDIF
+RETURN 1
+
+; 吸血鬼
+@初遇_吸血鬼差分
+SIF FLAG:口上色
+	CALL M_KOJO_緋色之诗_COLOR_K16
+IF MAIN_MAP == 3
+	IF	GETBIT	(CFLAG:31,	0) || GETBIT	(CFLAG:31,	1)
+		PRINTFORMDL	
+		[SKIPSTART]
+		
+		[SKIPEND]
+	ELSE
+		; 暂定吸血鬼只有二周目的差分
+		; 不对，这应该，算是三周目了
+		PRINTFORMDL
+	ENDIF
+ENDIF
+RETURN 1
+
+@K16_BEFORETRAIN_緋色之诗
+;在一天开始时读取的函数，或者更准确地说，在来访判断之前读取的函数
+;在这里，您可以设置 CFLAG：XX：次日访问以确保角色来访问，或者 TCVAR:XX:発情 并使其一天都在发情（原文如此）
+;但是，由于它每天早上必定会被加载，因此需要设置条件
+
+
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;"SP_EVENT"系事件
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;==================================================
+;约会回家路上的初吻赠予（同时获得合意_接吻）
+;==================================================
+
+@M_KOJO_緋色之诗_SPEVENT_MESSAGECHECK_K16_1
+RETURN 0
+
+@M_KOJO_緋色之诗_SPEVENT_K16_1(ARG,ARG:1)
+;口上角色编号 = TARGET
+; 
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	PRINTFORML  
+	PRINTFORMDL	银色的圆月挂在澄澈的夜空之上，清冷的月光为你们铺出一条归宅的道路
+	PRINTFORMDW	你牵着少女的手，柔软的触感让你不舍得松开，所幸的是，幼小的吸血鬼似乎很乐意让你这么做
+	PRINTFORML
+	PRINTFORMW	「我累啦、果然还是人少一点的地方才适合我。不过嘛...和%CALLNAME:MASTER%一起出来倒是挺快乐的 」
+	PRINTFORML
+	PRINTFORMW	「像这样偶尔出来一会儿的感觉还挺不错、再这样陪我一会儿吧，%CALLNAME: MASTER%」
+	PRINTFORML
+	PRINTFORMDL	蕾米莉亚慢慢停了下来，牵着你的手也慢慢松开了，她抬起头，注视着挂在你们二人头顶的那轮圆月
+	PRINTFORMDW	你也跟着停了下来，目光顺着她的视线，停留在了那颗在空旷的夜幕中显得有那么一点孤寂的天体
+	PRINTFORML
+	PRINTFORMW	月色很美，只惜无人有赏月之意
+	PRINTFORML
+	PRINTFORMW	「你可以自豪一下的哦，%CALLNAME: MASTER%，你是这些年来唯一一个能让我有这种感觉的人类」
+	PRINTFORML
+	PRINTFORMW	「“一副很成熟的样子……” 哈、%CALLNAME: MASTER%倒是摆出一副很懂的样子嘛，在我眼中你只是个小朋友而已哦」
+	PRINTFORML
+	CALL ASK_YN("真的？")
+	PRINTFORML
+	PRINTFORML	「真的哟，在我眼中你才是一个小鬼，不过嘛……」
+	PRINTFORML
+	PRINTFORMW	少女的声音低了下去
+	PRINTFORML
+	PRINTFORMW	「如果是%CALLNAME: MASTER%的话……」
+	PRINTFORML
+	PRINTFORMW	「呐、%CALLNAME: MASTER%……」
+	PRINTFORML
+	PRINTFORMW	回过头去，唯见蕾米莉亚那绯色的眼眸在注视着自己
+	PRINTFORMW	恰逢此刻，飘来的浮云遮挡住了明月的清辉
+	PRINTFORMW	少女此时脸上究竟是什么样的表情，双眸底下究竟蕴含了怎样的感情，你无从得知
+	PRINTFORML
+	PRINTFORMW	「……你愿意接受一个活了500年少女的故事吗？」
+	PRINTFORML
+	CALL ASK_YN("……","……我")
+	PRINTFORML
+	PRINTFORMDW	突如其来如同告白般的话语让%CALLNAME: MASTER%的大脑宕机了一下
+	PRINTFORML
+	PRINTFORMW	「我不想现在就听到答案、现在」
+	PRINTFORMDW	少女这么说着打断了你的话，她踮起脚、轻轻抓住你的衣领将你拉了过去，冰凉而柔软的小手环上了你的脖子
+	PRINTFORML
+	PRINTFORMW	那一瞬间，她夺取了你的\@ TALENT:MASTER:無接吻経験?初吻 #嘴唇\@
+	PRINTFORML
+	PRINTFORMW	「唔~~啾~♥」
+	PRINTFORML
+	PRINTFORMW	不知是因为突如其来的接吻让你的大脑一片空白，还是因为别的原因，从你的嘴唇上忽然传来一股酥麻的感觉，身体也不由自主地瘫软下来
+	PRINTFORMW	蕾米莉亚细细品味着你的嘴唇，伴随着光滑而柔软的小舌头不由分说地侵入你的口腔，更加强烈的刺激让你身体上的脱力感愈发严重
+	PRINTFORMW	陷入无法反抗的你任由蕾米莉亚的小舌头与你的舌头交缠在一起
+	PRINTFORMW	在你失去身体的平衡、难以支撑着二人的体重向地上倒去的前一刻
+	PRINTFORMW	蕾米莉亚抽出了自己的舌头，从你的口中拉出一条细长而透明的银丝，完成了这足以夺人心魄的一吻
+	PRINTFORMDL
+	PRINTFORMDL	失去平衡的你和蕾米莉亚一同跌倒在地上
+	PRINTFORMDL	少女的体重压在你的身上，很轻、但是你却没有起身的力气
+	PRINTFORML
+	PRINTFORMW	「哈……哈~如何、这是只属于我的——『吸血鬼之吻』」
+	PRINTFORMW	「因为、这是我的第一次、我也不知道该怎么做...所以下意识地用上了本能了……」
+	PRINTFORMW	「差一点……就要忍不住对%CALLNAME:MASTER%的食欲了」
+	PRINTFORML
+	PRINTFORML	蕾米莉亚跨坐在你的腰上，双手扶着你的肩膀，脸颊之间的距离连一尺不到。尽管你们的姿势有点暧昧，但是在这种气氛的影响之下……
+	PRINTFORML	你感觉到少女看向你的眼神逐渐变得危险起来，成为猎物的危机感萦绕在你的身侧
+	PRINTFORML 
+	PRINTFORMW	「好像、还没有尝过、%CALLNAME:MASTER%的味道呢……」	
+	PRINTFORMW	「只是一点的话……没关系的吧」
+	PRINTFORMW	「%CALLNAME:MASTER%不会拒绝我的请求的、对吧？」
+	PRINTFORMW	「%CALLNAME:MASTER%露出了很可爱的表情呢，对喔，现在的你应该没有反抗的力气呢」
+	PRINTFORMW	「我来帮你清醒起来吧~」
+	PRINTFORML
+	PRINTFORMW	在你惊恐的眼神中，你看见蕾米莉亚再一次吻上你的嘴
+	PRINTFORML
+	PRINTFORMW	————好痛！
+	PRINTFORML
+	PRINTFORMW	少女的利齿刺破了你的嘴唇，你能明显地感觉到鲜血从伤口中被吮吸进入蕾米莉亚的口中
+	PRINTFORMW	直到此时此刻，你才真正、清晰地意识到面前的少女是一个货真价实的吸血鬼
+	PRINTFORML	
+	PRINTFORMW	感受着生命的流失，你觉得麻痹感逐渐消退，身体的控制权再一次回到自己的身上
+	PRINTFORML
+	PRINTFORMDL	这一切只发生在一瞬
+	PRINTFORML
+	PRINTFORML	少女放开了你的唇，长长的虎牙上还沾有属于你的血液
+	PRINTFORMW	蕾米莉亚用带有丝丝凉意的手指轻轻擦去流淌在你嘴角的血液，放进口中慢慢品味着
+	PRINTFORML
+	PRINTFORMW	「谢谢款待——%CALLNAME:MASTER%」
+	PRINTFORMW	「好像有点做太过分了... 在%CALLNAME:MASTER%的面前总是忍不住做一些过分的事情呢...」
+	PRINTFORML
+	PRINTFORMW	浮云散去，明月再度洒下辉洁
+	PRINTFORML
+	PRINTFORMW	在月光下，你终于看清了少女的面容
+	PRINTFORML
+	PRINTFORMW	红红的脸颊是少女此时情绪的完美体现
+	PRINTFORMW	蕾米莉亚从你的身上站起来，转过身去掩饰着害羞的表情
+	PRINTFORMW	冷静下来的少女意识到刚刚发生的事情，满腔的情绪此刻通通转化为了难以压抑的羞耻心
+	PRINTFORML
+	PRINTFORMW	「该、该回去啦！」
+	PRINTFORMW	「再不跟上来的话、我……我就不等你了喔！」
+	PRINTFORML
+	PRINTFORMDL	少女掸了掸衣服上的灰尘，头也不回地走开了
+	PRINTFORMDW	只不过，零星的碎步和一直不安分的翅膀暴露了她的心情
+	PRINTFORML
+	PRINTFORMDL	你从地上站了起来，用手轻轻碰了一下刚才被咬了的地方
+	PRINTFORMDL	不知何时，伤口已经愈合了
+	PRINTFORMDW	整理了一下衣服，你追上了闷头向前走的少女
+	PRINTFORML
+	IF TALENT:MASTER:態度 == -1
+	CALL ASK_YN("打趣一下")
+	PRINTFORML
+	PRINTFORMDL	“关于活了500年少女的故事——”
+	PRINTFORML
+	PRINTFORMW	「噫——！」
+	PRINTFORML
+	PRINTFORMW	蕾米莉亚发出了可爱的声音、小碎步走得更快了
+	PRINTFORML
+	ENDIF
+	PRINTFORMW	一路上，少女都不敢向你对视
+	PRINTFORML
+	PRINTFORML	——已获得了[接吻]的许可
+	PRINTFORML	——已开放了[吸血]的指令
+	PRINTFORML
+	PRINTFORMW	「以后、还想接吻的话……我不会拒绝的喔，毕竟还挺舒服的嘛……」
+	PRINTFORMW	「下次，我会用更温柔一点的方式啦、想要的话、带我去做更多有趣的事情吧」
+ENDIF
+RETURN 1
+
+;==================================================
+;约会回家路上的告白（要求成为恋人）
+;==================================================
+
+@M_KOJO_緋色之诗_SPEVENT_MESSAGECHECK_K16_2
+RETURN 0
+
+@M_KOJO_緋色之诗_SPEVENT_K16_2(ARG,ARG:1)
+;口上角色编号 = TARGET
+; 
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;告白内容
+	;在这些告白内容后，MASTER将被提问是否接受该供词
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 0
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;告白成功（成为恋人了）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;告白失敗（）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+
+ENDIF
+RETURN 1
+
+;==================================================
+;约会回家
+;==================================================
+
+@M_KOJO_緋色之诗_SPEVENT_MESSAGECHECK_K16_3
+RETURN 0
+
+@M_KOJO_緋色之诗_SPEVENT_K16_3(ARG,ARG:1)
+;口上角色编号 = TARGET
+; 
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;通常帰宅
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 0
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;反発刻印从1到消去
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;反発刻印从2降级到1
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;反発刻印从3降级到2
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	PRINTFORML
+ENDIF
+RETURN 1
+
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;"EVENT"系事件
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;==================================================
+;主地图的遭遇
+;地文路径：ERB\イベント関連\情事発覚.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_1(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;MASTER进入区域见到了TARGET
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET进入区域见到了MASTER
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET进入澡堂且一起进来了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET进入澡堂并且又出去了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET进入澡堂并且把MASTER赶出去了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;在外出的途中遇见了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 6
+		PRINTFORML 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;在与其他人约会的时候遇见了
+	;ARG:1に约会相手
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 7
+		PRINTFORML 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;在主地图当日初次相遇
+	;请注意，在此处口上触发后，会显示 ARG==1 OR ARG==2 内的口上内容
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 8
+		PRINTFORML 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;在外出期间当日初次相遇
+	; ARG：1 是约会对象，如果 ARG：1 是 0，则代表非约会状态，此处TARGET是非约会对象
+	;请注意，在此处口上触发后，会显示 ARG==6 OR ARG==7 内的口上内容
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 9
+		;与编号为ARG:1的角色相约会时相遇
+		IF ARG:1
+		;MASTER单独外出时相遇
+		ELSE
+		ENDIF
+		PRINTFORML 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;当你早上醒来时（早安口上）
+;ERB\イベント関連\BEFORETRAIN.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_2(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;非同居，对方先起床了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		;-------------------------------------------------
+		;地点在TARGET私室，MASTER在此处睡着了（恋慕时陪睡就寝才会触发？
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && !ARG:1
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;地点在MASTER私室，TARGET在此处睡着了(没有恋慕导致此情况也有可能，比如说无家可归之人
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;同居时，TARGET先起床了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;同居时，TARGET还在睡觉
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;MASTER起床了，TARGET也跟着起床了
+	;同时在床上保持清醒状态结束陪睡，也可能触发此口上，仅限于MASTER醒来后接着陪睡，TARGET在陪睡途中醒来的情况
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		;-------------------------------------------------
+		;非同居
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && !ARG:1
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;同居中
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;晚上睡觉时（晚安口上）
+;ERB\MOVEMENTS\SLEEP.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_3(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;TARGET从现在的地方，回到自己房间睡觉的口上
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		IF ARG:1
+			;约会中困了，回家睡觉（仅限同在主地图的角色）
+			PRINTFORMW 
+		ELSEIF CFLAG:317
+			;诶嘿嘿的时候困了，回家睡觉（仅限同在主地图的角色）
+			PRINTFORMW 
+		ELSE
+			PRINTFORMW 
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET有些困倦了（只是困倦）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;睡眠中（TARGET在睡觉）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;恶作剧中，每回合随机台词
+	;启用（=0, 非表示、1, 表示）
+	;LOCAL:1 = 1
+	;-------------------------------------------------
+	;IF LOCAL:1 && ARG == 4
+		;PRINTFORMW 
+		;RETURN 1
+	;ENDIF
+	;-------------------------------------------------
+	;因衰弱而睡觉体力500以下,诶嘿嘿时会強制停止）
+	;（角色的自己的房间以外:MASTER把TARGET从【现在的位置】搬到了【TARGET的自己的房间】）
+	;（角色的自己室:~说累了，就躺下了。）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		IF CFLAG:317
+			;诶嘿嘿时倒下
+			PRINTFORMW 
+		ELSE
+			PRINTFORMW 
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;MASTERがダウン（恋慕のみ,そのまま一日が終了）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 6
+		;因酒而昏倒
+		IF BASE:MASTER:酒気 >= MAXBASE:MASTER:酒気
+			IF ARG:1
+				;在自己的房间倒下，(~把【MASTER】搬上了床(被子)…)
+				PRINTFORMW 
+			ELSE
+				;被带到房间，(~把【MASTER】带到MASTER的房间…)
+				PRINTFORMW 
+			ENDIF
+		;体力不支倒下
+		ELSE
+			IF ARG:1
+				;在自己的房间倒下，(~把【MASTER】搬上了床(被子)…)
+				PRINTFORMW 
+			ELSE
+				;被送到房间（～把MASTER搬到MASTER的房间…）
+				PRINTFORMW 
+			ENDIF
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET回到房间准备睡觉时
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 7
+		;-------------------------------------------------
+		;就这样换好衣服睡了（【TARGET】回到了房间→换上睡衣，钻进了被窝）
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 0
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;把MASTER从房间里赶出去睡觉了（被睡眼惺忪的【TARGET】赶了出来…）
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			IF CFLAG:前ターン位置 == CFLAG:現在位置
+				;直到前一个回合，和目标都在一起，准备睡觉时赶出去
+				PRINTFORMW 
+			ELSE
+				;当TARGET回到房间准备睡觉时
+				PRINTFORMW 
+			ENDIF
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;让MASTER停止和其他角色的情事，睡觉了（【TARGET】回到了房间→【TARGET】噘起了嘴、【MASTER】与【Ｈの相手】不得不离开了）
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 2
+			PRINTFORMW 
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;来访角色在据点休息（～累坏了→稍微休息一下吧）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 8
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;在卧室里当场睡觉（输给了困意，睡着了…）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 9
+		IF CFLAG:317
+			;诶嘿嘿时太累了睡着了
+			PRINTFORMW 
+		ELSE
+			PRINTFORMW 
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;自己家在其他地图的角色，回到自己的房间睡觉。（困了，回自己的房间去了。）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 10
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;移动中经过角色
+;ERB\コマンド関連\COMF\日常系\COMF400 移動.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_4(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;在角色这里停下来
+	;之后会接遭遇口上
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;打招呼后经过
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;无视后经过
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;其他人进入时导致的气氛变化
+;
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_5(ARG,ARG:1)
+;口上角色编号 = TARGET
+;ARG是进入角色的编号（人数庞大，自己把握自己负责）
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;灵梦进来了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;留琴进来了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;露米娅进来了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 12
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;如果需要添加或者删除新的角色，按照以上的格式添加即可
+	;其他情况（无论进来的是谁
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;目击了MASTER与其他人的情事
+;
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_6(ARG,ARG:1)
+;口上角色编号 = TARGET
+;ARG是情事的对象
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;目击了情事（好感度:低）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;不服输地参加进来（好感度:高）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;尴尬地离开
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;被人看见了与口上主的情事
+;
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_7(ARG,ARG:1)
+;口上角色编号 = TARGET
+;ARG是目击者的编号
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;被人看见了情事（目击者的好感度:低）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;目击者不服输地参加进来（目击者的好感度:低）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;目击者离开了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;追问目击到的情事（现在已弃用
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_8(ARG,ARG:1)
+RETURN 1
+
+;==================================================
+;内裤被没收了
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_9(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;推倒
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_10(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;逆推倒（開始時）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		;-------------------------------------------------
+		;MASTER被推倒（開始時）
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && !ARG:1
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;MASTER被抱住（開始時）
+		;只有双方均不为男性，才会触发
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;逆推终止（終了時）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		;-------------------------------------------------
+		;安慰着拔了出来（虽然不一定插进去了）
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && !ARG:1
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;拥抱模式以满足结束
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;拥抱模式强制结束
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 2
+			PRINTFORML
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;安慰着拔出失敗
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		;-------------------------------------------------
+		;不能随心所欲地从状态中摆脱出来
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;欲壑难填，无法自拔
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 2
+			PRINTFORML
+			RETURN 1
+		ENDIF
+	ENDIF
+	;-------------------------------------------------
+	;邀请（想去没人的地方）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		;ARG:1=TARGETの欲求不満度（最高1000）
+		;如果需要，请用这个值做差分
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;浴場的遭遇
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_11(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;被赶出去了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;四目相对(没有被赶出去)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;潜入卧室
+;ERB\コマンド関連\COMF\日常系\侵入.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_12(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;被赶出去了（生气地）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;潜入了房间
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;潜入了房间（对方恋慕）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;潜入了房间（对方恋慕・衰弱状态）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;被赶出去了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 4
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;被赶出去了（衰弱状态）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG:1 == 5
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;工作中
+;ERB\MOVEMENTS\JOB_仕事開始終了処理.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_13(ARG,ARG:1)
+;口上角色编号 = TARGET
+;ARG:1表示的是剩余的工作量
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;工作開始（会前往工作战场）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;工作中
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;工作完成
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;食事系
+;
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_14(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;所带的食物被口上主吃掉了
+	;TCVAR:盗み食い抑制可以避免被偷吃
+	;规格示例（加了药就不吃）
+	;IF DISH_DRG
+	;	TCVAR:盗み食い抑制 = 1
+	;ENDIF
+
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == -1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+
+;==================================================
+;MASTER推倒了口上角色
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_15(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;未实装（推倒指令口上？
+	;注、常用用法是写在日常系350
+	;MASTER推倒了(开始时)
+	;启用（=0, 非表示、1, 表示）
+	;LOCAL:1 = 1
+	;-------------------------------------------------
+	;IF LOCAL:1 && ARG == 1
+		;PRINTFORML
+		;RETURN 1
+	;ENDIF
+	;-------------------------------------------------
+	;情事结束（结束时）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+	;-------------------------------------------------
+	;事後描写
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		;-------------------------------------------------
+		;精液滴下来了
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;愛液滴下来了
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 2
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;事後的情绪
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 3
+			PRINTFORML
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;穿回衣服
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 4
+			PRINTFORML
+			RETURN 1
+		ENDIF
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;陪睡
+;ERB\コマンド関連\USERCOM.ERB LINE570
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_16(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;陪睡开始（開始時）(已经有陪睡指令了，此处已弃用
+	;启用
+	;LOCAL:1 = 1
+	;-------------------------------------------------
+	;IF LOCAL:1 && ARG == 1
+		;PRINTFORML
+		;RETURN 1
+	;ENDIF
+	;-------------------------------------------------
+	;陪睡结束（終了時）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+;==================================================
+;时间停止终了时
+;ERB\時間停止解除.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_17(ARG,ARG:1)
+;口上角色编号 = TARGET
+;需要注意的是，没有明确表示排他的物品会根据情况连续显示
+;ARG是射精状況
+;ARG:1是射精状態
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;ARG=1～3 排他
+	;謎之快感
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;絶頂
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;胖次紛失
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;【無自覚口内射精】
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		;精液中毒低精飲
+		IF ARG:1 == 1
+		;精液中毒低吐出来
+		ELSEIF ARG:1 == 2
+		;精液中毒低捂住了嘴
+		ELSEIF ARG:1 == 3
+		;精液中毒高精飲
+		ELSEIF ARG:1 == 4
+		;濃厚精液＆精液中毒低吐出
+		ELSEIF ARG:1 == 5
+		;濃厚精液＆精液中毒高精飲
+		ELSEIF ARG:1 == 6
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;【無自覚顔面射精】
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		;持有无知，且精液経験不满100
+		IF ARG:1 == 1
+		;通常擦掉
+		ELSEIF ARG:1 == 2
+		;偷偷舔食精液
+		ELSEIF ARG:1 == 3
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;【無自覚手淫射精】
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 6
+		;通常擦掉
+		IF ARG:1 == 1
+		;舔食精液
+		ELSEIF ARG:1 == 2
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;【無自覚アナル射精】
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 7
+		;Ａ感覚2以下，疼痛
+		IF ARG:1 == 1
+		;除此之外的情况
+		ELSEIF ARG:1 == 2
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;【無自覚処女喪失】
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 8
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;【無自覚膣内射精】
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 9
+		;非処女膣内射精，未服用避孕药
+		IF ARG:1 == 1
+		;非処女膣内射精，服用过避孕药
+		ELSEIF ARG:1 == 2
+		;其他情况
+		ELSEIF ARG:1 == 3
+			;無自覚膣内射精，并且处女丧失
+			IF EX:LOCAL:処女喪失记号 == 1 || TALENT:LOCAL:処女 == -1
+			;有无知
+			ELSEIF TALENT:TARGET:27 
+			;其他情况
+			ELSE 
+
+			ENDIF 
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;時間停止解除共通口上
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 0
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;无防护插入时
+;ERB\イベント関連\妊娠関連\HININSHITE.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_18(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;避妊要求台詞
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;拒绝
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;尝试说服之后强硬地拒绝了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;危険日以外許可
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;危険日許可
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;请批准在主地图生活（角色从外面搬到主地图）
+;ERB\イベント関連\APPEND_SYS.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_19(ARG,ARG:1)
+;口上主はARG
+;%CALLNAME:拠点_家主% 即为主地图的家主
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;被允许
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;不被允许
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;因为MASTER的私人房间变更而同居
+	;这个只要搬家到角色的房间就可以触发
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;回家时
+;这部分是TARGET住在其他地区时触发的口上
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_20(ARG,ARG:1)
+;口上主编号为LOCALS or RESULT
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;通常回家
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		IF CFLAG:317
+			;诶嘿嘿时要睡觉所以回去了
+			PRINTFORMW 
+		ELSE
+			PRINTFORMW 
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;约会中帰宅
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		IF CFLAG:317
+			IF CFLAG:衰弱
+				;诶嘿嘿时太累了所以回去了
+				PRINTFORMW 
+			ELSE
+				;诶嘿嘿时要睡觉所以回去了
+				PRINTFORMW 
+			ENDIF
+		ELSE
+			PRINTFORMW 
+		ENDIF
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;在玄关处送行(角色的自家位置，或者角色的房间约会结束)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;约会结束时邀请MASTER来房间(从……开始邀请他来房间)
+	;(只有其他地图来访角色，没有自己家的角色才能发生)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		PRINTFORML 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;不来房间吗→选择“去”(在TARGET的邀请下，【MASTER】走向了【TARGET】的房间……)
+	;（一旦发生，十有八九会被推倒。）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;不来房间吗→选择“不来”(~是无心还是很寂寞……)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 6
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET说今晚不想回去(~说今晚不想回去…)
+	;（来访角色回家时欲求不满和欲望高的话发生）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 7
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;今晚不想回去→选择“留宿”(~住在了【MASTER自己的房间】)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 8
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;今晚不想回去→选择“不留宿”，或者家主设置了其他同居者(【MASTER】郑重拒绝了)
+	;（家主在MASTER的私人房间里设定了其他角色的私人房间。）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 9
+		PRINTFORMW 
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;TARGET累了回家(累坏了~回去了)
+	;（送~到入口，TARGET筋疲力尽的时候发生。）
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 10
+		IF CFLAG:317
+			;诶嘿嘿时太累了所以回去了
+			PRINTFORMW 
+		ELSE
+			PRINTFORMW 
+		ENDIF
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;陥落素質取得時
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_21(ARG,ARG:1)
+;口上主はARG
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;恋慕取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;思慕取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		; IF GETBIT (CFLAG:31,0) || GETBIT(CFLAG:31,1)
+		; ELSE
+		; ENDIF
+	;------------------------
+		; IF TALENT:MASTER:妖怪 == 3
+		; ELSE
+		; ENDIF
+	;------------------------
+		; 此为待施工状态
+		; 重申一遍、待施工
+		; 重申一遍、待施工
+		; 重申一遍、待施工
+		; 重申一遍、待施工
+		; 重申一遍、待施工
+		; 重申一遍、待施工
+		; PRINTFORMW	%CALLNAME:MASTER%……
+		; PRINTFORMW	因一时兴起带回来的人类，本来只是打算当个藏品一样放在自己身边供一时的消遣
+		; PRINTFORMW	
+		; PRINTFORMW	因为反应却很有趣、所以就尽情使唤上了。这么看来，最近我捉弄他的次数似乎有点多呢……
+		; PRINTFORMW	是因为怎么逗他都不会生气吗？
+		; PRINTFORMW	还是因为单纯想看他吃瘪的样子
+		; PRINTFORMW	亦或者说……
+		; PRINTFORML	...
+		; PRINTFORML	..
+		; PRINTFORMW	.
+		; PRINTFORML	
+		; PRINTFORML	「唉、想这些有的没的根本睡不着啦」
+		; PRINTFORML	
+		; PRINTFORMW	我叹了口气，郁闷地从床上坐起来，因为脑袋里全是某个人类的事导致现在睡意全无了
+		; PRINTFORMW	但是……干站在这里也不是办法
+		; CALL FRONT_绯色之诗_AA(10)
+		; PRINTFORMW	
+		; PRINTFORMW	「都怪仆从害得我睡不着觉啦」
+		; PRINTFORML	
+		; PRINTFORMW	「凭什么我要在这里失眠，他就能睡个好觉啦」
+		; PRINTFORML	
+		; PRINTFORMW	「……」
+		; PRINTFORML	
+		; PRINTFORMDW	似乎有一个两全其美的办法……
+		; PRINTFORML	
+		; PRINTFORMW	「哼哼~」
+		; PRINTFORML	
+		; PRINTFORMDW	稍微施展了一下魔法，让我的声音能够传达到仆从的房间
+		; PRINTFORML	
+		; PRINTFORMW	「仆从？仆从——」
+		; PRINTFORMW	「睡着了吗——」
+		; PRINTFORMW	「过来一下我这里——」
+		; PRINTFORML	
+		; PRINTFORMDW	十分钟过去了……一点动静也没有
+		; PRINTFORMDW	这家伙不会睡得这么死吧！？
+		; PRINTFORML	
+		; PRINTFORMW	「%CALLNAME:MASTER%?」
+		; PRINTFORMDW	扣扣——
+		; PRINTFORMDW	「大小姐泥找窝？」
+		; PRINTFORML	
+		; PRINTFORMDW	突如其来的敲门声把我吓了一跳，随后传来的是仆从那睡眼惺忪的声音
+		; PRINTFORMW	什么嘛，还是听到我说话的
+		; PRINTFORMDW	我平复了一下心情，可不能让仆从抓住马脚
+		; PRINTFORML	
+		; PRINTFORMW	「……进来吧」
+		; PRINTFORML	
+		; PRINTFORMDW	寝室房门推开，仆从还穿着睡衣就走了进来，眼睛都快睁不开了，看起来的的确确是被我吓醒的样子。
+		; PRINTFORMDW	看着仆从这个样子，感觉全身心一下子都畅快了许多
+		; PRINTFORML	
+		; PRINTFORMW	「大小姐……有甚麽事……？」
+		; PRINTFORML	
+		; PRINTFORMDW	我不语，只是一昧地看着还没搞清楚状态的仆从
+		; PRINTFORML		
+		; PRINTFORMW	「喊你来是有一件非常重要的任务要交给你哟」
+		; PRINTFORMW	「竖起你的耳朵听好了，%CALLNAME:MASTER%，这个任务我不希望被其他人听到」
+		; PRINTFORMW	「我希望你能认真听好，并完美遵从我的指示——」
+		; PRINTFORMW	「能做到吧？」
+		; PRINTFORML	
+		; PRINTFORMDW	听到有要紧事的仆从睡意一下子没了七分，身子也站得笔直了，眼神也不迷糊了，开始全神贯注地听着我的每一字每一句了
+		; PRINTFORML	
+		; PRINTFORMW	一想到接下来要发生什么事情我就有点忍不住想笑……
+		; PRINTFORML	
+		; PRINTFORMW	「那就是……」
+		; PRINTFORML	
+		; PRINTFORMDW	「那就是？」
+		; PRINTFORML	
+		; CALL FRONT_绯色之诗_AA(11)
+		; PRINTFORMW	「给我起来重睡口牙！」
+		; PRINTFORML	
+		; PRINTFORMDW	「……」
+		; PRINTFORML	
+		; PRINTFORMDW	「……？」
+		; PRINTFORML	
+		; PRINTFORMDW	「？？？」
+		; PRINTFORML	
+		; PRINTFORMDW	「我……唔哇——」
+		; PRINTFORML	
+		; PRINTFORMD	在仆从发出 
+		; CALL YUBE_LINETHROUGH("抗议",1)
+		; PRINTFORMDW	 对我绝妙提案由衷的赞美 之前，我打了一个响指，将他传送回了自己房间柔软舒适的床铺上
+		; PRINTFORML	
+		; PRINTFORMW	「睡个好觉哟~」
+		; PRINTFORML	
+		; PRINTFORMDW	做完这一切的我，优雅而潇洒地回到自己的床上
+		; PRINTFORMDW	虽然耽误了一点时间，红魔馆外的太阳已经开始升起来了，但是不妨碍我此时能睡一个好觉
+		; PRINTFORML	
+		; PRINTFORMW	果然还是逗一逗%CALLNAME:MASTER%能让我保持好心情~
+		; PRINTFORMW	下次...试着提出更过分一点要求吧~
+		; PRINTFORML	
+		; PRINTFORMDW	少女安然地坠入梦乡~	
+		; PRINTDW
+		PRINTFORMW	是夜
+		PRINTDL
+		PRINTFORMDW	是晨
+		PRINTDL
+		PRINTFORMDW	少女回到了自己的居所，斑斓的彩窗外、夜幕被初阳悄悄地揭开
+		PRINTDL
+		PRINTFORMDW	是吸血鬼的「夜」
+		PRINTDL
+		PRINTFORMW	「呜哇——好困啊」
+		PRINTDL
+		PRINTFORMW	和仆从道别而回到居所之后，我只身投入被窝的怀抱
+		PRINTFORMW	享受着被窝带来的舒适、加上倦意压身，本应进入睡眠的我，竟然到此刻还是一点入睡的迹象都没有
+		PRINTFORMW	一闭上眼睛，就会不由自主地开始回想这·段·时·间经历过的所有事情
+		PRINTDL
+		PRINTFORMW	「我什么时候变得这么多愁善感的了？」
+		PRINTDL
+		PRINTFORML	我向自己发出质问的声音
+		PRINTFORMW	尽管不愿承认、但这是不争的事实。我对自己此刻的状态作出了如此判断
+		PRINTFORMW	
+		CALL YUBE_INNER("我不能理解，我也不知道自己为何会这么想",1,"是因为/吗？",)
+		CALL YUBE_INNER("不知不觉，我注意到从小露台贸然闯进来的、对红魔馆来说明显多余的那一缕阳光",1,"但/不一样，他不会是多余的")
+		CALL YUBE_INNER("对于“不速之客”、我向来不会抱有什么好感",1,"但我明明已经习惯了有/在身边的时间")
+		PRINTDL	
+		PRINTFORMDW	少女轻轻打了一个响指，孱弱的阳光被厚实的窗帘隔断，房间回归到了夜晚的状态
+		PRINTDL
+		PRINTFORML	没有了烦人的阳光、总算感觉舒服了不少
+		PRINTFORMW	然而即便如此，我的心情仍然如同一团乱麻
+		PRINTDL
+		PRINTFORMW	是……%CALLNAME:MASTER%的缘故吗？
+		PRINTDL
+		PRINTFORMW	这个念头蹦出来的时候把我自己都吓了一跳，我不敢置信我竟然会这么想
+		PRINTDL	
+		CALL YUBE_INNER("我将此时的心情归咎于命运的偶然",1,"蕾米莉亚显然没有注意到自己深埋在心底里的感情")
+		PRINTFORMW	与其让自己因为这点事情而烦恼、不如想想如何让自己开心起来
+		PRINTDL	
+		PRINTFORMW	
+		PRINTDL
+		PRINTFORMW	
+		PRINTFORMW	
+		PRINTDL
+		PRINTFORMW	
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;愛欲取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;愛人取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;炮友取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;接吻魔取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 6
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;自慰狂取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 7
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;子宫口性感取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 8
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;漏尿癖取得
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 9
+		PRINTFORML
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+;==================================================
+;当日结束后的自慰
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_22(ARG,ARG:1)
+;口上主是ARG
+;ARG:0自慰状況
+;ARG:1自慰種類
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;通常自慰
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML  
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;同室時自慰
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML  
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;被射进精液时自慰
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML  
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;持有無知时自慰（根据自慰经验与调教自慰经验的差值，有分歧
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		LOCAL:2 = EXP:自慰経験 - EXP:調教自慰経験
+		;有无知消除事件(只显示一次
+		IF LOCAL:1 >= 25
+		;口上分支。如果你想写，请删除[SKIPSTART]和[SKIPEND]
+		[SKIPSTART]
+		ELSEIF LOCAL:1 >= 20
+		ELSEIF LOCAL:1 >= 15
+		ELSEIF LOCAL:1 >= 10
+		ELSEIF LOCAL:1 >= 5
+		[SKIPEND]
+		ELSE
+		ENDIF
+		PRINTFORML  
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;有陷落素质且有自慰中毒的情况
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 5
+		;-------------------------------------------------
+		;Ｃ敏感orＣ感覚10以上
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORML  
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;Ｖ敏感orＶ感覚10以上
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 2
+			PRINTFORML  
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;Ａ敏感orＡ感覚10以上
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 3
+			PRINTFORML  
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;Ｂ敏感orＢ感覚10以上
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 4
+			PRINTFORML  
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;部位指定無
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 5
+			PRINTFORML  
+			RETURN 1
+		ENDIF
+		;其他情况
+		;不写上面的任何分支，写在这里就可以表示自慰中毒且有陷落素质时自慰的通用口上
+		PRINTFORML  
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;自慰中毒
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 6
+		;-------------------------------------------------
+		;尻穴膣腔同時
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 1
+			PRINTFORML  
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		;仅膣腔
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1 && ARG:1 == 2
+			PRINTFORML  
+			RETURN 1
+		ENDIF
+		;其他情况
+		;不写上面的任何分支，写在这里就可以表示自慰中毒时自慰的通用口上
+		PRINTFORML  
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;忍耐
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 7
+		PRINTFORML 
+		RETURN 1
+	ENDIF
+	;其他情况
+	;不写上面的任何分支，写在这里就可以表示自慰的通用口上
+	PRINTFORML  
+	RETURN 1
+ENDIF
+RETURN 1
+;==================================================
+;带进浴场
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_23(ARG,ARG:1)
+;口上主はLOCAL
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;拒绝
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;一同进去了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+;==================================================
+;怀孕
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_24(ARG,ARG:1)
+;口上主 LOCAL
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;恋慕
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;思慕
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;陥落素質無
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;無自覚
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+;==================================================
+;出産
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_25(ARG,ARG:1)
+;口上主 LOCAL
+;ARG:1	这是第几个孩子
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;恋慕
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;思慕
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;陥落素質無
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;無自覚
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+		RETURN 1
+	ENDIF
+	;其他情况
+	PRINTFORML  
+ENDIF
+RETURN 1
+;==================================================
+;被看见自慰
+;ERB\コマンド関連\COMF\外出系\NASIKUZUSI.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_26(ARG,ARG:1)
+
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	SELECTCASE ARG
+		;-------------------------------------------------
+		CASE 0
+		;被看见的瞬間
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 1
+		;什么都不做
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 2
+		;在注视下看着继续
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 3
+		;想做或者想看，被赶出去了
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 4
+		;允许一起做
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 5
+		;事后口上
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 6
+		;事后留宿
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+	ENDSELECT
+ENDIF
+
+;被发现自慰时的判定函数
+;RETURN -1強制失敗、RETURN 1強制成功
+@M_KOJO_緋色之诗_EVENT_K16_26_1(ARGS)
+#DIM 補正値
+IF ARGS == "どうぞそのまま"		;看着做
+
+ELSEIF ARGS == "二人で"			;一起做
+
+ENDIF
+
+;使用例
+;IF !TALENT:XX:恋慕
+;	PRINTFORMW %CALLNAME:XX%はガードが堅いぞ！
+;	RETURN -1
+;ENDIF
+;IF TALENT:MASTER:濃厚精液
+;	PRINTFORMW %CALLNAME:XX%はちんぽに弱いぞ！
+;	RETURN 1
+;ENDIF
+;==================================================
+;TARGET邀请一起约会
+;ERB\イベント関連\情事発覚.ERB
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_27(ARG,ARG:1)
+;口上主 LOCAL
+;ARG:1是目的地
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	SELECTCASE ARG
+		;-------------------------------------------------
+		CASE 0
+		;邀请的口上
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 1
+		;接受了
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 2
+		;拒绝了
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 3
+		;邀请去房间
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 4
+		;邀请去房间，选择接受了
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 5
+		;邀请去房间，选择拒绝了
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			RETURN 1
+		ENDIF
+	ENDSELECT
+ENDIF
+RETURN 1
+
+;==================================================
+;脱衣口上
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_28(ARG,ARG:1)
+;口上角色编号 = TARGET
+;ARG	脱衣的方法
+;ARG:1（只要ARG=3才有这个值）地文的反应
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	SELECTCASE ARG
+		;-------------------------------------------------
+		CASE 0
+		;全裸
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			;時間停止時
+			IF FLAG:70
+			;通常
+			ELSE
+			ENDIF
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 1
+		;只穿内衣
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			;時間停止時
+			IF FLAG:70
+			;通常
+			ELSE
+			ENDIF
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 2
+		;半脱
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			;時間停止時
+			IF FLAG:70
+			;通常
+			ELSE
+			ENDIF
+			RETURN 1
+		ENDIF
+		;-------------------------------------------------
+		CASE 3
+		;索要胖次
+		;启用（=0, 非表示、1, 表示）
+		LOCAL:1 = 1
+		;-------------------------------------------------
+		IF LOCAL:1
+			SELECTCASE ARG:1
+				;-------------------------------------------------
+				CASE 0
+				;要求交换胖次
+				;启用（=0, 非表示、1, 表示）
+				LOCAL:1 = 1
+				;-------------------------------------------------
+				IF LOCAL:1
+					RETURN 1
+				ENDIF
+				;-------------------------------------------------
+				CASE 1
+				;OK（开心地给了
+				;启用（=0, 非表示、1, 表示）
+				LOCAL:1 = 1
+				;-------------------------------------------------
+				IF LOCAL:1
+					RETURN 1
+				ENDIF
+				;-------------------------------------------------
+				CASE 2
+				;OK（勉勉强强地给了
+				;启用（=0, 非表示、1, 表示）
+				LOCAL:1 = 1
+				;-------------------------------------------------
+				IF LOCAL:1
+					RETURN 1
+				ENDIF
+				;-------------------------------------------------
+				CASE 3
+				;不太情愿的样子
+				;启用（=0, 非表示、1, 表示）
+				LOCAL:1 = 1
+				;-------------------------------------------------
+				IF LOCAL:1
+					RETURN 1
+				ENDIF
+				RETURN 1
+			ENDSELECT
+		ENDIF
+	ENDSELECT
+ENDIF
+RETURN 1
+
+;==================================================
+;愤怒口上
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_29(ARG,ARG:1)
+;口上角色编号 = TARGET
+;ARGはTARGETの度胸で分岐
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;惹生气了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;弄哭了　[胆怯]限定
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;对方解除了推倒状态
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_30(ARG,ARG:1)
+;口上角色编号 = TARGET
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+
+IF LOCAL
+	;-------------------------------------------------
+	;对方累了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 1
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;满足了所以放开了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 2
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;满足了然后被反过来推倒了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 3
+		PRINTFORML
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;要求继续进攻，做到坏掉
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 4
+	
+		PRINTFORML
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+
+;==================================================
+;一天结束时(AFTERTRA之前)，没有见过面的话不会被调用
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_31(ARG,ARG:1)
+;口上角色编号 = TARGET
+;ARG	没见面的天数
+;如果几天没见面，角色可以抱怨。
+;CFLAG:オナバレ可以用于差分
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	;-------------------------------------------------
+	;小分岐
+	;-------------------------------------------------
+	;今日没见过面
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG
+		;是为了在显示口上之前，判别是谁的东西的地文，想变更的话，请在删除之后独自制作。
+		CALL EVENTEND_TSUBUYAKI
+		RETURN 1
+	ENDIF
+	;-------------------------------------------------
+	;今天见面了
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1 && ARG == 0
+		CALL EVENTEND_TSUBUYAKI
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 1
+
+;==================================================
+;自由行動中
+;ARG:1      0=行動中,1=结束时
+;技能类行动在技能等级1以上时发生
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_32(ARG,ARG:1)
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	SELECTCASE ARG
+	CASE 0
+		;▼思考事情［在思考着什么］
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 1
+		;▼游玩［开始游玩起来了］
+		;※[幼稚]限定
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 2
+		;▼食事,（~正在吃饭。）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 3
+		;▼吃小零食～开始吃小零食了）
+		;※[妖精]种族角色、露米娅、古明地恋、幽幽子、紫苑等人会触发这个
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 4
+		;▼掃除,（～麻利地打扫着房间。）
+		;※[掃除係]限定，或者TARGET拥有污臭敏感 -1 或更少
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 5
+		;▼運動,（～干劲十足地运动着。）
+		;※拥有[音楽知識]或者无战斗能力则不会触发
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 6
+		;▼読書,（～默默地看书。）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 7
+		;▼料理,
+		IF !ARG:1
+			;行動中
+			IF Activity_Duration:TARGET > 30
+				;料理中（～轻快地做着菜。。）
+				PRINTFORML 
+			ELSE
+				;食事中（～吃着自己做的菜。）
+				PRINTFORML 
+			ENDIF
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 8
+		;▼演奏
+		;※TARGET拥有[音楽知識]（随着TALENT:音楽知識的种类而変化）
+		;1,～愉快地演奏着。
+		;2,随心所欲地唱着歌。
+		;3,～在华丽地跳着舞。
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 9
+		;▼採集,（～在寻找可以使用的素材。。）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 10
+		;▼垂钓,（～在悠闲地钓鱼。）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 11
+		;▼実験,（～正在进行奇怪的实验。。）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 12
+		;▼放松,（～很悠闲地放松着。）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 13
+		;▼晩酌,（～悠闲地喝着酒。）
+		;※酒耐性0以上才会触发
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 14
+		;▼买东西（～在随便买东西。）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 15
+		;▼説教,（～静静地听着说教…）
+		;※神霊・蓬莱人は除く
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 16
+		;▼落穴,（～在增加落穴的数量）
+		;※三月精、琪露诺、克劳恩皮丝才会做这种事
+		;除此以外的人全都有可能掉坑里
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时,
+			;（布置人(失败时)，因为谁也不上钩TARGET感觉很没劲…）
+			;（掉落的一方(战斗能力2 ~ 4)，~马上从洞里跳出来东张西望着周围…）
+			PRINTFORML 
+		ENDIF
+	CASE 17
+		;▼制作雪雕（～正在收集雪）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	CASE 18
+		;▼悠闲地缩进被炉（～躲进暖桌里焐着）
+		IF !ARG:1
+			;行動中
+			PRINTFORML 
+		ELSE
+			;结束时
+			PRINTFORML 
+		ENDIF
+	ENDSELECT
+ENDIF
+RETURN 1
+
+;==================================================
+;新年快乐
+;过年的瞬间在同一个房间发生
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_33(ARG,ARG:1)
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	PRINTFORMW 
+ENDIF
+RETURN 1
+
+;==================================================
+;技能升级
+;触发时的ABL值都是升级后的数值。
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_34(ARG,ARG:1)
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	SELECTCASE ARG
+	CASE 1
+		;戦闘技能
+		PRINTFORMW 
+	CASE 2
+		;話術技能
+		PRINTFORMW 
+	CASE 3
+		;清掃技能
+		PRINTFORMW 
+	CASE 4
+		;教養
+		PRINTFORMW 
+	CASE 5
+		;料理技能
+		PRINTFORMW 
+	CASE 6
+		;採集Lv
+		PRINTFORMW 
+	CASE 7
+		IF ARG:1 == 0
+			;音楽技能
+			PRINTFORMW 
+		ELSEIF ARG:1 == 1
+			;【音楽知識】取得
+			PRINTFORMW 
+		ELSEIF ARG:1 == 2
+			;【相対音感】取得
+			PRINTFORMW 
+		ENDIF
+	CASE 8
+		;钓鱼Lv
+		PRINTFORMW 
+	CASE 9
+		IF ARG:1 == 0
+			;調合Lv
+			PRINTFORMW 
+		ELSEIF ARG:1 == 1
+			;【調合知識】取得
+			PRINTFORMW 
+		ENDIF
+	CASE 10
+		;伐採Lv
+		PRINTFORMW 
+	CASE 11
+		IF ARG:1 == 0
+			;指
+			PRINTFORMW 
+		ELSEIF ARG:1 == 1
+			;【靈活手指】取得
+			PRINTFORMW 
+		ENDIF
+	CASE 12
+		IF ARG:1 == 0
+			;舌
+			PRINTFORMW 
+		ELSEIF ARG:1 == 1
+			;【舌頭靈活】取得
+			PRINTFORMW 
+		ENDIF
+	CASE 13
+		IF ARG:1 == 0
+			;胸
+			PRINTFORMW 
+		ELSEIF ARG:1 == 1
+			;【淫乳】取得
+			PRINTFORMW 
+		ENDIF
+	CASE 14
+		;腰
+		PRINTFORMW 
+	CASE 15
+		IF ARG:1 == 0
+			;膣
+			PRINTFORMW 
+		ELSEIF ARG:1 == 1
+			;【淫壺】取得
+			PRINTFORMW 
+		ENDIF
+	CASE 16
+		IF ARG:1 == 0
+			;肛
+			PRINTFORMW 
+		ELSEIF ARG:1 == 1
+			;【尻穴狂】取得
+			PRINTFORMW 
+		ENDIF
+	ENDSELECT
+	PRINTL 
+ENDIF
+RETURN 1
+
+;==================================================
+;日常事件2,夢精
+;濃厚精液状態时
+;▼地の文--------------------------------------------------
+;【MASTER】正在洗被遗精弄脏的内衣的时候【TARGET】飞了过来!
+;【TARGET】抗议说不要和其他要洗的衣服一起洗，就把收在【MASTER】手里的内衣兜回去了…
+;【TARGET】　欲情の珠＋1000
+;==================================================
+
+@M_KOJO_緋色之诗_DAILY_EVENT_MESSAGECHECK_K16_2
+RETURN 0
+
+@M_KOJO_緋色之诗_DAILY_EVENT_K16_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
+;如果想改变地文，请在地文控制函数里RETURN 
+;※删除地文的话情欲之珠+ 1000 (JUEL:11 += 1000)也会被删除注意
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	PRINTFORMW 
+ENDIF
+RETURN 1
+
+;==================================================
+;日常事件4,沉思
+;親密5以上で発生（来訪キャラのみ）
+;▼地の文--------------------------------------------------
+;结束了思考的【TARGET】、发现自己总是在不知不觉中想【MASTER】的事
+;【TARGET】好像决定明天去见【MASTER】
+;==================================================
+
+@M_KOJO_緋色之诗_DAILY_EVENT_MESSAGECHECK_K16_4
+RETURN 0
+
+@M_KOJO_緋色之诗_DAILY_EVENT_K16_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
+;如果想改变地文，请在地文控制函数里RETURN 
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	PRINTFORMW 
+ENDIF
+RETURN 1
+
+;==================================================
+;日常事件12,特訓
+;信頼100以上才可能发生（仅限同在主地图的角色）
+;==================================================
+
+@M_KOJO_緋色之诗_DAILY_EVENT_MESSAGECHECK_K16_12
+RETURN 0
+
+@M_KOJO_緋色之诗_DAILY_EVENT_K16_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
+;如果想改变地文，请在地文控制函数里RETURN 
+;你只能回复ARG:1= 1或者2
+;--------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------
+IF LOCAL
+	SELECTCASE ARG:1
+	CASE 1
+		;被委托特训
+		;～要求陪我进行新技能的训练。
+		PRINTFORML 
+	CASE 2
+		;拒绝
+		;～好像很遗憾
+		PRINTFORML 
+	CASE 3
+		;～の攻撃！
+		;※请不要在这里故意wait
+		PRINTFORML 
+	CASE 4
+		IF ARG:2
+			;使用時間停止回避
+			PRINTFORML 
+		ELSE
+			;回避成功
+			PRINTFORML 
+		ENDIF
+	CASE 5
+		;回避失敗
+		PRINTFORML 
+	ENDSELECT
+ENDIF
+RETURN 1
+
+
+[SKIPSTART]
+;-------------------------------------------------
+;看见自慰
+;想要替代看见自慰的地文时，请使用这个内容
+;这种情况下请去掉上下的SKIPSTART~SKIPEND。
+;使用CFLAG等字符变量时，请务必使用添加了角色编号的完整变量
+;-------------------------------------------------
+@M_KOJO_緋色之诗_EVENT_K16_ONABARE_1(ARG)
+;-------------------------------------------------
+;如果要加口上色的话，就去掉注释，把X作为角色号码
+;CALL M_KOJO_COLOR_K16
+
+IF ARG
+	PRINTFORML A弄ってる場合
+ELSE
+	PRINTFORML V弄ってる場合
+ENDIF
+;-------------------------------------------------
+[SKIPEND]
+
+
+[SKIPSTART]
+;-------------------------------------------------
+;要求看着继续
+;想要替代看见要求继续自慰的地文时，请使用这个内容
+;这种情况下请去掉上下的SKIPSTART~SKIPEND。
+;使用CFLAG等字符变量时，请务必使用添加了角色编号的完整变量
+;-------------------------------------------------
+@M_KOJO_緋色之诗_EVENT_K16_ONABARE_2(ARG)
+;-------------------------------------------------
+:如果要加口上色的话，就去掉注释，把X作为角色号码
+;CALL M_KOJO_COLOR_K16
+
+IF ARG
+	PRINTFORML A弄ってる場合
+ELSE
+	PRINTFORML V弄ってる場合
+ENDIF
+;-------------------------------------------------
+[SKIPEND]
+
+
+[SKIPSTART]
+;-------------------------------------------------
+;要求在一起做
+;想要替代看见并要求一起做的地文时，请使用这个内容
+;这种情况下请去掉上下的SKIPSTART~SKIPEND。
+;使用CFLAG等字符变量时，请务必使用添加了角色编号的完整变量
+;-------------------------------------------------
+@M_KOJO_緋色之诗_EVENT_K16_ONABARE_3(前戯１,本番はどっちか,回数,注入量)
+;-------------------------------------------------
+#DIM 前戯１
+;1=C 2=B 3=M
+#DIM 本番はどっちか
+;0でＶ、1でＡ
+#DIM 注入量
+#DIM 回数
+
+:如果要加口上色的话，就去掉注释，把X作为角色号码
+;CALL M_KOJO_COLOR_K16
+
+SELECTCASE 前戯１
+	CASE 1
+		PRINTFORML Ｃ責め
+	CASE 2
+		PRINTFORML Ｂ責め
+	CASE 3
+		PRINTFORML Ｍ責め
+ENDSELECT
+
+IF 本番はどっちか
+	PRINTFORML Aで本番
+ELSE
+	PRINTFORML Vで本番
+ENDIF
+;-------------------------------------------------
+[SKIPEND]
+
+
+;-------------------------------------------------
+;插入处女、或者不自觉非处女之前的口上
+;RETURN 1	然后会取消原指令
+;RETURN 0	会允许破处
+;CFLAG:破瓜キャンセル口上有	如果没有开启的话就不会被读取，所以要注意
+;-------------------------------------------------
+@M_KOJO_緋色之诗_EVENT_K16_LOST_VIRGIN_STOP
+;-------------------------------------------------
+PRINTFORML 
+RETURN 1
+
+;-------------------------------------------------
+;CFLAG:口上内抱き寄せ判定_初回在开启的情况下才有效。
+;初次使用推倒、在这里RETURN -1，会强制阻止推倒
+;RETURN 0 会依据通常判定的结果、RETURN 1 会无条件成功。
+;想要在特定的活动(约会后接吻等)之前，不让推倒的时候请使用。
+;-------------------------------------------------
+@M_KOJO_緋色之诗_EVENT_K16_PERMISSION_1
+;-------------------------------------------------
+PRINTFORML 
+;RETURN -1
+RETURN 0
+;RETURN 1
+;-------------------------------------------------
+
+
+;-------------------------------------------------
+;CFLAG:口上内抱き寄せ判定_通常在开启的情况下才有效。
+;有合意的时候推倒时，在这里RETURN -1，会强制阻止推倒
+;RETURN 0 会依据通常判定的结果。
+;即使达成了合意，也还是因为某种理由而摇摆不定的时候可使用。
+;-------------------------------------------------
+@M_KOJO_緋色之诗_EVENT_K16_PERMISSION_2
+;-------------------------------------------------
+PRINTFORML 
+RETURN 0
+;RETURN -1
+;-------------------------------------------------
+
+;-------------------------------------------------
+;房间描写用函数
+;口上角色对私室的描写。
+;填写的时候请去掉注释符号
+;-------------------------------------------------
+;@K16_ROOM_DESCRIPTION
+;PRINTFORML 例）没有生活感的简陋房间
+;-------------------------------------------------
+
+
+;==================================================
+;送礼事件
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_GIFT(ARG, GIFT_ID, 評価点, GIFT_NAME, SENSE)
+#DIM GIFT_ID
+#DIM 評価点
+#DIMS GIFT_NAME
+#DIMS SENSE
+;---------------------------------------------------------------------------------------------------
+;評価点       礼物の評価点（1～999）,即使是口上主给的，口上主对此的评价分
+;GIFT_NAME    礼物的名称
+;SENSE        礼物設定具备的属性。STRCOUNT(SENSE, "ほげほげ/")使用的话可以判定特定的属性。
+;GIFT_ID      这个不能单独使用。使用以下公式内函数就可以提取数据(适用于想要拘泥的人)
+;　GET_GIFTDATA(GIFT_ID, "回数")    得到(送给)的次数
+;　GET_GIFTDATA(GIFT_ID, "得点")    得点（1～999）,在口上内已经确定
+;　GET_GIFTDATA(GIFT_ID, "日付")    收到的日期（1～9999）
+;　GET_GIFTDATA(GIFT_ID, "場所")    买到的地方(约会的去处)
+;　GET_GIFTDATA(GIFT_ID, "形容詞")  形容詞编号（礼物_形容詞.erb参照）
+;　GET_GIFTDATA(GIFT_ID, "本体")    本体编号（礼物_本体.erb参照）
+;--------------------------------------------------------------------------------------------------
+;约会后口上主给你礼物(与陷落或好感度无关，从亲密度5以上开始产生)
+;评价分数为701 ~ 999(角色本人评价)
+;--------------------------------------------------------------------------------------------------
+IF ARG == 1
+	;PRINTFORMW 「%GIFT_NAME%给你，好好用」
+	RETURN 1
+;--------------------------------------------------------------------------------------------------
+;在一天即将结束的时候，珍惜今天收到的礼物（700点以上）
+;--------------------------------------------------------------------------------------------------
+ELSEIF ARG == 2
+	;IF STRCOUNT(SENSE, "かわいい/")
+	;	PRINTFORMW 「收到了一份可爱的礼物」
+	;ELSEIF 評価点 >= 800
+	;	PRINTFORMW 「收到了一份非常漂亮的礼物」
+	;ELSE
+	;	PRINTFORMW 「收到了很漂亮的礼物」
+	;ENDIF
+	RETURN 1
+;--------------------------------------------------------------------------------------------------
+;在一天即将结束的时候，把今天收到的礼物收藏起来。(我会珍藏的，继续)（700点以上，且是所有礼物中的最高得点）
+;--------------------------------------------------------------------------------------------------
+ELSEIF ARG == 3
+	;IF STRCOUNT(SENSE, "身につける/")
+	;	PRINTFORMW 「我打算从明天开始戴上这个。」
+	;ELSE
+	;	PRINTFORMW 「我打算从明天开始带这个去。」
+	;ENDIF
+	RETURN 1
+;--------------------------------------------------------------------------------------------------
+;一天结束时，先把今天收到的礼物保管起来（400～699点）
+;--------------------------------------------------------------------------------------------------
+ELSEIF ARG == 4
+	;PRINTFORMW 「とりあえず飾っておこう」
+	RETURN 1
+;--------------------------------------------------------------------------------------------------
+;一天快结束的时候，把今天收到的礼物偷偷典当（400点未満）
+;--------------------------------------------------------------------------------------------------
+ELSEIF ARG == 5
+	;PRINTFORMW 「我不喜欢这个～」
+	RETURN 1
+ENDIF
+RETURN 1
+
+
+;==================================================
+;斗虫
+;斗虫的口上有些特殊，不是使用PRINT，而是在RESULTS中只加入一行台词
+;虫子的名字可以用%MUSHI_NAME%表示
+;虫子名字最长的是亚历山大德拉和巴涅凤蝶，全角14个字母
+;有字数限制。请小心不要溢出
+;ARG是剩余虫数或排名。
+;==================================================
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_MUSHI_BATTLE(ARGS, ARG)
+#DIM 残りムシ数
+#DIM 順位
+SELECTCASE ARGS
+CASE "試合前"
+	;-------------------------------------------------
+	;确定角色时不能使用ARG，请直接用自己的编号
+	;全角50文字くらいまで
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「ぶっとばしてさしあげますわ！」
+	ENDIF
+CASE "戦場に出した"
+	;-------------------------------------------------
+	;"【(角色)】把‘(虫子)’送上了战场!”"之后
+	;全角40个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	残りムシ数 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「%MUSHI_NAME%！キミにきめた！」
+	ENDIF
+CASE "攻撃時"
+	;-------------------------------------------------
+	;"【(角色)】“(虫子)”的“(攻击名)”!"之前
+	;全角40个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	残りムシ数 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「ぶっとばせ！%MUSHI_NAME%！」
+	ENDIF
+CASE "倒れた時"
+	;-------------------------------------------------
+	;"【(角色)】“虫子”倒下了!"之后
+	;全角40个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	残りムシ数 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「ああっ！私の%MUSHI_NAME%がっ！」
+	ENDIF
+CASE "敗退時"
+	;-------------------------------------------------
+	;"【（角色）】敗退！！"之后
+	;全角40个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	残りムシ数 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「私のムシが全滅めつめつ……」
+	ENDIF
+;一对一
+CASE "タイマン：勝ち"
+	;-------------------------------------------------
+	;順位第1位
+	;全角20个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	順位 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「%CALLNAME:MASTER%よわーい！」
+	ENDIF
+CASE "タイマン：負け"
+	;-------------------------------------------------
+	;順位第2位
+	;全角20个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	順位 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「%CALLNAME:MASTER%つよーい！」
+	ENDIF
+;3-4人战
+CASE "バトルロイヤル：優勝"
+	;-------------------------------------------------
+	;順位第1位
+	;全角30个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	順位 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「やったー！」
+	ENDIF
+CASE "バトルロイヤル：２位以下"
+	;-------------------------------------------------
+	;順位第2～4位
+	;全角30个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	順位 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「くやし～！」
+	ENDIF
+	;团队战
+CASE "チーム戦：勝ち"
+	;-------------------------------------------------
+	;順位第1位(即使被打败)
+	;全角32个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	順位 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「私のおかげね！」
+	ENDIF
+CASE "チーム戦：負け"
+	;-------------------------------------------------
+	;順位第2位
+	;全角32个字(包括引号)
+	;启用（=0, 非表示、1, 表示）
+	LOCAL:1 = 1
+	順位 = ARG
+	;-------------------------------------------------
+	IF LOCAL:1
+;		RESULTS = 「味方が弱い！！」
+	ENDIF
+ENDSELECT
+SIF RESULTS != ""
+	RETURN 1
+
+;==================================================
+;引力操作
+;TCVAR:在引力点上加入地点ID，你的角色就会被拉到那个地点
+;地点ID相同的据点地图才有效果(博丽神社境内的话只有据点是博丽神社的时候才有效果)
+;注意不附加条件的话会被永久的拉下去
+;RAND基本上不能用。今天的运气里有当天的随机数值(0 ~ 999)，所以用这个比较好。
+;==================================================
+@M_KOJO_緋色之诗_EVENT_K16_GRAVITY(ARG)
+
+SIF 0
+	TCVAR:引力点 = 0
+
+;▼在公共设定中使用的例子
+[SKIPSTART]
+	;工作日的白天随机去玩
+	IF YOUBI_MATCH(DAY, "月火水木金") && INRANGE(TIME, 600, 960)
+		SELECTCASE CFLAG:今日の運勢 % 5
+		CASE 1
+			TCVAR:引力点 = P2境内
+		CASE 2
+			TCVAR:引力点 = P10縁側
+		CASE 3
+			TCVAR:引力点 = P11庭
+		CASE 4
+			TCVAR:引力点 = P25鎮守の森
+		CASEELSE
+			TCVAR:引力点 = 0
+		ENDSELECT
+	ENDIF
+	;星期三和星期四有二分之一的概率去玩
+	SIF YOUBI_MATCH(DAY, "水木") && INRANGE(TIME, 720, 1020) && CFLAG:今日の運勢 % 2 == 0
+		TCVAR:引力点 = P213鈴奈庵
+	;特定的人物在特定的地方会被吸引。
+	SIF CFLAG:[[白蓮]]:現在位置 == P103本堂 && !CFLAG:[[白蓮]]:うふふ && SHIRAHU([[白蓮]])
+		TCVAR:引力点 = P103本堂
+	;周六周日以十分之一的概率跟在特定的人身边
+	SIF YOUBI_MATCH(DAY, "土日") && CFLAG:今日の運勢 % 10 == 0 && !CFLAG:[[さとり]]:うふふ && SHIRAHU([[さとり]])
+		TCVAR:引力点 = CFLAG:[[さとり]]:現在位置
+[SKIPEND]
+
+;==================================================
+;打西瓜;切西瓜的口上和斗虫一样，不使用PRINT，
+;请在RESULTS中只加入一行台词
+;双引号自动添加;只有"衝突","結果"，才会自动上色
+;"衝突","結果"以外有半角26个字(全角13个字)的字数限制。请小心不要溢出来
+;有几个差分会更有气氛(使用%TEXTR(/)%更好)
+;==================================================
+@M_KOJO_緋色之诗_MESSAGE_COM_K16_SUIKA(ARGS)
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL:1 = 1
+;-------------------------------------------------
+IF LOCAL:1
+	SELECTCASE ARGS
+	CASE "衝突"
+		;-------------------------------------------------
+		;在场外你和角色发生冲突时的台词
+		;没有字数限制，也没有通用口上
+		;-------------------------------------------------
+		RESULTS = 太棒了!等等，这不是很危险吗?
+	CASE "そこだ！"
+		RESULTS = %TEXTR("そこ！/今！")%
+	CASE "近い"
+		RESULTS = %TEXTR("近い！近いよ！/近づいてるよ！/あとちょっと！")%
+	CASE "遠い"
+		RESULTS = %TEXTR("まだ遠いよ/まだまだ～")%
+	CASE "かなり遠い"
+		RESULTS = %TEXTR("全然遠いよー/まだまだずっと遠いー")%
+	CASE "前"
+		RESULTS = %TEXTR("前にあるよ/そのまま、そのまま/そっちそっち")%
+	CASE "少し前"
+		RESULTS = %TEXTR("ちょっとだけ前！/すこーし前/あと一歩！")%
+	CASE "後ろ"
+		RESULTS = %TEXTR("後ろ向いてる！/逆、逆！/そっちじゃないよー")%
+	CASE "少し後ろ"
+		RESULTS = %TEXTR("すぐ後ろだよ！/すこーし後ろ/一歩後ろ！")%
+	CASE "右"
+		RESULTS = %TEXTR("右だよ/右、右/もっと右")%
+	CASE "少し右"
+		RESULTS = %TEXTR("ちょっとだけ右/まだ右かな")%
+	CASE "左"
+		RESULTS = %TEXTR("左だよ/左、左/もっと左")%
+	CASE "少し左"
+		RESULTS = %TEXTR("ちょっとだけ左/まだ左かな")%
+	CASE "結果"
+		;-------------------------------------------------
+		;结束后的一句话
+		;没有字数限制，也没有通用台词
+		;TFLAG:193,
+		;   -1=失敗
+		;    0=成功
+		;    1=大成功
+		;    2=木刀で大成功（ボーナス点）
+		;ARG
+		;    0=正直者
+		;    1=说谎者
+		;-------------------------------------------------
+		SELECTCASE TFLAG:193
+		CASE -1
+			RESULTS = ざんね～ん
+		CASE 0
+			RESULTS = やったね！
+		CASE 1
+			RESULTS = すごーい！
+		CASE 2
+			RESULTS = すごい綺麗に割れた！
+		ENDSELECT
+	ENDSELECT
+ENDIF
+
+;外出处特殊遭遇事件
+@RUN_INTO_緋色之诗_K16(MAP_ID)
+#DIM MAP_ID
+;XX要换成角色编号
+;最后一定要RETURN 1;不认识的情况下不会发生
+;一定要让不见面的情况下发生，请RETURN -1
+;	SIF !CFLAG:XX:面識
+;		RETURN -1
+;	PRINTFORML %CALLNAME:XX%がいた
+;	PRINTFORML 「どうも」
+;	CFLAG:XX:好感度 += 5
+;	RETURN 1
+
+;炮友契約用补正
+;"因为用补正" RETURN了的数值被加算到理性判定
+;如果想要简单的性伙伴的话就应该减分，如果想要提高难度或者让它变得不可能的话就应该加分
+@KOJO_緋色之诗_SF_CONTRACT_K16(ARGS)
+SELECTCASE ARGS
+	CASE "導入"
+		;PRINTFORML 「セフレって、ええー」
+	CASE "補正"
+		;PRINTFORML （サクッとヤりたいなあ）
+		;RETURN -1000
+	CASE "成功"
+		;PRINTFORML 「いいよー」
+	CASE "失敗"
+		;PRINTFORML 「おことわりだー」
+ENDSELECT
+
+;一般依頼的抑制
+;ARG 是依赖的编号
+;如果此函数返回 1，则该角色不会出现对应的依赖
+@M_KOJO_緋色之诗_CHECK_K16_IRAI_BLOCKED(ARGS,ARG,ARG:1)
+; SIF GROUPMATCH(ARG, 2)
+;     RETURN 1
