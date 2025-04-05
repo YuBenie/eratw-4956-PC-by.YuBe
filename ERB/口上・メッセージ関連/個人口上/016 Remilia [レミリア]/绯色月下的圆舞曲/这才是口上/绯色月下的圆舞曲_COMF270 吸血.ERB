@@ -7,9 +7,9 @@
 ;270,吸血
 ;TFLAG:193(1=大成功 0=成功 -1=失敗)
 ;==================================================
-@KOJO_緋色之诗_COM_NAME_K16_0
+@KOJO_YUBE_COM_NAME_K16_0
     RESULTS = 吸血
-@KOJO_緋色之诗_COM_ABLE_K16_0
+@KOJO_YUBE_COM_ABLE_K16_0
 ;実行判定
 SIF !TFLAG:100
 	RETURN 0
@@ -30,7 +30,7 @@ SIF !TALENT:恋慕 || !TALENT:思慕
 	RETURN 0
 RETURN 1
 
-@KOJO_緋色之诗_COM_K16_0
+@KOJO_YUBE_COM_K16_0
 ;-------------------------------------------------
 ;-------------------------------------------------
 	;吸血超过阈值导致贫血禁止
@@ -232,7 +232,7 @@ RETURN 1
 
 
 
-@M_KOJO_緋色之诗_SUCCESS_COM_K16_270
+@M_KOJO_YUBE_SUCCESS_COM_K16_270
 ;成否判定
 ;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
 TFLAG:192 =0
@@ -241,18 +241,18 @@ TFLAG:192 =0
 ;可选项：关于地文描述的显示设置
 ;如果返回0，则地文与口上都会显示；如果返回1，则地文会隐藏，口上会显示；如果返回2，则地文会显示，口上会隐藏；如果返回3则均会被隐藏
 ;==================================================
-@M_KOJO_緋色之诗_MESSAGE_MESSAGECHECK_COM_K16_270
+@M_KOJO_YUBE_MESSAGE_MESSAGECHECK_COM_K16_270
 RETURN 0
 
-@M_KOJO_緋色之诗_MESSAGE_COM_K16_270
+@M_KOJO_YUBE_MESSAGE_COM_K16_270
 ;指令共通メッセージ(TRAIN_MESSAGE) 
 ;4.920之前的指令地文，是使用函数TRAIN_MESSAGE来控制的
 ;如果删除它，例如「TARGET和你无聊地说着话」这种叙述将不显示，且您的口上不会自动启用口上色
 ;下面是调用口上的主函数
-CALL M_KOJO_緋色之诗_MESSAGE_COM_K16_270_1
+CALL M_KOJO_YUBE_MESSAGE_COM_K16_270_1
 RETURN RESULT
 
-@M_KOJO_緋色之诗_MESSAGE_COM_K16_270_1
+@M_KOJO_YUBE_MESSAGE_COM_K16_270_1
 ;-------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
 LOCAL = 1

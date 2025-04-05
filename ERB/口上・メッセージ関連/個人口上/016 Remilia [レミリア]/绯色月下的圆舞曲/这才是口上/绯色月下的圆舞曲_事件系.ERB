@@ -21,14 +21,14 @@
 ;******************************************************************************
 ;### 口上存在判定 ###################################
 @M_KOJO_K16_3(ARG)
-RESULTS = _緋色之诗
-RESULTS:1 = 緋色之诗，也许没有发布那天
+RESULTS = _YUBE
+RESULTS:1 = 緋色月下的圆舞曲
 RETURN 1
 ;这是对存在的判断，请不要注释掉
 ;不要做任何其他的处理
 
 ;### 口上基本フラグ設定 #############################
-@M_KOJO_緋色之诗_FLAGSETTING_K16
+@M_KOJO_YUBE_FLAGSETTING_K16
 ;口上的基本标志设置应在此处完成
 ;请使用以下注释内的标志，必要时取消注释
 ;此处的变量名是日文原版的变量名，请参考CSV\CFLAG.CSV文件内的变量名进行修正
@@ -78,7 +78,7 @@ RETURN 1
 ;ENDIF 
 ;
 ;### 口上色判定 ###################################
-@M_KOJO_緋色之诗_COLOR_K16
+@M_KOJO_YUBE_COLOR_K16
 
 ;这里可以通过SETCOLOR设置自己的口上颜色
 ;在系统启用口上色设定后才可以触发
@@ -108,7 +108,7 @@ ENDIF
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
 ;"UPDATE判定"
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
-@M_KOJO_緋色之诗_UPDATE_K16
+@M_KOJO_YUBE_UPDATE_K16
 ;口上独自的UPDATE用
 ;当您专门为 ENCOUNTER 准备了自己的分支标志时，请使用它（原文如此）
 ;在UPDATE判断中使用字符变量（如CFLAG）时，不会有自动填充，需要自己指定角色编号
@@ -156,7 +156,7 @@ PRINTFORMW	为了方便测试，这里做支线设置吧
 PRINTFORMW	也就是说，这里
 PRINTFORMW	那么，开始吧
 SIF FLAG:口上色
-	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+	CALLFORM M_KOJO_YUBE_COLOR_K16
 PRINTDL
 PRINTL [0] - 这是什么？点一下
 PRINTL [1] - 一些作者想要的小改动
@@ -166,7 +166,7 @@ INPUT
 SELECTCASE RESULT
 	CASE 0
 	PRINTFORMW	关于思慕函数的测试
-	CALL M_KOJO_緋色之诗_EVENT_K16_21(2)
+	CALL M_KOJO_YUBE_EVENT_K16_21(2)
 	PRINTDL
 	GOTO INPUT_UPDATE
 	CASE 1
@@ -218,7 +218,7 @@ SELECTCASE RESULT
 		SETCOLOR	0X1C1C1C
 		PRINTFORMW	         如果自机也有傲娇的话……嚯嚯，蕾米莉亚可是会主动出击的喔
 		SIF FLAG:口上色
-			CALLFORM M_KOJO_緋色之诗_COLOR_K16
+			CALLFORM M_KOJO_YUBE_COLOR_K16
 		PRINTFORMW	那么，祝你游戏愉快~
 		ELSE
 		ENDIF
@@ -244,7 +244,7 @@ RETURN 1
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
 ;"ENCOUNTER"系事件（额外语法）
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
-@M_KOJO_緋色之诗_ENCOUNTER_K16
+@M_KOJO_YUBE_ENCOUNTER_K16
 ;TALENT的变更也可以在此处修改（但是，在见面前查看角色信息还是会显示更改前的信息，所以仅作为一个见面可修改选项）
 IF TALENT:MASTER:妖怪 == 3
 	CALL 初遇_吸血鬼差分
@@ -261,7 +261,7 @@ RETURN 1
 命运 = FLAG:周回数 + 1
 
 SIF FLAG:口上色
-	CALL M_KOJO_緋色之诗_COLOR_K16
+	CALL M_KOJO_YUBE_COLOR_K16
 IF	GETBIT	(CFLAG:31,	0) || GETBIT	(CFLAG:31,	1)
 		PRINTFORMDL	
 		[SKIPSTART]
@@ -508,7 +508,7 @@ ELSE
 	RESETCOLOR
 	CALL ASK_YN("停下手中的工作","也许只是错觉")
 	SIF FLAG:口上色
-	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+	CALLFORM M_KOJO_YUBE_COLOR_K16
 		IF !RESULT
 			PRINTDL
 			PRINTFORMDW	压抑着内心的不安，%CALLNAME:MASTER%停下了手中的工作
@@ -540,7 +540,7 @@ ELSE
 	SETCOLOR 0xFF0000
 	PRINTFORMW	你的生命
 	SIF FLAG:口上色
-	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+	CALLFORM M_KOJO_YUBE_COLOR_K16
 	PRINTDL
 	PRINTFORMDW 恍惚之间，蕾米莉亚已然来到%CALLNAME:MASTER%的面前
 	PRINTDL
@@ -575,7 +575,7 @@ ELSE
 	RESETCOLOR
 	CALL ASK_M("因为工作比较认真",1,"因为看上去很强的样子",ABL:MASTER:戦闘能力>4,"因为是外界人",1,"因为自己比较特殊",FLAG:周回数>0)
 	SIF FLAG:口上色
-	CALLFORM M_KOJO_緋色之诗_COLOR_K16
+	CALLFORM M_KOJO_YUBE_COLOR_K16
 		SELECTCASE RESULT
 			CASE 0
 				PRINTDL
@@ -814,7 +814,7 @@ RETURN 1
 ; 吸血鬼
 @初遇_吸血鬼差分
 SIF FLAG:口上色
-	CALL M_KOJO_緋色之诗_COLOR_K16
+	CALL M_KOJO_YUBE_COLOR_K16
 IF MAIN_MAP == 3
 	IF	GETBIT	(CFLAG:31,	0) || GETBIT	(CFLAG:31,	1)
 		PRINTFORMDL	
@@ -829,7 +829,7 @@ IF MAIN_MAP == 3
 ENDIF
 RETURN 1
 
-@K16_BEFORETRAIN_緋色之诗
+@K16_BEFORETRAIN_YUBE
 ;在一天开始时读取的函数，或者更准确地说，在来访判断之前读取的函数
 ;在这里，您可以设置 CFLAG：XX：次日访问以确保角色来访问，或者 TCVAR:XX:発情 并使其一天都在发情（原文如此）
 ;但是，由于它每天早上必定会被加载，因此需要设置条件
@@ -842,10 +842,10 @@ RETURN 1
 ;约会回家路上的初吻赠予（同时获得合意_接吻）
 ;==================================================
 
-@M_KOJO_緋色之诗_SPEVENT_MESSAGECHECK_K16_1
+@M_KOJO_YUBE_SPEVENT_MESSAGECHECK_K16_1
 RETURN 0
 
-@M_KOJO_緋色之诗_SPEVENT_K16_1(ARG,ARG:1)
+@M_KOJO_YUBE_SPEVENT_K16_1(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ; 
 ;--------------------------------------------------
@@ -978,10 +978,10 @@ RETURN 1
 ;约会回家路上的告白（要求成为恋人）
 ;==================================================
 
-@M_KOJO_緋色之诗_SPEVENT_MESSAGECHECK_K16_2
+@M_KOJO_YUBE_SPEVENT_MESSAGECHECK_K16_2
 RETURN 0
 
-@M_KOJO_緋色之诗_SPEVENT_K16_2(ARG,ARG:1)
+@M_KOJO_YUBE_SPEVENT_K16_2(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ; 
 ;--------------------------------------------------
@@ -1027,10 +1027,10 @@ RETURN 1
 ;约会回家
 ;==================================================
 
-@M_KOJO_緋色之诗_SPEVENT_MESSAGECHECK_K16_3
+@M_KOJO_YUBE_SPEVENT_MESSAGECHECK_K16_3
 RETURN 0
 
-@M_KOJO_緋色之诗_SPEVENT_K16_3(ARG,ARG:1)
+@M_KOJO_YUBE_SPEVENT_K16_3(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ; 
 ;--------------------------------------------------
@@ -1087,7 +1087,7 @@ RETURN 1
 ;主地图的遭遇
 ;地文路径：ERB\イベント関連\情事発覚.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_1(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_1(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1193,7 +1193,7 @@ RETURN 1
 ;当你早上醒来时（早安口上）
 ;ERB\イベント関連\BEFORETRAIN.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_2(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_2(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1285,7 +1285,7 @@ RETURN 1
 ;晚上睡觉时（晚安口上）
 ;ERB\MOVEMENTS\SLEEP.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_3(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_3(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1461,7 +1461,7 @@ RETURN 1
 ;移动中经过角色
 ;ERB\コマンド関連\COMF\日常系\COMF400 移動.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_4(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_4(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1508,7 +1508,7 @@ RETURN 1
 ;其他人进入时导致的气氛变化
 ;
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_5(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_5(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;ARG是进入角色的编号（人数庞大，自己把握自己负责）
 ;--------------------------------------------------
@@ -1556,7 +1556,7 @@ RETURN 1
 ;目击了MASTER与其他人的情事
 ;
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_6(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_6(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;ARG是情事的对象
 ;--------------------------------------------------
@@ -1603,7 +1603,7 @@ RETURN 1
 ;被人看见了与口上主的情事
 ;
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_7(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_7(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;ARG是目击者的编号
 ;--------------------------------------------------
@@ -1649,13 +1649,13 @@ RETURN 1
 ;==================================================
 ;追问目击到的情事（现在已弃用
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_8(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_8(ARG,ARG:1)
 RETURN 1
 
 ;==================================================
 ;内裤被没收了
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_9(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_9(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1680,7 +1680,7 @@ RETURN 1
 ;==================================================
 ;推倒
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_10(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_10(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1796,7 +1796,7 @@ RETURN 1
 ;==================================================
 ;浴場的遭遇
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_11(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_11(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1833,7 +1833,7 @@ RETURN 1
 ;潜入卧室
 ;ERB\コマンド関連\COMF\日常系\侵入.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_12(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_12(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1906,7 +1906,7 @@ RETURN 1
 ;工作中
 ;ERB\MOVEMENTS\JOB_仕事開始終了処理.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_13(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_13(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;ARG:1表示的是剩余的工作量
 ;--------------------------------------------------
@@ -1953,7 +1953,7 @@ RETURN 1
 ;食事系
 ;
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_14(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_14(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -1984,7 +1984,7 @@ RETURN 1
 ;==================================================
 ;MASTER推倒了口上角色
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_15(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_15(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -2066,7 +2066,7 @@ RETURN 1
 ;陪睡
 ;ERB\コマンド関連\USERCOM.ERB LINE570
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_16(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_16(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -2102,7 +2102,7 @@ RETURN 1
 ;时间停止终了时
 ;ERB\時間停止解除.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_17(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_17(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;需要注意的是，没有明确表示排他的物品会根据情况连续显示
 ;ARG是射精状況
@@ -2247,7 +2247,7 @@ RETURN 1
 ;无防护插入时
 ;ERB\イベント関連\妊娠関連\HININSHITE.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_18(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_18(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -2302,7 +2302,7 @@ RETURN 1
 ;请批准在主地图生活（角色从外面搬到主地图）
 ;ERB\イベント関連\APPEND_SYS.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_19(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_19(ARG,ARG:1)
 ;口上主はARG
 ;%CALLNAME:拠点_家主% 即为主地图的家主
 ;--------------------------------------------------
@@ -2345,7 +2345,7 @@ RETURN 1
 ;回家时
 ;这部分是TARGET住在其他地区时触发的口上
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_20(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_20(ARG,ARG:1)
 ;口上主编号为LOCALS or RESULT
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -2473,7 +2473,7 @@ RETURN 1
 ;==================================================
 ;陥落素質取得時
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_21(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_21(ARG,ARG:1)
 ;口上主はARG
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -2504,104 +2504,6 @@ IF LOCAL
 		; ELSE
 		; ENDIF
 	;------------------------
-		; 此为待施工状态
-		; 重申一遍、待施工
-		; 重申一遍、待施工
-		; 重申一遍、待施工
-		; 重申一遍、待施工
-		; 重申一遍、待施工
-		; 重申一遍、待施工
-		; PRINTFORMW	%CALLNAME:MASTER%……
-		; PRINTFORMW	因一时兴起带回来的人类，本来只是打算当个藏品一样放在自己身边供一时的消遣
-		; PRINTFORMW	
-		; PRINTFORMW	因为反应却很有趣、所以就尽情使唤上了。这么看来，最近我捉弄他的次数似乎有点多呢……
-		; PRINTFORMW	是因为怎么逗他都不会生气吗？
-		; PRINTFORMW	还是因为单纯想看他吃瘪的样子
-		; PRINTFORMW	亦或者说……
-		; PRINTFORML	...
-		; PRINTFORML	..
-		; PRINTFORMW	.
-		; PRINTFORML	
-		; PRINTFORML	「唉、想这些有的没的根本睡不着啦」
-		; PRINTFORML	
-		; PRINTFORMW	我叹了口气，郁闷地从床上坐起来，因为脑袋里全是某个人类的事导致现在睡意全无了
-		; PRINTFORMW	但是……干站在这里也不是办法
-		; CALL FRONT_绯色之诗_AA(10)
-		; PRINTFORMW	
-		; PRINTFORMW	「都怪仆从害得我睡不着觉啦」
-		; PRINTFORML	
-		; PRINTFORMW	「凭什么我要在这里失眠，他就能睡个好觉啦」
-		; PRINTFORML	
-		; PRINTFORMW	「……」
-		; PRINTFORML	
-		; PRINTFORMDW	似乎有一个两全其美的办法……
-		; PRINTFORML	
-		; PRINTFORMW	「哼哼~」
-		; PRINTFORML	
-		; PRINTFORMDW	稍微施展了一下魔法，让我的声音能够传达到仆从的房间
-		; PRINTFORML	
-		; PRINTFORMW	「仆从？仆从——」
-		; PRINTFORMW	「睡着了吗——」
-		; PRINTFORMW	「过来一下我这里——」
-		; PRINTFORML	
-		; PRINTFORMDW	十分钟过去了……一点动静也没有
-		; PRINTFORMDW	这家伙不会睡得这么死吧！？
-		; PRINTFORML	
-		; PRINTFORMW	「%CALLNAME:MASTER%?」
-		; PRINTFORMDW	扣扣——
-		; PRINTFORMDW	「大小姐泥找窝？」
-		; PRINTFORML	
-		; PRINTFORMDW	突如其来的敲门声把我吓了一跳，随后传来的是仆从那睡眼惺忪的声音
-		; PRINTFORMW	什么嘛，还是听到我说话的
-		; PRINTFORMDW	我平复了一下心情，可不能让仆从抓住马脚
-		; PRINTFORML	
-		; PRINTFORMW	「……进来吧」
-		; PRINTFORML	
-		; PRINTFORMDW	寝室房门推开，仆从还穿着睡衣就走了进来，眼睛都快睁不开了，看起来的的确确是被我吓醒的样子。
-		; PRINTFORMDW	看着仆从这个样子，感觉全身心一下子都畅快了许多
-		; PRINTFORML	
-		; PRINTFORMW	「大小姐……有甚麽事……？」
-		; PRINTFORML	
-		; PRINTFORMDW	我不语，只是一昧地看着还没搞清楚状态的仆从
-		; PRINTFORML		
-		; PRINTFORMW	「喊你来是有一件非常重要的任务要交给你哟」
-		; PRINTFORMW	「竖起你的耳朵听好了，%CALLNAME:MASTER%，这个任务我不希望被其他人听到」
-		; PRINTFORMW	「我希望你能认真听好，并完美遵从我的指示——」
-		; PRINTFORMW	「能做到吧？」
-		; PRINTFORML	
-		; PRINTFORMDW	听到有要紧事的仆从睡意一下子没了七分，身子也站得笔直了，眼神也不迷糊了，开始全神贯注地听着我的每一字每一句了
-		; PRINTFORML	
-		; PRINTFORMW	一想到接下来要发生什么事情我就有点忍不住想笑……
-		; PRINTFORML	
-		; PRINTFORMW	「那就是……」
-		; PRINTFORML	
-		; PRINTFORMDW	「那就是？」
-		; PRINTFORML	
-		; CALL FRONT_绯色之诗_AA(11)
-		; PRINTFORMW	「给我起来重睡口牙！」
-		; PRINTFORML	
-		; PRINTFORMDW	「……」
-		; PRINTFORML	
-		; PRINTFORMDW	「……？」
-		; PRINTFORML	
-		; PRINTFORMDW	「？？？」
-		; PRINTFORML	
-		; PRINTFORMDW	「我……唔哇——」
-		; PRINTFORML	
-		; PRINTFORMD	在仆从发出 
-		; CALL YUBE_LINETHROUGH("抗议",1)
-		; PRINTFORMDW	 对我绝妙提案由衷的赞美 之前，我打了一个响指，将他传送回了自己房间柔软舒适的床铺上
-		; PRINTFORML	
-		; PRINTFORMW	「睡个好觉哟~」
-		; PRINTFORML	
-		; PRINTFORMDW	做完这一切的我，优雅而潇洒地回到自己的床上
-		; PRINTFORMDW	虽然耽误了一点时间，红魔馆外的太阳已经开始升起来了，但是不妨碍我此时能睡一个好觉
-		; PRINTFORML	
-		; PRINTFORMW	果然还是逗一逗%CALLNAME:MASTER%能让我保持好心情~
-		; PRINTFORMW	下次...试着提出更过分一点要求吧~
-		; PRINTFORML	
-		; PRINTFORMDW	少女安然地坠入梦乡~	
-		; PRINTDW
 		PRINTFORMW	是夜
 		PRINTDL
 		PRINTFORMDW	是晨
@@ -2616,12 +2518,20 @@ IF LOCAL
 		PRINTFORMW	享受着被窝带来的舒适、加上倦意压身，本应进入睡眠的我，竟然到此刻还是一点入睡的迹象都没有
 		PRINTFORMW	一闭上眼睛，就会不由自主地开始回想这·段·时·间经历过的所有事情
 		PRINTDL
+		PRINTFORML	「这么说来，红魔馆的生活节奏似乎发生了一些微妙的变化」
+		PRINTFORML	「基本都派不上用场的妖精女仆们最近似乎活跃了不少」
+		PRINTFORML	「咲夜她们身边好像也多了个熟悉的身影来回转悠」
+		PRINTFORMW	「这种变化……对于红魔馆而言是否是一件好事呢？」
+		PRINTFORMW	「……」
 		PRINTFORMW	「我什么时候变得这么多愁善感的了？」
 		PRINTDL
-		PRINTFORML	我向自己发出质问的声音
+		PRINTFORML	察觉到自身的情绪波动、我不禁向自己发出质问的声音
+		PRINTDL
+		PRINTFORML	「连我也受到影响了啊...」
+		PRINTDL
 		PRINTFORMW	尽管不愿承认、但这是不争的事实。我对自己此刻的状态作出了如此判断
 		PRINTFORMW	
-		CALL YUBE_INNER("我不能理解，我也不知道自己为何会这么想",1,"是因为/吗？",)
+		CALL YUBE_INNER("我不能理解，我也不知道自己为何会这样",1,"是因为/吗？")
 		CALL YUBE_INNER("不知不觉，我注意到从小露台贸然闯进来的、对红魔馆来说明显多余的那一缕阳光",1,"但/不一样，他不会是多余的")
 		CALL YUBE_INNER("对于“不速之客”、我向来不会抱有什么好感",1,"但我明明已经习惯了有/在身边的时间")
 		PRINTDL	
@@ -2632,17 +2542,35 @@ IF LOCAL
 		PRINTDL
 		PRINTFORMW	是……%CALLNAME:MASTER%的缘故吗？
 		PRINTDL
-		PRINTFORMW	这个念头蹦出来的时候把我自己都吓了一跳，我不敢置信我竟然会这么想
-		PRINTDL	
+		PRINTFORMW	一个自认为绝对不可能出现的念头，从我的内心深处一闪而过
+		PRINTFORMW	这种荒诞的想法甚至把我自己都吓了一跳
+		PRINTFORMW	会是%HE_SHE(MASTER)%吗？
+		PRINTFORMW	那家伙，只是区区一·个·人·类罢了
+		PRINTFORMW	不过……说实话、最近我使唤%CALLNAME:MASTER%的次数确实多了不少
+		PRINTDL
+		CALL DQPRINT("……为什么呢？")
+		CLEARLINE 1
+		CALL DQPRINT("我不知道")
+		PRINTDL
+		PRINTFORMW	难道说……是因为第一次见到%CALLNAME:MASTER%时，属于他身上的那道连我都捉摸不透的命运吗？
+		PRINTFORMW	思来索去、最后我能得出的答案就只有这个
+		PRINTDL
 		CALL YUBE_INNER("我将此时的心情归咎于命运的偶然",1,"蕾米莉亚显然没有注意到自己深埋在心底里的感情")
-		PRINTFORMW	与其让自己因为这点事情而烦恼、不如想想如何让自己开心起来
+		CALL YUBE_INNER("与其因为那个笨蛋仆而让自己连觉都睡不好",1,"不知从什么时候开始就已经把那个人类认可、将其视作红魔馆的一份子")
+		CALL YUBE_INNER("不如想想明天该怎么捉弄/那个家伙",1,"已经开始期待明天见到那个人类了")
 		PRINTDL	
+		PRINTFORMW	以工作为由，让%CALLNAME:MASTER%围着雾之湖跑一圈如何呢？
+		PRINTDL	
+		PRINTFORMW	又或者、让%CALLNAME:MASTER%
+		PRINTDL	
+		PRINTFORMW	如果是%CALLNAME:MASTER%的话、即使是再过分的要求%HE_SHE(MASTER)%也没有意见的吧
+		PRINTDL	
+		PRINTFORMW	想到这里，烦闷的心情一下变得顺畅起来了
+		PRINTDL
+		PRINTFORMW	意识沉入梦境的感觉终于降临在我的身上，
 		PRINTFORMW	
 		PRINTDL
-		PRINTFORMW	
-		PRINTFORMW	
-		PRINTDL
-		PRINTFORMW	
+		PRINTFORMDW	少女的嘴角淡淡地浮现一抹笑容
 		RETURN 1
 	ENDIF
 	;-------------------------------------------------
@@ -2713,7 +2641,7 @@ RETURN 1
 ;==================================================
 ;当日结束后的自慰
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_22(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_22(ARG,ARG:1)
 ;口上主是ARG
 ;ARG:0自慰状況
 ;ARG:1自慰種類
@@ -2873,7 +2801,7 @@ RETURN 1
 ;==================================================
 ;带进浴场
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_23(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_23(ARG,ARG:1)
 ;口上主はLOCAL
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -2905,7 +2833,7 @@ RETURN 1
 ;==================================================
 ;怀孕
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_24(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_24(ARG,ARG:1)
 ;口上主 LOCAL
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -2954,7 +2882,7 @@ RETURN 1
 ;==================================================
 ;出産
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_25(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_25(ARG,ARG:1)
 ;口上主 LOCAL
 ;ARG:1	这是第几个孩子
 ;--------------------------------------------------
@@ -3004,7 +2932,7 @@ RETURN 1
 ;被看见自慰
 ;ERB\コマンド関連\COMF\外出系\NASIKUZUSI.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_26(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_26(ARG,ARG:1)
 
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -3077,7 +3005,7 @@ ENDIF
 
 ;被发现自慰时的判定函数
 ;RETURN -1強制失敗、RETURN 1強制成功
-@M_KOJO_緋色之诗_EVENT_K16_26_1(ARGS)
+@M_KOJO_YUBE_EVENT_K16_26_1(ARGS)
 #DIM 補正値
 IF ARGS == "どうぞそのまま"		;看着做
 
@@ -3098,7 +3026,7 @@ ENDIF
 ;TARGET邀请一起约会
 ;ERB\イベント関連\情事発覚.ERB
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_27(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_27(ARG,ARG:1)
 ;口上主 LOCAL
 ;ARG:1是目的地
 ;--------------------------------------------------
@@ -3168,7 +3096,7 @@ RETURN 1
 ;==================================================
 ;脱衣口上
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_28(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_28(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;ARG	脱衣的方法
 ;ARG:1（只要ARG=3才有这个值）地文的反应
@@ -3274,7 +3202,7 @@ RETURN 1
 ;==================================================
 ;愤怒口上
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_29(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_29(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;ARGはTARGETの度胸で分岐
 ;--------------------------------------------------
@@ -3306,7 +3234,7 @@ RETURN 1
 ;==================================================
 ;对方解除了推倒状态
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_30(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_30(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -3358,7 +3286,7 @@ RETURN 1
 ;==================================================
 ;一天结束时(AFTERTRA之前)，没有见过面的话不会被调用
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_31(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_31(ARG,ARG:1)
 ;口上角色编号 = TARGET
 ;ARG	没见面的天数
 ;如果几天没见面，角色可以抱怨。
@@ -3397,7 +3325,7 @@ RETURN 1
 ;ARG:1      0=行動中,1=结束时
 ;技能类行动在技能等级1以上时发生
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_32(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_32(ARG,ARG:1)
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -3603,7 +3531,7 @@ RETURN 1
 ;新年快乐
 ;过年的瞬间在同一个房间发生
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_33(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_33(ARG,ARG:1)
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -3617,7 +3545,7 @@ RETURN 1
 ;技能升级
 ;触发时的ABL值都是升级后的数值。
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_34(ARG,ARG:1)
+@M_KOJO_YUBE_EVENT_K16_34(ARG,ARG:1)
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -3724,10 +3652,10 @@ RETURN 1
 ;【TARGET】　欲情の珠＋1000
 ;==================================================
 
-@M_KOJO_緋色之诗_DAILY_EVENT_MESSAGECHECK_K16_2
+@M_KOJO_YUBE_DAILY_EVENT_MESSAGECHECK_K16_2
 RETURN 0
 
-@M_KOJO_緋色之诗_DAILY_EVENT_K16_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
+@M_KOJO_YUBE_DAILY_EVENT_K16_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;如果想改变地文，请在地文控制函数里RETURN 
 ;※删除地文的话情欲之珠+ 1000 (JUEL:11 += 1000)也会被删除注意
 ;--------------------------------------------------
@@ -3747,10 +3675,10 @@ RETURN 1
 ;【TARGET】好像决定明天去见【MASTER】
 ;==================================================
 
-@M_KOJO_緋色之诗_DAILY_EVENT_MESSAGECHECK_K16_4
+@M_KOJO_YUBE_DAILY_EVENT_MESSAGECHECK_K16_4
 RETURN 0
 
-@M_KOJO_緋色之诗_DAILY_EVENT_K16_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
+@M_KOJO_YUBE_DAILY_EVENT_K16_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;如果想改变地文，请在地文控制函数里RETURN 
 ;--------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
@@ -3766,10 +3694,10 @@ RETURN 1
 ;信頼100以上才可能发生（仅限同在主地图的角色）
 ;==================================================
 
-@M_KOJO_緋色之诗_DAILY_EVENT_MESSAGECHECK_K16_12
+@M_KOJO_YUBE_DAILY_EVENT_MESSAGECHECK_K16_12
 RETURN 0
 
-@M_KOJO_緋色之诗_DAILY_EVENT_K16_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
+@M_KOJO_YUBE_DAILY_EVENT_K16_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;如果想改变地文，请在地文控制函数里RETURN 
 ;你只能回复ARG:1= 1或者2
 ;--------------------------------------------------
@@ -3813,7 +3741,7 @@ RETURN 1
 ;这种情况下请去掉上下的SKIPSTART~SKIPEND。
 ;使用CFLAG等字符变量时，请务必使用添加了角色编号的完整变量
 ;-------------------------------------------------
-@M_KOJO_緋色之诗_EVENT_K16_ONABARE_1(ARG)
+@M_KOJO_YUBE_EVENT_K16_ONABARE_1(ARG)
 ;-------------------------------------------------
 ;如果要加口上色的话，就去掉注释，把X作为角色号码
 ;CALL M_KOJO_COLOR_K16
@@ -3834,7 +3762,7 @@ ENDIF
 ;这种情况下请去掉上下的SKIPSTART~SKIPEND。
 ;使用CFLAG等字符变量时，请务必使用添加了角色编号的完整变量
 ;-------------------------------------------------
-@M_KOJO_緋色之诗_EVENT_K16_ONABARE_2(ARG)
+@M_KOJO_YUBE_EVENT_K16_ONABARE_2(ARG)
 ;-------------------------------------------------
 :如果要加口上色的话，就去掉注释，把X作为角色号码
 ;CALL M_KOJO_COLOR_K16
@@ -3855,7 +3783,7 @@ ENDIF
 ;这种情况下请去掉上下的SKIPSTART~SKIPEND。
 ;使用CFLAG等字符变量时，请务必使用添加了角色编号的完整变量
 ;-------------------------------------------------
-@M_KOJO_緋色之诗_EVENT_K16_ONABARE_3(前戯１,本番はどっちか,回数,注入量)
+@M_KOJO_YUBE_EVENT_K16_ONABARE_3(前戯１,本番はどっちか,回数,注入量)
 ;-------------------------------------------------
 #DIM 前戯１
 ;1=C 2=B 3=M
@@ -3891,7 +3819,7 @@ ENDIF
 ;RETURN 0	会允许破处
 ;CFLAG:破瓜キャンセル口上有	如果没有开启的话就不会被读取，所以要注意
 ;-------------------------------------------------
-@M_KOJO_緋色之诗_EVENT_K16_LOST_VIRGIN_STOP
+@M_KOJO_YUBE_EVENT_K16_LOST_VIRGIN_STOP
 ;-------------------------------------------------
 PRINTFORML 
 RETURN 1
@@ -3902,7 +3830,7 @@ RETURN 1
 ;RETURN 0 会依据通常判定的结果、RETURN 1 会无条件成功。
 ;想要在特定的活动(约会后接吻等)之前，不让推倒的时候请使用。
 ;-------------------------------------------------
-@M_KOJO_緋色之诗_EVENT_K16_PERMISSION_1
+@M_KOJO_YUBE_EVENT_K16_PERMISSION_1
 ;-------------------------------------------------
 PRINTFORML 
 ;RETURN -1
@@ -3917,7 +3845,7 @@ RETURN 0
 ;RETURN 0 会依据通常判定的结果。
 ;即使达成了合意，也还是因为某种理由而摇摆不定的时候可使用。
 ;-------------------------------------------------
-@M_KOJO_緋色之诗_EVENT_K16_PERMISSION_2
+@M_KOJO_YUBE_EVENT_K16_PERMISSION_2
 ;-------------------------------------------------
 PRINTFORML 
 RETURN 0
@@ -3937,7 +3865,7 @@ RETURN 0
 ;==================================================
 ;送礼事件
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_GIFT(ARG, GIFT_ID, 評価点, GIFT_NAME, SENSE)
+@M_KOJO_YUBE_EVENT_K16_GIFT(ARG, GIFT_ID, 評価点, GIFT_NAME, SENSE)
 #DIM GIFT_ID
 #DIM 評価点
 #DIMS GIFT_NAME
@@ -4006,7 +3934,7 @@ RETURN 1
 ;有字数限制。请小心不要溢出
 ;ARG是剩余虫数或排名。
 ;==================================================
-@M_KOJO_緋色之诗_MESSAGE_COM_K16_MUSHI_BATTLE(ARGS, ARG)
+@M_KOJO_YUBE_MESSAGE_COM_K16_MUSHI_BATTLE(ARGS, ARG)
 #DIM 残りムシ数
 #DIM 順位
 SELECTCASE ARGS
@@ -4144,7 +4072,7 @@ SIF RESULTS != ""
 ;注意不附加条件的话会被永久的拉下去
 ;RAND基本上不能用。今天的运气里有当天的随机数值(0 ~ 999)，所以用这个比较好。
 ;==================================================
-@M_KOJO_緋色之诗_EVENT_K16_GRAVITY(ARG)
+@M_KOJO_YUBE_EVENT_K16_GRAVITY(ARG)
 
 SIF 0
 	TCVAR:引力点 = 0
@@ -4184,7 +4112,7 @@ SIF 0
 ;"衝突","結果"以外有半角26个字(全角13个字)的字数限制。请小心不要溢出来
 ;有几个差分会更有气氛(使用%TEXTR(/)%更好)
 ;==================================================
-@M_KOJO_緋色之诗_MESSAGE_COM_K16_SUIKA(ARGS)
+@M_KOJO_YUBE_MESSAGE_COM_K16_SUIKA(ARGS)
 ;-------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
 LOCAL:1 = 1
@@ -4248,7 +4176,7 @@ IF LOCAL:1
 ENDIF
 
 ;外出处特殊遭遇事件
-@RUN_INTO_緋色之诗_K16(MAP_ID)
+@RUN_INTO_YUBE_K16(MAP_ID)
 #DIM MAP_ID
 ;XX要换成角色编号
 ;最后一定要RETURN 1;不认识的情况下不会发生
@@ -4263,7 +4191,7 @@ ENDIF
 ;炮友契約用补正
 ;"因为用补正" RETURN了的数值被加算到理性判定
 ;如果想要简单的性伙伴的话就应该减分，如果想要提高难度或者让它变得不可能的话就应该加分
-@KOJO_緋色之诗_SF_CONTRACT_K16(ARGS)
+@KOJO_YUBE_SF_CONTRACT_K16(ARGS)
 SELECTCASE ARGS
 	CASE "導入"
 		;PRINTFORML 「セフレって、ええー」
@@ -4279,6 +4207,6 @@ ENDSELECT
 ;一般依頼的抑制
 ;ARG 是依赖的编号
 ;如果此函数返回 1，则该角色不会出现对应的依赖
-@M_KOJO_緋色之诗_CHECK_K16_IRAI_BLOCKED(ARGS,ARG,ARG:1)
+@M_KOJO_YUBE_CHECK_K16_IRAI_BLOCKED(ARGS,ARG,ARG:1)
 ; SIF GROUPMATCH(ARG, 2)
 ;     RETURN 1
