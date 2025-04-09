@@ -1,0 +1,87 @@
+		PRINTDW
+		PRINTFORMW	是夜
+		PRINTDL
+		PRINTFORMDW	是晨
+		PRINTDL
+		PRINTFORMDW	少女回到了自己的居所，斑斓的彩窗外、夜幕被初阳悄悄地揭开
+		PRINTDL
+		PRINTFORMDW	是吸血鬼的「夜」
+		PRINTDL
+		PRINTFORMW	「……好困啊」
+		; PRINTFORMW	「已经到这个时候了吗？」
+		PRINTDL
+		; PRINTFORMW	透过窗台，我有点出神地盯着逐渐泛黄的夜幕，属于夜晚的时间已临至尾声
+		; PRINTFORMW	吸血鬼朝起而息，但要我现在就去睡觉暂且为时过早
+		; PRINTFORMW	可有那么一瞬间、我竟有点期盼“明日”的到来
+		; PRINTDL
+		; PRINTFORMW	「说起来...红魔馆的生活节奏似乎发生了一些微妙的变化」
+		; PRINTFORMW	「基本都派不上用场的妖精女仆们最近似乎也变得活跃了不少」
+		; PRINTFORMW	「咲夜她们身边好像也多了个熟悉的身影来回转悠」
+		; PRINTFORMW	「无论是馆内的居住者、还是远道而来拜访的客人，谈论的话题都在有意无意地往同一个方向悄悄靠拢」
+		; PRINTFORMW	「这种变化……对于红魔馆而言是否是一件好事呢？」
+		; PRINTFORMW	「……」
+		PRINTFORMW	和仆从道别而回到居所之后，我就迫不及待地投入被窝的怀抱当中
+		; PRINTFORMW	享受着被窝带来的舒适、加上倦意压身，本应进入睡眠的我，竟然到此刻还是一点入睡的迹象都没有
+		PRINTFORMW	与预想中不同的地方是，我并不能如愿进入睡眠
+		PRINTFORMW	一闭上眼睛，最近这段时日的幻影总是不受控制地出现在我的脑海里
+		PRINTDL
+		PRINTFORMW	「这么说来，红魔馆的生活节奏似乎发生了一些微妙的变化」
+		PRINTFORMW	「基本都派不上用场的妖精女仆们最近似乎也变得活跃了不少」
+		PRINTFORMW	「咲夜她们身边好像也多了个熟悉的身影来回转悠」
+		PRINTFORMW	「无论是馆内的居住者、还是远道而来拜访的客人，谈论的话题都在有意无意地往同一个方向悄悄靠拢」
+		PRINTFORMW	「这种变化……对于红魔馆而言是否是一件好事呢？」
+		PRINTFORMW	「……」
+		CLEARLINE 1
+		CALL DQPRINT("「……不对」",1)
+		PRINTFORMW	「我什么时候变得这么多愁善感的了？」
+		PRINTDL
+		PRINTFORMW	察觉到自身可以说得上是异常的情绪波动、我不禁向自己发出质问的声音
+		CALL FRONT_绯色之诗_AA(16)
+		PRINTDL
+		PRINTFORMW	「看来连我也受到影响了啊...」
+		PRINTDL
+		PRINTFORMW	尽管不愿承认、但这是不争的事实。我对自己此刻的状态作出了如此判断
+		PRINTDL
+		CALL YUBE_INNER("我不能理解，我也不知道自己为何会这样",1,"是因为/吗？")
+		CALL YUBE_INNER("不知不觉，我注意到从小露台贸然闯进来的、对红魔馆来说明显多余的那一缕阳光",1,"但/不一样，他不会是多余的")
+		CALL YUBE_INNER("对于“不速之客”、我向来不会抱有什么好感",1,"但我明明已经习惯了有/在身边的时间")
+		PRINTDL	
+		PRINTFORMDW	少女轻轻打了一个响指，孱弱的阳光被厚实的窗帘隔断，房间回归到了夜晚的状态
+		PRINTDL
+		PRINTFORML	没有了烦人的阳光、总算感觉舒服了不少
+		PRINTFORMW	然而即便如此，我的心情仍然如同一团乱麻
+		PRINTDL
+		PRINTFORMDW	是……%CALLNAME:MASTER%的缘故吗？
+		PRINTDL
+		PRINTFORMW	一个自认为绝对不可能出现的念头，从我的内心深处一闪而过
+		PRINTFORMW	这种荒诞的想法甚至把我自己都吓了一跳
+		PRINTFORMW	会是%他_她(MASTER)%吗？
+		PRINTFORMW	那家伙，只是区区一·个·人·类罢了，我不认为我会因为一个人类而动容
+		PRINTFORMW	不过……说实话、最近我使唤%CALLNAME:MASTER%的次数确实多了不少
+		PRINTDL
+		CALL DQPRINT("……为什么呢？")
+		CLEARLINE 1
+		CALL DQPRINT("我不知道",1)
+		PRINTDL
+		PRINTFORMW	难道说……是因为第一次见到%CALLNAME:MASTER%时，从%他_她(MASTER)%身上看到的那道连我都捉摸不透的命运吗？
+		PRINTFORMW	思来索去、最后我能得出的答案就只有这个
+		PRINTDL
+		CALL YUBE_INNER("我将此时的心情归咎于命运的偶然",1,"蕾米莉亚显然没有注意到自己深埋在心底里的感情")
+		CALL YUBE_INNER("与其因为那个笨蛋仆而让自己连觉都睡不好",1,"不知从什么时候开始就已经把那个人类认可、将其视作红魔馆的一份子")
+		CALL YUBE_INNER("不如想想明天该怎么捉弄/那个家伙",1,"已经开始期待明天见到那个人类了")
+		PRINTDL	
+		PRINTFORMW	以工作为由，让%CALLNAME:MASTER%围着雾之湖跑一圈如何呢？
+		PRINTDL	
+		PRINTFORMW	又或者、让%CALLNAME:MASTER%
+		PRINTDL	
+		PRINTFORMW	如果是%CALLNAME:MASTER%的话、即使是再过分的要求他也没有意见的吧
+		PRINTDL	
+		PRINTFORMW	想到这里，烦闷的心情一下变得顺畅起来了
+		PRINTDL
+		; PRINTFORMW	意识沉入梦境的感觉终于降临在我的身上，
+		PRINTFORMW	细细品味着即将捉弄%CALLNAME:MASTER%的场面、不知不觉之间阻拦我陷入睡眠的那道障碍就好像从未出现过一样
+		PRINTDL
+		CALL DQPRINT("这下……终于能够好好睡个觉了",1)
+		PRINTDL
+		PRINTFORMDW	少女的嘴角淡淡地浮现一抹笑容
+		PRINTFORMDW	她并未察觉

@@ -35,4 +35,54 @@ SIF FLAG:口上色
 	CALLFORM M_KOJO_YUBE_COLOR_K16
 
 
+@他_她(ARG)
+#FUNCTIONS
+#DIMS OUTPUT
+OUTPUT '= @"%TALENT:ARG:性別 == 2?"他"#"她"%"
+RETURNF OUTPUT
 
+@DQYUBE(ARGS, ARG:0 = 0, ARG:1)
+#DIM 文字数
+#DIM 検索数
+#DIMS DYNAMIC SEXYMASTER   
+; 这里的ARG:0有三种情况
+; 0时输出完之后会删除当前行
+; 1时正常输出
+; 2时输出之后会变成灰色底色
+
+; 后面的ARG:1代表显示速度
+
+; 自改日志
+; 计划修改的内容
+; ↓↓↓↓↓↓↓↓↓↓↓↓↓
+; 可增设
+; ↑↑↑↑↑↑↑↑↑↑↑↑↑
+LOCAL:0 = 0
+SEXYMASTER = %他_她(MASTER)%
+IF ARG:1 == 0
+	ARG:1 = 8 + FLAG:チュート文速度
+ENDIF
+STRLENFORM %ARGS%
+文字数 = RESULT:0
+検索数 = 文字数 + 1
+ARGS '= REPLACE(ARGS, "它", SEXYMASTER)
+FOR LOCAL:0, 0, 検索数
+	IF LOCAL:0 == 文字数
+		IF ARG:0
+			PRINTFORM %ARGS%
+		ELSE
+			REUSELASTLINE %ARGS%
+		ENDIF
+		WAIT
+	ELSE
+		SUBSTRING ARGS, 0, LOCAL:0
+		REUSELASTLINE %RESULTS:0%
+		TWAIT ARG:1, 1
+	ENDIF
+NEXT
+IF ARG:0 == 0
+	REUSELASTLINE 
+ELSEIF ARG:0 == 2
+	CLEARLINE 1
+	CALL COLORMESSAGE(@"%ARGS%", 0x696969, 1)
+ENDIF

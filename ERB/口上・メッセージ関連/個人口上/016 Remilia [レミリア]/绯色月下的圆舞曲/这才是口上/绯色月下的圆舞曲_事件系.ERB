@@ -23,6 +23,7 @@
 @M_KOJO_K16_3(ARG)
 RESULTS = _YUBE
 RESULTS:1 = 緋色月下的圆舞曲
+RESULTS:2 = 本口上持续更新中……<br>有败者食尘差分、「吸血」玩法（笑）<br>更新日志：我还没发布我更什么新<br>我永远喜欢蕾咪大人我永远喜欢蕾咪大人我永远喜欢蕾咪大人我永远喜欢蕾咪大人<br>我永远喜欢蕾咪大人我永远喜欢蕾咪大人我永远喜欢蕾咪大人我永远喜欢蕾咪大人<br>我永远喜欢蕾咪大人我永远喜欢蕾咪大人我永远喜欢蕾咪大人我永远喜欢蕾咪大人
 RETURN 1
 ;这是对存在的判断，请不要注释掉
 ;不要做任何其他的处理
@@ -165,8 +166,14 @@ PRINTL [999] - 退出啦
 INPUT
 SELECTCASE RESULT
 	CASE 0
-	PRINTFORMW	关于思慕函数的测试
-	CALL M_KOJO_YUBE_EVENT_K16_21(2)
+	; PRINTFORMW	关于思慕函数的测试
+	; CALL M_KOJO_YUBE_EVENT_K16_21(2)
+	PRINTFORMW	关于特殊函数的测试
+	CALL DQYUBE("这里是测试，传入数值为0",0)
+	CALL DQYUBE("这里是测试，传入数值为1",1)
+	CALL DQYUBE("这里是测试，传入数值为2",2)
+	CALL DQYUBE("这里是测试，传入数值为3",3)
+	CALL DQYUBE("这里是测试，传入数值为4",4)
 	PRINTDL
 	GOTO INPUT_UPDATE
 	CASE 1
@@ -2504,6 +2511,7 @@ IF LOCAL
 		; ELSE
 		; ENDIF
 	;------------------------
+		PRINTDW
 		PRINTFORMW	是夜
 		PRINTDL
 		PRINTFORMDW	是晨
@@ -2512,65 +2520,53 @@ IF LOCAL
 		PRINTDL
 		PRINTFORMDW	是吸血鬼的「夜」
 		PRINTDL
-		PRINTFORMW	「呜哇——好困啊」
+		PRINTFORMW	「已经到这个时候了吗？」
 		PRINTDL
-		PRINTFORMW	和仆从道别而回到居所之后，我只身投入被窝的怀抱
-		PRINTFORMW	享受着被窝带来的舒适、加上倦意压身，本应进入睡眠的我，竟然到此刻还是一点入睡的迹象都没有
-		PRINTFORMW	一闭上眼睛，就会不由自主地开始回想这·段·时·间经历过的所有事情
+		PRINTFORMW	透过窗台，我有点出神地盯着逐渐泛黄的夜幕，属于夜晚的时间已临至尾声
+		PRINTFORMW	虽说吸血鬼朝起而息，但要我现在就去睡觉的话暂且为时过早
 		PRINTDL
-		PRINTFORML	「这么说来，红魔馆的生活节奏似乎发生了一些微妙的变化」
-		PRINTFORML	「基本都派不上用场的妖精女仆们最近似乎活跃了不少」
-		PRINTFORML	「咲夜她们身边好像也多了个熟悉的身影来回转悠」
+		PRINTFORMW	我端起茶杯、细细品酌了一口仍带有些许余温的红茶
+		PRINTDL
+		PRINTFORML	「……还是仍欠火候」
+		PRINTFORMW	尽管当事人听不到、我仍然作出了比较客观的评价
+		PRINTDL
+		PRINTFORMW	即便是咲夜，这个时间也已经睡着了，因此手上的这一杯来自那个新来的人类仆从
+		PRINTFORMW	说来也奇怪，明明是一个人类，却过着日常作息完全颠倒的生活
+		PRINTDL
+		CALL DQYUBE("如果……")
+		CLEARLINE 1
+		CALL DQYUBE("如果它接近我是别有用心的话……")
+		CALL DQYUBE("但……")
+		PRINTDL
+		PRINTFORMW	我不止一次这么怀疑过%CALLNAME:MASTER%,因为这就是人类
+		PRINTFORMW	但是%CALLNAME:MASTER%的表现一次次地出乎我的意料
+		PRINTFORMW	即便是向%他_她(MASTER)%提出一些近乎刁难的要求，%他_她(MASTER)%也不会有任何怨言去一一执行
+		PRINTDL
+		CALL DQYUBE("虽然...它总会在一些小事情上犯错")
+		CLEARLINE 1
+		CALL DQYUBE("虽然...它偶尔会惹我生气而不自知")
+		CLEARLINE 1
+		CALL DQYUBE("虽然...它")
+		PRINTFORMW	可有那么一瞬间、我竟有点期盼“明日”的到来
+		PRINTFORMW	还想再捉弄一下%CALLNAME:MASTER%,毕竟%CALLNAME:MASTER%可是能打发无聊时间的完美人选
+		PRINTDL
+		PRINTFORMW	「说起来...红魔馆的生活节奏似乎发生了一些微妙的变化」
+		PRINTFORMW	「基本都派不上用场的妖精女仆们最近似乎也变得活跃了不少」
+		PRINTFORMW	「咲夜她们身边好像也多了个熟悉的身影来回转悠」
+		PRINTFORMW	「无论是馆内的居住者、还是远道而来拜访的客人，谈论的话题都在有意无意地往同一个方向悄悄靠拢」
 		PRINTFORMW	「这种变化……对于红魔馆而言是否是一件好事呢？」
 		PRINTFORMW	「……」
-		PRINTFORMW	「我什么时候变得这么多愁善感的了？」
 		PRINTDL
-		PRINTFORML	察觉到自身的情绪波动、我不禁向自己发出质问的声音
+		PRINTFORMW	尽管不愿承认，但我也的确习惯了红魔馆多了一位新成员
 		PRINTDL
-		PRINTFORML	「连我也受到影响了啊...」
+		PRINTFORMW	或许...我也该放下自己的偏见
 		PRINTDL
-		PRINTFORMW	尽管不愿承认、但这是不争的事实。我对自己此刻的状态作出了如此判断
-		PRINTFORMW	
-		CALL YUBE_INNER("我不能理解，我也不知道自己为何会这样",1,"是因为/吗？")
-		CALL YUBE_INNER("不知不觉，我注意到从小露台贸然闯进来的、对红魔馆来说明显多余的那一缕阳光",1,"但/不一样，他不会是多余的")
-		CALL YUBE_INNER("对于“不速之客”、我向来不会抱有什么好感",1,"但我明明已经习惯了有/在身边的时间")
-		PRINTDL	
-		PRINTFORMDW	少女轻轻打了一个响指，孱弱的阳光被厚实的窗帘隔断，房间回归到了夜晚的状态
+		PRINTFORMDW	茶杯见底，太阳的轮廓已从远方的天际线完全升起
 		PRINTDL
-		PRINTFORML	没有了烦人的阳光、总算感觉舒服了不少
-		PRINTFORMW	然而即便如此，我的心情仍然如同一团乱麻
-		PRINTDL
-		PRINTFORMW	是……%CALLNAME:MASTER%的缘故吗？
-		PRINTDL
-		PRINTFORMW	一个自认为绝对不可能出现的念头，从我的内心深处一闪而过
-		PRINTFORMW	这种荒诞的想法甚至把我自己都吓了一跳
-		PRINTFORMW	会是%HE_SHE(MASTER)%吗？
-		PRINTFORMW	那家伙，只是区区一·个·人·类罢了
-		PRINTFORMW	不过……说实话、最近我使唤%CALLNAME:MASTER%的次数确实多了不少
-		PRINTDL
-		CALL DQPRINT("……为什么呢？")
-		CLEARLINE 1
-		CALL DQPRINT("我不知道")
-		PRINTDL
-		PRINTFORMW	难道说……是因为第一次见到%CALLNAME:MASTER%时，属于他身上的那道连我都捉摸不透的命运吗？
-		PRINTFORMW	思来索去、最后我能得出的答案就只有这个
-		PRINTDL
-		CALL YUBE_INNER("我将此时的心情归咎于命运的偶然",1,"蕾米莉亚显然没有注意到自己深埋在心底里的感情")
-		CALL YUBE_INNER("与其因为那个笨蛋仆而让自己连觉都睡不好",1,"不知从什么时候开始就已经把那个人类认可、将其视作红魔馆的一份子")
-		CALL YUBE_INNER("不如想想明天该怎么捉弄/那个家伙",1,"已经开始期待明天见到那个人类了")
-		PRINTDL	
-		PRINTFORMW	以工作为由，让%CALLNAME:MASTER%围着雾之湖跑一圈如何呢？
-		PRINTDL	
-		PRINTFORMW	又或者、让%CALLNAME:MASTER%
-		PRINTDL	
-		PRINTFORMW	如果是%CALLNAME:MASTER%的话、即使是再过分的要求%HE_SHE(MASTER)%也没有意见的吧
-		PRINTDL	
-		PRINTFORMW	想到这里，烦闷的心情一下变得顺畅起来了
-		PRINTDL
-		PRINTFORMW	意识沉入梦境的感觉终于降临在我的身上，
-		PRINTFORMW	
+		PRINTFORMW	「也不是那么难喝的嘛……」
 		PRINTDL
 		PRINTFORMDW	少女的嘴角淡淡地浮现一抹笑容
+		CALL DQYUBE("她并未察觉")
 		RETURN 1
 	ENDIF
 	;-------------------------------------------------

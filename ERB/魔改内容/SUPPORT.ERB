@@ -201,10 +201,13 @@ WHILE 1
 					RESETCOLOR
 					PRINTL
 				ELSEIF RESULT == 1
-					SETCOLOR C_ORANGE
-					PRINTBUTTON @"%UNICODE(0x3000) * 3%└ %RESULTS:1%口上", 2000 + C_ID * 10 + LOCAL:3
-					RESETCOLOR
-					PRINTL
+					; SETCOLOR C_ORANGE
+					; PRINTBUTTON @"%UNICODE(0x3000) * 3%└ %RESULTS:1%口上", 2000 + C_ID * 10 + LOCAL:3
+					SIF RESULTS:2 == ""
+						RESULTS:2 = 无简介
+					HTML_PRINT @"<p align='left'><nobr><button value='{2000 + C_ID * 10 + LOCAL:3}' title='%RESULTS:2%'><font color = 'orange'>%UNICODE(0x3000) * 3%└ %RESULTS:1%口上</font></button><br>"
+					; RESETCOLOR
+					; PRINTL
 				ENDIF
 			NEXT
 			SIF NUM_OF_KOJO == 1
