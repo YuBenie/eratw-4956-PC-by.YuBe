@@ -169,7 +169,7 @@ IF LOCAL
 			PRINTFORM	「那里很适合学习啊还有
 			CALL YUBE_LINETHROUGH("偷懒",0)
 			PRINTFORML	休息什么的，当然了，你得先让帕琪同意」
-			PRINTFORML	「不过要是见到了某个黑白魔法使一定要告诉我昂」
+			PRINTFORML	「不过要是见到了某个黑白魔法使一定要告诉我唷」
 			CASE 2
 			PRINTFORMDL	谈论了一下关于吸血鬼的饮食问题……
 			PRINTFORML	「吸血鬼平时都吃什么……」
@@ -269,7 +269,7 @@ IF LOCAL
 			PRINTFORML	「工作上的事？」
 			PRINTFORML	「这种事你去问咲夜就可以了」
 			CASE 4
-			PRINTFORML	「你看起来很闲嘛，仆从、来讲个笑话，不好笑的话我会把你挂在房顶上」
+			PRINTFORML	「你看起来很闲嘛，那仆从来讲个笑话，不好笑的话我会把你挂在房顶上」
 			PRINTDL		
 			PRINTDL		……
 			PRINTDL		
@@ -428,7 +428,7 @@ IF LOCAL
 					CASE 0
 					PRINTFORML	「是茶吗？还挺会察言观色的嘛」
 					PRINTFORML	「正好渴了哟」
-					PRINTFORMDL	%CALLNAME:MASTER%接过手里的茶一饮而尽了
+					PRINTFORMDL	蕾米莉亚接过手里的茶一饮而尽了
 					PRINTFORMDL	应该是满意的吧
 					CASE 1
 					PRINTFORML	「嗯？这个味道……」
@@ -583,10 +583,11 @@ IF LOCAL
 					PRINTFORMW	「要是我不阻止你的话、你肯定会得寸进尺的吧」
 					PRINTFORMW	「那么——惩罚游戏要做什么呢……」
 					PRINTDL
-					PRINTFORMDL		……
-					PRINTFORMDL	最后被蕾米莉亚%TEXTR("吊起来荡秋千、速度越来越快那种/像陀螺一样转着玩、有点头晕了/当成稻草人一样挂着一动不动的了")%
+					PRINTFORMDW		……
 					PRINTDL
-					PRINTFORMDL	——因为蕾米莉亚的惩罚、时间额外推进了{TCVAR:352}分钟——
+					PRINTFORMDW	最后被蕾米莉亚%TEXTR("吊起来荡秋千、速度越来越快那种/像陀螺一样转着玩、有点头晕了/当成稻草人一样挂着一动不动的了")%
+					PRINTDL
+					PRINTFORMDW	——因为蕾米莉亚的惩罚、时间额外推进了{TCVAR:352}分钟——
 					ELSE
 					GOTO 通用接触
 					ENDIF
@@ -605,6 +606,10 @@ IF LOCAL
 					CASE 1
 					PRINTFORML	「哦？对我的翅膀感兴趣吗？它们很漂亮、对吧。」
 					PRINTFORML	「我的心情不错、我姑且原谅你的失礼了」
+					PRINTDL
+					PRINTFORMDW	正当你松了一口气的时候...
+					PRINTDL
+					PRINTFORML	「下次再敢这么做我就把你的手给剁了」
 					CASE 2
 					PRINTFORML	「仆从、帮我拿一下这个」
 					PRINTFORML	从蕾米莉亚手上接过某个东西，不经意间触碰到了软滑的皮肤
@@ -615,25 +620,26 @@ IF LOCAL
 					CASE 0
 					PRINTFORML	「想……摸摸手？」
 					PRINTFORML	「你知道你在干什么吗、人类」
+					PRINTFORML	蕾米莉亚看向你的眼神中不带一丝温度
 					CASE 1
 					PRINTFORML	假装没有注意到蕾米莉亚,“不小心”地碰了一下她的翅膀
 					PRINTFORML	感受到异样的她，眉头皱了皱，用不快的眼神看着你
 					PRINTFORML	「……喂、你是故意的吧」
 					CASE 2
 					PRINTFORML	「衣服上沾了点灰吗？唔……我够不到」
-					PRINTFORML	「现在你的工作是——把我的裙摆弄干净，快点、在其他人发现之前」
+					PRINTFORML	「好了，现在仆从的工作是——把我的裙摆弄干净，快点、在其他人发现之前」
 					CASE 3
 					PRINTFORML	「嗯？有什么事吗？」
 					CASE 4
-					PRINTFORMDL	尖锐的指甲刺痛了你试图伸过去的手背
-					PRINTFORMDL	可见你的小动作已经被大小姐发现了，万幸的是手背上只是留下了一道淡淡的红印
+					PRINTFORMDL	尖锐的指甲似是责备一样刺痛了你试图伸过去的手背
+					PRINTFORMDL	可见你的小动作已经被大小姐发现了，不过、万幸的是手背上只是留下了一道淡淡的红印
 					PRINTFORMDL	她并不是非常生气
 					PRINTDL
 					PRINTFORML	「管住你的手、人类」
 					CASE 5
 					IF TCVAR:352 > 10
 					PRINTFORML	「……」
-					PRINTFORML	「是我错觉么、感觉你今天一直在尝试着做些失礼的事」
+					PRINTFORML	「是我的错觉么、感觉你今天一直在尝试着做些失礼的事」
 					PRINTFORML	「你该不会以为我一直没发现吧？」
 					ELSE
 					GOTO 通用接触
@@ -669,10 +675,10 @@ IF LOCAL
 					PRINTFORMDL	一个清脆的响指
 					PRINTFORMDL	一股袭来的失重感
 					PRINTFORMDW	一种紧缚的触感
-					PRINTFORMDL	你被一条条魔力凝结而成的锁链捆绑住身体、吊在半空中
+					PRINTFORMDL	你被一条条魔力凝结而成的锁链捆绑住身体、以一种完全没有被当作活物来看待的状态被吊在半空中
 					PRINTFORMDW	现在说什么都晚了……你能隐约地看到蕾米莉亚平静的脸颊底下蕴含着的些微的怒火
 					PRINTDL
-					PRINTFORMW	「{TCVAR:352}次...在你那不知分寸的小脑袋反省之前、你就好好挂在那里吧」
+					PRINTFORMW	「总共{TCVAR:352}次...在你那不知分寸的小脑袋反省之前、你就好好挂在那里吧」
 					PRINTDL
 					PRINTFORMDL	——因为蕾米莉亚的惩罚、时间额外推进了{TCVAR:352}分钟——
 					ELSE
@@ -1814,8 +1820,94 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
+	IF FLAG:70
+	; 灌水做的区分、完全没用的
+	; 留着以后方便改差分——如果有的话
+	; 目前所做差分为：蕾咪睡着与否/自机体力气力任一低于30%/陷落状态
+	; 唉，神秘屎山代码，希望未来的我看到不会哈气吧
 
+	;-------------------------------------------------
+	; 以下开始为通用
+	;-------------------------------------------------
+	ELSEIF CFLAG:睡眠 == 1
+		IF YUBE_LESSBASECHECK(0) || YUBE_LESSBASECHECK(0,1)
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSE
+				PRINTFORMDL	年幼的吸血鬼似乎陷入了安定的睡眠当中，\@MAIN_MAP == 3 && CFLAG:MASTER:300 == 326 ?这里是大小姐的房间，而你却贸然地闯入了这里。 # \@
+				PRINTFORMDL	所幸的是，你的存在并没有打扰到她的美梦，但不管怎么说，你仍然是这个房间里最多余的那个
+				PRINTDL
+				PRINTFORMDL	稍微偷懒一下也没问题的，对吧？
+				PRINTFORMDW	你%TEXTR("依偎在床边的柜子上简单休息了一下/坐在了床边的一个椅子上，这好像平时都是给别人准备的/大胆地坐在了蕾米莉亚的床榻边上，不得不说材质是真柔软啊")%...
+				PRINTDL
+				PRINTFORML	「……」
+				PRINTFORMW	从床榻那边传来平稳的呼吸声
+				PRINTDL
+				PRINTFORMDL	……
+				PRINTDL
+				PRINTFORMDL	——度过了一段惬意的时光——
+			ENDIF
+		ELSE
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSE
+				PRINTFORMDL	年幼的吸血鬼似乎陷入了平静的睡眠当中\@MAIN_MAP == 3 && CFLAG:MASTER:300 == 326 ?，这里是大小姐的房间，而你却贸然闯入了这里 # \@
+				PRINTFORMDL	所幸的是，你的存在并没有打扰到她的美梦，但不管怎么说，你仍然是这个房间里最多余的那个
+				PRINTDL
+				PRINTFORMDL	不过，偶尔休息一下，也没问题吧？
+				PRINTDL
+				PRINTFORMDL	你找了一个不会发出声响的地方，倚靠着身子短暂歇息着
+				PRINTFORMDL	偷懒之余，你悄悄地端详了一下大小姐的睡颜
+				PRINTFORMDW	%TEXTR("蕾米莉亚平缓地呼吸着.../可爱的蝠翼从被子缝隙中伸了出来、以一种极其放松的方式舒展开来/因为睡相不太好，额头上的刘海乱糟糟地盖住了脸庞.../蕾米莉亚蜷缩着身子睡觉.../不知是不是睡相的问题，大小姐睡觉的位置比较靠近床边...有点危险呢")%
+				PRINTDL
+				PRINTFORMDL	……
+				PRINTDL
+				PRINTFORMDL	——度过了一段惬意的时光——
+			ENDIF
+		ENDIF
+	ELSE
+		IF YUBE_LESSBASECHECK(0) || YUBE_LESSBASECHECK(0,1)
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSEIF ABL:9 > 2
+			ELSE
+				IF ONCE("每日初次疲惫休息")
+					PRINTFORMDL	你放下手里的工作，找了个比较舒服的地方休息了一下
+					PRINTFORMDL	忙碌了许久，你的身体已经积攒了不少的疲惫
+					PRINTDL
+					PRINTFORML	「累了吗？那就好好休息吧」
+					PRINTDL
+					PRINTFORML	对于你的行为蕾米莉亚并没有做出更多的反应，见你开始休息之后，她也没怎么关注你这边了
+				ELSE
+					PRINTFORML	「又要休息了么？人类可真是一群脆弱的生命啊」
+					PRINTFORML	「我可不想看到你在我面前擅自晕了过去，倒不如说，适当的休息也是自我管理的一环」
+				ENDIF
+			ENDIF
+		ELSE
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSEIF ABL:9 > 2 && RAND:2
+				PRINTFORML	「」
+				PRINTFORML	「我可以理解为你这是在偷懒吧？呵呵、开玩笑的」
+				PRINTFORML	「我又不是什么黑心企业家，想休息就休息吧」
+			ELSE
+				PRINTFORML	「要休息吗？请便」
+				PRINTFORML	对于你的行为蕾米莉亚并没有做出更多的反应，见你开始休息之后，她也就没怎么关注你这边了
+				PRINTDL
+				PRINTFORMDL	你找了一个比较舒服一点的地方坐下
+				PRINTDL
+				PRINTFORMDL	……
+				PRINTDL
+				PRINTFORMDL	——度过了一段放松的时光——
+			ENDIF
+		ENDIF
+	ENDIF
 ENDIF
+PRINTDW
 RETURN 1
 ;==================================================
 ;405,外出(同行時变成约会
@@ -1866,7 +1958,6 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	GOTO DEBUG_SETTING
 	IF FLAG:70
 		IF TALENT:恋慕
 
@@ -1877,9 +1968,7 @@ IF LOCAL
 		PRINTFORML	娇小的吸血鬼萝莉就这样一动不动地站在那里，无论你怎么靠近她、怎么触碰她、怎么对她进行恶作剧，她都不会做出任何反应
 		PRINTFORML	但你仅仅只是在扫地、只是这样
 		ENDIF
-	ELSEIF RAND:20 == 1 
-		IF FIRSTTIME("整理物件_受伤") && TIME > 1140 && TIME < 1380 && GET_MAPID(CFLAG:MASTER:現在位置) == 3
-		$DEBUG_SETTING
+	ELSEIF !RAND:20 && FIRSTTIME("整理物件_受伤") && TIME > 1140 && TIME < 1380 && GET_MAPID(CFLAG:MASTER:現在位置) == 3
 		PRINTFORMDW	哐啷——
 		PRINTDL
 		PRINTFORMDL 不远处传来的尖锐声吸引了%CALLNAME:MASTER%和蕾米莉亚的注意力，几只妖精女仆飞了过来，脸上满是慌张的神态，完全一副快要哭出来的表情
@@ -1903,10 +1992,11 @@ IF LOCAL
 		PRINTFORMDL 盘子桑、请安息吧……
 		PRINTDL
 		PRINTFORML	「行了，事情我都了解了，你们去干别的事情吧」
-		PRINTFORML	「我会安排其他人来收拾的哟」
+		PRINTFORML	「我会安排其他人来收拾的」
 		PRINTDL
-		PRINTFORML	出乎意料的是，蕾米莉亚并没有出言指责一句就把她们给打发走了
+		PRINTFORML	出乎意料的是，蕾米莉亚并没有出言指责就把她们给打发走了
 		PRINTFORML	待那几位妖精女仆离去之后，你并没有看见所谓的“其他人”来到这里
+		PRINTFORML	那地上的这些碎片……
 		PRINTDL
 		PRINTFORMW	「东张西望什么呢？是你出场的时候了\@TALENT:恋慕 || TALENT:思慕 ?唷，%CALLNAME:MASTER%~#,仆从\@」
 		PRINTFORMW	「去把那些垃圾收拾干净吧、再交给那些妖精女仆只怕会让我又有的愁的了」
@@ -1922,18 +2012,14 @@ IF LOCAL
 		PRINTFORMDL	只要将这袋子里的东西都扔掉就可以了...
 		PRINTDL
 		PRINTFORML	在你刚打算站起来的时候，视线恰好对上了属于吸血鬼的那双猩红的眼瞳
-		IF TALENT:恋慕 || TALENT:思慕
-		PRINTFORML	「怎么这么不小心、
-		ELSE
-		PRINTFORMDL	几乎是本能的、
-		ENDIF
-		ELSE
-		GOTO GENERAL_SWEEP
-		ENDIF
+			IF TALENT:恋慕 || TALENT:思慕
+				PRINTFORML	
+				ELSE
+				PRINTFORMDL	
+			ENDIF
 	;-------------------------------------------------
 	; 通用扫除
 	ELSE
-	$GENERAL_SWEEP
 	;-------------------------------------------------
 		IF TALENT:恋慕
 		SELECTCASE RAND:10
@@ -1964,6 +2050,7 @@ IF LOCAL
 	;-------------------------------------------------
 	; 算是朋友的关系了
 	ELSEIF ABL:9 > 2
+	$GENERAL_SWEEP
 	;-------------------------------------------------
 		SELECTCASE RAND:10
 			CASE 0
@@ -1975,7 +2062,7 @@ IF LOCAL
 			PRINTFORMW	在翅膀带起来的微风之下、本来静止不动的垃圾如同长了腿一样开始躲避你的扫帚
 			PRINTFORMW	「可曾设想过在吸血鬼的眼中是如何看待你们人类的？就像...这些地上的垃圾一样，脆弱、却喜欢无休止的挣扎……」
 			PRINTDL
-			PRINTFORMDW	「怎么看都像在拿我消遣吧……」
+			PRINTFORMDW	这怎么看都像在拿我消遣吧……
 			PRINTDL
 			PRINTFORML	「欸嘿~」
 			CALL CHANGE_CFLAG(2, 16, +5)
@@ -2112,23 +2199,10 @@ IF LOCAL
 			ELSEIF TALENT:恋慕
 			ELSEIF TALENT:思慕
 			ELSEIF ABL:9 > 2
-			ELSE
-			ENDIF
-		CASE IS == ABL:MASTER:教養
-			IF TALENT:恋人
-			ELSEIF TALENT:恋慕
-			ELSEIF TALENT:思慕
-			ELSEIF ABL:9 > 2
-			ELSE
-			ENDIF
-		CASE IS < ABL:MASTER:教養
-			IF TALENT:恋人
-			ELSEIF TALENT:恋慕
-			ELSEIF TALENT:思慕
-			ELSEIF ABL:9 > 2
-				SELECTCASE RAND:5
+				SELECTCASE RAND:6
 				CASE 0
 					PRINTFORML	「在学习吗？要好好加油噢」
+					PRINTFORML	「要我出题考考你吗？让我看看仆从是不是真的在学习~」
 				CASE 1
 					PRINTFORML	「需要我的指导吗？我对于学习这一方面可是颇有心得的哦」
 				CASE 2
@@ -2137,12 +2211,16 @@ IF LOCAL
 					PRINTFORML	「仆从也会来这里学习啊、真是人不可貌相」
 					PRINTFORML	「能保持一个自律的心可是很难得的喔」
 				CASE 4
-					PRINTFORML	「要我出题考考你吗？让我看看仆从是不是真的在学习~」
+					PRINTFORML	——安静——
+					PRINTFORMDL	蕾米莉亚显然知道一个良好的学习环境需要的是什么
+					PRINTFORMDL	在你醉心于学习的时候，蕾米莉亚静静地坐在附近品味着醇香的茶水
+					PRINTDL
+					PRINTFORMDL	当然了，那是你泡的
 				CASEELSE
-					GOTO GENERAL_STUDY
+					GOTO GENERAL_STUDY1
 				ENDSELECT
 			ELSE
-			$GENERAL_STUDY
+			$GENERAL_STUDY1
 				SELECTCASE RAND:4
 				CASE 0
 					PRINTFORML	蕾米莉亚并没有怎么关注你这边
@@ -2152,6 +2230,46 @@ IF LOCAL
 					PRINTFORML	蕾米莉亚在一旁惬意地品味着红茶
 				CASE 3
 					PRINTFORML	蕾米莉亚开始到处搜寻着可能藏在某处的小蛋糕
+				ENDSELECT
+			ENDIF
+		CASE IS <= ABL:MASTER:教養
+			IF TALENT:恋人
+			ELSEIF TALENT:恋慕
+			ELSEIF TALENT:思慕
+			ELSEIF ABL:9 > 2
+				SELECTCASE RAND:6
+				CASE 0
+					PRINTFORML	「哦？在学习吗」
+					PRINTFORML	「我不讨厌有上进心的孩子，好好加油吧」
+				CASE 1
+					PRINTFORML	「这也是你的日程之一吗？啊...只是问问」
+				CASE 2
+					PRINTFORML	「想教我东西？呵呵、区区人类真敢大放厥词啊……」
+					PRINTFORML	「那我就来听听吧，聪·明·的·学·者」
+				CASE 3
+					PRINTFORML	「你不会觉得自己多看几本书就可以指导红魔馆之主吧？」
+					PRINTFORML	「有意思、人类，为我整理一个座位出来吧，我倒是要听听你要怎么教我」
+				CASE 4
+					PRINTFORML	「学习？呵呵、不会是借着学习的名义看一些奇怪的东西吧」
+					PRINTFORML	没有给你说话的余地，蕾米莉亚径直夺过你手上的书籍，擅自开始翻阅起来
+					PRINTDL
+					PRINTFORMW	「%TEXTR("《泡出一手好茶的办法》...看这种东西不如直接去问咲夜来的快点/《如何照顾好小孩子》...喂！？/《让你的美女上司都赞叹不已的厨艺是怎么炼成的》...这种东西你怎么看都不会给你加技能点的/《如何正确熬夜》...看着就没什么用、这书")%
+					PRINTFORML	感到无聊的蕾米莉亚把书随意地丢还给你了
+				CASEELSE
+					GOTO GENERAL_STUDY2
+				ENDSELECT
+			ELSE
+			$GENERAL_STUDY2
+				SELECTCASE RAND : 4
+				CASE 0
+					PRINTFORML	蕾米莉亚随手在书架上拿下来一本书开始翻阅起来
+				CASE 1
+					PRINTFORML	蕾米莉亚在旁边发呆...
+					PRINTFORMDL	会在想什么呢……啊、思绪乱了
+				CASE 2
+					PRINTFORML	蕾米莉亚在一旁惬意地品味着红茶，仿佛置身于只存在自己一人的世界
+				CASE 3
+					PRINTFORML	蕾米莉亚开始有点厌烦了
 				ENDSELECT
 			ENDIF
 	ENDSELECT
@@ -2261,8 +2379,261 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	IF FLAG:70
+	; 为什么写这个条件、只是为了区分通用差分罢了
+	;-------------------------------------------------
+	; 通用
+	ELSE
+	;-------------------------------------------------
+		IF TALENT:恋人
+		ELSEIF TALENT:恋慕
+			SELECTCASE TFLAG:使用楽器
+			; 电子琴
+			CASE 1
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 钢琴
+			CASE 2
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 吉他
+			CASE 3
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 小号
+			CASE 4
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 小提琴
+			CASE 5
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			ENDSELECT
+		ELSEIF TALENT:思慕
+			SELECTCASE TFLAG:使用楽器
+			; 电子琴
+			CASE 1
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 钢琴
+			CASE 2
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 吉他
+			CASE 3
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 小号
+			CASE 4
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			; 小提琴
+			CASE 5
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	
+				CASE 0
+					PRINTFORML	
+				CASE 1
+					PRINTFORML	
+				ENDSELECT
+			ENDSELECT
+		ELSEIF ABL > 2 && RAND:3
+			SELECTCASE TFLAG:使用楽器
+			; 电子琴
+			CASE 1
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「嗯...虽然不想对你泼冷水，但是这次的演奏实在是挺糟糕的」
+					PRINTFORML	「下次再好好加油吧」
+					PRINTFORML	蕾米莉亚客气地对你说着，但实际上早已退到了十多米远的位置...
+				CASE 0
+					PRINTFORML	「电子琴吗？表现得还不错、我还挺喜欢的」
+					PRINTFORML	「看你这表情...怎么、难得认可你一次觉得不适应了吗？」
+				CASE 1
+					PRINTFORML	「无可挑剔，我说的是实话」
+					PRINTFORML	「能让我如此赞美的人类你还是独一个，你可以再骄傲一点的」
+					PRINTFORML	在演出落幕之际，蕾米莉亚为你献上了掌声
+				ENDSELECT
+			; 钢琴
+			CASE 2
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「谱子弹错了哟，在第%TEXTR("一/二/三/四")%乐句第%TEXTR("一/二/三/四")%小节那里，你很明显%TEXTR("漏拍/抢拍/高音混淆/弹错音")%了」
+					PRINTFORML	蕾米莉亚指出了你演奏中存在的错误，你仔细对照了一下乐谱，刚才似乎的确出现了这种问题
+					PRINTFORML	「总是犯这种低级错误可不行呀，仆从，回去再好好练习一下吧」
+				CASE 0
+					PRINTFORML	「很流畅地弹完了一首曲子，而且也没什么问题，表现得不错」
+					PRINTFORML	「我这里还有一些其他的谱子，仆从想要试试吗？」
+				CASE 1
+					PRINTFORML	「练习了很久吧？即便是我也不能从你的演奏中挑出任何毛病出来」
+					PRINTFORML	「下次，在宴会中展示一下如何？」
+				ENDSELECT
+			; 吉他
+			CASE 3
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「怎么突然停下来了？『忘谱了』、哈，还真有你的风格呢」
+					PRINTFORML	「没有状态的时候就应该适可而止、还是说...你还想要再尝试几下呢？」
+				CASE 0
+					PRINTFORML	「吉他演奏出来的声音意外得有一种美感唷」
+					PRINTFORML	「用来打发无聊倒是挺不错，果然来听你演奏是对的」
+				CASE 1
+					PRINTFORML	「演奏了你最熟悉的那首曲子么...是因为在我面前才特意挑选的嘛」
+					PRINTFORML	「真是个狡猾的家伙，不过我不讨厌就是了」
+					PRINTFORML	「尽你所能地来试着取·悦·我吧」
+				ENDSELECT
+			; 小号
+			CASE 4
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「吵死了……赶紧停下来，制造噪音也是你的爱好之一吗！？」
+				CASE 0
+					PRINTFORML	「都是比较高亢的音乐呢、这也是小号的特点吗？」
+				CASE 1
+					PRINTFORML	「呵呵~仆从鼓足腮帮子的样子还挺滑稽的，你就这么卖力吗？」
+				ENDSELECT
+			; 小提琴
+			CASE 5
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「嚯？在我面前练习小提琴吗，那想必你是做好心理准备接受我的操练了吧」
+					PRINTFORML	「先拉个100遍吧，如果我不满意的话会让你再多加点的、不过不必担心，至少现在我有的是耐心」
+				CASEELSE
+					PRINTFORML	「真是不管听几次都不会觉得腻的音色啊、」
+					PRINTFORML	待你的演奏结束之后，蕾米莉亚为你献上了掌声
+					PRINTFORML	「你在这方面似乎颇具潜力呢、你有没有想过以后加入哪个乐团呢？」
+					PRINTFORML	「当然了、只是作为人类而言，不过即便是这样你的表现也的确出乎我的意料呢」
+				ENDSELECT
+			ENDSELECT
+		ELSE
+		; 无陷落
+			SELECTCASE TFLAG:使用楽器
+			; 电子琴
+			CASE 1
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「够了、如果这就是你所谓的音乐的话，那就不要用它来脏了我的耳朵！」
+					PRINTFORML	「哪怕是用一台打字机来敲钢板都比现在这样悦耳！」
+					PRINTFORML	蕾米莉亚有点不耐烦地用手捂住了耳朵、冷冷地瞪着你
+				CASE 0
+					PRINTFORML	「用电子琴演奏出来的音乐吗……不算难听、感觉还不错」
+					PRINTFORML	「不过想要我的赞美的话，最好再下点功夫去练一下」
+					PRINTFORML	耐心地等你演奏完毕、蕾米莉亚缓缓发表了自己的意见
+				CASE 1
+					PRINTFORMDL	你的手指灵动地在琴键上舞蹈，跳跃的音符构成了华美的乐段
+					PRINTFORML	蕾米莉亚微微闭上双眸感受着音乐带来的安宁，随着音乐下意识哼出来的歌谣顺着曲子溜进了你的耳中
+					PRINTFORML	「哼~哼🎵哼~」
+					PRINTDL
+					PRINTFORMDL	一副完全陶醉其中的样子...
+				ENDSELECT
+			; 钢琴
+			CASE 2
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「即便是换一个乐器也没有解决你根本上的问题啊」
+					PRINTFORML	「要我说得更直白一点吗？你的演奏太难听了，从各种层面上来说都是」
+				CASE 0
+					PRINTFORML	「不错...」
+					PRINTFORML	演奏完毕后，蕾米莉亚轻轻地鼓掌
+				CASE 1
+					PRINTFORML	「……你还真舍得花钱买下这东西呢、不过从你的表现来看，倒也还过得去」
+					PRINTFORML	「下次若还有空，我会再来听一下的」
+				ENDSELECT
+			; 吉他
+			CASE 3
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「这种已经称得上是灾难的噪音了，你把琴弦当成什么了，橡皮筋吗！？」
+					PRINTFORML	蕾米莉亚脸上带有不满的表情看着你，双手在很早的时候就没离开过自己的耳朵了
+				CASE 0
+					PRINTFORML	「吉他……吗？虽然我接触得不多，但你的表现也没那么糟」
+				CASE 1
+					PRINTFORML	「吉他的音色原来这么好听的嘛，怪不得那么多人都选择吉他呢」
+				ENDSELECT
+			; 小号
+			CASE 4
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「吵闹……哔哔叭叭的」
+					PRINTFORML	「你的嘴巴就是用来做这种事情的嘛...快点停下来！」
+				CASE 0
+					PRINTFORML	「从你的嘴巴里还是能吐得出几个像样一点的音符的嘛」
+					PRINTFORML	「不过，还是回去好好练习吧」
+				CASE 1
+					PRINTFORML	「竟然头一次觉得你的嘴巴还挺适合这个小玩意儿的、是有专门练习过吗？」
+				ENDSELECT
+			; 小提琴
+			CASE 5
+				SELECTCASE TFLAG:193
+				CASE -1
+					PRINTFORML	「如此高雅的乐器在你手中竟然表现成这个样子，换做是我都不禁为其感到惋惜」
+				CASE 0
+					PRINTFORML	「想听我的评价？我对小提琴手的要求可是很严格的、至于你这次嘛……」
+					PRINTFORML	「马马虎虎，就这样？想听我夸夸的话就请你再去多练习几次，下次我会好好期待的」
+				CASE 1
+					PRINTFORML	「表现得不错、单从手法上来说就已经无可挑剔了」
+					PRINTFORML	「下次试试在我的宴会上表演一下如何？」
+				ENDSELECT
+			ENDSELECT
+		ENDIF
+	ENDIF
 ENDIF
+PRINTDW
 RETURN 1
 ;==================================================
 ;417,午睡

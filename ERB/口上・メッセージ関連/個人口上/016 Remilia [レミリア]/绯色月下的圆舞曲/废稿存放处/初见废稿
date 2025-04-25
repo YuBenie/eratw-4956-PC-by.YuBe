@@ -1,0 +1,573 @@
+; 人类
+@初遇_人类差分
+#DIM DYNAMIC 命运 
+命运 = FLAG:周回数 + 1
+
+SIF FLAG:口上色
+	CALL M_KOJO_YUBE_COLOR_K16
+IF	GETBIT	(CFLAG:31,	0) || GETBIT	(CFLAG:31,	1)
+		PRINTFORMDL	
+		[SKIPSTART]
+		败者食尘——
+		这是一种回溯时间的能力——
+		是一种将过去的一切否定，让世界重新转动的能力。
+		不管%CALLNAME:MASTER%是抱着怎样的心情去使用这份能力
+		在幻想乡曾经一起生活的点点滴滴都已经成为了过去
+		不过，在命运的指引下——
+		[SKIPEND]
+	IF MAIN_MAP == 3
+
+
+		[SKIPSTART]
+		%CALLNAME:MASTER%还是回到了这座矗立在雾之湖边上的，充满了回忆的红魔馆
+		尽管，这些回忆现在仅仅只存在于%CALLNAME:MASTER%一个人身上
+		不会再有别的人会记得，至少，%CALLNAME:MASTER%是这么想的
+		怀着复杂的心情，%CALLNAME:MASTER%再一次地成为了红魔馆的新人
+		正如一切都理所应当的那样，红魔馆的妖精女仆们基本都没有对这位新来的同事有多大的反应
+		不过%CALLNAME:MASTER%也不在乎就是了
+
+		凭借着败者食尘之前积攒下来的经验，%CALLNAME:MASTER%很自然而然地处理起了红魔馆的杂务
+		餐具的擦拭，盆栽的摆放，地板的清扫，就连厨房的准备工作也一并解决了
+		若是有机会的话，甚至还可以泡杯茶喝，喊上红魔馆的众人一起——
+
+		IF CFLAG:15:18 == 1
+		; 认不认识咲夜都做一个差分
+		SETCOLOR 0x8b9ddd
+		咔嗒——
+		清脆而又轻微的钟表齿轮声音响起，穿着蓝色仆从装束的银发女仆忽然出现在你的面前
+		来者正是红魔馆的女仆长，同时也是%CALLNAME:MASTER%的上司，%NAME:15%
+		%NAME:15%举止优雅地向你轻轻鞠了个躬
+		CALL PRINT_FACE, [[咲夜]], "通常", "服", "", ""
+		「没想到阁下已经如此习惯馆内的事务，着实让我感到惊讶」
+		「很难想象阁下是刚来到红魔馆的新人，不过，阁下能有如此能力对于大小姐来说也是好事」
+		「那么，请容许我冒昧问一句」
+		%NAME:15%微微顿了一顿，眼神也变得锐利起来
+		「阁下与大小姐是什么关系呢？」
+
+		突如其来的问题让%CALLNAME:MASTER%不禁吓了一跳
+		难道，败者食尘被发现了吗？
+		不安感萦绕在%CALLNAME:MASTER%的心头
+		尽管如此，表面上仍然表现出冷静的样子
+
+		「不，怎么可能呢」
+		「大小姐是我所敬仰的存在」
+		INPUT
+		SELECTCASE RESULT
+			CASE 0
+
+				「我也只是刚来红魔馆不久，对于大小姐的所知也是传闻居多」
+				「有人说，大小姐是一个非常可怕的人」
+				「也有人说，大小姐会亲切地对待红魔馆里的各位」
+				「同样的，在外面也流传着关于红色的恶魔的事情」
+				「不管再怎么样——」
+				「至今，我也还没跟大小姐正式会过面」
+				「至于关系……不，怎么可能呢」
+
+				听到你的回答之后，%NAME:15%深深地看了你一眼
+			CASEELSE
+				「能够侍奉大小姐，是我的荣幸」
+				「对此之外的，我别无所求」
+				「正因如此，大小姐是我所敬仰的存在」
+
+				没有所谓的掩饰，只需要真情实感就可以了
+				在说完这些话的时候，你才发觉那不经意间浮现在自己脸上的笑意
+				
+				似乎是很满意你的回答，%NAME:15%的表情明显缓和下来
+		ENDSELECT
+		「失礼了，%CALLNAME:MASTER%阁下，我并非为了刁难而来」
+		「只是，最近的大小姐状态有点不对劲」
+		「巧合的是，%CALLNAME:MASTER%阁下的出现很好地吻合了这个时间点」
+		「不，阁下误会了」
+		「只是觉得，%CALLNAME:MASTER%阁下去看一下大小姐比较好」
+		「那么……」
+		「失礼了」
+
+		告辞了%NAME:15%之后
+		ELSE
+		忙活了好一段的时间，周围已经没有什么事情可以干了
+		因为%CALLNAME:MASTER%的卖力工作，周围的妖精女仆和哥布林们也开始摸鱼起来了
+		「最近，大小姐好像嘴里一直念叨着什么呢，好像是没听过的名字」
+		「应该是
+		ENDIF
+		; 直接飞去小露台
+		CFLAG:MASTER:現在位置 = 27
+		CFLAG:16:現在位置 = 27
+		经过了一番寻找，最后
+		来到了蕾米莉亚房间的小露台，和以前一样，蕾米莉亚总是喜欢待在这个地方
+		[SKIPEND]
+		IF TIME > 1080 && TIME < 1200
+		PRINTFORMDL	似是被夕阳的余晖浸染，娇小的身躯裹上了一层淡淡的金边，少女轻捧着盛有红茶的瓷杯
+		ELSE
+		PRINTFORMDL	静谧的夜空之下，随着清风摇曳的发丝，由皎洁的月光为其染上淡淡的幽光，少女轻捧着盛有红茶的瓷杯
+		ENDIF
+		PRINTFORMDL	少女的慵懒与优雅乃是点缀此番画卷的韵脚，然而，你的到来打破了此刻的宁静
+		PRINTFORMDL	如同一根羽毛落入这平静的湖面，少女的心境泛起了丝丝涟漪
+		PRINTFORMDL	品酌红茶的朱唇轻轻离开了杯沿，似是无奈，又似是解脱般地轻轻叹了一口气
+		SETCOLOR 0xFF0000
+		PRINTFORMW	永远鲜红的幼月——
+		PRINTFORMD	被称作
+		PRINTFORM	红魔馆之主
+		PRINTFORMDW	的少女就在这里
+		PRINTFORMDW	也是，你一直以来所挂念的少女
+		PRINTFORMDL
+		PRINTFORMW	她在等你
+		PRINTFORMDL
+		PRINTFORMDW	你停下了脚步，早已打好腹稿的言语却在此刻如鲠在喉
+		CALL FRONT_绯色之诗_AA(5)
+		PRINTFORMW	「故地重游的感觉，如何？」
+		PRINTFORMW	「终于想到要来见我了吗，%CALLNAME:MASTER%?」
+		PRINTFORMW	「我们之间，也是老相识了吧」
+		PRINTFORMW	「现在·还·敢站在我面前的你，我该怎么称呼呢？」
+		PRINTFORMW	「人类?」
+		PRINTFORMW	「擅自闯入红魔馆的不速之客？」
+		PRINTFORMW	「仆从？」
+		PRINTFORMW	「杂鱼？」
+		; 会这么说么……我想表现出那种，不把人类当回事的感觉
+		PRINTFORMW	「还是说——」
+		PRINTFORMW	「……我的骑士？」
+		PRINTFORMDW	最后一个词语落下的时候，与之相随的，是%CALLNAME:MASTER%的心跳也跟着慢了一拍
+		PRINTFORMDW	蕾米莉亚用锐利的目光紧紧盯着你这边
+		CALL ASK_M("「……」",1)
+		PRINTFORMW	「不愿意回答吗？事到如今还是不愿意承认吗？」
+		PRINTFORMW	「你也知道的吧，我是」
+		PRINTFORMW	「『操纵命运的吸血鬼』」
+		PRINTFORMW	「『命运会让我们再次相会的』」
+		PRINTFORMW	「而你……」
+		CALL FRONT_绯色之诗_AA(0)
+		PRINTFORMW	说话间，蕾米莉亚的声音逐渐哽咽起来
+		PRINTFORMW	「『玩弄我们之间感情的%CALLNAME:MASTER%』」
+		PRINTFORMW	「真的以为……我什么都不知道吗」
+		PRINTFORMW	「%CALLNAME:MASTER%是大骗子！」
+		PRINTFORMW	「一句话不说，就这样...擅自……」
+		PRINTFORMW	「就这样抛弃了我...还有我们的誓言」
+		PRINTFORMW	「我还以为，只是我自己回到了过去」
+		PRINTFORMW	「可是……%CALLNAME:MASTER%的命运，还有我的命运...仍然还...」
+		PRINTFORMW	「我们的感情……在%CALLNAME:MASTER%的心中究竟被当做了什么」
+		PRINTFORMW	「如果……」
+		PRINTFORMW	「曾经发生过的一切对%CALLNAME:MASTER%来说都不过是泡影」
+		PRINTFORMW	「那又是为何要让我如此不可救药地爱上了你啊」
+		PRINTFORMW	「我们一起在红魔馆的日子对%CALLNAME:MASTER%来说是那么毫无价值的吗」
+		PRINTFORMW	「%CALLNAME:MASTER%不是好奇嘛……」
+		PRINTFORMW	「为什么我还会记得这些…明明咲夜她们…全都忘记了」
+		PRINTFORMW	「这就是『命运』啊」
+		PRINTFORMW	「从%CALLNAME:MASTER%踏进红魔馆的那一步开始」
+		PRINTFORMW	「我就全都想起来了啊……」
+		PRINTFORMW	「包括...我们的第一次相遇」
+		PRINTFORMW	「和%CALLNAME:MASTER%相拥时的温暖，我仍然还能记得」
+		PRINTFORMW	「和%CALLNAME:MASTER%约会的每一分每一秒，我都在不断地回味」
+		PRINTFORMW	「还有...第一次向%CALLNAME:MASTER%献出我的初吻……」
+		SIF CFLAG:MASTER:現在位置 == 27
+			PRINTFORMW	「我们也是在这个地方，向命运许下守护终生的誓言」
+		PRINTFORMW	「是%CALLNAME:MASTER%，教会了我什么是喜欢...」
+		PRINTFORMW	「这一切的一切……」
+		PRINTFORMW	「如果，你决定了要全部舍弃掉的话……」
+		PRINTFORMW	「我也可以做到……就当不认识%CALLNAME:MASTER%，从来都没见过%CALLNAME:MASTER%…………」
+		PRINTFORMW	「今后，%CALLNAME:MASTER%和我，形同路人……」
+		PRINTFORMW	「可是为什么……」
+		PRINTFORMW	「为什么%CALLNAME:MASTER%又要自作主张地回到这里」
+		PRINTFORMW	「自顾自地在红魔馆扫地」
+		PRINTFORMW	「做着和以前没两样的事情……」
+		PRINTFORMW	「这不就让我……」
+		PRINTFORMDL
+		PRINTFORMW	「想要...再一次爱上你吗」
+		PRINTFORMDL
+		CALL FRONT_绯色之诗_AA(6)
+		PRINTFORMDW	随着最后一句话的说出，眼泪如同崩毁的决堤一般从蕾米莉亚的眼中流出
+		PRINTFORMDW	你这才知道，一直以来的
+		PRINTFORMDW	%CALLNAME:MASTER%
+		; PRINTFORMW	「是……」
+		; PRINTFORMW	「%CALLNAME:MASTER%吗？」
+		; SIF CFLAG:MASTER:現在位置 == 27
+		; 	PRINTFORM	緋色的月光温柔地浸洒在这块小小的露台上，这里是曾经的二人彼此许下约定的地方
+		; 	; 是异变吧！？
+		; PRINTFORMDL
+		; SETCOLOR 0xFFB6C1
+		; PRINTFORMDW	蕾米莉亚转过身来，彼此的视线于此刻相交
+		; PRINTFORMDW	这是无言的话语
+		; PRINTFORMDW	这是无需触及的相拥
+		; PRINTFORMDW	这是不带任何欲望与情绪的精神接吻
+		; CALL FRONT_绯色之诗_AA(0)
+		; PRINTFORMW	「%CALLNAME:MASTER%……」
+		; PRINTFORMW	「很熟悉的名字呢」
+		; PRINTFORMDW	「……」
+		; PRINTFORMW	「很好奇嘛？记得%CALLNAME:MASTER%的名字什么的……」
+		; PRINTFORMW	「你知道的喔——」
+		; PRINTFORMW	「我是，『操纵命运的吸血鬼』」
+		; PRINTFORMW	「而你，『玩弄我们之间感情的%CALLNAME:MASTER%』」
+		; PRINTFORMW	「真可笑啊……哈哈哈……你说对吧？%CALLNAME:MASTER%」
+		; PRINTDL
+		; CALL ASK_M("「不是这样的……」",1,"「蕾米……莉亚」",1)
+		; PRINTDL
+		; PRINTFORMW	「骗子……」
+		; PRINTFORMW	「%CALLNAME:MASTER%是大骗子！」
+		; CALL FRONT_绯色之诗_AA(3)
+		; PRINTFORMDW	蕾米莉亚深深埋着头，双手颤抖地抓紧了胸口，眼泪从脸颊滴落到手指之间
+		; PRINTFORMDW	如同是在自嘲一般地笑着……
+		; PRINTFORMW	「难道对%CALLNAME:MASTER%来说……」
+		; PRINTFORMW	「我们一起…在红魔馆的日子……」
+		; PRINTFORMW	「甚至……我们的第一次见面」
+		; PRINTFORMW	「……我们的第一次约会」
+		; PRINTFORMW	「……我们从最开始的相识到最后的相恋」
+		; PRINTFORMW	「曾经也是在这个地方……你向我许下命运的誓言」
+		; PRINTFORMW	「……这所有的一切…都不过是一场，过家家的游戏吗？哈哈……」
+		; PRINTFORMW	「你说过以后要带我去玩更多好玩的东西」
+		; PRINTFORMW	「你说过…只要有你在就永远不会让我受委屈」
+		; PRINTFORMW	「你说过……永远都不会背叛我、离开我」
+		; PRINTFORMW	「你说过…………」
+		; PRINTFORMW	「今后也会永远地和我在一起的啊……」
+		; PRINTFORMW	「难道这些，对%CALLNAME:MASTER%来说……」
+		; PRINTFORMW	「难道……」
+		; PRINTFORMW	「难道…………」
+		; PRINTFORMW	「这些全都被抛弃了吗呜哇啊啊啊啊——」
+		; PRINTFORMW	「%CALLNAME:MASTER%……」
+		; PRINTFORMW	「你告诉我啊……呜呜呜……」
+		; PRINTFORMW	「难道是因为……」
+		; PRINTFORMW	「%CALLNAME:MASTER%是人类吗……」
+	ELSE
+		PRINTFORMDL
+	ENDIF
+		[SKIPSTART]
+		究竟是哪里出了差错
+		败者食尘否定了一切，唯独遗漏了命运
+		————————————————————
+		待补充
+		————————————————————
+		轻轻地摇了摇头，将脑袋里的杂念抛开
+		就像曾经那样，轻轻地弯下了腰，如同骑士一般将手放在胸前单膝下跪
+		「今后还请多多关照，大小姐」
+		[SKIPEND]
+ELSE
+	IF MAIN_MAP == 3
+	PRINTDL
+	PRINTFORMDL	红魔馆，乃是矗立在雾之湖边上的一座红色奢华的洋馆
+	PRINTFORMDL	馆内的一切，无论是墙壁、吊灯、雕塑、还是彩色玻璃大窗户，甚至就连古朴的地板都在彰显着馆主的品味
+	PRINTFORMDL	如此硕大且奢华的洋馆平时都由号称完美女仆的%NAME:15%照料
+	PRINTFORMDL	即便这样，理应一尘不染的红魔馆不知为何总能看到有细碎的垃圾出现
+	PRINTDL
+	PRINTFORMDL	\@ CFLAG:15:18 == 1 ? 因为已经和女仆长打过了招呼， # 难以压抑内心想要打扫的冲动，\@%CALLNAME:MASTER%开始自顾自地清扫起馆内的垃圾
+	PRINTDL
+	PRINTFORML	不知从什么时候开始，总能感受到一股莫名的视线……
+	PRINTDL
+	RESETCOLOR
+	CALL ASK_YN("停下手中的工作","也许只是错觉")
+	SIF FLAG:口上色
+	CALLFORM M_KOJO_YUBE_COLOR_K16
+		IF !RESULT
+			PRINTDL
+			PRINTFORMDW	压抑着内心的不安，%CALLNAME:MASTER%停下了手中的工作
+			PRINTDL
+			PRINTFORMW	「你是新来的仆从吧？」
+			PRINTFORMW	「本以为会跟哥布林和妖精女仆一样」
+			PRINTFORMW	「不过看起来似乎还要能干一点」
+		ELSE
+			PRINTDL
+			PRINTFORMDW	决定无视这种异样的感觉，还是扫地更为重要一点
+			PRINTDL
+			PRINTFORMW	「我说啊——」
+			PRINTFORMW	「你是新来的仆从吧？」
+			PRINTFORMW	「对于人类而言，工作态度是及格了」
+			PRINTFORMW	「但是作为仆从，主人来到面前都没有反应可是相当扣分的」
+		ENDIF
+	PRINTDL
+	PRINTFORMDL	循声看去，一个身穿粉白色哥特式洋装的少女站在前方的不远处
+	PRINTFORMDL	从外表来看仅有十岁小孩大，蓝紫色的头发上顶着一个和衣服同样颜色的苞帽
+	PRINTFORMDL	绯色的眼眸、似是不经意般在嘴角露出的虎牙、暗红的巨大蝠翼在身后舒展
+	PRINTFORMDL	在红魔馆内能有如此打扮的人，你只听说过一个...
+	PRINTDW
+	PRINTFORMDW	红魔馆之主，这座洋馆的主人—— %NAME:16%
+	PRINTDL
+	PRINTFORMDW	馆内的一切，都属于面前的这位优雅而充满威严的少女
+	PRINTDL
+	PRINTFORMDW	即便是……
+	PRINTDL
+	SETCOLOR 0xFF0000
+	PRINTFORMW	你的生命
+	SIF FLAG:口上色
+	CALLFORM M_KOJO_YUBE_COLOR_K16
+	PRINTDL
+	PRINTFORMDW 恍惚之间，蕾米莉亚已然来到%CALLNAME:MASTER%的面前
+	PRINTDL
+	CALL FRONT_绯色之诗_AA(4)
+	PRINTDL
+	PRINTFORMDL	背后的蝙蝠翅膀轻轻晃动，少女微微歪了歪头看着你，似乎是察觉到你的紧张，如艺术品般精致的脸颊不经意间浮现出了淡淡的笑容
+	PRINTFORMDL	少女的身姿有如暗夜中的玫瑰，优雅而又威严
+	PRINTDW
+	PRINTFORMW	「人类...告诉我，你的名字是什么」	
+	PRINTFORMW	「嗯，%CALLNAME:MASTER%是吗……」	
+	PRINTFORMW	「很好、仆从！\@CFLAG:15:18 == 1 ? 看样子你已经跟咲夜打过招呼了 # 具体工作的事情你去问咲夜就可以了 \@」
+	PRINTDL	
+	PRINTFORMDW	看来自己的名字没有被对方记住呢...
+	PRINTDL	
+	PRINTFORMW	「那么...仆从，竖起你的耳朵听好了——」	
+	PRINTFORMW	「吾之名为 —— Remilia·Scarlet ！」	
+	PRINTFORMW	「乃是这座整个幻想乡中最伟大的洋馆的主人，同时也是幻想乡中最威严的吸血鬼！」	
+	PRINTFORMW	「……」	
+	PRINTFORMW	「啊啦~看你的表情，是在害怕吸血鬼吗？」
+	PRINTFORMW	「放心，我是不会做出随便袭击人类这种没有品味的事情的」	
+	PRINTFORMW	「不过身为我的仆从，这点基本的胆识是必修课」
+	PRINTDL
+	PRINTFORMDW	少女的笑容收敛起来，用锐利的眼神看着%CALLNAME:MASTER%
+	PRINTDL
+	PRINTFORMW	「话又说回来……」
+	PRINTFORMW	「除了咲夜外，你还是第一个被允许能在我的红魔馆里自由行动的人类呢」	
+	PRINTFORMW	「你知道为什么吗？」
+	PRINTDL
+	PRINTFORMDL	对于突然抛出的问题，虽然有点摸不着头脑，但面前的这位可是自己的雇主
+	PRINTFORMDW	还是，回答一下比较好
+	PRINTDL
+	RESETCOLOR
+	CALL ASK_M("因为工作比较认真",1,"因为看上去很强的样子",ABL:MASTER:戦闘能力>4,"因为是外界人",1,"因为自己比较特殊",FLAG:周回数>0)
+	SIF FLAG:口上色
+	CALLFORM M_KOJO_YUBE_COLOR_K16
+		SELECTCASE RESULT
+			CASE 0
+				PRINTDL
+				PRINTFORMDL
+				PRINTFORML	「」
+			CASE 1
+				PRINTDL
+				PRINTFORMDL
+				PRINTFORML	「」
+			CASE 2
+				CFLAG:16:1441 = 1
+				PRINTDL
+				PRINTFORMDL
+				PRINTFORML	「」
+			CASE 3
+				PRINTDL
+				PRINTFORMDL	说出这话的时候，其实内心就有点后悔了
+				PRINTFORMDL	要是因此被追问下去的话、感觉很容易就会暴露时间停止的能力
+				PRINTFORMDW	这是自己关键的底牌，还是好好想想怎么搪塞过去吧
+				PRINTDL
+				PRINTFORMW	「果然是这样么...」
+				PRINTFORMW	「虽然不·同·于咲夜，但看样子你也是一个拥有特殊能力的人类」
+				PRINTFORMW	「这也就能解释你身上为什么会...」
+				PRINTDL
+				PRINTFORMDL	蕾米莉亚的脸上露出了"果然如此"的表情
+				PRINTFORMDW	但是很明显，少女似乎想去了另一个方向
+				PRINTDL
+				PRINTFORMDW	"不同于咲夜" 是吗...看来时停的能力没有暴露
+				PRINTDL
+				PRINTFORMW	「怎么，一副松了一口气的表情」
+				PRINTFORMW	「看来你的身上还藏着更多的秘密没有吐出来……」
+				PRINTFORMW	「不想说吗？我有的是时间，姑且就先让你保持一下神秘感吧」
+				; PRINTFORMDL	「我对此很感兴趣...」
+		ENDSELECT
+	; PRINTFORMW	「嗯？你觉得很好奇？突然问这个问题什么的...」
+	; PRINTFORMW	「嘛、我可是掌控命运的吸血鬼」
+	; PRINTFORMW	「我能看见每一个人身上的命运，自然也包括现在站在我面前的这位新来的人类仆从」
+	; PRINTFORMW	「每个人都有从襁褓的苏生、最后到归于垂暮的这一过程」
+	; PRINTFORMW	「然而、属于你的命运...很特别」
+	; PRINTFORMW	「如果说一个人的命运是一条绳子，那么其度过一生的历程就如同一颗串在绳子上的珠子，从绳子的一端移动到另一端」
+	PRINTFORMW	「……」
+	PRINTFORMW	「怎么你反而一副很好奇的样子...想知道为什么我会这样问？」
+	PRINTFORMW	「我没理由告诉你，就如同你也有你的秘密一样」
+	PRINTDL	
+	PRINTDL		吸血鬼少女似乎在隐瞒什么
+	$追问_为什么这么问
+	CALL ASK_YN("追问下去","……")
+		IF !RESULT
+			SELECTCASE ABL:MASTER:話術技能 || ABL:MASTER:教養
+			CASE ABL:MASTER:話術技能 > 2
+				PRINTFORMDW	凭借三寸不烂之舌，成功说服了面前的这位吸血鬼少女
+			CASE ABL:MASTER:教養 > 4
+				PRINTFORMDW	凭借着平日里的日积月累，成功让面前的这位吸血鬼少女有聊下去的意愿
+			CASEELSE
+				IF FIRSTTIME("能力不够啦")
+				PRINTFORMDW	尽管很想追问，但是绞尽脑汁也没有想出能让对方开口的话术
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL		似乎吸血鬼少女并不想跟你说话呢……
+				GOTO 追问_为什么这么问
+				ELSE
+				PRINTFORMDW	再问下去的话，对方可能会不高兴了，%CALLNAME:MASTER%识趣地闭上了嘴
+				PRINTFORMDW	(当前能力不够喔~要是之前有好好练级就好了~)
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL
+				PRINTDL		似乎吸血鬼少女并不想跟你说话呢……
+				GOTO 追问_为什么这么问
+				ENDIF
+			ENDSELECT
+			PRINTDL
+			PRINTFORMW	「你还真是锲而不舍啊，好奇心这么旺盛吗？」
+			PRINTFORMW	「要我说，我们还只是第一次见面吧」
+			PRINTFORMW	「算了，就告诉你吧」
+			PRINTFORMW	「简单而言，我能看见其他人的命运」
+				SELECTCASE FLAG:周回数
+					CASE 0
+					PRINTFORMW	「但是，\@CFLAG:16:1441 == 1 ?你的命运伊始于不久之前，这是否与你是外界人有关呢…… #你的命运充满了不确定性，即便是我也不能看清属于你的命运 \@」
+					CASE 1
+					PRINTFORMW	「但是，我还是第一次见到有人能够拥有两种截然不同的命运」
+					PRINTFORMW	「其中一条分明已经走到了尽头，但是另一条却还在延续...」
+					CASE 2 
+					PRINTFORMW	「但是，你的身上竟然会有三种截然不同的命运」
+					PRINTFORMW	「即便是在幻想乡，你也是我看到的唯一一个拥有这样命运的人」
+					CASE 3 TO 5
+					PRINTFORMW	「但是，怎么会有人像你这样……好几条命运纠缠在一起……」
+					PRINTFORMW	「在幻想乡当中，你是我看到的唯一一个拥有这样命运的人」
+					CASEELSE
+					PRINTFORMW	「但是，你身上的命运也...有点太夸张了，就像一团凌乱的毛线团一样卷在一起」
+					PRINTFORMW	「简直是闻所未闻，要是被那个博丽的巫女知道一定会把你当异变处理掉的吧……」
+				ENDSELECT
+			PRINTFORMW	「……」
+			PRINTFORMW	「虽然不能理解你身上的奇怪命运，但你也算是一个有趣的观察对象」
+			PRINTFORM	「
+		ELSE
+			PRINTFORMW	
+			PRINTFORM	「总之，
+		ENDIF
+			PRINTFORMW	在我的耐心消磨完毕之前，好好侍奉我吧，仆·从」
+			PRINTFORMW	「至少可别让我无聊喔~」
+			PRINTDL	
+	ELSE
+		IF GET_MAPID(CFLAG:MASTER:300) == 3
+		PRINTFORMDL	你漫步在这座充满了独特气息的洋馆之内
+		PRINTFORMDL	深红色的砖墙以及嵌在墙上的深色彩窗让洋馆有一种莫名的压抑，\@TIME > 1080 && TIME < 1200 ?即便现在正是夕阳也要拉上窗帘，就好像是在刻意地躲避着什么…… #夜晚已至，馆内的气氛逐渐变得躁动…… \@
+		PRINTFORMDL	你不禁停下了脚步……
+		PRINTDL	
+		PRINTFORMDL	一个外表看起来只有十岁的少女正在和一个女仆打扮的人说着话,似乎是察觉到你的到来，\@CFLAG:MASTER:300 == CFLAG:15:300 ?对方鞠了个躬后就突然消失了 #对方向你轻轻地鞠了个躬\@
+		PRINTFORMDL	少女用余光瞥了你一眼，一股凉意从脊背传递到脖子上……
+		PRINTDL	
+		PRINTFORMDL	
+		PRINTFORMDL	
+		PRINTFORMDL	「」
+		PRINTFORMDL	「」
+		ELSE
+		PRINTFORMW	「啊咧、人类？还以为又是哪个妖怪呢」
+		PRINTDL
+		PRINTFORMDW	一丝稍微有点不礼貌的话语让%CALLNAME:MASTER%不禁顿足，追循着声音……
+		PRINTDL
+		PRINTFORMD	%CALLNAME:MASTER%遇见了一位有点特别的 
+		CALL YUBE_LINETHROUGH("萝莉",0)
+		PRINTFORMDW	 少女
+		PRINTDL
+		PRINTFORMDL	待在幻想乡已经有了些许时日，%CALLNAME:MASTER%见过了形形色色的人和妖怪们，本以为自己已经习惯了和不同种族的少女们相处，但眼前的这位却带给了你一种新奇的感觉
+		PRINTFORMDL	粉白的衣装，蓝紫色的发丝，头上那顶系有蝴蝶结的苞帽，以及，从背后长出来的巨大蝠翼
+		PRINTDL
+		PRINTFORMDW	灵动的眼眸轻轻跳动着，正如同你在观察着少女一样，她也在打量着你
+		PRINTDL
+		PRINTFORMDL	为何会觉得眼前的这位少女很“特别”呢……
+		PRINTDL
+		PRINTFORMDW	\@ FLAG:周回数 == 0 ?兴许是因为对方身上那种独特的气质吧 #如同细水长流般，这是一种无法触碰、虚无缥缈的感觉，或许是少女的能力？你并不清楚 \@
+		PRINTDL
+		CALL FRONT_绯色之诗_AA(7)
+		PRINTFORMDW	少女发言打断了%CALLNAME:MASTER%的思绪
+		PRINTDL
+		PRINTFORMW	「我说啊、你的身上似乎有什么秘密呢」
+			IF 命运 > 1
+			PRINTFORMW	「同时背负着{命运}条命运之人，有趣……」
+			PRINTFORMW	「这是你的能力？可你怎么看都是一个普通的人类呢」
+			PRINTFORMW	「你真的不是隐居在哪的老妖怪吗？」
+			PRINTFORMW	「不用急着说出来，“命运”还很长」
+			ELSE
+			PRINTFORMW	「命运在你身上衍生出无数的可能性，有趣」
+			PRINTFORMW	「这么看来与你的相遇也并非偶然……」
+			ENDIF
+			PRINTFORMW	「不过，没想到这次出来还有如此收获……」
+			PRINTDL
+			PRINTFORMDL	完全没有顾及你的意思，少女只是一昧自顾自地说话
+			PRINTFORMDW	少女似乎对你感兴趣起来了，只不过……你有一种成为猎物的感觉
+			PRINTDL
+			PRINTFORMW	「啊啦 自我介绍一下」
+			PRINTFORMW	「吾之名为 —— Remilia·Scarlet ！」	
+			PRINTFORMW	「乃是这座整个幻想乡中最伟大的洋馆的主人，同时也是幻想乡中最威严的吸血鬼！」	
+			PRINTFORMW	「……」
+			PRINTFORMW	「唔？看你的表情，是在害怕吸血鬼吗？」
+			PRINTFORMW	「放心，我是不会做出随便袭击人类这种没有品味的事情的」	
+			PRINTFORMW	「至少在弄清楚你的秘密之前……呵呵呵呵~」
+			PRINTDL
+			PRINTFORMDL	名为%NAME:16%的吸血鬼萝莉用小手捂着嘴巴轻笑起来
+			PRINTFORMDL	虽然从气质上来看很成熟、优雅的样子，但似乎、其实意外地有点孩子气呢
+			PRINTDL
+			PRINTFORMW	「咳咳、嗯~那么，人类，有没有兴趣为我工作啊」
+			PRINTFORMW	「也不是一定要求你来红魔馆，我也需要一个出行时的仆从、其他时间随你支配，当然了、薪水什么的不是问题」
+			PRINTFORMDL	%CALLNAME:TARGET%轻轻打了一个响指，一张报纸飞到你的手中
+			PRINTFORMDL	仔细一瞧，那正是“文文春新报”
+			PRINTFORMDL	┏━━━━━━━━━━━━━━━━━━┓
+			PRINTFORMDL	┃%" 想不想在幻想乡最潇洒的职场工作?",36,LEFT%┃
+			PRINTFORMDL	┃%"             红魔馆",36,LEFT%┃
+			PRINTFORMDL	┃%"          女仆妖精募集中",36,LEFT%┃
+			PRINTFORMDL	┃%"             <待遇>",36,LEFT%┃
+			PRINTFORMDL	┃%"        衣食住完备！ 制服报销",36,LEFT%┃
+			PRINTFORMDL	┃%"     充满威严的雇主与温柔的上司",36,LEFT%┃
+			PRINTFORMDL	┃%"        可以交到很多的朋友！",36,LEFT%┃
+			PRINTFORMDL	┃%" 薪水请与雇主面谈。有经验者优先。",36,LEFT%┃
+			PRINTFORMDL	┃%"       如家一般舒适的职场",36,LEFT%┃
+			PRINTFORMDL	┃%"           充满笑颜的",36,LEFT%┃
+			PRINTFORMDL	┃%"           快乐每一天",36,LEFT%┃
+			PRINTFORMDL	┗━━━━━━━━━━━━━━━━━━┛
+			PRINTFORMDW	
+			PRINTFORMDL	「……」
+			PRINTFORMDL	有点微妙呢……
+			PRINTFORMDW	听起来怎么都不像是会吃亏的买卖
+			PRINTDL
+			PRINTFORMW	「那个天狗的报纸某种程度上说倒是省下要我说明的功夫，如何？有没有意愿？」
+			PRINTDL
+			PRINTFORMW	嗯……该怎么选择呢
+			CALL ASK_YN("同意","拒绝")
+			PRINTDL
+			IF !RESULT
+			PRINTFORML	听到你给出了肯定的答复后，少女也是满意地点了点头
+			CALL CHANGE_CFLAG(2, 16, +50)
+			CALL CHANGE_CFLAG(4, 16, +10)
+			PRINTDL
+			PRINTFORMW	「很上道嘛、人类，我就知道你不会拒绝的」
+			PRINTFORMW	「今后你就作为仆从好好服侍我吧，只要别让我感到无聊就行」
+			PRINTDL
+			PRINTFORML	(还以为要用上那个呢……)
+			PRINTFORMDW	你听到%CALLNAME:TARGET%小声嘀咕了一下，似乎把什么东西收起来了
+			CALL CHANGE_CFLAG(2, 16, +10)
+			PRINTDL
+			ELSE
+			PRINTFORML	听到你给出了否定的答复后，少女并没有太意外
+			PRINTFORML	反倒是……意料之内？
+			PRINTDL
+			PRINTFORMW	「选择拒绝吗？哼，没关系、我会让你改口的」
+			PRINTDL
+			PRINTFORMDL	%CALLNAME:TARGET%拿出一袋子筹码摆在%CALLNAME:MASTER%面前
+			PRINTFORMDL	里面竟然有整整100枚筹码！
+			PRINTFORMDL	对等同于白给的钱视若无睹简直是对灵魂的亵渎！
+			PRINTDL
+			PRINTFORMW	「怎么样？做出你的选择吧」
+			PRINTFORMDL	少女戏谑地看着你
+			PRINTDL
+			PRINTFORMDL	看着面前的巨款，你不禁咽了一口唾沫
+			PRINTDL
+			PRINTFORML	[0] 同意
+			PRINTFORM	[1] 
+			CALL YUBE_LINETHROUGH("拒绝",0)
+			PRINTFORML	主要是她给得实在是太多了
+			MONEY:2 += 100
+			PRINTDW
+			PRINTFORMW	「很好，契约成立——」
+			PRINTFORMW	「今后你就作为仆从好好服侍我吧，只要别让我感到无聊就行」
+			ENDIF
+		PRINTFORMW	「既然是仆从的话，」
+		ENDIF
+	ENDIF
+ENDIF
+RETURN 1
+
+; 吸血鬼
+@初遇_吸血鬼差分
+SIF FLAG:口上色
+	CALL M_KOJO_YUBE_COLOR_K16
+IF MAIN_MAP == 3
+	IF	GETBIT	(CFLAG:31,	0) || GETBIT	(CFLAG:31,	1)
+		PRINTFORMDL	
+		[SKIPSTART]
+		
+		[SKIPEND]
+	ELSE
+		; 暂定吸血鬼只有二周目的差分
+		; 不对，这应该，算是三周目了
+		PRINTFORMDL
+	ENDIF
+ENDIF
+RETURN 1

@@ -1,4 +1,4 @@
-﻿@YUBE_LINETHROUGH(ARGS,ARG)
+﻿@YUBE_LINETHROUGH(ARGS,ARG,ARG:1)
 FONTSTYLE 4
 SELECTCASE ARG
 CASE 0
@@ -86,3 +86,361 @@ ELSEIF ARG:0 == 2
 	CLEARLINE 1
 	CALL COLORMESSAGE(@"%ARGS%", 0x696969, 1)
 ENDIF
+
+@YUBERAINBOW2(ARGS:0, ARG:0, ARGS:1, ARGS:2, ARG:1 = 100, ARG:2, ARGS:3)
+#LOCALSIZE 3
+#LOCALSSIZE 2
+ARG:2 = INRANGE(ARG:2, 0, 5) ? ARG:2 # 0
+; 检查是否再0~5范围内，否则归零
+LOCAL:1 = CURRENTREDRAW()
+; 保存当前重绘状态
+LOCAL:2 = STRLENSU(ARGS:1)
+; 计算并储存字符串长度
+LOCALS:0 = %GETFONT()%
+; 获取当前字体
+LOCALS:1 =
+; 不知所云，感觉能删
+ARGS:3 = \@ CHKFONT(ARGS:3) ? %ARGS:3% # %LOCALS:1% \@
+; 检查指定ARGS:3的字体是否可用，否则用LOCALS:1的字体
+IF !LINEISEMPTY()	;若当前行非空
+	REDRAW 0	;停止重绘
+	PRINTL 
+	LOCALS:1 = %HTML_TOPLAINTEXT(HTML_GETPRINTEDSTR())%
+	; 获取当前行已打印文本并转为纯文本、存储
+	CLEARLINE 1
+	PRINTS LOCALS:1
+	; 清楚当前行后再打印出来
+	REDRAW LOCAL:1
+	; 恢复之前的重绘状态
+ENDIF
+;スクロール可(スクロールしないけど…まぁ、動いて見えるので)
+IF ANIME_CONFIG("SCROLLTEXT")	;如果动画配置允许滚动文本
+	FOR LOCAL:0, 0, ARG:0 - 1	;进行ARGS:0次循环
+		SETFONT ARGS:3	;设置字体
+		IF INRANGE(ARG:2, 0, 1)	;若在0~1之间
+			PRINTS ARGS:1
+			CALL _PRINT_RAINBOW_SUB1(ARGS:0, LOCAL:0, ARG:2) ;调用 _PRINT_RAINBOW_SUB1 函数处理 ARGS:0 字符串，实现彩虹色动画效果
+			PRINTS ARGS:2
+		ELSE
+			CALL _PRINT_RAINBOW_SUB1(ARGS:1, LOCAL:0, INRANGE(ARG:2, 4, 5))	;调用 _PRINT_RAINBOW_SUB1 函数处理 ARGS:1 字符串
+			PRINTS ARGS:0
+			CALL _PRINT_RAINBOW_SUB1(ARGS:2, GROUPMATCH(ARG:2, 2, 5) ? LOCAL:0 + LOCAL:2 # 12 - LOCAL:2 - LOCAL:0, GROUPMATCH(ARG:2, 3, 5))	;调用 _PRINT_RAINBOW_SUB1 函数处理 ARGS:2 字符串
+		ENDIF
+		TWAIT ARG:1, 0	;等待若干毫秒
+		CLEARLINE 1
+		SETFONT LOCALS:0	;清楚当前行后恢复默认字体
+		PRINTS LOCALS:1	;重新打印保存的纯文本
+	NEXT
+ENDIF
+SETFONT ARGS:3	;设置字体
+IF INRANGE(ARG:2, 0, 1)	;决定对两边字符串上色还是中间
+	PRINTS ARGS:1
+	CALL _PRINT_RAINBOW_SUB1(ARGS:0, LOCAL:0, ARG:2)
+	PRINTS ARGS:2
+ELSE
+	CALL _PRINT_RAINBOW_SUB1(ARGS:1, LOCAL:0, INRANGE(ARG:2, 4, 5))
+	PRINTS ARGS:0
+	CALL _PRINT_RAINBOW_SUB1(ARGS:2, GROUPMATCH(ARG:2, 2, 5) ? LOCAL:0 + LOCAL:2 # 12 - LOCAL:2 - LOCAL:0, GROUPMATCH(ARG:2, 3, 5))
+ENDIF
+SETFONT LOCALS:0
+RETURN RESULT
+
+@YUBERAINBOW2L(ARGS:0, ARG:0, ARGS:1, ARGS:2, ARG:1 = 100, ARG:2)
+CALL PRINT_RAINBOW2(ARGS:0, ARG:0, ARGS:1, ARGS:2, ARG:1, ARG:2)
+PRINTL 
+RETURN RESULT
+
+@YUBERAINBOW2W(ARGS:0, ARG:0, ARGS:1, ARGS:2, ARG:1 = 100, ARG:2)
+CALL PRINT_RAINBOW2(ARGS:0, ARG:0, ARGS:1, ARGS:2, ARG:1, ARG:2)
+WAIT
+RETURN RESULT
+
+@YUBE_RAINBOW_SUB1(ARGS:0, ARG:0, ARG:1) ;三个参数：字符串、偏移量（彩虹色起始位置）、方向
+#LOCALSIZE 3	;这是声明三个LOCAL局部数值变量
+LOCAL:0 = GETCOLOR()		;存储色号
+LOCAL:1 = STRLENSU(ARGS:0)	;计算目标字符串的字符数
+FOR LOCAL:2, 0, LOCAL:1	;初始化循环变量
+	;计算当前字符的彩虹色索引（正序模式）% 12 确保索引在 0-11 范围内（对应 12 种彩虹色，如 0 = 红，1 = 橙红，2 = 橙，…，11 = 紫）
+	SETCOLOR GET_RAINBOW(ARG:1 ? 11 - (LOCAL:2 + ARG:0) % 12 # (LOCAL:2 + ARG:0) % 12)	;返回对应索引的 RGB 颜色值
+	; 布尔型：真为紫→红 假为红→紫
+	PRINTS CHARATU(ARGS:0, LOCAL:2)	;从目标字符串中提取第 LOCAL:2 个字符
+NEXT
+SETCOLOR LOCAL:0	;恢复调用函数前的原始文字颜色
+RETURN RESULT
+
+
+
+;-------------------------------------------------
+;日付エフェクトの表示フロー
+;-------------------------------------------------
+@YUBE_DAY_EFFECT
+REDRAW 0
+; SETFONT "ＭＳ 明朝"
+; FONTSTYLE 3
+;昼夜のエフェクト（右クリックでも描画するため、ぱにめーしょんを迂回して設定参照）
+; IF !GETBIT(GLOBAL, 52)
+; 	IF TIME
+; 		SETBGCOLOR 0, 0, 30
+; 	ELSE
+; 		SETBGCOLOR 20, 10, 0
+; 	ENDIF
+; ENDIF
+CALL YUBE_FULLCUTIN2(0, 0, @"%YUBE_TOKANJI(DAY)%日目――","　","　",@"　　　　　　　　――月白的测试。")
+; FONTSTYLE 0
+; SETFONT "ＭＳ ゴシック"
+REDRAW 1
+RETURN RESULT
+
+
+;-------------------------------------------------
+;全画面カットイン関数@YUBE_FULLCUTIN
+;	引数0：左端からのインデント
+;	引数1：床から浮かせる行数（表示文字列と合わせて30を超えないでください）
+;	文字列引数0～29：表示する文字列
+;
+;空行で画面を掃除して、全画面分のカットインを表示します
+;行揃えやフォントなどのオプションはまだほとんど設定していません。アイデアだけとりあえず。
+;-------------------------------------------------
+@YUBE_FULLCUTIN(ARG, ARG:1, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:2 = 8)
+#LOCALSIZE 1
+	FOR LOCAL, 0, 30
+		IF ARGS:LOCAL == "VOID"
+			IF ARG:1 > 0
+				ARGS:LOCAL =  
+				ARG:1--
+			ENDIF
+		ELSE
+			ARGS:LOCAL = %" "*ARG+ARGS:LOCAL%
+		ENDIF
+	NEXT
+	CALL SAVELINE
+	FOR LOCAL, 0, 150
+		PRINTL 
+	NEXT
+	CALL SOMETHING_AATEST
+	CALL FADEIN(ARG:2, ARGS, ARGS:1, ARGS:2, ARGS:3, ARGS:4, ARGS:5, ARGS:6, ARGS:7, ARGS:8, ARGS:9, ARGS:10, ARGS:11, ARGS:12, ARGS:13, ARGS:14, ARGS:15, ARGS:16, ARGS:17, ARGS:18, ARGS:19, ARGS:20, ARGS:21, ARGS:22, ARGS:23, ARGS:24, ARGS:25, ARGS:26, ARGS:27, ARGS:28, ARGS:29)
+	WAIT
+	CALL RETURNLINE
+RETURN RESULT
+
+;-------------------------------------------------
+;全画面カットイン関数@YUBE_FULLCUTIN2
+;	フェードイン・アウト等が従来より速いだけです
+;-------------------------------------------------
+@YUBE_FULLCUTIN2(ARG, ARG:1, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:2 = 4)
+#LOCALSIZE 1
+CALL YUBE_FULLCUTIN(ARG, ARG:1, ARGS, ARGS:1, ARGS:2, ARGS:3, ARGS:4, ARGS:5, ARGS:6, ARGS:7, ARGS:8, ARGS:9, ARGS:10, ARGS:11, ARGS:12, ARGS:13, ARGS:14, ARGS:15, ARGS:16, ARGS:17, ARGS:18, ARGS:19, ARGS:20, ARGS:21, ARGS:22, ARGS:23, ARGS:24, ARGS:25, ARGS:26, ARGS:27, ARGS:28, ARGS:29, ARG:2)
+RETURN RESULT
+
+
+;-------------------------------------------------
+;数値→漢数字変換関数@YUBE_TOKANJI
+;TOSTR関数チックに、引数の数値を漢数字の文字列で返します
+;変数の最大値は約922京であるため、一、万、億、兆、京の5回処理します
+;-------------------------------------------------
+@YUBE_TOKANJI(ARG)
+#FUNCTIONS
+#LOCALSIZE 1
+#LOCALSSIZE 1
+#DIM LCOUNT, 1
+VARSET LOCALS
+FOR LCOUNT, 0, 5
+	LOCAL = ARG/POWER(10000, (4-LCOUNT))
+	ARG %= POWER(10000, (4-LCOUNT))
+	IF LOCAL
+		LOCALS += YUBE_TOKANJIT(LOCAL)
+		SELECTCASE LCOUNT
+			CASE 0
+				LOCALS += "京"
+			CASE 1
+				LOCALS += "兆"
+			CASE 2
+				LOCALS += "億"
+			CASE 3
+				LOCALS += "万"
+		ENDSELECT
+	ENDIF
+NEXT
+RETURNF \@ LOCALS != "" ? %LOCALS% # 零 \@
+
+;内部用or簡易用
+;四桁以内の漢字変換。万以上与えるとバグ
+@YUBE_TOKANJIT(ARG)
+#FUNCTIONS
+SIF ARG >= 10000
+	RETURNF "ばぐ"
+LOCALS = \@ ARG/1000 ? %YUBE_TOKANJIS(ARG/1000, 1)%千 # \@
+ARG %= 1000
+LOCALS += \@ ARG/100 ? %YUBE_TOKANJIS(ARG/100, 1)%百 # \@
+ARG %= 100
+LOCALS += \@ ARG/10 ? %YUBE_TOKANJIS(ARG/10, 1)%十 # \@
+ARG %= 10
+RETURNF LOCALS + YUBE_TOKANJIS(ARG)
+
+
+;一桁の変換。引数1を真にすると一を省略する。2以上にすると零を表示する
+@YUBE_TOKANJIS(ARG, ARG:1)
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 0
+		RETURNF \@ ARG:1 > 1 ? 零 #  \@
+	CASE 1
+		RETURNF \@ ARG:1 ?  # 一 \@
+	CASE 2
+		RETURNF "二"
+	CASE 3
+		RETURNF "三"
+	CASE 4
+		RETURNF "四"
+	CASE 5
+		RETURNF "五"
+	CASE 6
+		RETURNF "六"
+	CASE 7
+		RETURNF "七"
+	CASE 8
+		RETURNF "八"
+	CASE 9
+		RETURNF "九"
+	CASE 10
+		RETURNF "十"
+	CASEELSE
+		RETURNF "ばぐ"
+ENDSELECT
+
+;-------------------------------------------------
+;フェードアウト関数@YUBE_FADEOUT
+;	引数0：コマ数。多くするほどゆるやかになります。デフォルトは8
+;	文字列引数0～29：表示する文字列（空行はスペースで。省略すると無視します）
+;	引数3：FULLCUTIN用。正にすると開幕行削除から入ります
+;
+;引数で与えた文字列を表示し、背景色にフェードアウトします。
+;見えなくなるだけで消えないので、必要ならCLEARLINEで消してください。
+;文字列は30行まで引き受けることができます
+;-------------------------------------------------
+@YUBE_FADEOUT(ARG = 8, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:3)
+CALL YUBE_FADE(ARG, GETCOLOR(), GETBGCOLOR(), ARGS, ARGS:1, ARGS:2, ARGS:3, ARGS:4, ARGS:5, ARGS:6, ARGS:7, ARGS:8, ARGS:9, ARGS:10, ARGS:11, ARGS:12, ARGS:13, ARGS:14, ARGS:15, ARGS:16, ARGS:17, ARGS:18, ARGS:19, ARGS:20, ARGS:21, ARGS:22, ARGS:23, ARGS:24, ARGS:25, ARGS:26, ARGS:27, ARGS:28, ARGS:29, ARG:3)
+RETURN RESULT
+
+
+;-------------------------------------------------
+;フェードイン関数@YUBE_FADEIN
+;	引数0：コマ数。多くするほどゆるやかになります。デフォルトは8
+;	文字列引数0～29：表示する文字列（空行はスペースで。省略すると無視します）
+;
+;引数で与えた文字列を、背景色からフェードイン表示します。
+;色を変えたい場合は事前にSETCOLORするか、@YUBE_FADEを直接呼んでください
+;文字列は30行まで引き受けることができます
+;-------------------------------------------------
+@YUBE_FADEIN(ARG = 8, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID")
+CALL YUBE_FADE(ARG, GETBGCOLOR(), GETCOLOR(), ARGS, ARGS:1, ARGS:2, ARGS:3, ARGS:4, ARGS:5, ARGS:6, ARGS:7, ARGS:8, ARGS:9, ARGS:10, ARGS:11, ARGS:12, ARGS:13, ARGS:14, ARGS:15, ARGS:16, ARGS:17, ARGS:18, ARGS:19, ARGS:20, ARGS:21, ARGS:22, ARGS:23, ARGS:24, ARGS:25, ARGS:26, ARGS:27, ARGS:28, ARGS:29)
+RETURN RESULT
+
+
+;-------------------------------------------------
+;フェード処理関数@YUBE_FADE
+;	引数0：コマ数。多くするほどゆるやかになります。デフォルトは8。大きくしすぎるとおかしくなります
+;	引数1：初期文字色
+;	引数2：変化する文字色
+;	文字列引数0～29：表示する文字列（空行はスペースで。省略すると無視します）
+;	引数3：FULLCUTIN用。正にすると開幕行削除から入ります
+;
+;フェードアウト・フェードインの処理をします。内部関数ですが、呼び出しも可能です
+;-------------------------------------------------
+@YUBE_FADE(ARG = 8, ARG:1 , ARG:2, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:3)
+#LOCALSIZE 3
+#DIM PRICOLOR,1
+#DIM RED,2
+#DIM GREEN,2
+#DIM BLUE,2
+VARSET RED
+VARSET GREEN
+VARSET BLUE
+
+;元の文字色の取得
+PRICOLOR = GETCOLOR()
+
+;表示オン
+IF ANIME_CONFIG("YUBE_FADE")
+	;一部環境でフェード処理がうまくいかないようなので対策@revkoishi(14/05/28)
+	LOCAL:2 = CURRENTREDRAW()
+	REDRAW 0
+	
+	;初期色
+	SETCOLOR ARG:1
+
+	;RGBそれぞれのベース値、減少値を各色:0と1に代入
+	RED = GETRED()
+	IF RED > GETRED(ARG:2)
+		RED:1 = MAX(1, (RED-GETRED(ARG:2))/ARG)
+	ELSEIF RED < GETRED(ARG:2)
+		RED:1 = MIN(-1, (RED-GETRED(ARG:2))/ARG)
+	ENDIF
+	GREEN = GETGREEN()
+	IF GREEN > GETGREEN(ARG:2)
+		GREEN:1 = MAX(1, (GREEN-GETGREEN(ARG:2))/ARG)
+	ELSEIF GREEN < GETGREEN(ARG:2)
+		GREEN:1 = MIN(-1, (GREEN-GETGREEN(ARG:2))/ARG)
+	ENDIF
+	BLUE = GETBLUE()
+	IF BLUE > GETBLUE(ARG:2)
+		BLUE:1 = MAX(1, (BLUE-GETBLUE(ARG:2))/ARG)
+	ELSEIF BLUE < GETBLUE(ARG:2)
+		BLUE:1 = MIN(-1, (BLUE-GETBLUE(ARG:2))/ARG)
+	ENDIF
+
+	IF !ARG:3
+		FOR LOCAL, 0, 30
+			SIF ARGS:LOCAL != "VOID"
+				PRINTSL ARGS:LOCAL
+		NEXT
+		TWAIT 100 , 0
+	ENDIF
+	CLEARLINE 30-MATCH(ARGS, "VOID")
+
+	FOR LOCAL:1, 0, ARG
+		RED = MAX(0, RED-RED:1)
+		GREEN = MAX(0, GREEN-GREEN:1)
+		BLUE = MAX(0, BLUE-BLUE:1)
+		SETCOLOR RED, GREEN, BLUE
+		FOR LOCAL, 0, 30
+			SIF ARGS:LOCAL != "VOID"
+				PRINTSL ARGS:LOCAL
+		NEXT
+		TWAIT 100 , 0
+		CLEARLINE 30-MATCH(ARGS, "VOID")
+	NEXT
+	SETCOLOR ARG:2
+	FOR LOCAL, 0, 30
+		SIF ARGS:LOCAL != "VOID"
+			PRINTSL ARGS:LOCAL
+	NEXT
+	
+	REDRAW LOCAL:2
+;表示オフ
+ELSE
+	;終了色が背景色と同じ場合、初期色で表示。そうでなければ終了色で表示
+	SETCOLOR GETBGCOLOR() == ARG:2 ? ARG:1 # ARG:2
+	FOR LOCAL, 0, 30
+		IF ARGS:LOCAL != "VOID"
+			PRINTSL ARGS:LOCAL
+		ENDIF
+	NEXT
+ENDIF
+SETCOLOR PRICOLOR
+RETURN RESULT
+
+@YUBE_LESSBASECHECK(ARG,ARG:1 = 0,ARG:2 = 30)
+; 三个参数
+; 第一个是人物编号
+; 第二个是百分比阈值，低于这个阈值将会返回0
+; 默认对比体力，阈值为30（即30%）
+#FUNCTION
+LOCAL = 100 * BASE:ARG:(ARG:1) / MAXBASE:ARG:(ARG:1)
+SIF LOCAL < ARG:2
+	RETURNF 1
+RETURNF 0
+
+
+
+

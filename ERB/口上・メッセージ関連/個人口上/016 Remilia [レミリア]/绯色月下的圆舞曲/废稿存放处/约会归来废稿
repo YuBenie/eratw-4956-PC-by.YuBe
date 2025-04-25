@@ -1,0 +1,118 @@
+PRINTFORML  
+	PRINTFORMDL	银色的圆月挂在澄澈的夜空之上，清冷的月光为你们铺出一条归宅的道路
+	PRINTFORMDW	你牵着少女的手，柔软的触感让你不舍得松开，所幸的是，幼小的吸血鬼似乎很乐意让你这么做
+	PRINTFORML
+	PRINTFORMW	「我累啦、果然还是人少一点的地方才适合我。不过嘛...和%CALLNAME:MASTER%一起出来倒是挺快乐的 」
+	PRINTFORML
+	PRINTFORMW	「像这样偶尔出来一会儿的感觉还挺不错、再这样陪我一会儿吧，%CALLNAME: MASTER%」
+	PRINTFORML
+	PRINTFORMDL	蕾米莉亚慢慢停了下来，牵着你的手也慢慢松开了，她抬起头，注视着挂在你们二人头顶的那轮圆月
+	PRINTFORMDW	你也跟着停了下来，目光顺着她的视线，停留在了那颗在空旷的夜幕中显得有那么一点孤寂的天体
+	PRINTFORML
+	PRINTFORMW	月色很美，只惜无人有赏月之意
+	PRINTFORML
+	PRINTFORMW	「你可以自豪一下的哦，%CALLNAME: MASTER%，你是这些年来唯一一个能让我有这种感觉的人类」
+	PRINTFORML
+	PRINTFORMW	「“一副很成熟的样子……” 哈、%CALLNAME: MASTER%倒是摆出一副很懂的样子嘛，在我眼中你只是个小朋友而已哦」
+	PRINTFORML
+	CALL ASK_YN("真的？")
+	PRINTFORML
+	PRINTFORML	「真的哟，在我眼中你才是一个小鬼，不过嘛……」
+	PRINTFORML
+	PRINTFORMW	少女的声音低了下去
+	PRINTFORML
+	PRINTFORMW	「如果是%CALLNAME: MASTER%的话……」
+	PRINTFORML
+	PRINTFORMW	「呐、%CALLNAME: MASTER%……」
+	PRINTFORML
+	PRINTFORMW	回过头去，唯见蕾米莉亚那绯色的眼眸在注视着自己
+	PRINTFORMW	恰逢此刻，飘来的浮云遮挡住了明月的清辉
+	PRINTFORMW	少女此时脸上究竟是什么样的表情，双眸底下究竟蕴含了怎样的感情，你无从得知
+	PRINTFORML
+	PRINTFORMW	「……你愿意接受一个活了500年少女的故事吗？」
+	PRINTFORML
+	CALL ASK_YN("……","……我")
+	PRINTFORML
+	PRINTFORMDW	突如其来如同告白般的话语让%CALLNAME: MASTER%的大脑宕机了一下
+	PRINTFORML
+	PRINTFORMW	「我不想现在就听到答案、现在」
+	PRINTFORMDW	少女这么说着打断了你的话，她踮起脚、轻轻抓住你的衣领将你拉了过去，冰凉而柔软的小手环上了你的脖子
+	PRINTFORML
+	PRINTFORMW	那一瞬间，她夺取了你的\@ TALENT:MASTER:無接吻経験?初吻 #嘴唇\@
+	PRINTFORML
+	PRINTFORMW	「唔~~啾~♥」
+	PRINTFORML
+	PRINTFORMW	不知是因为突如其来的接吻让你的大脑一片空白，还是因为别的原因，从你的嘴唇上忽然传来一股酥麻的感觉，身体也不由自主地瘫软下来
+	PRINTFORMW	蕾米莉亚细细品味着你的嘴唇，伴随着光滑而柔软的小舌头不由分说地侵入你的口腔，更加强烈的刺激让你身体上的脱力感愈发严重
+	PRINTFORMW	陷入无法反抗的你任由蕾米莉亚的小舌头与你的舌头交缠在一起
+	PRINTFORMW	在你失去身体的平衡、难以支撑着二人的体重向地上倒去的前一刻
+	PRINTFORMW	蕾米莉亚抽出了自己的舌头，从你的口中拉出一条细长而透明的银丝，完成了这足以夺人心魄的一吻
+	PRINTFORMDL
+	PRINTFORMDL	失去平衡的你和蕾米莉亚一同跌倒在地上
+	PRINTFORMDL	少女的体重压在你的身上，很轻、但是你却没有起身的力气
+	PRINTFORML
+	PRINTFORMW	「哈……哈~如何、这是只属于我的——『吸血鬼之吻』」
+	PRINTFORMW	「因为、这是我的第一次、我也不知道该怎么做...所以下意识地用上了本能了……」
+	PRINTFORMW	「差一点……就要忍不住对%CALLNAME:MASTER%的食欲了」
+	PRINTFORML
+	PRINTFORML	蕾米莉亚跨坐在你的腰上，双手扶着你的肩膀，脸颊之间的距离连一尺不到。尽管你们的姿势有点暧昧，但是在这种气氛的影响之下……
+	PRINTFORML	你感觉到少女看向你的眼神逐渐变得危险起来，成为猎物的危机感萦绕在你的身侧
+	PRINTFORML 
+	PRINTFORMW	「好像、还没有尝过、%CALLNAME:MASTER%的味道呢……」	
+	PRINTFORMW	「只是一点的话……没关系的吧」
+	PRINTFORMW	「%CALLNAME:MASTER%不会拒绝我的请求的、对吧？」
+	PRINTFORMW	「%CALLNAME:MASTER%露出了很可爱的表情呢，对喔，现在的你应该没有反抗的力气呢」
+	PRINTFORMW	「我来帮你清醒起来吧~」
+	PRINTFORML
+	PRINTFORMW	在你惊恐的眼神中，你看见蕾米莉亚再一次吻上你的嘴
+	PRINTFORML
+	PRINTFORMW	————好痛！
+	PRINTFORML
+	PRINTFORMW	少女的利齿刺破了你的嘴唇，你能明显地感觉到鲜血从伤口中被吮吸进入蕾米莉亚的口中
+	PRINTFORMW	直到此时此刻，你才真正、清晰地意识到面前的少女是一个货真价实的吸血鬼
+	PRINTFORML	
+	PRINTFORMW	感受着生命的流失，你觉得麻痹感逐渐消退，身体的控制权再一次回到自己的身上
+	PRINTFORML
+	PRINTFORMDL	这一切只发生在一瞬
+	PRINTFORML
+	PRINTFORML	少女放开了你的唇，长长的虎牙上还沾有属于你的血液
+	PRINTFORMW	蕾米莉亚用带有丝丝凉意的手指轻轻擦去流淌在你嘴角的血液，放进口中慢慢品味着
+	PRINTFORML
+	PRINTFORMW	「谢谢款待——%CALLNAME:MASTER%」
+	PRINTFORMW	「好像有点做太过分了... 在%CALLNAME:MASTER%的面前总是忍不住做一些过分的事情呢...」
+	PRINTFORML
+	PRINTFORMW	浮云散去，明月再度洒下辉洁
+	PRINTFORML
+	PRINTFORMW	在月光下，你终于看清了少女的面容
+	PRINTFORML
+	PRINTFORMW	红红的脸颊是少女此时情绪的完美体现
+	PRINTFORMW	蕾米莉亚从你的身上站起来，转过身去掩饰着害羞的表情
+	PRINTFORMW	冷静下来的少女意识到刚刚发生的事情，满腔的情绪此刻通通转化为了难以压抑的羞耻心
+	PRINTFORML
+	PRINTFORMW	「该、该回去啦！」
+	PRINTFORMW	「再不跟上来的话、我……我就不等你了喔！」
+	PRINTFORML
+	PRINTFORMDL	少女掸了掸衣服上的灰尘，头也不回地走开了
+	PRINTFORMDW	只不过，零星的碎步和一直不安分的翅膀暴露了她的心情
+	PRINTFORML
+	PRINTFORMDL	你从地上站了起来，用手轻轻碰了一下刚才被咬了的地方
+	PRINTFORMDL	不知何时，伤口已经愈合了
+	PRINTFORMDW	整理了一下衣服，你追上了闷头向前走的少女
+	PRINTFORML
+	IF TALENT:MASTER:態度 == -1
+	CALL ASK_YN("打趣一下")
+	PRINTFORML
+	PRINTFORMDL	“关于活了500年少女的故事——”
+	PRINTFORML
+	PRINTFORMW	「噫——！」
+	PRINTFORML
+	PRINTFORMW	蕾米莉亚发出了可爱的声音、小碎步走得更快了
+	PRINTFORML
+	ENDIF
+	PRINTFORMW	一路上，少女都不敢向你对视
+	PRINTFORML
+	PRINTFORML	——已获得了[接吻]的许可
+	PRINTFORML	——已开放了[吸血]的指令
+	PRINTFORML
+	PRINTFORMW	「以后、还想接吻的话……我不会拒绝的喔，毕竟还挺舒服的嘛……」
+	PRINTFORMW	「下次，我会用更温柔一点的方式啦、想要的话、带我去做更多有趣的事情吧」
