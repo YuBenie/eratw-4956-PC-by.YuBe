@@ -414,7 +414,7 @@ IF LOCAL
 				PRINTFORMDW 实际上、脑子里想的全都是与%CALLNAME:MASTER%媾和的事
 				PRINTFORMW （%CALLNAME:MASTER%快点来侵犯我♥）
 			CASE 10
-				IF CFLAG:生理周期 == (1 || 2) 
+				IF GROUPMATCH(CFLAG:生理周期 ,1 ,2) 
 					PRINTFORML 「今天是、我的安全日哦……♥」
 					PRINTFORMW 「中出的话、也没有关系♥」
 					PRINTFORMDW 蛮奇踮着脚尖，在你耳边淫语着
@@ -646,7 +646,7 @@ IF LOCAL
 					PRINTFORMW 「大概是那个神明的缘故？说起来、那个市场今晚又要开放了吧」
 				ENDIF
 			;雾
-			ELSEIF GETBIT(DAY:5, 2) && ONCE("雾")
+			ELSEIF GETBIT(TIME:5, 2) && ONCE("雾")
 				SELECTCASE RAND:3
 				CASE 2
 					PRINTFORMW 「雾蒙蒙的天，我很喜欢哦」
@@ -661,7 +661,7 @@ IF LOCAL
 					PRINTFORMDW 远处的景象被雾笼罩了
 				ENDSELECT
 			;冰雹
-			ELSEIF DAY:5 == 13 && ONCE("冰雹") 
+			ELSEIF TIME:5 == 13 && ONCE("冰雹") 
 				IF OUTROOF(CFLAG:現在位置)
 					PRINTFORMW 「唉呀……没想到会下冰雹啊」
 					PRINTFORMW 「赶紧找个位置躲起来吧」
@@ -672,7 +672,7 @@ IF LOCAL
 					PRINTFORMW 「现在出去的话说不定会受伤吧」
 				ENDIF
 			;雪
-			ELSEIF GETBIT(DAY:5, 3) && ONCE("雪") 
+			ELSEIF GETBIT(TIME:5, 3) && ONCE("雪") 
 				IF INROOM(CFLAG:TARGET:現在位置)
 					SELECTCASE RAND:2
 					CASE 0
@@ -696,7 +696,7 @@ IF LOCAL
 					ENDSELECT
 				ENDIF 
 			;雨
-			ELSEIF GETBIT(DAY:5, 2) && ONCE("雨") 
+			ELSEIF GETBIT(TIME:5, 2) && ONCE("雨") 
 				SELECTCASE DAY:2
 				CASE 1
 					IF TEQUIP:共用雨伞
@@ -1149,8 +1149,8 @@ IF LOCAL
 						PRINTFORMDW 蛮奇轻轻指了一个方向 
 					ENDSELECT
 				ENDIF
-			ELSEIF DAY:5 >= 4 && ONCE("天气对话")
-				SELECTCASE DAY:5
+			ELSEIF TIME:5 >= 4 && ONCE("天气对话")
+				SELECTCASE TIME:5
 				CASE 4 TO 6 
 					PRINTFORML 「下雨真好啊……」
 					PRINTFORMW 「滴滴答答的声音，让人感觉很舒心……」
@@ -1383,8 +1383,8 @@ IF LOCAL
 						PRINTFORMW 「毕竟我也不太擅长约会的活动……什么的」
 					ENDSELECT
 				ENDIF
-			ELSEIF DAY:5 >= 4 && ONCE("天气对话")
-				SELECTCASE DAY:5
+			ELSEIF TIME:5 >= 4 && ONCE("天气对话")
+				SELECTCASE TIME:5
 				CASE 4 TO 6 
 					PRINTFORML 「下雨真好啊……」
 					PRINTFORMW 「滴滴答答的声音，感觉很舒心……」
@@ -5449,7 +5449,7 @@ IF LOCAL
 			ELSE 
 				SELECTCASE RAND:3
 				CASE 2
-					PRINTFORMW 「真是粘人啊……」
+					PRINTFORMW 「真是黏人啊……」
 					PRINTFORMDW 被这么嫌弃的说后还是蹭到了饭
 				CASE 1
 					PRINTFORMW 「可不准说不好吃哦」
@@ -8144,7 +8144,7 @@ IF LOCAL
 		PRINTFORMDW …… 
 		PRINTFORMDW …
 		PRINTFORMDW 身旁的蛮奇散发出无言地威压……
-	ELSEIF DAY:5 >= 4 && OUTROOF(CFLAG:TARGET:現在位置)
+	ELSEIF TIME:5 >= 4 && OUTROOF(CFLAG:TARGET:現在位置)
 		IF TALENT:恋慕 || TALENT:愛欲
 			PRINTFORMW 「这种天气可不适合站在外面……还是找个地方躲躲吧」
 		ELSE 
@@ -8270,7 +8270,7 @@ IF LOCAL
 			CASE 1
 				PRINTFORML 「看起来很怪，还黏黏的……」
 			CASE 0
-				PRINTFORML 「渗透出恶心粘液的蘑菇……」
+				PRINTFORML 「渗透出恶心黏液的蘑菇……」
 			ENDSELECT
 			PRINTW 
 		CASE 603
@@ -10076,7 +10076,7 @@ IF LOCAL
 			CASE 18
 				PRINTFORMW 「是catfish啊，不过完全不像猫那样可爱呢」
 			CASE 19
-				PRINTFORMW 「得仔细地去掉它身上滑溜溜的粘液才行」
+				PRINTFORMW 「得仔细地去掉它身上滑溜溜的黏液才行」
 			CASE 22
 				PRINTFORML 「嗯…是在任何游戏里都最普通最好抓的鱼类呢」
 				PRINTFORMW 「如果能进化成暴⚪龙就另当别论了」

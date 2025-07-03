@@ -101,7 +101,7 @@ LOCAL = 12
 #DIMS V_NAME
 SELECTCASE O_DATA
 CASE "稱呼"
-	CALLF MAKE_STR(V_NAME, "露米亜")
+	CALLF MAKE_STR(V_NAME, "露米娅")
 ;こっから衣装設定
 CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（裤子）套")
@@ -117,7 +117,7 @@ CASE "便装：裙子"
 CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 CASE "便装：上身衣服１"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "無袖外套"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "无袖上衣"))
 
 CASE "固有内衣形容詞"
 	CALLF MAKE_STR(V_NAME, "仿佛有黑暗固定在上面")
@@ -128,7 +128,7 @@ CASE "固有上半身内衣"
 CASE "固有上半身内衣名"
 	CALLF MAKE_STR(V_NAME, "漆黒の吊帯衫")
 CASE "固有内衣着用条件"
-	SIF !RAND:(1 + (2 * 勝負内衣判定([[露米亜]])))
+	SIF !RAND:(1 + (2 * 勝負内衣判定([[露米娅]])))
 		CALLF MAKE_INT(V_NAME, 1)
 CASE "固有内衣半透明(前)"
 	CALLF MAKE_INT(V_NAME, 0)

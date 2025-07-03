@@ -395,7 +395,7 @@ IF FLAG:73 == 12
 					CASE 310,320,330,340,350,360,370,380
 						SELECTCASE CFLAG:12:300
 							CASE 310
-								SELECTCASE DAY:5
+								SELECTCASE TIME:5
 									CASE 0,1
 										IF ONCE("RUMIA_MOE_APPOINTMENT_TALK_310")
 											PRINTFORMW 「%MASTERNAME:12%，湖边的风景，很美丽吧！」
@@ -848,7 +848,7 @@ IF FLAG:73 == 12
 						PRINTFORML 「看不见吧？肯定看不见吧？」
 						PRINTFORMDW 露米娅捉弄了你一下
 					CASE 3
-						IF CFLAG:12:K12C_1_二周目 && !(CFLAG:12:300 == 260 || 950 )
+						IF CFLAG:12:K12C_1_二周目 && !(GROUPMATCH(CFLAG:12:300, 260, 950))
 							PRINTFORML 「啊，对！这位是%MASTERNAME:12%！是我很好很好的朋友！」
 							PRINTFORMDL 露米娅向偶然路过的熟人介绍了你……
 							PRINTFORMW 「那位是村里的长辈……我们说到哪里了，继续吧！」
@@ -856,7 +856,7 @@ IF FLAG:73 == 12
 							RETURN 0 
 						ENDIF
 					CASE 4
-						IF ( CFLAG:12:K12C_1_已上学 || CFLAG:12:K12C_1_已上学_2 ) && !(CFLAG:12:300 == 260 || 950 )
+						IF ( CFLAG:12:K12C_1_已上学 || CFLAG:12:K12C_1_已上学_2 ) && !(GROUPMATCH(CFLAG:12:300, 260, 950))
 							PRINTFORML 「有点怕遇见同学们呢……」
 							PRINTFORMW 「诶嘿嘿……」
 						ELSE
@@ -1460,10 +1460,10 @@ ELSEIF INROOM(CFLAG:12:300)
 	SIF RESULT == 1 
 		RETURN 1 
 	IF  (CFLAG:12:K12C_1_朋友 || CFLAG:12:K12C_1_朋友_2)  ;基本要求是朋友
-		;IF CFLAG:12:300 == P543露米亜的棲息処  ;拟定加一点房间描述什么的，待补充
+		;IF CFLAG:12:300 == P543露米娅的棲息処  ;拟定加一点房间描述什么的，待补充
 		;ELSE
 		IF TIME > 420 && TIME < 960 
-			SELECTCASE DAY:5  ;检测天气情况
+			SELECTCASE TIME:5  ;检测天气情况
 				CASE 0 
 					IF ONCE("RUMIA_INROOM_SUN")
 						SELECTCASE RAND:3
@@ -3894,7 +3894,7 @@ ENDIF
 ;-------------------------------------------------
 @RUMIA_YOIYAMI_FLOWER
 {
-	IF (CFLAG:12:2 >= 20000) && (CFLAG:12:4 >= 2500) && (ABL:12:42 >= 1) && TALENT:12:7 && (DAY:3 == 14 || 15 || 16 ) && (TIME:5 == 1 || TIME:5 == 2) 
+	IF (CFLAG:12:2 >= 20000) && (CFLAG:12:4 >= 2500) && (ABL:12:42 >= 1) && TALENT:12:7 && (GROUPMATCH(DAY:3, 14, 15, 16)) && (TIME:5 == 1 || TIME:5 == 2) 
 	&& OUTROOF(CFLAG:12:300) && ONCE("XIAOANZHIHUA") && !CFLAG:12:K12C_1_EX开启 && !CFLAG:12:K12C_1_EX开启_2 && ( TIME > 1080 || TIME < 240 ) 
 
 }
@@ -4126,7 +4126,7 @@ ENDIF
 		PRINTFORMDL 
 		PRINTFORMW 没有了昨夜的黑暗所笼罩，却仿佛，有着无尽黑暗笼罩在了你内心中
 		PRINTFORMDL 
-		PRINTFORMW 那个总是喜欢粘着你的露米娅
+		PRINTFORMW 那个总是喜欢黏着你的露米娅
 		PRINTFORMW 那个什么东西都喜欢吃的露米娅
 		PRINTFORMW 那个害羞过度会晕过去的露米娅
 		PRINTFORMW 那个喜欢你喜欢到害怕失去你所以会哭泣的露米娅

@@ -34,7 +34,7 @@ IF MARK:反発刻印
 	PRINTFORMW 「%CALLNAME:TARGET%？%CALLNAME:TARGET%不在意哦。因為芙蘭是個好孩子嘛」
 	PRINTFORML 「唔呼呼……」
 ELSE
-	IF CFLAG:MASTER:约会中 && !RAND:20
+	IF CHK_DATENOW(CFLAG:MASTER:约会中) && !RAND:20
 		PRINTFORMDW 坐立不安
 		PRINTFORMW 「讷！呐，哥哥！有奠基嗎？」
 		PRINTFORMW 「哥哥大人！紅魔館沒有奠基嗎！能看基石嗎？」
@@ -65,7 +65,7 @@ ELSE
 		PRINTFORML 「姐姐大人，因為是孩子」
 		PRINTFORML 「%CALLNAME:TARGET%即使辣也不哭。因為是成熟的女人」
 	ELSEIF !RAND:3
-		PRINTFORML 「姐姐把鱈魚子硬说成『斯卡雷特魚子醬』」
+		PRINTFORML 「姐姐把鱈魚子硬说成『斯卡蕾特魚子醬』」
 		PRINTFORML 「鱈魚子一定是紅色的」
 	ELSEIF !RAND:2
 		PRINTFORML 「哥哥你看過鱈魚子嗎？」

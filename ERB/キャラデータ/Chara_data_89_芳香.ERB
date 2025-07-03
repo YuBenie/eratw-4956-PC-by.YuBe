@@ -59,7 +59,7 @@ CASE "便装：靴"
 CASE "便装：裙子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "裙子"))
 CASE "便装：上身衣服１"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "外套"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "上衣"))
 
 CASE "固有内衣形容詞"
 	CALLF MAKE_STR(V_NAME, "和青娥穿的类似")
@@ -81,7 +81,7 @@ CASE "固有内衣布料厚度"
 
 ;料理関連
 CASE "料理：喜欢的味道"
-	CALLF MAKE_STR(V_NAME, "肉料理/中華/和食/油炸食品/垃圾/濃厚/冷/質素/野趣/粘稠/妖力/霊障/甜/甜/酸/酸/丰盛/丰盛/" + "怪诞/" * 3)
+	CALLF MAKE_STR(V_NAME, "肉料理/中華/和食/油炸食品/垃圾/濃厚/冷/質素/野趣/黏稠/妖力/霊障/甜/甜/酸/酸/丰盛/丰盛/" + "怪诞/" * 3)
 CASE "料理：讨厌的味道"
 	CALLF MAKE_STR(V_NAME, "温暖/神力/" + "咸/简易/淡白/" * 2 + "健康/" * 3)
 CASE "料理：助手効果"

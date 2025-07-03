@@ -11,7 +11,11 @@
 @M_KOJO_YUBE_SUCCESS_COM_K16_300
 ;成否判定
 ;TFLAG:192(-2=强制中止指令、-1＝強制失敗、0=根据COM文件决定、1=強制成功or大成功
-TFLAG:192 =0
+IF GETBIT(TCVAR:YUBE_K16不开心的理由 , 0)
+	TFLAG:192 = -2
+ELSE
+	TFLAG:192 = 0
+ENDIF
 
 ;==================================================
 ;可选项：关于地文描述的显示设置
@@ -40,11 +44,12 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	;-------------------------------------------------
+	; 差分一
 	; 当天有蕾咪举办的宴会
+	; 优先级：覆盖
 	;-------------------------------------------------
-	IF FLAG:宴会開催FLAG == 6 && FLAG:36 == 0 && FLAG:35 > 0
-		$宴会_未陷落
-		IF CFLAG:20 == 2
+	IF FLAG:30 == 6
+		IF TIME >= FLAG:33
 			; 宴会中
 			SELECTCASE BASE:酒気
 				CASE IS > (MAXBASE:酒気 / 10) * 5
@@ -122,6 +127,124 @@ IF LOCAL
 			ENDSELECT
 		ENDIF
 	;-------------------------------------------------
+	; 差分二
+	; 当天有其他人的宴会且蕾咪有参加
+	; 优先级：覆盖
+	; 嘛、以蕾咪的作息，参加别人的聚会应该很难吧
+	; 不过我有打算改一下蕾咪的作息表
+	; 这个差分还是写一下吧
+	;-------------------------------------------------
+	ELSEIF FLAG:30 && FLAG:30 != 6 && (GET_MAPID(FLAG:32) == GET_MAPID(CFLAG:300))
+		IF (TIME > FLAG:33 - 30) && (TIME < FLAG:33)
+		; 宴会开始前的30分钟
+			SELECTCASE YUBE_陷落状态(16)
+				CASE "未陷落"
+					;-------------------------------------------------
+					SELECTCASE RAND:5
+						CASE 0
+							PRINTFORMDL	和蕾米莉亚谈论了一下宴会的宾客们
+							PRINTDL
+							PRINTFORML	「好像挺热闹的呢……」
+							PRINTFORML	「也有不少人类来参加的样子，这点倒是不稀奇」
+							PRINTFORMW	「你也是来参加宴会的吗？呵呵……」
+							PRINTFORMDL	说着，蕾米莉亚上下打量了你一眼
+							PRINTFORMDW	不过现在的她对你并不感兴趣
+							PRINTDL
+							PRINTFORML	「好好享受你的宴会吧，人类」
+						CASE 1
+							PRINTFORMDL	闻到了宴会开始前、在这片区域弥漫着的酒香……
+							PRINTFORMDW	打算以此为话题
+							PRINTDL
+							PRINTFORML	「酒，最能衬托出主办者的品味」
+							PRINTFORML	「但愿这里的主人不会让我失望吧、呵呵……」
+							PRINTDL
+							PRINTFORMDL	谈及酒的时候，蕾米莉亚不由自主地舔了舔嘴唇，看来比起你，她似乎更在意酒多一点
+						CASE 2
+							PRINTFORMDL	以接下来的宴会为话题试着聊一聊
+							PRINTDL
+							PRINTFORML	「哦呀、仆从也是来参加宴会的嘛？」
+							PRINTFORML	「我？我当然不会错过这么热闹的时候」
+							PRINTFORMW	「直觉告诉我，今天的宴会将会很有意思……呵呵~」
+							PRINTDL
+							PRINTFORMDL	蕾米莉亚看起来好像兴致很高的样子
+						CASE 3
+							PRINTFORMDL	趁着宴会开始之前，打算和蕾米莉亚聊一聊
+							PRINTDL
+							PRINTFORML	「仆从是来这里当派对客的吗？」
+							PRINTFORMW	「也是，这么热闹的场合怎么会少了你呢」
+							PRINTFORML	「我不打算妨碍仆从扩展自己的社交圈，但请记住，你同时也还代表了红魔馆的颜面」
+							PRINTFORMW	「总之，好好享受你的宴会吧，可别得意忘形哦」
+							PRINTDL
+							PRINTFORMDL	蕾米莉亚摆出一副主人的架子，被义正言辞地告诫要注意形象了……
+						CASE 4
+							PRINTFORML	「唔姆……」
+							PRINTFORMDL	在准备上前搭话之前，发现蕾米莉亚似乎在自言自语
+							PRINTDL
+							PRINTFORML	「召开宴会确实是一个增加知名度的好办法...」
+							PRINTFORML	「我要不要也办一个呢？」
+							PRINTFORMW	「干脆举办一个全幻想乡规模最大的宴会，这样就能让红魔馆的威名传遍每一个人的耳朵里了」
+							PRINTDL
+							PRINTFORML	「首先，是能够填满整个雾之湖的美酒……」
+							PRINTFORMDL	听到了会让红魔馆财务赤字的言论...没问题吧？
+					ENDSELECT
+					;-------------------------------------------------
+			ENDSELECT
+		ELSEIF TIME >= FLAG:33
+		; 宴会开始后
+			SELECTCASE BASE:酒気
+				CASE IS > (MAXBASE:酒気 / 10) * 5
+					;"酔酒"
+					SELECTCASE RAND:4
+						CASE 0
+							PRINTFORMDL	蕾米莉亚看起来已经喝得有点醉了，脸颊微红，眼神迷离
+							PRINTFORMDL	她的手指轻轻地抚摸着酒杯边缘，似乎在思考着什么
+							PRINTDL
+							PRINTFORML	「宴会的气氛真好……」
+							PRINTFORMW	「不过我还是更喜欢独自一人享受这种感觉」
+							PRINTDL
+							PRINTFORMDL	说完，她又端起酒杯，轻轻抿了一口
+							PRINTFORMDL	她眼神始终盯着别处，想要表达的意思不言而喻
+						CASE 1
+							PRINTFORML	「仆从，你也来喝一杯吗？」
+							PRINTFORMDL	蕾米莉亚微微晃动着手中的酒杯，向你示意
+							PRINTFORML	「不过要小心哦，这可不是什么低度数的酒」
+							PRINTFORML	「喝多了可不好受哟~」
+						CASE 2
+							PRINTFORMDL	蕾米莉亚歪着脑袋、脸颊红红地趴在宴会桌上
+							PRINTFORMDL	她睡眼惺忪，看样子已经喝了不少
+							PRINTDL
+							PRINTFORML	「糟糕...好像回去都有点困难了...」
+							PRINTFORML	「……」
+							PRINTFORMW	「好，既然这样，那就干脆把床搬到这里睡吧！」
+							PRINTDL
+							PRINTFORMDL	已经在说胡话了
+						CASE 3
+							PRINTFORMDL	蕾米莉亚的眼皮子沉沉的、可即便如此，她仍然轻晃着手中的酒杯，目光随着波动的水面摇曳
+							PRINTFORMDW	随着你的接近，你的脸逐渐出现在酒杯的倒影之中
+							PRINTFORML	「嗯？仆从怎么掉进酒杯里了...」
+							PRINTFORMW	「......」
+							PRINTFORML	「我说、你不会真以为我」
+							PRINTFORMDL	
+							PRINTFORMDL	
+					ENDSELECT
+				CASE IS <= (MAXBASE:酒気 / 10) * 5
+					; 微醺
+					SELECTCASE RAND:4
+						CASE 0
+							PRINTFORMDL
+						CASE 1
+							PRINTFORMDL
+						CASE 2
+							PRINTFORML	「宴会真是热闹啊……」
+							PRINTFORMDL	蕾米莉亚看着周围的宾客们，脸上带着淡淡的笑容
+							PRINTFORMDL	杯酒未抿，就已有醉意
+							PRINTFORML	「不过，这种感觉...也不赖就是了」
+						CASE 3
+							PRINTFORMDL
+					ENDSELECT
+			ENDSELECT
+		ENDIF
+	;-------------------------------------------------
 	; 通用
 	ELSE
 	;-------------------------------------------------
@@ -164,11 +287,11 @@ IF LOCAL
 			PRINTFORML	「也不是一定要做到咲夜那种程度的啦」
 			SIF ABL:MASTER:40 > 2 || ABL:MASTER:44 > 2
 				PRINTFORML	「不过倒是要比那些吃白饭的好点」
+			PRINTFORMDL	少见地被关注了一下近况
 			CASE 1
 			PRINTFORML	「有去过大图书馆吗？」
 			PRINTFORM	「那里很适合学习啊还有
-			CALL YUBE_LINETHROUGH("偷懒",0)
-			PRINTFORML	休息什么的，当然了，你得先让帕琪同意」
+			PRINTFORML	%YUBE_FONTSTYLE("偷懒",1,4)%休息什么的，当然了，你得先让帕琪同意」
 			PRINTFORML	「不过要是见到了某个黑白魔法使一定要告诉我唷」
 			CASE 2
 			PRINTFORMDL	谈论了一下关于吸血鬼的饮食问题……
@@ -203,7 +326,7 @@ IF LOCAL
 			PRINTFORML	「还是蹲着好点？唉、没意思」
 			CASE 6
 			PRINTFORML	「说这么多有点渴了，没有茶水之类的吗？」
-			PRINTFORMDL	好像说得是有点多了
+			PRINTFORMDL	蕾米莉亚在提醒%CALLNAME:MASTER%该适可而止了
 			CASE 7
 			PRINTFORML	「啊啦~嗯、是这样的说」
 			PRINTFORML	看起来完全没听进去
@@ -220,8 +343,8 @@ IF LOCAL
 			CASE 9
 			PRINTFORML	「……」
 			PRINTFORMDL	「……」
-			PRINTFORML	「真是的，想要聊天也得找个话题才对吧？」
-			PRINTFORML	「作为仆从得学会察言观色才对」
+			PRINTFORML	「呵、想上前搭话却不知道说什么吗？」
+			PRINTFORMDL	蕾米莉亚话语中带着一抹嘲弄
 			CASE 10
 			PRINTFORML	「仆从、去，把这个捡起来」
 			PRINTFORMDW	蕾米莉亚朝不远处扔出一枚筹码
@@ -250,76 +373,126 @@ IF LOCAL
 	ELSE
 	; ↓非陷落、寻常
 	;-------------------------------------------------
-		SELECTCASE RAND:10
-			CASE 0
-			PRINTFORML	「嗯？有事？」
-			PRINTFORMDL	蕾米莉亚仅仅是瞥了你一眼
-			CASE 1
-			IF MAIN_MAP == 3
-			PRINTFORML	「虽然你是红魔馆的仆从，但也要知道什么地方能去什么地方不能去」
-			ELSE
-			PRINTFORML	「虽然我允许你在红魔馆自由行动了，但也要知道什么地方能去什么地方不能去」
-			ENDIF
-			PRINTFORML	「这是为了你好，理由？不需要」
-			CASE 2
-			PRINTFORML	「……」
-			PRINTFORMDL	「……」
-			PRINTFORMDL	彼此都没有说话……
-			CASE 3
-			PRINTFORML	「工作上的事？」
-			PRINTFORML	「这种事你去问咲夜就可以了」
-			CASE 4
-			PRINTFORML	「你看起来很闲嘛，那仆从来讲个笑话，不好笑的话我会把你挂在房顶上」
-			PRINTDL		
-			PRINTDL		……
-			PRINTDL		
-			PRINTDATADW
-			DATAFORM	讲了一个能把自己都逗笑的笑话
-			DATAFORM	讲了一个还算可以的笑话
-			DATAFORM	讲了一个冷笑话
-			DATAFORM	讲了一个自己以前的糗事
-			ENDDATA
-			PRINTDL		
-			PRINTFORMDL	……
-			PRINTFORMDL	根本没在听吧！？
-			CASE 5
-			PRINTFORML	「等等、你靠得有点近了」
-			PRINTFORML	「注意一点社交距离、我可不想被别人评价我的仆从一点礼仪都没有」
-			CASE 6
-			PRINTFORMDL	询问了一下关于筹码的事
-			PRINTFORML	「筹码你可以在红魔馆的赌场换成钱，所以在幻想乡当中筹码也是一种主要的货币」
-			PRINTFORML	「想要筹码吗？那就好好服侍我吧，根据你的表现我说不定会给你一点奖励喔」
-			CASE 7
-			PRINTFORML	「啊啦~嗯、是这样的说」
-			PRINTFORML	看起来完全没听进去
-			CASE 8
-			PRINTFORML	「有点无聊啊……仆从、来和我玩弹幕游戏吧」
-			PRINTFORML	「规则是...只能逃跑」
-			PRINTFORML	
-			PRINTFORML	那不就是单纯的被虐吗！？
-			CASE 9
-			PRINTFORML	「仆从、去，把这个捡起来」
-			PRINTFORMDL	蕾米莉亚朝不远处扔出一枚筹码
-			PRINTDL
-			PRINTFORMDL	可恶，这是把我当什么人了！？
-			PRINTFORMDL	
-			IF TALENT:MASTER:自尊心 == 1
-				PRINTFORMDW	努力了克制住想要捡钱的欲望
-				PRINTFORMDL
-				PRINTFORML	「嘛、没意思」
-				PRINTFORML	蕾米莉亚无聊地把头撇到另一边去了
-			ELSE
-				PRINTDATADW
-				DATAFORM 要不是身体擅自动起来，这个槽怎么说都要吐出来
-				DATAFORM 在说出这话之前还是先学会怎么管住自己的身体吧……
-				DATAFORM 虽然很不愿意，但是身体似乎有着自己的想法
-				DATAFORM 默默地捡起地上的筹码放进兜里
-				ENDDATA
-				PRINTDL
-				PRINTFORMDL	赚钱嘛...不寒碜
-				MONEY:2 ++
-			ENDIF
-		ENDSELECT
+		IF CFLAG:318 == 1
+		; 生气
+		ELSEIF TCVAR:302
+		; 会话累计过高
+			SELECTCASE RAND:10
+				CASE 0 TO 2
+					PRINTFORMDL	在%CALLNAME:MASTER%还在琢磨能聊什么的时候
+					PRINTFORMDL	%CALLNAME:MASTER%注意到蕾米莉亚手中不知什么时候出现了一卷胶带，本能地将到嘴边的话给咽了回去
+					PRINTDW
+					PRINTFORML	「嗯？不打算继续往下说了么？那看来这东西也没用了...」
+					PRINTFORML	「它的作用就是把你那动个不停的嘴巴给封上，原本是这么打算的」
+					PRINTDL
+					PRINTFORMDL	蕾米莉亚的眼神不像是在开玩笑...
+				CASE 3 TO 8
+					PRINTFORMDL	有意义的事情很多，但是并不包含尬聊
+					PRINTFORMDL	在惹你的雇主生气之前，还是干点别的事情吧...
+				CASE 9
+					PRINTFORMW	「……」
+					PRINTFORMW	「唉、」
+					PRINTFORMW	「可以从我的眼前消失吗？我对于仆从你的耐心已经消耗殆尽了」
+					PRINTFORMDL	蕾米莉亚的耐心似乎到达了极限，看向%CALLNAME:MASTER%的眼神冷了许多...
+					PRINTFORMDL	显然...是错误的搭话时机
+					PRINTDW
+					PRINTFORMW	「我并没有义务要听你那毫无意义的牢骚话、拜你所赐我一天的好心情都要没了」
+					PRINTFORMW	「如果你还想要保住你的嘴巴的话，你最好学会怎么闭嘴」
+					PRINTFORMW	「动动你的脑袋，在想出能够取悦我的办法之前，禁·止·再·打·扰·我！」
+					PRINTFORMDL	藏在眼神中的愠怒让蕾米莉亚说话的语气都重了些许，看起来她是认真的
+					SIF !CFLAG:322
+						CFLAG:322 = 1
+					SIF !GETBIT(TCVAR:YUBE_K16不开心的理由, 0)
+						SETBIT TCVAR:YUBE_K16不开心的理由 , 0
+			ENDSELECT
+		ELSE
+			SELECTCASE CFLAG:193
+				CASE 1
+					SELECTCASE RAND:3
+						CASE 0
+							PRINTFORML	「你看起来很闲嘛，那仆从来讲个笑话，不好笑的话我会把你挂在房顶上」
+							PRINTDL		
+							PRINTDL		……
+							PRINTDL		
+							PRINTDATADW
+							DATAFORM	讲了一个能把自己都逗笑的笑话
+							DATAFORM	讲了一个还算可以的笑话
+							DATAFORM	讲了一个冷笑话
+							DATAFORM	讲了一个自己以前的糗事
+							ENDDATA
+							PRINTDL		
+							PRINTFORMDL	……
+							PRINTFORMDL	根本没在听吧！？
+						CASE 1
+							PRINTFORML	「仆从、去，把这个捡起来」
+							PRINTFORMDL	蕾米莉亚朝不远处扔出一枚筹码
+							PRINTDL
+							PRINTFORMDL	可恶，这是把我当什么人了！？
+							PRINTFORMDL	
+							IF TALENT:MASTER:自尊心 == 1
+								PRINTFORMDW	努力了克制住想要捡钱的欲望
+								PRINTFORMDL
+								PRINTFORML	「嘛、没意思」
+								PRINTFORML	蕾米莉亚无聊地把头撇到另一边去了
+							ELSE
+								PRINTDATADW
+								DATAFORM 要不是身体擅自动起来，这个槽怎么说都要吐出来
+								DATAFORM 在说出这话之前还是先学会怎么管住自己的身体吧……
+								DATAFORM 虽然很不愿意，但是身体似乎有着自己的想法
+								DATAFORM 默默地捡起地上的筹码放进兜里
+								ENDDATA
+								PRINTDL
+								PRINTFORMDL	赚钱嘛...不寒碜
+								MONEY:2 ++
+							ENDIF
+						CASE 2
+							PRINTFORML	「有点无聊啊……仆从、来和我玩弹幕游戏吧」
+							PRINTFORML	「规则是...只能逃跑」
+							PRINTFORML	
+							PRINTFORMDL	那不就是单纯的被虐吗！？
+					ENDSELECT
+				CASE 0
+					SELECTCASE RAND:3
+						CASE 0
+							PRINTFORML	「工作上的事？」
+							PRINTFORML	「这种事你去问咲夜就可以了」
+						CASE 1
+							PRINTFORML	「等等、你靠得有点近了」
+							PRINTFORML	「注意一点社交距离、我可不想被别人评价我的仆从一点礼仪都没有」
+						CASE 2
+							PRINTFORMDL	询问了一下关于筹码的事
+							PRINTFORML	「筹码你可以在红魔馆的赌场换成钱，所以在幻想乡当中筹码也是一种主要的货币」
+							PRINTFORML	「想要筹码吗？那就好好服侍我吧，根据你的表现我说不定会给你一点奖励喔」
+						CASE 3
+							PRINTFORML	「啊啦~嗯、是这样的说」
+							PRINTFORML	看起来完全没听进去
+						CASE 4
+							IF MAIN_MAP == 3
+							PRINTFORML	「虽然你是红魔馆的仆从，但也要知道什么地方能去什么地方不能去」
+							ELSE
+							PRINTFORML	「虽然我允许你在红魔馆自由行动了，但也要知道什么地方能去什么地方不能去」
+							ENDIF
+							PRINTFORML	「这是为了你好，理由？不需要」
+					ENDSELECT
+				CASEELSE
+					SELECTCASE RAND:3
+						CASE 0
+							PRINTFORML	「嗯？有事？」
+							PRINTFORMDL	蕾米莉亚仅仅是瞥了你一眼
+						CASE 1
+							PRINTFORML	「……」
+							PRINTFORMDL	「……」
+							PRINTFORMDL	彼此都没有说话……
+						CASE 2
+							PRINTFORML	「……聒噪」
+							PRINTFORMDL	显然蕾米莉亚对%CALLNAME:MASTER%提出的话题不感兴趣
+						CASE 3
+							PRINTFORML	「没劲、想要搭话却连话题都找不出来吗」
+							PRINTFORML	「为了我的好心情，能麻烦你现在离我远一点么？」
+							PRINTFORMDL	蕾米莉亚显得有点不耐烦
+					ENDSELECT
+			ENDSELECT
+		ENDIF
 	ENDIF
 	;-------------------------------------------------
 	ENDIF
@@ -585,7 +758,7 @@ IF LOCAL
 					PRINTDL
 					PRINTFORMDW		……
 					PRINTDL
-					PRINTFORMDW	最后被蕾米莉亚%TEXTR("吊起来荡秋千、速度越来越快那种/像陀螺一样转着玩、有点头晕了/当成稻草人一样挂着一动不动的了")%
+					PRINTFORMDW	最后被蕾米莉亚%TEXTR("用锁链吊起来荡秋千、速度越来越快那种/像陀螺一样转着玩、有点头晕了/当成稻草人一样挂在空中一动不动")%
 					PRINTDL
 					PRINTFORMDW	——因为蕾米莉亚的惩罚、时间额外推进了{TCVAR:352}分钟——
 					ELSE
@@ -1831,6 +2004,7 @@ IF LOCAL
 	;-------------------------------------------------
 	ELSEIF CFLAG:睡眠 == 1
 		IF YUBE_LESSBASECHECK(0) || YUBE_LESSBASECHECK(0,1)
+		; 身体很累
 			IF TALENT:恋人
 			ELSEIF TALENT:恋慕
 			ELSEIF TALENT:思慕
@@ -1849,6 +2023,7 @@ IF LOCAL
 				PRINTFORMDL	——度过了一段惬意的时光——
 			ENDIF
 		ELSE
+		; 身体倍壮
 			IF TALENT:恋人
 			ELSEIF TALENT:恋慕
 			ELSEIF TALENT:思慕
@@ -1867,8 +2042,21 @@ IF LOCAL
 				PRINTFORMDL	——度过了一段惬意的时光——
 			ENDIF
 		ENDIF
+	ELSEIF	CFLAG:15:300 == CFLAG:300 && WORKING(15) && (TALENT:15:恋慕 || TALENT:15:恋人) && TALENT:恋慕 && CFLAG:338 && ONCE("请好好地看着我啊！")
+	; ~⭐吃飞醋的姐姐大人⭐~
+	; ~工作中的女仆长~
+		PRINTFORMDW	闲暇之余，%CALLNAME:MASTER%和蕾米莉亚一起坐在柔软而舒适的沙发上享受惬意
+		PRINTDL
+		PRINTFORML	「%CALLNAME:MASTER%要休息了吗？正好、我也累了哟」
+		PRINTFORMW	「那么...%CALLNAME:MASTER%就来好好地当我的抱枕吧」
+		PRINTFORMDL	蕾米莉亞欣然同意了你要休息的请求,随后便自然而然地依偎在你的身旁，她的脑袋正好能够枕着你的胳膊
+		PRINTFORMDW	蓝色的发丝上飘来淡淡的清香……
+		PRINTDL
+		PRINTFORMDL	
 	ELSE
+	; 没睡
 		IF YUBE_LESSBASECHECK(0) || YUBE_LESSBASECHECK(0,1)
+		; 身体很累
 			IF TALENT:恋人
 			ELSEIF TALENT:恋慕
 			ELSEIF TALENT:思慕
@@ -1887,6 +2075,7 @@ IF LOCAL
 				ENDIF
 			ENDIF
 		ELSE
+		; 身体倍壮
 			IF TALENT:恋人
 			ELSEIF TALENT:恋慕
 			ELSEIF TALENT:思慕

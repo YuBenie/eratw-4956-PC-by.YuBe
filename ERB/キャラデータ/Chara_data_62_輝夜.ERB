@@ -12,7 +12,7 @@ SELECTCASE ARG
 			CASE P450玄関 TO P466庭
 				RETURN -100
 			;他人的家には入らない
-			CASE P432影狼的家, P437梅蒂欣的家, P439拉瓦爾的家, P443米斯蒂亜的家, P445妹紅的家
+			CASE P432影狼的家, P437梅蒂欣的家, P439拉尔瓦的家, P443米斯蒂亜的家, P445妹紅的家
 				RETURN -100
 			;来客用廁所は行かない
 			CASE P406来客用廁所
@@ -72,7 +72,7 @@ CASE "便装：裙子"
 CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 CASE "便装：上身衣服１"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "外套"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "上衣"))
 
 ;神様が織った布の胖次とか月じゃ普通だと思う
 CASE "固有内衣形容詞"
@@ -149,6 +149,7 @@ IF CFLAG:CHARA:差し替え適用
 		;服
 		IF FLAG:立絵種類
 			;顔絵
+			CALL IMAGE_I62_別立ち判定_服装
 		ELSE
 			;立絵
 			CALL IMAGE_I62_別立ち判定_服装
@@ -163,8 +164,12 @@ ELSE
 			IF TCVAR:CHARA:媚薬 || CFLAG:CHARA:积攒度 > 850
 				RESULTS = _欲情
 			ENDIF
+			SIF BATHROOM() && !CFLAG:诶嘿嘿
+				RESULTS = _浴袍
 		ELSE
 			;立絵
+			SIF BATHROOM() && !CFLAG:诶嘿嘿
+				RESULTS = _浴袍
 		ENDIF
 	ELSE
 		;夏服を置き換え
@@ -191,6 +196,7 @@ IF CFLAG:CHARA:差し替え適用
 	;替换用画像
 	IF FLAG:立絵種類
 		;顔絵
+		CALL IMAGE_I62_別立ち判定_体形
 	ELSE
 		;立絵
 		CALL IMAGE_I62_別立ち判定_体形
@@ -218,8 +224,8 @@ ENDIF
 IF CFLAG:CHARA:差し替え適用
 	;替换用画像
 	IF FLAG:立絵種類
-		;顔絵, 別立ち1没有顔絵
-		CALL IMAGE_I62_通常顔絵特殊表情
+		;顔絵
+		CALL IMAGE_I62_別立ち判定_表情
 	ELSE
 		;立絵
 		CALL IMAGE_I62_別立ち判定_表情
@@ -404,6 +410,8 @@ IF CFLAG:CHARA:差し替え適用
 	;替换用画像
 	IF FLAG:立絵種類
 		;顔絵
+		CALL IMAGE_I62_別立ち判定_エフェクト
+		エフェクト数 = RESULT
 	ELSE
 		;立絵
 		CALL IMAGE_I62_別立ち判定_エフェクト

@@ -19,7 +19,7 @@ SIF TCVAR:ARG:射精部位 == 0 || TCVAR:ARG:射精部位 >= 8
 
 
 IF ARG == MASTER
-	PRINTFORML ＜%NAME_OUTPUT_TRANSLATION("CALLNAME", 竿役)%插入Ｖ中＞
+	PRINTFORML ＜%CALLNAME:竿役%插入Ｖ中＞
 
 	TCVAR:竿役:射精快感強度 = 850 + TEQUIP:ARG:子宮 * 100
 	TCVAR:ARG:射精快感強度 = 500 + (100 * ABL:ARG:Ｖ感覚)
@@ -37,7 +37,7 @@ IF ARG == MASTER
 	SOURCE:竿役:逸脱 += 50
 
 ELSE
-	PRINTFORML ＜%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%Ｖ被插入中＞
+	PRINTFORML ＜%CALLNAME:ARG%Ｖ被插入中＞
 
 	TCVAR:竿役:射精快感強度 = 700 + TEQUIP:ARG:子宮 * 100
 	TCVAR:ARG:射精快感強度 = 750
@@ -60,7 +60,7 @@ ELSE
 		SOURCE:ARG:露出 += 25
 		SIF TCVAR:ARG:强行
 			SOURCE:ARG:反感 += 1000
-		;体位BOUNS
+		;体位BONUS
 		IF TEQUIP:ARG:体位 == CFLAG:ARG:喜欢的体位
 			SOURCE:ARG:情愛 += 100
 			SOURCE:ARG:恭順 += 50
@@ -115,7 +115,7 @@ SIF TCVAR:ARG:射精部位 == 0 || TCVAR:ARG:射精部位 >= 8
 
 
 IF ARG == MASTER
-	PRINTFORML ＜%NAME_OUTPUT_TRANSLATION("CALLNAME", 竿役)%插入Ａ中＞
+	PRINTFORML ＜%CALLNAME:竿役%插入Ａ中＞
 
 	TCVAR:竿役:射精快感強度 = 850
 	TCVAR:ARG:射精快感強度 = 500 + (100 * ABL:ARG:Ａ感覚)
@@ -133,7 +133,7 @@ IF ARG == MASTER
 	SOURCE:竿役:逸脱 += 50
 
 ELSE
-	PRINTFORML ＜%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%Ａ被插入中＞
+	PRINTFORML ＜%CALLNAME:ARG%Ａ被插入中＞
 	TCVAR:竿役:射精快感強度 = 900
 	TCVAR:ARG:射精快感強度 = 750
 	DOWNBASE:竿役:体力 += 15
@@ -154,7 +154,7 @@ ELSE
 		SOURCE:ARG:逸脱 += 100
 		SIF TEQUIP:ARG:体位 == 6
 			SOURCE:ARG:苦痛 += 300
-		;体位BOUNS
+		;体位BONUS
 		IF TEQUIP:ARG:体位 == CFLAG:ARG:喜欢的体位 - 5
 			SOURCE:ARG:情愛 += 100
 			SOURCE:ARG:恭順 += 50

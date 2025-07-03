@@ -9,11 +9,11 @@ FLAG:異常気象 = 6 + RAND:9
 
 	SELECTCASE FLAG:異常気象
 		CASE 6
-			RETURNF "変得喜歡真空出門"
+			RETURNF "好像女孩子被掀起裙子后越是厌恶你却越会感到舒服"
 		CASE 7
-			RETURNF "内裤被风吹的到处跑"
+			RETURNF "好像风会把胖次吹得到处都是了"
 		CASE 8
-			RETURNF "桃色之風吹起来了"
+			RETURNF "桃色之风吹起来了"
 		CASE 11
 			RETURNF "亮晶晶的钻石尘在空中闪耀着"
 		CASE 12
@@ -53,13 +53,13 @@ ENDIF
 @SP_ENCOUNT
 IF SUMIPROTECT
 	IF MONEY:2 < 10
-		PRINTFORML 因為籌碼不足、所以超能力的加护被中止了
+		PRINTFORML 因为筹码不足、所以超能力的加护被中止了
 		SUMIPROTECT = 0
 	ELSE
-		PRINTFORML 要繼續请求堇子的加护麼？
+		PRINTFORML 要继续请求堇子的加护么？
 		CALL ASK_YN
 		IF !RESULT
-			PRINTFORML 更新了契約
+			PRINTFORML 更新了契约
 			MONEY:2 -= 10
 		ELSE
 			SUMIPROTECT = 0
@@ -259,7 +259,7 @@ ELSEIF CFLAG:MASTER:現在位置 == OMANEKIBEYA() && GROUPMATCH(CFLAG:MASTER:招
 	地底 = 1
 ENDIF
 SELECTCASE TIME:5
-;晴れの時
+;晴天の时
 CASE 0,1,19
 	FOR LOCAL, 0, CHARANUM
 		IF MAXBASE:LOCAL:気力 <= 1500
@@ -324,9 +324,9 @@ CASE 0,1,19
 		NEXT
 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
 	 		PRINTW 突然下起了冰雹！
-	;上記確率に引っかからなかったら晴れ
+	;上记概率に引っかからなかったら晴天
 	ENDIF
-;曇りの時
+;阴天の时
 CASE 2,3
 	;20%几率变晴
 	IF RAND:5 == 0
@@ -359,7 +359,7 @@ CASE 2,3
 	 		 	PRINTW 太阳出来了
 	 		ENDIF
 		ENDIF
-	;薄曇なら10%で雨か雪に移行
+	;多云なら10%で雨か雪に移行
 	ELSEIF TIME:5 == 2
 		IF RAND:4 == 0
 	 		IF DAY:2 == 4
@@ -393,7 +393,7 @@ CASE 2,3
 	 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
 	 		 	PRINTW 雨伴随着风落到了地面上
 		ENDIF
-	;曇りなら30%で雨に移行
+	;阴天なら30%で雨に移行
 	ELSEIF TIME:5 == 3 && RAND:1 == 0
 		IF DAY:2 == 4
 	 		TIME:5 = 8
@@ -405,7 +405,7 @@ CASE 2,3
 	 		 	PRINTW 下雨了！
 		ENDIF
 	ENDIF
-;雨の時
+;雨の时
 CASE 4,5,6,14,15,16,20
 	;25%变成大雨
 	IF RAND:4 == 0
@@ -418,13 +418,13 @@ CASE 4,5,6,14,15,16,20
 	ELSEIF RAND:3 == 0
 		TIME:5 = 3
 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
-	 		PRINTW 雨要停了的様子
-		;念のため相合い傘を解除
+	 		PRINTW 雨要停了的样子
+		;念のため相合い伞を解除
 		FOR LOCAL,0,CHARANUM
 	 		SIF TEQUIP:LOCAL:201
 	 		 	TEQUIP:LOCAL:201 = 0
 		NEXT
-	;雨なら10%で霧雨かみぞれに移行
+	;雨なら10%で雾雨か雨雪交加に移行
 	ELSEIF TIME:5 == 4 && RAND:5 == 0
 		IF DAY:2 == 4
 	 		TIME:5 = 12
@@ -435,11 +435,11 @@ CASE 4,5,6,14,15,16,20
 	 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
 	 		 	PRINTW 雨点变小了
 	 		ENDIF
-	;10%で晴れに移行
+	;10%で晴天に移行
 	ELSEIF RAND:4 == 0
 		TIME:5 = 0
 		IF !CFLAG:MASTER:诶嘿嘿 && !地底
-	 		;かもしれないといいつつ確実に見えるのは気分をよくさせる魔法
+	 		;かもしれないといいつつ确实に见えるのは气分をよくさせる魔法
 	 		IF TIME:2 >= 5 && TIME:2 <= 7
 	 		 	PRINTW 突然星空变的晴朗了！说不定能看到月下彩虹呢
 	 		ELSE
@@ -450,10 +450,10 @@ CASE 4,5,6,14,15,16,20
 	 		 		TEQUIP:LOCAL:201 = 0
 	 		NEXT
 		ENDIF
-		;更に低確率で快晴
+		;更に低概率で晴朗
 		SIF RAND:5 < 1
 	 		TIME:5 = 1
-		;雨→晴れを処理したら虹が出る
+		;雨→晴天を处理したら虹が出る
 		TIME:7 = 1
 	ENDIF
 CASE 7,17,18
@@ -477,19 +477,19 @@ CASE 7,17,18
 	 		PRINTW 雾渐渐的散了
 		ENDIF
 	ENDIF
-;雪の時
+;雪の时
 CASE 8
 	;雪は冬以外降らない
 	IF DAY:2 != 4
 		;雨になる
 		TIME:5 = 4
 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
-	 		PRINTW 雪天好像变成了雨天的様子
-	;10%で強化
+	 		PRINTW 雪天好像变成了雨天的样子
+	;10%で强化
 	ELSEIF RAND:10 == 0
 		TIME:5 = 9
 		PRINTW 雪花变得更加密集了！！！
-	;30%の確率で弱体化
+	;30%の概率で弱体化
 	ELSEIF RAND:3 == 0
 		IF RAND:2 == 0
 	 		TIME:5 = 10
@@ -501,17 +501,17 @@ CASE 8
 	ELSEIF RAND:2 == 0
 	 		TIME:5 = 3
 	 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
-	 		 	PRINTW 雪好像停了的様子
+	 		 	PRINTW 雪好像停了的样子
 	 		FOR LOCAL,0,CHARANUM
 	 		 	SIF TEQUIP:LOCAL:201
 	 		 		TEQUIP:LOCAL:201 = 0
 	 		NEXT
-	;雪なら10%で細雪かみぞれに移行
+	;雪なら10%で细雪か雨雪交加に移行
 	ELSEIF RAND:3 == 0
 	 		TIME:5 = 12
 	 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
 	 		 	PRINTW 雪中掺了一些雨点
-	;10%で晴れに移行
+	;10%で晴天に移行
 	ELSEIF RAND:2 == 0
 		TIME:5 = 0
 		IF !CFLAG:MASTER:诶嘿嘿 && !地底
@@ -525,7 +525,7 @@ CASE 8
 	 		 		TEQUIP:LOCAL:201 = 0
 	 		NEXT
 		ENDIF
-		;更に低確率で快晴
+		;更に低概率で晴朗
 		SIF RAND:5 < 1
 	 		TIME:5 = 1
 		TIME:7 = 2
@@ -536,7 +536,7 @@ CASE 9,12
 		;雨になる
 		TIME:5 = 4
 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
-	 		PRINTW 雪天好像变成了雨天的様子
+	 		PRINTW 雪天好像变成了雨天的样子
 	ELSEIF RAND:5 == 0
 		TIME:5 = 8
 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
@@ -554,7 +554,7 @@ CASE 9,12
 	 		 		TEQUIP:LOCAL:201 = 0
 	 		NEXT
 		ENDIF
-		;更に低確率で快晴
+		;更に低概率で晴朗
 		SIF RAND:5 < 1
 	 		TIME:5 = 1
 		TIME:7 = 2
@@ -565,7 +565,7 @@ CASE 10,11
 		;雨になる
 		TIME:5 = 3
 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
-	 		PRINTW 雪天好像变成了雨天的様子
+	 		PRINTW 雪天好像变成了雨天的样子
 	ELSEIF RAND:2 == 0
 		TIME:5 = 8
 		SIF !CFLAG:MASTER:诶嘿嘿 && !地底
@@ -583,7 +583,7 @@ CASE 10,11
 	 		 		TEQUIP:LOCAL:201 = 0
 	 		NEXT
 		ENDIF
-		;更に低確率で快晴
+		;更に低概率で晴朗
 		SIF RAND:5 < 1
 	 		TIME:5 = 1
 		TIME:7 = 2

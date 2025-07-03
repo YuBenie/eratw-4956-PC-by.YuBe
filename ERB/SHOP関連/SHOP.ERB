@@ -16,8 +16,8 @@ TFLAG:100 = 0
 ;---------------------
 ;起床時間自動補正、最低睡眠時間は4時間
 LOCAL:1 = CFLAG:MASTER:就寝時間 - DAY * 1440
-IF (TIME:3 >= LOCAL:1 && (TIME:3 - LOCAL:1) < 240) || (TIME:3 < 240 && (1440 + TIME:3 - LOCAL:1) < 240)
-	PRINTL 睡眠時間太短了。至少也要睡四个小时
+IF (TIME:3 >= LOCAL:1 && (TIME:3 - LOCAL:1) < (zzz1min ? 1 # 240)) || (TIME:3 < (zzz1min ? 1 # 240) && (1440 + TIME:3 - LOCAL:1) < (zzz1min ? 1 # 240))
+	PRINTFORML 睡眠時間太短了。至少也要睡\@ zzz1min ? 一分钟 # 四个小时\@
 	CALL 最低睡眠時間設定()
 	PRINTFORMW 起床時間设定为（%時刻表示(TIME:3)%）了
 ENDIF
@@ -143,8 +143,7 @@ PRINTLC [501] - 单独口上UPDATE
 RESETCOLOR
 PRINTL
 
-TRYCALLFORM IS_DEBUGGERR
-IF RESULT == 1
+IF DEBUGGERR
 	SETCOLOR 241,158,194
 	PRINTLC [666] - 幻想乡之主
 	RESETCOLOR
@@ -154,12 +153,13 @@ ENDIF
 
 SIF MONEY:2
 	PRINTFORML [600] - 卖出籌碼
-	
-SETCOLOR 0xFFFCAA
-DEBUGPRINTFORML [777] - 主动调用函数
-RESETCOLOR 
 
-
+;#;SETCOLOR C_AQUA
+;#;PRINTLC [610] - COUNTER限制
+;#;PRINTLC [620] - 生成委托
+;#;SETCOLOR 0xFFFCAA
+;#;PRINTFORML [777] - 主动调用函数
+;#;RESETCOLOR
 ;统计谁有口上
 CALL createKojoShopButtonTargetList
 ;显示
@@ -181,8 +181,6 @@ DRAWLINE
 ;----------------------------------------------------------
 @USERSHOP
 ;起床
-CFLAG:1:205 = 5
-EQUIP:1:5 = 5
 IF RESULT == 100
 	BEGIN TRAIN
 	RETURN 1
@@ -270,10 +268,8 @@ ELSEIF RESULT == 600
 ELSEIF RESULT == 667
 	CALL MY_ENKAI_SETTING
 ELSEIF RESULT == 666
-	TRYCALLFORM IS_DEBUGGERR
-	IF RESULT == 1
+	SIF DEBUGGERR
 		CALL DEBUG_MODE
-	ENDIF
 
 ;DEBUG调用函数
 ELSEIF RESULT == 777
@@ -286,6 +282,7 @@ ELSEIF RESULT == 987
 ;起床時間設定
 ELSEIF RESULT == 2400
 	CALL 起床時間設定()
+;custom shop button use
 ELSEIF RESULT == 797
 	CALL choiceButtonTarget()
 ELSEIF RESULT == 798
@@ -298,10 +295,16 @@ ELSEIF RESULT == 799
 		ShopButtonTargetId ++
 		ShopButtonTarget = ShopButtonTargetList:ShopButtonTargetId
 	ENDIF
-ELSEIF RESULT >= 800 && RESULT <= 809
+ELSEIF INRANGE(RESULT, 800, 800 + MAX_CUSTOM_SHOP)
 	CALL useKojoShopButton(RESULT - 800)
 ENDIF
-
+[IF_DEBUG]
+IF RESULT == 610
+	CALL DEBUG_COUNTER_FILTER
+ELSEIF RESULT == 620
+	CALL DEBUG_IRAI_HAPPEN
+ENDIF
+[ENDIF]
 
 @TW_TIPS
 SETCOLOR C_YELLOW
@@ -345,7 +348,7 @@ PRINTDATA
 	DATAFORM 到鈴奈庵借書能得到书所对应的技能经验。
 	DATAFORM 使用奇迹之石能提高角色欲望、甚至会当街把你推倒、但是亲密和信赖也就很难上升了。
 	DATAFORM 游戏一年可以用起床选项的（败者食尘）開始你的二周目、会继承一周目的一部分能力。
-	DATAFORM 多重絶頂因此而上升的额外好感度、会在射精时追加入BOUNS里一同计算。
+	DATAFORM 多重絶頂因此而上升的额外好感度、会在射精时追加入BONUS里一同计算。
 	DATAFORM 禁欲3日就能得到素质【濃厚精液】来使精液得到強化、射精之后第二天【濃厚精液】会消失。
 	DATAFORM 禁欲太久的话会梦遗哦。
 	DATAFORM 料理得到的评价在80点以上就会使人心情舒畅、反之35点以下会让人反胃。
@@ -401,7 +404,7 @@ PRINTDATA
 	DATAFORM 少女的喘息好色……不知为何更色了
 	DATAFORM 极端天气出门要小心哦
 	DATAFORM 可以多和少女们贴贴哦
-	DATAFORM 欲求不満が低ければ満足している。体力が尽きるまで勤しむ必要はない。
+	DATAFORM 若欲求不满值较低则保持满足。无需勉强自己到筋疲力尽。
 ;DATAFORM 我整合的版本都会发贴吧的哦，有BUG反馈或者想要新功能就在那里找我吧。喂，打破第四面墙了！
 ENDDATA
 PRINTFORML 
@@ -447,7 +450,7 @@ WHILE 1
 			PRINTL
 			CONTINUE
 		ENDIF
-		PRINTFORM [{list_chara_has_child:printing_chara, 3}] %NAME_OUTPUT_TRANSLATION("CALLNAME", (list_chara_has_child:printing_chara)), 16, LEFT%
+		PRINTFORM [{list_chara_has_child:printing_chara, 3}] %CALLNAME:(list_chara_has_child:printing_chara), 16, LEFT%
 		CALL SHOW_CHILDDATA(list_chara_has_child:printing_chara, "ICON")
 	NEXT
 	DRAWLINE
@@ -499,7 +502,7 @@ WEND
 leave_line_count_last = LINECOUNT
 
 PRINTFORML %"━" * 50%
-PRINTFORML 　%NAME_OUTPUT_TRANSLATION("CALLNAME", chara_id)%的兒童一覧
+PRINTFORML 　%CALLNAME:chara_id%的兒童一覧
 PRINTFORML %"━" * 50%
 CALL SHOW_CHILDDATA(chara_id)
 PRINTW
@@ -569,7 +572,7 @@ FOR LOCAL, START, START:页
 		CONTINUE
 	SIF LEARNED_MENU:LOCAL > 100
 		SETCOLOR C_YELLOW
-	PRINTFORM  [{LOCAL, 3}] %NAME_OUTPUT_TRANSLATION("CALLNAME", LOCAL), 16, LEFT%
+	PRINTFORM  [{LOCAL, 3}] %CALLNAME:LOCAL, 16, LEFT%
 	PRINTFORML %DISH_NAME% （%RESULTS%）
 	LOCAL:1 ++
 	RESETCOLOR

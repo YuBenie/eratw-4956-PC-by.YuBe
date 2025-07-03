@@ -27,13 +27,14 @@ PRINTFORML [93] - 簡易過濾的總設定
 PRINTFORML [94] - 画像表示設定
 PRINTFORML [95] - 登場人物的切换
 PRINTFORML [96] - 指令过滤器
-;#;PRINTFORML [97] - カウンター行動フィルタ（デバッグ用）
-PRINTFORML [98] - ステータス上昇倍率
+;#;PRINTFORML [97] - Counter行为过滤器(调试用)
+PRINTFORML [98] - 状态提升倍率
+PRINTFORML [99] - 妊娠选项
 ;PRINTFORML [98] - 料理操作的設定
 DRAWLINE
 
 SIF DAY > 124
-	HTML_PRINT @"<button value='200' title='【警告】 これより 先は 読んで是けない'>[200] - 败者・食尘</button>"
+	HTML_PRINT @"<button value='200' title='【警告】 禁止继续阅读'>[200] - 败者・食尘</button>"
 PRINTFORML [999] - 設定完了
 INPUT
 SELECTCASE RESULT
@@ -61,6 +62,8 @@ CASE 98
 	CALL OPTION_ABL_UP_RAIT
 ;CASE 98
 ;	CALL SET_OPTION_COOKING
+CASE 99
+	CALL PREGNANCY_TYPE_OPTIONS
 CASE  200
 		TOOLTIP_SETDELAY 500
 	IF DAY <= 124
@@ -94,7 +97,7 @@ CASE 0
 	RESULTS:0 = 怀孕的有无
 	IF FLAG:妊娠開关
 		RESULTS:1 = 会怀孕
-		RESULTS:2 = ※你的怀孕功能未实装※
+		RESULTS:2 = ※自机孕在魔改功能里※
 	ELSE
 		RESULTS:1 = 不会怀孕
 	ENDIF
@@ -149,11 +152,13 @@ CASE 6
 		RESULTS:1 = 不会変化
 	ENDIF
 CASE 7
-	RESULTS:0 = 因事件而[無知]喪失
+	RESULTS:0 = [无知]因成长而失去
 	IF FLAG:無知自動喪失禁止
-		RESULTS:1 = 不会喪失
+		RESULTS:1 = 不会失去
+		RESULTS:2 = 无论经验如何，角色都会保留[无知]属性
 	ELSE
-		RESULTS:1 = 会喪失
+		RESULTS:1 = 会失去
+		RESULTS:2 = 角色因为经验的增长而失去[无知]属性
 	ENDIF
 CASE 8
 	RESULTS:0 = 文本設定
@@ -172,14 +177,14 @@ CASE 9
 		RESULTS:1 = 无
 	ENDIF
 CASE 10
-	RESULTS:0 = 汚物程度表示
+	RESULTS:0 = 显示所在地的清洁程度
 	IF FLAG:垃圾显示OFF
 		RESULTS:1 = 否
 	ELSE
 		RESULTS:1 = 是
 	ENDIF
 CASE 11
-	RESULTS:0 = counter的地文会根据素质不同发生变化
+	RESULTS:0 = counter的地文（对方行动时的描述）会根据素质不同发生变化
 	IF FLAG:Counter地文控制
 		RESULTS:1 = 会変化
 	ELSE
@@ -188,13 +193,13 @@ CASE 11
 CASE 12
 	RESULTS:0 = 描写胸部的文本
 	IF FLAG:Look表示用乳房 == 1 && FLAG:Look表示用乳頭 == 1
-		RESULTS:1 = 全部固定
+		RESULTS:1 = 全部显示固定描述
 	ELSEIF FLAG:Look表示用乳房 == 1 && FLAG:Look表示用乳頭 == 0
 		RESULTS:1 = 仅固定乳房描写
 	ELSEIF FLAG:Look表示用乳房 == 0 && FLAG:Look表示用乳頭 == 1
 		RESULTS:1 = 仅固定乳头描写
 	ELSEIF FLAG:Look表示用乳房 == 0 && FLAG:Look表示用乳頭 == 0
-		RESULTS:1 = 不固定
+		RESULTS:1 = 全部显示个性化描述
 	ENDIF
 ;CASE 13
 ;	RESULTS:0 = 好意/理性之壁の表示
@@ -271,9 +276,11 @@ CASE 20
 CASE 21
 	RESULTS:0 = 進行能力比較來決定會不會被推倒
 	IF FLAG:推倒
-		RESULTS:1 = 有
+		RESULTS:1 = 进行
+		RESULTS:2 = 通过双方的能力鉴定，通过后允许主动拒绝逆推
 	ELSE
-		RESULTS:1 = 无
+		RESULTS:1 = 不进行
+		RESULTS:2 = 不会拒绝逆推的发生
 	ENDIF
 CASE 22
 	RESULTS:0 = 警告牌使用
@@ -312,9 +319,11 @@ CASE 25
 	CASE 0
 		RESULTS:1 = 毎回選択
 	CASE 1
-		RESULTS:1 = 总是占为己有
+		RESULTS:1 = 默认选择全脱
+		RESULTS:2 = 不出现选择，每次都会脱光衣服
 	CASE 2
-		RESULTS:1 = 总是单单脱掉
+		RESULTS:1 = 默认选择敞开衣服
+		RESULTS:2 = 默认脱下内衣敞开衣物，只在没有内衣时询问是否脱光
 	ENDSELECT
 CASE 26
 	RESULTS:0 = 一部分人物的長筒襪穿戴
@@ -377,14 +386,14 @@ CASE 33
 		RESULTS:1 = 無効
 	ENDIF
 CASE 34
-	RESULTS:0 = 反击的惩罚
+	RESULTS:0 = 角色对你的制裁行动
 	SELECTCASE FLAG:カウンター制裁
 	CASE 0
-		RESULTS:1 = 有
+		RESULTS:1 = 允许过激的惩罚
 		RESULTS:2 = 一旦被抓住把柄就会偶尔发生
 	CASE 1
-		RESULTS:1 = 不采取过激的惩罚
-		RESULTS:2 = 减少使用道具的惩罚
+		RESULTS:1 = 允许但不采取过激的惩罚
+		RESULTS:2 = 不会使用道具进行惩罚
 	CASE 2
 		RESULTS:1 = 没有
 	ENDSELECT
@@ -394,14 +403,14 @@ CASE 35
 	CASE 0
 		RESULTS:1 = 許可
 	CASE 1
-		RESULTS:1 = あなた禁止
-		RESULTS:2 = あなたに快Ａソースが入るカウンター行動を禁止します
+		RESULTS:1 = 禁止开发你
+		RESULTS:2 = 禁止角色对玩家使用获得快A的Counter行动
 	CASE 2
-		RESULTS:1 = 相手禁止
-		RESULTS:2 = 相手に快Ａソースが入るカウンター行動を禁止します
+		RESULTS:1 = 禁止自我开发
+		RESULTS:2 = 禁止角色对自身使用获得快A的Counter行动
 	CASE 3
-		RESULTS:1 = あなた・相手禁止
-		RESULTS:2 = 快Ａソースが入るカウンター行動を禁止します
+		RESULTS:1 = 都禁止
+		RESULTS:2 = 禁止角色使用任何获得快A的Counter行动
 	ENDSELECT
 
 CASE 36
@@ -412,13 +421,13 @@ CASE 36
 		RESULTS:1 = 無効
 	ENDIF
 CASE 37
-	RESULTS:0 = 誤爆挿入の発生
+	RESULTS:0 = 误爆插入的发生
 	IF FLAG:誤爆無効
-		RESULTS:1 = 無効
-		RESULTS:2 = 押し倒し中に相手が誤って挿入することがなくなります
+		RESULTS:1 = 无效
+		RESULTS:2 = 推倒中对方不会不小心插入
 	ELSE
-		RESULTS:1 = 有効
-		RESULTS:2 = 押し倒し中に相手が誤って挿入することがあります
+		RESULTS:1 = 有效
+		RESULTS:2 = 推倒中对方可能会不小心插入
 	ENDIF
 CASE 38
 	RESULTS:0 = 妊娠期間設定
@@ -470,7 +479,7 @@ CASE "文本設定"
 	ENDIF
 CASE "消耗品自動購入"
 	FLAG:消耗品自動購入 = !FLAG:消耗品自動購入
-CASE "汚物程度表示"
+CASE "显示所在地的清洁程度"
 	FLAG:垃圾显示OFF = !FLAG:垃圾显示OFF
 CASE "是否会在移動時停下"
 	CALL オプション切り替え("停下脚步", 2)
@@ -510,7 +519,7 @@ CASE "描写胸部的文本"
 	ENDIF
 CASE "能力表示的標記"
 	FLAG:能力表記 = !FLAG:能力表記
-CASE "counter的地文会根据素质不同发生变化"
+CASE "counter的地文（对方行动时的描述）会根据素质不同发生变化"
 	FLAG:Counter地文控制 = !FLAG:Counter地文控制
 CASE "增加色色的内衣"
 	FLAG:セクシー胖次追加 = !FLAG:セクシー胖次追加
@@ -536,7 +545,7 @@ CASE "対方是否会告白"
 	FLAG:告白禁止 = !FLAG:告白禁止
 CASE "每回合的ABLUP"
 	FLAG:ABLUP省略 = !FLAG:ABLUP省略
-CASE "因事件而[無知]喪失"
+CASE "[无知]因成长而失去"
 	FLAG:無知自動喪失禁止 = !FLAG:無知自動喪失禁止
 CASE "好意/理性之壁の表示"
 	FLAG:好意理性短縮 = !FLAG:好意理性短縮
@@ -569,13 +578,13 @@ CASE "采集时的再抽签功能"
 	FLAG:採集再抽選 = !FLAG:採集再抽選
 CASE "根据日期和天气背景颜色的变化"
 	FLAG:背景色推移 = !FLAG:背景色推移
-CASE "反击的惩罚"
+CASE "角色对你的制裁行动"
 	CALL オプション切り替え("カウンター制裁", 2)
 CASE "肛门開発許可"
 	CALL オプション切り替え("アナル開発無効", 3)
 CASE "日常行动中的上升气流现象"
 	FLAG:風チラ発生 = !FLAG:風チラ発生
-CASE "誤爆挿入の発生"
+CASE "误爆插入的发生"
 	FLAG:誤爆無効 = !FLAG:誤爆無効
 CASE "妊娠期間設定"
 	IF GETBIT(ACCELERATE_PREGANCY_AND_RAISING_CHILD, 0) && !GETBIT(ACCELERATE_PREGANCY_AND_RAISING_CHILD, 10)
@@ -668,7 +677,7 @@ FOR LOCAL:1, 1, EX_CHARANUM
 		SETCOLOR C_D_RED
 	RESULT = 0
 	TRYCALLFORM M_KOJO_K{NO:LOCAL}
-	PRINTFORMLC [{LOCAL, 3}] \@ RESULT ? * # \@%NAME_OUTPUT_TRANSLATION("CALLNAME", LOCAL)%
+	PRINTFORMLC [{LOCAL, 3}] \@ RESULT ? * # \@%CALLNAME:LOCAL%
 	RESETCOLOR
 NEXT
 PRINTL 　
@@ -687,7 +696,7 @@ IF RESULT >= 1 && RESULT <= CHARANUM
 		GOTO LOOP
 	ELSEIF FLAG:扮演 == RESULT
 		IF CFLAG:(FLAG:扮演):出禁 == 1
-			PRINTFORML 要扮演現在这个人物的话、将会变成两个%NAME_OUTPUT_TRANSLATION("CALLNAME", RESULT)%同时存在的情况…
+			PRINTFORML 要扮演現在这个人物的话、将会变成两个%CALLNAME:RESULT%同时存在的情况…
 			PRINTL 即使这様也要登場吗？
 			PRINTL [0]是 [1]否
 			INPUT
@@ -696,7 +705,7 @@ IF RESULT >= 1 && RESULT <= CHARANUM
 				SIF CFLAG:(FLAG:扮演):現在位置 == CFLAG:(FLAG:扮演):初期位置 && CFLAG:(FLAG:扮演):睡眠
 					LOCK:(CFLAG:(FLAG:扮演):初期位置) = 1
 				FLAG:出禁人数 --
-				PRINTFORMW %NAME_OUTPUT_TRANSLATION("CALLNAME", (FLAG:扮演))%将登場
+				PRINTFORMW %CALLNAME:(FLAG:扮演)%将登場
 			ELSE
 				GOTO LOOP
 			ENDIF
@@ -984,7 +993,7 @@ ENDIF
 RESTART
 
 ;カウンター行動フィルタ
-@OPTION_COUNTER_FILTER
+@DEBUG_COUNTER_FILTER
 #DIM CCOM_ID
 #DIM L_FEED
 #DIM TEMP
@@ -1002,8 +1011,8 @@ DO
 	NEXT
 	PRINTL 
 	DRAWLINE
-	PRINTL [500] - 全部无效
-	PRINTL [501] - 复位
+	PRINTL [500] - 全て無効
+	PRINTL [501] - リセット
 	PRINTL 
 	PRINTL [999] - 決定
 	INPUT
@@ -1020,6 +1029,106 @@ DO
 	ENDSELECT
 	CLEARLINE LINECOUNT - L_FEED
 LOOP 1
+
+;指定依頼発生
+@DEBUG_IRAI_HAPPEN
+#DIM CNT
+#DIM CHR
+#DIM RDW
+#DIM HAPPEN
+#DIM TEMP
+RDW = CURRENTREDRAW()
+REDRAW 0
+DRAWLINE
+SIF FLAG:並び替え
+	CALL CHARASORT_EX
+FOR CNT, 1, EX_CHARANUM
+	IF FLAG:並び替え
+		LOCAL = RESULT:CNT
+		SIF LOCAL < 0
+			CONTINUE
+	ELSE
+		LOCAL = CNT
+		SIF LOCAL >= CHARANUM
+			BREAK
+	ENDIF
+	SIF TALENT:LOCAL:行きずり
+		CONTINUE
+	SIF !CAN_MEET(LOCAL)
+		CONTINUE
+	RESULT = 0
+	PRINTFORMLC [{LOCAL, 3}] %CALLNAME:LOCAL%
+NEXT
+PRINTFORMLC [999] 取消
+PRINTL 　
+DRAWLINE
+PRINTFORML 请选择发起委托的角色
+CALL COLORMESSAGE, "※ 当前正在进行的委托将会全部丢失 ※", C_YELLOW, 1
+DO
+	INPUT
+	SELECTCASE RESULT
+		CASE 1 TO RANDOM_CHARANUM -1
+			IF CAN_MEET(RESULT)
+				CHR = RESULT
+				BREAK
+			ENDIF
+		CASE 999
+			REDRAW RDW
+			RETURN
+	ENDSELECT
+	CLEARLINE 1
+LOOP 1
+
+DRAWLINE
+CVARSET CFLAG, 403
+CVARSET CFLAG, 404
+VARSET IRAI_SLOT
+VARSET IRAI_DATA
+VARSET IRAI_SUB
+VARSET IRAI_DEADLINE
+VARSET IRAI_CLIENT
+VARSET IRAI_EX
+VARSET LOCAL
+TEMP = 0
+
+PRINTFORML 请选择要发生的委托
+PRINTFORML 无法选择不满足发生条件的委托
+FOR CNT, 1, 100
+	SIF !INT_DATA_IRAI(MAKE_IRAI_ID(CHR, CNT), "依頼発生条件", CHR)
+		CONTINUE
+	CALL KOJO_CHECK(CHR, "IRAI_BLOCKED", , CNT)
+	SIF RESULT == 1
+		CONTINUE
+	PRINTFORML [{CNT, 3}] %STR_DATA_IRAI(CNT, "依頼内容表示", CHR)%
+	LOCAL:TEMP = CNT
+	TEMP ++
+NEXT
+IF GET_INT(0, "キャラデータ", CHR, "固有依頼最終要素")
+	FOR CNT, 101, GET_INT(0, "キャラデータ", CHR, "固有依頼最終要素") + 1
+		SIF !INT_DATA_IRAI(MAKE_IRAI_ID(CHR, CNT), "依頼発生条件", CHR)
+			CONTINUE
+		CALL KOJO_CHECK(CHR, "IRAI_BLOCKED", , CNT)
+		SIF RESULT == 1
+			CONTINUE
+		PRINTFORML [{CNT}] %STR_DATA_IRAI(CNT, "依頼内容表示", CHR)%
+		LOCAL:TEMP = CNT
+		TEMP ++
+	NEXT
+ENDIF
+DO
+	INPUT
+	IF FINDELEMENT(LOCAL, RESULT) > -1 && RESULT
+		HAPPEN = RESULT
+		BREAK
+	ENDIF
+	CLEARLINE 1
+LOOP 1
+CALL SET_IRAI_PROGRESS(CHR, "依頼発生直後")
+CFLAG:CHR:依頼内容 = MAKE_IRAI_ID(CHR, HAPPEN)
+
+REDRAW RDW
+RETURN 1
+
 [SKIPSTART]
 ;;料理オプション設定関数
 ;;0:手動決定,1:異物不可,2:薬物不可
@@ -1169,26 +1278,26 @@ PRINT 没收叔叔出現了！
 FORCEWAIT
 PRINT 「那么、输入画面上不可能显示的数字的孩子的钱、就这様没收了哦」
 FORCEWAIT
-PRINTFORM 没收叔叔把%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%的现金没收了
+PRINTFORM 没收叔叔把%CALLNAME:MASTER%的现金没收了
 MONEY = 0
 FORCEWAIT
 PRINT 「输入画面上不可能显示的数字的孩子的道具也、就这様没收了哦」
 FORCEWAIT
-PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%的道具被没收了
+PRINTFORM %CALLNAME:MASTER%的道具被没收了
 ;FOR LOCAL,0,500
 ;	ITEM:LOCAL = 0
 ;NEXT
 FORCEWAIT
 PRINT 「输入画面上不可能显示的数字的孩子的技巧也、就这様没收了哦」
 FORCEWAIT
-PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%的技巧被没收了
+PRINTFORM %CALLNAME:MASTER%的技巧被没收了
 FORCEWAIT
 ;FOR LOCAL,0,100
 ;	ABL:0:LOCAL = 0
 ;NEXT
 PRINT 「输入画面上不可能显示的数字的孩子的経験也、就这様没收了哦」
 FORCEWAIT
-PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%的経験被没收了
+PRINTFORM %CALLNAME:MASTER%的経験被没收了
 FORCEWAIT
 ;FOR LOCAL,0,100
 ;	EXP:0:LOCAL = 0
@@ -1197,7 +1306,7 @@ FORCEWAIT
 ;
 PRINT 「输入画面上不可能显示的数字的孩子的内裤藏品也、就这様没收了哦」
 FORCEWAIT
-PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%殚精竭智収集到的宝贝般的内裤藏品被没收了
+PRINTFORM %CALLNAME:MASTER%殚精竭智収集到的宝贝般的内裤藏品被没收了
 FORCEWAIT
 ;FLAG:700 = 0
 ;FOR LOCAL,1,CHARANUM
@@ -1208,7 +1317,7 @@ FORCEWAIT
 ;信赖都能没收?太ntr了,注释了
 PRINT 「输入画面上不可能显示的数字的孩子的信頼也、就这様没收了哦」
 FORCEWAIT
-PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%获得的少女们的信頼被没收了
+PRINTFORM %CALLNAME:MASTER%获得的少女们的信頼被没收了
 FOR LOCAL,1,CHARANUM
 	CFLAG:LOCAL:信賴度 = 0
 NEXT
@@ -1216,7 +1325,7 @@ FORCEWAIT
 
 PRINT 「输入画面上不可能显示的数字的孩子的能力值也、就这様没收了哦」
 FORCEWAIT
-PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%的能力被没收了
+PRINTFORM %CALLNAME:MASTER%的能力被没收了
 ;FOR LOCAL,0,9
 	;最大体力算了,这样只能读档了
 	; MAXBASE:0:LOCAL = 99
@@ -1248,10 +1357,10 @@ VARSET RESULT
 
 FOR 対象,1,CHARANUM
 	FOR 種類,20,26
-		所有数 = CFLAG:対象:(種類 + 100)
+		所有数 = CFLAG:対象:(種類 + 胖次管理)
 		IF 所有数 >= 1
 			RESULT:0 += (所有数)
-			CFLAG:対象:(種類 + 100) = 0
+			CFLAG:対象:(種類 + 胖次管理) = 0
 		ENDIF
 	NEXT
 NEXT

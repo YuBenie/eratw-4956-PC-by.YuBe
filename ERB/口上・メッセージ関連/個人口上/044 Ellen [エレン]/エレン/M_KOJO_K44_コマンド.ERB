@@ -491,7 +491,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASE 1
 									PRINTFORMW 「夏天真是热得不得了啊 」
 								CASEELSE
-									PRINTFORMW 「啊，衣服被汗水弄得粘糊糊的」
+									PRINTFORMW 「啊，衣服被汗水弄得黏糊糊的」
 									SIF TALENT:恋人
 									PRINTFORMW 「之后一起进入浴室擦汗吧 」
 								ENDSELECT
@@ -561,7 +561,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASE 1
 									PRINTFORMW 「夏天真是热得不得了啊 」
 								CASEELSE
-									PRINTFORMW 「啊，衣服被汗水弄得粘糊糊的」
+									PRINTFORMW 「啊，衣服被汗水弄得黏糊糊的」
 									SIF TALENT:恋人
 									PRINTFORMW 「之后一起进入浴室擦汗吧 」
 								ENDSELECT
@@ -1163,10 +1163,10 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 					CASEELSE
 						PRINTFORMW 「虽然想把月亮的石头带回去…啊，不行吗 」
 					ENDSELECT
-				;破舊小屋は昔艾倫の店だったという脳内設定
+				;破舊小屋は昔爱莲の店だったという脳内設定
 				CASE 16
 					IF FIRSTTIME(1003)
-						;物覚えが悪いといってもどこに店を出していたかはちゃんと覚えている艾倫、こまめに記録しているのだろうか
+						;物覚えが悪いといってもどこに店を出していたかはちゃんと覚えている爱莲、こまめに記録しているのだろうか
 						IF FLAG:住宿人物 == 44
 							PRINTFORMW 「有一段时间没住在这里了 %UNICODE(0x2665)%」
 						ELSEIF FLAG:116 > 2000
@@ -1181,7 +1181,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						ENDIF
 						PRINTFORML 「啊，这么说来还没和%CALLNAME:MASTER%说呢 」
 						PRINTFORMW 「其实以前，我在这里做魔法屋%UNICODE(0x2665)%」
-						;艾倫が住み込んでいる場合
+						;爱莲が住み込んでいる場合
 						IF FLAG:住宿人物 == 44
 							PRINTFORMW 「结果店移到了别的地方 」
 							PRINTFORMW 「诶？为什么搬回神社了？」
@@ -1193,7 +1193,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 									PRINTFORMW 「……这种时候才能说的话」
 									PRINTFORMW 「我对%CALLNAME:MASTER%是喜欢着的、所以…//」
 									PRINTFORMW 「能成为我的恋人吗？ //」
-									PRINTFORMDL 艾倫的告白…
+									PRINTFORMDL 爱莲的告白…
 									PRINTFORMD [1] - 接受
 									PRINTDL 　- 恋人最多只能有1个 -
 									PRINTFORMD [2] - 拒绝
@@ -1211,13 +1211,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 										SETBIT CFLAG:13 , 1
 										CALL KOJO_MESSAGE_SEND("SP_EVENT",2,44,RESULT)
 										PRINTL
-										PRINTFORMDW 和艾倫成为了恋人
+										PRINTFORMDW 和爱莲成为了恋人
 									ELSE
 										CALL KOJO_MESSAGE_SEND("SP_EVENT",2,44,RESULT)
 									ENDIF
 								ENDIF
 							ENDIF
-						;艾倫以外が住み込んでいる場合
+						;爱莲以外が住み込んでいる場合
 						ELSEIF FLAG:住宿人物
 							PRINTFORMW 「结果店迁移了到另外的地方,不过，现在%CALLNAME:(FLAG:住宿人物)%正在住着 」
 							IF TALENT:恋慕
@@ -1319,7 +1319,7 @@ ELSE
 				PRINTFORMDW 感觉和艾伦的关系加深了……
 				CFLAG:2 += 10 + RAND:20
 				CFLAG:4 += 10 + RAND:20
-				;艾倫に恋慕か思慕が付いていれば更にプラス
+				;爱莲に恋慕か思慕が付いていれば更にプラス
 				IF TALENT:恋慕
 					CFLAG:2 += 20
 					CFLAG:4 += 20
@@ -1393,7 +1393,7 @@ IF RAND:10 == 1 && CFLAG:1007 == 0 && ABL:MASTER:教養 >= 3 && TALENT:MASTER:�
 	PRINTFORMDW 成为她弟子后也许可以使用魔法
 	SIF TALENT:恋人 && !TALENT:MASTER:妖狐
 	PRINTFORMDW 而且如果能成为长生不老的魔法使的话，就能和艾伦在一起更长时间！
-	PRINTFORMD 无论是艾倫还是%CALLNAME:MASTER%都会幸福
+	PRINTFORMD 无论是爱莲还是%CALLNAME:MASTER%都会幸福
 	IF TALENT:恋人 && TALENT:恋慕
 		PRINTD 从心底里非常喜欢你
 	ELSEIF TALENT:恋慕
@@ -1458,10 +1458,10 @@ IF RAND:10 == 1 && CFLAG:1007 == 0 && ABL:MASTER:教養 >= 3 && TALENT:MASTER:�
 		ENDIF
 		PRINTFORMDL %CALLNAME:MASTER%得到了艾伦的认可成为了魔法使弟子！
 		PRINTFORMDW 今后和艾伦一起学习可以学习魔法
-		;艾倫の教養を你＋１に、師匠なのに弟子より教養が低いのは変だし
+		;爱莲の教養を你＋１に、師匠なのに弟子より教養が低いのは変だし
 		ABL:教養 = (ABL:MASTER:教養 + 1)
 		CFLAG:1007 = 1
-		;你の戦闘能力に応じて初期経験にBOUNS
+		;你の戦闘能力に応じて初期経験にBONUS
 		CFLAG:1008 += (ABL:MASTER:戦闘能力 * 5)
 		CFLAG:1009 += (ABL:MASTER:戦闘能力 * 5)
 		CFLAG:1010 += (ABL:MASTER:戦闘能力 * 2)
@@ -1712,7 +1712,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 		IF TFLAG:193 == -1
 			SELECTCASE RAND:2
 			CASE 1
-				PRINTFORMW 「等等等等一下！太粘人了！我说真的//」
+				PRINTFORMW 「等等等等一下！太黏人了！我说真的//」
 			CASEELSE
 				PRINTFORMW 「等一下，不管怎么说都太过分了！简直了 //」
 			ENDSELECT
@@ -1736,7 +1736,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 	;恋慕or準恋慕or恋人時専用
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 		IF TFLAG:193 == -1
-			PRINTFORMW 「等等等一下//　实在太粘人了一点吧//」
+			PRINTFORMW 「等等等一下//　实在太黏人了一点吧//」
 		ELSE
 			;入浴中か否かで分岐
 			IF CFLAG:現在位置 == 13 || CFLAG:現在位置 == 24 || CFLAG:MASTER:現在位置 == 30 || CFLAG:MASTER:現在位置 == 39
@@ -1755,7 +1755,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 	;其他
 	ELSEIF TALENT:思慕
 		IF TFLAG:193 == -1
-			PRINTFORMW 「等等等等一下！　不管怎么说太粘人了 ！」
+			PRINTFORMW 「等等等等一下！　不管怎么说太黏人了 ！」
 		ELSE
 			PRINTFORMW 「哈哈哈%UNICODE(0x2665)% 真痒啊%UNICODE(0x2665)%」
 		ENDIF
@@ -2358,7 +2358,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ
 	ELSEIF TALENT:恋慕 && (OUTROOF(CFLAG:TARGET:現在位置)) || (OPENPLACE(CFLAG:TARGET:現在位置))
 		PRINTFORMW 「啥//　谁谁谁谁看见了的话该怎么办啊 ！//」
 	ELSEIF MARK:快楽刻印 < 2
-		PRINTFORMDW 艾倫讨厌这样做…
+		PRINTFORMDW 爱莲讨厌这样做…
 	ENDIF
 ENDIF
 RETURN 1
@@ -2381,7 +2381,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ
 	ELSEIF TALENT:恋慕 && (OUTROOF(CFLAG:TARGET:現在位置)) || (OPENPLACE(CFLAG:TARGET:現在位置))
 		PRINTFORMW 「呀！//　谁谁谁谁看见了的话该怎么办啊 ！//」
 	ELSEIF MARK:快楽刻印 < 2
-		PRINTFORMDW 艾倫讨厌这样做…
+		PRINTFORMDW 爱莲讨厌这样做…
 	ENDIF
 ENDIF
 RETURN 1
@@ -2712,7 +2712,7 @@ IF LOCAL && !CFLAG:ブチギレ
 ;						;うにと咖喱♪
 ;						PRINTFORMW 「だいなでだ～いなあ～いらん♪」
 ;					CASEELSE
-;						;艾倫可愛的よ艾倫
+;						;爱莲可愛的よ爱莲
 ;						PRINTFORMW 「わたしは软绵绵♪　た～ん～ぽぽ♪わ～た～がし♪♪」
 ;					ENDSELECT
 				CASEELSE
@@ -3081,7 +3081,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 			SELECTCASE RAND:20
 			;魔法の御香、決して可疑薬じゃないぞ！
 			CASE 0
-				;艾倫私室でのみ発生
+				;爱莲私室でのみ発生
 				IF ((CFLAG:現在位置 == 16 && FLAG:住宿人物 == 44) || CFLAG:44:現在位置 == OMANEKIBEYA() || CFLAG:44:現在位置 == 535) && !TALENT:育児中
 					IF FIRSTTIME(1029)
 						PRINTFORMW 「今天准备了好东西 %UNICODE(0x2665)%//」
@@ -3150,7 +3150,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 				ENDIF
 			;软绵绵胸部　？？「どっかで聞いたことがある」
 			CASE 1, 2
-				;艾倫が普乳以下のときのみ発生
+				;爱莲が普乳以下のときのみ発生
 				IF TALENT:胸圍 <= 0
 					IF FIRSTTIME(1030)
 						PRINTFORMW 「那个，今天带来了好东西 %UNICODE(0x2665)%//」
@@ -3731,7 +3731,7 @@ IF LOCAL && !FLAG:70
 					LOCAL:2 = 0
 				ENDIF
 			ELSEIF RESULT == 1
-				;艾倫以外にもいると不可
+				;爱莲以外にもいると不可
 				IF GET_TARGETNUM() > 1
 					PRINTFORMW ……现在还有人在，很危险，还是别做了
 					GOTO LOOP_200
@@ -4115,7 +4115,7 @@ IF LOCAL && !FLAG:70
 			ELSEIF LOCAL:3 == 3
 				PRINTFORMW 「感觉不错 %CALLNAME:MASTER%%UNICODE(0x2665)%　以这样的状态加油吧 %UNICODE(0x2665)%」
 				CFLAG:1010 += 2
-				;曲奇用、艾倫が住み込んでいるか艾倫宅に住み込んでいる時に50%の確率で発生
+				;曲奇用、爱莲が住み込んでいるか爱莲宅に住み込んでいる時に50%の確率で発生
 				IF (FLAG:住宿人物 == 44 || 拠点_家主 == 44) && LOCAL:2 == 2 && RAND:2 == 1
 					PRINTFORMDL 看来艾伦把练习魔法时使用的曲奇烤了
 					;廚房に宝珠ンは…ないよね？
@@ -4247,7 +4247,7 @@ IF LOCAL
 		ELSEIF LOCAL:2 <= 4
 			PRINTFORML …不太明白
 		ENDIF
-		;次に艾倫の台詞
+		;次に爱莲の台詞
 		TRYCALLFORM M_KOJO_COLOR_K44
 		IF CFLAG:1012 >= 6
 			SELECTCASE LOCAL:1
@@ -4312,7 +4312,7 @@ IF LOCAL
 					PRINTFORMW 「这里这样，那里那样哦」
 				ENDSELECT
 			ENDSELECT
-		;これも艾倫は魔法を使ってないため特に無し
+		;これも爱莲は魔法を使ってないため特に無し
 		ELSEIF CFLAG:1012 == 4
 			SELECTCASE LOCAL:1
 			CASE 1, 2
@@ -4985,7 +4985,7 @@ ELSE
 		IF TCVAR:360 == 1
 			;成功か特に無かで分岐
 			IF TFLAG:193 == 1
-				;艾倫との仲でも分岐
+				;爱莲との仲でも分岐
 				IF TALENT:恋人
 					PRINTFORMW 「两个人一起做的，非常好吃哦 %UNICODE(0x2665)%」
 				ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
@@ -5034,7 +5034,7 @@ PRINTDL …
 IF TFLAG:193 == 1
 	;一緒に作ったかどうかで分岐
 	IF TCVAR:360 == 1
-		;艾倫との仲でも分岐
+		;爱莲との仲でも分岐
 		IF TALENT:恋人
 			PRINTFORML 「佳肴%UNICODE(0x2665)% 真的很好吃 %UNICODE(0x2665)%」
 			PRINTFORMW 「下次也一起做料理吧 %UNICODE(0x2665)%」
@@ -5044,7 +5044,7 @@ IF TFLAG:193 == 1
 			PRINTFORMW 「真是佳肴%UNICODE(0x2665)%」
 		ENDIF
 	ELSE
-		;艾倫との仲でも分岐
+		;爱莲との仲でも分岐
 		IF TALENT:恋人
 			SELECTCASE RAND:2
 			CASE 1
@@ -5181,7 +5181,7 @@ IF LOCAL && !FLAG:70 && TFLAG:193 != -1
 			CASE 1
 				PRINTFORMW 「发出了漂亮的声音哇—— 」
 			CASE 2
-				PRINTFORMDW 艾倫为了%CALLNAME:MASTER%的演奏的姿态过来了…
+				PRINTFORMDW 爱莲为了%CALLNAME:MASTER%的演奏的姿态过来了…
 			CASEELSE
 				PRINTFORMW 「辛苦了%UNICODE(0x2665)%」
 			ENDSELECT
@@ -5551,7 +5551,7 @@ IF LOCAL && !CFLAG:ブチギレ
 			PRINTFORMW 「谢谢你请我吃饭 %UNICODE(0x2665)% 很好吃啊 %UNICODE(0x2665)%」
 		ENDIF
 	ELSE
-		;工作結束からの约会の場合艾倫がおごってくれるよ！
+		;工作結束からの约会の場合爱莲がおごってくれるよ！
 		IF TCVAR:356 == 1
 			PRINTFORMW 「是由我发出邀请的不能让你请客，我来付钱吧」
 		;恋人かつ恋慕時専用
@@ -5633,7 +5633,7 @@ IF LOCAL && !CFLAG:ブチギレ
 		CASE 1
 			PRINTFORMW 「我亲手做的鸡蛋三明治怎么样 %UNICODE(0x2665)%」
 		CASE 2
-			;艾倫は動物の言葉が分かる
+			;爱莲は動物の言葉が分かる
 			PRINTFORMDL  苏格拉底正在物色艾伦的便当……
 			PRINTFORMW 「苏格拉底的饭不是这里而是那边的 」
 			PRINTFORMW 「啊？“比起那边更想吃这边”？ 」
@@ -5689,7 +5689,7 @@ IF LOCAL && !CFLAG:ブチギレ
 				PRINTFORMW 「佳肴%UNICODE(0x2665)% 嘴角稍微有点脏啊」
 				PRINTFORMW 「真是的，我来帮你擦干净%UNICODE(0x2665)%」
 			ENDSELECT
-		;工作結束からの约会の場合艾倫がおごってくれるよ！
+		;工作結束からの约会の場合爱莲がおごってくれるよ！
 		ELSEIF TCVAR:356 == 1
 			PRINTFORMW 「啊，很好吃 %UNICODE(0x2665)% 下次再来吧 %UNICODE(0x2665)%」
 		;恋慕or恋人時専用
@@ -5700,7 +5700,7 @@ IF LOCAL && !CFLAG:ブチギレ
 			PRINTFORMW 「谢谢你请我吃饭 %UNICODE(0x2665)% 很好吃啊 %UNICODE(0x2665)%」
 		ENDIF
 	ELSE
-		;工作結束からの约会の場合艾倫がおごってくれるよ！
+		;工作結束からの约会の場合爱莲がおごってくれるよ！
 		IF TCVAR:356 == 1
 			PRINTFORMW 「是由我发出邀请的不能让你请客，我来付钱吧」
 		;恋人かつ恋慕時専用
@@ -5911,7 +5911,7 @@ LOCAL = 1
 IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 	;心情不快時用
 	IF TALENT:心情 == -1
-		PRINTFORMDW 艾倫不高兴地看书…
+		PRINTFORMDW 爱莲不高兴地看书…
 		;10%で心情不快解除
 		IF !RAND:10
 			PRINTFORMDW ……不知道是不是看到什么有意思的书，对艾伦的表情不由得露出了笑容。
@@ -5921,7 +5921,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 	;親密８以上なら４分の３の確率で、恋人かつ恋慕なら必ず一緒に読書する
 	ELSEIF (ABL:親密 >= 8 && RAND:4 >= 1) || TALENT:恋人 && TALENT:恋慕
 		CFLAG:好感度 += (ABL:親密 * 2)
-		PRINTFORMD 艾倫在%CALLNAME:MASTER%的旁边
+		PRINTFORMD 爱莲在%CALLNAME:MASTER%的旁边
 		IF TALENT:恋人 && TALENT:恋慕
 			PRINTD 好像很開心
 		ELSEIF TALENT:恋慕 || CFLAG:1014 || TALENT:恋人
@@ -5929,7 +5929,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 		ENDIF
 		PRINTDW 地读书
 	ELSE
-		PRINTFORMD 艾倫
+		PRINTFORMD 爱莲
 		SIF TALENT:恋慕 || CFLAG:1014 || TALENT:恋人
 		PRINTD  在一边偷偷摸摸地看着这边，
 		PRINTFORMDW 边在稍近出口的地方看书
@@ -5972,7 +5972,7 @@ LOCAL = 1
 IF LOCAL && !CFLAG:睡眠
 	IF TALENT:恋人 && TALENT:恋慕
 		IF VISIT(44) || CHK_DATENOW(CFLAG:44:约会中) || ((FLAG:住宿人物 == 44 || FLAG:16 == 44) && (!睡眠時間(44)) && !CFLAG:睡眠)
-			;艾倫的家に泊まっているなら
+			;爱莲的家に泊まっているなら
 			IF TCVAR:(CFLAG:MASTER:招待):连住禁止 && TIME:0 <= 660
 				PRINTFORMW 「今天一天也要加油哦 %UNICODE(0x2665)%」
 			ELSE
@@ -5983,7 +5983,7 @@ IF LOCAL && !CFLAG:睡眠
 		ENDIF
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 		IF VISIT(44) || CHK_DATENOW(CFLAG:44:约会中) || ((FLAG:住宿人物 == 44 || FLAG:16 == 44) && (!睡眠時間(44)) && !CFLAG:睡眠)
-			;艾倫的家に泊まっているなら
+			;爱莲的家に泊まっているなら
 			IF TCVAR:(CFLAG:MASTER:招待):连住禁止 && TIME:0 <= 660
 				PRINTFORMW 「今天一天也要加油哦%UNICODE(0x2665)%」
 			ELSE
@@ -5994,7 +5994,7 @@ IF LOCAL && !CFLAG:睡眠
 		ENDIF
 	ELSE
 		IF VISIT(44) || CHK_DATENOW(CFLAG:44:约会中) || ((FLAG:住宿人物 == 44 || FLAG:16 == 44) && (!睡眠時間(44)) && !CFLAG:睡眠)
-			;艾倫的家に泊まっているなら
+			;爱莲的家に泊まっているなら
 			IF TCVAR:(CFLAG:MASTER:招待):连住禁止 && TIME:0 <= 660
 				PRINTFORMW 「今天一天也要加油哦 %UNICODE(0x2665)%」
 			ELSE
@@ -12016,7 +12016,7 @@ ENDIF
 ;監視用
 ;御香用
 IF TCVAR:373 == 1
-	;你の勃起度と精力を最大にしつつ互相用気力を少しずつ回復という升仕様。艾倫限定かつ比較的レアだから大丈夫…よね？
+	;你の勃起度と精力を最大にしつつ互相用気力を少しずつ回復という升仕様。爱莲限定かつ比較的レアだから大丈夫…よね？
 	PALAM:欲情 += (ABL:親密 * 1000)
 	PALAM:潤滑 += (ABL:欲望 * 500)
 	BASE:MASTER:勃起 = MAXBASE:MASTER:勃起

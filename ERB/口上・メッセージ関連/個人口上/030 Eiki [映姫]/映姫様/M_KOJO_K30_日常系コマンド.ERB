@@ -1450,7 +1450,7 @@ IF TALENT:恋人 && RAND:3 != 0
 ;恋慕＠1/3で下へ恋人ならここまで
 ELSEIF TALENT:恋慕 && RAND:3 != 1 || TALENT:恋人
 	;恋慕初回会話、二人きりだと呼び名変更提案
-	IF FIRSTTIME("稱呼",1) && K30_BE_SEEN() == 0
+	IF FIRSTTIME("称呼",1) && K30_BE_SEEN() == 0
 		PRINTFORML 「吶、%K30_C_NAME(MASTER)%」
 		PRINTFORMW 
 		PRINTFORMW 「在我看来，你果然是个特别的人。所以，那个……」
@@ -1474,7 +1474,7 @@ ELSEIF TALENT:恋慕 && RAND:3 != 1 || TALENT:恋人
 			PRINTFORMW 「我是不是有点太得意了……」
 			PRINTFORMDW 映姫面红耳赤
 		ENDIF
-		CSTR:30:0 = %CSTR:(30):0%呼び名/
+		CSTR:30:0 += "称呼/"
 		RETURN 1
 	ENDIF
 	SELECTCASE RAND:8
@@ -2149,10 +2149,10 @@ ELSE
 	SELECTCASE LOCAL:回数
 		CASE 0
 			IF CFLAG:MASTER:現在位置 == CFLAG:113:現在位置
-				PRINTFORML 「赫喀提亚大人称赞适合我」
+				PRINTFORML 「赫卡提亚大人称赞适合我」
 				PRINTFORMW 「嗯，是非常棒的笑容…」
 			ELSE
-				PRINTFORML 「赫喀提亚大人看到我，会说什么呢？」
+				PRINTFORML 「赫卡提亚大人看到我，会说什么呢？」
 				PRINTFORMW 「很期待呢。呵呵呵…」
 				PRINTFORMDW 映姬的嘴上笑着，但美目依然死气沉沉……
 				RETURN 1
@@ -2183,7 +2183,7 @@ ELSE
 			ENDIF
 		CASE 4
 			PRINTFORML 「穿着这身衣服就能保持那种实力和威严」
-			PRINTFORMW 「赫喀提亚大人果然很厉害」
+			PRINTFORMW 「赫卡提亚大人果然很厉害」
 			PRINTFORMW 「我无论如何也做不到…」
 		CASE 5
 			PRINTFORML 「如果是在外面的世界，这个样子也没有违和感吧」
@@ -2197,7 +2197,7 @@ ELSE
 			PRINTFORMW 「………」
 			PRINTFORMW 「不可思议啊。这样的事情我一次也没想过…」
 		CASE 8
-			PRINTFORML 「赫喀提亚大人是个会照顾人的非常温柔的人」
+			PRINTFORML 「赫卡提亚大人是个会照顾人的非常温柔的人」
 			PRINTFORMW 「也许是她无法衡量我的想法，或者说和在一般感性上有偏差……」
 		CASE 9
 			IF !CHARA_HOLIDAY(30, 1) 
@@ -2219,7 +2219,7 @@ ELSE
 					PRINTFORML 「……今天其他人也换上了这件衣服吧?」
 					PRINTFORMW 「没错，不应该只有我有这样的遭遇……」
 				ELSE
-					PRINTFORML 「哎呀……这件衣服，我\@ CFLAG:MASTER:現在位置 == CFLAG:113:現在位置 ? 赫喀提亞大人 # \@只穿了这样的…」
+					PRINTFORML 「哎呀……这件衣服，我\@ CFLAG:MASTER:現在位置 == CFLAG:113:現在位置 ? 赫卡提亚大人 # \@只穿了这样的…」
 					PRINTFORML 「唉、心理作用？　……是这様吗，是啊……」
 					SIF CFLAG:MASTER:衣装一時変更 == 62
 						PRINTFORML 「甚至连无关的你都换了衣服…一定是这样的吧…」
@@ -2243,12 +2243,12 @@ ELSE
 			PRINTFORMW 「也许确实可以放松，但是……到底还是让我阻止了……」
 		CASE 15
 			PRINTFORML 「……项圈是戴不上的」
-			PRINTFORMW 「那个项圈是赫喀提亚大人力量到达三个世界的标志」
+			PRINTFORMW 「那个项圈是赫卡提亚大人力量到达三个世界的标志」
 			PRINTFORMW 「既不能模仿，也不能由我来代替」
 			PRINTFORMW 「……绝对不是无法接受那个性的外表……」
 		;勝手版も面白いよ
 		CASE 16
-			PRINTFORML 「只是模仿了赫喀提亚大人的随身物品，确实这件衬衫可以称为神器」
+			PRINTFORML 「只是模仿了赫卡提亚大人的随身物品，确实这件衬衫可以称为神器」
 			PRINTFORMW 「香霖堂的店主看过一次，那个时候确实说…」
 			PRINTFORML 「对四元素和地狱、麻痹、恐怖、疯狂有耐性之类的」
 			PRINTFORMW 「不明白意思？嗯，我也完全不懂。…」
@@ -2260,14 +2260,14 @@ ELSE
 				PRINTFORMW 「看起来很開心……」
 			ELSE
 				;クラピ裤襪の映姫様誰かうｐして
-				PRINTFORML 「赫喀提亚大人觉得真的很好，所以向我推荐这件衣服」
+				PRINTFORML 「赫卡提亚大人觉得真的很好，所以向我推荐这件衣服」
 				PRINTFORMW 「所以，如果不喜欢的话，会换成其他的衣服吧」
 				PRINTFORML 「但是，在那种情况下，下一个候选恐怕…」
 				PRINTFORMW 「最近很喜欢那种地狱妖精般的小丑服…」
 				PRINTFORMW 「那个，就算只有一次，呃……穿那套衣服的话，还是……这个比较好…」
 			ENDIF
 		CASE 18
-			IF CFLAG:妊娠経過日数 >= 15
+			IF CFLAG:妊娠経過日数 >= 41
 				PRINTFORML 「…看着可能会不安，但是没关系哦」
 				PRINTFORML 「完全不用担心肚子里的这个孩子」
 			ELSEIF DAY:2 == 4
@@ -3520,7 +3520,7 @@ IF LOCAL
 	ELSEIF TFLAG:193 == -5
 	ELSEIF TALENT:TARGET:妊娠
 		IF CFLAG:身に覚え_母 == 1 && !CFLAG:無自覚妊娠 && TALENT:恋慕
-			IF CFLAG:妊娠経過日数 >= 25 && RAND:2 == 1
+			IF CFLAG:妊娠経過日数 >= 71 && RAND:2 == 1
 				IF RAND:2 == 1
 					PRINTFORML 「呼呼呼、就算耳朵不贴着，也能感觉出来它很有活力」
 					PRINTFORML 「…啊、痛，有点…今天，真的很精神…」
@@ -3529,7 +3529,7 @@ IF LOCAL
 					PRINTFORML 「不仅仅是听，还跟这个孩子搭话？」
 					PRINTFORMW 「也要好好记住爸爸的声音」
 				ENDIF
-			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 20
+			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 61
 				IF RAND:2 == 1
 					PRINTFORML 「%K30_C_NAME(MASTER)%…贴着耳朵，温柔地拍着肚子？」
 					PRINTFORMDW %CALLNAME:MASTER%试着照说的做
@@ -3540,7 +3540,7 @@ IF LOCAL
 					PRINTFORML 「这孩子也正好是睡觉的时间呢」
 					PRINTFORMW 「呼呼、就这样三个人悠闲地度过吧…♥」
 				ENDIF
-			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 15
+			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 41
 				IF RAND:2 == 1
 					PRINTFORML 「安静地躺着的时候，会感觉到这个孩子在动」
 					PRINTFORMW 「无法传达给你，总觉得很着急呢…」
@@ -3555,7 +3555,7 @@ IF LOCAL
 					ENDIF
 					PRINTFORMW 「被这样问，真不好意思…」
 				ENDIF
-			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 10
+			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 31
 				IF RAND:2 == 1
 					PRINTFORML 「最近，有时候肚子会咕噜咕噜叫」
 					PRINTFORMW 「如果被问到的话，会有点不好意思…」
@@ -3564,7 +3564,7 @@ IF LOCAL
 					PRINTFORML 「明明很清楚你在这里」
 					PRINTFORMW 「真希望能快点告诉我啊…」
 				ENDIF
-			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 5
+			ELSEIF CFLAG:TARGET:妊娠経過日数 >= 21
 				IF RAND:2 == 1
 					PRINTFORML 「呼呼呼、真性急啊」
 					PRINTFORMW 「我也终于有了实感」
@@ -3666,7 +3666,7 @@ RETURN 1
 ;==================================================
 ;306,撫摸肚子
 ;TFLAG:193(1=ABL:親密6以上かつ妊娠時 0=成功 -1=ABL:親密5以下)
-;極口上構文参考にしています
+;果口上構文参考にしています
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -3751,7 +3751,7 @@ IF LOCAL
 						PRINTFORMDL 只有谈到孩子的时候，映姬的美目才会恢复光芒…
 						PRINTFORML 
 					ENDIF
-					IF CFLAG:妊娠経過日数 >= 28
+					IF CFLAG:妊娠経過日数 >= 90
 						SELECTCASE RAND:4
 							CASE 0
 								PRINTFORMW 「马上就要来见我们了…」
@@ -3771,7 +3771,7 @@ IF LOCAL
 									PRINTFORMW 「也不能把这孩子重要的饭拿走，没办法…」
 								ENDIF
 						ENDSELECT
-					ELSEIF CFLAG:妊娠経過日数 >= 25
+					ELSEIF CFLAG:妊娠経過日数 >= 71
 						SELECTCASE RAND:4
 							CASE 0
 								PRINTFORML 「说真的就在自己家里静养吧…是这样的时期，但我不能那样」
@@ -3789,7 +3789,7 @@ IF LOCAL
 								PRINTFORMW 「另外，也有兴致勃勃地来摸肚子的孩子，很有趣哦」
 								PRINTFORMW 「…能得到大家的祝福，这个孩子和我都很幸福」
 						ENDSELECT
-					ELSEIF CFLAG:妊娠経過日数 >= 20
+					ELSEIF CFLAG:妊娠経過日数 >= 60
 						SELECTCASE RAND:4
 							CASE 0
 								IF TALENT:母乳体質 == 1
@@ -3824,7 +3824,7 @@ IF LOCAL
 								PRINTFORML 「如果是女孩子的话…也许想给她加上『姫』这个字…」
 								PRINTFORMW 「如果是男孩…试着从『%CALLNAME:MASTER%』中取一个字？」
 						ENDSELECT
-					ELSEIF CFLAG:TARGET:妊娠経過日数 >= 15
+					ELSEIF CFLAG:TARGET:妊娠経過日数 >= 40
 						SELECTCASE RAND:4
 							CASE 0
 								PRINTFORML 「别担心，你看不到的时候也没关系」
@@ -3850,7 +3850,7 @@ IF LOCAL
 									PRINTFORML 「我也有不安的时候哦。 所以…」
 								PRINTFORMW 「%K30_C_NAME(MASTER)%、请好好支持我，吶」
 						ENDSELECT
-					ELSEIF CFLAG:TARGET:妊娠経過日数 >= 10
+					ELSEIF CFLAG:TARGET:妊娠経過日数 >= 30
 						SELECTCASE RAND:3
 							CASE 0
 								PRINTFORML 「我的孕吐没有那么严重…」
@@ -3864,7 +3864,7 @@ IF LOCAL
 								PRINTFORML 「呼呼…好好地抚摸，把你的想法也好好地传达给他」
 								PRINTFORMW 「希望能茁壮成长…」
 						ENDSELECT
-					ELSEIF CFLAG:TARGET:妊娠経過日数 >= 5
+					ELSEIF CFLAG:TARGET:妊娠経過日数 >= 20
 						SELECTCASE RAND:3
 							CASE 0
 								PRINTFORML 「是男孩还是女孩…」
@@ -5719,7 +5719,7 @@ IF LOCAL
 					PRINTFORMW 「怎么样？兴奋起来了吗……？」
 				ELSE
 					PRINTFORMW 「能看清吧……我的,这里」
-					PRINTFORMW 「这样……粘糊糊的……太下流了…♥」
+					PRINTFORMW 「这样……黏糊糊的……太下流了…♥」
 				ENDIF
 			ELSE
 				IF RAND:2 == 1
@@ -5822,7 +5822,7 @@ IF LOCAL
 				PRINTFORMW 「我也摩擦的…很舒服♥」
 				IF NOWEX:噴乳
 					PRINTFORML 「啊嗯~…♥　奶子…前端，阵阵发麻…」
-					PRINTFORMW 「欧金金…把它，弄得更加粘糊糊的吧♥」
+					PRINTFORMW 「欧金金…把它，弄得更加黏糊糊的吧♥」
 				ENDIF
 			ENDIF
 		;足交
@@ -7593,7 +7593,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;-------------------------------------------------
-;吃飯の反応＠艾倫・影狼口上参考にしています
+;吃飯の反応＠爱莲・影狼口上参考にしています
 ;-------------------------------------------------
 @K30_TASTE_DISH
 #DIM 顔
@@ -7955,7 +7955,7 @@ IF LOCAL
 		PRINTFORMDL 睁開眼睛旁边坐着映姬
 		PRINTFORMDL 当她发现%CALLNAME:MASTER%已经醒了时，慌忙地连连往后退…
 		CALL K30_SPTALK, "発情", "「……！！」"
-		PRINTFORMDL 为什么红唇边隐约有白色粘稠物
+		PRINTFORMDL 为什么红唇边隐约有白色黏稠物
 		PRINTFORMDL 你在午睡时做了什么啊…
 		PRINTFORMW 
 		PRINTFORMW 「……%K30_C_NAME(MASTER)%也不好哦？」
@@ -8090,7 +8090,7 @@ IF LOCAL
 			PRINTFORMW 「……………………」
 			PRINTFORMW 「不好意思、我说的太多了、请让我、再稍微、考虑一下吧…」
 			SETBIT CFLAG:1502, 1
-		;落とすのくっそ面倒な映姫様＋こんな口上に付き合ってくれたならこの程度のBOUNS是いよね
+		;落とすのくっそ面倒な映姫様＋こんな口上に付き合ってくれたならこの程度のBONUS是いよね
 		ELSEIF TALENT:妊娠願望 || GETBIT(CFLAG:1502, 4)
 			PRINTFORMDW …突然很在意，就询问了旁边的映姬的情况
 			PRINTFORMDL \@ TALENT:妊娠願望 ?甚至都没注意到我的视线、 # \@映姫也在虔诚的祈祷能够有个孩子…
@@ -8142,7 +8142,7 @@ IF LOCAL
 	RESETCOLOR
 	{
 	CALL ASK_M("希望你能改变称呼", !GETBIT(CFLAG:1803, 2),
-	"改变二人独处时的称呼", FIRSTTIME("稱呼",1) == 0 && K30_BE_SEEN() == 0,
+	"改变二人独处时的称呼", FIRSTTIME("称呼",1) == 0 && K30_BE_SEEN() == 0,
 	@"%LOCALS:0%", CFLAG:MASTER:初期位置 == CFLAG:30:初期位置 && STRCOUNT(CSTR:30:0, "朝から") && ABL:精液中毒 > 4 && K30_BE_SEEN() == 0,
 	@"关于约会时的小玩具", GETBIT(CFLAG:1609, 3) && K30_BE_SEEN() == 0,
 	"没有什么要谈的",1)

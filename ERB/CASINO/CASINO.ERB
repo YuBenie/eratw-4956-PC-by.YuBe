@@ -113,7 +113,7 @@ CASE "ENTRANCE"
 			MONEY:2 += 250
 		CASE "帕秋莉"
 			{
-			台詞 = 「欢迎%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%大人的到来」
+			台詞 = 「欢迎%CALLNAME:MASTER%大人的到来」
 					/「是的、托您的福」
 					/「这里是大小姐那里保管的200個籌碼、请使用」
 					/「请好好地享受
@@ -121,13 +121,13 @@ CASE "ENTRANCE"
 			MONEY:2 += 200
 		CASE "咲夜"
 			{
-			台詞 = 「欢迎%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%的到来」
+			台詞 = 「欢迎%CALLNAME:MASTER%的到来」
 					/「是店内視察麼？大家都在认真工作哦」
 					/「这里是大小姐那里保管的200個籌碼、请使用」
 			}
 			MONEY:2 += 200
 		CASE "美鈴", "小悪魔"
-			台詞 = 「欢迎%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%的到来」
+			台詞 = 「欢迎%CALLNAME:MASTER%的到来」
 			IF GET_DAY() == "日" || GET_DAY() == "土"
 				台詞 = %台詞%/「今天是休息日麼？那就適當的休息一下好了」
 			ELSE
@@ -139,7 +139,7 @@ CASE "ENTRANCE"
 		CASE "魔理沙"
 		;図書館がらみで出禁くらっててもおかしくないよね
 			{
-			台詞 = 「%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%桑么」
+			台詞 = 「%CALLNAME:MASTER%桑么」
 					/「这里是100籌碼」
 					/「作为第一次来到店里的客人的赠品」
 					/「但是您似乎不太受大小姐们的欢迎」
@@ -182,7 +182,7 @@ CASE "ENTRANCE"
 		SELECTCASE DAY - FLAG:赌场訪問日
 		CASE 1 TO 5
 			IF MAIN_MAP == 3 && (CSVCALLNAME(FLAG:扮演) == "美鈴" || CSVCALLNAME(FLAG:扮演) == "小悪魔")
-				台詞 = 「%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%桑……我很难办诶」/「玩过头的话、我们也会被骂的？」
+				台詞 = 「%CALLNAME:MASTER%桑……我很难办诶」/「玩过头的话、我们也会被骂的？」
 				表情 = 通常
 			ELSEIF MAIN_MAP == 3 && CSVCALLNAME(FLAG:扮演) == "你"
 				台詞 = 「哎呀、又来了？」/「请好好享受」
@@ -495,17 +495,17 @@ CASE "HELP"
 			PRINTFORMW 　另外无法直接使用现金来游玩
 			PRINTFORML 
 			PRINTFORML 　现在能用籌碼购物的店铺
-			PRINTFORML 　・清廉及公正　　　　　　「文文。新聞」
-			PRINTFORML 　・人间之里书店　　　　　「鈴奈庵」
-			PRINTFORML 　・给你收获利益的保証　　「守矢神簽」
-			PRINTFORML 　・絶景参观地　　　　　「守矢神社参詣索道」
-			PRINTFORML 　・幻想乡最强神簽　　　「博麗神社神簽」
-			PRINTFORML 　・烤鳗鱼　　　　　　　「竹林夜雀屋台」
-			PRINTFORML 　・寻找失物到命蓮寺　　「探宝　納茲琳」
+			PRINTFORML 　・​清廉及公正　　　　　　「文文。新聞」
+			PRINTFORML 　・​人间之里书店　　　　　「鈴奈庵」
+			PRINTFORML 　・​给你收获利益的保証　　「守矢神簽」
+			PRINTFORML 　・​絶景参观地　　　　　「守矢神社参詣索道」
+			PRINTFORML 　・​幻想乡最强神簽　　　「博麗神社神簽」
+			PRINTFORML 　・​烤鳗鱼　　　　　　　「竹林夜雀屋台」
+			PRINTFORML 　・​寻找失物到命蓮寺　　「探宝　納茲琳」
 			PRINTFORML 
 			PRINTFORML 　此外、还有红魔馆的哥布林到家服务
-			PRINTFORML 　・红魔馆哥布林代理浇水服务
-			PRINTFORMW 　・红魔馆哥布林外出清扫服务
+			PRINTFORML 　・​红魔馆哥布林代理浇水服务
+			PRINTFORMW 　・​红魔馆哥布林外出清扫服务
 		CASE 6
 			CALL HELP_SLOT()
 			RESTART
@@ -826,9 +826,9 @@ PRINTFORMW 　恭候您的下次光临
 ;D/Pはディーラーとプレイヤー
 ;
 ;随意作ったがコレかなり巧妙な手口だなぁ……
-;・実は2勝、3勝の賞金よりも1勝の賞金が多い
-;・獲得機会の多いであろう3勝以下の賞金は雀の涙
-;・不規則なタイミングで正解が判明するためワンチャンあるかもと錯覚する
+;・​実は2勝、3勝の賞金よりも1勝の賞金が多い
+;・​獲得機会の多いであろう3勝以下の賞金は雀の涙
+;・​不規則なタイミングで正解が判明するためワンチャンあるかもと錯覚する
 ;
 ;賞金×1.5の操作とプレイヤー収入
 ;01回_150　__50
@@ -1089,9 +1089,9 @@ DO
 	TIME += 5
 	CALL CASINO_MONEY("筹码", -Q_BET)
 	CALL CASINO_MONEY("カモ", Q_BET)
-	PRINTFORML 　・
-	PRINTFORML 　・
-	PRINTFORML 　・
+	PRINTFORML 　・​
+	PRINTFORML 　・​
+	PRINTFORML 　・​
 	PRINTFORML 
 	PRINTFORMW 你回答了问题
 	PRINTFORML 
@@ -1362,7 +1362,7 @@ CASE "BJ_OPEN"
 	CALL CASINO_DISP("BJ_PL_HAND")
 	DRAWLINEFORM ━
 CASE "BJ_PL_HAND"
-	PRINTFORML 【%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%】
+	PRINTFORML 【%CALLNAME:MASTER%】
 	CALL CARD_DISP("HAND", 1)
 	PRINTFORML 
 	CALL CASINO_DISP("BJ_POINT", 1)
@@ -1546,7 +1546,7 @@ ENDSELECT
 #DIM PL_ID     ;プレイヤー判定ループ用
 
 ;ブラックジャック用変数
-;バースト・ブラックジャック中奖了はBITつかえば1変数で済むけどこれでいいや
+;バースト・​ブラックジャック中奖了はBITつかえば1変数で済むけどこれでいいや
 #DIM P_BJ,    MAX_CARD_PL ;各プレイヤーの得点
 #DIM BJ_ACE,  MAX_CARD_PL ;所持するエースの数
 #DIM BJ_BJ,   MAX_CARD_PL ;ブラックジャックを達成しているかどうか
@@ -1805,16 +1805,16 @@ PRINTFORML
 	SELECTCASE CSVCALLNAME(FLAG:扮演)
 	CASE "蕾米莉亜", "芙兰", "帕秋莉"
 		PRINTFORML 妖精女仆
-		PRINTFORML 　%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%大人、能耽误您一点时间么？
+		PRINTFORML 　%CALLNAME:MASTER%大人、能耽误您一点时间么？
 		PRINTFORML 　我想您可能不知道、不过本店有VIP房
 		PRINTFORML 　您看起来非常喜欢赌场的様子、所以为您准备了VIP会员证
 	CASE "咲夜"
 		PRINTFORML 妖精女仆
-		PRINTFORML 　%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%桑、我带了一个VIP会员证
+		PRINTFORML 　%CALLNAME:MASTER%桑、我带了一个VIP会员证
 		PRINTFORMW 　我来带您到VIP室
 	CASE "美鈴", "小悪魔"
 		PRINTFORML 妖精女仆
-		PRINTFORML 　%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%桑、完全的入迷了啊
+		PRINTFORML 　%CALLNAME:MASTER%桑、完全的入迷了啊
 		PRINTFORML 　是的、这是VIP会员证
 		PRINTFORMW 　请让我介绍下VIP室把
 	CASE "你"
@@ -1845,13 +1845,13 @@ PRINTFORML
 	SELECTCASE CSVCALLNAME(FLAG:扮演)
 	CASE "蕾米莉亜", "芙兰", "帕秋莉"
 		PRINTFORML 妖精女仆
-		PRINTFORMW 　%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%大人、请把刚才的会员证在这个墙边举高吧
+		PRINTFORMW 　%CALLNAME:MASTER%大人、请把刚才的会员证在这个墙边举高吧
 	CASE "咲夜"
 		PRINTFORML 妖精女仆
-		PRINTFORMW 　%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%桑、请把刚才的会员证在这个墙边举高吧
+		PRINTFORMW 　%CALLNAME:MASTER%桑、请把刚才的会员证在这个墙边举高吧
 	CASE "美鈴", "小悪魔"
 		PRINTFORML 妖精女仆
-		PRINTFORMW 　%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%桑、请把之前的会员证在这个墙边举高吧
+		PRINTFORMW 　%CALLNAME:MASTER%桑、请把之前的会员证在这个墙边举高吧
 	CASE "你"
 		IF MAIN_MAP == 3
 			PRINTFORML 妖精女仆
@@ -1865,7 +1865,7 @@ PRINTFORML
 			PRINTFORMW 　客人、请您在这个墙壁把刚才的会员证举高
 	ENDSELECT
 	PRINTFORML 
-	PRINTFORMW %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%按照说的做、听到机械微微的响声、然后眼前的墙壁就打開了
+	PRINTFORMW %CALLNAME:MASTER%按照说的做、听到机械微微的响声、然后眼前的墙壁就打開了
 	PRINTFORML 
 	PRINTFORML 妖精女仆
 	PRINTFORML 　这里是本店得意的VIP室

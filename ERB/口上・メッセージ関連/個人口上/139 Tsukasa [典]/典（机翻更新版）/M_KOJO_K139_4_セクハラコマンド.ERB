@@ -500,7 +500,7 @@ IF LOCAL
 					PRINTFORML 「即使你这样撒娇也是没用的哦」  
 				ENDIF
 			ELSE
-				PRINTFORML 「请...不要粘着我好吗」
+				PRINTFORML 「请...不要黏着我好吗」
 			ENDIF
 			PRINTW
 		ELSEIF TALENT:恋慕 || TALENT:恋人
@@ -3166,7 +3166,7 @@ IF LOCAL
 						CALL HPH_PRINT,@"「让龟头贴在子宫上HPH 密着状态内射HPHHPH」","L"
 					ELSE
 						CALL HPH_PRINT,@"「不采取任何避孕措施的危险日小穴HPH 渴望活精子的堕落小穴HPHHPH」","L"
-						CALL HPH_PRINT,@"「用%CALLNAME:MASTER%阁下的肉棒HPH 摩擦粘膜HPH 咕叽咕叽HPHHPH」","L"
+						CALL HPH_PRINT,@"「用%CALLNAME:MASTER%阁下的肉棒HPH 摩擦黏膜HPH 咕叽咕叽HPHHPH」","L"
 					ENDIF
 				ENDIF
 			CASE 1
@@ -3312,7 +3312,7 @@ IF LOCAL
 						CALL HPH_PRINT,@"「啊...最爱的%CALLNAME:MASTER%阁下的肉棒HPH 塞得这么深HPH」","L"
 					ENDIF
 				ELSE
-					IF GROUPMATCH(TALENT:恋慕, [[龍]], [[文]], [[極]], [[椛]])
+					IF GROUPMATCH(TALENT:恋慕, [[龍]], [[文]], [[果]], [[椛]])
 						PRINTFORML 「ご存じでしたか？　%CALLNAME:MASTER%どの。
 						IF TALENT:140:恋慕 == 1
 							PRINTFORM 「飯綱丸大人
@@ -3764,7 +3764,7 @@ IF LOCAL
 					CASE 5
 						PRINTFORML 「真是个坏孩子呢。之后一定得好好得『惩罚』一下才行呢…%UNICODE(0x2665) *1%」
 					CASE 6
-						PRINTFORML 「真是的,%CALLNAME:MASTER%阁下已经太喜欢姐姐的\@ CFLAG:胖次2 == 1 ? 裙底风光 # 小内裤 \@了...♪」
+						PRINTFORML 「真是的,%CALLNAME:MASTER%阁下已经太喜欢姐姐的\@ EQUIP:下半身内衣２ ? 裙底风光 # 小内裤 \@了...♪」
 					CASE 7  
 						PRINTFORML 「之后也让姐姐看看%CALLNAME:MASTER%阁下的小内裤哦♪」
 					CASE 8

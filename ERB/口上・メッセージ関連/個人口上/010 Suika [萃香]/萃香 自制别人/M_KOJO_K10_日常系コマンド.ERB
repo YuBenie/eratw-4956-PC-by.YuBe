@@ -448,11 +448,11 @@ IF LOCAL ;数の正義。可読性からＨじゃない会話は関数に移動�
 		ENDIF
 	;微醺
 	ELSEIF TALENT:恋慕 && BASE:酒気 >= 1
-		IF RAND:2 == 0
+		IF RAND:3 == 0
 			PRINTFORML 「美宵不在这里，真可惜」
 			PRINTFORML 「否则就可以吃到她做的下酒菜了」
 			PRINTFORML 「话说美宵她啊………」
-		ELSEIF RAND:1
+		ELSEIF RAND:2
 		     PRINTFORML 「相传在中国，有着喝也喝不完的酒池和怎么吃也吃不完的肉」
 			 PRINTFORML 「酒会不断地从池底冒出，肉会源源不断的在树上重新长起来」
 			 PRINTFORML 「真希望我能够去亲眼看一看啊」
@@ -1166,12 +1166,12 @@ IF LOCAL
 			PRINTFORML 「请把脑袋挪開哦，否则我就动手了」
 			PRINTFORMDL %CALLNAME:MASTER%赶紧将头从膝盖上挪開
 		ELSEIF RAND:1 == 0
-				PRINTFORML 
-				PRINTFORML 「想要枕膝？」
-				PRINTFORML 「躺在腿上的那种么？」
-				PRINTFORMDL 嗯
-				PRINTFORML 「到也不是不行」
-				PRINTFORMDL 萃香不在意的说道
+			PRINTFORML 
+			PRINTFORML 「想要枕膝？」
+			PRINTFORML 「躺在腿上的那种么？」
+			PRINTFORMDL 嗯
+			PRINTFORML 「到也不是不行」
+			PRINTFORMDL 萃香不在意的说道
 		ENDIF
 	ENDIF
 ENDIF
@@ -3567,7 +3567,7 @@ IF LOCAL:1
 		;   -1=失敗
 		;    0=成功
 		;    1=大成功
-		;    2=木刀で大成功（BOUNS点）
+		;    2=木刀で大成功（BONUS点）
 		;ARG
 		;    0=正直者
 		;    1=ウソつき

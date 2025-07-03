@@ -114,7 +114,7 @@ IF LOCAL
 		;会話できる状態であなたが勃起状態
 		IF TCVAR:302 == 0 && BASE:MASTER:勃起 >= 1000
 			;自分で限界まで飲むことはなさそうなので、どうせなら普段と違う感じに
-			IF ALCOHOL_FACE(139) == "酔いどれ" || ALCOHOL_FACE(139) == "ぐでぐで"
+			IF ALCOHOL_FACE(139) == "酔酒" || ALCOHOL_FACE(139) == "趴窝"
 				SELECTCASE RAND:4
 				CASE 0
 					PRINTFORML 「我說～～～在人面前雞雞勃起了、是怎麼回事呢～～？」
@@ -319,7 +319,7 @@ IF LOCAL
 			CALL K139_NURESUKE
 		
 		;酔ってる
-		IF ALCOHOL_FACE(139) == "酔いどれ" || ALCOHOL_FACE(139) == "ぐでぐで"
+		IF ALCOHOL_FACE(139) == "酔酒" || ALCOHOL_FACE(139) == "趴窝"
 			IF !RAND:2
 				PRINTFORML 「%CALLNAME:MASTER%大人～～要喝一點嗎～？」
 				PRINTFORML 「感覺還沒喝夠誒～～接下來就去%CALLNAME:MASTER%大人的家裡喝吧～～」
@@ -3683,12 +3683,12 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	IF TALENT:恋慕 || TALENT:恋人
-		IF ALCOHOL_FACE(139) == "ぐでぐで"
+		IF ALCOHOL_FACE(139) == "趴窝"
 			IF TCVAR:発情
 			ELSE
 			ENDIF
-		ELSEIF ALCOHOL_FACE(139) == "酔いどれ"
-		ELSEIF ALCOHOL_FACE(139) == "ほろ酔い"
+		ELSEIF ALCOHOL_FACE(139) == "酔酒"
+		ELSEIF ALCOHOL_FACE(139) == "微醺"
 			
 		ELSE
 			SELECTCASE RAND:4
@@ -5288,7 +5288,7 @@ IF LOCAL
 							SELECTCASE RAND:4
 							CASE 0
 								CALL HPH_PRINT,@"『啊゛HPH啊゛HPH啊゛～～～～HPH』","L"
-								PRINTFORML 在進入陰道口後、就用兩根手指輕輕刺激著腹部側的凹凸粘膜
+								PRINTFORML 在進入陰道口後、就用兩根手指輕輕刺激著腹部側的凹凸黏膜
 								PRINTFORML 光是這樣就讓%CHILDNAME:139:(TALENT:139:育児中)%高高挺起腰部、淫水如熱湯般噴湧而出
 							CASE 1
 								PRINTFORML 為了讓%CHILDNAME:139:(TALENT:139:育児中)%無法抵抗、抓住了腳踝並將臉埋在她的股間裡愛撫
@@ -5897,7 +5897,7 @@ IF LOCAL
 								CALL HPH_PRINT,@"『哇啊、%MASTERNAME:139%的肉棒、依然豎立得高高的呢…HPH』","L"
 							CASE 1
 								CALL HPH_PRINT,@"『%MASTERNAME:139%、請自由地使用%CHILDNAME:139:(TALENT:139:育児中)%的嘴穴吧…HPH』","L"
-								PRINTFORML %CHILDNAME:139:(TALENT:139:育児中)%將雙手比做飛機杯一般、而在那洞口中有一個被唾液潤澤閃亮的粘膜的洞穴…
+								PRINTFORML %CHILDNAME:139:(TALENT:139:育児中)%將雙手比做飛機杯一般、而在那洞口中有一個被唾液潤澤閃亮的黏膜的洞穴…
 								PRINTFORML 在被引誘之下肉棒慢慢插入、伴隨著濕潤的觸感完全被吞沒進去…
 							CASE 2
 								CALL HPH_PRINT,@"哩囉HPH　呸嚕呸嚕HPH　哩囉HPH","L"
@@ -13014,7 +13014,7 @@ IF LOCAL
 						CALL HPH_PRINT,@"典仰望看了過來、說出了「射吧HPH」的命令、我此時再也無法抗拒的將白濁的液體射入了她的口中","L"
 					CASE 9
 						CALL HPH_PRINT,@"「HPH」","L"
-						PRINTFORML 從毫不留情的口交、轉瞬間典用溫暖的口腔粘膜緊緊包覆住整個陰莖、射精的感覺瞬間到來
+						PRINTFORML 從毫不留情的口交、轉瞬間典用溫暖的口腔黏膜緊緊包覆住整個陰莖、射精的感覺瞬間到來
 						PRINTFORML 直到愉悅射精的餘韻完全消失之前、典都雙手緊握著、不動聲色地注視著、用著柔和的眼神見證著一切
 					ENDSELECT
 				ENDIF
@@ -13275,7 +13275,7 @@ IF LOCAL
 					PRINTFORML 典露出迷醉的表情、將臉頰磨擦在肉棒上…
 					IF TALENT:140:恋人
 						CALL HPH_PRINT,@"「那麼、趁著飯綱丸大人不在的時候、來好好享用一下吧…舔舔HPH」","L"
-					ELSEIF GROUPMATCH(TALENT:恋人, [[文]], [[極]], [[椛]])
+					ELSEIF GROUPMATCH(TALENT:恋人, [[文]], [[果]], [[椛]])
 						CALL HPH_PRINT,@"「那麼、趁著妨礙者不在的時候、來好好享用一下吧…舔舔HPH」","L"
 					ELSEIF TALENT:恋人
 						CALL HPH_PRINT,@"「有著這樣濃厚精液氣味的戀人、典真是幸福呢…舔舔HPH」","L"
@@ -16304,7 +16304,7 @@ IF LOCAL
 									PRINTFORML 「果然是因為不想讓喜歡的人看到髒亂的房間吧。真是可愛呢」
 								ENDIF
 							ENDIF
-						;極宅
+						;果宅
 						ELSEIF CFLAG:MASTER:現在位置 == 809
 							IF FIRSTTIME(SELECTCOM)
 								PRINTFORML 「嗯、這就是姬海棠小姐的家啊……」
@@ -16696,7 +16696,7 @@ IF LOCAL
 								PRINTFORML 「果然是因為不想讓喜歡的人看到髒亂的房間吧。真是可愛呢」
 							ENDIF
 						ENDIF
-					;極宅
+					;果宅
 					ELSEIF CFLAG:MASTER:現在位置 == 809
 						IF FIRSTTIME(SELECTCOM)
 							PRINTFORML 「嗯、這就是姬海棠小姐的家啊……」
@@ -16790,7 +16790,7 @@ IF LOCAL
 					PRINTFORML 「就連鬼也會設置安全區的喔！？　你是惡魔嗎！」
 				CASE 1
 					PRINTFORML 「『全畫面Nightmare』什麼的、是什麼鬼啊、爛遊戲啊！」
-					PRINTFORML 「請向斯卡雷特小姐道歉！　現在立刻馬上！」
+					PRINTFORML 「請向斯卡蕾特小姐道歉！　現在立刻馬上！」
 				CASE 2
 					PRINTFORML 「剛才那個『不朽的金閣寺』是什麼啊！ 分明沒有要讓我躲開的意思吧！」
 				ENDSELECT
@@ -17501,11 +17501,11 @@ IF LOCAL
 	SELECTCASE DISHNAME
 	;◎大好物（DISH_TASTEが＋５以上）
 	;極
-	CASE "プリンセスデザート"
+	CASE "公主甜点"
 		PRINTFORML 「那個人的料理品味不壞。除了討厭蛋之外」
 		PRINTFORML 「順便問一下、我可以吃了嗎？」
 	;椛
-	CASE "もみじ饅頭"
+	CASE "枫叶馒头"
 		PRINTFORML 「我和犬走小姐大概有相似的喜好呢」
 		PRINTFORML 「嗯、畢竟是狼和狐嘛。相似也是正常的」
 		PRINTFORML 「咦？　狼和狐不吃甜食嗎？　嘛、這個就當作例外吧♪」
@@ -17518,10 +17518,10 @@ IF LOCAL
 	CASE "やしょうま"
 		PRINTFORML 「是巫女大人的故鄉料理呢。精緻的外觀我挺喜歡的」
 	;諏訪子
-	CASE "のたもち"
+	CASE "馒饼"
 		PRINTFORML 「名字有點微妙、但豆子的綠色很鮮艷」
 	;久侘歌
-	CASE "ひよ子"
+	CASE "雏鸟馒头"
 		PRINTFORML 「嘿、可愛！　不過、雞之神做雞仔糕點這個點子也真是…」
 	;千亦
 	CASE "レインボータルト"
@@ -17531,7 +17531,7 @@ IF LOCAL
 		PRINTFORML 「作為貓妖怪、您確實做了一些正常的東西」
 	;▲嫌い（DISH_TASTEが－２以下）
 	;藍
-	CASE "お稲荷さん"
+	CASE "稻荷寿司"
 		PRINTFORML 「九尾大人做的料理相當樸素呢」
 		PRINTFORML 「受到人們對狐的印象所影響過多了嗎？」
 	;神奈子
@@ -19576,7 +19576,7 @@ IF LOCAL
 									PRINTFORML 典睜大眼睛、發出獸一般的聲音迎來了高潮
 									PRINTW 
 									PRINTFORML 她的陰道劇烈收縮、試圖從你的陰莖中擠取精液
-									PRINTFORML 感受到射精的前兆、子宮口輕柔地迎接著從龜頭中流出的半透明粘液、並開始吮吸
+									PRINTFORML 感受到射精的前兆、子宮口輕柔地迎接著從龜頭中流出的半透明黏液、並開始吮吸
 									PRINTFORML %CALLNAME:MASTER%在被像榨取靈魂一般的快感中射精、幾乎翻白了眼
 									PRINTW 
 									EX:膣内精液 += 1000
@@ -20511,7 +20511,7 @@ IF LOCAL
 			CASE 1
 				IF TALENT:140:恋人
 					PRINTFORML （即使這個人是飯綱丸大人的戀人…但至少現在、這雙手的溫暖是只屬於我一個人的…）
-				ELSEIF GROUPMATCH(TALENT:恋人, [[文]], [[極]], [[椛]])
+				ELSEIF GROUPMATCH(TALENT:恋人, [[文]], [[果]], [[椛]])
 					PRINTFORML （我不會輸給那些天狗女孩的…）
 					PRINTFORML （至少現在、這雙手的溫暖是只屬於我一個人的…）
 				ELSE
@@ -22589,7 +22589,7 @@ ENDIF
 		PRINTFORML 「如果運氣好的話她甚至可能會完全忘掉這件事喔」
 	CASE 5
 		PRINTFORML 「和女孩子比拚酒力時常常輸掉是嗎？　這樣呢…」
-		PRINTFORML 「%CALLNAME:MASTER%大人、你在喝酒前有確實保護胃粘膜嗎？」
+		PRINTFORML 「%CALLNAME:MASTER%大人、你在喝酒前有確實保護胃黏膜嗎？」
 		PRINTW 
 		PRINTFORML 「如果酒量不行的話、就得好好做好對策」
 		PRINTFORM 「例如、可以試試薑黃飲料之類的。據說這樣可以減輕宿醉的狀況哦」

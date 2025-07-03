@@ -7,7 +7,7 @@
 ;とりあえずデフォは\3000にしてみる
 PRICE = 3000
 
-PRINTFORML 要從%NAME_OUTPUT_TRANSLATION("CALLNAME", TARGET)%以%金額表示(PRICE)%購買素材嗎？
+PRINTFORML 要從%CALLNAME:TARGET%以%金額表示(PRICE)%購買素材嗎？
 PRINTFORML （購買的素材與採集等級和住宅所在位置相關、並且追加採集経験）
 CALL ASK_M("買",MONEY >= PRICE, "不買",1)
 SELECTCASE RESULT
@@ -48,7 +48,7 @@ FOR LOCAL,0,3
 	COLLECTED:LOCAL = RESULT:0
 	QTY:LOCAL = RESULT:1
 	EXP:C_ID:採集経験 ++
-	;なんも見つからないと経験にBOUNS
+	;なんも見つからないと経験にBONUS
 	IF COLLECTED:LOCAL == 0
 		EXP:C_ID:採集経験 += 2
 	ELSE

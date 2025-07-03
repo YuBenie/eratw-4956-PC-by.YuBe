@@ -191,7 +191,6 @@ FOR LOCAL, 0, CHARANUM
 	ENDCATCH
 NEXT
 
-
 @CHARASORT_EX_TR
 #FUNCTION
 ;the only issue here is that th98 characters start from range 201+, but it doesn't seem to be a big deal here?
@@ -200,8 +199,8 @@ VARSET RESULT, -1 ;set to -1 to include player character in the list
 {
 RESULT = MASTER,
 [[霊夢]], [[魔理沙]],
-[[露米亜]], [[大妖精]], [[琪露諾]], [[美鈴]], [[小悪魔]], [[帕秋莉]], [[咲夜]], [[蕾米莉亜]], [[芙兰]],
-[[蕾蒂]], [[橙]], [[愛麗絲]], [[莉莉Ｗ]], [[莉莉Ｂ]], [[莉莉喀]], [[梅露蘭]], [[露娜薩]], [[妖夢]], [[幽幽子]], [[藍]], [[紫]],
+[[露米娅]], [[大妖精]], [[琪露諾]], [[美鈴]], [[小悪魔]], [[帕秋莉]], [[咲夜]], [[蕾米莉亜]], [[芙兰]],
+[[蕾蒂]], [[橙]], [[愛麗絲]], [[莉莉白]], [[莉莉黑]], [[莉莉卡]], [[梅露蘭]], [[露娜薩]], [[妖夢]], [[幽幽子]], [[藍]], [[紫]],
 [[萃香]],
 [[莉格露]], [[米斯蒂亜]], [[慧音]], [[帝]], [[鈴仙]], [[永琳]], [[輝夜]], [[妹紅]],
 [[文]], [[梅蒂欣]], [[幽香]], [[小町]], [[映姫]],
@@ -214,23 +213,23 @@ RESULT = MASTER,
 [[琪斯美]], [[山女]], [[帕露西]], [[勇儀]], [[覚]], [[阿燐]], [[阿空]], [[恋]],
 [[朱鷺子]],
 [[納茲琳]], [[小傘]], [[一輪]], [[村紗]], [[星]], [[白蓮]], [[鵺]],
-[[極]],
+[[果]],
 [[華扇]],
 [[響子]], [[芳香]], [[青娥]], [[屠自古]], [[布都]], [[神子]], [[猯藏]],
 [[小鈴]], [[心]],
 [[若鷺姫]], [[蛮奇]], [[影狼]], [[弁弁]], [[八橋]], [[正邪]], [[針妙丸]], [[雷鼓]],
-[[菫子]], [[清蘭]], [[鈴瑚]], [[哆来咪]], [[探女]], [[克勞恩皮絲]], [[純狐]], [[赫喀提亞]],
-[[拉瓦爾]], [[合歡乃]], [[阿吽]], [[成美]], [[舞]], [[里乃]], [[隠岐奈]],
+[[菫子]], [[清蘭]], [[鈴瑚]], [[哆来咪]], [[探女]], [[皮絲]], [[純狐]], [[赫卡提亚]],
+[[拉尔瓦]], [[合歡乃]], [[阿吽]], [[成美]], [[舞]], [[里乃]], [[隠岐奈]],
 [[女苑]], [[紫苑]],
 [[影華扇]],
 [[瓔花]], [[潤美]], [[久侘歌]], [[八千慧]], [[磨弓]], [[袿姫]], [[早鬼]], [[美宵]],
 [[尤魔]],
-[[美天]], [[慧ノ子]], [[ちやり]], [[日狭美]], [[残無]],
-[[ユウゲンマガン]], [[エリス]], [[サリエル]], [[魅魔]], [[キクリ]], [[コンガラ]],
+[[美天]], [[慧之子]], [[血枪]], [[日狭美]], [[残無]],
+[[幽幻魔眼]], [[依莉斯]], [[萨丽爱尔]], [[魅魔]], [[菊理]], [[矜羯罗]],
 [[里香]], [[明羅]],
-[[艾倫]], [[小兎姫]], [[喀娜]], [[理香子]], [[千百合]], [[夢美]], [[留琴]],
-[[オレンジ]], [[胡桃]], [[艾麗]], [[夢月]], [[幻月]],
-[[サラ]], [[露易茲]], [[雪]], [[​舞​]], [[夢子]], [[神綺]],
+[[爱莲]], [[小兎姫]], [[卡娜]], [[理香子]], [[千百合]], [[夢美]], [[留琴]],
+[[奥莲姬]], [[胡桃]], [[艾麗]], [[夢月]], [[幻月]],
+[[萨拉]], [[露易茲]], [[雪]], [[​舞​]], [[夢子]], [[神綺]],
 [[路人子]]
 }
 
@@ -558,8 +557,7 @@ GIFT_ID = 渡した回数 * 10000000000000000 + 点数 * 10000000000000 + DAY * 
 GIFT_GAVE:CHARA:(渡した回数 % 100) = GIFT_ID
 CFLAG:CHARA:送出的礼物 = GIFT_ID
 CALL KOJO_MESSAGE_SEND("GIFT", 6, CHARA, GIFT_ID, 本人の評価点, GIFT_NAME, GIFT_SENSE)
-PRINTFORMW Received [%GIFT_NAME%] from %NAME_OUTPUT_TRANSLATION("CALLNAME", CHARA)%!
-
+PRINTFORMW Received [%GIFT_NAME%] from %CALLNAME:CHARA%!
 ;-------------------------------------------------
 ;create written set of flags without magic numbers and FIRSTTIME abuse
 ;original from SQ's CEVENT
@@ -667,3 +665,242 @@ FOR LOCAL, 0, 4
 		RETURNF 1
 NEXT
 RETURNF 0
+
+@BABYMULTIAWARE(Character)
+	;Returns true if the character would normally be aware that she's carrying more than one child.
+#FUNCTION
+#DIM DYNAMIC Character
+SIF CFLAG:Character:LatestChildCount > 1 && TALENT:Character:PregnancyType && !(TALENT:Character:PregnancyType == 2 && FLAG:EGGNANCY)
+	RETURNF 1
+RETURNF 0
+
+
+@TOTAL_CONCEPTION_COUNT(Character,All)
+	;Returns the number of times the character has conceived.
+	;If the maximum number of children has been exceeded, the result may be incorrect.
+	;Set All to 1 if you want to include conceptions whose pregnancy event hasn't happened yet.
+#FUNCTION
+#DIM DYNAMIC Character
+#DIM DYNAMIC LastNumber
+#DIM DYNAMIC ConceptionCount
+#DIM DYNAMIC All
+SIF !CFLAG:Character:子供人数 && !CFLAG:Character:WithChildCount
+	RETURNF 0
+LastNumber = -1
+IF CFLAG:Character:子供人数
+	FOR LOCAL,1,CFLAG:Character:子供人数+1
+		IF CHILD_BIRTHDATE:Character:LOCAL > LastNumber
+			ConceptionCount++
+			LastNumber = CHILD_BIRTHDATE:Character:LOCAL
+		ENDIF
+	NEXT
+ENDIF
+LastNumber = 1000000
+IF CFLAG:Character:WithChildCount
+	FOR LOCAL,0,CFLAG:Character:WithChildCount
+		IF VAR_OR_DEFAULT(@"PregnancyProgress:{Character}:{LOCAL}") < LastNumber && (All || GROUPMATCH(TALENT:Character:PregnancyType,2,3) || VAR_OR_DEFAULT(@"PregnancyProgress:{Character}:{LOCAL}") > 19)
+			ConceptionCount++
+			LastNumber = VAR_OR_DEFAULT(@"PregnancyProgress:{Character}:{LOCAL}")
+		ENDIF
+	NEXT
+ENDIF
+RETURNF ConceptionCount
+
+@CHILD_MULTIPLE_COUNT(Character,Child,SameMother=1)
+	;Returns the total number of children in the given child's birthing.
+	;If SameMother is 0, it will also count children of other characters born on the same day.
+#FUNCTION
+#DIM DYNAMIC Character
+#DIM DYNAMIC Child
+#DIM DYNAMIC SameMother
+#DIM DYNAMIC ChildCount
+SIF Child > CFLAG:Character:子供人数 || Child < 1
+	RETURNF 0
+FOR LOCAL,1,CFLAG:Character:子供人数+1
+	SIF CHILD_BIRTHDATE:Character:LOCAL == CHILD_BIRTHDATE:Character:Child
+		ChildCount++
+NEXT
+IF !SameMother
+	FOR LOCAL:1,1,CHARANUM
+		SIF LOCAL:1 == Character
+			CONTINUE
+		FOR LOCAL,1,CFLAG:(LOCAL:1):子供人数+1
+			SIF CHILD_BIRTHDATE:(LOCAL:1):LOCAL == CHILD_BIRTHDATE:Character:Child
+				ChildCount++
+		NEXT
+	NEXT
+ENDIF
+RETURNF ChildCount
+
+@CHILD_MULTIPLE_FIRST(Character,Child)
+	;Returns the firstborn child in a single birthing.
+#FUNCTION
+#DIM DYNAMIC Character
+#DIM DYNAMIC Child
+FOR LOCAL,1,CFLAG:Character:子供人数+1
+	SIF CHILD_BIRTHDATE:Character:LOCAL == CHILD_BIRTHDATE:Character:Child
+		RETURNF LOCAL
+NEXT
+RETURNF -1
+
+@CHILD_MULTIPLE_LAST(Character,Child)
+	;Returns the lastborn child in a single birthing.
+#FUNCTION
+#DIM DYNAMIC Character
+#DIM DYNAMIC Child
+#DIM DYNAMIC LastChild
+LastChild = -1
+FOR LOCAL,1,CFLAG:Character:子供人数+1
+	IF CHILD_BIRTHDATE:Character:LOCAL == CHILD_BIRTHDATE:Character:Child
+		LastChild = LOCAL
+		SIF LOCAL == CFLAG:Character:子供人数
+			RETURNF LastChild
+	ELSEIF LastChild > -1
+		RETURNF LastChild
+	ENDIF
+NEXT
+RETURNF -1
+
+;==================================================
+;Counts how many orgasms the given character had in the last sex session
+;Stolen from Suwako's dialogue
+;==================================================
+@ORGASM_COUNT(ARG = -1)
+#FUNCTION
+SIF ARG == -1
+	ARG = TARGET
+RETURNF SUMARRAY(EX:ARG:0, 0, 5)
+
+;major.minor.patch
+@FORMAT_VERSION(ARG)
+#FUNCTIONS
+RETURNF @"{ARG / 100}.{ARG % 100 / 10}.{ARG % 10}"
+
+;Prints the season (year) using the Youkai Mountain calendar
+@PRINT_DATE_F_YOUKAI_SEASON()
+#FUNCTION
+GETTIME
+LOCAL:1 = (RESULT / 10000000000000) - 1885
+RETURNF LOCAL:1
+
+;Prints the date using the Youkai Mountain calendar
+@PRINT_DATE_F_YOUKAI(ARG, ARG:1)
+#FUNCTIONS
+LOCAL:1 = PRINT_DATE_F_YOUKAI_SEASON()
+LOCAL = DAY_TO_DATE(ARG)
+LOCAL:2 = LOCAL % 1000 / 100
+LOCAL:3 = LOCAL % 1000 % 100
+SELECTCASE ARG:1
+	CASE 1
+		LOCALS = {LOCAL:1}期　%GET_MONTH(LOCAL:2)%　{LOCAL:3}日
+CASEELSE
+	LOCALS = {LOCAL:1}期　%GET_MONTH(LOCAL:2)%　{LOCAL:3}日
+ENDSELECT
+RETURNF LOCALS
+
+@TOSTR_BUSTSIZE_ATW(ARG:0)
+#FUNCTIONS
+SELECTCASE ARG:0
+	CASE -2
+		RETURNF "平坦"
+	CASE -1
+		RETURNF "小ぶり"
+	CASE 0
+		RETURNF "普通"
+	CASE 1
+		RETURNF "大きめ"
+	CASE 2
+		RETURNF "巨大"
+	; CASE 3
+	; 	RETURNF "Gigantic"
+	; CASE 4
+	; 	RETURNF "Mystifying"
+ENDSELECT
+;----------------------------------------------------------------------
+;Like AddEXP, but unbolded and with the name at the front. Can be spaced out with OutputMode = 1 or hidden with OutputMode = -1.
+;----------------------------------------------------------------------
+@AddEXPOrdered(VAR_NAME,C_ID,変動数,OutputMode)
+#DIMS VAR_NAME
+#DIM VAR_ID
+#DIM C_ID
+#DIM 変動数
+#DIM OutputMode
+SIF 変動数 == 0
+	RETURN
+VAR_ID = FINDELEMENT(EXPNAME, VAR_NAME,,,1)
+EXP:C_ID:VAR_ID += 変動数
+IF OutputMode == 1
+	CALL COLORMESSAGE(@"%CALLNAME:C_ID+"'s",14,LEFT% %EXP_TR(VAR_ID),18,LEFT% ＋%DIGIT_GROUP(変動数)%",C_YELLOW,1)
+ELSEIF OutputMode == 0
+	CALL COLORMESSAGE(@"%CALLNAME:C_ID+"'s"% %EXP_TR(VAR_ID)% ＋%DIGIT_GROUP(変動数)%",C_YELLOW,2)
+ENDIF
+;----------------------------------------------------------------------
+;Like JUEL_UP_SPECIAL, but with the name at the front. Can be spaced out with OutputMode = 1 or hidden with OutputMode = -1.
+;----------------------------------------------------------------------
+@JUEL_UP_SPECIAL_ORDERED(ARG,増やす珠,参照能力,PERCENTAGE,OutputMode,PATTERN)
+#DIMS 増やす珠
+#DIMS 参照能力
+#DIM UP_JL
+#DIM UP_ABL
+#DIM PERCENTAGE
+#DIM OutputMode
+#DIM PATTERN
+#DIM 上昇量
+UP_ABL = FINDELEMENT(ABLNAME, 参照能力,,,1)
+UP_JL = FINDELEMENT(PALAMNAME, 増やす珠,,,1)
+SELECTCASE UP_ABL
+	CASE 0
+		LOCAL = JUEL_DEMAND_0(PATTERN,UP_JL,ARG)
+		LOCAL = LOCAL * (2 + TALENT:ARG:Ｃ感度) / 2
+	CASE 1
+		LOCAL = JUEL_DEMAND_1(PATTERN,UP_JL,ARG)
+		LOCAL = LOCAL * (2 + TALENT:ARG:Ｖ感度) / 2
+	CASE 2
+		LOCAL = JUEL_DEMAND_2(PATTERN,UP_JL,ARG)
+		LOCAL = LOCAL * (2 + TALENT:ARG:Ａ感度) / 2
+	CASE 3
+		LOCAL = JUEL_DEMAND_3(PATTERN,UP_JL,ARG)
+		LOCAL = LOCAL * (2 + TALENT:ARG:Ｂ感度) / 2
+	CASE 4
+		LOCAL = JUEL_DEMAND_4(PATTERN,UP_JL,ARG)
+		LOCAL = LOCAL * (2 + TALENT:ARG:Ｍ感度) / 2
+	CASE 10
+		LOCAL = JUEL_DEMAND_10(PATTERN,UP_JL,ARG)
+	CASE 11
+		LOCAL = JUEL_DEMAND_11(PATTERN,UP_JL,ARG)
+	CASE 12
+		LOCAL = JUEL_DEMAND_12(PATTERN,UP_JL,ARG)
+	CASE 13
+		LOCAL = JUEL_DEMAND_13(PATTERN,UP_JL,ARG)
+	CASE 14
+		LOCAL = JUEL_DEMAND_14(PATTERN,UP_JL,ARG)
+	CASE 15
+		LOCAL = JUEL_DEMAND_15(PATTERN,UP_JL,ARG)
+	CASE 16
+		LOCAL = JUEL_DEMAND_16(PATTERN,UP_JL,ARG)
+	CASE 17
+		LOCAL = JUEL_DEMAND_17(PATTERN,UP_JL,ARG)
+	CASE 18
+		LOCAL = JUEL_DEMAND_18(PATTERN,UP_JL,ARG)
+	CASE 30
+		LOCAL = JUEL_DEMAND_30(PATTERN,UP_JL,ARG)
+	CASE 31
+		LOCAL = JUEL_DEMAND_31(PATTERN,UP_JL,ARG)
+	CASE 32
+		LOCAL = JUEL_DEMAND_32(PATTERN,UP_JL,ARG)
+	CASE 33
+		LOCAL = JUEL_DEMAND_33(PATTERN,UP_JL,ARG)
+	CASE 34
+		LOCAL = JUEL_DEMAND_34(PATTERN,UP_JL,ARG)
+	CASE 35
+		LOCAL = JUEL_DEMAND_35(PATTERN,UP_JL,ARG)
+	CASE 39 ;Hypno Addiction, added
+		LOCAL = JUEL_DEMAND_39(PATTERN,UP_JL,ARG)
+ENDSELECT
+上昇量 = MAX(LOCAL * PERCENTAGE / 100, PERCENTAGE)
+JUEL:ARG:UP_JL += 上昇量
+IF OutputMode == 1
+	CALL COLORMESSAGE(@"%CALLNAME:ARG+"'s",14,LEFT% %PALAM_TR(PALAMNAME:UP_JL)+" Gems",18,LEFT% ＋%DIGIT_GROUP(上昇量)%",C_PINK,1)
+ELSEIF OUTPUTMODE == 0
+	CALL COLORMESSAGE(@"%CALLNAME:ARG+"'s"% %PALAM_TR(PALAMNAME:UP_JL)+" Gems"% ＋%DIGIT_GROUP(上昇量)%",C_PINK,1)
+ENDIF

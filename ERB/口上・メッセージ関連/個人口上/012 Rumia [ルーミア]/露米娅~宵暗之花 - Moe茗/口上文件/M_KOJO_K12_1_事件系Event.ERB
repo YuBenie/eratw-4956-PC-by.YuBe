@@ -87,7 +87,7 @@ SIF CFLAG:12:K12C_1_思慕过夜确认
 ;其实还想把原版里面露米娅的移动位置改一下……
 ;哪个次元的露米娅会去命莲寺和冥界啊！！！
 ;通过较为复杂的方式初步实现
-;但还是会有，露米亜心情不错的確保食品着。距离確保食品完成还需要一段时间…的bug
+;但还是会有，露米娅心情不错的確保食品着。距离確保食品完成还需要一段时间…的bug
 ;没办法，原版写死了呀……烦死了
 ;要是能开放口上作者自定义就好了
 ;写你妈
@@ -4343,7 +4343,7 @@ ELSE
 		ENDIF
 	ELSEIF TALENT:12:3
 		PRINTFORML 「啊！有别人……呜呜呜……不管啦不管啦！……」
-		PRINTFORMDW 露米娅粘着你不肯放开的样子……
+		PRINTFORMDW 露米娅黏着你不肯放开的样子……
 	ELSEIF TALENT:12:8
 		IF CFLAG:12:K12C_1_二周目
 			PRINTFORML 「啊……有别人来了呢……」
@@ -10509,9 +10509,7 @@ PRINTFORML
 ;需要补充不同清洁度的差分
  ;YOGORE:ARG 
 ;-------------------------------------------------
-@K12_ROOM_DESCRIPTION
-;请注意，此处CLEARLINE用于去除原版描述
-CLEARLINE 1 
+@K12_Moe_ROOM_DESCRIPTION
 SETCOLOR MOE_RUMIA_GREY 
 IF  CFLAG:12:K12C_1_朋友 || CFLAG:12:K12C_1_朋友_2 
 	PRINTFORML 十分适合房间主人的阴暗树洞房间

@@ -26,7 +26,7 @@ SIF BASE:MASTER:気力 <= 0
 SIF FLAG:70
 	RETURN 0
 ;非陷落不可
-SIF TCVAR:352
+SIF YUBE_陷落状态(16) == "未陷落"
 	RETURN 0
 
 RETURN 1
@@ -36,7 +36,7 @@ RETURN 1
 ;-------------------------------------------------
 	;吸血超过阈值导致贫血禁止
 	IF TCVAR:352 
-		PRINTFORML 虽然想让%NAME_OUTPUT_TRANSLATION("CALLNAME", TARGET)%吸血，但是今天再吸血恐怕身体会吃不消
+		PRINTFORML 虽然想让%CALLNAME:MASTER%吸血，但是今天再吸血恐怕身体会吃不消
 		TIME += 10
 		IF CHK_DATENOW(CFLAG:TARGET:约会中)
 			DOWNBASE:体力 += 50
@@ -50,7 +50,7 @@ RETURN 1
 		RETURN 1
 	ENDIF
 	IF MARK:反発刻印 >= 3
-		PRINTFORML %NAME_OUTPUT_TRANSLATION("CALLNAME", TARGET)%的眼神像是要把%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%吃了的样子
+		PRINTFORML %CALLNAME:MASTER%的眼神像是要把%CALLNAME:MASTER%吃了的样子
 		PRINTFORML 吸血……会死的吧？
 		SOURCE:反感 = 300
 		BASE:MASTER:気力 -= 100
@@ -224,7 +224,7 @@ RETURN 1
 	; RETURN 1
 
 
-PRINTFORML 「测试，这里是在数值计算里的」
+PRINTFORML %YUBEKEY%
 RETURN 1
 
 

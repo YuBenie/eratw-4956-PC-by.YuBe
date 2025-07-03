@@ -1,13 +1,63 @@
-﻿@YUBE_LINETHROUGH(ARGS,ARG,ARG:1)
-FONTSTYLE 4
+﻿;-------------------------------------------------
+; 神秘铸币字体小函数
+; 三个参数，应用的文本,是否带口上色开关,应用的STYLE
+; 0 常规
+; 1 粗体
+; 2 斜体
+; 4 删除
+; 8 下划线
+; 相加可叠加效果
+; 使用举例：
+; PRINTFORM	应用删除线前的文本
+; PRINTFORM	%YUBE_FORNTSTYLE("删除线")%后面没有应用删除线的文本
+; 实际表现为
+; 应用删除线前的文本删除线后面没有应用删除线的文本
+; 好吧个人能力限制，删除线前的文本必须在前一行单独PRINTFORM一下
+;-------------------------------------------------
+@YUBE_FONTSTYLE(ARGS,ARG,ARG:1)
+#FUNCTIONS
+FONTSTYLE ARG:1
 SELECTCASE ARG
 CASE 0
-	PRINTFORM	%ARGS%
-CASE 1
 	PRINTFORMD	%ARGS%
+CASE 1
+	PRINTFORM	%ARGS%
 ENDSELECT
 FONTREGULAR
-
+;-------------------------------------------------
+; 神秘小功能、判断角色未陷落的函数
+; 有点多此一举的感觉其实()
+;-------------------------------------------------
+@YUBE_未陷落(ARG)
+#FUNCTION
+#DIMS CONST	陷落状态 = "恋人","恋慕","愛欲","思慕","炮友"
+#DIMS KEY
+FOR LOCAL, 0 , 5
+	KEY = %陷落状态:LOCAL%
+	SIF TALENT:ARG:KEY
+		RETURNF 0
+NEXT
+RETURNF	1
+; ↓返回字符串版↓
+@YUBE_陷落状态(ARG)
+#FUNCTIONS
+#DIMS CONST	陷落状态 = "恋人","恋慕","愛欲","思慕","炮友"
+#DIMS KEY
+FOR LOCAL, 0 , 5
+	KEY = %陷落状态:LOCAL%
+	SIF TALENT:ARG:KEY
+		RETURNF KEY
+NEXT
+; ↓自定的条件追加↓
+SIF ABL:ARG:9 > 2
+	RETURNF	"朋友"
+; ↑自定的条件追加↑
+RETURNF	"未陷落"
+;-------------------------------------------------
+; 里文本，大概会在右边显示一段偏黑色的字
+; 参数说明:表文本 是否包含口上色 里文本 是否需要点击换行（默认点击，除非传入L）
+; 函数里的/将会作为%CALLNAME:MASTER%使用
+;-------------------------------------------------
 @YUBE_INNER(ARGS, ARG, ARGS:1, ARGS:2)
 #DIMS DYNAMIC NAMEMASTER        
 #DIMS DYNAMIC STR_ARRAY, 100 
@@ -55,7 +105,7 @@ RETURNF OUTPUT
 ; 自改日志
 ; 计划修改的内容
 ; ↓↓↓↓↓↓↓↓↓↓↓↓↓
-; 可增设
+; 我看了一下DQPRINT和FADE的函数，发现DQ不能像
 ; ↑↑↑↑↑↑↑↑↑↑↑↑↑
 LOCAL:0 = 0
 SEXYMASTER = %他_她(MASTER)%
@@ -185,7 +235,7 @@ REDRAW 0
 ; 		SETBGCOLOR 20, 10, 0
 ; 	ENDIF
 ; ENDIF
-CALL YUBE_FULLCUTIN2(0, 0, @"%YUBE_TOKANJI(DAY)%日目――","　","　",@"　　　　　　　　――月白的测试。")
+; CALL YUBE_FULLCUTIN2(0, 0, @"%YUBE_TOKANJI(DAY)%日目――","　","　",@"　　　　　　　　――月白的测试。")
 ; FONTSTYLE 0
 ; SETFONT "ＭＳ ゴシック"
 REDRAW 1
@@ -193,15 +243,15 @@ RETURN RESULT
 
 
 ;-------------------------------------------------
-;全画面カットイン関数@YUBE_FULLCUTIN
-;	引数0：左端からのインデント
-;	引数1：床から浮かせる行数（表示文字列と合わせて30を超えないでください）
-;	文字列引数0～29：表示する文字列
+;全屏函数
+;参数0：从左端缩进
+;参数1：从地板上浮的行数（与显示字符串加在一起不得超过30）
+;字符串参数0 - 29：要显示的字符串
 ;
-;空行で画面を掃除して、全画面分のカットインを表示します
-;行揃えやフォントなどのオプションはまだほとんど設定していません。アイデアだけとりあえず。
+;用空行清理屏幕以显示全屏的剪切
+;我几乎没有设置行对齐和字体等选项。只是想法暂且。
 ;-------------------------------------------------
-@YUBE_FULLCUTIN(ARG, ARG:1, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:2 = 8)
+@YUBE_FULLDQ(ARG, ARG:1, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:2 = 8)
 #LOCALSIZE 1
 	FOR LOCAL, 0, 30
 		IF ARGS:LOCAL == "VOID"
@@ -219,94 +269,11 @@ RETURN RESULT
 	NEXT
 	CALL SOMETHING_AATEST
 	CALL FADEIN(ARG:2, ARGS, ARGS:1, ARGS:2, ARGS:3, ARGS:4, ARGS:5, ARGS:6, ARGS:7, ARGS:8, ARGS:9, ARGS:10, ARGS:11, ARGS:12, ARGS:13, ARGS:14, ARGS:15, ARGS:16, ARGS:17, ARGS:18, ARGS:19, ARGS:20, ARGS:21, ARGS:22, ARGS:23, ARGS:24, ARGS:25, ARGS:26, ARGS:27, ARGS:28, ARGS:29)
+	; CALL DQPRINT(ARGS)
 	WAIT
 	CALL RETURNLINE
 RETURN RESULT
 
-;-------------------------------------------------
-;全画面カットイン関数@YUBE_FULLCUTIN2
-;	フェードイン・アウト等が従来より速いだけです
-;-------------------------------------------------
-@YUBE_FULLCUTIN2(ARG, ARG:1, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:2 = 4)
-#LOCALSIZE 1
-CALL YUBE_FULLCUTIN(ARG, ARG:1, ARGS, ARGS:1, ARGS:2, ARGS:3, ARGS:4, ARGS:5, ARGS:6, ARGS:7, ARGS:8, ARGS:9, ARGS:10, ARGS:11, ARGS:12, ARGS:13, ARGS:14, ARGS:15, ARGS:16, ARGS:17, ARGS:18, ARGS:19, ARGS:20, ARGS:21, ARGS:22, ARGS:23, ARGS:24, ARGS:25, ARGS:26, ARGS:27, ARGS:28, ARGS:29, ARG:2)
-RETURN RESULT
-
-
-;-------------------------------------------------
-;数値→漢数字変換関数@YUBE_TOKANJI
-;TOSTR関数チックに、引数の数値を漢数字の文字列で返します
-;変数の最大値は約922京であるため、一、万、億、兆、京の5回処理します
-;-------------------------------------------------
-@YUBE_TOKANJI(ARG)
-#FUNCTIONS
-#LOCALSIZE 1
-#LOCALSSIZE 1
-#DIM LCOUNT, 1
-VARSET LOCALS
-FOR LCOUNT, 0, 5
-	LOCAL = ARG/POWER(10000, (4-LCOUNT))
-	ARG %= POWER(10000, (4-LCOUNT))
-	IF LOCAL
-		LOCALS += YUBE_TOKANJIT(LOCAL)
-		SELECTCASE LCOUNT
-			CASE 0
-				LOCALS += "京"
-			CASE 1
-				LOCALS += "兆"
-			CASE 2
-				LOCALS += "億"
-			CASE 3
-				LOCALS += "万"
-		ENDSELECT
-	ENDIF
-NEXT
-RETURNF \@ LOCALS != "" ? %LOCALS% # 零 \@
-
-;内部用or簡易用
-;四桁以内の漢字変換。万以上与えるとバグ
-@YUBE_TOKANJIT(ARG)
-#FUNCTIONS
-SIF ARG >= 10000
-	RETURNF "ばぐ"
-LOCALS = \@ ARG/1000 ? %YUBE_TOKANJIS(ARG/1000, 1)%千 # \@
-ARG %= 1000
-LOCALS += \@ ARG/100 ? %YUBE_TOKANJIS(ARG/100, 1)%百 # \@
-ARG %= 100
-LOCALS += \@ ARG/10 ? %YUBE_TOKANJIS(ARG/10, 1)%十 # \@
-ARG %= 10
-RETURNF LOCALS + YUBE_TOKANJIS(ARG)
-
-
-;一桁の変換。引数1を真にすると一を省略する。2以上にすると零を表示する
-@YUBE_TOKANJIS(ARG, ARG:1)
-#FUNCTIONS
-SELECTCASE ARG
-	CASE 0
-		RETURNF \@ ARG:1 > 1 ? 零 #  \@
-	CASE 1
-		RETURNF \@ ARG:1 ?  # 一 \@
-	CASE 2
-		RETURNF "二"
-	CASE 3
-		RETURNF "三"
-	CASE 4
-		RETURNF "四"
-	CASE 5
-		RETURNF "五"
-	CASE 6
-		RETURNF "六"
-	CASE 7
-		RETURNF "七"
-	CASE 8
-		RETURNF "八"
-	CASE 9
-		RETURNF "九"
-	CASE 10
-		RETURNF "十"
-	CASEELSE
-		RETURNF "ばぐ"
-ENDSELECT
 
 ;-------------------------------------------------
 ;フェードアウト関数@YUBE_FADEOUT
@@ -324,13 +291,12 @@ RETURN RESULT
 
 
 ;-------------------------------------------------
-;フェードイン関数@YUBE_FADEIN
-;	引数0：コマ数。多くするほどゆるやかになります。デフォルトは8
-;	文字列引数0～29：表示する文字列（空行はスペースで。省略すると無視します）
-;
-;引数で与えた文字列を、背景色からフェードイン表示します。
-;色を変えたい場合は事前にSETCOLORするか、@YUBE_FADEを直接呼んでください
-;文字列は30行まで引き受けることができます
+; 淡入函数@YUBE_FADEIN
+; 参数0：帧数。越多越宽松。默认值为8
+; 字符串参数0到29：显示的字符串（空行为空格，忽略）
+; 从背景颜色淡入显示参数提供的字符串。
+; 想改变颜色的话要事先SETCOLOR或@YUBE_FADE直接称呼
+; 字符串最多可以接受30行
 ;-------------------------------------------------
 @YUBE_FADEIN(ARG = 8, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID")
 CALL YUBE_FADE(ARG, GETBGCOLOR(), GETCOLOR(), ARGS, ARGS:1, ARGS:2, ARGS:3, ARGS:4, ARGS:5, ARGS:6, ARGS:7, ARGS:8, ARGS:9, ARGS:10, ARGS:11, ARGS:12, ARGS:13, ARGS:14, ARGS:15, ARGS:16, ARGS:17, ARGS:18, ARGS:19, ARGS:20, ARGS:21, ARGS:22, ARGS:23, ARGS:24, ARGS:25, ARGS:26, ARGS:27, ARGS:28, ARGS:29)
@@ -338,14 +304,14 @@ RETURN RESULT
 
 
 ;-------------------------------------------------
-;フェード処理関数@YUBE_FADE
-;	引数0：コマ数。多くするほどゆるやかになります。デフォルトは8。大きくしすぎるとおかしくなります
-;	引数1：初期文字色
-;	引数2：変化する文字色
-;	文字列引数0～29：表示する文字列（空行はスペースで。省略すると無視します）
-;	引数3：FULLCUTIN用。正にすると開幕行削除から入ります
+; 淡入函数@YUBE_FADE
+; 参数0：帧数。越多越宽松。默认值为8。如果你做得太大，你就会觉得奇怪
+; 参数1：初始字符颜色
+; 参数2：变化的文字颜色
+; 字符串参数0到29：显示的字符串（空行为空格，忽略）
+; 参数3：FULLCUTIN用。如果正确的话，从开幕行删除开始进入
 ;
-;フェードアウト・フェードインの処理をします。内部関数ですが、呼び出しも可能です
+; 处理淡入淡入。虽然是内部函数，但也可以调用
 ;-------------------------------------------------
 @YUBE_FADE(ARG = 8, ARG:1 , ARG:2, ARGS = "VOID", ARGS:1 = "VOID", ARGS:2 = "VOID", ARGS:3 = "VOID", ARGS:4 = "VOID", ARGS:5 = "VOID", ARGS:6 = "VOID", ARGS:7 = "VOID", ARGS:8 = "VOID", ARGS:9 = "VOID", ARGS:10 = "VOID", ARGS:11 = "VOID", ARGS:12 = "VOID", ARGS:13 = "VOID", ARGS:14 = "VOID", ARGS:15 = "VOID", ARGS:16 = "VOID", ARGS:17 = "VOID", ARGS:18 = "VOID", ARGS:19 = "VOID", ARGS:20 = "VOID", ARGS:21 = "VOID", ARGS:22 = "VOID", ARGS:23 = "VOID", ARGS:24 = "VOID", ARGS:25 = "VOID", ARGS:26 = "VOID", ARGS:27 = "VOID", ARGS:28 = "VOID", ARGS:29 = "VOID", ARG:3)
 #LOCALSIZE 3
@@ -357,19 +323,19 @@ VARSET RED
 VARSET GREEN
 VARSET BLUE
 
-;元の文字色の取得
+;获取原始文字颜色
 PRICOLOR = GETCOLOR()
 
-;表示オン
+;打开显示
 IF ANIME_CONFIG("YUBE_FADE")
-	;一部環境でフェード処理がうまくいかないようなので対策@revkoishi(14/05/28)
+	;因为在一部分环境中淡入处理不顺利，所以对策@revkoishi(14/05/28)
 	LOCAL:2 = CURRENTREDRAW()
 	REDRAW 0
 	
 	;初期色
 	SETCOLOR ARG:1
 
-	;RGBそれぞれのベース値、減少値を各色:0と1に代入
+	;RGB将各基本值、减少值代入各色：0和1
 	RED = GETRED()
 	IF RED > GETRED(ARG:2)
 		RED:1 = MAX(1, (RED-GETRED(ARG:2))/ARG)
@@ -441,6 +407,50 @@ SIF LOCAL < ARG:2
 	RETURNF 1
 RETURNF 0
 
-
+;==================================================
+; 大概是搜寻场上的其他人
+;==================================================
+@YUBE_FIND_AROUND(ARG = -1)
+#FUNCTION
+#DIM 关联角色,14 = 1, 5, 6, 7, 11, 13, 29, 30, 33, 49, 50, 68, 118, 124
+#DIM 总人数
+#DIM 抽选
+#LOCALSIZE 200
+;关联角色包括：灵梦、桑尼、露娜、斯塔、魔理沙、大妖精、文、映姬、诹访子、觉、芙兰朵露、幽香、拉尔瓦、隐岐奈。
+VARSET LOCAL
+抽选 = 0
+总人数 = GET_TARGETNUM() 
+;如果没人的话就是0。如果是1的场合，就是只有傻子一个了。
+SIF 总人数 == 1
+	RETURNF 0
+;首先将所有在场的角色总结成一个权重池。
+FOR COUNT, 1, 总人数 + 1
+	;屏蔽抽中口上主的情况。
+	SIF TARGET:COUNT == TARGET:0
+		CONTINUE
+	;确认目标是否与主角和口上主在同一位置。
+	SIF (CFLAG:(TARGET:COUNT):現在位置 != CFLAG:MASTER:現在位置) || (CFLAG:(TARGET:COUNT):現在位置 != CFLAG:14:現在位置)
+		CONTINUE
+	;确认目标是否符合拥有对应素质的额外要求。
+	IF ARG > 0
+		SIF !TALENT:(TARGET:COUNT):ARG
+			CONTINUE
+	ENDIF
+	;如果上述条件都是满足的，那么将此角色编号加入权重池。
+	LOCAL:抽选 = TARGET:COUNT
+	抽选 ++
+NEXT
+;然后将熟人额外加入一次权重池，也就是概率翻倍了。
+FOR COUNT, 0, 14
+	IF CFLAG:(关联角色:COUNT):現在位置 == CFLAG:MASTER:現在位置
+		LOCAL:抽选 = 关联角色:COUNT
+		抽选 ++
+	ENDIF
+NEXT
+;不知道为什么，但总之有这么一个结尾。
+SIF 抽选 < 1
+	RETURNF 0
+;最后在池子里随机抽一个啦。
+RETURNF LOCAL:(RAND(抽选))
 
 

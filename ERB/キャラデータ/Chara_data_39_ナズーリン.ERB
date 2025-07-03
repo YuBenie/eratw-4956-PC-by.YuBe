@@ -68,7 +68,7 @@ CASE "便装：裙子"
 CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 CASE "便装：上身衣服１"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "無袖外套"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "无袖上衣"))
 
 CASE "固有内衣形容詞"
 	CALLF MAKE_STR(V_NAME, "尾部有洞的灰色")
@@ -94,7 +94,7 @@ CASE "固有指令実行可能"
 
 ;料理関連
 CASE "料理：喜欢的味道"
-	CALLF MAKE_STR(V_NAME, "香料/中華/油炸食品/辣/丰盛/垃圾/濃厚/野趣/新鲜/怪诞/粘稠/甜/甜/甜/乳酪/乳酪/乳酪/乳酪/乳酪/")
+	CALLF MAKE_STR(V_NAME, "香料/中華/油炸食品/辣/丰盛/垃圾/濃厚/野趣/新鲜/怪诞/黏稠/甜/甜/甜/乳酪/乳酪/乳酪/乳酪/乳酪/")
 CASE "料理：讨厌的味道"
 	CALLF MAKE_STR(V_NAME, "简易/健康/新鲜/咸/咸/淡白/淡白/淡白/謎料理/謎料理/謎料理/謎料理/謎料理/")
 CASE "料理：助手効果"
@@ -178,11 +178,8 @@ ELSE
 	;通常画像
 	IF CHECK_NUDE(CHARA)
 		;裸
-		IF FLAG:立絵種類
-			;顔絵
-		ELSE
-			;立絵
-		ENDIF
+		SIF BATHROOM() && !CFLAG:诶嘿嘿
+			RESULTS = _浴袍
 	ELSE
 		;服
 		IF FLAG:立絵種類

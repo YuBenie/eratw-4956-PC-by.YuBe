@@ -48,7 +48,7 @@ RETURNF 0
 @M_KOJO_K111_HOUSE(ARG)
 #FUNCTION
 IF MAIN_MAP == 10
-	IF ARG == CFLAG:[[克勞恩皮絲]]:初期位置
+	IF ARG == CFLAG:[[皮絲]]:初期位置
 		RETURNF 1
 	ELSEIF ARG == 1016
 		RETURNF 3
@@ -56,7 +56,7 @@ IF MAIN_MAP == 10
 		RETURNF 2
 	ENDIF
 ELSE
-	SIF ARG == OMANEKIBEYA() || ARG == CFLAG:[[克勞恩皮絲]]:初期位置
+	SIF ARG == OMANEKIBEYA() || ARG == CFLAG:[[皮絲]]:初期位置
 		RETURNF 1
 ENDIF
 
@@ -69,7 +69,7 @@ SIF MAIN_MAP != 10
 ;一応二段階で設定しておく
 SIF INRANGE(CFLAG:MASTER:初期位置, 1060, 1072)
 	RETURNF 1
-SIF GROUPMATCH(CFLAG:MASTER:初期位置, CFLAG:[[克勞恩皮絲]]:初期位置, CFLAG:[[純狐]]:初期位置, CFLAG:[[赫喀提亞]]:初期位置)
+SIF GROUPMATCH(CFLAG:MASTER:初期位置, CFLAG:[[皮絲]]:初期位置, CFLAG:[[純狐]]:初期位置, CFLAG:[[赫卡提亚]]:初期位置)
 	RETURNF 1
 
 ;地上判定
@@ -117,17 +117,17 @@ ENDIF
 #FUNCTIONS
 VARSET LOCALS
 VARSET LOCAL
-SIF CFLAG:[[克勞恩皮絲]]:既成事實
+SIF CFLAG:[[皮絲]]:既成事實
 	LOCALS:1 = ロリコン
 SIF TALENT:MASTER:清掃中毒 || ABL:MASTER:清掃技能 >= 6
 	LOCALS:2 = 清掃中毒者
-SIF LEARNED_MENU:[[克勞恩皮絲]] >= 100
+SIF LEARNED_MENU:[[皮絲]] >= 100
 	LOCALS:3 = 料理人
-SIF CFLAG:[[克勞恩皮絲]]:弾幕勝負勝利
+SIF CFLAG:[[皮絲]]:弾幕勝負勝利
 	LOCALS:4 = 弾幕強者
-SIF CFLAG:[[克勞恩皮絲]]:斗虫直接勝利
+SIF CFLAG:[[皮絲]]:斗虫直接勝利
 	LOCALS:5 = 昆虫王
-SIF TALENT:MASTER:恋人 && !GROUPMATCH(TALENT:MASTER:恋人, [[克勞恩皮絲]], [[赫喀提亞]], [[純狐]])
+SIF TALENT:MASTER:恋人 && !GROUPMATCH(TALENT:MASTER:恋人, [[皮絲]], [[赫卡提亚]], [[純狐]])
 	LOCALS:6 = モテ男
 SIF ABL:MASTER:教養 >= 4
 	LOCALS:7 = インテリ
@@ -295,11 +295,11 @@ VERSION = 202
 CALL M_KOJO_COLOR_K111
 IF !TALENT:111:無接吻経験 || EXP:111:接吻経験
 	SIF FIRSTTIME("初吻", 0, 111)
-		PRINTFORML 在这次约会中克劳恩皮斯有了KISS经验
+		PRINTFORML 在这次约会中克劳恩皮丝有了KISS经验
 ENDIF
 IF EXP:111:精飲経験
 	SIF FIRSTTIME("精液の味", 0, 111)
-		PRINTFORML 在这次约会中克劳恩皮斯了解了精液的味道
+		PRINTFORML 在这次约会中克劳恩皮丝了解了精液的味道
 ENDIF
 RESETCOLOR
 IF CFLAG:111:1100 == VERSION
@@ -330,7 +330,7 @@ IF MAIN_MAP == 10
 	;初期位置が純狐邸
 	IF M_KOJO_K111_JUNKO_KURASHI()
 		;出会った場所が入海口側
-		IF M_KOJO_K111_HOUSE(CFLAG:[[克勞恩皮絲]]:現在位置)
+		IF M_KOJO_K111_HOUSE(CFLAG:[[皮絲]]:現在位置)
 			PRINTFORMW 「侵入者吗？」
 			PRINTFORMW 「既然是侵入者，那我就客气地下杀手了哦ー」
 			PRINTFORML 
@@ -350,7 +350,7 @@ IF MAIN_MAP == 10
 		ENDIF
 		PRINTFORMW 「诶！？ 要住到这里来！？」
 		PRINTFORMW 「哼、你这人真是异想天開ー……」
-		PRINTFORMW 「我是地狱妖精克劳恩皮斯！」
+		PRINTFORMW 「我是地狱妖精克劳恩皮丝！」
 		PRINTFORMW 「%CALLNAME:MASTER%！」
 		PRINTFORMW 「你看着也不像有事的人」
 		PRINTFORMW 「来陪我玩会儿吧ー♪」
@@ -365,7 +365,7 @@ IF MAIN_MAP == 10
 		INPUT
 		PRINTFORML 「诶？ 你是地上的居民吗？」
 		PRINTFORMW 「切，还以为是敌人，真没劲」
-		PRINTFORMW 「我是地狱妖精克劳恩皮斯！」
+		PRINTFORMW 「我是地狱妖精克劳恩皮丝！」
 		PRINTFORMW 「%CALLNAME:MASTER%！」
 		PRINTFORMW 「有办法来到月之国的人一定很有本事吧？」
 		PRINTFORMW 「来陪我玩会儿吧ー♪」
@@ -382,7 +382,7 @@ ELSEIF CFLAG:111:現在位置 >= 1000 && CFLAG:111:現在位置 < 1100
 	INPUT
 	PRINTFORML 「诶？ 你是地上的居民吗？」
 	PRINTFORMW 「切，还以为是敌人，真没劲」
-	PRINTFORMW 「我是地狱妖精克劳恩皮斯！」
+	PRINTFORMW 「我是地狱妖精克劳恩皮丝！」
 	PRINTFORMW 「%CALLNAME:MASTER%！」
 	PRINTFORMW 「有办法来到月之国的人一定很有本事吧？」
 	PRINTFORMW 「来陪我玩会儿吧ー♪」
@@ -392,7 +392,7 @@ ELSE
 	PRINTFORMDL 突然眼前出现了奇装异服的怪异妖精
 	PRINTFORMDW 　[0] - 名乗る
 	INPUT
-	PRINTFORMW 「我是地狱妖精克劳恩皮斯！」
+	PRINTFORMW 「我是地狱妖精克劳恩皮丝！」
 	PRINTFORMW 「现在和主人一起在地上观光」
 	PRINTFORMW 「%CALLNAME:MASTER%！」
 	PRINTFORMW 「你看着也不像有事的人」
@@ -425,12 +425,12 @@ LOCAL = 1
 ;-------------
 IF LOCAL
 	PRINTL 
-	PRINTFORMDL 约会归去途中，克劳恩皮斯慢悠悠拿出火把
+	PRINTFORMDL 约会归去途中，克劳恩皮丝慢悠悠拿出火把
 	PRINTW 
 	PRINTFORMW 「要是向%CALLNAME:MASTER%使用能力的话到底会怎样、好想试试？」
 	PRINTFORML 「准备好的话要開始了哦ー……」
 	PRINTL 
-	PRINTFORMDW 正说着克劳恩皮斯燃起火把，火光闪烁向四周发散一样的光芒
+	PRINTFORMDW 正说着克劳恩皮丝燃起火把，火光闪烁向四周发散一样的光芒
 	PRINTFORMDW %CALLNAME:MASTER%不得不将双眼闭上，并且用双手挡在眼前
 	PRINTL 
 	PRINTL 
@@ -441,13 +441,13 @@ IF LOCAL
 	PRINTL 
 	PRINTFORMW 「欸嘿嘿，中计了哦ー❤」
 	IF FIRSTTIME("初吻")
-		PRINTFORMW 「怎样？皮斯初吻的味道、完美的品尝到了吧♪」
+		PRINTFORMW 「怎样？皮丝初吻的味道、完美的品尝到了吧♪」
 		IF TALENT:111:恋慕
-			PRINTFORMW 「不仅刚才完美的中了皮斯的计谋～、而且……」
+			PRINTFORMW 「不仅刚才完美的中了皮丝的计谋～、而且……」
 			PRINTFORMW 「而且、也成功将初吻献给了%CALLNAME:MASTER%❤」
 			CSTR:111:初吻喪失履歴 = %PRINT_DATE_F(DAY)%、%DATENAME_PLACE()%在约会归途、将初吻献给了最爱的%CALLNAME:MASTER%
 		ELSEIF TALENT:111:思慕
-			PRINTFORMW 「不仅刚才完美的中了皮斯的计谋～、而且……」
+			PRINTFORMW 「不仅刚才完美的中了皮丝的计谋～、而且……」
 			PRINTFORMW 「而且、对象是%CALLNAME:MASTER%也是大胜利❤」
 			CSTR:111:初吻喪失履歴 = %PRINT_DATE_F(DAY)%、%DATENAME_PLACE()%在约会归途、将初吻献给了亲密的%CALLNAME:MASTER%
 		ELSE
@@ -494,7 +494,7 @@ IF LOCAL
 		;初回
 		IF FIRSTTIME("告白")
 			PRINTL 
-			PRINTFORMDL 约会归途、克劳恩皮斯好像没什么精神的样子
+			PRINTFORMDL 约会归途、克劳恩皮丝好像没什么精神的样子
 			PRINTW 
 			PRINTFORMW 「%CALLNAME:MASTER%……」
 			PRINTFORMW 「有点事想……嗯……认真和你说一下……」
@@ -512,13 +512,13 @@ IF LOCAL
 		;以降
 		ELSE
 			PRINTL 
-			PRINTFORMDL 约会归途中，克劳恩皮斯再一次叫住%CALLNAME:MASTER%。目光交汇，克劳恩皮斯直直地望着%CALLNAME:MASTER%
+			PRINTFORMDL 约会归途中，克劳恩皮丝再一次叫住%CALLNAME:MASTER%。目光交汇，克劳恩皮丝直直地望着%CALLNAME:MASTER%
 			PRINTW 
 			PRINTFORMW 「%CALLNAME:MASTER%……」
 			PRINTFORMW 「%CALLNAME:MASTER%有喜欢的人了吗……？」
 			PRINTL 
-			PRINTFORMDL %CALLNAME:MASTER%因为自己不坚定地决心而说不出话，只是默默看着克劳恩皮斯。
-			PRINTFORMDL 克劳恩皮斯不知是察觉到了什么还是等待并无回应，率先開口了。
+			PRINTFORMDL %CALLNAME:MASTER%因为自己不坚定地决心而说不出话，只是默默看着克劳恩皮丝。
+			PRINTFORMDL 克劳恩皮丝不知是察觉到了什么还是等待并无回应，率先開口了。
 			PRINTW 
 			PRINTFORMW 「自从上次以来，我依旧喜欢着%CALLNAME:MASTER%」
 			PRINTFORMW 「所以无论如何…希望今天能得到%CALLNAME:MASTER%地回应……」
@@ -541,10 +541,10 @@ IF LOCAL
 		ENDIF
 		PRINTFORMW 「呀吼っ♪ 太棒了～！！」
 		PRINTL 
-		PRINTFORMDL 克劳恩皮斯脸上洋溢着烂漫的笑容，兴奋地忍不住跳起来
+		PRINTFORMDL 克劳恩皮丝脸上洋溢着烂漫的笑容，兴奋地忍不住跳起来
 		PRINTFORMDL 顺势一头钻入%CALLNAME:MASTER%地怀中。
 		PRINTFORMDL %CALLNAME:MASTER%双手将她抱紧、
-		PRINTFORMDL 克劳恩皮斯将小小脑袋埋在%CALLNAME:MASTER%胸口。
+		PRINTFORMDL 克劳恩皮丝将小小脑袋埋在%CALLNAME:MASTER%胸口。
 		PRINTW 
 		PRINTFORMW 「%CALLNAME:MASTER%地身体好让人安心～❤ 呼呼～♪」
 		PRINTFORMW 「想要被%CALLNAME:MASTER%多抱一会儿……」
@@ -587,7 +587,7 @@ IF LOCAL
 			PRINTFORMW 「但是，我能意识到自己内心真正的感情……」
 			PRINTFORMW 「并且，能将那份感情认认真真传达给%CALLNAME:MASTER%，已经让我心情清爽很多了」
 			PRINTL 
-			PRINTFORMDL 克劳恩皮斯不停擦拭着不争气的眼角滚落的泪水、
+			PRINTFORMDL 克劳恩皮丝不停擦拭着不争气的眼角滚落的泪水、
 			PRINTFORMDL 努力调整着心情将脸别向一旁。
 			PRINTW 
 			PRINTFORMW 「我可是被甩了哦，完全就是超级悲伤的事情……但是……」
@@ -633,18 +633,18 @@ IF LOCAL
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 0
 		;ただいま
-		IF CFLAG:[[克勞恩皮絲]]:神社在住
+		IF CFLAG:[[皮絲]]:神社在住
 			PRINTFORML 「回来啦～！」
-			IF BASE:[[克勞恩皮絲]]:体力 < MAXBASE:[[克勞恩皮絲]]:体力 / 2 || BASE:[[克勞恩皮絲]]:気力 < MAXBASE:[[克勞恩皮絲]]:気力 / 2
+			IF BASE:[[皮絲]]:体力 < MAXBASE:[[皮絲]]:体力 / 2 || BASE:[[皮絲]]:気力 < MAXBASE:[[皮絲]]:気力 / 2
 				PRINTFORMW 「呼～…、好累人～」
-			ELSEIF TIME >= CFLAG:[[克勞恩皮絲]]:就寝時間 + 60
+			ELSEIF TIME >= CFLAG:[[皮絲]]:就寝時間 + 60
 				PRINTFORMW 「呼ぇ～…、都困了……」
-			ELSEIF TIME_PROGRESS(TCVAR:[[克勞恩皮絲]]:空腹時刻)
+			ELSEIF TIME_PROGRESS(TCVAR:[[皮絲]]:空腹時刻)
 				PRINTFORMW 「唔ー、肚子饿了～」
 			ELSE
 				PRINTFORMW 「下次再去玩吧♪」
 			ENDIF
-		ELSEIF TALENT:[[克勞恩皮絲]]:恋慕
+		ELSEIF TALENT:[[皮絲]]:恋慕
 			SELECTCASE RAND:3
 			CASE 1
 				PRINTFORML 「呼～…、好累人～」
@@ -779,7 +779,7 @@ IF LOCAL
 		ELSEIF DAY:2 == 1 && DAY:3 == 1 && DAY != 1
 			CALL M_KOJO_EVENT_K111_1_GANTAN
 		;聖誕節イブ
-		ELSEIF DAY:2 == 4 && DAY:3 == 24 && !TCVAR:[[克勞恩皮絲]]:今天的礼物
+		ELSEIF DAY:2 == 4 && DAY:3 == 24 && !TCVAR:[[皮絲]]:今天的礼物
 			CALL M_KOJO_EVENT_K111_1_XMAS
 		ELSE
 			PRINTFORML 「啊！ %CALLNAME:MASTER%！」
@@ -832,13 +832,13 @@ IF LOCAL
 		ELSEIF DAY:2 == 1 && DAY:3 == 1 && DAY != 1
 			CALL M_KOJO_EVENT_K111_1_GANTAN
 		;聖誕節イブ
-		ELSEIF DAY:2 == 4 && DAY:3 == 24 && !TCVAR:[[克勞恩皮絲]]:今天的礼物
+		ELSEIF DAY:2 == 4 && DAY:3 == 24 && !TCVAR:[[皮絲]]:今天的礼物
 			CALL M_KOJO_EVENT_K111_1_XMAS
 		ELSE
 			PRINTFORML 「啊！ %CALLNAME:MASTER%！」
 			IF TALENT:111:恋慕
-				;赫喀提亞と约会
-				IF FLAG:约会的对象 == [[赫喀提亞]]
+				;赫卡提亚と约会
+				IF FLAG:约会的对象 == [[赫卡提亚]]
 					PRINTFORML 「主人……！」
 					PRINTFORMW 「主人……我呆在这里真的好吗……？」
 				;純狐と约会
@@ -849,15 +849,15 @@ IF LOCAL
 				ELSEIF GROUPMATCH(FLAG:约会的对象, [[桑尼]], [[露娜]], [[斯塔]], [[琪露諾]])
 					;ここはフルネーム
 					PRINTFORML 「库！ %NAME:(FLAG:约会的对象)%！」
-					IF TALENT:[[克勞恩皮絲]]:恋人
+					IF TALENT:[[皮絲]]:恋人
 						PRINTFORMW 「%CALLNAME:MASTER%是我老公欸！ 你们离他远点ー！」
 					ELSE
 						PRINTFORMW 「%CALLNAME:MASTER%只可以和我玩！ 你们离他远点！」
 					ENDIF
-				;拉瓦爾と约会,稍微仲良し
-				ELSEIF FLAG:约会的对象 == [[拉瓦爾]]
+				;拉尔瓦と约会,稍微仲良し
+				ELSEIF FLAG:约会的对象 == [[拉尔瓦]]
 					PRINTFORMW 「在和%CALLNAME:(FLAG:约会的对象)%一起玩吗？」
-					IF TALENT:[[克勞恩皮絲]]:恋人
+					IF TALENT:[[皮絲]]:恋人
 						PRINTFORMW 「话说在前面、%CALLNAME:MASTER%是我老公哦！」
 					ELSE
 						PRINTFORMW 「真好！ 让我也加入吧！」
@@ -865,25 +865,25 @@ IF LOCAL
 				;妖精と约会
 				ELSEIF TALENT:(FLAG:约会的对象):妖精
 					PRINTFORMW 「这是哪里来的妖精、你们关系很好吗ー？」
-					SIF TALENT:[[克勞恩皮絲]]:恋人
+					SIF TALENT:[[皮絲]]:恋人
 						PRINTFORMW 「%CALLNAME:MASTER%是我老公哦！」
 				;それ以外
 				ELSE
 					PRINTFORMW 「这女的谁啊？」
-					SIF TALENT:[[克勞恩皮絲]]:恋人
+					SIF TALENT:[[皮絲]]:恋人
 						PRINTFORMW 「%CALLNAME:MASTER%是我老公哦！」
 				ENDIF
 			ELSE
-				;赫喀提亞と约会
-				IF FLAG:约会的对象 == [[赫喀提亞]]
+				;赫卡提亚と约会
+				IF FLAG:约会的对象 == [[赫卡提亚]]
 					PRINTFORML 「主人！」
 					PRINTFORMW 「你们在这儿做什么呢？」
 				;純狐と约会
 				ELSEIF FLAG:约会的对象 == [[純狐]]
 					PRINTFORML 「友人大人！」
 					PRINTFORMW 「你们在这儿做什么呢？」
-				;三月精or琪露諾or拉瓦爾と约会
-				ELSEIF GROUPMATCH(FLAG:约会的对象, [[桑尼]], [[露娜]], [[斯塔]], [[琪露諾]], [[拉瓦爾]])
+				;三月精or琪露諾or拉尔瓦と约会
+				ELSEIF GROUPMATCH(FLAG:约会的对象, [[桑尼]], [[露娜]], [[斯塔]], [[琪露諾]], [[拉尔瓦]])
 					PRINTFORML 「哦っ、%CALLNAME:(FLAG:约会的对象)%也在啊！」
 					PRINTFORMW 「你们在干嘛呢？ 让我也加入嘛ー！」
 				ELSE
@@ -926,10 +926,10 @@ IF DAY:2 == 3 && DAY:3 == 30
 ELSEIF DAY:2 == 1 && DAY:3 == 1 && DAY != 1
 	CALL M_KOJO_EVENT_K111_1_GANTAN
 ;聖誕節イブ
-ELSEIF DAY:2 == 4 && DAY:3 == 24 && !TCVAR:[[克勞恩皮絲]]:今天的礼物
+ELSEIF DAY:2 == 4 && DAY:3 == 24 && !TCVAR:[[皮絲]]:今天的礼物
 	CALL M_KOJO_EVENT_K111_1_XMAS
 ;心情不快
-ELSEIF M_KOJO_K111_FUKIGEN([[克勞恩皮絲]])
+ELSEIF M_KOJO_K111_FUKIGEN([[皮絲]])
 	PRINTFORMW 「啊、%CALLNAME:MASTER%……」
 ;20日以上会ってない
 ELSEIF DAY - CFLAG:111:1002 >= 20
@@ -946,9 +946,9 @@ ELSEIF DAY - CFLAG:111:1002 >= 20
 		PRINTFORMW 「好久不见，最近好吗？」
 	ENDIF
 ;MASTERが入ってきた or 同じ拠点
-ELSEIF ARG == 2 || CFLAG:[[克勞恩皮絲]]:神社在住
+ELSEIF ARG == 2 || CFLAG:[[皮絲]]:神社在住
 	;同じ拠点
-	IF CFLAG:[[克勞恩皮絲]]:神社在住
+	IF CFLAG:[[皮絲]]:神社在住
 		SELECTCASE TIME
 		;4時～10時
 		CASE 240 TO 600
@@ -1014,12 +1014,12 @@ ELSEIF ARG == 2 || CFLAG:[[克勞恩皮絲]]:神社在住
 	IF !RAND:200
 		PRINTFORML 「找到你啦っ！！」
 		PRINTL 
-		PRINTFORMDW 克劳恩皮斯蹦跳着跑过来然后脚下一滑摔了一跤
+		PRINTFORMDW 克劳恩皮丝蹦跳着跑过来然后脚下一滑摔了一跤
 	;溜まってるとたまに
-	ELSEIF TALENT:[[克勞恩皮絲]]:恋慕 && CFLAG:111:积攒度 >= 750 && !RAND:5
+	ELSEIF TALENT:[[皮絲]]:恋慕 && CFLAG:111:积攒度 >= 750 && !RAND:5
 		PRINTFORML 「%CALLNAME:MASTER%～、不玩会儿吗～❤」
 		PRINTL 
-		PRINTFORMDW 克劳恩皮斯撒娇的贴过来。
+		PRINTFORMDW 克劳恩皮丝撒娇的贴过来。
 	ELSE
 		SELECTCASE RAND:12
 		CASE 1
@@ -1081,7 +1081,7 @@ PRINTFORMW 「快快把零食交出来っ♪」
 PRINTFORML 「还是说%CALLNAME:MASTER%期待着被我们恶作剧呀～？」
 PRINTDL [ 1] 给糖
 PRINTDL [ 2] 才不给！
-SIF (TALENT:[[克勞恩皮絲]]:恋慕 || TALENT:[[克勞恩皮絲]]:恋人 || TALENT:[[克勞恩皮絲]]:炮友) && !FIRSTTIME("初吻", 1, [[克勞恩皮絲]])
+SIF (TALENT:[[皮絲]]:恋慕 || TALENT:[[皮絲]]:恋人 || TALENT:[[皮絲]]:炮友) && !FIRSTTIME("初吻", 1, [[皮絲]])
 	PRINTDL [ 0] 如果有色色的恶作剧的话……
 INPUT
 IF RESULT == 1 && ITEM:糖
@@ -1089,7 +1089,7 @@ IF RESULT == 1 && ITEM:糖
 	PRINTFORMW 「嗯～！ 好甜❤」
 	CALL LOST_ITEM("糖", 1, 2)
 ;陥落＋接吻経験済み
-ELSEIF RESULT == 0 && (TALENT:[[克勞恩皮絲]]:恋慕 || TALENT:[[克勞恩皮絲]]:恋人 || TALENT:[[克勞恩皮絲]]:炮友) && !FIRSTTIME("初吻", 1, [[克勞恩皮絲]])
+ELSEIF RESULT == 0 && (TALENT:[[皮絲]]:恋慕 || TALENT:[[皮絲]]:恋人 || TALENT:[[皮絲]]:炮友) && !FIRSTTIME("初吻", 1, [[皮絲]])
 	PRINTFORMW 「欸欸っ！？ 色色的恶作剧是闹哪样啊……」
 	PRINTFORMW 「……那那那，你眼睛闭起来！」
 	PRINTL
@@ -1100,10 +1100,10 @@ ELSEIF RESULT == 0 && (TALENT:[[克勞恩皮絲]]:恋慕 || TALENT:[[克勞恩�
 	SETCOLOR 255, 100, 255
 	PRINTFORMW ……啾❤
 	PRINTL 
-	PRINTFORMDW 与克劳恩皮斯\@ EXP:[[克勞恩皮絲]]:接吻経験 > 10 ? 不知进行过几次的 # 屈指可数的 \@KISS
+	PRINTFORMDW 与克劳恩皮丝\@ EXP:[[皮絲]]:接吻経験 > 10 ? 不知进行过几次的 # 屈指可数的 \@KISS
 	PRINTFORMDW 她的嘴唇如此香甜，水润润，还柔软――
 	PRINTFORMDW ――或者应该说甜美过头才对！
-	PRINTFORMDW 睁開双眼，克劳恩皮斯烂漫小恶魔的脸就在眼前，俏皮的眸子直直望向自己――
+	PRINTFORMDW 睁開双眼，克劳恩皮丝烂漫小恶魔的脸就在眼前，俏皮的眸子直直望向自己――
 	PRINTL 
 	PRINTFORMW ……啾咕❤
 	PRINTL 
@@ -1112,9 +1112,9 @@ ELSEIF RESULT == 0 && (TALENT:[[克勞恩皮絲]]:恋慕 || TALENT:[[克勞恩�
 	CALL M_KOJO_COLOR_K111
 	PRINTFORMW 「……恩哼哼♪ 感觉如何❤」
 	PRINTFORMW 「哈哈、『感谢招待』？ 够下流的♪」
-	EXP:[[克勞恩皮絲]]:接吻経験 ++
+	EXP:[[皮絲]]:接吻経験 ++
 	EXP:MASTER:接吻経験 ++
-	EXP:[[克勞恩皮絲]]:愛情経験 ++
+	EXP:[[皮絲]]:愛情経験 ++
 ELSE
 	IF RESULT == 1
 		PRINTFORMDL 身上没有带着糖啊……。
@@ -1152,7 +1152,7 @@ ELSE
 	CASEELSE
 		LOCALS:2 = 杰克
 	ENDSELECT
-	CALL GIFT_ORDER_MADE_FROM_CHARA([[克勞恩皮絲]], LOCALS:1, LOCALS:2)
+	CALL GIFT_ORDER_MADE_FROM_CHARA([[皮絲]], LOCALS:1, LOCALS:2)
 	PRINTL 
 	CALL COLORMESSAGE(@"%CALLNAME:MASTER%は【%RESULTS%】を手に入れた！", C_RED, 2)
 	PRINTL 
@@ -1165,7 +1165,7 @@ TALENT:111:心情 = MAX(TALENT:111:心情, 0)
 @M_KOJO_EVENT_K111_1_GANTAN
 PRINTFORMW 「ハッピー ★ ニュー ★ イヤー！！」
 ;幼稚だと共通お年玉が発生するので
-IF !TALENT:[[克勞恩皮絲]]:幼稚
+IF !TALENT:[[皮絲]]:幼稚
 	PRINTFORML 「压岁钱！！！谢谢！！！♪」
 	PRINTDL [ 1] 给压岁钱（\3000）
 	PRINTDL [ 2] 大方给压岁钱（\10000）
@@ -1176,21 +1176,21 @@ IF !TALENT:[[克勞恩皮絲]]:幼稚
 		PRINTW 
 		PRINTFORML 「诶……%CALLNAME:MASTER%、难不成很穷吗……」
 		PRINTFORMW 「嗯……对不起啦……」
-		TALENT:[[克勞恩皮絲]]:心情 = 0
+		TALENT:[[皮絲]]:心情 = 0
 	ELSEIF RESULT == 1
 		PRINTFORMW 「哇ー♪ 太好了ー！ 谢谢～！」
 		MONEY -= 3000
-		TALENT:[[克勞恩皮絲]]:心情 = 1
-		CALL CHANGE_CFLAG(4, [[克勞恩皮絲]], ABL:[[克勞恩皮絲]]:親密 * 5)
+		TALENT:[[皮絲]]:心情 = 1
+		CALL CHANGE_CFLAG(4, [[皮絲]], ABL:[[皮絲]]:親密 * 5)
 	ELSEIF RESULT == 2
 		PRINTFORML 「诶！？ 这些都给我吗ー！？ 太棒啦ー！」
 		PRINTFORMW 「那我收下了哦～♪ 谢谢～！」
 		MONEY -= 10000
-		TALENT:[[克勞恩皮絲]]:心情 = 1
-		CALL CHANGE_CFLAG(4, [[克勞恩皮絲]], ABL:[[克勞恩皮絲]]:親密 * 2)
+		TALENT:[[皮絲]]:心情 = 1
+		CALL CHANGE_CFLAG(4, [[皮絲]], ABL:[[皮絲]]:親密 * 2)
 	ELSE
 		PRINTFORMW 「呜哇っ！ 吝啬鬼！！ 小气死了！」
-		TALENT:[[克勞恩皮絲]]:心情 = -1
+		TALENT:[[皮絲]]:心情 = -1
 	ENDIF
 ENDIF
 
@@ -1203,50 +1203,50 @@ PRINTDL [ 0] 索要圣诞礼物
 INPUT
 IF RESULT
 	RESETCOLOR
-	PRINTFORMW ◆盒子上写着“克劳恩皮斯收”！
-	CALL GIFT_ORDER_MADE_FROM_MASTER([[克勞恩皮絲]])
-	CALL M_KOJO_COLOR_K111
+	PRINTFORMW ◆盒子上写着“克劳恩皮丝收”！
+	CALL GIFT_ORDER_MADE_FROM_MASTER([[皮絲]])
+	SETCOLOR 0xE86FC7
 	;あげるのをやめた
 	IF RESULT == -1
 		PRINTFORMW 「诶……？」
 		PRINTFORMW 「这啥啊！？ 故弄玄虚的东西！ 没劲！」
-		TALENT:[[克勞恩皮絲]]:心情 = -1
+		TALENT:[[皮絲]]:心情 = -1
 	;あげた
 	ELSE
 		PRINTL 
-		PRINTFORMDL %CALLNAME:MASTER%将%RESULTS%作为圣诞礼物送给了克劳恩皮斯
+		PRINTFORMDL %CALLNAME:MASTER%将%RESULTS%作为圣诞礼物送给了克劳恩皮丝
 		PRINTW 
 		IF RESULT:1 >= 700
 			PRINTFORML 「呀ー♪ 真的要把这个送给我吗！？ 太棒棒了ー！！ 」
 			PRINTFORMW 「谢谢%CALLNAME:MASTER%！ 爱死你了❤」
-			TALENT:[[克勞恩皮絲]]:心情 = 1
+			TALENT:[[皮絲]]:心情 = 1
 		ELSEIF RESULT:1 >= 400
 			PRINTFORML 「哇ー♪ 好開心～！！」
 			PRINTFORMW 「谢谢%CALLNAME:MASTER%！」
-			TALENT:[[克勞恩皮絲]]:心情 = 1
+			TALENT:[[皮絲]]:心情 = 1
 		ELSE
 			PRINTFORML 「哇ー……！」
 			PRINTFORMW 「好開心ー。 真的哦ー。谢了ー……」
-			TALENT:[[克勞恩皮絲]]:心情 = 0
+			TALENT:[[皮絲]]:心情 = 0
 		ENDIF
 	ENDIF
 ELSE
-	IF TALENT:[[克勞恩皮絲]]:恋慕 || TALENT:[[克勞恩皮絲]]:恋人
+	IF TALENT:[[皮絲]]:恋慕 || TALENT:[[皮絲]]:恋人
 		PRINTFORML 「诶？ 为什么是我来给你礼物啊ー！」
 		PRINTFORMW 「明明我也想要礼物的！」
 		;後日くれる
-		CFLAG:[[克勞恩皮絲]]:1006 = DAY
+		CFLAG:[[皮絲]]:1006 = DAY
 	ELSE
 		PRINTFORML 「哈？ 为什么反而是我来给你礼物啊？」
 		PRINTFORMW 「切，反正我也没想过%CALLNAME:MASTER%会准备礼物～」
 	ENDIF
-	TALENT:[[克勞恩皮絲]]:心情 = 0
+	TALENT:[[皮絲]]:心情 = 0
 ENDIF
 
 ;バレンタイン挨拶（通常挨拶後に追加）
 @M_KOJO_EVENT_K111_1_VALENTINE
 PRINTFORML 「啊っ、对了！」
-SELECTCASE CFLAG:[[克勞恩皮絲]]:好感度
+SELECTCASE CFLAG:[[皮絲]]:好感度
 CASE 1000 TO 3000
 	;黑雷神巧克力
 	PRINTFORMW 「这个给你！」
@@ -1274,15 +1274,15 @@ CFLAG:111:1002 = DAY
 ;一日一回
 TCVAR:111:358 = 1
 ;最初から心情不快かどうか
-SIF TALENT:[[克勞恩皮絲]]:心情 < 0
-	TCVAR:[[克勞恩皮絲]]:360 = 1
+SIF TALENT:[[皮絲]]:心情 < 0
+	TCVAR:[[皮絲]]:360 = 1
 ;ここから先は通常遭遇および単独外出先遭遇のみ
 SIF !GROUPMATCH(ARG, 1, 2, 6)
 	RETURN 1
 ;恋慕で、心情不快ではなく、约会中ではなく、欲求不満が75%以上
 IF TALENT:111:恋慕 && TALENT:111:心情 >= 0 && !FLAG:约会的对象 && CFLAG:111:积攒度 >= 750
 	PRINTL 
-	PRINTFORMDL 克劳恩皮斯脸颊染上可爱地粉红……。
+	PRINTFORMDL 克劳恩皮丝脸颊染上可爱地粉红……。
 	PRINTW 
 	SELECTCASE RAND:6
 	CASE 1
@@ -1477,23 +1477,23 @@ IF LOCAL
 	IF LOCAL:1 && ARG == 1
 		IF ARG:1
 			;约会中に眠くて帰って寝る（拠点角色のみ）
-			IF TALENT:[[克勞恩皮絲]]:恋慕
+			IF TALENT:[[皮絲]]:恋慕
 				PRINTFORML 「哈啊～ぁ……%CALLNAME:MASTER%、好困哦……」
 				PRINTFORMW 「明天再一起玩吧～？」
 				PRINTL 
-				PRINTFORMDW %CALLNAME:MASTER%将困倦的克劳恩皮斯送回了家。
+				PRINTFORMDW %CALLNAME:MASTER%将困倦的克劳恩皮丝送回了家。
 			ELSE
 				PRINTFORML 「哈啊～ぁ……%CALLNAME:MASTER%、好困哦……」
 				PRINTFORMW 「回家吧～？」
 				PRINTL 
-				PRINTFORMDW %CALLNAME:MASTER%带着疲惫的克劳恩皮斯回家了。
+				PRINTFORMDW %CALLNAME:MASTER%带着疲惫的克劳恩皮丝回家了。
 			ENDIF
 		ELSEIF CFLAG:诶嘿嘿
 			;诶嘿嘿中に眠くて自室に帰って寝る（拠点角色のみ）
 			PRINTFORMW 「嗯喵～……」
 			PRINTFORMW 「对不起%CALLNAME:MASTER%、人家困了……」
 			PRINTL 
-			PRINTFORMDW 很无奈，对着失去反应的克劳恩皮斯再中出了几发后、%CALLNAME:MASTER%将睡梦中的克劳恩皮斯送回了家。
+			PRINTFORMDW 很无奈，对着失去反应的克劳恩皮丝再中出了几发后、%CALLNAME:MASTER%将睡梦中的克劳恩皮丝送回了家。
 		;月在住
 		ELSEIF MAIN_MAP == 10
 			SELECTCASE RAND:5
@@ -1505,12 +1505,12 @@ IF LOCAL
 				PRINTFORMW 「呼哇啊～ぁ……今天已经好累了～」
 			CASE 4
 				PRINTFORMW 「下次玩什么比较好呢……」
-				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮斯去睡觉吧。
+				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮丝去睡觉吧。
 				PRINTFORML 「哈啊～好啦好啦……」
 			CASEELSE
 				PRINTFORML 「嗯～…困死了～……」
 				PRINTFORMW 「嘶ぅ……嘶ぅ……」
-				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮斯回房间睡觉
+				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮丝回房间睡觉
 				PRINTFORML 「哈啊～好啦好啦……」
 			ENDSELECT
 			;おやすみセット
@@ -1524,7 +1524,7 @@ IF LOCAL
 				PRINTFORMW 「噶啊～ぁ……今天已经很累了，回家吧～」
 			CASEELSE
 				PRINTFORMW 「下次玩什么比较好呢……」
-				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮斯回去睡觉吧。
+				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮丝回去睡觉吧。
 				PRINTFORML 「哈啊～好啦好啦……」
 			ENDSELECT
 			PRINTFORMW 「哈啊啊啊%CALLNAME:MASTER%、晚安了啦～…」
@@ -1590,7 +1590,7 @@ IF LOCAL
 		PRINTFORMW 「对不起%CALLNAME:MASTER%、累的受不了了…晚安……」
 		IF M_KOJO_K111_HOUSE(CFLAG:MASTER:現在位置) != 1
 			PRINTL 
-			PRINTFORMDW %CALLNAME:MASTER%将衰弱的克劳恩皮斯送回房间。
+			PRINTFORMDW %CALLNAME:MASTER%将衰弱的克劳恩皮丝送回房间。
 		ENDIF
 		RETURN 1
 	ENDIF
@@ -1648,7 +1648,7 @@ IF LOCAL
 		LOCAL:1 = 1
 		;-------------------------------------------------
 		IF LOCAL:1 && ARG:1 == 1
-			IF CFLAG:[[克勞恩皮絲]]:前一次的位置 == CFLAG:[[克勞恩皮絲]]:現在位置
+			IF CFLAG:[[皮絲]]:前一次的位置 == CFLAG:[[皮絲]]:現在位置
 				;前のターンまで一緒に部屋にいた
 				PRINTFORMW 「呜～ぁ……要睡了啦，都出去都出去……」
 			ELSE
@@ -1695,7 +1695,7 @@ IF LOCAL
 			PRINTFORMW 「嗯喵～……」
 			PRINTFORMW 「对不起%CALLNAME:MASTER%、人家困了……」
 			PRINTL 
-			PRINTFORMDW 对着无反应的肉体再怎么中出也差点意思、%CALLNAME:MASTER%为睡找的克劳恩皮斯盖好了被子
+			PRINTFORMDW 对着无反应的肉体再怎么中出也差点意思、%CALLNAME:MASTER%为睡找的克劳恩皮丝盖好了被子
 		ELSE
 			SELECTCASE RAND:5
 			CASE 1
@@ -1708,11 +1708,11 @@ IF LOCAL
 				PRINTFORMW 「哈啊……困了……」
 			CASEELSE
 				PRINTFORMW 「下次玩什么比较好呢……」
-				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮斯去睡觉吧。
+				PRINTFORMDL %CALLNAME:MASTER%催促着克劳恩皮丝去睡觉吧。
 				PRINTFORML 「哈啊～好啦好啦……」
 			ENDSELECT
 			PRINTFORMW 「晚安%CALLNAME:MASTER%、明天见啦～…」
-			SIF TALENT:[[克勞恩皮絲]]:恋慕
+			SIF TALENT:[[皮絲]]:恋慕
 				PRINTFORMW 「……还是说到明早再说再见……？」
 		ENDIF
 		RETURN 1
@@ -1747,7 +1747,7 @@ CASE 2
 CASE 3
 	PRINTFORMW 「晚安ぃ～……嗯ぅ……」
 CASEELSE
-	IF TALENT:[[克勞恩皮絲]]:恋慕
+	IF TALENT:[[皮絲]]:恋慕
 		PRINTFORMW 「%CALLNAME:MASTER%一起睡吧～……」
 	ELSE
 		PRINTFORMW 「晚安～…明天见啦～……」
@@ -1824,22 +1824,22 @@ IF LOCAL
 		RETURN 1
 	ENDIF
 	;-------------------------------------------------
-	;赫喀提亞が入ってきた
+	;赫卡提亚が入ってきた
 	;記入チェック（=0, 非表示、1, 表示）
 	LOCAL:1 = 1
 	;-------------------------------------------------
-	IF LOCAL:1 && ARG == [[赫喀提亞]]
+	IF LOCAL:1 && ARG == [[赫卡提亚]]
 		PRINTFORMW 「啊！主人！」
 		RETURN 1
 	ENDIF
 	;-------------------------------------------------
-	;三月精or琪露諾が入ってきた,拉瓦爾に対しては言わない
+	;三月精or琪露諾が入ってきた,拉尔瓦に対しては言わない
 	;記入チェック（=0, 非表示、1, 表示）
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && GROUPMATCH(ARG, [[桑尼]], [[露娜]], [[斯塔]], [[琪露諾]])
 		PRINTFORML 「库！ %NAME:(FLAG:约会的对象)%！」
-		IF TALENT:[[克勞恩皮絲]]:恋人
+		IF TALENT:[[皮絲]]:恋人
 			PRINTFORMW 「我在和老公约会哦ー！」
 		ELSE
 			PRINTFORMW 「我在和%CALLNAME:MASTER%一起玩哦ー！」
@@ -1847,11 +1847,11 @@ IF LOCAL
 		RETURN 1
 	ENDIF
 	;-------------------------------------------------
-	;拉瓦爾が入ってきた
+	;拉尔瓦が入ってきた
 	;記入チェック（=0, 非表示、1, 表示）
 	LOCAL:1 = 1
 	;-------------------------------------------------
-	IF LOCAL:1 && ARG == [[拉瓦爾]]
+	IF LOCAL:1 && ARG == [[拉尔瓦]]
 		PRINTFORMW 「哦、拉尔瓦、%M_KOJO_EVENT_K111_1_HELLO()%」
 		RETURN 1
 	ENDIF
@@ -1882,7 +1882,7 @@ IF LOCAL
 	IF LOCAL:1 && ARG:1 == 1
 		IF TALENT:111:恋人
 			PRINTFORML 「啊っ！！！」
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORMW 「主……主人……！」
 				PRINTFORMW 「对不起……打扰你们了……」
@@ -1899,7 +1899,7 @@ IF LOCAL
 			ENDIF
 		ELSEIF TALENT:111:恋慕
 			PRINTFORML 「啊っ！！」
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORMW 「主……主人……！」
 				PRINTFORMW 「对不起……打扰你们了……」
@@ -1917,7 +1917,7 @@ IF LOCAL
 		ELSE
 			PRINTFORML 「啊ーー！」
 			PRINTFORMW 「被我发现了吧ー♪」
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORMW 「被我发现了吧……」
 				PRINTFORMW 「呀哈哈哈哈哈ー♪」
@@ -1937,7 +1937,7 @@ IF LOCAL
 	IF LOCAL:1 && ARG:1 == 2
 		IF TALENT:111:恋人
 			PRINTFORML 「啊っ！！！」
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORML 「主人、不能这样子ー♪」
 				PRINTFORMW 「%CALLNAME:MASTER%是我的，就算是友人大人也可以抢走他哦❤」
@@ -1950,7 +1950,7 @@ IF LOCAL
 				PRINTFORMW 「这样子可不行！ %CALLNAME:MASTER%明明是属于我的！」
 			ENDIF
 		ELSEIF TALENT:111:恋慕
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORML 「主人……！」
 				PRINTFORMW 「可不可以，让我也加入……！？」
@@ -1963,7 +1963,7 @@ IF LOCAL
 				PRINTFORMW 「%CALLNAME:MASTER%、让我也加入吧❤」
 			ENDIF
 		ELSE
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORML 「啊！ 主人！」
 				PRINTFORMW 「看起来很享受嘛，让我也来试试吧❤」
@@ -1987,7 +1987,7 @@ IF LOCAL
 	IF LOCAL:1 && ARG:1 == 3
 		IF TALENT:111:恋人
 			PRINTFORML 「啊っ！！！」
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORMW 「主……主人……！」
 				PRINTFORMW 「对不起……打扰你们了……」
@@ -2004,7 +2004,7 @@ IF LOCAL
 			ENDIF
 		ELSEIF TALENT:111:恋慕
 			PRINTFORML 「啊っ！！」
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORMW 「主……主人……！」
 				PRINTFORMW 「对不起……打扰你们了……」
@@ -2022,7 +2022,7 @@ IF LOCAL
 		ELSE
 			PRINTFORML 「啊ーー！」
 			PRINTFORMW 「被我发现了吧ー♪」
-			;赫喀提亞と
+			;赫卡提亚と
 			IF ARG == 113
 				PRINTFORMW 「被我发现了吧……」
 				PRINTFORMW 「呀哈哈哈哈哈ー♪」
@@ -2068,7 +2068,7 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG:1 == 1
-		;赫喀提亞に見られちゃう
+		;赫卡提亚に見られちゃう
 		IF ARG == 113
 			PRINTFORMW 「诶嘿❤ 对不起喽主人♪」
 		;純狐に見られちゃう
@@ -2085,7 +2085,7 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG:1 == 2
-		;赫喀提亞に見られちゃう
+		;赫卡提亚に見られちゃう
 		IF ARG == 113
 			PRINTFORMW 「主人也要来一起嘛～？ 呀哈哈♪ 来吧来吧♪」
 		;純狐に見られちゃう
@@ -2104,7 +2104,7 @@ IF LOCAL
 	;-------------------------------------------------
 	;目撃と同様に握られた時と同じ
 	IF LOCAL:1 && ARG:1 == 3
-		;赫喀提亞に見られちゃう
+		;赫卡提亚に見られちゃう
 		IF ARG == 113
 			PRINTFORMW 「诶嘿❤ 对不起喽主人♪」
 		;純狐に見られちゃう
@@ -2156,7 +2156,7 @@ IF LOCAL
 		IF FIRSTTIME("胖次没収")
 			PRINTFORMW 「哦？ %CALLNAME:MASTER%、什么东西掉出来了哦」
 			PRINTFORML 「呜哇！ 什么啊这是！内裤……」
-			PRINTFORMDL %CALLNAME:MASTER%慌乱中捂住克劳恩皮斯的嘴。
+			PRINTFORMDL %CALLNAME:MASTER%慌乱中捂住克劳恩皮丝的嘴。
 			PRINTFORMW 「嗯嗯！ 呜呜！！」
 			PRINTFORML 
 			PRINTFORML 「……哈啊！」
@@ -2166,7 +2166,7 @@ IF LOCAL
 			PRINTFORMW 「但就这样白白放过你也是不可能的事情哦，可别想得太美♪」
 		ELSE
 			PRINTFORML 「啊！ %CALLNAME:MASTER%！ 又是胖次……」
-			PRINTFORMDL %CALLNAME:MASTER%慌乱中捂住克劳恩皮斯的嘴。
+			PRINTFORMDL %CALLNAME:MASTER%慌乱中捂住克劳恩皮丝的嘴。
 			PRINTFORMW 「嗯嗯！ 呜呜！！」
 			PRINTFORML 
 			PRINTFORML 「……哈啊！」
@@ -2392,7 +2392,7 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 2
-		;赫喀提亞も一緒
+		;赫卡提亚も一緒
 		IF CFLAG:113:同行
 			PRINTFORML 「啊！ 主人！」
 			PRINTFORMW 「大家一起来洗澡吧♪」
@@ -2661,9 +2661,9 @@ IF LOCAL
 			SELECTCASE RAND:3
 			CASE 1
 				PRINTFORML 「黏糊糊的精液在一个劲往外流呢～❤
-				PRINTFORMW 「要被大家知道皮斯是个色情的妖精了～❤」
+				PRINTFORMW 「要被大家知道皮丝是个色情的妖精了～❤」
 			CASE 2
-				PRINTFORMW 「皮斯也可以射精喽～♪ biubiuー♪」
+				PRINTFORMW 「皮丝也可以射精喽～♪ biubiuー♪」
 			CASEELSE
 				PRINTFORMW 「%CALLNAME:MASTER%让我怀孕的汁液在满溢出来❤」
 			ENDSELECT
@@ -2684,7 +2684,7 @@ IF LOCAL
 		LOCAL:1 = 1
 		;-------------------------------------------------
 		IF LOCAL:1 && ARG:1 == 3
-			IF TALENT:[[克勞恩皮絲]]:恋人
+			IF TALENT:[[皮絲]]:恋人
 				SELECTCASE RAND:3
 				CASE 1
 					PRINTFORML 「呼呼、今天尽情做爱了，好開心♪」
@@ -2696,7 +2696,7 @@ IF LOCAL
 					PRINTFORML 「和%CALLNAME:MASTER%SEX让我成为了世上最幸福的妖精」
 					PRINTFORMW 「以后也要一直一直让我幸福哦，%CALLNAME:MASTER%❤」
 				ENDSELECT
-			ELSEIF TALENT:MASTER:恋人 && !GROUPMATCH(TALENT:MASTER:恋人, [[純狐]], [[赫喀提亞]]) && CFLAG:(TALENT:MASTER:恋人):現在位置 != CFLAG:[[克勞恩皮絲]]:現在位置
+			ELSEIF TALENT:MASTER:恋人 && !GROUPMATCH(TALENT:MASTER:恋人, [[純狐]], [[赫卡提亚]]) && CFLAG:(TALENT:MASTER:恋人):現在位置 != CFLAG:[[皮絲]]:現在位置
 				SELECTCASE RAND:3
 				CASE 1
 					PRINTFORML 「呼呼呼……%CALLNAME:MASTER%有女朋友的吧？」
@@ -2805,7 +2805,7 @@ IF LOCAL
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 2
 		PRINTFORML 「咿呀ッッ！！」
-		PRINTFORMW 克劳恩皮斯目含泪光羞红了脸
+		PRINTFORMW 克劳恩皮丝目含泪光羞红了脸
 		PRINTFORMW 「怎么回事……诶？……怎么突然……」
 		RETURN 1
 	ENDIF
@@ -3061,7 +3061,7 @@ IF LOCAL
 		PRINTFORMW 「不要——！！」
 		PRINTFORMW 「%CALLNAME:MASTER%真是大白痴！堕下地狱去吧！」
 		CALL COLORMESSAGE(@"ﾊﾞﾁｺｰﾝ!!", C_RED, 1)
-		PRINTFORMDW 克劳恩皮斯毫不客气地一巴掌甩了上来！！
+		PRINTFORMDW 克劳恩皮丝毫不客气地一巴掌甩了上来！！
 		RETURN 1
 	ENDIF
 	;-------------------------------------------------
@@ -3106,14 +3106,14 @@ IF LOCAL
 		PRINTFORML 「太好啦ー！」
 		PRINTFORMW 「我去和主人说一声就搬过来！」
 		PRINTL 
-		PRINTFORMDL 克劳恩皮斯很快与赫卡提亚谈妥。
+		PRINTFORMDL 克劳恩皮丝很快与赫卡提亚谈妥。
 		PRINTFORMDL 总觉得在此之前已经有次此考虑。
 		PRINTW 
 		PRINTFORML 「等把地狱的事务先完成♪」
 		PRINTFORML 「虽说可能主人会感觉寂寞……」
 		PRINTFORMW 「但在%CALLNAME:MASTER%的身边总觉得会成长的更快！」
 		PRINTL 
-		PRINTFORMDL 克劳恩皮斯干劲十足地筹备着。
+		PRINTFORMDL 克劳恩皮丝干劲十足地筹备着。
 		PRINTFORMDW 反倒是%CALLNAME:MASTER%总觉得还有些没准备好。
 		RETURN 1
 	ENDIF
@@ -3157,12 +3157,12 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 1
-		IF CFLAG:[[克勞恩皮絲]]:诶嘿嘿
+		IF CFLAG:[[皮絲]]:诶嘿嘿
 			PRINTFORML 「嗯唔～……」
 			PRINTFORMW 「对不起%CALLNAME:MASTER%、人家困了……」
 			PRINTL 
-			PRINTFORMDW 因为不可抗力、%CALLNAME:MASTER%送走了被睡意吞噬地克劳恩皮斯。
-		ELSEIF TALENT:[[克勞恩皮絲]]:恋慕
+			PRINTFORMDW 因为不可抗力、%CALLNAME:MASTER%送走了被睡意吞噬地克劳恩皮丝。
+		ELSEIF TALENT:[[皮絲]]:恋慕
 			SELECTCASE RAND:3
 			CASE 1
 				PRINTFORML 「啊啊、已经到得回家的时间了……」
@@ -3174,21 +3174,21 @@ IF LOCAL
 				PRINTFORML 「唔～、再不回去要被主人骂了啦～」
 				PRINTFORML 「虽说很不舍，但今天只能到此为止了哦」
 			ENDSELECT
-			IF TALENT:[[克勞恩皮絲]]:恋人
+			IF TALENT:[[皮絲]]:恋人
 				IF DAY % 2 == 0
 					PRINTFORML 「%CALLNAME:MASTER%！ 想想下次一起玩什么哦！」
 				ELSE
 					PRINTFORML 「%CALLNAME:MASTER%！ 想想下次一起玩什么哦！」
 				ENDIF
 				;接吻経験済みで3分の1
-				IF !FIRSTTIME("初吻", 1, [[克勞恩皮絲]]) && !RAND:3
+				IF !FIRSTTIME("初吻", 1, [[皮絲]]) && !RAND:3
 					;さらに4分の1
 					IF !RAND:4
 						PRINTFORMW 「拜拜っ♪ 啾❤」
-						PRINTFORMDW 趁着%CALLNAME:MASTER%不注意，克劳恩皮斯轻轻在脸颊留下一个吻
+						PRINTFORMDW 趁着%CALLNAME:MASTER%不注意，克劳恩皮丝轻轻在脸颊留下一个吻
 					ELSE
 						PRINTFORMW 「拜拜っ♪ 啾❤」
-						PRINTFORMDW 临别之际，克劳恩皮斯恶作剧般抛下飞吻后离開了。
+						PRINTFORMDW 临别之际，克劳恩皮丝恶作剧般抛下飞吻后离開了。
 					ENDIF
 				ELSE
 					PRINTFORMW 「拜拜～っ♪」
@@ -3206,7 +3206,7 @@ IF LOCAL
 			CASEELSE
 				PRINTFORML 「已经这个时间了吗，回去睡觉了」
 			ENDSELECT
-			IF TALENT:[[克勞恩皮絲]]:思慕
+			IF TALENT:[[皮絲]]:思慕
 				PRINTFORMW 「哈哈，%CALLNAME:MASTER%下次再一起玩哦～♪」
 			ELSE
 				PRINTFORMW 「拜拜，%CALLNAME:MASTER%下次再见～」
@@ -3226,16 +3226,16 @@ IF LOCAL
 				PRINTFORML 「哈啊哈哈……」
 				PRINTFORMW 「对不起%CALLNAME:MASTER%、我已经困得想睡了……」
 				PRINTL 
-				PRINTFORMDW 克劳恩皮斯受不了无休止的抽插与高潮先行告退。
+				PRINTFORMDW 克劳恩皮丝受不了无休止的抽插与高潮先行告退。
 			ELSE
 				;诶嘿嘿中に眠くて返回
 				PRINTFORML 「嗯唔～……」
 				PRINTFORMW 「对不起%CALLNAME:MASTER%、人家困了……」
 				PRINTL 
-				PRINTFORMDW 虽说%CALLNAME:MASTER%很卖力，但克劳恩皮斯还是忍受不了困意。
+				PRINTFORMDW 虽说%CALLNAME:MASTER%很卖力，但克劳恩皮丝还是忍受不了困意。
 			ENDIF
 		ELSE
-			IF TALENT:[[克勞恩皮絲]]:恋慕
+			IF TALENT:[[皮絲]]:恋慕
 				SELECTCASE RAND:3
 				CASE 1
 					PRINTFORML 「啊啊、已经到得回家的时间了……」
@@ -3257,15 +3257,15 @@ IF LOCAL
 					PRINTFORML 「已经这个时间了吗，回去睡觉了」
 				ENDSELECT
 			ENDIF
-			IF TALENT:[[克勞恩皮絲]]:恋人 && !FIRSTTIME("初吻", 1, [[克勞恩皮絲]])
+			IF TALENT:[[皮絲]]:恋人 && !FIRSTTIME("初吻", 1, [[皮絲]])
 				IF !RAND:4
 					PRINTFORMW 「拜拜っ♪ 啾❤」
 					PRINTL 
-					PRINTFORMDW 趁着%CALLNAME:MASTER%不注意，克劳恩皮斯轻轻在脸颊留下一个吻
+					PRINTFORMDW 趁着%CALLNAME:MASTER%不注意，克劳恩皮丝轻轻在脸颊留下一个吻
 				ELSE
 					PRINTFORMW 「拜拜っ♪ 啾❤」
 					PRINTL 
-					PRINTFORMDW 临别之际，克劳恩皮斯恶作剧般抛下飞吻后离開了。
+					PRINTFORMDW 临别之际，克劳恩皮丝恶作剧般抛下飞吻后离開了。
 				ENDIF
 			ELSE
 				PRINTFORMW 「今天玩的很高兴哦，再见啦%CALLNAME:MASTER%再见啦～」
@@ -3299,7 +3299,7 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 4
-		IF TALENT:[[克勞恩皮絲]]:恋人
+		IF TALENT:[[皮絲]]:恋人
 			PRINTFORML 「%CALLNAME:MASTER%、到床上继续约会吧？」
 		ELSE
 			PRINTFORML 「%CALLNAME:MASTER%、去我家玩会儿吧？」
@@ -3332,7 +3332,7 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 7
-		IF TALENT:[[克勞恩皮絲]]:恋人
+		IF TALENT:[[皮絲]]:恋人
 			PRINTFORML 「%CALLNAME:MASTER%……、今天我可以住在%CALLNAME:MASTER%家里吗…？」
 			PRINTFORMW 「我一个人回去很寂寞嘛……求你了啦！」
 		ELSE
@@ -3348,7 +3348,7 @@ IF LOCAL
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 8
 		PRINTFORML 「真的吗！？ 太好啦ー！」
-		IF CFLAG:[[克勞恩皮絲]]:現在位置 == CFLAG:MASTER:初期位置
+		IF CFLAG:[[皮絲]]:現在位置 == CFLAG:MASTER:初期位置
 			PRINTFORMW 「事不宜迟，上床吧！」
 		ELSE
 			PRINTFORMW 「事不宜迟，我去你的房间了哦❤」
@@ -3362,11 +3362,11 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 9
-		IF TALENT:[[克勞恩皮絲]]:恋人
+		IF TALENT:[[皮絲]]:恋人
 			PRINTFORML 「唔……知道了啦……」
 			PRINTFORMW 「那只能再见了哦、%CALLNAME:MASTER%……拜拜」
 			PRINTL 
-			PRINTFORMDW 克劳恩皮斯有些失落的回去了……。
+			PRINTFORMDW 克劳恩皮丝有些失落的回去了……。
 		ELSE
 			PRINTFORML 「唔……知道了啦……」
 			PRINTFORMW 「那只能再见了哦、%CALLNAME:MASTER%……拜拜♪」
@@ -3385,7 +3385,7 @@ IF LOCAL
 			PRINTFORML 「哈啊哈哈……」
 			PRINTFORMW 「对不起%CALLNAME:MASTER%、我已经困得想睡了……」
 			PRINTL 
-			PRINTFORMDW %CALLNAME:MASTER%将困倦的克劳恩皮斯送回了家。
+			PRINTFORMDW %CALLNAME:MASTER%将困倦的克劳恩皮丝送回了家。
 		ELSE
 			PRINTFORML 「哈啊哈哈……」
 			PRINTFORMW 「我已经困得想睡了……」
@@ -3416,13 +3416,13 @@ IF LOCAL
 		PRINTFORMW （………………）
 		PRINTFORMW 「…………完全睡不着」
 		PRINTFORML 
-		PRINTFORMW 克劳恩皮斯在被窝里胡思乱想着
+		PRINTFORMW 克劳恩皮丝在被窝里胡思乱想着
 		PRINTFORML 
 		PRINTFORMW （每天脑海里都忍不住去想%CALLNAME:MASTER%的事情）
 		PRINTFORMW （是我变了吗……、变得奇怪了？）
 		PRINTFORMW （要不要问问主人是为什么呢……）
 		PRINTFORML 
-		;赫喀提亞の親密が6以上
+		;赫卡提亚の親密が6以上
 		IF ABL:113:親密 >= 6
 			PRINTFORMW （%CALLNAME:MASTER%和主人到底是什么关系呢……）
 			PRINTFORMW （………………）
@@ -3450,7 +3450,7 @@ IF LOCAL
 			PRINTFORMW 「陪在我身边……」
 		ENDIF
 		PRINTFORML 
-		PRINTFORMW ――克劳恩皮斯的无眠之夜还在继续
+		PRINTFORMW ――克劳恩皮丝的无眠之夜还在继续
 		PRINTL 
 		RETURN 1
 	ENDIF
@@ -3758,7 +3758,7 @@ IF LOCAL
 	IF LOCAL:1 && ARG == 1
 		PRINTFORMW 「啊っ！ 难道……！」
 		PRINTFORML 
-		PRINTFORMDL 克劳恩皮斯注意到了身体的异常、
+		PRINTFORMDL 克劳恩皮丝注意到了身体的异常、
 		PRINTFORMDW 内心急切却又不敢加快步伐，朝着%CALLNAME:MASTER%的方向慢慢走去。
 		PRINTFORML 
 		PRINTFORMW 「 %CALLNAME:MASTER%！ 快看快看，有小宝宝了哦！」
@@ -3776,7 +3776,7 @@ IF LOCAL
 	IF LOCAL:1 && ARG == 2
 		PRINTFORMW 「啊っ！ 难道……！」
 		PRINTFORML 
-		PRINTFORMDL 克劳恩皮斯注意到了身体的异常、
+		PRINTFORMDL 克劳恩皮丝注意到了身体的异常、
 		PRINTFORMDW 内心急切却又不敢加快步伐，朝着%CALLNAME:MASTER%的方向慢慢走去。
 		PRINTFORML 
 		PRINTFORMW 「 %CALLNAME:MASTER%！ 快看快看，有小宝宝了哦！」
@@ -3794,7 +3794,7 @@ IF LOCAL
 	IF LOCAL:1 && ARG == 3
 		PRINTFORMW 「啊っ！ 难道……！」
 		PRINTFORML 
-		PRINTFORMDL 克劳恩皮斯注意到了身体的异常、
+		PRINTFORMDL 克劳恩皮丝注意到了身体的异常、
 		PRINTFORMDW 内心急切却又不敢加快步伐，朝着%CALLNAME:MASTER%的方向慢慢走去。
 		PRINTFORML 
 		PRINTFORMW 「 %CALLNAME:MASTER%！ 快看快看，有小宝宝了哦！」
@@ -3927,8 +3927,8 @@ IF LOCAL
 				ELSE
 					PRINTFORML 「是%CALLNAME:MASTER%啊～、想要一起睡的话进来不就好了～～」
 					PRINTL 
-					PRINTFORMDL 克劳恩皮斯裸着淫液横流的下半身出门迎接。
-					PRINTFORMDW 房间中弥漫着刚出炉糕点般诱人的克劳恩皮斯的淫荡味道……。
+					PRINTFORMDL 克劳恩皮丝裸着淫液横流的下半身出门迎接。
+					PRINTFORMDW 房间中弥漫着刚出炉糕点般诱人的克劳恩皮丝的淫荡味道……。
 					PRINTL 
 					PRINTFORML 「特意来见我的吗～？ 好高兴～♪」
 					PRINTFORML 「特意来见我的话又是为了什么呢～？ 约会？ 留宿？ 还是想美餐一顿～」
@@ -4096,15 +4096,15 @@ CASEELSE
 	ENDIF
 ENDSELECT
 PRINTL 
-PRINTFORMDW 悄无声息进入克劳恩皮斯的房间，还没意识到被发觉的少女忘情地自慰着。
+PRINTFORMDW 悄无声息进入克劳恩皮丝的房间，还没意识到被发觉的少女忘情地自慰着。
 SELECTCASE RAND:3
 CASE 0
-	PRINTFORMDL 克劳恩皮斯紧紧贴在一只巨大玩偶身上，甜美的呻吟在房中回荡着。
+	PRINTFORMDL 克劳恩皮丝紧紧贴在一只巨大玩偶身上，甜美的呻吟在房中回荡着。
 CASE 1
-	PRINTFORMDL 克劳恩皮斯羞耻的分開着双腿，从床头滚到床尾、
+	PRINTFORMDL 克劳恩皮丝羞耻的分開着双腿，从床头滚到床尾、
 	PRINTFORMDL 柔软的身体尽可能弯曲的同时，玩弄着敏感处。
 CASEELSE
-	PRINTFORMDL 克劳恩皮斯用舒服的姿势陷入沙发、
+	PRINTFORMDL 克劳恩皮丝用舒服的姿势陷入沙发、
 	PRINTFORMDL 随着手指的抚弄发出甜美的娇声。
 ENDSELECT
 SELECTCASE RAND:2
@@ -4324,13 +4324,13 @@ IF LOCAL
 			;時間停止時
 			IF FLAG:時間停止
 				IF TCVAR:111:350
-					PRINTFORMDL 克劳恩皮斯褪下的贴身衣物散发着有幼女香味的温热气息。
+					PRINTFORMDL 克劳恩皮丝褪下的贴身衣物散发着有幼女香味的温热气息。
 					PRINTFORMDW %CALLNAME:MASTER%贪婪享受着这种甜蜜妖艳的味道。
 				ENDIF
 			;通常
 			ELSE
 				IF TCVAR:111:350
-					PRINTFORMDL 克劳恩皮斯褪下的贴身衣物散发着有幼女香味的温热气息。
+					PRINTFORMDL 克劳恩皮丝褪下的贴身衣物散发着有幼女香味的温热气息。
 					PRINTFORMW 「不要对着布料兴奋到这种地步啊！ 好恶心！」
 				ELSE
 					PRINTFORML 「那%CALLNAME:MASTER%也脱掉吧❤」
@@ -4617,7 +4617,7 @@ IF LOCAL
 		ENDIF
 	CASE 3
 		;▼つまみ食い（～はこっそりつまみ食いをしている。）
-		;※[妖精]持ちと露米亜、恋、幽幽子、紫苑のみ
+		;※[妖精]持ちと露米娅、恋、幽幽子、紫苑のみ
 		IF !ARG:1
 			;行動中
 			SELECTCASE RAND:4
@@ -5081,7 +5081,7 @@ RETURN 1
 ;-------------------------------------------------
 @M_KOJO_EVENT_K111_PERMISSION_1
 ;-------------------------------------------------
-IF M_KOJO_K111_FUKIGEN([[克勞恩皮絲]])
+IF M_KOJO_K111_FUKIGEN([[皮絲]])
 	;口上本体は推倒側で
 	RETURN -1
 ELSE
@@ -5097,7 +5097,7 @@ ENDIF
 ;-------------------------------------------------
 @M_KOJO_EVENT_K111_PERMISSION_2
 ;-------------------------------------------------
-IF M_KOJO_K111_FUKIGEN([[克勞恩皮絲]])
+IF M_KOJO_K111_FUKIGEN([[皮絲]])
 	;口上本体は推倒側で
 	RETURN -1
 ELSE
@@ -5112,7 +5112,7 @@ ENDIF
 ;-------------------------------------------------
 @K111_ROOM_DESCRIPTION
 ;贈り物を3回以上保存しているとき
-IF CFLAG:[[克勞恩皮絲]]:1007 >= 3 && !RAND:3
+IF CFLAG:[[皮絲]]:1007 >= 3 && !RAND:3
 	PRINTFORML 架子上放着%CALLNAME:MASTER%送的礼物
 ELSE
 	SELECTCASE RAND:5
@@ -5166,7 +5166,7 @@ IF ARG == 1
 		PRINTFORMW 「这个给你哦！」
 	ENDSELECT
 	PRINTL 
-	PRINTFORMDL 克劳恩皮斯将%GIFT_NAME%递到面前。
+	PRINTFORMDL 克劳恩皮丝将%GIFT_NAME%递到面前。
 	PRINTW 
 	IF STRCOUNT(SENSE, "(疯狂な|地獄の|狂気の)")
 		PRINTFORML 「怎样？ 是你喜欢的类型吧～！」
@@ -5185,15 +5185,15 @@ IF ARG == 1
 ELSEIF ARG == 2
 	IF STRCOUNT(SENSE, "(地獄の|狂気の|疯狂な|骨|妖術)")
 		CALL M_KOJO_COLOR_K111_HECA
-		PRINTFORML 「皮斯、这是哪儿来的，超好看」
+		PRINTFORML 「皮丝、这是哪儿来的，超好看」
 		PRINTW 
 		CALL M_KOJO_COLOR_K111
 		PRINTFORML 「欸嘿嘿～♪ 是%CALLNAME:MASTER%为我买的～♪」
 		PRINTW 
 		CALL M_KOJO_COLOR_K111_HECA
-		IF TALENT:[[赫喀提亞]]:恋慕
+		IF TALENT:[[赫卡提亚]]:恋慕
 			PRINTFORML 「哈啊～！ 不愧是%CALLNAME:MASTER%、品味不错哦♪」
-		ELSEIF TALENT:[[赫喀提亞]]:思慕
+		ELSEIF TALENT:[[赫卡提亚]]:思慕
 			PRINTFORML 「嘿～、很棒的礼物诶，对他刮目相看了」
 		ELSE
 			PRINTFORML 「哼——、礼物还真是不错」
@@ -5203,39 +5203,39 @@ ELSEIF ARG == 2
 		PRINTFORML 「主人主人！快看这个！」
 		PRINTW 
 		CALL M_KOJO_COLOR_K111_HECA
-		PRINTFORML 「很棒啊这个，与皮斯很配哦♪」
+		PRINTFORML 「很棒啊这个，与皮丝很配哦♪」
 		PRINTW 
 		CALL M_KOJO_COLOR_K111
 		PRINTFORML 「欸嘿嘿～！ %CALLNAME:MASTER%帮我买的～♪」
 		PRINTW 
 		CALL M_KOJO_COLOR_K111_HECA
-		IF TALENT:[[赫喀提亞]]:恋慕
-			PRINTFORML 「果然%CALLNAME:MASTER%还是非常重视与皮斯的感情的」
-		ELSEIF TALENT:[[赫喀提亞]]:思慕
-			PRINTFORML 「原来如此～。看来%CALLNAME:MASTER%把皮斯拿捏的很准嘛」
+		IF TALENT:[[赫卡提亚]]:恋慕
+			PRINTFORML 「果然%CALLNAME:MASTER%还是非常重视与皮丝的感情的」
+		ELSEIF TALENT:[[赫卡提亚]]:思慕
+			PRINTFORML 「原来如此～。看来%CALLNAME:MASTER%把皮丝拿捏的很准嘛」
 		ELSE
 			PRINTFORML 「呼——能送这种礼物看来也并非乱七八糟的人ぇ」
 		ENDIF
 	ELSE
 		CALL M_KOJO_COLOR_K111_HECA
-		PRINTFORML 「咦，皮斯这是哪儿来的？」
+		PRINTFORML 「咦，皮丝这是哪儿来的？」
 		PRINTW 
 		CALL M_KOJO_COLOR_K111
 		PRINTFORML 「呼呼呼，好东西哦、%CALLNAME:MASTER%为我买的♪」
 		PRINTFORML 「啊っ！ 不让给主人哦！」
 		PRINTW 
 		CALL M_KOJO_COLOR_K111_HECA
-		IF TALENT:[[赫喀提亞]]:恋慕
-			IF CFLAG:[[赫喀提亞]]:获得的礼物
+		IF TALENT:[[赫卡提亚]]:恋慕
+			IF CFLAG:[[赫卡提亚]]:获得的礼物
 				PRINTFORML 「呼呼ン♪ 我才不稀罕呢❤」
-			ELSEIF CFLAG:[[赫喀提亞]]:礼物保管库
+			ELSEIF CFLAG:[[赫卡提亚]]:礼物保管库
 				PRINTFORML 「哼哼——我自己也有好东西捏」
-				SIF GET_GIFTDATA(CFLAG:[[赫喀提亞]]:礼物保管库, "得点") < 400
+				SIF GET_GIFTDATA(CFLAG:[[赫卡提亚]]:礼物保管库, "得点") < 400
 					PRINTFORML （虽然是自己买的……）
 			ELSE
 				PRINTFORML 「呜呜…从来就不给我什么东西……我好可怜」
 			ENDIF
-		ELSEIF TALENT:[[赫喀提亞]]:思慕
+		ELSEIF TALENT:[[赫卡提亚]]:思慕
 			PRINTFORML 「还真是不客气啊」
 		ELSE
 			PRINTFORML 「我才不要你东西呢」
@@ -5245,17 +5245,17 @@ ELSEIF ARG == 2
 	PRINTW 
 	CALL M_KOJO_COLOR_K111
 	PRINTFORMW 「嗯！ 这可是我的宝物哦ー❤」
-	CFLAG:[[克勞恩皮絲]]:1007 ++
+	CFLAG:[[皮絲]]:1007 ++
 	RETURN 1
 ;--------------------------------------------------------------------------------------------------
 ;一日の終わりに今日获得的礼物をお気に入りにする（↑の大事にするから続き）（700点以上かつ最高得点）
 ;--------------------------------------------------------------------------------------------------
 ELSEIF ARG == 3
 	PRINTL 
-	IF TALENT:[[克勞恩皮絲]]:恋人
+	IF TALENT:[[皮絲]]:恋人
 		PRINTFORML 「想要不弄丢，果然还是应该一直一直带在身上吧――」
 		PRINTFORMW 「就好像，%CALLNAME:MASTER%一直守护在我身边一样……」
-	ELSEIF TALENT:[[克勞恩皮絲]]:恋慕
+	ELSEIF TALENT:[[皮絲]]:恋慕
 		PRINTFORML 「想要不弄丢，果然还是应该一直一直带在身上吧――」
 		PRINTFORMW 「就好像，%CALLNAME:MASTER%一直陪在我身边一样……」
 	ELSE
@@ -5299,7 +5299,7 @@ ELSEIF ARG == 4
 		PRINTW 
 	ENDIF
 	CALL M_KOJO_COLOR_K111
-	SELECTCASE CFLAG:[[克勞恩皮絲]]:1007 % 5
+	SELECTCASE CFLAG:[[皮絲]]:1007 % 5
 	CASE 1
 		PRINTFORMW 「就放这里吧」
 	CASE 2
@@ -5312,8 +5312,8 @@ ELSEIF ARG == 4
 		PRINTFORML 「啊！ 之前买的都不知去哪儿了！」
 		PRINTFORMW 「还是应该找个固定的地方存放这些」
 	ENDSELECT
-	IF CFLAG:[[克勞恩皮絲]]:1007 >= 3
-		SELECTCASE CFLAG:[[克勞恩皮絲]]:1007 % 4
+	IF CFLAG:[[皮絲]]:1007 >= 3
+		SELECTCASE CFLAG:[[皮絲]]:1007 % 4
 		CASE 1
 			PRINTFORMW 「回过神来才发现已经买了那么多」
 		CASE 2
@@ -5324,27 +5324,27 @@ ELSEIF ARG == 4
 			PRINTFORMW 「感觉很棒诶～♪」
 		ENDSELECT
 	ENDIF
-	CFLAG:[[克勞恩皮絲]]:1007 ++
+	CFLAG:[[皮絲]]:1007 ++
 	RETURN 1
 ;--------------------------------------------------------------------------------------------------
 ;一日の終わりに今日获得的礼物をこっそり質に入れる（400点未満）
 ;--------------------------------------------------------------------------------------------------
 ELSEIF ARG == 5
 	CALL M_KOJO_COLOR_K111_HECA
-	PRINTFORML 「皮斯、这东西哪儿来的？」
+	PRINTFORML 「皮丝、这东西哪儿来的？」
 	PRINTW 
 	CALL M_KOJO_COLOR_K111
 	PRINTFORML 「那个啊，%CALLNAME:MASTER%给我买的……」
 	PRINTW 
 	CALL M_KOJO_COLOR_K111_HECA
-	IF TALENT:[[赫喀提亞]]:恋慕
-		IF CFLAG:[[赫喀提亞]]:礼物保管库
+	IF TALENT:[[赫卡提亚]]:恋慕
+		IF CFLAG:[[赫卡提亚]]:礼物保管库
 			PRINTFORML 「诶……よ、挺好的嘛……」
 			PRINTFORML （幸亏不是给我买的～）
 		ELSE
 			PRINTFORML 「嘿ぇ……总觉得有点羡慕，但又不是非常羡慕的感觉……」
 		ENDIF
-	ELSEIF TALENT:[[赫喀提亞]]:思慕
+	ELSEIF TALENT:[[赫卡提亚]]:思慕
 		PRINTFORML 「阿拉拉……是怎样没趣的男人啊……」
 	ELSE
 		PRINTFORML 「阿拉拉…真是没品的男人……」

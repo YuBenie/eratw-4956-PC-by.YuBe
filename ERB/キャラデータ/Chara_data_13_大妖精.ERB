@@ -20,7 +20,7 @@ SELECTCASE ARG
 			;琪露諾以外の私室には入らない
 			CASE P311帕秋莉私室, P312小悪魔私室, P320咲夜私室, P321空的部屋, P326蕾米莉亜私室, P327小露台
 				RETURN -100
-			CASE P338廃洋館・風呂, P340露娜薩私室, P341梅露蘭私室, P342莉莉喀私室, P344蕾蒂的冰屋
+			CASE P338廃洋館・風呂, P340露娜薩私室, P341梅露蘭私室, P342莉莉卡私室, P344蕾蒂的冰屋
 				RETURN -100
 		ENDSELECT
 	;出現場所
@@ -151,7 +151,7 @@ IF CFLAG:CHARA:差し替え適用
 	ELSE
 		;服
 		IF NUDITYCHECK(CHARA) == 1
-			RESULTS = _针织衫
+			RESULTS = _パンイチ
 			SIF FLAG:立絵種類
 				RESULTS = _半裸
 		ELSEIF NUDITYCHECK(CHARA) == 2

@@ -21,7 +21,7 @@ CALL M_KOJO_MESSAGE_COM_K72_300_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_300_1
-;映姫様口上、輝夜口上、極口上、哆来咪口上を参照
+;映姫様口上、輝夜口上、果口上、哆来咪口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -1181,7 +1181,7 @@ ENDIF
 ;==================================================
 ;约会会話1
 ;==================================================
-;哆来咪口上、極口上、映姫様口上を超参照。
+;哆来咪口上、果口上、映姫様口上を超参照。
 ;季節ごとのイベントを、永琳の一般常識の疎さを表現する稀少な場面として解釈。
 @DATE1_EIRIN_TALK
 CALL M_KOJO_COLOR_K72
@@ -1652,7 +1652,7 @@ CALL M_KOJO_COLOR_K72
 IF TALENT:恋人 || TALENT:恋慕 || TALENT:思慕
 	SELECTCASE RAND:4
 		CASE 3
-			PRINTFORMW 「周圍的視線？ 才不在乎呢。如果想的話，再粘稠一點也可以啊。」
+			PRINTFORMW 「周圍的視線？ 才不在乎呢。如果想的話，再黏稠一點也可以啊。」
 			PRINTFORMDL 永琳調皮地微笑著。
 			PRINTFORML 
 		CASE 2
@@ -3007,7 +3007,7 @@ CALL M_KOJO_MESSAGE_COM_K72_302_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_302_1
-;映姫様口上、小町口上、極口上を参照
+;映姫様口上、小町口上、果口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -3728,7 +3728,7 @@ CALL M_KOJO_MESSAGE_COM_K72_303_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_303_1
-;極口上を参照。
+;果口上を参照。
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -3946,7 +3946,7 @@ IF LOCAL
 					PRINTFORMDL 她以殷切的樣子說道。
 					PRINTFORMW 「你的――精液、給我好嗎？」
 					PRINTFORMDL 甚麼？ 你皺起了眉頭。
-					PRINTFORMW 「精、液♥　哎、好嗎…？　你的、濃烈的、粘稠的――、啊」
+					PRINTFORMW 「精、液♥　哎、好嗎…？　你的、濃烈的、黏稠的――、啊」
 					PRINTFORMDL 也許是因為對自己說的話感到興奮，永琳發出恍惚之聲，
 					PRINTFORMW 「那、又臭又濃的精液，好想要、受不了，」
 					PRINTFORMW 「只要被你的氣味包圍 ……一定可以集中精神工作的。」
@@ -4055,7 +4055,7 @@ IF LOCAL
 					PRINTFORMDL 她以殷切的樣子說道。
 					PRINTFORMW 「你的――精液、給我好嗎？」
 					PRINTFORMDL 甚麼？ 你皺起了眉頭。
-					PRINTFORMW 「精、液♥　哎、好嗎…？　你的、濃烈的、粘稠的――、啊」
+					PRINTFORMW 「精、液♥　哎、好嗎…？　你的、濃烈的、黏稠的――、啊」
 					PRINTFORMDL 也許是因為對自己說的話感到興奮，永琳發出恍惚之聲，
 					PRINTFORMW 「那、又臭又濃的精液，好想要、受不了，」
 					PRINTFORMW 「只要被你的氣味包圍 ……一定可以集中精神工作的。」
@@ -5070,7 +5070,7 @@ CALL M_KOJO_MESSAGE_COM_K72_350_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_350_1
-;極口上、映姫様口上、輝夜口上などを参照
+;果口上、映姫様口上、輝夜口上などを参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -5377,7 +5377,7 @@ CALL M_KOJO_MESSAGE_COM_K72_351_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_351_1
-;極口上、映姫様口上を参照
+;果口上、映姫様口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -5876,7 +5876,7 @@ CALL M_KOJO_MESSAGE_COM_K72_360_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_360_1
-;極口上、哆来咪口上、映姫様口上を参照
+;果口上、哆来咪口上、映姫様口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -6335,7 +6335,7 @@ IF LOCAL
 				ELSEIF TALENT:愛欲 || TALENT:炮友
 					SELECTCASE RAND:2 
 						CASE 1
-							PRINTFORMW 「粘糊糊的，看到了嗎…？♥」
+							PRINTFORMW 「黏糊糊的，看到了嗎…？♥」
 							PRINTFORML 
 						CASE 0
 							PRINTFORMW 「快點讓我淹沒你吧，就這樣…♥」
@@ -6344,7 +6344,7 @@ IF LOCAL
 				ELSEIF TALENT:思慕 && TALENT:炮友 == 2
 					SELECTCASE RAND:2 
 						CASE 1
-							PRINTFORMW 「粘糊糊的，看到了嗎…？♥」
+							PRINTFORMW 「黏糊糊的，看到了嗎…？♥」
 							PRINTFORML 
 						CASE 0
 							PRINTFORMW 「快點讓我淹沒你吧，就這樣…♥」
@@ -8342,7 +8342,7 @@ IF LOCAL
 			ENDIF
 		CASE 3
 			;▼つまみ食い［一緒につまみ食い］
-			;※[妖精]持ちと露米亜、恋、幽幽子、紫苑のみ
+			;※[妖精]持ちと露米娅、恋、幽幽子、紫苑のみ
 			;TFLAG:193,-1=MASTERはお腹が空いてなかった
 			;PRINTFORMW 
 		CASE 4
@@ -8755,7 +8755,7 @@ CALL M_KOJO_MESSAGE_COM_K72_405_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_405_1
-;極口上、映姫様口上を参照。
+;果口上、映姫様口上を参照。
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -9769,7 +9769,7 @@ CALL M_KOJO_MESSAGE_COM_K72_445_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_445_1
-;極口上を参照
+;果口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -10255,7 +10255,7 @@ CALL M_KOJO_COLOR_K72
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_604_1
-;極口上を参照
+;果口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -10523,7 +10523,7 @@ CALL M_KOJO_MESSAGE_COM_K72_610_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_610_1
-;極口上を参照
+;果口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -10701,7 +10701,7 @@ CALL M_KOJO_MESSAGE_COM_K72_620_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_620_1
-;極口上、映姫様口上を参照
+;果口上、映姫様口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -10768,7 +10768,7 @@ CALL M_KOJO_MESSAGE_COM_K72_621_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_621_1
-;極口上を参照
+;果口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -10869,7 +10869,7 @@ CALL M_KOJO_MESSAGE_COM_K72_626_1
 RETURN RESULT
 
 @M_KOJO_MESSAGE_COM_K72_626_1
-;極口上、映姫様口上を参照
+;果口上、映姫様口上を参照
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1

@@ -433,10 +433,10 @@ CUSTOM_TALENT_TYPE:12:2 = 2
 	ENDIF 
 ;---------------------------------------------------------------------	;
 	;角色名简中化
-	IF CALLNAME:12 == "露米亜"
+	IF CALLNAME:12 == "露米娅"
 		CALL DQPRINT (@"20240710更新：",100)
 		PRINTL 请问需要修改露米娅在游戏内的显示名称吗？
-		PRINTL 这会让本口上角色的称呼与全名，从"露米亜"变成"露米娅"
+		PRINTL 这会让本口上角色的称呼与全名，从"露米娅"变成"露米娅"
 		CALL ASK_YN 
 		SELECTCASE RESULT 
 			CASE 0
@@ -743,12 +743,13 @@ RETURN 1
 ;Will wake up early for the school
 IF CFLAG:12:K12C_1_已上学_2 || CFLAG:12:K12C_1_已上学
 	CUSTOM_JOB_DESC:12:0 = 上課
-	CUSTOM_JOB_DESC:12:2 = 上課
-	CUSTOM_JOB_DESC:12:3 = 早課
-	CUSTOM_JOB_DESC:12:4 = 課程
+	; CUSTOM_JOB_DESC:12:2 = 上課
+	; CUSTOM_JOB_DESC:12:3 = 早課
+	; CUSTOM_JOB_DESC:12:4 = 課程
 ENDIF 
 @M_KOJO_Moe_CHECK_K12_JOB(ARGS,ARG,ARG:1)
 IF ARGS == "SETUP"	;设置
+	CALL M_KOJO_Moe_K12_JOBNAME_SET
 	IF CFLAG:12:K12C_1_已上学_2 || CFLAG:12:K12C_1_已上学
 		CSTR:12:3 = 在寺子屋上课 平日 08:00～14:00
 		CFLAG:12:326 = 222 ;工作区域
@@ -774,7 +775,7 @@ ENDIF
 ;具体的写法还没找出来，先放在这里好了
 @M_KOJO_Moe_角色データ_K12_EVENTTRAIN
 ;==================================================
-;露米亜的移动轨迹
+;露米娅的移动轨迹
 ;用于配合自己留在补丁里面的接口
 @M_KOJO_Moe_CHECK_K12_CHARADATA(ARGS,ARG,ARG:2)
 ;此部分对应的补丁为ERB\キャラデータ\Chara_data_12_ルーミア.ERB
@@ -830,7 +831,7 @@ SELECTCASE ARGS
 					;私人房间不会去魔理沙宅・寝室，魔理沙宅・風呂，人偶洋館・愛麗絲的房間，人偶洋館・神綺的房間
 					CASE 512, 514, 521, 522
 						RETURN -100
-					;人偶洋館・夢子的房間，人偶洋館・風呂，人偶洋館・空的部屋，艾倫宅・風呂，艾倫宅・寝室
+					;人偶洋館・夢子的房間，人偶洋館・風呂，人偶洋館・空的部屋，爱莲宅・風呂，爱莲宅・寝室
 					CASE 523, 526, 531, 537, 535
 						RETURN -100
 					;朱鷺子的棲息処，莉格露的棲息処，成美の小屋
@@ -880,19 +881,19 @@ SELECTCASE ARGS
 					TCVAR:12:194 = 543
 				ENDIF
 		ENDSELECT
-	CASE "SPECIAL_MENU"
-		;这一部分在海外版本可能出现bug
-		;如出现bug，请将下方的注释去掉……
-		DISH_NAME = 暗之甜甜圈
-		RESULTS = 甜点
-		;RESULTS = デザート
-		DISH_ING:1 = 84
-		DISH_ING:2 = 122
-		DISH_ING:3 = 121
-		DISH_TASTE = 洋食/油炸食品/卵/甜/濃厚/松脆/软绵绵/謎料理/
-		;DISH_TASTE = 洋食/揚げ物/卵/甘い/濃厚/サクサク/ふわふわ/謎料理/
-		DISH_COMMENT = 包裹着黑暗的谜之甜甜圈。透过甜甜圈中间的洞只能看见一片漆黑。
-		RETURN 1
+	; CASE "SPECIAL_MENU"
+	; 	;这一部分在海外版本可能出现bug
+	; 	;如出现bug，请将下方的注释去掉……
+	; 	DISH_NAME = 暗之甜甜圈
+	; 	RESULTS = 甜点
+	; 	;RESULTS = デザート
+	; 	DISH_ING:1 = 84
+	; 	DISH_ING:2 = 122
+	; 	DISH_ING:3 = 121
+	; 	DISH_TASTE = 洋食/油炸食品/卵/甜/濃厚/松脆/软绵绵/謎料理/
+	; 	;DISH_TASTE = 洋食/揚げ物/卵/甘い/濃厚/サクサク/ふわふわ/謎料理/
+	; 	DISH_COMMENT = 包裹着黑暗的谜之甜甜圈。透过甜甜圈中间的洞只能看见一片漆黑。
+	; 	RETURN 1
 ENDSELECT
 ;================================
 ;自定义指令

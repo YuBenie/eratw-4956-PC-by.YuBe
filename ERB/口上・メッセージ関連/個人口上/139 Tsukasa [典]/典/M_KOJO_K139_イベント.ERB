@@ -24,7 +24,8 @@
 ;### 口上存在判定 ###################################
 @M_KOJO_K139(ARG)
 ;別人版を作成する際はこのテンプレではなく別人版用口上テンプレをご利用ください
-
+RESULTS:2 = 初期口上<br>内容量超多<br>内含争议内容
+;本简介由画蛇添足制作组补充，若原作者想自行补充请联系我们
 ;口上存在判定です、けしてコメントアウトしないでください
 ;他の処理は一切行わないように
 RETURN 1
@@ -1431,7 +1432,7 @@ IF LOCAL
 			ELSE
 				IF BASE:139:情緒 == MAXBASE:139:情緒
 					;夏の１日、快晴か晴れで夕刻（午後６時～）以降、
-					IF DAY:2 == 2 && DAY:3 == 1 && DAY:5 && (TIME:5 == 0 || TIME:5 == 1) && TIME:2 >= 5
+					IF DAY:2 == 2 && DAY:3 == 1 && (TIME:5 == 0 || TIME:5 == 1) && TIME:2 >= 5
 						CALL K139_STARMINE
 					ENDIF
 				
@@ -1584,7 +1585,7 @@ IF LOCAL
 				ENDIF
 			;２回目以降
 			ELSE
-				IF ALCOHOL_FACE(139) == "酔いどれ" || ALCOHOL_FACE(72) == "ぐでぐで"
+				IF ALCOHOL_FACE(139) == "酔酒" || ALCOHOL_FACE(72) == "趴窝"
 					CALL HPH_PRINT,@"「%CALLNAME:MASTER%どの…\@ (TALENT:MASTER:年齢 == -1 || TALENT:MASTER:幼児／幼児退行) ? 姐姐 # 典 \@、身體好熱哦…HPH」","L"
 					CALL HPH_PRINT,@"「我說、你介意我衣服脫的鬆一點嗎…HPH」","L"
 				ELSE
@@ -5840,7 +5841,7 @@ IF LOCAL
 										PRINTFORML 「今天要做些有趣的事情、如果不小心受傷了就不好了嘛」
 										PRINTW 
 									ENDIF
-									PRINTFORML 「肉棒又要被弄得粘糊糊的了呢…♪」
+									PRINTFORML 「肉棒又要被弄得黏糊糊的了呢…♪」
 									PRINTFORMW 「啊啊、這種表情…♪　不只是傲慢的表情、還有那種害怕的表情…♪」
 									PRINTFORML 「今天就要做到爽翻天、一直做下去…%UNICODE(0x2665) *1%」
 									PRINTFORML 「那麼、開動囉～%UNICODE(0x2665) *1%」
@@ -7872,7 +7873,7 @@ IF LOCAL
 		ELSEIF TALENT:140:恋慕
 			PRINTFORML （我知道飯綱丸大人被%CALLNAME:MASTER%想著、但是……）
 			PRINTFORML （即便如此、我仍然……）
-		ELSEIF GROUPMATCH(TALENT:恋慕, [[文]], [[極]], [[椛]])
+		ELSEIF GROUPMATCH(TALENT:恋慕, [[文]], [[果]], [[椛]])
 			PRINTFORML （愛情的競爭者實在太多了）
 			PRINTFORML （%CALLNAME:MASTER%大人看向我的同時、請多多寵愛我吧）
 		ENDIF

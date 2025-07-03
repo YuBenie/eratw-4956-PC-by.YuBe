@@ -1,0 +1,149 @@
+@M_KOJO_WHITENIGHT_ENCOUNTER_K68
+LOCAL = 1
+IF LOCAL
+   PRINTFORMDL
+   PRINTFORMDW %CALLNAME:MASTER%走到了太阳花田旁的山坡上。
+   PRINTFORMDL 太阳在天空中肆意炫耀着自己的光辉,连片的向日葵迎着这份炽热，在微风吹拂下轻轻摇曳。
+   PRINTFORMDL %CALLNAME:MASTER%爬到半山坡上一块平整的地方，用手扫去地上覆盖着的尘土，坐在地上，目光回到下方的金黄
+   PRINTFORMDL 花瓣在阳光的照耀下荡漾，刺眼光芒让人睁不开眼。
+   PRINTFORMDW 风渐渐急了，太阳在游弋云朵中模糊起来。与空中的风儿一起摇曳。
+   PRINTFORMDL 地下的太阳跟随着天上的太阳，花田涌起波涛，金黄的浪花似乎就要拍打在你的脸上。
+   PRINTFORMDL %CALLNAME:MASTER%张开双臂，后背与大地亲密接触。
+   PRINTFORMDL %CALLNAME:MASTER%眼中那片金色海洋淡去了，只剩下那模糊却又炽热的金黄，充斥她的视野。
+   PRINTFORMDW %CALLNAME:MASTER%就这样躺着，听着向日葵之间摩擦所发出的沙沙声。
+   PRINTFORMDL 天空中不断散发的热量冲入身体，让大脑放出炎热的感觉。风儿抚过脸庞，给有些晕乎的大脑带来几分凉意。
+   PRINTFORMDL 眼前的光芒突然黯淡。
+   PRINTFORMDL 
+   PRINTFORMDL %CALLNAME:MASTER%抬起头，认为的云朵并没有出现。取而代之的，是一把撑起的黄白相间的阳伞。
+   PRINTFORMDW 站在%CALLNAME:MASTER%身旁的，是一位外貌上看来大约二十出头的女子。
+   PRINTFORMDL 翠绿长发随意披于她的身后，一身红白洋装勾勒出她出色的身体线条。
+   PRINTFORMDW 她感应到你的视线，略低下头，与你的视线交错
+   PRINTFORMDL 
+   PRINTFORMDL 她双眸殷红，可又不像血液般混杂着暗沉的黑。是没有一丝杂质,红宝石般的红。
+   PRINTFORMDL 如果有这样的红宝石存在于世间,即便是天上拿仍然肆意的太阳也会提起三分谦逊,承认她的独一
+   PRINTFORMW 她发觉到你正一直注视着她的脸庞。她双眼微微眯起，可却并没有恼怒与不满在她的眼中涌起。
+   PRINTFORML [好看吗，这片向日花田？]
+   PRINTFORMDL 她握着伞柄的白哲右手转动阳伞，视线再次回到花田之中。
+   PRINTFORMDL
+   PRINTFORMDL 你沉默欣赏的目光给出了你的回复。
+   PRINTFORMW [美丽即在眼前，不取走一份留于指尖?]
+   PRINTFORMDW %CALLNAME:MASTER%听到后只是摇头,目光仍然停留在眼前的花田.
+   PRINTFORMDL
+   PRINTFORML [难得的回答呢。]
+   PRINTFORMW [我叫风见幽香，是这片花田的主人。]
+   PRINTFORML [想要赏花的话，随时欢迎到来。]
+   PRINTFORML [请问要如何称呼你呢？]
+   PRINTFORML 幽香嘴角露出一抹笑容,她说明着自己的身份，等待你的回答。
+   PRINTFORMDL 
+   PRINTFORMW [%CALLNAME:MASTER%]
+   PRINTFORMW ......
+   PRINTFORMW [%CALLNAME:MASTER%，奇怪的名字。不过你这样说了，那我便这般称呼你吧。]
+   PRINTFORMDL 幽香饶有兴趣地念了一遍你的名字，右手轻轻拂过你头顶的发丝。感觉到头上忽然增了几分重量，你伸出手摸向突然增加出重量的地方。
+   PRINTFORMDW 是一朵初绽的向日葵。
+   PRINTFORMDL 
+   PRINTFORMW [小小的赠礼，当做我刚刚问你问题的回报吧。]
+   PRINTFORML [以后再见,%CALLNAME:MASTER%,愿你能永远从生命中寻得真正的美丽。]
+   PRINTFORMDL 幽香走下山坡，融入到金色海洋之中。
+   PRINTFORMDW 头顶的向日葵随着吹来的清风微微摇曳。
+ENDIF
+RETURN 0
+@M_KOJO_WHITENIGHT_SUCCESS_COM_K68_300
+TFLAG:192 = 0
+@M_KOJO_WHITENIGHT_MESSAGE_MESSAGECHECK_COM_K68_300
+RETURN 0
+
+@M_KOJO_WHITENIGHT_MESSAGE_COM_K68_300
+CALL TRAIN_MESSAGE
+CALL M_KOJO_WHITENIGHT_MESSAGE_COM_K68_300_1
+RETURN RESULT
+
+@M_KOJO_WHITENIGHT_MESSAGE_COM_K68_300_1
+LOCAL = 1
+IF LOCAL
+   IF TALENT:68:7;恋慕状态下的幽香，准备随时找机会和你小姐把婚给结了
+      SELECTCASE RAND:5
+       CASE 0
+       PRINTFORMW [等到时候我们结婚,就在这里举办婚礼吧.]
+       PRINTFORMDL 幽香牵着你来到花田的最东边,目光温柔地看向你的脸庞
+       PRINTFORML [这里是幻想乡中太阳最先升起的地方,太阳永远不会在这里消失只会从这里升起.]
+       PRINTFORML 似乎是想到什么,幽香轻轻抚摸着你的右手,嘴边的笑意更加浓郁了几分.
+       PRINTFORML [到时候,我们的孩子也会像这里的太阳一样,永远升起,而不见落幕.]
+       PRINTFORML [我们都是女性,怎么生孩子?]
+       PRINTFORML 幽香听到%CALLNAME:MASTER%的疑惑,歪了歪头与%CALLNAME:MASTER%对视着
+       PRINTFORML [不要拿常理来揣摩幻想乡,只要你愿意,没有什么不可能发生的.]
+       CASE 1
+       PRINTFORMW [想要学习魔炮吗?]
+       PRINTFORMDL 幽香看着你期盼的双眼,稍作沉思后回答到
+       PRINTFORML [魔炮的原理其实很简单的,牵引,压缩,然后一鼓作气全部扔出去.]
+       PRINTFORML [只要你魔力水平达到一定的境界就自然会了.]
+       PRINTFORML [欸,怎么听到这里就开始垂头丧气了?....只是希望和幽香能用一样的招式.]
+       PRINTFORMDL 听到你带着沮丧的话语,幽香有些无奈地摇头轻声说到
+       PRINTFORML [真是的,只是为了这种目的可不能成为强者呢.不过,有这样的心意我很开心.]
+       PRINTFORML [接下来的日子,我会监督你变强的.]
+       PRINTFORML [如果没达到的话.....呵呵]
+       PRINTFORMDL 幽香说着,带着些许威胁将右手的中指与无名指在你眼前晃了晃.
+       CASE 2
+       PRINTFORMW [我们未来的孩子会是什么样的呢?会是像我还是像你呢?]
+       PRINTFORML [还是像你吧,我不想再有人分走你的爱了,即便是我们的孩子也不要想从我这里划走属于我的爱.]
+       PRINTFORMDL 幽香伸出右臂在%CALLNAME:MASTER%的胸前比划虚握几下,最后落在%CALLNAME:MASTER%的脸上,让你抬头与她对视
+       PRINTFORML [你的爱不会缺少半分的,对吧.]
+       PRINTFORML [你永远位于高势之点,我对你的爱永远涌向你的位置]
+       PRINTFORML [如果你跌入低谷之中,我也会将你重新拉起,搀扶到新的高势之点]
+       PRINTFORMDL 幽香捧住你脸颊的手渐渐多了几分力气.
+       PRINTFORML [所以,要一直爱着我哦]
+       CASE 3
+       PRINTFORMDW [之前送你的那朵向日葵你一直戴到现在吗?]
+       PRINTFORMDL 幽香抬手,指尖划过你的发丝,轻轻触碰着你发丝间一直插着的那朵初绽的向日葵.
+       PRINTFORML [离我们第一次相见已经有一段时间了呢,想当初你也是站在这里,眺望着这片花田.]
+       PRINTFORML [即便我已经站在你的身旁,你澄澈的双眼也没有一丝动摇,仍然倒映着美丽.]
+       PRINTFORMDL 幽香手指轻点你头上的向日葵,呼吸之间,它便伸展那之前还蜷缩的花瓣,彻底绽放开来.
+       PRINTFORMW [那时候给出这朵只是以为遇上了同好,想着结下一份善缘,没想到最后把自己也搭进去了.]
+       PRINTFORML [不过,这种有了依靠的感觉真的很好呢]
+       PRINTFORML [生命得到了安心的感觉便会不愿放手,一旦失去,便会拼命地想要回到那块地方]
+       PRINTFORML [不要让我失去这份感觉....我不知道我失去后会做出什么...让我一直沉入其中,被你那永远散发着的温暖所包裹吧....] 
+       CASE 4
+       PRINTFORMW [有时候,我会想,如果现在我突然失去你,你的身影,你的声音,你的一举一动从此只会出现在我的记忆中.而无论我在世界上如何努力,无论做什么都是徒劳,那会怎么样?]
+       PRINTFORMDL 当%CALLNAME:MASTER%与幽香一同眺望太阳花田时,幽香突然说到.
+       PRINTFORML [......]
+       PRINTFORML [你说,这种情况会不会发生呢?]
+       PRINTFORMDL %CALLNAME:MASTER%摇了摇头.
+       PRINTFORML [但以后的事谁又说得准呢?r如果有一天你真的想离开我,跑到一个我找不到的地方躲起来,那该怎么办呢?]
+       PRINTBUTTON "[拥抱幽香]","0"
+       PRINTFORMDL 
+       PRINTBUTTON "[亲吻脸颊]","1"
+       PRINTFORMDL
+       INPUTS
+         SELECTCASE RESULTS
+          CASE "0"
+          PRINTFORMW [......]
+          PRINTFORML [这份温暖,不会出让的.]
+          PRINTFORML [你会一直待在我身边的,对吧.]
+          PRINTFORMDW
+          CASE "1"
+          PRINTFORMW [很有力的回复呢......]
+          PRINTFORMDL 幽香抬手,抚摸着你刚刚吻过,仍带着几分湿润的地方.
+          PRINTFORMDL 你微红的脸颊映入到幽香眼中,她似乎想到说明,嘴边勾起几分笑容.
+          PRINTFORML [就以这个吻为连接吧,你我的势从此永远纠缠在一起,你我都无法逃脱彼此,永远.] 
+         ENDSELECT
+      ENDSELECT
+    ELSEIF TCVAR:302;会话累积值达到阈值，无法会话，	
+		PRINTFORMW
+    ELSEIF TCVAR:145;烂醉，无法会话，烂醉的TARGET口齿不清	
+		PRINTFORMW    
+    ELSEIF CFLAG:318 > 0;愤怒值满，不想说话
+		PRINTFORMW
+    ELSEIF CFLAG:20 > 0 && CFLAG:350 == 49;参加宴会中，对酌相谈
+		PRINTFORMW
+    ELSEIF CFLAG:334;陪睡，在被子里说枕边话	
+		PRINTFORMW 
+    ELSEIF CHK_DATENOW(CFLAG:12);约会中
+		PRINTFORMW      
+   ENDIF  
+ENDIF   
+RETURN 1
+
+
+
+
+
+

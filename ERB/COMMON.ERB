@@ -556,9 +556,9 @@ IF CFLAG:ARG:現在位置 == CFLAG:MASTER:現在位置
 	BASE_ID = FINDELEMENT(BASENAME, ARGS)
 	LOCALS = \@ ARGS:1 != "" ? （%ARGS:1%） # \@
 	IF 回復量 > 0
-		CALL COLORMESSAGE(@"%BASENAME:BASE_ID%＋{回復量} （%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%）%LOCALS%",C_GREEN,1)
+		CALL COLORMESSAGE(@"%BASENAME:BASE_ID%＋{回復量} （%CALLNAME:ARG%）%LOCALS%",C_GREEN,1)
 	ELSEIF 回復量 < 0
-		CALL COLORMESSAGE(@"%BASENAME:BASE_ID%－{ABS(回復量)} （%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%）%LOCALS%",C_RED,1)
+		CALL COLORMESSAGE(@"%BASENAME:BASE_ID%－{ABS(回復量)} （%CALLNAME:ARG%）%LOCALS%",C_RED,1)
 	ENDIF
 ENDIF
 
@@ -639,7 +639,7 @@ ELSE
 ENDIF
 BUFF:ARG:強化能力 += 変動値
 SIF メッセージ
-	CALL COLORMESSAGE(@"%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%的%BASENAME:強化能力%暂时的\@ 変動値 > 0? 上升了# 下降了\@{ABS(変動値)}",C_YELLOW,1)
+	CALL COLORMESSAGE(@"%CALLNAME:ARG%的%BASENAME:強化能力%暂时的\@ 変動値 > 0? 上升了# 下降了\@{ABS(変動値)}",C_YELLOW,1)
 ;-------------------------------------------------
 ;関数名:BUFF_RESET
 ;概　要:Buffを完全にリセット
@@ -665,9 +665,9 @@ NEXT
 
 CFLAG:対象:変動フラグ = MAX(CFLAG:対象:変動フラグ + 変動数, 0)
 IF 変動数 > 0
-	CALL COLORMESSAGE(@"%CFLAGNAME:変動フラグ%＋{変動数}（%NAME_OUTPUT_TRANSLATION("CALLNAME", 対象)%）",C_YELLOW,2,1)
+	CALL COLORMESSAGE(@"%CFLAGNAME:変動フラグ%＋{変動数}（%CALLNAME:対象%）",C_YELLOW,2,1)
 ELSE
-	CALL COLORMESSAGE(@"%CFLAGNAME:変動フラグ%－{-変動数}（%NAME_OUTPUT_TRANSLATION("CALLNAME", 対象)%）",C_RED,2,1)
+	CALL COLORMESSAGE(@"%CFLAGNAME:変動フラグ%－{-変動数}（%CALLNAME:対象%）",C_RED,2,1)
 ENDIF
 
 ;-------------------------------------------------
@@ -685,8 +685,10 @@ SIF 変動数 == 0
 	RETURN
 
 VAR_ID = FINDELEMENT(EXPNAME, VAR_NAME)
+SIF VAR_ID == -1
+	THROW 没有找到%VAR_NAME%，请保存日志报错
 EXP:C_ID:VAR_ID += 変動数
-CALL COLORMESSAGE(@"%VAR_NAME%＋{変動数}（%NAME_OUTPUT_TRANSLATION("CALLNAME", C_ID)%）",C_YELLOW,2,1)
+CALL COLORMESSAGE(@"%VAR_NAME%＋{変動数}（%CALLNAME:C_ID%）",C_YELLOW,2,1)
 
 ;-------------------------------------------------
 ;関数名:SHIRAHU
@@ -895,6 +897,12 @@ SELECTCASE ARG
 	;炮友契約
 	CASE 357
 		RETURNF 1
+	;告白 
+	CASE 352
+		RETURNF 1
+	;换装
+	CASE 429
+		RETURNF 1		
 	CASE 697 TO 699
 		RETURNF 1
 	CASEELSE
@@ -933,7 +941,7 @@ CFLAG:ARG:诶嘿嘿 = 0
 TEQUIP:ARG:50 = -1
 TEQUIP:ARG:51 = -1
 TEQUIP:ARG:上半身裸露状態 = 0
-TEQUIP:ARG:下半身挪開状態 = 0
+;TEQUIP:ARG:下半身挪開状態 = 0
 TEQUIP:ARG:上衣脱衣完毕 = 0
 TEQUIP:ARG:縄 = 0
 TEQUIP:ARG:拘束 = 0
@@ -949,7 +957,7 @@ IF CFLAG:MASTER:诶嘿嘿
 	TEQUIP:MASTER:50 = -1
 	TEQUIP:MASTER:51 = -1
 	TEQUIP:MASTER:上半身裸露状態 = 0
-	TEQUIP:MASTER:下半身挪開状態 = 0
+	;TEQUIP:MASTER:下半身挪開状態 = 0
 ENDIF
 
 IF CFLAG:睡眠
@@ -957,28 +965,28 @@ IF CFLAG:睡眠
 		IF TALENT:ARG:精愛味覚 == 1
 			SETCOLOR C_PINK
 			PRINTFORML ❤~
-			PRINTFORML 梦中的%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%自然的饮下了%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%赠与的白浊，随后就像触发了什么开关一样缓缓将手移到身下，满面红潮
+			PRINTFORML 梦中的%CALLNAME:ARG%自然的饮下了%CALLNAME:MASTER%赠与的白浊，随后就像触发了什么开关一样缓缓将手移到身下，满面红潮
 			TCVAR:ARG:発情 = 1
 			CFLAG:ARG:积攒度 += LIMIT((10 + RAND:20 + RAND:20 + RAND:20) * ABL:LOCAL:欲望,200,1000)
 		ELSEIF ABL:ARG:精液中毒 > 4
 			SETCOLOR C_YELLOW
 			PRINTFORML 嗯~
-			PRINTFORML %NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%在美梦中熟练的吞下了%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%留在口中的罪恶，但似乎没能满足似的舔舐着口中残存的味道
+			PRINTFORML %CALLNAME:ARG%在美梦中熟练的吞下了%CALLNAME:MASTER%留在口中的罪恶，但似乎没能满足似的舔舐着口中残存的味道
 			CFLAG:ARG:积攒度 += LIMIT((10 + RAND:20 + RAND:20 + RAND:20) * ABL:LOCAL:欲望,200,1000)
 		ELSEIF ABL:ARG:精液中毒 > 2
 			SETCOLOR C_AQUA
 			PRINTFORML 唔...
-			PRINTFORML %NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%不自觉的咽下%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%留在口中的证据，然后美美的微笑着发出一声梦呓
+			PRINTFORML %CALLNAME:ARG%不自觉的咽下%CALLNAME:MASTER%留在口中的证据，然后美美的微笑着发出一声梦呓
 		ELSE
 			SETCOLOR C_RED
 			PRINTFORML 咳...咳...
-			PRINTFORML %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%処理掉了%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%口中残留的精液，%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%在睡梦中轻声咳了一声
+			PRINTFORML %CALLNAME:MASTER%処理掉了%CALLNAME:ARG%口中残留的精液，%CALLNAME:ARG%在睡梦中轻声咳了一声
 		ENDIF
 			CFLAG:ARG:口内精液 = 0
 			RESETCOLOR
 	ENDIF
 	IF CFLAG:ARG:脸上精液 || CFLAG:ARG:手上精液
-		PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%把粘在%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%
+		PRINTFORM %CALLNAME:MASTER%把粘在%CALLNAME:ARG%
 		IF CFLAG:ARG:脸上精液 && !CFLAG:ARG:手上精液
 			PRINTFORM 脸上的
 		ELSEIF !CFLAG:ARG:脸上精液 && CFLAG:ARG:手上精液
@@ -994,11 +1002,11 @@ ENDIF
 IF !FLAG:時間停止
 	TFLAG:運搬 = 0
 	IF CFLAG:ARG:口内精液
-		PRINTFORML %NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%把嘴里残留着的精液\@ ABL:ARG:精液中毒 > 2 ? 喝下去了 # 吐出来了 \@
+		PRINTFORML %CALLNAME:ARG%把嘴里残留着的精液\@ ABL:ARG:精液中毒 > 2 ? 喝下去了 # 吐出来了 \@
 		CFLAG:ARG:口内精液 = 0
 	ENDIF
 	IF CFLAG:ARG:脸上精液 || CFLAG:ARG:手上精液
-		PRINTFORM %NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%把
+		PRINTFORM %CALLNAME:ARG%把
 		IF CFLAG:ARG:脸上精液 && !CFLAG:ARG:手上精液
 			PRINTFORM 粘在脸上的
 		ELSEIF !CFLAG:ARG:脸上精液 && CFLAG:ARG:手上精液
@@ -1047,8 +1055,8 @@ IF HETEROSEX(ARG,MASTER)
 	EXP:SAMESEX += UP_EXP
 	EXP:PLAYER:SAMESEX += UP_EXP
 	IF ARGS != ""
-		CALL COLORMESSAGE(@"%EXPNAME:SAMESEX%＋{UP_EXP}（%NAME_OUTPUT_TRANSLATION("CALLNAME", ARG)%）",C_YELLOW,2,1)
-		CALL COLORMESSAGE(@"%EXPNAME:SAMESEX%＋{UP_EXP}（%NAME_OUTPUT_TRANSLATION("CALLNAME", MASTER)%）",C_YELLOW,2,1)
+		CALL COLORMESSAGE(@"%EXPNAME:SAMESEX%＋{UP_EXP}（%CALLNAME:ARG%）",C_YELLOW,2,1)
+		CALL COLORMESSAGE(@"%EXPNAME:SAMESEX%＋{UP_EXP}（%CALLNAME:MASTER%）",C_YELLOW,2,1)
 	ENDIF
 ENDIF
 
@@ -1084,10 +1092,12 @@ MARK:ARG:反発取得履歴 = MAX(MARK:ARG:反発取得履歴,MARK:ARG:反発刻
 @ALCOHOL_FACE(ARG)
 #FUNCTIONS
 SIF BASE:ARG:酒気 <= 2
-	RETURNF "　清醒　"
+	;"　素面　"
+	RETURNF "清醒"
 SELECTCASE BASE:ARG:酒気
 	CASE IS > (MAXBASE:ARG:酒気 / 10) * 8
-		RETURNF "不省人事"
+	;"ぐでぐで"
+		RETURNF "趴窝"
 ;	CASE IS > (MAXBASE:ARG:酒気 / 10) * 7
 ;		RETURNF "酩酊大醉"
 	CASE IS > (MAXBASE:ARG:酒気 / 10) * 5
@@ -2410,7 +2420,7 @@ MONEY:2 = MAX(0, MONEY:2 - VALUE)
 
 A_ID = FINDELEMENT(ABLNAME, Aname)
 ABL:C_ID:A_ID += Avalue
-CALL COLORMESSAGE(@"%NAME_OUTPUT_TRANSLATION("CALLNAME", C_ID)%的%Aname%\@ Avalue > 0 ?上升 # 下降 \@至了{ABL:C_ID:A_ID}",C_YELLOW,2)
+CALL COLORMESSAGE(@"%CALLNAME:C_ID%的%Aname%\@ Avalue > 0 ?上升 # 下降 \@至了{ABL:C_ID:A_ID}",C_YELLOW,2)
 ;----------------------------------------------------------------------------------------------
 ; Author: えにゅあら
 ; Licensed by: CC0
@@ -2508,7 +2518,7 @@ VARSET RESULT, -1
 RESULT:0 = MASTER
 RESULT:1 = [[霊夢]]
 RESULT:2 = [[魔理沙]]
-RESULT:3 = [[露米亜]]
+RESULT:3 = [[露米娅]]
 RESULT:4 = [[大妖精]]
 RESULT:5 = [[琪露諾]]
 RESULT:6 = [[美鈴]]
@@ -2520,9 +2530,9 @@ RESULT:11 = [[芙兰]]
 RESULT:12 = [[蕾蒂]]
 RESULT:13 = [[橙]]
 RESULT:14 = [[愛麗絲]]
-RESULT:15 = [[莉莉Ｗ]]
-RESULT:16 = [[莉莉Ｂ]]
-RESULT:17 = [[莉莉喀]]
+RESULT:15 = [[莉莉白]]
+RESULT:16 = [[莉莉黑]]
+RESULT:17 = [[莉莉卡]]
 RESULT:18 = [[梅露蘭]]
 RESULT:19 = [[露娜薩]]
 RESULT:20 = [[妖夢]]
@@ -2578,7 +2588,7 @@ RESULT:69 = [[村紗]]
 RESULT:70 = [[星]]
 RESULT:71 = [[白蓮]]
 RESULT:72 = [[鵺]]
-RESULT:73 = [[極]]
+RESULT:73 = [[果]]
 RESULT:74 = [[華扇]]
 RESULT:75 = [[響子]]
 RESULT:76 = [[芳香]]
@@ -2602,10 +2612,10 @@ RESULT:93 = [[清蘭]]
 RESULT:94 = [[鈴瑚]]
 RESULT:95 = [[哆来咪]]
 RESULT:96 = [[探女]]
-RESULT:97 = [[克勞恩皮絲]]
+RESULT:97 = [[皮絲]]
 RESULT:98 = [[純狐]]
-RESULT:99 = [[赫喀提亞]]
-RESULT:100 = [[拉瓦爾]]
+RESULT:99 = [[赫卡提亚]]
+RESULT:100 = [[拉尔瓦]]
 RESULT:101 = [[合歡乃]]
 RESULT:102 = [[阿吽]]
 RESULT:103 = [[成美]]
@@ -2633,33 +2643,33 @@ RESULT:124 = [[百百世]]
 RESULT:125 = [[尤魔]]
 RESULT:126 = [[影華扇]]
 RESULT:127 = [[美天]]
-RESULT:128 = [[慧ノ子]]
-RESULT:129 = [[ちやり]]
+RESULT:128 = [[慧之子]]
+RESULT:129 = [[血枪]]
 RESULT:130 = [[日狭美]]
 RESULT:131 = [[残無]]
 RESULT:132 = [[瑞霊]]
 
-RESULT:201 = [[ユウゲンマガン]]
-RESULT:202 = [[エリス]]
-RESULT:203 = [[サリエル]]
-RESULT:204 = [[キクリ]]
-RESULT:205 = [[コンガラ]]
+RESULT:201 = [[幽幻魔眼]]
+RESULT:202 = [[依莉斯]]
+RESULT:203 = [[萨丽爱尔]]
+RESULT:204 = [[菊理]]
+RESULT:205 = [[矜羯罗]]
 RESULT:206 = [[里香]]
 RESULT:207 = [[明羅]]
 RESULT:208 = [[魅魔]]
-RESULT:209 = [[艾倫]]
+RESULT:209 = [[爱莲]]
 RESULT:210 = [[小兎姫]]
-RESULT:211 = [[喀娜]]
+RESULT:211 = [[卡娜]]
 RESULT:212 = [[理香子]]
 RESULT:213 = [[千百合]]
 RESULT:214 = [[夢美]]
 RESULT:215 = [[留琴]]
-RESULT:216 = [[オレンジ]]
+RESULT:216 = [[奥莲姬]]
 RESULT:217 = [[胡桃]]
 RESULT:218 = [[艾麗]]
 RESULT:219 = [[夢月]]
 RESULT:220 = [[幻月]]
-RESULT:221 = [[サラ]]
+RESULT:221 = [[萨拉]]
 RESULT:222 = [[露易茲]]
 RESULT:223 = [[雪]]
 RESULT:224 = [[​舞​]]

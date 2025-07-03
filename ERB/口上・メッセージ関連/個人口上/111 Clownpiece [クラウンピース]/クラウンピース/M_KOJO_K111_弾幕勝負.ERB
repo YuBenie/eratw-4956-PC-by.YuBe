@@ -2,7 +2,7 @@
 ;弾幕勝負
 ;==================================================
 ;
-@M_KOJO_MESSAGE_COM_K111_DANMAKU(ARGS, 相手残機)
+@M_KOJO_MESSAGE_COM_K111_DANMAKU(ARGS, 相手残機, ARG:2)
 #DIM 相手残機
 ;全体の流れ
 ;①【戦闘前】→②骰子ロールとプレイヤー選択肢、ハンデをつけた場合は【ハンデ口上】→③対応スキルが発動した場合【スキル口上】→④被弾判定、角色が被弾したなら【被弾口上】→
@@ -199,7 +199,7 @@ SIF FLAG:口上色
 			ELSE
 				SELECTCASE RAND:5
 				CASE 1
-					PRINTFORMW 「哈哈哈！ 怎样！ 我可是地狱妖精克劳恩皮斯大人啊！」
+					PRINTFORMW 「哈哈哈！ 怎样！ 我可是地狱妖精克劳恩皮丝大人啊！」
 				CASE 2
 					PRINTFORMW 「啊，痛快了！ %CALLNAME:MASTER%没想到也挺难缠的嘛！」
 				CASE 3

@@ -319,7 +319,7 @@ IF CFLAG:1603 == 3
 	ENDIF
 ENDIF
 ;妊娠中の性交制限期間→仕事休みで不高興でなければ必ず実行。仕事日なら判定無終了
-PREG = TALENT:妊娠 && !INRANGE(CFLAG:妊娠経過日数, 10, 25)
+PREG = TALENT:妊娠 && !INRANGE(CFLAG:妊娠経過日数, 31, 70)
 IF PREG
 	IF DAY % 2 == 1 && TALENT:心情 > -1
 		GOTO SUCK
@@ -332,7 +332,7 @@ S_VAL = CFLAG:30:积攒度 / 50 + MIN(ABL:30:精液中毒, 25) * 2 / 3
 ;积攒度が30%ないと率減少
 SIF CFLAG:30:积攒度 < 300
 	S_VAL -= (30 - CFLAG:30:积攒度 / 10)
-;こんな素質付けてたら誇張にBOUNS
+;こんな素質付けてたら誇張にBONUS
 SIF TALENT:30:精愛味覚
 	S_VAL += 33
 ;溜まってると嗅ぎつけてくる
@@ -409,10 +409,10 @@ IF DAY % 2 == 1 && (CFLAG:30:积攒度 > 500 || GROUPMATCH(S_VAL, 1000, 999)) &&
 		CASE 1
 			PRINTFORML 「……一直在做计划，想忍耐和你做的欲望」
 			PRINTFORML 「那个忍耐到今天就结束了——不对，我再也不能忍耐了…」
-			PRINTFORMW 「我们的宝宝……从现在开始，现在马上……要做♥」
+			PRINTFORMW 「我们的宝宝……从现在開始，现在马上……要做♥」
 		CASE 2
 			PRINTFORML 「……我知道…昨天晚上…你默默地看着的事」
-			PRINTFORML 「%K30_C_NAME(MASTER)%真是个很过分的人…看着映姬只能自我安慰很开心吗？」
+			PRINTFORML 「%K30_C_NAME(MASTER)%真是个很过分的人…看着映姬只能自我安慰很開心吗？」
 			PRINTFORML 「我可一点也不開心…嗯，而且积攒了很多」
 			PRINTFORMW 「所以从现在開始，我要摆脱我的抑郁。%K30_C_NAME(MASTER)%…我不会再让你逃走了♥」
 		CASE 3
@@ -436,9 +436,9 @@ IF DAY % 2 == 1 && (CFLAG:30:积攒度 > 500 || GROUPMATCH(S_VAL, 1000, 999)) &&
 	ENDSELECT
 	IF !LOCAL
 		PRINTFORMDL 在低语的间隙，映姬的腰也在不停地淫猥着。
-		PRINTFORMDL %SLIT(30, 1)%接下来是%TEXTR("淫汁/淫蜜/愛液/")%溢出来，在双方的衣服上产生了污渍…
+		PRINTFORMDL %SLIT(30, 1)%接下来是%TEXTR("淫汁/淫蜜/愛液/")%溢出来，在互相的衣服上产生了污渍…
 	ELSE
-		PRINTFORMDL 在细语的间隙，映姬那玩弄%EXPR_VAR("VULVA")%的手也没有休息
+		PRINTFORMDL 细语的间隙映姬也是只有玩弄%EXPR_VAR("VULVA")%的手一点也不能休息
 		PRINTFORMDL 彼此的内衣已经抢先用%TEXTR("淫汁/淫蜜/愛液/")%留下羞耻的污渍…
 	ENDIF
 	PRINTFORMW 
@@ -664,7 +664,7 @@ ELSE
 		PRINTDATAL
 			DATAFORM 「你积累的东西…我，想要全部接受…」
 			DATAFORM 「暂时不能做激烈的事…尽管如此，我还是希望给你舒服…」
-			DATAFORM 「直到\@ CFLAG:妊娠経過日数 < 10 ? 肚子里的孩子稳定下来 # 这个孩子能健康地出生 \@之前，即便如此我也不想让你忍耐…」
+			DATAFORM 「直到\@ CFLAG:妊娠経過日数 < 31 ? 肚子里的孩子稳定下来 # 这个孩子能健康地出生 \@之前，即便如此我也不想让你忍耐…」
 		ENDDATA
 		PRINTFORML 「所以，就这样…♥」
 	ELSEIF WISH == 2
@@ -720,7 +720,7 @@ ELSE
 		ENDIF
 	ELSE
 		PRINTFORMDL 映姫微笑着对%CALLNAME:MASTER%重新開始了爱的口交
-		PRINTFORMDL \@ CFLAG:妊娠経過日数 < 10 ? 迎来安定期 # 平安生产 \@后，映姬依然想好好“照顾”我
+		PRINTFORMDL \@ CFLAG:妊娠経過日数 < 31 ? 迎来安定期 # 平安生产 \@后，映姬依然想好好“照顾”我
 		PRINTDATADW 
 			DATAFORM 看来映姬担心%CALLNAME:MASTER%会不会变心转移到其他孩子身上…
 			DATAFORM 在这期间似乎也想一人独占%CALLNAME:MASTER%…

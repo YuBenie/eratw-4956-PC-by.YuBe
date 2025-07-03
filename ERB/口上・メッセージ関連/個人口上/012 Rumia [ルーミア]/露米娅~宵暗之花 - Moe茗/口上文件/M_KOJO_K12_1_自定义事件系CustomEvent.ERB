@@ -1144,7 +1144,7 @@ CALL M_KOJO_Moe_COLOR_K12_SET(MOE_RUMIA)
 				ENDSELECT
 				
 			;●ここから固有料理●
-			;露米亜
+			;露米娅
 			CASE "暗之甜甜圈"
 				PRINTFORML 「没有露米娅做的那么黑呢……不过%MASTERNAME:12%做得挺好的！」
 				PRINTFORMW 「试试味道……啊呜！好甜！%MASTERNAME:12%用的真的是黑巧克力嘛……」
@@ -1503,7 +1503,7 @@ CALL M_KOJO_Moe_COLOR_K12_SET(MOE_RUMIA)
 				PRINTFORML 「哇！看起来有点烫的样子……吹吹……」
 				PRINTFORML 「呜！又辣又酸！很独特的风味呢！」
 				PRINTFORMW 「蔬菜也要露米娅吃掉吗……」
-			;​舞​
+			;​​舞​
 			CASE "維納・咖啡"
 				PRINTFORML 「甜甜的奶油下面是什么呢……是咖啡耶！」
 				PRINTFORMW 「呜呜呜……很甜呢！再加点奶油吧！」
@@ -1523,11 +1523,11 @@ CALL M_KOJO_Moe_COLOR_K12_SET(MOE_RUMIA)
 			CASE "阿比斯汉堡"
 				PRINTFORML 「叽——这个汉堡……五颜六色的……怎么看都不像能吃的样子……」
 				PRINTFORMW 「啊呜——呜！味道不错！不就是就是汉堡的味嘛」
-			;赫喀提亞
+			;赫卡提亚
 			CASE "三色地狱肉松盖饭"
 				PRINTFORML 「看起来好鲜艳的颜色啊！味道如何呢……尝尝——」
 				PRINTFORMW 「呜！有点辣，但是口感意外的好呢！」
-			;愛塔妮緹拉瓦爾
+			;愛塔妮緹拉尔瓦
 			CASE "花蜜果冻"
 				PRINTFORML 「好香的果冻啊！啊咧？是用花蜜做成的吗？」
 				PRINTFORMW 「那我就不客气啦！啊呜——唔！花香带着甜味呢！好好吃！」
@@ -2160,7 +2160,7 @@ IF FIRSTTIME("RUMIA_SEE_SEXY_THINGS_OF_YOU")  && (TALENT:0:2 > 1)	;避免玩萝�
 		PRINTFORMW 「只，只能看一下下哦……」
 		PRINTL 
 		PRINTFORMDL 在露米娅的双腿之间的，是一道微微张开的肉缝
-		PRINTFORMDW 尚未发育的小穴还很幼小，可那粉嫩的粘膜却有些濡湿的汁液……
+		PRINTFORMDW 尚未发育的小穴还很幼小，可那粉嫩的黏膜却有些濡湿的汁液……
 		PRINTFORMDW 是因为被看着起了反应吗……眼前如人类小女孩一样幼稚的身体，真的会有涩涩的感觉吗？
 		PRINTL 
 		PRINTFORMW 「呜——哇啊啊❤！……」
@@ -2231,7 +2231,7 @@ IF FIRSTTIME("RUMIA_SEE_SEXY_THINGS_OF_YOU")  && (TALENT:0:2 > 1)	;避免玩萝�
 		PRINTFORMW 「脱下来了……呜……那里……会不会很奇怪……呜❤，呜哇❤——」
 		PRINTL 
 		PRINTFORMDW 你轻轻地握住女孩纤柔的胯部，被手掌包覆的感觉让露米娅不自觉地想要跳开
-		PRINTFORMDW 用拇指摁住蜜缝两边的嫩肉，随着粘膜被分开的「噗啾」声音，扒了开来——
+		PRINTFORMDW 用拇指摁住蜜缝两边的嫩肉，随着黏膜被分开的「噗啾」声音，扒了开来——
 		PRINTL 
 		PRINTFORMW 「呜❤……里面也要看吗……好，好害羞❤……」
 		PRINTL 
@@ -2712,7 +2712,7 @@ IF (BASE:0:0 < 400) && (TALENT:12:3 || TALENT:12:7) && (BASE:12:0 > 700)
 		ENDIF 
 		IF CFLAG:12:300 != CFLAG:12:311 && CFLAG:12:300 != CFLAG:0:311 
 			PRINTDW 毫无反抗能力的你，被露米娅用黑暗裹住带到了家里……
-			IF CFLAG:12:311 / 100 != MAIN_MAP 
+			IF !CFLAG:12:30
 				CFLAG:12:300 = CFLAG:0:311 
 			ELSE 
 				CFLAG:12:300 = CFLAG:12:311 
@@ -3783,7 +3783,7 @@ IF CFLAG:12:K12C_1_自立事件触发 && TALENT:12:7 ;&& !CFLAG:12:909
 		PRINTFORML 「%MASTERNAME:12%……已经过了{(DAY / 120) +1 }年了呢……」
 		PRINTFORMW 「不过啊，这才只是个开始哦！露米娅还能陪你好久好久！」
 		PRINTL 
-		PRINTFORMDL 没有其他人的时候，露米娅就变成了那个粘人的小妖怪
+		PRINTFORMDL 没有其他人的时候，露米娅就变成了那个黏人的小妖怪
 		PRINTFORMDW 端着早餐就坐到了你旁边，完全看不出以前那种母亲的仪态
 		PRINTL 
 		PRINTFORMW 「这么久的日子……能生好多好多孩子……根本就用不完呀」
@@ -4135,7 +4135,7 @@ RETURN 1
 ;==================================================
 @M_KOJO_Moe_MESSAGE_COM_K12_495_100			;离别
 CALL M_KOJO_Moe_COLOR_K12_SET(MOE_RUMIA)
-IF (MOE_RUMIA_GET_RELATION() > 6) && FIRSTTIME("RUMIA_WONT_FORGET_YOU_FOREVER") && (TIME < 360 || TIME > 1200 ) && ( DAY:5 == 0 || DAY:5 == 1 ) && (CFLAG:12:K12C_1_恋人纪念日 - DAY:0 > 120)
+IF (MOE_RUMIA_GET_RELATION() > 6) && FIRSTTIME("RUMIA_WONT_FORGET_YOU_FOREVER") && (TIME < 360 || TIME > 1200 ) && ( TIME:5 == 0 || TIME:5 == 1 ) && (CFLAG:12:K12C_1_恋人纪念日 - DAY:0 > 120)
 	PRINTFORMDL 抬头看向漫天的繁星
 	PRINTFORMDW 完全没有光污染的天空中，星海之间的银河清晰可见
 	PRINTFORMDW 在满天星斗之下，与身旁的露米娅相依偎着

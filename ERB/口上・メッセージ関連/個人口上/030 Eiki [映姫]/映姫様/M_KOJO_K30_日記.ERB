@@ -80,7 +80,7 @@ SIF DIARY:30:24 == 0 && TALENT:30:思慕 && INRANGE(FLAG:宴会開催FLAG, 2, 4)
 ;映姫様から推倒	No.31	イベント口上
 ;妊娠願望			No.32	一日の終了時
 ;妊娠				No.33	懐妊口上と被るので一日ずらす
-SIF DIARY:30:33 ==0 && CFLAG:30:妊娠経過日数 >= 5 && GETBIT(CFLAG:30:1910, 5)
+SIF DIARY:30:33 ==0 && CFLAG:30:妊娠経過日数 >= 21 && GETBIT(CFLAG:30:1910, 5)
 	CALL K30_WRITE_DIARY(33)
 ;出産後				No.34	出産口上と被るので一日ずらす
 SIF DIARY:30:34 ==0 && CFLAG:30:出産経過日 >= 2 && GETBIT(CFLAG:30:1910, 5)
@@ -358,7 +358,7 @@ SELECTCASE PAGENUM
 			IF RAND:2 == 1
 				{
 				台詞 = 「你甚至可以打败我」
-				/「下次挑战的话，果然还是赫喀提亚大人吗？」
+				/「下次挑战的话，果然还是赫卡提亚大人吗？」
 				/%\@ CFLAG:113:弾幕勝負勝利
 				?「啊…！？已经赢了…？」
 				/「真的是惊人的强大呢……」
@@ -826,7 +826,7 @@ SELECTCASE PAGENUM
 			PRINTFORML 为什么要换制服呢。
 			PRINTFORMW 希望是什么错误或是噩梦。
 		ELSE
-			PRINTFORML 赫喀提亚大人的指示又和我期待的不一样。
+			PRINTFORML 赫卡提亚大人的指示又和我期待的不一样。
 			PRINTFORMW 到底要持续到什么时候呢。
 		ENDIF
 		IF MODE == "指令"
