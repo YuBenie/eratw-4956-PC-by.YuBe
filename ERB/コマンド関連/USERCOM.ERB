@@ -11,6 +11,16 @@
 #DIM 胖次消費
 #DIM なだめ判定
 #DIM DYNAMIC CAN_BE_UNLOKED_ROOM_SAVE
+;动画补丁--------
+LOCAL = RESULT
+SETANIMETIMER 32627
+RESULT = LOCAL
+LOCAL = 0
+;addition custom code, handle custom COM values
+CALL Add_Custom_USERCOM(RESULT)
+IF RESULT == -1
+	RETURN 0
+ENDIF
 $LOOP_USERCOM
 ;生动记忆补丁
 SIF MEETCHECKDLC
@@ -28,7 +38,7 @@ ELSEIF RESULT >= 0 && RESULT < 800
 		SIF !RESULT
 			RETURN 0
 		PRINTL 带出去
-		STR:0 = 帯出去
+		STR:0 = 带出去
 		CALL COM351
 		RETURN 0
 	ENDIF
@@ -51,11 +61,11 @@ ELSEIF RESULT >= 0 && RESULT < 800
 		ENDSELECT
 	ENDIF
 
-	IF DEBUGGERR && RESULT == 777
+	IF DEBUGGER && RESULT == 777
 	    CALL DEBUG_MODE
         RETURN 0
     ENDIF
-	IF DEBUGGERR && RESULT == 770
+	IF DEBUGGER && RESULT == 770
 	    CALL 摄像(TARGET)
         RETURN 0
     ENDIF
@@ -104,15 +114,15 @@ ELSEIF RESULT >= 0 && RESULT < 800
 			IF TALENT:TARGET:妊娠
 				PRINTW 不能对孕妇做这种事！
 				RETURN 0
-;			ELSEIF !GETBIT(CFLAG:TARGET:既成事實, 4)
-;				CALL ＳＭ許可
+			;ELSEIF !GETBIT(CFLAG:TARGET:既成事實, 4)
+			;	CALL ＳＭ許可
 			ENDIF
 		CASE 60 TO 71
 			IF TALENT:TARGET:妊娠 && (CFLAG:TARGET:903 <= 30 || CFLAG:TARGET:903 >= 71)
 				PRINTFORMW 现在最好不要对%CALLNAME:TARGET%乱来比较好
 				RETURN 0
-;			ELSEIF !GETBIT(CFLAG:TARGET:既成事實, 3)
-;				CALL Ａ許可
+			;ELSEIF !GETBIT(CFLAG:TARGET:既成事實, 3)
+			;	CALL Ａ許可
 			ENDIF
 	ENDSELECT
 	SIF GLOBAL_COMABLE2(SELECTCOM)
@@ -128,11 +138,11 @@ ELSEIF RESULT >= 0 && RESULT < 800
 		TRYCALLFORM CAN_COM{SELECTCOM}(0)
 		RETURN 0
 	ENDIF
-;----------推倒补丁测试----------
+	;----------推倒补丁测试----------
 	LOCAL:1 = 时停能力者预处理()
-	LOCALS:1 = %CALLNAME:(RESULT:1)%
-	LOCALS:2 = %CALLNAME:(RESULT:2)%
 	IF LOCAL:1 && !INRANGE(SELECTCOM, 400, 499)
+		LOCALS:1 = %CALLNAME:(RESULT:1)%
+		LOCALS:2 = %CALLNAME:(RESULT:2)%
 		IF CFLAG:TARGET:344 == 0
 			IF LOCAL:1 > 2
 				CALL COLORMESSAGE(@"被能在时停下自由行动的%LOCALS:1%她们死死地瞪着，没可能对%CALLNAME:TARGET%出手",C_YELLOW,2)
@@ -144,7 +154,7 @@ ELSEIF RESULT >= 0 && RESULT < 800
 			RETURN 0
 		ENDIF
 	ENDIF
-;----------推倒补丁测试----------
+	;----------推倒补丁测试----------
 	;ダミーTRAIN
 	DOTRAIN 999
 ;履歴表示（未実装）
@@ -293,10 +303,6 @@ ELSEIF RESULT == 830 && CFLAG:恶作剧 < 2
 		CALL CLOTHES_SETTING_TRAIN(LOCAL)
 	NEXT
 	RETURN 1
-;test
-;ELSEIF RESULT == 99999
-;	TIME:5 = 4
-;	RETURN 1
 ;摆脱
 ELSEIF RESULT == 850
 	SELECTCOM = RESULT
@@ -449,9 +455,8 @@ ELSEIF RESULT == 812 && TALENT:MASTER:汚部屋察知 && AT_HOME(MASTER) && !(CF
 	TFLAG:Info表示中 = 0
 	RETURN 1
 ELSEIF RESULT == 813 && GETBIT(TALENT:MASTER:劣情察知, 1) && !CFLAG:诶嘿嘿
-	PRINTFORML 花费気力来寻找性欲高涨的少女。
-	;CALL ASK_M("放棄",1,"発動",1,"触媒を使って発動",CSTR:MASTER:12 != "")
-	CALL ASK_M("放棄",1,"発動",1,"使用触媒発動",FLAG:胖次輸送)
+	PRINTFORML 花费气力来寻找性欲高涨的少女。
+	CALL ASK_M("放弃",1,"发动",1,"使用触媒发动",FLAG:胖次輸送)
 	SELECTCASE RESULT
 		CASE 0
 			RETURN -1
@@ -498,6 +503,8 @@ ELSEIF RESULT == 839
 	RETURN -1
 ELSEIF RESULT == 840
 	CFLAG:allowKojoCom = !CFLAG:allowKojoCom
+ELSEIF RESULT == 841
+	ADD_CUSTOM_COM_SWITCH = !ADD_CUSTOM_COM_SWITCH
 ELSEIF RESULT == 4000
 	CFLAG:自動喘息 ++
 	SIF CFLAG:自動喘息 > 2
@@ -758,7 +765,7 @@ ELSEIF RESULT == 3110
 	SIF CFLAG:TARGET:変化先
 		LOCAL = CFLAG:TARGET:変化先
 	CFLAG:LOCAL:差し替え適用 ++
-	IF FLAG:立ち絵種類
+	IF FLAG:立絵種類
 		SIF CFLAG:LOCAL:別顔有 < CFLAG:LOCAL:差し替え適用
 			CFLAG:LOCAL:差し替え適用 = 0
 	ELSE
@@ -774,12 +781,13 @@ ELSEIF RESULT == 3111
 		默认角色画像横幅 = 270
 	ELSEIF 默认角色画像横幅 == 270
 		默认角色画像横幅 = 360
-	ELSEIF 默认角色画像横幅 == 360
-		默认角色画像横幅 = 540
-	ELSEIF 默认角色画像横幅 == 540
-		默认角色画像横幅 = 720
+	;ELSEIF 默认角色画像横幅 == 360
+	;	默认角色画像横幅 = 540
+	;ELSEIF 默认角色画像横幅 == 540
+	;	默认角色画像横幅 = 720
 	ELSE
-		FLAG:多尺寸 = !FLAG:多尺寸
+		;FLAG:多尺寸 = !FLAG:多尺寸
+		默认角色画像横幅 = 180
 	ENDIF
 ; --- alter xray ---
 ELSEIF RESULT == 3999
@@ -789,11 +797,14 @@ ELSEIF RESULT == 3999
 		FLAG:XRay_show = (FLAG:XRay_show+1)%8
 	ENDIF
 ; --- end ---
+;debug指令，暂时不用
+[IF DEBUG]
 ELSEIF RESULT == 9999
 	FOR LOCAL,1,CHARANUM
-		PRINTFORMLC %CALLNAME:LOCAL% 現在位置：{CFLAG:LOCAL:現在位置}
+		PRINTFORMLC %CALLNAME:LOCAL% 现在位置：{CFLAG:LOCAL:現在位置}
 	NEXT
-; --- 魔改内容 - 存檔操作 ---
+[ENDIF]
+; --- 魔改内容 - 存档操作 ---
 ELSEIF RESULT == 10000
 	CALL Real_Time_Save(1001, 1)
 ELSEIF RESULT == 10001

@@ -361,7 +361,7 @@ ELSEIF CFLAG:出産経過日 < 15
 		CASE 129
 			角色名 = %\@ RAND:2 ? 久侘歌 # \@%姐姐
 		CASE 130
-			角色名 = %\@ RAND:3 ? 八千惠 # 龟甲的 \@%
+			角色名 = %\@ RAND:3 ? 八千慧 # 龟甲的 \@%
 		CASE 131
 			角色名 = %\@ RAND:3 ? 磨弓 # 土俑的 \@%
 		CASE 132
@@ -409,10 +409,10 @@ ELSEIF ONCE(@"自%TOSTR(CHR)%")
 			ENDDATA
 		;ヘカーティア
 		CASE 113
-			CALL COLORMESSAGE, @"「赫卡提亚殿下%あいさつ%」", K30_CHILDWORD() ,1 ,0
+			CALL COLORMESSAGE, @"「赫喀提亚殿下%あいさつ%」", K30_CHILDWORD() ,1 ,0
 			PRINTDATADL
-				DATAFORM %SHOW_CHILDNAME(30)%向赫卡提亚恭恭敬敬地打招呼
-				DATAFORM 在赫卡提亚面前%SHOW_CHILDNAME(30)%似乎有些紧张
+				DATAFORM %SHOW_CHILDNAME(30)%向赫喀提亚恭恭敬敬地打招呼
+				DATAFORM 在赫喀提亚面前%SHOW_CHILDNAME(30)%似乎有些紧张
 			ENDDATA
 		;さとり/阿求/幽々子/紫/妖夢
 		CASE 49, 80, 66, 26, 23

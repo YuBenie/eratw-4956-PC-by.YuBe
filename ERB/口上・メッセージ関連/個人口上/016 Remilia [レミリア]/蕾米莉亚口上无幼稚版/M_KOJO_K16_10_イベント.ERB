@@ -239,7 +239,7 @@ RETURN 1
 		PRINTFORMDW  萝莉般身材的女孩朝%CALLNAME:MASTER%笑了笑、嘴角边露出了尖锐的、不属于人类的虎牙
 		PRINTL
 		PRINTFORML 「问我是不是人类?哈哈哈、原来是个什么都不知道的冒失鬼啊」
-		PRINTFORMW 「我是蕾米莉亚·斯喀雷特、红魔馆的主人、当然、是个货真价实的吸血鬼」
+		PRINTFORMW 「我是蕾米莉亚·斯卡蕾特、红魔馆的主人、当然、是个货真价实的吸血鬼」
 		PRINTL
 		PRINTFORMW 「你也是个货真价实的人类啊、怎么、知道我是吸血鬼后还不逃跑吗」
 		PRINTL
@@ -285,7 +285,7 @@ RETURN 1
 		PRINTL
 		PRINTFORMDW  就强大和优雅的方面换着法子夸了好久、面前的吸血鬼萝莉喝光了茶、露出了满足的眼神
 		PRINTL
-		PRINTFORML 「有意思的人类、我就是如你所说、幻想乡最威严的吸血鬼、红魔馆的主人蕾米莉亚·斯喀雷特」
+		PRINTFORML 「有意思的人类、我就是如你所说、幻想乡最威严的吸血鬼、红魔馆的主人蕾米莉亚·斯卡蕾特」
 		PRINTFORMW 「我对你也有点感兴趣呢、可以报上自己的名字了」
 		PRINTL
 		PRINTFORMDW %CALLNAME:MASTER%看着血红色的眼睛、不由自主地说出了自己的名字
@@ -320,7 +320,7 @@ RETURN 1
 		PRINTL
 		PRINTFORMDW  %CALLNAME:MASTER%绞尽脑汁想了10多句夸奖的话、面前的女孩才无了追问的兴致、满意地点了点头
 		PRINTL
-		PRINTFORML 「有意思的人类、从这么了解我来看、你应该知道我是幻想乡最有威严的吸血鬼、红魔馆的主人蕾米莉亚·斯喀雷特吧」
+		PRINTFORML 「有意思的人类、从这么了解我来看、你应该知道我是幻想乡最有威严的吸血鬼、红魔馆的主人蕾米莉亚·斯卡蕾特吧」
 		PRINTFORMW 「报上来自己的名字、这次要好好回答我」
 		PRINTL
 		PRINTFORML 「%CALLNAME:MASTER%啊...今天遇到的有趣人类叫%CALLNAME:MASTER%...」
@@ -4265,35 +4265,35 @@ IF LOCAL
 		   PRINTFORML 「%MASTERNAME:16%身上、飘出了食物的味道哦」
 		   PRINTFORMW 「不是说你的血啦、是这个!」
 		   PRINTL
-		   PRINTFORMDW  %DISHNAME%被蕾米莉亚发现了
+		   PRINTFORMDW  %DISHNAME_TR()%被蕾米莉亚发现了
 		   PRINTL
 		   PRINTFORMW 「给我吃?%MASTERNAME:16%果然最好了呢」
 		   PRINTL
-		   PRINTFORMDW  蕾米莉亚高兴地被%CALLNAME:MASTER%喂着吃起了%DISHNAME%
+		   PRINTFORMDW  蕾米莉亚高兴地被%CALLNAME:MASTER%喂着吃起了%DISHNAME_TR()%
 		ELSEIF TALENT:恋慕
 		   PRINTFORML 「食物的味道、从%CALLNAME:MASTER%身上飘出来咯」
 		   PRINTFORMW 「不是在说你的血、是人类也能吃的食物」
 		   PRINTL
-		   PRINTFORMDW  %CALLNAME:MASTER%把%DISHNAME%拿了出来
+		   PRINTFORMDW  %CALLNAME:MASTER%把%DISHNAME_TR()%拿了出来
 		   PRINTL
 		   PRINTFORMW 「就是这个、正好饿了呢、%CALLNAME:MASTER%会拿给我吃的吧」
 		   PRINTL
-		   PRINTFORMDW  蕾米莉亚接过了%DISHNAME%、高兴地亲了%CALLNAME:MASTER%一口
+		   PRINTFORMDW  蕾米莉亚接过了%DISHNAME_TR()%、高兴地亲了%CALLNAME:MASTER%一口
 		ELSEIF TALENT:炮友 == 2
 		   PRINTFORML 「很香的味道、好像是从%CALLNAME:MASTER%身上发出来的」
 		   PRINTFORMW 「不是在说你的血啦、是吸血鬼以外的人也在吃的东西」
 		   PRINTL
-		   PRINTFORMDW  %CALLNAME:MASTER%拿出了%DISHNAME%、蕾米莉亚点头确认是这个味道
+		   PRINTFORMDW  %CALLNAME:MASTER%拿出了%DISHNAME_TR()%、蕾米莉亚点头确认是这个味道
 		   PRINTL
 		   PRINTFORMW 「这个闻起来还不错呢、能给我吃吗?」
 		   PRINTL
-		   PRINTFORMDW  接过了%CALLNAME:MASTER%递来的%DISHNAME%、蕾米莉亚高兴地吃了起来
+		   PRINTFORMDW  接过了%CALLNAME:MASTER%递来的%DISHNAME_TR()%、蕾米莉亚高兴地吃了起来
 		ELSEIF TALENT:炮友
 		   PRINTFORMW 「你身上有着好吃的东西啊」
 		   PRINTL
-		   PRINTFORMDW  正当%CALLNAME:MASTER%护着自己脖子的时候、%DISHNAME%被发现并抢走了
+		   PRINTFORMDW  正当%CALLNAME:MASTER%护着自己脖子的时候、%DISHNAME_TR()%被发现并抢走了
 		   PRINTL
-		   PRINTFORMDW  蕾米莉亚看了防备的%CALLNAME:MASTER%一眼、好笑地吃起了%DISHNAME%
+		   PRINTFORMDW  蕾米莉亚看了防备的%CALLNAME:MASTER%一眼、好笑地吃起了%DISHNAME_TR()%
 		ELSE
 		   PRINTFORMW 「有香味、是这里发出来的吗」
 		   PRINTL
@@ -4302,16 +4302,16 @@ IF LOCAL
 			  PRINTL
 			  PRINTFORMW 「不是这个...你这个变态、是正常的食物啦」
 			  PRINTL
-			  PRINTFORMDW  就在%CALLNAME:MASTER%护住自己脖子的时候、%DISHNAME%被拿走了
+			  PRINTFORMDW  就在%CALLNAME:MASTER%护住自己脖子的时候、%DISHNAME_TR()%被拿走了
 			  PRINTL
 			  PRINTFORMW 「噗、%CALLNAME:MASTER%都在想些什么啊」
 			  PRINTL
-			  PRINTFORMDW  蕾米莉亚好笑地吃起了%DISHNAME%
+			  PRINTFORMDW  蕾米莉亚好笑地吃起了%DISHNAME_TR()%
 		   ELSE
 		      PRINTFORMDW  %CALLNAME:MASTER%吓得护住了自己的脖子
 			  PRINTL
 			  PRINTFORML 「虽然也很香、但不是这个呢...」
-			  PRINTFORMDW  蕾米莉亚没好气地瞪了%CALLNAME:MASTER%一眼、把%CALLNAME:MASTER%手中的%DISHNAME%拿了过来
+			  PRINTFORMDW  蕾米莉亚没好气地瞪了%CALLNAME:MASTER%一眼、把%CALLNAME:MASTER%手中的%DISHNAME_TR()%拿了过来
 			  PRINTL
 			  PRINTFORMW 「让我评价评价你的料理吧、这可是很难得的机会呢」
 		   ENDIF
@@ -6190,7 +6190,7 @@ IF LOCAL
 		PRINTFORMDL
 		PRINTFORMDW  
 		CALL COLORMESSAGE("在半夜醒了過來",C_WHITE,2,0)
-	    CALL COLORMESSAGE("想繼續睡覺但是怎麼也睡不著了......",C_WHITE,2,0)
+	    CALL COLORMESSAGE("想繼續睡觉但是怎么也睡不著了......",C_WHITE,2,0)
 		CALL COLORMESSAGE(" “散步” “散步” “散步” “散步” “散步” “散步” “散步”",C_WHITE,2,0)
 		PRINTL
 		CALL COLORMESSAGE("如今还想将命运掌握在自己手中吗~",0xff130b,2,1)  
@@ -9323,7 +9323,6 @@ RETURN 1
 @M_KOJO_AYA10_DAILY_EVENT_K16_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
 ;※コメントアウトすると欲情の珠＋1000（JUEL:11 += 1000）もカットされるので注意
-CALL DAILY_MESSAGE_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -9361,7 +9360,6 @@ RETURN 1
 ;==================================================
 @M_KOJO_AYA10_DAILY_EVENT_K16_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
-CALL DAILY_MESSAGE_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -9388,7 +9386,6 @@ RETURN 1
 @M_KOJO_AYA10_DAILY_EVENT_K16_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
 ;コメントアウトできるのはARG:1=1,2のみです
-CALL DAILY_MESSAGE_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1

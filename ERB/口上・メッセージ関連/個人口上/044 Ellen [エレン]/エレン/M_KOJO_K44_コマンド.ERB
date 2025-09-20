@@ -31,7 +31,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 	IF CFLAG:MASTER:初期位置 == CFLAG:初期位置 && TIME:0 == CFLAG:起床時間 + 10
 		PRINTFORML %CALLNAME:MASTER%与艾伦一起一边做早上的准备一边说着话
 		TRYCALLFORM M_KOJO_COLOR_K44
-		PRINTFORMW 「那么，今天也加油吧%UNICODE(0x2665)%」
+		PRINTFORMW 「那么，今天也加油吧♥」
 		RETURN 1
 	;仕事中会話
 	ELSEIF CFLAG:325 == 5 && (CFLAG:職種 == 47 || CFLAG:職種 == 54) && (DAY:3 == 15 || DAY:3 == 30)
@@ -48,12 +48,12 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 		CASE 1
 			IF TCVAR:354 > 15
 				IF TALENT:恋慕 || TALENT:恋人
-					PRINTFORMW 「现在客人很多,等会儿再来吧%UNICODE(0x2665)%」
+					PRINTFORMW 「现在客人很多,等会儿再来吧♥」
 				ELSE
 					PRINTFORMW 「现在很忙，以后再继续吧」
 				ENDIF
 			ELSE
-				PRINTFORMW 「——啊，客人来了 。　欢迎光临ー%UNICODE(0x2665)%」
+				PRINTFORMW 「——啊，客人来了 。　欢迎光临ー♥」
 			ENDIF
 		CASEELSE
 			PRINT 「啊，那是
@@ -82,23 +82,23 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 	IF TALENT:恋人 && TALENT:恋慕 && DAY:2 == CFLAG:1001 && DAY:3 == CFLAG:1002 && CFLAG:MASTER:現在位置 == CFLAG:1003 && TCVAR:359 == 0 && DAY:0 > 124 && DAY:0 < 249 && !ITEM:399
 		TRYCALLFORM M_KOJO_COLOR_K44
 		IF ITEM:399
-			PRINTFORMW 「今后也请多多指教%UNICODE(0x2665)%　%CALLNAME:MASTER%%UNICODE(0x2665)%%UNICODE(0x2665)%」
+			PRINTFORMW 「今后也请多多指教♥　%CALLNAME:MASTER%♥♥」
 		ELSE
 			PRINTFORMW 「今天呢，为了%CALLNAME:MASTER%准备了特别的东西」
 			PRINTFORMDW 这么说来，艾伦从怀里取出了镶有紫色水晶的项链
-			PRINTFORMW 是%UNICODE(0x2665)%为了纪念我们相遇一周年，给%CALLNAME:MASTER%礼物哟%UNICODE(0x2665)%
+			PRINTFORMW 是♥为了纪念我们相遇一周年，给%CALLNAME:MASTER%礼物哟♥
 			PRINTFORMDW %CALLNAME:MASTER%得到了魔水晶垂饰！
 			ITEM:399 ++
-			PRINTFORMW 「为了%CALLNAME:MASTER%努力做出来的%UNICODE(0x2665)%如果你喜欢我就很高兴了%UNICODE(0x2665)%
+			PRINTFORMW 「为了%CALLNAME:MASTER%努力做出来的♥如果你喜欢我就很高兴了♥
 		ENDIF
 		PRINTFORMDW %CALLNAME:MASTER%对艾伦表示感谢，并打算回礼……
 		;禮物未実装につき必ずこれ
 		PRINTFORMDW ……没有什么可以给你的……　作为\@ TALENT:MASTER:性別 == 2 ? 男 # 女 \@子是何等耻辱…….
-		PRINTFORMW 「哎呀，没回礼也没关系%UNICODE(0x2665)%」
-		PRINTFORMW 「但是作为交换，请给予我你的爱%UNICODE(0x2665)%」
+		PRINTFORMW 「哎呀，没回礼也没关系♥」
+		PRINTFORMW 「但是作为交换，请给予我你的爱♥」
 		PRINTL  
 		PRINTFORMDW 收到了送礼之后，%CALLNAME:MASTER%和艾伦拉着手并谈笑了…
-		PRINTFORMW 「嘿嘿%UNICODE(0x2665)% 和%CALLNAME:MASTER%在一起真的好幸福啊%UNICODE(0x2665)%%UNICODE(0x2665)% 」
+		PRINTFORMW 「嘿嘿♥ 和%CALLNAME:MASTER%在一起真的好幸福啊♥♥ 」
 		PRINTFORMW 「希望这段时间能永远持续下去…… 」
 		TCVAR:359 = 1
 		TIME += 20
@@ -194,20 +194,20 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 					SELECTCASE RAND:3
 					CASE 1
 						IF TALENT:恋慕
-							PRINTFORMW 「我做过一个很棒的恋爱梦,不过那个已经实现了 %UNICODE(0x2665)%来到这里真的好 %UNICODE(0x2665)%」
+							PRINTFORMW 「我做过一个很棒的恋爱梦,不过那个已经实现了 ♥来到这里真的好 ♥」
 						ELSE
 							CALL M_KOJO_MESSAGE_COM_K44_300_1_HANYO
 						ENDIF
 					CASE 2
 						;朝
 						IF TIME:2 == 1 || TIME:2 == 2
-							PRINTFORMW 「那么，今天要做什么呢%UNICODE(0x2665)%好期待啊 %UNICODE(0x2665)%」
+							PRINTFORMW 「那么，今天要做什么呢♥好期待啊 ♥」
 						;昼
 						ELSEIF TIME:2 == 3 || TIME:2 == 4
 							;夕方分岐
 							IF TIME:0 >= 1020 && TIME:5 <= 1 && (MOON_WATCH_POINT(CFLAG:現在位置))
-								PRINTFORMW 「阿拉%UNICODE(0x2665)% 喔，喂%CALLNAME:MASTER%、夕阳很美丽呢%UNICODE(0x2665)%」
-								PRINTFORMW 「好棒啊 %UNICODE(0x2665)%」
+								PRINTFORMW 「阿拉♥ 喔，喂%CALLNAME:MASTER%、夕阳很美丽呢♥」
+								PRINTFORMW 「好棒啊 ♥」
 								PRINTFORMDW %CALLNAME:MASTER%和艾伦一边看着美丽的晚霞一边谈笑……
 							ELSE
 								CALL M_KOJO_MESSAGE_COM_K44_300_1_HANYO
@@ -216,7 +216,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						ELSEIF TIME:2 >= 5 && TIME:2 <= 7
 							;赏月分岐
 							IF (MOON_WATCH_POINT(CFLAG:現在位置)) && MOON_WATCH(DAY:3) >= 2
-								PRINTFORMW 「今天月亮真漂亮啊%UNICODE(0x2665)%喂%CALLNAME:MASTER%%UNICODE(0x2665)% 」
+								PRINTFORMW 「今天月亮真漂亮啊♥喂%CALLNAME:MASTER%♥ 」
 								PRINTFORMDW %CALLNAME:MASTER%和艾伦看着浮在空中的月亮谈笑起来 …
 							ELSE
 								CALL M_KOJO_MESSAGE_COM_K44_300_1_HANYO
@@ -226,12 +226,12 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						IF ((TIME:0 >=360 && TIME:0 <= 540) || (TIME:0 >=660 && TIME:0 <= 780) || (TIME:0 >=1020 && TIME:0 <= 1260)) && TIME_PROGRESS(TCVAR:空腹時刻) && TIME_PROGRESS(TCVAR:甜点空腹時刻) && !RAND:2
 							SELECTCASE CFLAG:現在位置
 							CASE 100 TO 109,200 TO 209,300 TO 309,400 TO 409,500 TO 509,600 TO 609,700 TO 709,800 TO 809,900 TO 909
-								PRINTFORMW 「和%CALLNAME:MASTER%在一起的这段时间是最幸福的 %UNICODE(0x2665)%」
+								PRINTFORMW 「和%CALLNAME:MASTER%在一起的这段时间是最幸福的 ♥」
 							CASEELSE
 								PRINTFORMW 「肚子饿了，该去吃饭了吧？ 」
 							ENDSELECT
 						ELSE
-							PRINTFORMW 「和%CALLNAME:MASTER%在一起的这段时间是最幸福的 %UNICODE(0x2665)%」
+							PRINTFORMW 「和%CALLNAME:MASTER%在一起的这段时间是最幸福的 ♥」
 						ENDIF
 					ENDSELECT
 				;恋慕or準恋慕時専用
@@ -251,8 +251,8 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						ELSEIF TIME:2 == 3 || TIME:2 == 4
 							;夕方分岐
 							IF TIME:0 >= 1020 && TIME:5 <=1 && (MOON_WATCH_POINT(CFLAG:現在位置))
-								PRINTFORMW 「阿拉%UNICODE(0x2665)% 喔，喂%CALLNAME:MASTER%、夕阳很美丽呢%UNICODE(0x2665)%」
-								PRINTFORMW 「好棒啊 %UNICODE(0x2665)%」
+								PRINTFORMW 「阿拉♥ 喔，喂%CALLNAME:MASTER%、夕阳很美丽呢♥」
+								PRINTFORMW 「好棒啊 ♥」
 								PRINTFORMDW %CALLNAME:MASTER%和艾伦一边看着美丽的晚霞一边谈笑……
 							ELSE
 								CALL M_KOJO_MESSAGE_COM_K44_300_1_HANYO
@@ -261,7 +261,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						ELSEIF TIME:2 >= 5 && TIME:2 <= 7
 							;赏月分岐
 							IF (MOON_WATCH_POINT(CFLAG:現在位置)) && MOON_WATCH(DAY:3) >= 2
-								PRINTFORMW 「今天的月亮真美啊 %UNICODE(0x2665)%　啊%CALLNAME:MASTER%%UNICODE(0x2665)%」
+								PRINTFORMW 「今天的月亮真美啊 ♥　啊%CALLNAME:MASTER%♥」
 								PRINTFORMDW %CALLNAME:MASTER%和艾伦看着浮在空中的月亮谈笑起来 …
 							ELSE
 								CALL M_KOJO_MESSAGE_COM_K44_300_1_HANYO
@@ -278,9 +278,9 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						PRINTFORMW 「我啊，使用魔法的话头会带电的…这里不卖防静电喷雾器呢」
 						PRINTFORMW 「就是因为这个体质被甩了多少次……、哭叽叽 」
 					CASE 2
-						PRINTFORMW 「讷讷，有没有因为魔法纠缠而感到为难的事呢？如果有的话，我会帮给你解决的特别降价哦。 %UNICODE(0x2665)%」
+						PRINTFORMW 「讷讷，有没有因为魔法纠缠而感到为难的事呢？如果有的话，我会帮给你解决的特别降价哦。 ♥」
 					CASEELSE
-						PRINTFORMW 「啊哈哈%UNICODE(0x2665)% 和%CALLNAME:MASTER%说着话非常快乐 %UNICODE(0x2665)%」
+						PRINTFORMW 「啊哈哈♥ 和%CALLNAME:MASTER%说着话非常快乐 ♥」
 					ENDSELECT
 				;親密４以下時専用
 				ELSE
@@ -289,9 +289,9 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						PRINTFORMW 「啊…有没有帅气的人从天而降呢？」
 					CASE 2
 						PRINTFORMW 「话说%CALLNAME:MASTER%没有由于魔法纠绕感到为难的事吗？ 」
-						PRINTFORMW 「如果有的话就去艾伦魔法店！真心诚意，解决烦恼 %UNICODE(0x2665)%」
+						PRINTFORMW 「如果有的话就去艾伦魔法店！真心诚意，解决烦恼 ♥」
 					CASEELSE
-						PRINTFORMW 「哈哈哈，%CALLNAME:MASTER%的话相当有趣啊%UNICODE(0x2665)%」
+						PRINTFORMW 「哈哈哈，%CALLNAME:MASTER%的话相当有趣啊♥」
 					ENDSELECT
 				ENDIF
 			;季節、天気、時間帯に応じて変化
@@ -305,9 +305,9 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 0, 1
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置)) || CFLAG:TARGET:現在位置 == 10
-								PRINTFORMW 「阳光真舒服啊 %UNICODE(0x2665)% %CALLNAME:MASTER%」
+								PRINTFORMW 「阳光真舒服啊 ♥ %CALLNAME:MASTER%」
 							ELSE
-								PRINTFORMW 「今天也是个晴天%UNICODE(0x2665)%」
+								PRINTFORMW 「今天也是个晴天♥」
 							ENDIF
 						;陰天
 						CASE 2, 3
@@ -320,7 +320,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雨的话就可以和%CALLNAME:MASTER%打一把伞。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雨的话就可以和%CALLNAME:MASTER%打一把伞。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊，好不容易才到春天啊 」
@@ -333,13 +333,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -367,9 +367,9 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 0, 1
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置)) || CFLAG:TARGET:現在位置 == 10
-								PRINTFORMW 「阳光真舒服啊 %UNICODE(0x2665)% %CALLNAME:MASTER%」
+								PRINTFORMW 「阳光真舒服啊 ♥ %CALLNAME:MASTER%」
 							ELSE
-								PRINTFORMW 「今天也是个晴天%UNICODE(0x2665)%」
+								PRINTFORMW 「今天也是个晴天♥」
 							ENDIF
 						;陰天
 						CASE 2, 3
@@ -382,7 +382,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雨的话就可以和%CALLNAME:MASTER%打一把伞。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雨的话就可以和%CALLNAME:MASTER%打一把伞。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊，好不容易才到春天啊 」
@@ -395,13 +395,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -450,13 +450,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系 %UNICODE(0x2665)%　…虽然看不见月亮了」
+										PRINTFORMW 「但是，因为有伞所以没关系 ♥　…虽然看不见月亮了」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -505,12 +505,12 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
 								SELECTCASE RAND:2
 								CASE 1
-									PRINTFORMW 「多亏阴天，稍微凉快了点 %UNICODE(0x2665)%」
+									PRINTFORMW 「多亏阴天，稍微凉快了点 ♥」
 									PRINTFORMW 「……但是相对的，有点潮湿呢 」
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雨的话就可以和%CALLNAME:MASTER%打一把伞。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雨的话就可以和%CALLNAME:MASTER%打一把伞。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊。不过，相对稍微凉快了一点也不错了。 」
@@ -523,13 +523,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -541,7 +541,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 6, 7
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
-								PRINTFORMW 「哇哦%UNICODE(0x2665)% 凉快啊%UNICODE(0x2665)% 真舒服啊%UNICODE(0x2665)%」
+								PRINTFORMW 「哇哦♥ 凉快啊♥ 真舒服啊♥」
 								SIF TIME:5 == 6
 								PRINTFORMW 「衣服湿透了 …　快去有屋顶的地方吧！ 」
 							ELSE
@@ -575,12 +575,12 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
 								SELECTCASE RAND:2
 								CASE 1
-									PRINTFORMW 「多亏阴天，稍微凉快了点 %UNICODE(0x2665)%」
+									PRINTFORMW 「多亏阴天，稍微凉快了点 ♥」
 									PRINTFORMW 「…但是就会很潮湿吧 」
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊。不过，相对稍微凉快了一点也不错了。 」
@@ -593,13 +593,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -611,7 +611,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 6, 7
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
-								PRINTFORMW 「哇哦%UNICODE(0x2665)% 凉快啊%UNICODE(0x2665)% 真舒服啊%UNICODE(0x2665)%」
+								PRINTFORMW 「哇哦♥ 凉快啊♥ 真舒服啊♥」
 								SIF TIME:5 == 6
 								PRINTFORMW 「衣服湿透了 …　快去有屋顶的地方吧！ 」
 							ELSE
@@ -648,13 +648,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系 %UNICODE(0x2665)%　…虽然看不见月亮了」
+										PRINTFORMW 「但是，因为有伞所以没关系 ♥　…虽然看不见月亮了」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -685,9 +685,9 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 0, 1
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置)) || CFLAG:TARGET:現在位置 == 10
-								PRINTFORMW 「阳光真舒服啊 %UNICODE(0x2665)% %CALLNAME:MASTER%」
+								PRINTFORMW 「阳光真舒服啊 ♥ %CALLNAME:MASTER%」
 							ELSE
-								PRINTFORMW 「今天也是个晴天%UNICODE(0x2665)%」
+								PRINTFORMW 「今天也是个晴天♥」
 							ENDIF
 						;陰天
 						CASE 2, 3
@@ -699,7 +699,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊，总觉得心情很郁闷 」
@@ -712,13 +712,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -746,9 +746,9 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 0, 1
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置)) || CFLAG:TARGET:現在位置 == 10
-								PRINTFORMW 「阳光真舒服啊 %UNICODE(0x2665)% %CALLNAME:MASTER%」
+								PRINTFORMW 「阳光真舒服啊 ♥ %CALLNAME:MASTER%」
 							ELSE
-								PRINTFORMW 「今天也是个晴天%UNICODE(0x2665)%」
+								PRINTFORMW 「今天也是个晴天♥」
 							ENDIF
 						;陰天
 						CASE 2, 3
@@ -760,7 +760,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊，总觉得心情很郁闷 」
@@ -773,13 +773,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -829,13 +829,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想…下雨总觉得好幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想…下雨总觉得好幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系 %UNICODE(0x2665)%　…虽然看不见月亮了」
+										PRINTFORMW 「但是，因为有伞所以没关系 ♥　…虽然看不见月亮了」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -869,7 +869,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								PRINTFORMW 「哇，好冷啊，呼气好白」
 								PRINTFORMW 「已经是冬天了呢，真切地感受到时间的流逝 」
 							ELSE
-								PRINTFORMW 「今天也是个晴天%UNICODE(0x2665)%」
+								PRINTFORMW 「今天也是个晴天♥」
 							ENDIF
 						;陰天
 						CASE 2, 3
@@ -881,7 +881,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊，总觉得心情很郁闷 」
@@ -894,13 +894,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想来，下雨真是幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想来，下雨真是幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -912,7 +912,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 6, 7
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
-								PRINTFORMW 「又梦幻又美丽%UNICODE(0x2665)% 美极了%UNICODE(0x2665)%」
+								PRINTFORMW 「又梦幻又美丽♥ 美极了♥」
 							ELSE
 								PRINTFORMW 「今天雾好大啊，本来就很冷天却没有阳光照射，真冷啊 」
 							ENDIF
@@ -928,15 +928,15 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 8, 10, 11
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
-								PRINTFORMW 「！ %UNICODE(0x2665)%　呐呐下雪了%UNICODE(0x2665)% 漂亮ー %UNICODE(0x2665)%」
+								PRINTFORMW 「！ ♥　呐呐下雪了♥ 漂亮ー ♥」
 								IF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
 									PRINTFORMW 「…呐，能和%CALLNAME:MASTER%紧紧拥抱一会吗？//」
 								ELSE
 ;									PRINTFORMW 「…哎呀，下完雪后用铲雪什么的可是够呛的。」
-;									PRINTFORMW 「尽管如此还是不得不说很開心%UNICODE(0x2665)%」
+;									PRINTFORMW 「尽管如此还是不得不说很開心♥」
 								ENDIF
 							ELSE
-								PRINTFORMW 「哇！%UNICODE(0x2665)%　呐呐下雪了%UNICODE(0x2665)% 真漂亮啊%UNICODE(0x2665)%」
+								PRINTFORMW 「哇！♥　呐呐下雪了♥ 真漂亮啊♥」
 							ENDIF
 						;霙、霰
 						CASE 12, 13
@@ -960,7 +960,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								PRINTFORMW 「哇，好冷啊，呼气好白」
 								PRINTFORMW 「已经是冬天了呢，真切地感受到时间的流逝 」
 							ELSE
-								PRINTFORMW 「今天也是个晴天%UNICODE(0x2665)%」
+								PRINTFORMW 「今天也是个晴天♥」
 							ENDIF
 						;陰天
 						CASE 2, 3
@@ -972,7 +972,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								CASEELSE
 									PRINTFORMW 「今天天气不好啊，别下雪就好了…… 」
 									SIF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 %UNICODE(0x2665)%）
+									PRINTFORMW （但是仔细想想，如果下雪的话就可以打一把伞了。好极了 ♥）
 								ENDSELECT
 							ELSE
 								PRINTFORMW 「多云啊，总觉得心情很郁闷 」
@@ -985,13 +985,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「啊哈哈 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想…下雨总觉得好幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想…下雨总觉得好幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系%UNICODE(0x2665)%」
+										PRINTFORMW 「但是，因为有伞所以没关系♥」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -1003,7 +1003,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 6, 7
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
-								PRINTFORMW 「真是又梦幻又漂亮呢 %UNICODE(0x2665)%　素敵%UNICODE(0x2665)%」
+								PRINTFORMW 「真是又梦幻又漂亮呢 ♥　素敵♥」
 							ELSE
 								PRINTFORMW 「今天雾好大啊，本来就很冷天却没有阳光照射，真冷啊 」
 							ENDIF
@@ -1019,15 +1019,15 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 8, 10, 11
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
-								PRINTFORMW 「！ %UNICODE(0x2665)%　呐呐下雪了%UNICODE(0x2665)% 漂亮ー %UNICODE(0x2665)%」
+								PRINTFORMW 「！ ♥　呐呐下雪了♥ 漂亮ー ♥」
 								IF TALENT:恋人 || TALENT:恋慕 || CFLAG:1014 == 1
 									PRINTFORMW 「…呐，能和%CALLNAME:MASTER%紧紧拥抱一会吗？//」
 								ELSE
 ;									PRINTFORMW 「…哎呀，下完雪后用铲雪什么的可是够呛的。」
-;									PRINTFORMW 「尽管如此还是不得不说很開心%UNICODE(0x2665)%」
+;									PRINTFORMW 「尽管如此还是不得不说很開心♥」
 								ENDIF
 							ELSE
-								PRINTFORMW 「哇！%UNICODE(0x2665)%　呐呐下雪了%UNICODE(0x2665)% 真漂亮啊%UNICODE(0x2665)%」
+								PRINTFORMW 「哇！♥　呐呐下雪了♥ 真漂亮啊♥」
 							ENDIF
 						;霙、霰
 						CASE 12, 13
@@ -1069,13 +1069,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 								;相合傘なら分岐
 								IF TEQUIP:201 == 1
 									IF TALENT:恋人
-										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 %UNICODE(0x2665)%」
-										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 %UNICODE(0x2665)%」
+										PRINTFORMW 「嘛，多亏了这个，才有了相合伞。 ♥」
+										PRINTFORMW 「这样的话，即使没有月亮也会变得精神起来 ♥」
 									ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 										PRINTFORMW 「……但是，因为内衣雨，所以撑爱合伞吧 」
-										PRINTFORMW 「这样想…下雨总觉得好幸福啊 %UNICODE(0x2665)%//」
+										PRINTFORMW 「这样想…下雨总觉得好幸福啊 ♥//」
 									ELSE
-										PRINTFORMW 「但是，因为有伞所以没关系 %UNICODE(0x2665)%　…虽然看不见月亮了」
+										PRINTFORMW 「但是，因为有伞所以没关系 ♥　…虽然看不见月亮了」
 									ENDIF
 								ELSE
 									PRINTFORMW 「快去有屋顶的地方吧！ 」
@@ -1105,21 +1105,21 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 8, 10, 11
 							;外か内か
 							IF (OUTROOF(CFLAG:TARGET:現在位置))
-								PRINTFORMW 「！ %UNICODE(0x2665)%　呐呐下雪了%UNICODE(0x2665)% 漂亮ー %UNICODE(0x2665)%」
+								PRINTFORMW 「！ ♥　呐呐下雪了♥ 漂亮ー ♥」
 								IF TALENT:恋人
-									PRINTFORMW 「夜里的雪真浪漫啊 %UNICODE(0x2665)%」
-									PRINTFORMW 「和%CALLNAME:MASTER%一起看着这片风景，真是幸福啊 %UNICODE(0x2665)%」
+									PRINTFORMW 「夜里的雪真浪漫啊 ♥」
+									PRINTFORMW 「和%CALLNAME:MASTER%一起看着这片风景，真是幸福啊 ♥」
 								ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-									PRINTFORMW 「夜里的雪真浪漫啊 %UNICODE(0x2665)%」
+									PRINTFORMW 「夜里的雪真浪漫啊 ♥」
 									PRINTFORMW 「…呐，能和%CALLNAME:MASTER%紧紧拥抱一会吗？//」
 								ELSE
 ;									PRINTFORMW 「…哎呀，下完雪后用铲雪什么的可是够呛的。」
-;									PRINTFORMW 「尽管如此还是不得不说很開心%UNICODE(0x2665)%」
+;									PRINTFORMW 「尽管如此还是不得不说很開心♥」
 								ENDIF
 							ELSE
-								PRINTFORMW 「哇啊%UNICODE(0x2665)%　看啊下雪了%UNICODE(0x2665)% 积成了山 %UNICODE(0x2665)%」
+								PRINTFORMW 「哇啊♥　看啊下雪了♥ 积成了山 ♥」
 ;								PRINTFORMW 「……嘛，积雪的话得铲雪什么的就够呛了。 」
-;								PRINTFORMW 「尽管如此还是不得不说很開心%UNICODE(0x2665)%」
+;								PRINTFORMW 「尽管如此还是不得不说很開心♥」
 							ENDIF
 						;霙、霰
 						CASE 12, 13
@@ -1143,12 +1143,12 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 					IF TALENT:恋人 && TALENT:恋慕
 						SELECTCASE RAND:2
 						CASE 1
-							PRINTFORMW 「即使只是走路 、和%CALLNAME:MASTER%一起的话也很快乐%UNICODE(0x2665)%」
+							PRINTFORMW 「即使只是走路 、和%CALLNAME:MASTER%一起的话也很快乐♥」
 						CASEELSE
-							PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+							PRINTFORMW 「啊哈哈 ♥」
 						ENDSELECT
 					ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-						PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+						PRINTFORMW 「啊哈哈 ♥」
 					ELSE
 						PRINTFORMW 「离目的地还有多远？ 」
 					ENDIF
@@ -1168,7 +1168,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 					IF FIRSTTIME(1003)
 						;物覚えが悪いといってもどこに店を出していたかはちゃんと覚えている爱莲、こまめに記録しているのだろうか
 						IF FLAG:住宿人物 == 44
-							PRINTFORMW 「有一段时间没住在这里了 %UNICODE(0x2665)%」
+							PRINTFORMW 「有一段时间没住在这里了 ♥」
 						ELSEIF FLAG:116 > 2000
 							PRINTFORMW 「咳咳，为什么只是稍微没住一会，就会积满灰尘呢 」
 						ELSE
@@ -1180,13 +1180,13 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 							ENDIF
 						ENDIF
 						PRINTFORML 「啊，这么说来还没和%CALLNAME:MASTER%说呢 」
-						PRINTFORMW 「其实以前，我在这里做魔法屋%UNICODE(0x2665)%」
+						PRINTFORMW 「其实以前，我在这里做魔法屋♥」
 						;爱莲が住み込んでいる場合
 						IF FLAG:住宿人物 == 44
 							PRINTFORMW 「结果店移到了别的地方 」
 							PRINTFORMW 「诶？为什么搬回神社了？」
 							IF TALENT:恋人
-								PRINTFORMW 「那当然是因为%CALLNAME:MASTER%在这里啊%UNICODE(0x2665)%」
+								PRINTFORMW 「那当然是因为%CALLNAME:MASTER%在这里啊♥」
 							ELSE
 								PRINTFORMW 「那是……因为喜欢%CALLNAME:MASTER%哦//」
 								IF CFLAG:1004 == 0 && !TALENT:MASTER:恋人 && !(CFLAG:13 & 2) && BASE:情緒 >= 1000 && !MARK:反発刻印
@@ -1242,7 +1242,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 					ENDIF
 				CASE 334
 					IF GET_TARGETNUM() == 1
-						PRINTFORMW 「哇啊%UNICODE(0x2665)% 别墅哦%UNICODE(0x2665)%　好大%UNICODE(0x2665)% 有点破了%UNICODE(0x2665)% 但还是很漂亮%UNICODE(0x2665)%」
+						PRINTFORMW 「哇啊♥ 别墅哦♥　好大♥ 有点破了♥ 但还是很漂亮♥」
 					ELSE
 						CALL M_KOJO_MESSAGE_COM_K44_300_1_HANYO
 					ENDIF
@@ -1250,7 +1250,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 					$OMISE
 					IF RAND:2 == 1
 						IF TALENT:恋人
-							PRINTFORMW 「我店里的感觉怎么样? %UNICODE(0x2665)%」
+							PRINTFORMW 「我店里的感觉怎么样? ♥」
 						ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 							PRINTFORMW 「呐呐、我店里的感觉怎么样?」
 						ELSE
@@ -1261,7 +1261,7 @@ IF LOCAL && !CFLAG:ブチギレ && !MARK:反発刻印
 						CASE 1
 							;８時～２１時ならお客が来る
 							IF TIME:0 >= 480 && TIME:0 <= 1260
-								PRINTFORMW 「——啊，客人来了 。　欢迎光临ー%UNICODE(0x2665)%」
+								PRINTFORMW 「——啊，客人来了 。　欢迎光临ー♥」
 							ELSE
 								CALL M_KOJO_MESSAGE_COM_K44_300_1_HANYO
 							ENDIF
@@ -1295,7 +1295,7 @@ RETURN 1
 ;月虹
 IF TIME:7 == 1
 	IF !RAND:1
-		PRINTFORMW 「多亏了彩虹，月光照在身上比平时更让人舒服%UNICODE(0x2665)%」
+		PRINTFORMW 「多亏了彩虹，月光照在身上比平时更让人舒服♥」
 	ELSE
 		PRINTFORML 「真漂亮啊……」
 		PRINTFORMDW 艾伦一边眺望着月虹一边这样嘟哝着
@@ -1306,7 +1306,7 @@ ELSE
 		PRINTFORMW 「明明看不见却说的像看的见一样，真是什么怪话呢」
 		IF CFLAG:1013 == 0
 			;据说在新月里许愿，事情就会像月圆一样进展。但因为很麻烦所以想马上实现
-			PRINTFORMW 「难得一次，也向着月亮许愿吧%UNICODE(0x2665)%」
+			PRINTFORMW 「难得一次，也向着月亮许愿吧♥」
 			$LOOP
 			PRINTFORMDL 要许愿什么…
 			PRINTDL [0] 想和艾伦更加亲密
@@ -1337,7 +1337,7 @@ ELSE
 			ELSE
 				GOTO LOOP
 			ENDIF
-			PRINTFORMW 「愿望结束了吗？下次就看看天空一起享受月亮吧%UNICODE(0x2665)%」
+			PRINTFORMW 「愿望结束了吗？下次就看看天空一起享受月亮吧♥」
 			PRINTFORMDW %CALLNAME:MASTER%与艾伦一边仰望天空一边对话……
 			IF LOCAL:1 > 0
 				DRAWLINE
@@ -1347,31 +1347,31 @@ ELSE
 		ENDIF
 	CASE 2, 3, 4, 5, 6, 7, 8
 		PRINTFORMW 「月♪♪月♪蓝色的月亮♪月亮的力量化作水滴，滴在我胸前♪」
-		PRINTFORML 「月亮充满了魔法的力量%UNICODE(0x2665)%」
-		PRINTFORMW 「所以像我这样的魔法使，在月亮一明亮的时候就会变得精神起来%UNICODE(0x2665)%」
+		PRINTFORML 「月亮充满了魔法的力量♥」
+		PRINTFORMW 「所以像我这样的魔法使，在月亮一明亮的时候就会变得精神起来♥」
 	CASE 9
 		SELECTCASE RAND:2
 		CASE 1
 			PRINTFORML 「稍稍提个小问题、在%CALLNAME:MASTER%的眼中月亮是什么样子」
 			RESETCOLOR
 			CALL ASK_M("捣年糕的兔子",1,"净用石头洗衣服的女人的画",1,"捣药的兔子",1)
-			TRYCALLFORM M_KOJO_COLOR_K44
+			SETCOLOR 0xFFF10F
 			IF RESULT == 0
 				PRINTFORMW 「嘿，在%CALLNAME:MASTER%看起来是那样的啊」
 			ELSEIF RESULT == 1
-				PRINTFORMW 「是吗，和我一样呢%UNICODE(0x2665)%」
+				PRINTFORMW 「是吗，和我一样呢♥」
 			ELSEIF RESULT == 2
 				PRINTFORMW 「药？不是年糕吗？」
 				PRINTFORMW 「……诶，还有这样表现的啊」
 			ENDIF
 		CASEELSE
 			PRINTFORMW 「月♪♪月♪蓝色的月亮♪月亮的力量化作水滴，滴在我胸前♪」
-			PRINTFORMW 「果然月亮一明亮就变得精神了呢%UNICODE(0x2665)%」
+			PRINTFORMW 「果然月亮一明亮就变得精神了呢♥」
 		ENDSELECT
 	CASE 10, 11, 12, 13, 14
 		PRINTFORMW 「月♪♪月♪蓝色的月亮♪月亮的力量化作水滴，滴在我胸前♪」
-		PRINTFORML 「月亮充满了魔法的力量%UNICODE(0x2665)%」
-		PRINTFORMW 「所以像我这样的魔法使，在月亮一明亮的时候就会变得精神起来%UNICODE(0x2665)%」
+		PRINTFORML 「月亮充满了魔法的力量♥」
+		PRINTFORMW 「所以像我这样的魔法使，在月亮一明亮的时候就会变得精神起来♥」
 	CASE -1, 0
 		IF TIME:5 <= 1
 			PRINTFORMW 「月亮还没出来呢」
@@ -1411,9 +1411,9 @@ IF RAND:10 == 1 && CFLAG:1007 == 0 && ABL:MASTER:教養 >= 3 && TALENT:MASTER:�
 		PRINTFORMDW 在与艾伦的对话中，%CALLNAME:MASTER%传达了想成为艾伦弟子的意思
 		PRINTFORM 「啊？你想让成为我的徒弟吗？
 		IF TALENT:恋人 || TALENT:恋慕
-			PRINTFORMW 那就交给我了%UNICODE(0x2665)%　会让你成为出色的魔法使的%UNICODE(0x2665)%」
+			PRINTFORMW 那就交给我了♥　会让你成为出色的魔法使的♥」
 			SIF !TALENT:MASTER:妖狐
-			PRINTFORMW 「然后……两个人一起享受各种各样的事情吧%UNICODE(0x2665)%%UNICODE(0x2665)%」
+			PRINTFORMW 「然后……两个人一起享受各种各样的事情吧♥♥」
 		ELSE
 			LOCAL:1 = 0
 			PRINTFORMW 嗯……、并没有想要收弟子呢」
@@ -1452,7 +1452,7 @@ IF RAND:10 == 1 && CFLAG:1007 == 0 && ABL:MASTER:教養 >= 3 && TALENT:MASTER:�
 			ELSE
 				GOTO OGAMI
 			ENDIF
-;			PRINTFORMW 虽然没有收弟子的想法……%CALLNAME:MASTER%的话特别让你成为吧%UNICODE(0x2665)%」
+;			PRINTFORMW 虽然没有收弟子的想法……%CALLNAME:MASTER%的话特别让你成为吧♥」
 ;			PRINTFORMW 「但是，真的好吗？你的生活也没有困难，就算成为魔法师也不全是好事。」
 ;			PRINTFORMW 「…哎呀，还在烦恼的话就先算了吧。那么，麻利地走吧！」
 		ENDIF
@@ -1473,8 +1473,8 @@ IF RAND:10 == 1 && CFLAG:1007 == 0 && ABL:MASTER:教養 >= 3 && TALENT:MASTER:�
 ELSEIF RAND:5 == 1 && ABL:親密 >= 5 && (BASE:MASTER:体力 <= 500 || BASE:MASTER:気力 <= 500)
 	PRINTFORMW 「哎呀？……总觉得你好累啊」
 	PRINTFORMDW 察觉到%CALLNAME:MASTER%的疲劳的艾伦，从怀里掏出了一个小瓶子
-	PRINTFORMW 「就是为了这种时候！　我特意调配的药水哦%UNICODE(0x2665)%」
-	PRINTFORMW 「喝了这个马上就会好的%UNICODE(0x2665)%」
+	PRINTFORMW 「就是为了这种时候！　我特意调配的药水哦♥」
+	PRINTFORMW 「喝了这个马上就会好的♥」
 	$LOOP_2
 	PRINTFORMDL %CALLNAME:MASTER%看着药……
 	PRINTDL [0] 喝了
@@ -1493,7 +1493,7 @@ ELSEIF RAND:5 == 1 && ABL:親密 >= 5 && (BASE:MASTER:体力 <= 500 || BASE:MAST
 		PRINTFORMDW %CALLNAME:MASTER%的体力和气力回复了1000！
 		BASE:MASTER:体力 = MIN(BASE:MASTER:体力 + 1000 , MAXBASE:MASTER:体力)
 		BASE:MASTER:気力 = MIN(BASE:MASTER:気力 + 1000 , MAXBASE:MASTER:気力)
-		PRINTFORMW 「怎么样？有精神了吧%UNICODE(0x2665)%」
+		PRINTFORMW 「怎么样？有精神了吧♥」
 	ELSEIF RESULT == 1
 		PRINTFORMW 「这样啊，嗯，那样的话就算了」
 	ELSE
@@ -1534,7 +1534,7 @@ ELSE
 		ENDIF
 	CASE 1
 		IF TALENT:恋慕 || CFLAG:1014 == 1
-			PRINTFORMW 「非常有意思%UNICODE(0x2665)%再多讲给我听听%UNICODE(0x2665)%」
+			PRINTFORMW 「非常有意思♥再多讲给我听听♥」
 		ELSE
 			PRINTFORMW 「在我居住的世界里，魔法一直是被否定的但也有肯定的哦」
 			PRINTFORMW 「因为就算是魔法，只要有用的话也是一样的。」
@@ -1548,7 +1548,7 @@ ELSE
 		PRINTFORMW 　也有进化了的猫支配的世界，或者周围一面西洋蒲公英的世界吗？」
 	CASE 4
 		IF TALENT:恋人
-			PRINTFORMW 「和%CALLNAME:MASTER%的对话一直快乐又快活，不知不觉就忘记了时间的流逝%UNICODE(0x2665)%」
+			PRINTFORMW 「和%CALLNAME:MASTER%的对话一直快乐又快活，不知不觉就忘记了时间的流逝♥」
 		ELSEIF TALENT:思慕 || TALENT:恋慕
 			PRINTFORMW 「诶！？是吗？是吗？不知道啊…」
 		ELSE
@@ -1584,9 +1584,9 @@ ELSE
 ;		PRINTFORMW 「可是真遗憾电视在幻想乡不太普及。」
 ;		PRINTFORMW 「嘛，从外面的世界“噗—噗—”地带来就好了。但那样的话就看不到最新的漫画了…」
 	CASE 10
-		PRINTFORMW 「店铺的情况如何？　还算繁荣吧%UNICODE(0x2665)%」
+		PRINTFORMW 「店铺的情况如何？　还算繁荣吧♥」
 	CASE 11
-		PRINTFORMW 「啊哈哈%UNICODE(0x2665)%　和%CALLNAME:MASTER%说话真的很開心%UNICODE(0x2665)%」
+		PRINTFORMW 「啊哈哈♥　和%CALLNAME:MASTER%说话真的很開心♥」
 	ENDSELECT
 ENDIF
 RETURN 1
@@ -1605,11 +1605,11 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 	IF TALENT:恋人
-		PRINTFORMW 「好茶，谢谢%UNICODE(0x2665)%」
+		PRINTFORMW 「好茶，谢谢♥」
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-		PRINTFORMW 「茶，谢谢%UNICODE(0x2665)% 那么我就趁热喝了」
+		PRINTFORMW 「茶，谢谢♥ 那么我就趁热喝了」
 	ELSE
-		PRINTFORMW 「哎呀，你泡茶了啊，谢谢%UNICODE(0x2665)%」
+		PRINTFORMW 「哎呀，你泡茶了啊，谢谢♥」
 	ENDIF
 	PRINTFORMDL …
 	IF TALENT:恋人
@@ -1619,33 +1619,33 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 				SELECTCASE  MOON_WATCH(DAY:3)
 				CASE -1, 0, 1
 					PRINTFORMW 「能看到月亮的话就变成赏月茶了，有点遗憾啊」
-					PRINTFORMW 「…不过，就算看不到月亮%CALLNAME:MASTER%泡的茶倒是挺好喝的%UNICODE(0x2665)%」
+					PRINTFORMW 「…不过，就算看不到月亮%CALLNAME:MASTER%泡的茶倒是挺好喝的♥」
 				CASEELSE
-					PRINTFORMW 「倒映在茶里的月亮也很美%UNICODE(0x2665)%」
+					PRINTFORMW 「倒映在茶里的月亮也很美♥」
 				ENDSELECT
 			ELSE
-				PRINTFORMW 「两个人一起喝茶别有一番风味%UNICODE(0x2665)%」
+				PRINTFORMW 「两个人一起喝茶别有一番风味♥」
 			ENDIF
 		ELSE
 			IF TFLAG:193 == 1
-				PRINTFORMW 「%CALLNAME:MASTER%给我泡的茶真好喝啊%UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%给我泡的茶真好喝啊♥」
 			ELSEIF TFLAG:193 == -1
-				PRINTFORMW 「虽然有点涩……但这是%CALLNAME:MASTER%给我泡的茶所以很好喝%UNICODE(0x2665)%」
+				PRINTFORMW 「虽然有点涩……但这是%CALLNAME:MASTER%给我泡的茶所以很好喝♥」
 			ELSE
-				PRINTFORMW 「呼……平稳心情了呢%UNICODE(0x2665)%」
+				PRINTFORMW 「呼……平稳心情了呢♥」
 			ENDIF
 		ENDIF
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 		IF TFLAG:193 == 1
-			PRINTFORMW 「绿茶是这么好喝…。太棒了%UNICODE(0x2665)%」
+			PRINTFORMW 「绿茶是这么好喝…。太棒了♥」
 		ELSEIF TFLAG:193 == -1
 			PRINTFORMW 「……等一下，太涩了吧」
 		ELSE
-			PRINTFORMW 「呼……心平气和了%UNICODE(0x2665)%」
+			PRINTFORMW 「呼……心平气和了♥」
 		ENDIF
 	ELSE
 		IF TFLAG:193 == 1
-			PRINTFORMW 「绿茶是这么好喝…。太棒了%UNICODE(0x2665)%」
+			PRINTFORMW 「绿茶是这么好喝…。太棒了♥」
 		ELSEIF TFLAG:193 == -1
 			PRINTFORMW 「等一下，这茶太苦了」
 		ELSE
@@ -1687,9 +1687,9 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 			PRINTFORMDL %CALLNAME:PLAYER%让%CALLNAME:TARGET%为自己搓背
 			IF TALENT:恋人 && TALENT:恋慕
 				IF TALENT:MASTER:体型 > TALENT:体型 + 1 && !RAND:2
-					PRINTFORMW 「哇，%CALLNAME:MASTER%的背真宽广%UNICODE(0x2665)%」
+					PRINTFORMW 「哇，%CALLNAME:MASTER%的背真宽广♥」
 				ELSE
-					PRINTFORMW 「现在清洁%CALLNAME:MASTER%的背部了哦%UNICODE(0x2665)%」
+					PRINTFORMW 「现在清洁%CALLNAME:MASTER%的背部了哦♥」
 				ENDIF
 			ELSEIF TALENT:恋慕 || CFLAG:1014 || TALENT:恋人
 				PRINTFORMW 「力度如何？舒服吗？」
@@ -1699,7 +1699,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 		ELSE
 			PRINTFORMDL %CALLNAME:PLAYER%为%CALLNAME:TARGET%搓着背
 			IF TALENT:恋人 && TALENT:恋慕
-				PRINTFORMW 「帮喜欢的人冲洗后背，真好啊%UNICODE(0x2665)%」
+				PRINTFORMW 「帮喜欢的人冲洗后背，真好啊♥」
 			ELSEIF TALENT:恋慕 || CFLAG:1014 || TALENT:恋人
 				PRINTFORMW （啊//）
 			ELSE
@@ -1719,17 +1719,17 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 		ELSE
 			;入浴中か否かで分岐
 			IF CFLAG:現在位置 == 13 || CFLAG:現在位置 == 24 || CFLAG:MASTER:現在位置 == 30 || CFLAG:MASTER:現在位置 == 39
-				PRINTFORMW 「哈哈哈%UNICODE(0x2665)% 真痒啊%UNICODE(0x2665)%」
+				PRINTFORMW 「哈哈哈♥ 真痒啊♥」
 			ELSE
 				SELECTCASE RAND:3
 				CASE 1
 					SIF TFLAG:193 == 0
 					PRINTFORMDL 艾伦那边也积极地身体接触
-					PRINTFORMW 「我也很喜欢%CALLNAME:MASTER% %UNICODE(0x2665)%」
+					PRINTFORMW 「我也很喜欢%CALLNAME:MASTER% ♥」
 				CASE 2
-					PRINTFORMW 「哈哈哈%UNICODE(0x2665)% 真痒啊%UNICODE(0x2665)%」
+					PRINTFORMW 「哈哈哈♥ 真痒啊♥」
 				CASEELSE
-					PRINTFORMW 「和%CALLNAME:MASTER%在一起就已经很開心了%UNICODE(0x2665)%」
+					PRINTFORMW 「和%CALLNAME:MASTER%在一起就已经很開心了♥」
 				ENDSELECT
 			ENDIF
 		ENDIF
@@ -1746,9 +1746,9 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 				CASE 1
 					PRINTFORMW （啊//）
 				CASE 2
-					PRINTFORMW 「哈哈哈%UNICODE(0x2665)% 真痒啊%UNICODE(0x2665)%」
+					PRINTFORMW 「哈哈哈♥ 真痒啊♥」
 				CASEELSE
-					PRINTFORMW 「哎嘿嘿嘿 %UNICODE(0x2665)%//」
+					PRINTFORMW 「哎嘿嘿嘿 ♥//」
 				ENDSELECT
 			ENDIF
 		ENDIF
@@ -1757,13 +1757,13 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 		IF TFLAG:193 == -1
 			PRINTFORMW 「等等等等一下！　不管怎么说太黏人了 ！」
 		ELSE
-			PRINTFORMW 「哈哈哈%UNICODE(0x2665)% 真痒啊%UNICODE(0x2665)%」
+			PRINTFORMW 「哈哈哈♥ 真痒啊♥」
 		ENDIF
 	ELSE
 		IF TFLAG:193 == -1
 			PRINTFORMW 「虽然不太想被触碰…… 」
 		ELSE
-			PRINTFORMW 「真痒啊%UNICODE(0x2665)%」
+			PRINTFORMW 「真痒啊♥」
 		ENDIF
 	ENDIF
 ENDIF
@@ -1784,7 +1784,7 @@ LOCAL = 1
 IF LOCAL && !FLAG:70
 	IF TALENT:恋慕 || TALENT:恋人
 		IF TFLAG:193 >= 1
-			PRINTFORMW 「啊哈哈 、已经不在意了没关系的 %UNICODE(0x2665)%」
+			PRINTFORMW 「啊哈哈 、已经不在意了没关系的 ♥」
 		ELSEIF TFLAG:193 == 0
 			PRINTFORMW 「莫，算了。这次饶了你,下次小心点儿 」
 		ELSE
@@ -1792,7 +1792,7 @@ IF LOCAL && !FLAG:70
 		ENDIF
 	ELSE
 		IF TFLAG:193 >= 1
-			PRINTFORMW 「啊哈哈 、已经不在意了没关系的 %UNICODE(0x2665)%」
+			PRINTFORMW 「啊哈哈 、已经不在意了没关系的 ♥」
 		ELSEIF TFLAG:193 == 0
 			PRINTFORMW 「莫，算了。这次饶了你,下次小心点儿 」
 		ELSE
@@ -1825,45 +1825,45 @@ IF LOCAL && !FLAG:70
 			LOCAL:1 += 2
 			PRINTFORMDL %CALLNAME:PLAYER%帮助被接待客人追赶的艾伦
 			IF TFLAG:193 == 1
-				PRINTFORMDL 工作进展的很好的様子…
+				PRINTFORMDL 工作进展的很好的样子…
 				;大成功時は－８～－６人
 				LOCAL:1 += 4
 				IF TALENT:恋人
 					;どんとはお願いしない
-					PRINTFORMW 「%CALLNAME:MASTER%这个那个那个和那个,哪个都拜托你了 %UNICODE(0x2665)%」
+					PRINTFORMW 「%CALLNAME:MASTER%这个那个那个和那个,哪个都拜托你了 ♥」
 					;ラブラブパワーで更に＋２！
 					LOCAL:1 += 2
 				ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-					PRINTFORMW 「%CALLNAME:MASTER%托你的福工作进展得很顺利 %UNICODE(0x2665)% 谢谢了%UNICODE(0x2665)%」
+					PRINTFORMW 「%CALLNAME:MASTER%托你的福工作进展得很顺利 ♥ 谢谢了♥」
 				ELSEIF TALENT:思慕
-					PRINTFORMW 「有%CALLNAME:MASTER%在，工作就会轻松。%UNICODE(0x2665)%」
+					PRINTFORMW 「有%CALLNAME:MASTER%在，工作就会轻松。♥」
 				ELSE
-					PRINTFORMW 「啊啦%UNICODE(0x2665)% 帮大忙了%UNICODE(0x2665)%」
+					PRINTFORMW 「啊啦♥ 帮大忙了♥」
 				ENDIF
 			ELSEIF TFLAG:193 == -1
 				PRINTFORMDL 似乎没能帮上什么忙…
 				;失敗時は－１～０人
 				LOCAL:1 = RAND:2
 				IF TALENT:恋人
-					PRINTFORMW 「哎呀，也有这种时候呢。不用在意 %UNICODE(0x2665)%」
+					PRINTFORMW 「哎呀，也有这种时候呢。不用在意 ♥」
 				ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-					PRINTFORMW 「这点事儿总会有办法的,你不要介意 %UNICODE(0x2665)%」
+					PRINTFORMW 「这点事儿总会有办法的,你不要介意 ♥」
 				ELSEIF TALENT:思慕
-					PRINTFORMW 「这点事儿总会有办法的,你不要介意 ね%UNICODE(0x2665)%」
+					PRINTFORMW 「这点事儿总会有办法的,你不要介意 ね♥」
 				ELSE
-					PRINTFORMW 「嗯…没关系的%UNICODE(0x2665)%」
+					PRINTFORMW 「嗯…没关系的♥」
 				ENDIF
 			ELSE
 				SELECTCASE RAND:2
 				CASE 1
 					IF TALENT:恋人
-						PRINTFORMW 「%CALLNAME:MASTER%这个拜托你了 %UNICODE(0x2665)%」
+						PRINTFORMW 「%CALLNAME:MASTER%这个拜托你了 ♥」
 					ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-						PRINTFORMW 「谢谢帮忙%UNICODE(0x2665)%」
+						PRINTFORMW 「谢谢帮忙♥」
 					ELSEIF TALENT:思慕
-						PRINTFORMW 「真是帮了大忙了 %UNICODE(0x2665)%」
+						PRINTFORMW 「真是帮了大忙了 ♥」
 					ELSE
-						PRINTFORMW 「啊啦%UNICODE(0x2665)% 帮大忙了%UNICODE(0x2665)%」
+						PRINTFORMW 「啊啦♥ 帮大忙了♥」
 					ENDIF
 				CASEELSE
 					IF TALENT:恋慕
@@ -1882,7 +1882,7 @@ IF LOCAL && !FLAG:70
 						CASE 5
 							PRINT 护身符
 						ENDSELECT
-						PRINTFORMW 拿出来吧%UNICODE(0x2665)%」
+						PRINTFORMW 拿出来吧♥」
 					ELSE
 						PRINT 「从那里把
 						SELECTCASE RAND:4
@@ -1921,39 +1921,39 @@ IF LOCAL && !FLAG:70
 				;大成功時は＋８～１０人
 				LOCAL:1 += 5
 				IF TALENT:恋人
-					PRINTFORMW 「呜哇、这么多客人吗%UNICODE(0x2665)%　我可不能输了！诶，不需要魔法屋吗？%UNICODE(0x2665)%」
+					PRINTFORMW 「呜哇、这么多客人吗♥　我可不能输了！诶，不需要魔法屋吗？♥」
 					;ラブラブパワーで更に＋２！
 					LOCAL:1 += 2
 				ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-					PRINTFORMW 「哇！ %UNICODE(0x2665)% 这么多客人 %UNICODE(0x2665)%　%CALLNAME:MASTER%真了不起啊 %UNICODE(0x2665)%」
+					PRINTFORMW 「哇！ ♥ 这么多客人 ♥　%CALLNAME:MASTER%真了不起啊 ♥」
 				ELSEIF TALENT:思慕
-					PRINTFORMW 「哇！%UNICODE(0x2665)% 真厉害%UNICODE(0x2665)%　谢谢%CALLNAME:MASTER%%UNICODE(0x2665)%」
+					PRINTFORMW 「哇！♥ 真厉害♥　谢谢%CALLNAME:MASTER%♥」
 				ELSE
-					PRINTFORMW 「啊啦%UNICODE(0x2665)% 帮大忙了%UNICODE(0x2665)%」
+					PRINTFORMW 「啊啦♥ 帮大忙了♥」
 				ENDIF
 			ELSEIF TFLAG:193 == -1
 				PRINTFORMDL 但是完全没有客人来……
 				;失敗時は＋０～１人
 				LOCAL:1 = RAND:2
 				IF TALENT:恋人
-					PRINTFORMW 「哎呀，也有这种时候呢。不用在意 %UNICODE(0x2665)%」
+					PRINTFORMW 「哎呀，也有这种时候呢。不用在意 ♥」
 				ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-					PRINTFORMW 「哎呀，这是常有的事，别在意 %UNICODE(0x2665)%」
+					PRINTFORMW 「哎呀，这是常有的事，别在意 ♥」
 				ELSEIF TALENT:思慕
-					PRINTFORMW 「嘛，这是常有的事，不要在意 %UNICODE(0x2665)%」
+					PRINTFORMW 「嘛，这是常有的事，不要在意 ♥」
 				ELSE
 					PRINTFORMW 「哎呀，客人根本不来啊 」
 				ENDIF
 			ELSE
 				PRINTFORMDL 客人一个接一个地来了
 				IF TALENT:恋人
-					PRINTFORMW 「有%CALLNAME:MASTER%一人就如同有了百人%UNICODE(0x2665)%　那么，我也要加油了 ！」
+					PRINTFORMW 「有%CALLNAME:MASTER%一人就如同有了百人♥　那么，我也要加油了 ！」
 				ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-					PRINTFORMW 「谢谢帮忙%UNICODE(0x2665)%」
+					PRINTFORMW 「谢谢帮忙♥」
 				ELSEIF TALENT:思慕
-					PRINTFORMW 「谢谢帮忙%UNICODE(0x2665)%」
+					PRINTFORMW 「谢谢帮忙♥」
 				ELSE
-					PRINTFORMW 「啊啦%UNICODE(0x2665)% 帮大忙了%UNICODE(0x2665)%」
+					PRINTFORMW 「啊啦♥ 帮大忙了♥」
 				ENDIF
 			ENDIF
 			;天気がよろしくない場合は－２
@@ -1995,17 +1995,17 @@ LOCAL = 1
 IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 	IF TALENT:恋人 && TALENT:恋慕 && TALENT:妊娠 && !RAND:2
 		IF CFLAG:妊娠経過日数 >= 60
-			PRINTFORMW 「会生出什么样的孩子呢 %UNICODE(0x2665)%」
+			PRINTFORMW 「会生出什么样的孩子呢 ♥」
 		ELSEIF CFLAG:妊娠経過日数 >= 30
 			PRINTFORMW 「怎么样？听到了吗？ 」
 		ELSE
-			PRINTFORMW 「呀，太心急了%UNICODE(0x2665)%」
+			PRINTFORMW 「呀，太心急了♥」
 		ENDIF
 	ELSEIF TALENT:恋人 && TALENT:恋慕
 		IF !RAND:2
-			PRINTFORMW 「我的膝盖怎么样？舒服吗 %UNICODE(0x2665)%」
+			PRINTFORMW 「我的膝盖怎么样？舒服吗 ♥」
 		ELSE
-			PRINTFORMW 「在我的膝盖上好好休息吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「在我的膝盖上好好休息吧 ♥」
 		ENDIF
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 		PRINTFORMW 「下次希望让我枕着膝盖，之类的 //」
@@ -2030,9 +2030,9 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ && !MARK:反発刻印
 	IF TALENT:恋人
 		IF TALENT:妊娠 && CFLAG:身に覚え_母
 			IF CFLAG:妊娠経過日数 >= 60 && RAND:2
-				PRINTFORMW 「会生出什么样的孩子呢 %UNICODE(0x2665)%」
+				PRINTFORMW 「会生出什么样的孩子呢 ♥」
 			ELSE
-				PRINTFORMW 「欸嘿嘿嘿%UNICODE(0x2665)%」
+				PRINTFORMW 「欸嘿嘿嘿♥」
 			ENDIF
 		ELSE
 			PRINTFORMW 「虽然没什么关系 ……但为什么会喜欢摸肚子呢？ 」
@@ -2058,11 +2058,11 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !MARK:反発刻印
 	IF TALENT:恋人
-		PRINTFORMW 「真有你的%UNICODE(0x2665)% 看我也来%UNICODE(0x2665)%」
+		PRINTFORMW 「真有你的♥ 看我也来♥」
 	ELSEIF TALENT:恋慕
-		PRINTFORMW 「欸嘿嘿%UNICODE(0x2665)%」
+		PRINTFORMW 「欸嘿嘿♥」
 	ELSEIF ABL:親密 > 5
-		PRINTFORMW 「回击了哟 %UNICODE(0x2665)%」
+		PRINTFORMW 「回击了哟 ♥」
 	ELSEIF ABL:従順 >= 5
 		PRINTFORMW 「真是的，没办法啊 」
 	ELSE
@@ -2085,17 +2085,17 @@ LOCAL = 1
 IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !MARK:反発刻印
 	IF TALENT:恋人
 		IF TFLAG:193 == 1
-			PRINTFORMW 「真有你的%UNICODE(0x2665)% 看我也来%UNICODE(0x2665)%」
+			PRINTFORMW 「真有你的♥ 看我也来♥」
 		ELSEIF TFLAG:193 == -1
 			PRINTFORMW 「现在没有那样的心情 」
 		ELSE
-			PRINTFORMW 「我的腮帮子怎么样 %UNICODE(0x2665)%」
+			PRINTFORMW 「我的腮帮子怎么样 ♥」
 		ENDIF
 	ELSE
 		IF TFLAG:193 == -1
 			PRINTFORMW 「真是的，不要这么突然捅脸颊啊」
 		ELSE
-			PRINTFORMW 「欸嘿嘿%UNICODE(0x2665)%」
+			PRINTFORMW 「欸嘿嘿♥」
 		ENDIF
 	ENDIF
 ENDIF
@@ -2119,17 +2119,17 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !MARK:反発刻�
 		ELSE
 			SELECTCASE RAND:3
 			CASE 1
-				PRINTFORMW 「随你喜欢的摸吧%UNICODE(0x2665)%」
+				PRINTFORMW 「随你喜欢的摸吧♥」
 			CASE 2
-				PRINTFORMW 「欸嘿嘿%UNICODE(0x2665)%」
+				PRINTFORMW 「欸嘿嘿♥」
 			CASEELSE
-				PRINTFORMW 「总觉得好舒服啊 %UNICODE(0x2665)%」
+				PRINTFORMW 「总觉得好舒服啊 ♥」
 			ENDSELECT
 		ENDIF
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 		SELECTCASE RAND:2
 		CASE 1
-			PRINTFORMW 「我软绵绵的棉花糖发型的触感怎么样 %UNICODE(0x2665)%」
+			PRINTFORMW 「我软绵绵的棉花糖发型的触感怎么样 ♥」
 		CASEELSE
 			PRINTFORMW 「欸嘿嘿//」
 		ENDSELECT
@@ -2203,9 +2203,9 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !MARK:反発刻�
 	ELSEIF TALENT:恋慕 && TALENT:恋人
 		SELECTCASE RAND:2
 		CASE 1
-			PRINTFORMW 「和%CALLNAME:MASTER%拥抱着总觉得很安心 %UNICODE(0x2665)%」
+			PRINTFORMW 「和%CALLNAME:MASTER%拥抱着总觉得很安心 ♥」
 		CASEELSE
-			PRINTFORMW 「诶嘿嘿%UNICODE(0x2665)% 真暖和%UNICODE(0x2665)%」
+			PRINTFORMW 「诶嘿嘿♥ 真暖和♥」
 		ENDSELECT
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 		SELECTCASE RAND:2
@@ -2237,13 +2237,13 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && TFLAG:193 != 99 
 	IF EXP:接吻経験 == 1
 		;ファーストキッス群
 		IF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「诶嘿嘿//　恋人之间的接吻是如此的幸福啊 %UNICODE(0x2665)%」
-			PRINTFORMW 「下次由我主动亲%UNICODE(0x2665)% ちゅっ%UNICODE(0x2665)%」
+			PRINTFORMW 「诶嘿嘿//　恋人之间的接吻是如此的幸福啊 ♥」
+			PRINTFORMW 「下次由我主动亲♥ ちゅっ♥」
 			EXP:接吻経験 += 4
 			EXP:MASTER:接吻経験 += 4
 			EXP:愛情経験 += 10
 		ELSEIF TALENT:恋人 || TALENT:恋慕
-			PRINTFORMW 「欸嘿嘿//　这回轮到我啦 %UNICODE(0x2665)% 哎%UNICODE(0x2665)%」
+			PRINTFORMW 「欸嘿嘿//　这回轮到我啦 ♥ 哎♥」
 			EXP:接吻経験 += 1
 			EXP:MASTER:接吻経験 += 1
 		ELSEIF TALENT:思慕
@@ -2268,13 +2268,13 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && TFLAG:193 != 99 
 		IF TALENT:恋人 && TALENT:恋慕 && GET_TARGETNUM() == 1
 			SELECTCASE RAND:3
 			CASE 1
-				PRINTFORMW 「下次由我来%UNICODE(0x2665)% 啾～%UNICODE(0x2665)%」
+				PRINTFORMW 「下次由我来♥ 啾～♥」
 			CASE 2
-				PRINTFORMW 「呐，再来一次 %UNICODE(0x2665)%」
+				PRINTFORMW 「呐，再来一次 ♥」
 			CASEELSE
 				SELECTCASE CFLAG:积攒度
 				CASE 0 TO 499
-					PRINTFORMW 「啾%UNICODE(0x2665)%　啾%UNICODE(0x2665)%」
+					PRINTFORMW 「啾♥　啾♥」
 				CASE 500 TO 799
 					PRINTFORMW 「啾……嗯//」
 				CASE IS > 800
@@ -2286,7 +2286,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && TFLAG:193 != 99 
 		ELSEIF TALENT:恋慕 && (OUTROOF(CFLAG:TARGET:現在位置)) || (OPENPLACE(CFLAG:TARGET:現在位置))
 			PRINTFORMW 「啾…呼哈//　有点害羞呢 //」
 		ELSEIF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「啾…呼哈。　诶嘿嘿 %UNICODE(0x2665)% %CALLNAME:MASTER%だあいすき%UNICODE(0x2665)%」
+			PRINTFORMW 「啾…呼哈。　诶嘿嘿 ♥ %CALLNAME:MASTER%だあいすき♥」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 			PRINTFORMW 「啾…呼哈。　诶嘿嘿 //」
 		ENDIF
@@ -2485,7 +2485,7 @@ LOCAL = 1
 IF LOCAL
 	IF FIRSTTIME(SELECTCOM)
 		IF TALENT:恋人 || TALENT:恋慕 || TALENT:思慕
-			PRINTFORMW 「谢谢啦%UNICODE(0x2665)% 那我開动这可不行的吧！%UNICODE(0x2665)%」
+			PRINTFORMW 「谢谢啦♥ 那我開动这可不行的吧！♥」
 		ELSE
 			IF TFLAG:98 == -1
 				PRINTFORMW 「虽说并不是不好吃……」
@@ -2503,17 +2503,17 @@ IF LOCAL
 			ELSEIF BASE:酒気 > MAXBASE:酒気 / 2
 				SELECTCASE RAND:2
 				CASE 1
-					PRINTFORMW 「好喝的酒啊 %UNICODE(0x2665)%」
+					PRINTFORMW 「好喝的酒啊 ♥」
 				CASEELSE
 					PRINTFORMDL 醉了的艾伦 、\@ GET_TARGETNUM() > 1 ? 在众目睽睽下把 ず #  \@%CALLNAME:MASTER%抱住了
-					PRINTFORMW 「%CALLNAME:MASTER%喜欢%UNICODE(0x2665)% 最喜欢了%UNICODE(0x2665)%%UNICODE(0x2665)%」
+					PRINTFORMW 「%CALLNAME:MASTER%喜欢♥ 最喜欢了♥♥」
 				ENDSELECT
 			ELSE
 				SELECTCASE RAND:2
 				CASE 1
-					PRINTFORMW 「这次轮到我倒酒了 %UNICODE(0x2665)%」
+					PRINTFORMW 「这次轮到我倒酒了 ♥」
 				CASEELSE
-					PRINTFORMW 「和%CALLNAME:MASTER%这样喝酒的话，太过幸福会忘记时间的流逝 %UNICODE(0x2665)%」
+					PRINTFORMW 「和%CALLNAME:MASTER%这样喝酒的话，太过幸福会忘记时间的流逝 ♥」
 				ENDSELECT
 			ENDIF
 		;恋慕 or 準恋慕 or 恋人
@@ -2523,14 +2523,14 @@ IF LOCAL
 			ELSEIF BASE:酒気 > MAXBASE:酒気 / 2
 				SELECTCASE RAND:2
 				CASE 1
-					PRINTFORMW 「只有这点还不够%UNICODE(0x2665)% 再倒多点%UNICODE(0x2665)%」
+					PRINTFORMW 「只有这点还不够♥ 再倒多点♥」
 				CASEELSE
 					PRINTFORMW 「阿勒？ 有两个%CALLNAME:MASTER%在？　…幻覚？」
 				ENDSELECT
 			ELSE
 				SELECTCASE RAND:2
 				CASE 1
-					PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)%」
+					PRINTFORMW 「这次轮到我来倒酒 ♥」
 				CASEELSE
 					PRINTFORMW 「啊哈哈//和%CALLNAME:MASTER%一起喝酒真是太幸福了  //」
 				ENDSELECT
@@ -2542,19 +2542,19 @@ IF LOCAL
 			ELSEIF BASE:酒気 > MAXBASE:酒気 / 2
 				SELECTCASE RAND:2
 				CASE 1
-					PRINTFORMW 「啊哈哈 は%UNICODE(0x2665)% 再倒多一点%UNICODE(0x2665)%」
+					PRINTFORMW 「啊哈哈 は♥ 再倒多一点♥」
 				CASEELSE
 					PRINTFORMW 「阿勒？ 有两个%CALLNAME:MASTER%在？　…幻覚？」
 				ENDSELECT
 			ELSE
-				PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)% 来来、别客气%UNICODE(0x2665)%」
+				PRINTFORMW 「这次轮到我来倒酒 ♥ 来来、别客气♥」
 			ENDIF
 		;それ以外
 		ELSE
 			IF TFLAG:98 == -1
 				PRINTFORMW 「虽说并不是不好吃……」
 			ELSE
-				PRINTFORMW 「嗯，很好吃 %UNICODE(0x2665)%」
+				PRINTFORMW 「嗯，很好吃 ♥」
 			ENDIF
 		ENDIF
 	ENDIF
@@ -2591,19 +2591,19 @@ IF LOCAL
 				PRINTFORMDW ……
 				PRINTFORMDW …
 				IF TALENT:恋慕 || CFLAG:1014 == 1
-					PRINTFORMW 「呼…呼…干脆利落说出来后舒服多了%UNICODE(0x2665)%」
-					PRINTFORMW 「谢谢你陪我%UNICODE(0x2665)%还有…对不起啊」
+					PRINTFORMW 「呼…呼…干脆利落说出来后舒服多了♥」
+					PRINTFORMW 「谢谢你陪我♥还有…对不起啊」
 				ELSE
-					PRINTFORMW 「呼…呼…干脆利落说出来后舒服多了%UNICODE(0x2665)%」
-					PRINTFORMW 「谢谢你陪我%UNICODE(0x2665)%」
+					PRINTFORMW 「呼…呼…干脆利落说出来后舒服多了♥」
+					PRINTFORMW 「谢谢你陪我♥」
 				ENDIF
 			ELSE
 				IF TALENT:恋慕 || TALENT:思慕 || TALENT:恋人
 					PRINTFORMW 「——再这样抱怨下去可不好啊 」
-					PRINTFORMW 「所以这样就可以了，谢谢 %UNICODE(0x2665)%」
+					PRINTFORMW 「所以这样就可以了，谢谢 ♥」
 				ELSE
-					PRINTFORMW 「呼…呼…干脆利落说出来后舒服多了%UNICODE(0x2665)%」
-					PRINTFORMW 「%CSTR:90%谢谢你陪我%UNICODE(0x2665)%」
+					PRINTFORMW 「呼…呼…干脆利落说出来后舒服多了♥」
+					PRINTFORMW 「%CSTR:90%谢谢你陪我♥」
 				ENDIF
 			ENDIF
 		CASE 1
@@ -2631,13 +2631,13 @@ IF LOCAL && !CFLAG:ブチギレ
 			;まずは一杯
 			IF TCVAR:356 <= 1
 				IF TALENT:恋人 && TALENT:恋慕
-					PRINTFORMW 「谢谢啦%UNICODE(0x2665)% 那我開动这可不行的吧！%UNICODE(0x2665)%」
+					PRINTFORMW 「谢谢啦♥ 那我開动这可不行的吧！♥」
 				ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-					PRINTFORMW 「啊啦%UNICODE(0x2665)% 谢谢%UNICODE(0x2665)%」
+					PRINTFORMW 「啊啦♥ 谢谢♥」
 				ELSEIF TALENT:思慕
-					PRINTFORMW 「谢谢啦%CALLNAME:MASTER%%UNICODE(0x2665)%」
+					PRINTFORMW 「谢谢啦%CALLNAME:MASTER%♥」
 				ELSE
-					PRINTFORMW 「哎呀，真机灵 %UNICODE(0x2665)%」
+					PRINTFORMW 「哎呀，真机灵 ♥」
 				ENDIF
 				TCVAR:356 = 2
 			ELSE
@@ -2646,42 +2646,42 @@ IF LOCAL && !CFLAG:ブチギレ
 					IF TALENT:恋人 && TALENT:恋慕
 						SELECTCASE RAND:5
 						CASE 1
-							PRINTFORMW 「这次轮到我倒酒了 %UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我倒酒了 ♥」
 						CASE 2
-							PRINTFORMW 「和%CALLNAME:MASTER%这样喝酒的话，太过幸福会忘记时间的流逝 %UNICODE(0x2665)%」
+							PRINTFORMW 「和%CALLNAME:MASTER%这样喝酒的话，太过幸福会忘记时间的流逝 ♥」
 						CASE 3
-							PRINTFORMW 「不仅仅是酒，也享受料理吧 %UNICODE(0x2665)%」
+							PRINTFORMW 「不仅仅是酒，也享受料理吧 ♥」
 						CASE 4
-							PRINTFORMW 「这个菜也很好吃 %UNICODE(0x2665)% %CALLNAME:MASTER%来一口怎样%UNICODE(0x2665)%」
+							PRINTFORMW 「这个菜也很好吃 ♥ %CALLNAME:MASTER%来一口怎样♥」
 						CASEELSE
 							PRINTFORMW 「看起来很好吃的菜啊，可以给我一口吗？」
 						ENDSELECT
 					ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 						SELECTCASE RAND:4
 						CASE 1
-							PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我来倒酒 ♥」
 						CASE 2
 							PRINTFORMW 「啊哈哈//和%CALLNAME:MASTER%一起喝酒真是太幸福了  //」
 						CASE 3
-							PRINTFORMW 「这道菜真美味%UNICODE(0x2665)% %CALLNAME:MASTER%也吃……这不都吃上了？」
+							PRINTFORMW 「这道菜真美味♥ %CALLNAME:MASTER%也吃……这不都吃上了？」
 						CASEELSE
 							PRINTFORMW 「看起来很好吃的菜啊，能给我一口吗？ 」
 						ENDSELECT
 					ELSEIF TALENT:思慕
 						SELECTCASE RAND:4
 						CASE 1
-							PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)% 来来、别客气%UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我来倒酒 ♥ 来来、别客气♥」
 						CASE 2
-							PRINTFORMW 「酒だけじゃなくて料理も楽しまないとね%UNICODE(0x2665)%」
+							PRINTFORMW 「酒だけじゃなくて料理も楽しまないとね♥」
 						CASE 3
-							PRINTFORMW 「这道菜非常好吃哦%UNICODE(0x2665)% %CALLNAME:MASTER%你也尝尝吧？ 」
+							PRINTFORMW 「这道菜非常好吃哦♥ %CALLNAME:MASTER%你也尝尝吧？ 」
 						CASEELSE
 							PRINTFORMW 「哎呀，%CALLNAME:MASTER%吃的料理，总觉得好吃啊，能给我一口吗？ 」
 						ENDSELECT
 					ELSE
 						SELECTCASE RAND:2
 						CASE 1
-							PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)% 不需要客气 」
+							PRINTFORMW 「这次轮到我来倒酒 ♥ 不需要客气 」
 						CASEELSE
 							PRINTFORMW 「哎呀，%CALLNAME:MASTER%的食物看起来很好吃啊，放在哪里了？ 」
 						ENDSELECT
@@ -2699,9 +2699,9 @@ IF LOCAL && !CFLAG:ブチギレ
 			IF TALENT:心情 == 1
 				SELECTCASE RAND:5
 				CASE 1
-					PRINTFORMW 「啊哈哈 ははは%UNICODE(0x2665)%」
+					PRINTFORMW 「啊哈哈 ははは♥」
 				CASE 2
-					PRINTFORMW 「乍哈哈哈哈哈哈哈%UNICODE(0x2665)%」
+					PRINTFORMW 「乍哈哈哈哈哈哈哈♥」
 				CASE 3
 					PRINTFORMDL 或许是情緒高涨吧，艾伦突然唱起歌来
 ;					SELECTCASE RAND:3
@@ -2720,17 +2720,17 @@ IF LOCAL && !CFLAG:ブチギレ
 					IF TALENT:恋人 && TALENT:恋慕
 						SELECTCASE RAND:3
 						CASE 1
-							PRINTFORMW 「请再来一杯 %UNICODE(0x2665)%」
+							PRINTFORMW 「请再来一杯 ♥」
 						CASE 2
 							PRINTFORML 醉了的艾伦，不顾别人的目光%CALLNAME:MASTER%抱住了
-							PRINTFORMW 「%CALLNAME:MASTER%喜欢%UNICODE(0x2665)% 最喜欢了%UNICODE(0x2665)%%UNICODE(0x2665)%」
+							PRINTFORMW 「%CALLNAME:MASTER%喜欢♥ 最喜欢了♥♥」
 						CASEELSE
 							PRINTFORMW 「阿勒？ 有两个%CALLNAME:MASTER%在？　…幻覚？」
 						ENDSELECT
 					ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 						SELECTCASE RAND:3
 						CASE 1
-							PRINTFORMW 「只有这点还不够%UNICODE(0x2665)% 再倒多点%UNICODE(0x2665)%」
+							PRINTFORMW 「只有这点还不够♥ 再倒多点♥」
 						CASE 2
 							PRINTFORMW 「和%CALLNAME:MASTER%一起的时间一直持续下去就好了 …」
 						CASEELSE
@@ -2739,14 +2739,14 @@ IF LOCAL && !CFLAG:ブチギレ
 					ELSEIF TALENT:思慕
 						SELECTCASE RAND:2
 						CASE 1
-							PRINTFORMW 「啊哈哈 は%UNICODE(0x2665)% 再倒多一点%UNICODE(0x2665)%」
+							PRINTFORMW 「啊哈哈 は♥ 再倒多一点♥」
 						CASEELSE
 							PRINTFORMW 「哎呀，%CALLNAME:MASTER%吃的料理，总觉得好吃啊，能给我一口吗？ 」
 						ENDSELECT
 					ELSE
 						SELECTCASE RAND:2
 						CASE 1
-							PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)% 不需要客气 %UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我来倒酒 ♥ 不需要客气 ♥」
 						CASEELSE
 							PRINTFORMW 「哎呀，%CALLNAME:MASTER%吃的料理，看起来很好吃，放在哪里了？ 」
 						ENDSELECT
@@ -2758,17 +2758,17 @@ IF LOCAL && !CFLAG:ブチギレ
 				CASE 1
 					PRINTFORMW 「什么呀，不能喝我的酒吗？ 」
 				CASE 2
-					PRINTFORMW 「啊哈哈 ははは%UNICODE(0x2665)%」
+					PRINTFORMW 「啊哈哈 ははは♥」
 				CASE 3
-					PRINTFORMW 「我才没有喝醉呢 %UNICODE(0x2665)%」
+					PRINTFORMW 「我才没有喝醉呢 ♥」
 				CASEELSE
-					PRINTFORMW 「啊哈哈 は%UNICODE(0x2665)% 请再给我一杯%UNICODE(0x2665)%」
+					PRINTFORMW 「啊哈哈 は♥ 请再给我一杯♥」
 				ENDSELECT
 			;ふつー
 			ELSE
 				SELECTCASE RAND:4
 				CASE 1
-					PRINTFORMW 「啊哈哈 ははは%UNICODE(0x2665)%」
+					PRINTFORMW 「啊哈哈 ははは♥」
 				CASE 2
 					PRINTFORMW 「总觉得头晕呼呼」
 				CASEELSE
@@ -2776,25 +2776,25 @@ IF LOCAL && !CFLAG:ブチギレ
 					IF TALENT:恋人 && TALENT:恋慕
 						SELECTCASE RAND:3
 						CASE 1
-							PRINTFORMW 「这次轮到我倒酒了 %UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我倒酒了 ♥」
 						CASE 2
-							PRINTFORMW 「和%CALLNAME:MASTER%这样喝酒的话，太过幸福会忘记时间的流逝 %UNICODE(0x2665)%」
+							PRINTFORMW 「和%CALLNAME:MASTER%这样喝酒的话，太过幸福会忘记时间的流逝 ♥」
 						CASEELSE
 							;まだ4分の1以上残っている
 							IF BASE:酒気 <= (MAXBASE:酒気 * 3 / 4)
 								SELECTCASE RAND:3
 								CASE 1
-									PRINTFORMW 「不仅仅是酒，也享受料理吧 %UNICODE(0x2665)%」
+									PRINTFORMW 「不仅仅是酒，也享受料理吧 ♥」
 								CASE 2
-									PRINTFORMW 「这个菜也很好吃 %UNICODE(0x2665)% %CALLNAME:MASTER%来一口怎样%UNICODE(0x2665)%」
+									PRINTFORMW 「这个菜也很好吃 ♥ %CALLNAME:MASTER%来一口怎样♥」
 								CASEELSE
 									PRINTFORMW 「看起来很好吃的菜啊，可以给我一口吗？」
 								ENDSELECT
 							ELSE
 								;吃飯終了
 								IF TCVAR:356 <= 2
-									PRINTFORMW 「真是佳肴 %UNICODE(0x2665)% 我已经吃饱了%UNICODE(0x2665)%」
-									PRINTFORMW 「吃完饭后，两个人边喝酒边聊吧 %UNICODE(0x2665)%」
+									PRINTFORMW 「真是佳肴 ♥ 我已经吃饱了♥」
+									PRINTFORMW 「吃完饭后，两个人边喝酒边聊吧 ♥」
 									TCVAR:356 = 3
 								ELSE
 									IF (MOON_WATCH_POINT(CFLAG:44:現在位置)) && TIME:5 <= 1 && RAND:3 >= 1
@@ -2808,22 +2808,22 @@ IF LOCAL && !CFLAG:ブチギレ
 					ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 						SELECTCASE RAND:3
 						CASE 1
-							PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我来倒酒 ♥」
 						CASE 2
-							PRINTFORMW 「啊哈哈 は//　和%CALLNAME:MASTER%一起喝酒真是幸福%UNICODE(0x2665)%」
+							PRINTFORMW 「啊哈哈 は//　和%CALLNAME:MASTER%一起喝酒真是幸福♥」
 						CASEELSE
 							;まだ4分の1以上残っている
 							IF BASE:酒気 <= (MAXBASE:酒気 * 3 / 4)
 								SELECTCASE RAND:2
 								CASE 1
-									PRINTFORMW 「这道菜真美味%UNICODE(0x2665)% %CALLNAME:MASTER%也吃……这不都吃上了？」
+									PRINTFORMW 「这道菜真美味♥ %CALLNAME:MASTER%也吃……这不都吃上了？」
 								CASEELSE
 									PRINTFORMW 「看起来很好吃的菜啊，能给我一口吗？ 」
 								ENDSELECT
 							ELSE
 								;吃飯終了
 								IF TCVAR:356 <= 2
-									PRINTFORMW 「真是佳肴 %UNICODE(0x2665)% 肚子已经饱了 」
+									PRINTFORMW 「真是佳肴 ♥ 肚子已经饱了 」
 									PRINTFORMW 「吃完饭了，两个人悠闲地一边喝酒一边聊天怎么样？ //」
 									TCVAR:356 = 3
 								ELSE
@@ -2838,7 +2838,7 @@ IF LOCAL && !CFLAG:ブチギレ
 					ELSEIF TALENT:思慕
 						SELECTCASE RAND:3
 						CASE 1
-							PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)% 来来、别客气%UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我来倒酒 ♥ 来来、别客气♥」
 						CASE 2
 							PRINTFORMW 「稍微有点困了呢…呼喵」
 						CASEELSE
@@ -2846,15 +2846,15 @@ IF LOCAL && !CFLAG:ブチギレ
 							IF BASE:酒気 <= (MAXBASE:酒気 * 3 / 4)
 								SELECTCASE RAND:2
 								CASE 1
-									PRINTFORMW 「这道菜非常好吃哦%UNICODE(0x2665)% %CALLNAME:MASTER%你也尝尝吧？ 」
+									PRINTFORMW 「这道菜非常好吃哦♥ %CALLNAME:MASTER%你也尝尝吧？ 」
 								CASEELSE
 									PRINTFORMW 「哎呀，%CALLNAME:MASTER%吃的料理，总觉得好吃啊，能给我一口吗？ 」
 								ENDSELECT
 							ELSE
 								;吃飯終了
 								IF TCVAR:356 <= 2
-									PRINTFORMW 「真是佳肴 %UNICODE(0x2665)% 肚子已经饱了 」
-									PRINTFORMW 「接下来，让我们边喝酒边聊天吧 %UNICODE(0x2665)%」
+									PRINTFORMW 「真是佳肴 ♥ 肚子已经饱了 」
+									PRINTFORMW 「接下来，让我们边喝酒边聊天吧 ♥」
 									TCVAR:356 = 3
 								ELSE
 									IF (MOON_WATCH_POINT(CFLAG:44:現在位置)) && TIME:5 <= 1 && RAND:3 >= 1
@@ -2868,7 +2868,7 @@ IF LOCAL && !CFLAG:ブチギレ
 					ELSE
 						SELECTCASE RAND:3
 						CASE 1
-							PRINTFORMW 「这次轮到我来倒酒 %UNICODE(0x2665)% 不需要客气 %UNICODE(0x2665)%」
+							PRINTFORMW 「这次轮到我来倒酒 ♥ 不需要客气 ♥」
 						CASE 2
 							PRINTFORMW 「稍微有点困了呢…呼喵」
 						CASEELSE
@@ -2885,31 +2885,31 @@ IF LOCAL && !CFLAG:ブチギレ
 			IF TALENT:恋人 && TALENT:恋慕
 				SELECTCASE RAND:4
 				CASE 1
-					PRINTFORMW 「和%CALLNAME:MASTER%一起吃着饭感觉比平时好吃 %UNICODE(0x2665)%」
+					PRINTFORMW 「和%CALLNAME:MASTER%一起吃着饭感觉比平时好吃 ♥」
 				CASE 2
-					PRINTFORMW 「谢谢啦%UNICODE(0x2665)% 作为回礼 %CALLNAME:MASTER%我帮你把菜端到盘子里 %UNICODE(0x2665)%」
+					PRINTFORMW 「谢谢啦♥ 作为回礼 %CALLNAME:MASTER%我帮你把菜端到盘子里 ♥」
 				CASE 3
-					PRINTFORMW 「这个菜也很好吃 %UNICODE(0x2665)% %CALLNAME:MASTER%来一口怎样%UNICODE(0x2665)%」
+					PRINTFORMW 「这个菜也很好吃 ♥ %CALLNAME:MASTER%来一口怎样♥」
 				CASEELSE
 					PRINTFORMW 「看起来很好吃的菜啊，可以给我一口吗？」
 				ENDSELECT
 			ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 				SELECTCASE RAND:4
 				CASE 1
-					PRINTFORMW 「啊哈哈 は//　和%CALLNAME:MASTER%吃着饭总觉得好幸福啊 %UNICODE(0x2665)%」
+					PRINTFORMW 「啊哈哈 は//　和%CALLNAME:MASTER%吃着饭总觉得好幸福啊 ♥」
 				CASE 2
-					PRINTFORMW 「啊啦%UNICODE(0x2665)% 谢谢%UNICODE(0x2665)%」
+					PRINTFORMW 「啊啦♥ 谢谢♥」
 				CASE 3
-					PRINTFORMW 「这道菜真美味%UNICODE(0x2665)% %CALLNAME:MASTER%也吃……这不都吃上了？」
+					PRINTFORMW 「这道菜真美味♥ %CALLNAME:MASTER%也吃……这不都吃上了？」
 				CASEELSE
 					PRINTFORMW 「看起来很好吃的菜啊，能给我一口吗 //」
 				ENDSELECT
 			ELSEIF TALENT:思慕
 				SELECTCASE RAND:3
 				CASE 1
-					PRINTFORMW 「这道菜非常好吃哦%UNICODE(0x2665)% %CALLNAME:MASTER%你也尝尝吧？ 」
+					PRINTFORMW 「这道菜非常好吃哦♥ %CALLNAME:MASTER%你也尝尝吧？ 」
 				CASE 2
-					PRINTFORMW 「哎呀%UNICODE(0x2665)%你帮我端菜了吧，谢谢%UNICODE(0x2665)% 」
+					PRINTFORMW 「哎呀♥你帮我端菜了吧，谢谢♥ 」
 				CASEELSE
 					PRINTFORMW 「哎呀，%CALLNAME:MASTER%吃的料理，总觉得好吃啊，能给我一口吗？ 」
 				ENDSELECT
@@ -2943,13 +2943,13 @@ IF LOCAL
 	SELECTCASE TFLAG:193
 		CASE 1, 0
 			IF TALENT:恋人 && TALENT:恋慕
-				PRINTFORMW 「谢谢你%UNICODE(0x2665)% 真是帮了大忙了 %UNICODE(0x2665)%」
+				PRINTFORMW 「谢谢你♥ 真是帮了大忙了 ♥」
 			ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-				PRINTFORMW 「屑谢谢茄子 %UNICODE(0x2665)%//」
+				PRINTFORMW 「屑谢谢茄子 ♥//」
 			ELSEIF TALENT:思慕
-				PRINTFORMW 「谢谢%CALLNAME:MASTER%%UNICODE(0x2665)% 托你的福，我变得稍微轻松了点 %UNICODE(0x2665)%」
+				PRINTFORMW 「谢谢%CALLNAME:MASTER%♥ 托你的福，我变得稍微轻松了点 ♥」
 			ELSE
-				PRINTFORMW 「谢谢了%UNICODE(0x2665)% 稍微轻松了一点 %UNICODE(0x2665)%」
+				PRINTFORMW 「谢谢了♥ 稍微轻松了一点 ♥」
 			ENDIF
 		CASE -1
 			PRINTFORMW 「嗯，嗯 ……」
@@ -2973,7 +2973,7 @@ LOCAL = 1
 IF LOCAL
 	IF TFLAG:193 > 0
 		IF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「欸嘿嘿%UNICODE(0x2665)% 真舒服……」
+			PRINTFORMW 「欸嘿嘿♥ 真舒服……」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 			PRINTFORMW 「欸嘿嘿……」
 		ELSE
@@ -2981,7 +2981,7 @@ IF LOCAL
 		ENDIF
 	ELSE
 		IF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「这样也不错呢 ……%UNICODE(0x2665)%」
+			PRINTFORMW 「这样也不错呢 ……♥」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 			PRINTFORMW 「啊呀//」
 		ELSEIF TALENT:思慕
@@ -3045,9 +3045,9 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 	ELSEIF TALENT:恋人 && TALENT:恋慕
 		IF FIRSTTIME(1021)
 			PRINTFORMW 「我们，终于要H了 //」
-			PRINTFORMW 「因为是第一次所以稍稍有些不安…但在这上是满心的欢喜，好開心 %UNICODE(0x2665)%」
+			PRINTFORMW 「因为是第一次所以稍稍有些不安…但在这上是满心的欢喜，好開心 ♥」
 			PRINTFORMW 「是怎样的欢喜？那当然是……各种各样的//」
-			PRINTFORMW 「莫//　…呐%CALLNAME:MASTER%、可以温柔点来吗%UNICODE(0x2665)%//」
+			PRINTFORMW 「莫//　…呐%CALLNAME:MASTER%、可以温柔点来吗♥//」
 			EXP:愛情経験 += 50
 		ELSEIF TALENT:処女 && EXP:Ｖ経験 == 0
 			PRINTFORMW 「…这次想要做到最后 //」
@@ -3084,11 +3084,11 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 				;爱莲私室でのみ発生
 				IF ((CFLAG:現在位置 == 16 && FLAG:住宿人物 == 44) || CFLAG:44:現在位置 == OMANEKIBEYA() || CFLAG:44:現在位置 == 535) && !TALENT:育児中
 					IF FIRSTTIME(1029)
-						PRINTFORMW 「今天准备了好东西 %UNICODE(0x2665)%//」
+						PRINTFORMW 「今天准备了好东西 ♥//」
 						PRINTFORMDW 艾伦一边这么说着，一边从架子上拿出香和香炉
 						PRINTFORMW 「现在開始准备请稍等一下 」
 						PRINTFORMDL …
-						PRINTFORMW 「呼，这样就准备完了%UNICODE(0x2665)%还有就是等待香味扩散吧 %UNICODE(0x2665)%」
+						PRINTFORMW 「呼，这样就准备完了♥还有就是等待香味扩散吧 ♥」
 						PRINTFORMDW 在甜美中隐藏着淫靡的香味在艾伦的房间蔓延開来……
 						PRINTFORMDW 香味刺激%CALLNAME:MASTER%，理性崩溃，从衣服上面也能明白的位置坚挺耸立着
 						PRINTFORMDW 艾伦的脸红了，秘部被爱液浸湿了……
@@ -3110,9 +3110,9 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 						IF RESULT == 0
 							PRINTFORMDW %CALLNAME:MASTER%请求艾伦使用那个香…
 							IF CFLAG:1008 >= 100 && CFLAG:1009 >= 80 && CFLAG:1010 >= 50
-								PRINTFORMW 「嘛，如果是现在的%CALLNAME:MASTER%的话没问题啦，好吧 %UNICODE(0x2665)%」
+								PRINTFORMW 「嘛，如果是现在的%CALLNAME:MASTER%的话没问题啦，好吧 ♥」
 								PRINTFORMDL …
-								PRINTFORMW 「呼，这样就准备完了%UNICODE(0x2665)%还有就是等待香味扩散吧 %UNICODE(0x2665)%」
+								PRINTFORMW 「呼，这样就准备完了♥还有就是等待香味扩散吧 ♥」
 								PRINTFORMDW 在甜美中隐藏着淫靡的香味在艾伦的房间蔓延開来……
 								PRINTFORMDW 虽然香气仍刺激%CALLNAME:MASTER%，但也许是多亏了魔法的锻炼，或是身体习惯了，总之保持了理性
 								PRINTFORMDW 艾伦似乎也没有那个时候那么兴奋，但脸红，秘部湿润。
@@ -3120,7 +3120,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 							ELSEIF CFLAG:1007
 								IF FIRSTTIME(1033)
 									PRINTFORMW 「不行啊！　%CALLNAME:MASTER%万一出什么事怎么办?！」
-									PRINTFORMW 「……真是没办法啊。那麽%CALLNAME:MASTER%作为魔法使能使出某种程度的力量就行了 %UNICODE(0x2665)%」
+									PRINTFORMW 「……真是没办法啊。那麽%CALLNAME:MASTER%作为魔法使能使出某种程度的力量就行了 ♥」
 								ELSE
 									PRINTFORMW 「……现在的%CALLNAME:MASTER%应该还不能说完全没问题吧。所以这次就先交还给我吧！  」
 									PRINTFORMDW 被艾伦拒绝了……
@@ -3153,7 +3153,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 				;爱莲が普乳以下のときのみ発生
 				IF TALENT:胸圍 <= 0
 					IF FIRSTTIME(1030)
-						PRINTFORMW 「那个，今天带来了好东西 %UNICODE(0x2665)%//」
+						PRINTFORMW 「那个，今天带来了好东西 ♥//」
 						PRINTFORMDW 艾伦从怀里拿出了一个装着发光粉末的小瓶子
 						PRINTFORMW 「这里面有某种魔法。现在開始要用，稍微去外面等一会哦 」
 						PRINTFORMDL %CALLNAME:MASTER%听艾伦的稍微出去了会
@@ -3162,13 +3162,13 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 						PRINTFORMDW 于是，光带从放下的小瓶中出现，包裹着艾伦的胸部……
 						PRINTFORMDL …
 						PRINTFORMDW 光线消失后，%CALLNAME:MASTER%的眼里跳进了两个大欧派
-						PRINTFORMW 「哎疼、用了魔法就会这样。　…那么，这个怎么样 %UNICODE(0x2665)%」
+						PRINTFORMW 「哎疼、用了魔法就会这样。　…那么，这个怎么样 ♥」
 ;						PRINTFORMDW %CALLNAME:MASTER%像是要吞噬突然巨大化的艾伦的欧派般凝视着…………
 						PRINTFORMDW 大小大概只有D杯吧，考虑到本来就等于没有了，真是涨幅之大啊。
 						PRINTFORMDW 不知为什么衣服也随着胸部变大了……
-						PRINTFORMW 「今天就用这个轻飘飘的胸部让你心情舒畅%UNICODE(0x2665)%//」
+						PRINTFORMW 「今天就用这个轻飘飘的胸部让你心情舒畅♥//」
 					ELSE
-						PRINTFORMW 「今天准备了那个魔法%UNICODE(0x2665)%//」
+						PRINTFORMW 「今天准备了那个魔法♥//」
 						PRINTFORMDL 这么说来，从怀里取出了装着发光粉的小瓶子，和那时一样。
 						PRINTFORMDW 敬请期待 ……
 						PRINTFORMDL 艾伦准备万无一失地将小瓶子扔出去，两手摆出剪刀放在眼前，
@@ -3176,7 +3176,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 						PRINTFORMDW 于是，光带从放下的小瓶中出现，包裹着艾伦的胸部……
 						PRINTFORMDL …
 						PRINTFORMW 「哎呀，脑袋啪嗒啪嗒的~ 」
-						PRINTFORMW 「……好，停下了。今天也要用这个轻飘飘的胸部让你变舒服哦 %UNICODE(0x2665)%//」
+						PRINTFORMW 「……好，停下了。今天也要用这个轻飘飘的胸部让你变舒服哦 ♥//」
 					ENDIF
 					TCVAR:374 = 1
 					;胸の尺寸を記憶
@@ -3189,7 +3189,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:ブチギレ && !TCVAR:烂醉
 	ELSEIF (TALENT:恋人 || TALENT:恋慕) && !MARK:反発刻印
 		IF FIRSTTIME(1021)
 			PRINTFORMW 「我们、H…要做对吗//」
-			PRINTFORMW 「因为是第一次所以稍稍有些不安…为了最喜欢的%CALLNAME:MASTER%会努力 %UNICODE(0x2665)%//」
+			PRINTFORMW 「因为是第一次所以稍稍有些不安…为了最喜欢的%CALLNAME:MASTER%会努力 ♥//」
 			EXP:愛情経験 += 15
 		ELSEIF TALENT:妊娠 && PALAM:欲情 < PALAMLV:10
 			PRINTFORMW 「因为对儿童不好，所以不想做…、%CALLNAME:MASTER%非常想要吗//」
@@ -3335,9 +3335,9 @@ IF LOCAL && !CFLAG:ブチギレ && CFLAG:同行 == 60
 		SELECTCASE RAND:2
 		CASE 1
 			IF TCVAR:355 == -1 || TIME >= 1020 || TIME:5 >= 4 || CFLAG:妊娠経過日数 >= 61 || TALENT:育児中 || !RAND:2
-				PRINTFORMW 「好的%UNICODE(0x2665)%」
+				PRINTFORMW 「好的♥」
 			ELSE
-				PRINTFORMW 「啊啦%UNICODE(0x2665)% 难道是约会的邀请？」
+				PRINTFORMW 「啊啦♥ 难道是约会的邀请？」
 			ENDIF
 		CASEELSE
 			PRINTFORMW 「哦%CALLNAME:MASTER%、今天要做什么？」
@@ -3347,20 +3347,20 @@ IF LOCAL && !CFLAG:ブチギレ && CFLAG:同行 == 60
 		SELECTCASE RAND:2
 		CASE 1
 			IF TCVAR:355 == -1 || TIME >= 1020 || TIME:5 >= 4 || CFLAG:妊娠経過日数 >= 61 || TALENT:育児中 || !RAND:2
-				PRINTFORMW 「好的%UNICODE(0x2665)%」
+				PRINTFORMW 「好的♥」
 			ELSE
-				PRINTFORMW （或许是约会的邀请吧 %UNICODE(0x2665)%//）
+				PRINTFORMW （或许是约会的邀请吧 ♥//）
 			ENDIF
 		CASEELSE
-			PRINTFORMW 「你找我有事吧 %UNICODE(0x2665)% 我知道了%UNICODE(0x2665)%」
+			PRINTFORMW 「你找我有事吧 ♥ 我知道了♥」
 		ENDSELECT
 	;親密５以上時専用
 	ELSEIF TALENT:思慕
 		SELECTCASE RAND:2
 		CASE 1
-			PRINTFORMW 「啊啦%UNICODE(0x2665)% 稍微等一会哦%UNICODE(0x2665)%」
+			PRINTFORMW 「啊啦♥ 稍微等一会哦♥」
 		CASEELSE
-			PRINTFORMW 「你找我有事吗？　我知道了、要准备稍微等一下哦 %UNICODE(0x2665)%」
+			PRINTFORMW 「你找我有事吗？　我知道了、要准备稍微等一下哦 ♥」
 		ENDSELECT
 	;親密４以下時専用
 	ELSE
@@ -3390,10 +3390,10 @@ IF LOCAL
 				PRINTFORMW 「欸欸！？//　%CALLNAME:MASTER%也喜欢我吗！？//」
 				PRINTFORM 「…嗯，我也喜欢%CALLNAME:MASTER% //　真開心
 			ENDIF
-			PRINTFORMW %UNICODE(0x2665)%//　…哎%UNICODE(0x2665)%」
+			PRINTFORMW ♥//　…哎♥」
 			PRINTFORMDL 终于互诉爱情的艾伦，不能压制喜悦满面的露出笑容%CALLNAME:MASTER%抱住了
 			PRINTFORMDW %CALLNAME:MASTER%温柔地抱了回去…
-			PRINTFORMW 「欸嘿嘿%UNICODE(0x2665)%　今后请多多指教%UNICODE(0x2665)% %CALLNAME:MASTER%%UNICODE(0x2665)%%UNICODE(0x2665)%」
+			PRINTFORMW 「欸嘿嘿♥　今后请多多指教♥ %CALLNAME:MASTER%♥♥」
 			PRINTFORMDL ………
 			PRINTFORMDL ……
 			PRINTFORMDW …
@@ -3403,7 +3403,7 @@ IF LOCAL
 			SIF CFLAG:1014 == 1
 			PRINTFORMW （嘛、不会喜欢的话就不会亲吻了//）
 			PRINTFORMW 「…%CALLNAME:MASTER%的话…嘛、好啊//」
-			PRINTFORMW 「所以…、今后请多多指教啦%UNICODE(0x2665)%//」
+			PRINTFORMW 「所以…、今后请多多指教啦♥//」
 			PRINTFORMDL ……
 			PRINTFORMDW …
 		ENDIF
@@ -3449,7 +3449,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ
 	TCVAR:363 = 1
 	;恋人時専用
 	IF TALENT:恋人
-		PRINTFORMW 「想和我一起睡吗，当然可以啊%UNICODE(0x2665)% 进来吧%UNICODE(0x2665)% %CALLNAME:MASTER%%UNICODE(0x2665)%%UNICODE(0x2665)%」
+		PRINTFORMW 「想和我一起睡吗，当然可以啊♥ 进来吧♥ %CALLNAME:MASTER%♥♥」
 	;恋慕時専用
 	ELSEIF TALENT:恋慕
 		PRINTFORMW 「诶//要要要要和我一起睡吗//　…好啊//」
@@ -3507,15 +3507,15 @@ IF LOCAL && !CFLAG:ブチギレ && !CFLAG:睡眠 && PREVCOM != 311 && TFLAG:193 
 	IF TCVAR:363 == 1 || (CFLAG:MASTER:招待 && !VISIT(44))
 		;恋人時専用
 		IF TALENT:恋人
-			PRINTFORMW 「已经睡了吗？那我也一起睡吧 %UNICODE(0x2665)%　晚安%UNICODE(0x2665)%」
+			PRINTFORMW 「已经睡了吗？那我也一起睡吧 ♥　晚安♥」
 		;恋慕時専用
 		ELSEIF TALENT:恋慕
-			PRINTFORMW 「已经睡着了…那我也一起睡吧 %UNICODE(0x2665)%　晚安//」
+			PRINTFORMW 「已经睡着了…那我也一起睡吧 ♥　晚安//」
 		ENDIF
 	ELSE
 		;恋人時専用
 		IF TALENT:恋人
-			PRINTFORMW 「已经睡了吗？那么明天见 %UNICODE(0x2665)%　晚安%UNICODE(0x2665)% %CALLNAME:MASTER%%UNICODE(0x2665)%」
+			PRINTFORMW 「已经睡了吗？那么明天见 ♥　晚安♥ %CALLNAME:MASTER%♥」
 		;恋慕時専用
 		ELSEIF TALENT:恋慕
 			PRINTFORMW 「已经睡着了…我明白了 、晚安啦//」
@@ -3558,23 +3558,23 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ
 		;恋人かつ住宿時専用
 		IF TALENT:恋人 && FLAG:住宿人物 == 44
 			IF DAY:3 == 15 || DAY:3 == 30
-				PRINTFORMW 「路上小心%UNICODE(0x2665)%」
+				PRINTFORMW 「路上小心♥」
 			ELSE
 				SELECTCASE RAND:2
 				CASE 1
-					PRINTFORMW 「路上小心%UNICODE(0x2665)% 回来后一起做点什么吧。 %UNICODE(0x2665)%」
+					PRINTFORMW 「路上小心♥ 回来后一起做点什么吧。 ♥」
 				CASEELSE
 					PRINTFORMW 「哎呀，难道你要出去了吗？」
-					PRINTFORMW 「虽然我也想跟着你……算了，路上小心%UNICODE(0x2665)%」
+					PRINTFORMW 「虽然我也想跟着你……算了，路上小心♥」
 				ENDSELECT
 			ENDIF
 		;恋人かつ恋慕時専用
 		ELSEIF TALENT:恋人 && TALENT:恋慕
 			PRINTFORMW 「哎呀，难道你要出去了吗？」
-			PRINTFORMW 「虽然我也想跟着你……算了，路上小心%UNICODE(0x2665)%」
+			PRINTFORMW 「虽然我也想跟着你……算了，路上小心♥」
 		;恋慕or準恋慕or恋人時専用
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-			PRINTFORMW 「路上小心%UNICODE(0x2665)%」
+			PRINTFORMW 「路上小心♥」
 		;思慕時専用
 		ELSEIF TALENT:思慕
 			PRINTFORMW 「啊呀呀、%CALLNAME:MASTER%是本来打算现在出门的吗」
@@ -3585,35 +3585,35 @@ IF LOCAL && !FLAG:70 && !CFLAG:ブチギレ
 			IF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 				PRINTFORMDW %CALLNAME:MASTER%邀请艾伦参加约会
 				PRINTFORMW 「诶，想跟我约会吗？」
-				PRINTFORMW 「当然可以啦%UNICODE(0x2665)%　那就、出发咯%UNICODE(0x2665)%」
+				PRINTFORMW 「当然可以啦♥　那就、出发咯♥」
 			ENDIF
 			IF TALENT:恋人 && TALENT:恋慕
-				PRINTFORMW 「第一次的约会，让我们好好享受吧 %UNICODE(0x2665)%%UNICODE(0x2665)%」
+				PRINTFORMW 「第一次的约会，让我们好好享受吧 ♥♥」
 				PRINTFORMDW 与对初约会非常兴奋的艾伦一起，%CALLNAME:MASTER%開始朝着约会目的地前进…
 			ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-				PRINTFORMW （哇！%UNICODE(0x2665)% 真棒%UNICODE(0x2665)%//　从%CALLNAME:MASTER%那收到约会邀请了%UNICODE(0x2665)%）
+				PRINTFORMW （哇！♥ 真棒♥//　从%CALLNAME:MASTER%那收到约会邀请了♥）
 				PRINTFORMDW 与红着脸的艾伦一起，%CALLNAME:MASTER%開始向着约会场的方向前进…
 			ELSE
 				IF TALENT:思慕
-					PRINTFORMW 「想要和我一起出门吗、当然可以啊%UNICODE(0x2665)%」
+					PRINTFORMW 「想要和我一起出门吗、当然可以啊♥」
 				ELSE
-					PRINTFORMW 「两个人出去吗？嘛，也行吧反正很闲%UNICODE(0x2665)%」
+					PRINTFORMW 「两个人出去吗？嘛，也行吧反正很闲♥」
 				ENDIF
 				PRINTFORMDW 得到艾伦的同意后%CALLNAME:MASTER%和艾伦一起向着目的地出发了
 			ENDIF
 		;恋人かつ恋慕時専用
 		ELSEIF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「那么出发吧 %UNICODE(0x2665)%%UNICODE(0x2665)%」
+			PRINTFORMW 「那么出发吧 ♥♥」
 		;恋慕or準恋慕or恋人時専用
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-			PRINTFORMW 「想要和我一起出门吗、当然可以啊%UNICODE(0x2665)%//」
-			PRINTFORMW （哇！%UNICODE(0x2665)% 真棒%UNICODE(0x2665)%//　从%CALLNAME:MASTER%那收到约会邀请了%UNICODE(0x2665)%）
+			PRINTFORMW 「想要和我一起出门吗、当然可以啊♥//」
+			PRINTFORMW （哇！♥ 真棒♥//　从%CALLNAME:MASTER%那收到约会邀请了♥）
 		;思慕時専用
 		ELSEIF TALENT:思慕
-			PRINTFORMW 「想要和我一起出门吗、当然可以啊%UNICODE(0x2665)%」
+			PRINTFORMW 「想要和我一起出门吗、当然可以啊♥」
 		;親密４以下時専用
 		ELSE
-			PRINTFORMW 「两个人出去吗？嘛，也行吧反正很闲%UNICODE(0x2665)%」
+			PRINTFORMW 「两个人出去吗？嘛，也行吧反正很闲♥」
 		ENDIF
 	ENDIF
 ENDIF
@@ -3644,7 +3644,7 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠 && !CFLAG:诶嘿嘿
 		CASE 0
 			PRINTFORMW 「这么干净就足够了 」
 		CASE 1
-			PRINTFORMW 「呼%UNICODE(0x2665)%　收拾好了吧？」
+			PRINTFORMW 「呼♥　收拾好了吧？」
 		CASE 2
 			PRINTFORMW 「咳咳　还得收拾一下呢 」
 		CASE 3
@@ -3693,7 +3693,7 @@ IF LOCAL && !FLAG:70
 		;判定用の変数を入れておく
 		LOCAL:1 = CFLAG:1008 + CFLAG:1009 + (CFLAG:1010 * 2)
 		TRYCALLFORM M_KOJO_COLOR_K44
-		PRINTFORMW 「那么，让你们看看学习的成果 %UNICODE(0x2665)%」
+		PRINTFORMW 「那么，让你们看看学习的成果 ♥」
 		RESETCOLOR
 		IF CFLAG:1008 > 220
 			;魔法のランクに合わせてRANDを追加
@@ -4106,21 +4106,21 @@ IF LOCAL && !FLAG:70
 				ELSEIF LOCAL:2 == 3
 					PRINTFORMW 「哎呀……为了下次能够自己控制，积累锻炼之后再挑战吧」
 				ELSE
-					PRINTFORMW 「没想到会进步到这种程度，太棒了。 %UNICODE(0x2665)% %CALLNAME:MASTER%%UNICODE(0x2665)%%UNICODE(0x2665)%」
+					PRINTFORMW 「没想到会进步到这种程度，太棒了。 ♥ %CALLNAME:MASTER%♥♥」
 				ENDIF
 				CFLAG:1010 += 3
 			ELSEIF LOCAL:3 == 4
-				PRINTFORMW 「厉害 %UNICODE(0x2665)%　如果能做到这里已经是很棒的魔法使了 %UNICODE(0x2665)%」
+				PRINTFORMW 「厉害 ♥　如果能做到这里已经是很棒的魔法使了 ♥」
 				CFLAG:1010 += 2
 			ELSEIF LOCAL:3 == 3
-				PRINTFORMW 「感觉不错 %CALLNAME:MASTER%%UNICODE(0x2665)%　以这样的状态加油吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「感觉不错 %CALLNAME:MASTER%♥　以这样的状态加油吧 ♥」
 				CFLAG:1010 += 2
 				;曲奇用、爱莲が住み込んでいるか爱莲宅に住み込んでいる時に50%の確率で発生
 				IF (FLAG:住宿人物 == 44 || 拠点_家主 == 44) && LOCAL:2 == 2 && RAND:2 == 1
 					PRINTFORMDL 看来艾伦把练习魔法时使用的曲奇烤了
 					;廚房に宝珠ンは…ないよね？
 					PRINTFORMDW 为了曲奇而前往艾伦的小屋
-					PRINTFORMW 「这样就行了 %UNICODE(0x2665)%　曲奇烤好了就喝茶吧 %UNICODE(0x2665)%」
+					PRINTFORMW 「这样就行了 ♥　曲奇烤好了就喝茶吧 ♥」
 					PRINTFORMDW %CALLNAME:MASTER%和艾伦度过了优雅的时光……
 					BASE:MASTER:体力 = MIN(BASE:MASTER:体力 + 400 , MAXBASE:MASTER:体力)
 					BASE:MASTER:気力 = MIN(BASE:MASTER:気力 + 300 , MAXBASE:MASTER:気力)
@@ -4136,10 +4136,10 @@ IF LOCAL && !FLAG:70
 					TIME += 20
 				ENDIF
 			ELSEIF LOCAL:3 == 2
-				PRINTFORMW 「很擅长哦 %CALLNAME:MASTER%%UNICODE(0x2665)%　以这样的状态加油吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「很擅长哦 %CALLNAME:MASTER%♥　以这样的状态加油吧 ♥」
 				CFLAG:1010 += 1
 			ELSEIF LOCAL:3 == 1
-				PRINTFORMW 「很擅长哦 %CALLNAME:MASTER%%UNICODE(0x2665)%　以这样的状态加油吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「很擅长哦 %CALLNAME:MASTER%♥　以这样的状态加油吧 ♥」
 				CFLAG:1010 += 1
 			ENDIF
 			;魔水晶垂飾が那个ば３分の１の確率で更に＋される
@@ -4149,7 +4149,7 @@ IF LOCAL && !FLAG:70
 			ENDIF
 			CALL M_KOJO_MESSAGE_EVENT_K44_MAGIC
 		ELSE
-			PRINTFORMW 「哎呀，失败了…不过还有很长的路可以走哦%UNICODE(0x2665)%…那么，练习吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「哎呀，失败了…不过还有很长的路可以走哦♥…那么，练习吧 ♥」
 			PRINTFORMDW %CALLNAME:MASTER%向艾伦请教魔法
 			CFLAG:1009 += 1
 		ENDIF
@@ -4254,23 +4254,23 @@ IF LOCAL
 			CASE 1, 2
 				SELECTCASE RAND:3
 				CASE 1
-					PRINTFORMW 「今天教你变成烟的魔法%UNICODE(0x2665)%因为很难所以要好好听我说 」
+					PRINTFORMW 「今天教你变成烟的魔法♥因为很难所以要好好听我说 」
 				CASE 2
 					;ポリンが好きな那个
-					PRINTFORMW 「今天解答很难的%UNICODE(0x2665)%　没有质量的龙的实体化的魔法%UNICODE(0x2665)%」
+					PRINTFORMW 「今天解答很难的♥　没有质量的龙的实体化的魔法♥」
 				CASEELSE
 					PRINTFORMW 「那么，如果做好了冰的结晶，之后会因为空气的震动而发出声音，你知道吗？」
 				ENDSELECT
 			CASEELSE
 				SELECTCASE RAND:4
 				CASE 1
-					PRINTFORMW 「再这样做……制作更强有力的避邪结界的魔法完成 %UNICODE(0x2665)%」
+					PRINTFORMW 「再这样做……制作更强有力的避邪结界的魔法完成 ♥」
 				CASE 2
 					PRINTFORMW 「角要好好地粉碎做成粉末状。哪怕只剩下一点形状也不行哦 」
 				CASE 3
 					PRINTFORMW 「要高效率地量产魔法药—— 」
 				CASEELSE
-					PRINTFORMW 「这次的内容是使用很难的素材的方法 %UNICODE(0x2665)%」
+					PRINTFORMW 「这次的内容是使用很难的素材的方法 ♥」
 				ENDSELECT
 			ENDSELECT
 		ELSEIF CFLAG:1012 == 5
@@ -4284,7 +4284,7 @@ IF LOCAL
 				CASE 5, 6
 					PRINTFORMW 「在弹幕中要有效利用魔法阵—— 」
 				CASE 7, 8
-					PRINTFORMW 「这次教你更高级的飞行魔法 %UNICODE(0x2665)%」
+					PRINTFORMW 「这次教你更高级的飞行魔法 ♥」
 				;捨食・捨虫はちょいレア
 				CASEELSE
 					PRINTFORMW 「这次教你长生不老的魔法。因为是很重要的事情所以要好好听哦 」
@@ -4303,7 +4303,7 @@ IF LOCAL
 			CASEELSE
 				SELECTCASE RAND:4
 				CASE 1
-					PRINTFORMW 「再这样做……制造驱魔结界的魔法成功%UNICODE(0x2665)%」
+					PRINTFORMW 「再这样做……制造驱魔结界的魔法成功♥」
 				CASE 2
 					PRINTFORMW 「为了高效地推进协调—— 」
 				CASE 3
@@ -4320,43 +4320,43 @@ IF LOCAL
 				CASE 1
 					PRINTFORMW 「这是波拉利斯结界，使用魔法的话里面的波拉利斯会旋转吸收附近的魔力 」
 					PRINTFORMW 「魔法生物一靠近它，就会产生厌恶的情緒，所以不会靠近它。」
-					PRINTFORMW 「止住方法很简单，只是用手指停下旋转的波拉利斯就行 %UNICODE(0x2665)%」
+					PRINTFORMW 「止住方法很简单，只是用手指停下旋转的波拉利斯就行 ♥」
 					PRINTFORMW 「对了对了，只要不停止，就能不断地旋转吸取魔力，这点需要注意 」
 				CASE 2
-					PRINTFORMW 「今天教你如何对抗敌人的魔法 %UNICODE(0x2665)%」
+					PRINTFORMW 「今天教你如何对抗敌人的魔法 ♥」
 					PRINTFORMW 「首先要看清对方的魔法是怎样的，如果不知道对方的魔法是怎样的，就无法防御 」
 					PRINTFORMW 「接下来要根据对手的魔法采取相应的对抗策略，如果是攻击魔法的话用防御魔法来防御！如果是幻影就把它消除！」
 					PRINTFORMW 「如果对方是高手的话，也有什么都不好用的时候……那也比什么都不做强 」
 				;ごめんうえのうそ
 				CASE 3
-					PRINTFORMW 「做点心失败是常有的事，这种时候有用的就是今天教你的魔法哟 %UNICODE(0x2665)%」
+					PRINTFORMW 「做点心失败是常有的事，这种时候有用的就是今天教你的魔法哟 ♥」
 					PRINTFORMDL 艾伦把带来的包拿出来打開
 					PRINTFORMDW 里面有像饼干一样破碎的奶油泡芙皮……
 					PRINTFORMW 「就这样……哎」
 					PRINTFORMDW 　boom
 					PRINTFORMDW 艾伦使用魔法后，破碎的奶油泡芙皮稍微膨胀了。
 					PRINTFORMW 「再把这个烤一下……啊、痛死了！这种魔法都带电我真是厉害啊 」
-					PRINTFORMW 「…终于平息了。那么，好不容易做好的奶油泡芙就喝茶吧 %UNICODE(0x2665)%」
+					PRINTFORMW 「…终于平息了。那么，好不容易做好的奶油泡芙就喝茶吧 ♥」
 					BASE:MASTER:体力 = MIN(BASE:MASTER:体力 + 200 , MAXBASE:MASTER:体力)
 					BASE:MASTER:気力 = MIN(BASE:MASTER:気力 + 200 , MAXBASE:MASTER:気力)
 					BASE:体力 = MIN(BASE:体力 + 200 , MAXBASE:体力)
 					BASE:気力 = MIN(BASE:気力 + 200 , MAXBASE:気力)
 				CASEELSE
-					PRINTFORMW 「今天就等着吧！我会教你飞翔在空中的魔法%UNICODE(0x2665)%好好听我说 %UNICODE(0x2665)%」
+					PRINTFORMW 「今天就等着吧！我会教你飞翔在空中的魔法♥好好听我说 ♥」
 					PRINTFORMW 「嘛，虽说是在空中飞翔的魔法，但这是像入门一样的东西，所以不能飞得太高，有时也会掉下来。 」
-					PRINTFORMW 「而且对现在的%CALLNAME:MASTER%的来说是相当长的咒语呢…不过，只要努力去做，就能在天空中自由地飞翔了。 %UNICODE(0x2665)%」
+					PRINTFORMW 「而且对现在的%CALLNAME:MASTER%的来说是相当长的咒语呢…不过，只要努力去做，就能在天空中自由地飞翔了。 ♥」
 				ENDSELECT
 			CASE 3, 4
 				SELECTCASE RAND:4
 				CASE 1
-					PRINTFORMW 「这次是放出让龙讨厌的臭味的魔法哟 %UNICODE(0x2665)%」
+					PRINTFORMW 「这次是放出让龙讨厌的臭味的魔法哟 ♥」
 				CASE 2
-					PRINTFORMW 「――充分混合，然后念咒语就能飞上天空的魔法 %UNICODE(0x2665)%」
-					PRINTFORMW 「如果使用这个的话即使不念那个长的咒语也没关系%UNICODE(0x2665)%…但是，制作魔法的咒语要花1小时左右。 」
+					PRINTFORMW 「――充分混合，然后念咒语就能飞上天空的魔法 ♥」
+					PRINTFORMW 「如果使用这个的话即使不念那个长的咒语也没关系♥…但是，制作魔法的咒语要花1小时左右。 」
 				CASE 3
-					PRINTFORMW 「这样做的话…解咒的魔法完成哟%UNICODE(0x2665)%ささ、%CALLNAME:MASTER% %UNICODE(0x2665)%」
+					PRINTFORMW 「这样做的话…解咒的魔法完成哟♥ささ、%CALLNAME:MASTER% ♥」
 				CASEELSE
-					PRINTFORMW 「――之后，就只是一味地搅拌就好%UNICODE(0x2665)%　只是搅拌就好」
+					PRINTFORMW 「――之后，就只是一味地搅拌就好♥　只是搅拌就好」
 				ENDSELECT
 			CASEELSE
 				SELECTCASE RAND:3
@@ -4367,9 +4367,9 @@ IF LOCAL
 					PRINTFORMW 「嘛，虽然根据种族的不同，也有不是那么好战的，不惹火的话没什么问题。 」
 				CASE 2
 					PRINTFORMW 「阻碍魔法之一就是用魔法使五官发狂而迷惑的东西 」
-					PRINTFORMW 「虽然看起来很麻烦，但是自己破坏蔷薇的话，就能消除魔法的效力 %UNICODE(0x2665)%」
+					PRINTFORMW 「虽然看起来很麻烦，但是自己破坏蔷薇的话，就能消除魔法的效力 ♥」
 				CASEELSE
-					PRINTFORMW 「%CALLNAME:MASTER%想要使魔吗？这次就教你使魔吧 %UNICODE(0x2665)%」
+					PRINTFORMW 「%CALLNAME:MASTER%想要使魔吗？这次就教你使魔吧 ♥」
 					PRINTFORMW 「说到使魔基本上是猫吧。苏格拉底 」
 					PRINTFORMDW …
 					PRINTFORMDW 喵喵
@@ -4383,7 +4383,7 @@ IF LOCAL
 					PRINTFORMW 「大概能做到送信，或是找出隐藏的道路之类的。 」
 					PRINTFORML 「根据使魔的种族有所不同
 					PRINTFORMW 　猫的话，擅长利用敏锐的身体能力，狗的话，擅长利用嗅觉」
-					PRINTFORMW 「…嘛，使魔的基本就是这些。明白吗？ ら%UNICODE(0x2665)%」
+					PRINTFORMW 「…嘛，使魔的基本就是这些。明白吗？ ら♥」
 				ENDSELECT
 			ENDSELECT
 		;簡単な魔法ならそこまで帯電しないので特に無し
@@ -4392,22 +4392,22 @@ IF LOCAL
 			CASE 1, 2
 				SELECTCASE RAND:5
 				CASE 1
-					PRINTFORMW 「这是香草精华的魔法哦，对做点心很有帮助 %UNICODE(0x2665)%」
+					PRINTFORMW 「这是香草精华的魔法哦，对做点心很有帮助 ♥」
 				CASE 2
-					PRINTFORMW 「今天教你振动空气发出声音的魔法 %UNICODE(0x2665)%」
+					PRINTFORMW 「今天教你振动空气发出声音的魔法 ♥」
 				CASE 3
-					PRINTFORMW 「今天我来教你引起静电的魔法 %UNICODE(0x2665)%　需要稍微注意一下所以要好好听哦 」
+					PRINTFORMW 「今天我来教你引起静电的魔法 ♥　需要稍微注意一下所以要好好听哦 」
 				CASE 4
-					PRINTFORMW 「这就是风的魔法，如果能很好地调整强度的话会有很多帮助 %UNICODE(0x2665)%」
+					PRINTFORMW 「这就是风的魔法，如果能很好地调整强度的话会有很多帮助 ♥」
 				CASEELSE
 					PRINTFORMW 「这里这样，那里那样哦」
 				ENDSELECT
 			CASE 3, 4
 				SELECTCASE RAND:3
 				CASE 1
-					PRINTFORMW 「把香料混在一起放置一晚，念魔法的话就能变成肥皂 %UNICODE(0x2665)%」
+					PRINTFORMW 「把香料混在一起放置一晚，念魔法的话就能变成肥皂 ♥」
 				CASE 2
-					PRINTFORMW 「蚊子的眼珠—颗，蒲公英的根—跟，和其他能做出各种增加自信的魔法的药 %UNICODE(0x2665)%」
+					PRINTFORMW 「蚊子的眼珠—颗，蒲公英的根—跟，和其他能做出各种增加自信的魔法的药 ♥」
 				CASEELSE
 					PRINTFORMW 「这里这样，那里那样哦」
 				ENDSELECT
@@ -4437,7 +4437,7 @@ IF LOCAL
 				CASEELSE
 					PRINT 制造酸空气的
 				ENDSELECT
-				PRINTFORMW 魔法、那么、%CALLNAME:MASTER%也试着做做看 %UNICODE(0x2665)%」
+				PRINTFORMW 魔法、那么、%CALLNAME:MASTER%也试着做做看 ♥」
 			CASE 3, 4
 				PRINT 「这里这样做的话
 				SELECTCASE RAND:3
@@ -4448,7 +4448,7 @@ IF LOCAL
 				CASEELSE
 					PRINT 烟的
 				ENDSELECT
-				PRINTFORMW 魔法完成了、那么、%CALLNAME:MASTER%也试着做做看 %UNICODE(0x2665)%」
+				PRINTFORMW 魔法完成了、那么、%CALLNAME:MASTER%也试着做做看 ♥」
 			CASEELSE
 				SELECTCASE RAND:2
 				CASE 1
@@ -4460,7 +4460,7 @@ IF LOCAL
 		ELSE
 			SELECTCASE RAND:3
 			CASE 1
-				PRINTFORMW 「咒语要集中精力，准确的发音哦。总之先做一下简单的东西吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「咒语要集中精力，准确的发音哦。总之先做一下简单的东西吧 ♥」
 			CASE 2
 				PRINTFORMW 「调和时重要的是好好地量分量，稍微弄错一点也许会出大事哦 」
 			CASEELSE
@@ -4492,27 +4492,27 @@ RETURN 1
 @M_KOJO_MESSAGE_EVENT_K44_MAGIC
 ;魔法学習&実技経験が初めて一定量を越した時のみ追加
 IF CFLAG:1008 > 30 && CFLAG:1012 == 0
-	PRINTFORMW 「…大概就是这种感觉吧。接下来是基本的魔法与调合的进行解答 %UNICODE(0x2665)%」
+	PRINTFORMW 「…大概就是这种感觉吧。接下来是基本的魔法与调合的进行解答 ♥」
 	CFLAG:1012 = 1
 ELSEIF CFLAG:1008 > 40 && CFLAG:1012 == 1
-	PRINTFORMW 「咒文好像也记住了呢。实技也差不多要開始了 %UNICODE(0x2665)%」
+	PRINTFORMW 「咒文好像也记住了呢。实技也差不多要開始了 ♥」
 	PRINTFORMDW 为了能够学习魔法。在晴天或阴天的时候与艾伦进行战斗训练和向艾伦展示魔法吧
 	CFLAG:1012 = 2
 ELSEIF CFLAG:1008 > 60 && CFLAG:1009 > 20 && CFLAG:1010 > 10 && CFLAG:1012 == 2
-	PRINTFORMW 「能记住基本的魔法和调合吗？下次要做稍微有点困难的东西哦 %UNICODE(0x2665)%」
+	PRINTFORMW 「能记住基本的魔法和调合吗？下次要做稍微有点困难的东西哦 ♥」
 	CFLAG:1012 = 3
 ELSEIF CFLAG:1008 > 100 && CFLAG:1009 > 50 && CFLAG:1010 > 40 && CFLAG:1012 == 3
-	PRINTFORMW 「你很努力呢%UNICODE(0x2665)%为了回应那样的%CALLNAME:MASTER%下次会给你更难的%UNICODE(0x2665)%」
+	PRINTFORMW 「你很努力呢♥为了回应那样的%CALLNAME:MASTER%下次会给你更难的♥」
 	CFLAG:1012 = 4
 ELSEIF CFLAG:1008 > 150 && CFLAG:1009 > 80 && CFLAG:1010 > 60 && CFLAG:1012 == 4
-	PRINTFORMW 「就要学习实践性的魔法，要稍微严厉点了一起努力吧 %UNICODE(0x2665)%」
+	PRINTFORMW 「就要学习实践性的魔法，要稍微严厉点了一起努力吧 ♥」
 	CFLAG:1012 = 5
 ELSEIF CFLAG:1008 > 200 && CFLAG:1009 > 120 && CFLAG:1010 > 100 && CFLAG:1012 == 5
-	PRINTFORMW 「能够做到这里真是太厉害了 %UNICODE(0x2665)%　作为师傅都要泪目了%UNICODE(0x2665)%」
-	PRINTFORMW 「能做到这么多虽然已经能说是独当一面了……但还是把目标定在更高的地方吧 %UNICODE(0x2665)%」
+	PRINTFORMW 「能够做到这里真是太厉害了 ♥　作为师傅都要泪目了♥」
+	PRINTFORMW 「能做到这么多虽然已经能说是独当一面了……但还是把目标定在更高的地方吧 ♥」
 	CFLAG:1012 = 6
 ELSEIF CFLAG:1008 > 300 && CFLAG:1009 > 200 && CFLAG:1010 > 250 && CFLAG:1012 == 6
-	PRINTFORMW 「……竟然努力到这种地步 。　%CALLNAME:MASTER%已经是优秀的魔法使了 %UNICODE(0x2665)%」
+	PRINTFORMW 「……竟然努力到这种地步 。　%CALLNAME:MASTER%已经是优秀的魔法使了 ♥」
 	CFLAG:1012 = 7
 ENDIF
 ;能力成長キャップ
@@ -4603,32 +4603,32 @@ IF LOCAL && !CFLAG:睡眠 && !CFLAG:ブチギレ
 		;恋人時専用
 		IF TALENT:TARGET:恋人
 			IF ABL:MASTER:料理技能 == 0
-				PRINTFORMW 「%CALLNAME:MASTER%没怎么做过饭吗？那么我来教你吧%UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%没怎么做过饭吗？那么我来教你吧♥」
 			ELSEIF ABL:MASTER:料理技能 <= 2
-				PRINTFORMW 「呼……总算完成了%UNICODE(0x2665)%」
-				PRINTFORMW 「那么，趁热吃吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「呼……总算完成了♥」
+				PRINTFORMW 「那么，趁热吃吧 ♥」
 			ELSEIF ABL:MASTER:料理技能 <= 4
-				PRINTFORMW 「总觉得像夫妻一样快乐啊%UNICODE(0x2665)%」
+				PRINTFORMW 「总觉得像夫妻一样快乐啊♥」
 			ELSE
-				PRINTFORMW 「做得这么好吃%CALLNAME:MASTER%真厉害 %UNICODE(0x2665)%」
+				PRINTFORMW 「做得这么好吃%CALLNAME:MASTER%真厉害 ♥」
 			ENDIF
 		;恋慕or準恋慕時専用
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 			IF ABL:MASTER:料理技能 == 0
-				PRINTFORMW 「%CALLNAME:MASTER%没怎么做过饭吗？那么我来教你吧%UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%没怎么做过饭吗？那么我来教你吧♥」
 			ELSEIF ABL:MASTER:料理技能 <= 2
-				PRINTFORMW 「终于完成了呢 %UNICODE(0x2665)%」
+				PRINTFORMW 「终于完成了呢 ♥」
 			ELSEIF ABL:MASTER:料理技能 <= 4
-				PRINTFORMW 「同%CALLNAME:MASTER%一起做饭总觉得好開心啊 %UNICODE(0x2665)%//」
+				PRINTFORMW 「同%CALLNAME:MASTER%一起做饭总觉得好開心啊 ♥//」
 			ELSE
-				PRINTFORMW 「做得这么好吃，%CALLNAME:MASTER%真厉害啊 %UNICODE(0x2665)%」
+				PRINTFORMW 「做得这么好吃，%CALLNAME:MASTER%真厉害啊 ♥」
 			ENDIF
 		;其他
 		ELSE
 			IF ABL:MASTER:料理技能 == 0
-				PRINTFORMW 「%CALLNAME:MASTER%没怎么做过饭吗？那么我来教你吧%UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%没怎么做过饭吗？那么我来教你吧♥」
 			ELSE
-				PRINTFORMW 「呼呼%UNICODE(0x2665)%　一起做美味的料理吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「呼呼♥　一起做美味的料理吧 ♥」
 			ENDIF
 		ENDIF
 	ENDIF
@@ -4661,23 +4661,23 @@ IF LOCAL && !FLAG:70 && !CFLAG:睡眠
 		IF TALENT:恋人
 			SELECTCASE RAND:2
 			CASE 1
-				PRINTFORMW 「%CALLNAME:MASTER%的菜、做得好吃吗%UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%的菜、做得好吃吗♥」
 			CASEELSE
-				PRINTFORMW 「我開动了%UNICODE(0x2665)%」
+				PRINTFORMW 「我開动了♥」
 			ENDSELECT
 		ELSE
-			PRINTFORMW 「我開动了%UNICODE(0x2665)%」
+			PRINTFORMW 「我開动了♥」
 		ENDIF
 	;そうでないなら
 	ELSE
 		IF TALENT:恋人
-			PRINTFORMW 「你给我做饭了呢，谢谢 %UNICODE(0x2665)%」
-			PRINTFORMW 「那我就開动了%UNICODE(0x2665)%」
+			PRINTFORMW 「你给我做饭了呢，谢谢 ♥」
+			PRINTFORMW 「那我就開动了♥」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-			PRINTFORMW 「啊啦%UNICODE(0x2665)%　谢谢你邀请我%UNICODE(0x2665)%//」
+			PRINTFORMW 「啊啦♥　谢谢你邀请我♥//」
 		ELSE
-			PRINTFORMW 「啊啦%UNICODE(0x2665)%　谢谢你邀请我%UNICODE(0x2665)%」
-			PRINTFORMW 「那我就開动了%UNICODE(0x2665)%」
+			PRINTFORMW 「啊啦♥　谢谢你邀请我♥」
+			PRINTFORMW 「那我就開动了♥」
 		ENDIF
 	ENDIF
 	CALL M_KOJO_MESSAGE_COM_K44_414_1_SYOKU
@@ -4708,7 +4708,7 @@ IF LOCAL && !FLAG:70
 		IF TALENT:恋人
 			SELECTCASE RAND:2
 			CASE 1
-				PRINTFORMW 「%CALLNAME:MASTER%的菜、做得好吃吗%UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%的菜、做得好吃吗♥」
 			CASEELSE
 				PRINTFORMW 「难得一起做的料理%CALLNAME:MASTER%不吃吗？」
 				PRINTFORMW 「…那，那就算了」
@@ -4720,12 +4720,12 @@ IF LOCAL && !FLAG:70
 	;そうでないなら
 	ELSE
 		IF TALENT:恋人
-			PRINTFORMW 「你给我做饭了呢，谢谢 %UNICODE(0x2665)%」
-			PRINTFORMW 「那我就開动了%UNICODE(0x2665)%」
+			PRINTFORMW 「你给我做饭了呢，谢谢 ♥」
+			PRINTFORMW 「那我就開动了♥」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-			PRINTFORMW 「啊啦%UNICODE(0x2665)%　谢谢%UNICODE(0x2665)%」
+			PRINTFORMW 「啊啦♥　谢谢♥」
 		ELSE
-			PRINTFORMW 「佳肴呢%UNICODE(0x2665)%」
+			PRINTFORMW 「佳肴呢♥」
 		ENDIF
 	ENDIF
 	CALL M_KOJO_MESSAGE_COM_K44_414_1_SYOKU
@@ -4737,10 +4737,10 @@ RETURN 1
 ;ハバネロか芥末なら追加
 IF TCVAR:MASTER:308 & 8
 	PRINTFORMW 「……那个，可以问一个问题吗？ 」
-	PRINTFORMW 「%DISHNAME%一般不是这种颜色吧」
+	PRINTFORMW 「%DISHNAME_TR()%一般不是这种颜色吧」
 	PRINTFORMW 「虽然很在意……暂且先吃吃看 」
 ELSEIF TCVAR:MASTER:308 & 32
-	PRINTFORMW 「……喂 %CALLNAME:MASTER%、为什么会这样 %DISHNAME%和鼻涕一样的？」
+	PRINTFORMW 「……喂 %CALLNAME:MASTER%、为什么会这样 %DISHNAME_TR()%和鼻涕一样的？」
 	PRINTFORMW 「虽然很在意……暂且先吃吃看 」
 ENDIF
 ;吃飯中
@@ -4752,7 +4752,7 @@ IF TASTE_REACTION("辣")
 	PRINTFORMW 「水！水！！」
 	RETURN 1
 ELSEIF TASTE_REACTION("甜")
-	PRINTFORMW 「这是什么……看起来很普通 %DISHNAME%为什么这么甜啊…」
+	PRINTFORMW 「这是什么……看起来很普通 %DISHNAME_TR()%为什么这么甜啊…」
 	RETURN 1
 ELSEIF TASTE_REACTION("芥末")
 	PRINTFORMW 「呜呜，好刺痛啊~ 」
@@ -4785,23 +4785,23 @@ ELSEIF TFLAG:193 == -1
 	ENDIF
 ;恋人時かつ二人きりなら4分の1の確率で分岐
 ELSEIF TALENT:恋人 && GET_TARGETNUM() == 1 && RAND:4 == 3
-	PRINTFORMW 「来%UNICODE(0x2665)% 张嘴%UNICODE(0x2665)%」
-	PRINTFORMW 「…欸嘿嘿%UNICODE(0x2665)% 接下来轮到我%UNICODE(0x2665)% 啊呜%UNICODE(0x2665)%」
+	PRINTFORMW 「来♥ 张嘴♥」
+	PRINTFORMW 「…欸嘿嘿♥ 接下来轮到我♥ 啊呜♥」
 	EXP:愛情経験 += 2
 ELSE
 	;料理ごとに
 	SELECTCASE DISHNAME
 	;三明治
 	CASE "三明治"
-		PRINTFORMW 「鸡蛋三明治好吃%UNICODE(0x2665)%轻飘飘的 %UNICODE(0x2665)%」
+		PRINTFORMW 「鸡蛋三明治好吃♥轻飘飘的 ♥」
 	;司康餅
 	CASE "司康餅"
 		SELECTCASE RAND:2
 		CASE 1
-			PRINTFORMW 「松脆可口 %UNICODE(0x2665)%」
+			PRINTFORMW 「松脆可口 ♥」
 		CASEELSE
 			IF CFLAG:現在位置 == OMANEKIBEYA() || CFLAG:現在位置 == 534 || (FLAG:住宿人物 == 44 && CFLAG:現在位置 == 16)
-				PRINTFORML 「果然配司康饼得要红茶啊%UNICODE(0x2665)%」
+				PRINTFORML 「果然配司康饼得要红茶啊♥」
 				PRINTFORMDL 艾伦享受着自己泡的红茶和司康饼的组合……
 				PRINTFORMDW ……但是艾伦泡的红茶很好喝
 			ELSE
@@ -4812,9 +4812,9 @@ ELSE
 	CASE "肉包"
 		;冬なら
 		IF DAY:2 == 4 && RAND:2
-			PRINTFORMW 「冬天吃的肉包比平时好吃。 %UNICODE(0x2665)%」
+			PRINTFORMW 「冬天吃的肉包比平时好吃。 ♥」
 		ELSE
-			PRINTFORMW 「哇！%UNICODE(0x2665)%真暖和%UNICODE(0x2665)%」
+			PRINTFORMW 「哇！♥真暖和♥」
 		ENDIF
 	;蛋澆飯　でらぐい面白かったなあ…
 	CASE "蛋澆飯"
@@ -4823,36 +4823,36 @@ ELSE
 	CASE "素麺"
 		;夏か否かで分岐
 		IF DAY:2 == 2
-			PRINTFORMW 「果然夏天就是挂面啊 %UNICODE(0x2665)%」
+			PRINTFORMW 「果然夏天就是挂面啊 ♥」
 			PRINTFORMW 「…嘛、虽然没怎么吃过 」
 		ELSE
-			PRINTFORMW 「夏天之外也有这样的面条呢%UNICODE(0x2665)%…虽然没有季节感 」
+			PRINTFORMW 「夏天之外也有这样的面条呢♥…虽然没有季节感 」
 		ENDIF
 	;荞麦麺
 	CASE "荞麦麺"
 		;%CALLNAME:MASTER%の料理技能が3以上で手打ちに
 		IF ABL:MASTER:料理技能 >= 3
-			PRINTFORMW 「这个荞麦面%CALLNAME:MASTER%的手打哟，厉害 %UNICODE(0x2665)%」
+			PRINTFORMW 「这个荞麦面%CALLNAME:MASTER%的手打哟，厉害 ♥」
 		ELSE
-			PRINTFORMW 「日本的荞麦面真的很好吃 %UNICODE(0x2665)%」
+			PRINTFORMW 「日本的荞麦面真的很好吃 ♥」
 		ENDIF
 	;煎蛋巻
 	CASE "煎蛋巻"
 		;朝なら
 		IF (TIME:2 == 1 || TIME:2 == 2) && RAND:2
-			PRINTFORMW 「早上只吃煎蛋卷 %UNICODE(0x2665)%」
+			PRINTFORMW 「早上只吃煎蛋卷 ♥」
 		;一緒に作ったか否かで分岐
 		ELSEIF TCVAR:360 == 1
 			IF ABL:料理技能 <= 2
-				PRINTFORMW 「蛋包饭做法很简单又很好吃，很棒呢 %UNICODE(0x2665)%」
+				PRINTFORMW 「蛋包饭做法很简单又很好吃，很棒呢 ♥」
 			ELSE
-				PRINTFORMW 「软呼呼暖乎乎 %UNICODE(0x2665)% 真好吃 %UNICODE(0x2665)%」
+				PRINTFORMW 「软呼呼暖乎乎 ♥ 真好吃 ♥」
 			ENDIF
 		ELSE
 			IF ABL:MASTER:料理技能 <= 3
-				PRINTFORMW 「诶%UNICODE(0x2665)% 烤的很好吃哦 %UNICODE(0x2665)%」
+				PRINTFORMW 「诶♥ 烤的很好吃哦 ♥」
 			ELSE
-				PRINTFORMW 「煎蛋卷烤得这么好，太厉害了 %UNICODE(0x2665)%」
+				PRINTFORMW 「煎蛋卷烤得这么好，太厉害了 ♥」
 				PRINTFORMW 「料理这么好吃的话，\@ CFLAG:MASTER:初期位置 < 100 ? 就从神社出来 #  \@成为厨师怎么样？」
 			ENDIF
 		ENDIF
@@ -4860,35 +4860,35 @@ ELSE
 	CASE "燉菜"
 		;冬なら
 		IF DAY:2 == 4 && RAND:2
-			PRINTFORMW 「果然冷冬季还是炖菜最好啊 %UNICODE(0x2665)%」
+			PRINTFORMW 「果然冷冬季还是炖菜最好啊 ♥」
 		;一緒に作ったか否かで分岐
 		ELSEIF TCVAR:360 == 1
-			PRINTFORMW 「煮得这么好,味道真不错.%UNICODE(0x2665)%」
+			PRINTFORMW 「煮得这么好,味道真不错.♥」
 		ELSE
-			PRINTFORMW 「煮的感觉很好已经入味了%UNICODE(0x2665)% 很好吃哦 %UNICODE(0x2665)%」
+			PRINTFORMW 「煮的感觉很好已经入味了♥ 很好吃哦 ♥」
 		ENDIF
 	;漢堡肉
 	CASE "漢堡肉"
 		SELECTCASE RAND:2
 		CASE 1
-			PRINTFORMW 「不仅是肉，这个酱汁也很好吃 %UNICODE(0x2665)%」
+			PRINTFORMW 「不仅是肉，这个酱汁也很好吃 ♥」
 		CASEELSE
-			PRINTFORMW 「哇%UNICODE(0x2665)% 肉汁好多啊%UNICODE(0x2665)%」
+			PRINTFORMW 「哇♥ 肉汁好多啊♥」
 		ENDSELECT
 	;芝士焗菜
 	CASE "芝士焗菜"
 		;冬なら
 		IF DAY:2 == 4 && RAND:2
-			PRINTFORMW 「冬天吃的奶汁燴菜比平时好吃。 %UNICODE(0x2665)%」
+			PRINTFORMW 「冬天吃的奶汁燴菜比平时好吃。 ♥」
 		ELSE
 			SELECTCASE RAND:3
 			CASE 1
-				PRINTFORMW 「说到奶汁燴菜果然还是通心粉奶汁燴菜啊 %UNICODE(0x2665)%」
+				PRINTFORMW 「说到奶汁燴菜果然还是通心粉奶汁燴菜啊 ♥」
 			CASE 2
-				PRINTFORMW 「土豆热乎的很好吃 %UNICODE(0x2665)%」
+				PRINTFORMW 「土豆热乎的很好吃 ♥」
 			CASEELSE
 				;川海老の芝士焗菜ってどうなんだろう？
-				PRINTFORMW 「哇！ %UNICODE(0x2665)% 虾好多啊%UNICODE(0x2665)%」
+				PRINTFORMW 「哇！ ♥ 虾好多啊♥」
 				PRINTFORMW 「…哇，真亏能准备了这么多的虾啊 」
 			ENDSELECT
 		ENDIF
@@ -4896,11 +4896,11 @@ ELSE
 	CASE "咖喱饭"
 		;一緒に作ったか(ry
 		IF TCVAR:360 == 1
-			PRINTFORMW 「煮得那么入味,真好吃. %UNICODE(0x2665)%」
+			PRINTFORMW 「煮得那么入味,真好吃. ♥」
 			SIF ABL:MASTER:料理技能 <= 2 || ABL:料理技能 <= 2
 			PRINTFORMW 「…不过马铃薯煮得太烂了 」
 		ELSE
-			PRINTFORMW 「好好地炖入味了呢 %UNICODE(0x2665)% 真好吃%UNICODE(0x2665)%」
+			PRINTFORMW 「好好地炖入味了呢 ♥ 真好吃♥」
 			SIF ABL:MASTER:料理技能 <= 2
 			PRINTFORMW 「…不过土豆有点煮烂了 」
 		ENDIF
@@ -4908,17 +4908,17 @@ ELSE
 	CASE "涮涮锅"
 		;春夏なら冷しゃぶ
 		IF DAY:2 <= 2
-			PRINTFORMW 「清爽可口 %UNICODE(0x2665)%」
+			PRINTFORMW 「清爽可口 ♥」
 		;秋冬なら普通の涮涮锅
 		ELSE
-			PRINTFORMW 「果然冷天还是要暖和的涮火锅 %UNICODE(0x2665)%」
+			PRINTFORMW 「果然冷天还是要暖和的涮火锅 ♥」
 			PRINTFORMW 「…嘛、虽然没怎么吃过 」
 		ENDIF
 	;拉麺
 	CASE "拉麺"
 		;冬なら
 		IF DAY:2 == 4 && RAND:2
-			PRINTFORMW 「冬天吃的拉面比平时好吃。 %UNICODE(0x2665)%」
+			PRINTFORMW 「冬天吃的拉面比平时好吃。 ♥」
 		ELSE
 			PRINTFORMW 「啊烫烫！　得再放冷一会」
 		ENDIF
@@ -4928,7 +4928,7 @@ ELSE
 		IF TIME:2 == 1 || TIME:2 == 2
 			PRINTFORMW 「早上就吃牛排稍微有点那啥…虽然很好吃 」
 		ELSE
-			PRINTFORMW 「哇%UNICODE(0x2665)% 肉汁好多啊%UNICODE(0x2665)%」
+			PRINTFORMW 「哇♥ 肉汁好多啊♥」
 		ENDIF
 	;奶酪番茄沙拉
 	CASE "奶酪番茄沙拉"
@@ -4944,16 +4944,16 @@ ELSE
 		;ENDSELECT
 	;蛋糕
 	CASE "小蛋糕"
-		PRINTFORMW 「哇%UNICODE(0x2665)% 轻飘飘 %UNICODE(0x2665)%」
+		PRINTFORMW 「哇♥ 轻飘飘 ♥」
 	;水果小馅饼
 	CASE "水果小馅饼"
 		SELECTCASE RAND:3
 		CASE 1
 			PRINTFORMW 「水果满满的好豪华啊 」
 		CASE 2
-			PRINTFORMW 「卡斯塔面霜也是好东西呢 %UNICODE(0x2665)%」
+			PRINTFORMW 「卡斯塔面霜也是好东西呢 ♥」
 		CASEELSE
-			PRINTFORMW 「清爽可口%UNICODE(0x2665)%」
+			PRINTFORMW 「清爽可口♥」
 		ENDSELECT
 	;曲奇
 	CASE "曲奇"
@@ -4965,7 +4965,7 @@ ELSE
 				PRINTFORMW 「如果早准备好饮料就好了 」
 			ENDIF
 		CASE 2
-			PRINTFORMW 「吃得真爽啊 %UNICODE(0x2665)%」
+			PRINTFORMW 「吃得真爽啊 ♥」
 		CASEELSE
 			PRINTFORMW 「放了果酱的曲奇什么的有种高级感 」
 		ENDSELECT
@@ -4974,10 +4974,10 @@ ELSE
 		;3時台なら
 		SELECTCASE TIME
 		CASE 900 TO 959
-			;訳　３時のおやつはUPル派でおいしー%UNICODE(0x2665)%
-			PRINTFORMW 「香甜的香味～ %UNICODE(0x2665)%」
+			;訳　３時のおやつはUPル派でおいしー♥
+			PRINTFORMW 「香甜的香味～ ♥」
 		CASEELSE
-			PRINTFORMW 「松脆可口 %UNICODE(0x2665)%而且里面满满的馅%UNICODE(0x2665)%」
+			PRINTFORMW 「松脆可口 ♥而且里面满满的馅♥」
 		ENDSELECT
 	;なければ汎用文
 	CASEELSE
@@ -4987,42 +4987,42 @@ ELSE
 			IF TFLAG:193 == 1
 				;爱莲との仲でも分岐
 				IF TALENT:恋人
-					PRINTFORMW 「两个人一起做的，非常好吃哦 %UNICODE(0x2665)%」
+					PRINTFORMW 「两个人一起做的，非常好吃哦 ♥」
 				ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-					PRINTFORMW 「%CALLNAME:MASTER%做的菜很好吃啊 %UNICODE(0x2665)%//」
+					PRINTFORMW 「%CALLNAME:MASTER%做的菜很好吃啊 ♥//」
 				ELSE
-					PRINTFORMW 「这次做的非常好吃 %UNICODE(0x2665)%」
+					PRINTFORMW 「这次做的非常好吃 ♥」
 				ENDIF
 			ELSE
 				IF TALENT:恋人
-					PRINTFORM 「非常好吃哦%UNICODE(0x2665)%
+					PRINTFORM 「非常好吃哦♥
 					IF SELECTCOM == 414
-						PRINTFORMW 来、%CALLNAME:MASTER%也吃吧%UNICODE(0x2665)%」
+						PRINTFORMW 来、%CALLNAME:MASTER%也吃吧♥」
 					ELSE
-						PRINTFORMW 谢谢%CALLNAME:MASTER%%UNICODE(0x2665)%」
+						PRINTFORMW 谢谢%CALLNAME:MASTER%♥」
 					ENDIF
 				ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-					PRINTFORMW 「嗯，很好吃 %UNICODE(0x2665)%」
+					PRINTFORMW 「嗯，很好吃 ♥」
 				ELSE
-					PRINTFORMW 「嗯，做得很好吃啊 %UNICODE(0x2665)%」
+					PRINTFORMW 「嗯，做得很好吃啊 ♥」
 				ENDIF
 			ENDIF
 		ELSE
 			IF TFLAG:193 == 1
 				IF TALENT:恋人
-					PRINTFORMW 「非常好吃哦%UNICODE(0x2665)% 谢谢了%UNICODE(0x2665)%」
+					PRINTFORMW 「非常好吃哦♥ 谢谢了♥」
 				ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-					PRINTFORMW 「嗯，很好吃 %UNICODE(0x2665)%」
+					PRINTFORMW 「嗯，很好吃 ♥」
 				ELSE
-					PRINTFORMW 「%CALLNAME:MASTER%做的菜真好吃啊 %UNICODE(0x2665)%」
+					PRINTFORMW 「%CALLNAME:MASTER%做的菜真好吃啊 ♥」
 				ENDIF
 			ELSE
 				IF TALENT:恋人
-					PRINTFORMW 「诶%UNICODE(0x2665)% 非常好吃哦 %UNICODE(0x2665)%」
+					PRINTFORMW 「诶♥ 非常好吃哦 ♥」
 				ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-					PRINTFORMW 「嗯，很好吃哦 %UNICODE(0x2665)%」
+					PRINTFORMW 「嗯，很好吃哦 ♥」
 				ELSE
-					PRINTFORMW 「相当好吃啊 %UNICODE(0x2665)%」
+					PRINTFORMW 「相当好吃啊 ♥」
 				ENDIF
 			ENDIF
 		ENDIF
@@ -5036,26 +5036,26 @@ IF TFLAG:193 == 1
 	IF TCVAR:360 == 1
 		;爱莲との仲でも分岐
 		IF TALENT:恋人
-			PRINTFORML 「佳肴%UNICODE(0x2665)% 真的很好吃 %UNICODE(0x2665)%」
-			PRINTFORMW 「下次也一起做料理吧 %UNICODE(0x2665)%」
+			PRINTFORML 「佳肴♥ 真的很好吃 ♥」
+			PRINTFORMW 「下次也一起做料理吧 ♥」
 		ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-			PRINTFORMW 「非常好吃啊%UNICODE(0x2665)% 下次再一起做吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「非常好吃啊♥ 下次再一起做吧 ♥」
 		ELSE
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)%」
+			PRINTFORMW 「真是佳肴♥」
 		ENDIF
 	ELSE
 		;爱莲との仲でも分岐
 		IF TALENT:恋人
 			SELECTCASE RAND:2
 			CASE 1
-				PRINTFORMW 「%CALLNAME:MASTER%亲手做的菜真棒 %UNICODE(0x2665)%%UNICODE(0x2665)% 下次再让我吃吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%亲手做的菜真棒 ♥♥ 下次再让我吃吧 ♥」
 			CASEELSE
-				PRINTFORMW 「竟然能做出这么好吃的菜 %CALLNAME:MASTER%真厉害%UNICODE(0x2665)%」
+				PRINTFORMW 「竟然能做出这么好吃的菜 %CALLNAME:MASTER%真厉害♥」
 			ENDSELECT
 		ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-			PRINTFORMW 「%CALLNAME:MASTER%の料理、太好吃了%UNICODE(0x2665)% 还想让你再做多一点啊 //」
+			PRINTFORMW 「%CALLNAME:MASTER%の料理、太好吃了♥ 还想让你再做多一点啊 //」
 		ELSE
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)% 非常好吃啊%UNICODE(0x2665)%」
+			PRINTFORMW 「真是佳肴♥ 非常好吃啊♥」
 		ENDIF
 	ENDIF
 ELSEIF TFLAG:193 == -1
@@ -5063,35 +5063,35 @@ ELSEIF TFLAG:193 == -1
 		IF TALENT:恋人
 			PRINTFORMW 「虽然这次失败了……、下次我会做的好吃给你的！」
 		ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)% 下次我会努力做的更好吃！ 」
+			PRINTFORMW 「真是佳肴♥ 下次我会努力做的更好吃！ 」
 		ELSE
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)% 下次也会做好吃的哦！」
+			PRINTFORMW 「真是佳肴♥ 下次也会做好吃的哦！」
 		ENDIF
 	ELSE
 		IF TALENT:恋人
 			PRINTFORMW 「下次我也一起做料理哦！一起做的话绝对变得好吃！」
 		ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)%」
+			PRINTFORMW 「真是佳肴♥」
 		ELSE
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)%」
+			PRINTFORMW 「真是佳肴♥」
 		ENDIF
 	ENDIF
 ELSE
 	IF TCVAR:360 == 1
 		IF TALENT:恋人
-			PRINTFORMW 「佳肴%UNICODE(0x2665)% 下次也一起做吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「佳肴♥ 下次也一起做吧 ♥」
 		ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-			PRINTFORMW 「佳肴%UNICODE(0x2665)% 下次两个人一起做料理吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「佳肴♥ 下次两个人一起做料理吧 ♥」
 		ELSE
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)%」
+			PRINTFORMW 「真是佳肴♥」
 		ENDIF
 	ELSE
 		IF TALENT:恋人
-			PRINTFORMW 「佳肴%UNICODE(0x2665)% %CALLNAME:MASTER%的这道菜真好吃啊 %UNICODE(0x2665)%」
+			PRINTFORMW 「佳肴♥ %CALLNAME:MASTER%的这道菜真好吃啊 ♥」
 		ELSEIF CFLAG:1014 == 1 || TALENT:恋慕
-			PRINTFORMW 「佳肴%UNICODE(0x2665)% 下次再做吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「佳肴♥ 下次再做吧 ♥」
 		ELSE
-			PRINTFORMW 「真是佳肴%UNICODE(0x2665)%」
+			PRINTFORMW 「真是佳肴♥」
 		ENDIF
 	ENDIF
 ENDIF
@@ -5112,9 +5112,9 @@ LOCAL = 1
 IF LOCAL && !FLAG:70 && TFLAG:193 != -1
 	IF FIRSTTIME(SELECTCOM)
 		IF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「好音声啊 …%UNICODE(0x2665)%」
+			PRINTFORMW 「好音声啊 …♥」
 		ELSEIF TALENT:恋慕 || TALENT:恋人 || CFLAG:1014
-			PRINTFORMW 「那么就拜托你来一曲了 %UNICODE(0x2665)%」
+			PRINTFORMW 「那么就拜托你来一曲了 ♥」
 		ELSE
 			PRINTFORMW 「啊啦、用乐器演奏吗？　那么就让我听听吧 」
 		ENDIF
@@ -5151,18 +5151,18 @@ IF LOCAL && !FLAG:70 && TFLAG:193 != -1
 					ENDSELECT
 					PRINTFORMDW 艾伦配合%CALLNAME:MASTER%的演奏，爽朗地哼着
 				CASE 2
-					PRINTFORMW 「呼呼%UNICODE(0x2665)% 这样也不错呢 …」
+					PRINTFORMW 「呼呼♥ 这样也不错呢 …」
 				CASEELSE
 					PRINTFORMDW 艾伦幸福地看着%CALLNAME:MASTER%演奏的身影
 				ENDSELECT
 			ELSE
 				SELECTCASE RAND:3
 				CASE 1
-					PRINTFORMW 「好音声啊 %UNICODE(0x2665)%」
+					PRINTFORMW 「好音声啊 ♥」
 				CASE 2
 					PRINTFORMDW 艾伦配合%CALLNAME:MASTER%的演奏轻声哼着
 				CASEELSE
-					PRINTFORMW 「好厉害啊%UNICODE(0x2665)%再多给我听听 %UNICODE(0x2665)%」
+					PRINTFORMW 「好厉害啊♥再多给我听听 ♥」
 				ENDSELECT
 			ENDIF
 		ELSEIF TALENT:恋慕 || TALENT:恋人 || CFLAG:1014
@@ -5171,9 +5171,9 @@ IF LOCAL && !FLAG:70 && TFLAG:193 != -1
 			ELSE
 				SELECTCASE RAND:2
 				CASE 1
-					PRINTFORMW 「真厉害%UNICODE(0x2665)%」
+					PRINTFORMW 「真厉害♥」
 				CASEELSE
-					PRINTFORMW 「还想再多听听吧%UNICODE(0x2665)%」
+					PRINTFORMW 「还想再多听听吧♥」
 				ENDSELECT
 			ENDIF
 		ELSEIF TALENT:思慕
@@ -5183,7 +5183,7 @@ IF LOCAL && !FLAG:70 && TFLAG:193 != -1
 			CASE 2
 				PRINTFORMDW 爱莲为了%CALLNAME:MASTER%的演奏的姿态过来了…
 			CASEELSE
-				PRINTFORMW 「辛苦了%UNICODE(0x2665)%」
+				PRINTFORMW 「辛苦了♥」
 			ENDSELECT
 		ELSE
 			IF TFLAG:使用楽器 == 1 && !RAND:2
@@ -5215,13 +5215,13 @@ LOCAL = 1
 IF LOCAL && !FLAG:70 && TFLAG:194 == 1 && !CFLAG:ブチギレ
 	;恋人時専用
 	IF TALENT:恋人
-		PRINTFORMW 「早上好%CALLNAME:MASTER%%UNICODE(0x2665)%发生了什么事？ 」
+		PRINTFORMW 「早上好%CALLNAME:MASTER%♥发生了什么事？ 」
 	;恋慕時専用
 	ELSEIF TALENT:恋慕
 		PRINTFORMW 「哈、早上好//」
 	;其他
 	ELSE
-		PRINTFORMW 「早上好%UNICODE(0x2665)%　%CALLNAME:MASTER%睡得好吗？」
+		PRINTFORMW 「早上好♥　%CALLNAME:MASTER%睡得好吗？」
 	ENDIF
 ENDIF
 RETURN 1
@@ -5248,17 +5248,17 @@ LOCAL = 1
 IF LOCAL && !FLAG:70 && FLAG:祈願内容 != 100 && !CFLAG:ブチギレ
 	;恋人時専用
 	IF TALENT:恋人
-		PRINTFORMW 「愿望结束了吗？那就走吧 %UNICODE(0x2665)%」
+		PRINTFORMW 「愿望结束了吗？那就走吧 ♥」
 	;恋慕時専用
 	ELSEIF TALENT:恋慕 && !TALENT:MASTER:恋人 && RAND:2 == 1 && CFLAG:同行 > 0
 		PRINTFORMW 「我也想许个愿望所以稍稍等一下 」
 		PRINTFORMDL …
-		PRINTFORMW 「久等了 %UNICODE(0x2665)%　那咱们走吧 %UNICODE(0x2665)%」
+		PRINTFORMW 「久等了 ♥　那咱们走吧 ♥」
 	;其他
 	ELSE
 		PRINTFORM 「愿望能实现就好了
 		SIF TALENT:思慕 || TALENT:恋慕
-		PRINTFORM %UNICODE(0x2665)%
+		PRINTFORM ♥
 		PRINTW 」
 	ENDIF
 ENDIF
@@ -5279,7 +5279,7 @@ LOCAL = 1
 IF LOCAL && !FLAG:70
 	IF ((EQUIP:下半身内衣２ == 21 && EQUIP:上半身内衣２ == 2) || EQUIP:緊身内衣 == 9) && EQUIP:連体内衣 == 0 && EQUIP:裤子 == 0 && EQUIP:下身衣服 == 0 && EQUIP:裙子 == 0 && EQUIP:上身衣服１ == 0 && EQUIP:上身衣服２ == 0 && EQUIP:連衣裙 == 0 && EQUIP:和服 == 0 && EQUIP:外搭 == 0
 		IF ABL:露出癖 >= 3
-			PRINTFORMW 「合适吗？ %UNICODE(0x2665)%」
+			PRINTFORMW 「合适吗？ ♥」
 		ELSE
 			PRINTFORMW 「这可真难为情啊 //」
 		ENDIF
@@ -5288,7 +5288,7 @@ IF LOCAL && !FLAG:70
 	ELSEIF EQUIP:上半身内衣１ == 2 && EQUIP:下半身内衣１ == 1
 		PRINTFORMW 「打扮成这样你是认真吗？ 」
 	ELSE
-		PRINTFORMW 「合适吗？ %UNICODE(0x2665)%」
+		PRINTFORMW 「合适吗？ ♥」
 	ENDIF
 ENDIF
 RETURN 1
@@ -5313,35 +5313,35 @@ IF LOCAL && TFLAG:194 == 0
 			PRINTFORMW 「虽然热水很舒服，但是总觉得有一种奇妙的视线…… 」
 			PRINTFORMW 「……错觉……吗？ 」
 		ELSEIF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「呼%UNICODE(0x2665)% 真舒服%UNICODE(0x2665)%　下次再一起入浴吧%UNICODE(0x2665)%」
+			PRINTFORMW 「呼♥ 真舒服♥　下次再一起入浴吧♥」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-			PRINTFORMW 「洗的好舒服啊%UNICODE(0x2665)% 下次也一起去泡澡吧//」
+			PRINTFORMW 「洗的好舒服啊♥ 下次也一起去泡澡吧//」
 		;其他
 		ELSE
-			PRINTFORMW 「地底温泉也是真不错啊%UNICODE(0x2665)%下次再来吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「地底温泉也是真不错啊♥下次再来吧 ♥」
 		ENDIF
 	ELSEIF CFLAG:MASTER:現在位置 == 250 || CFLAG:MASTER:現在位置 == 940
 		IF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「呼%UNICODE(0x2665)% 真舒服%UNICODE(0x2665)%　下次再来吧%UNICODE(0x2665)%」
+			PRINTFORMW 「呼♥ 真舒服♥　下次再来吧♥」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-			PRINTFORMW 「洗的好舒服啊%UNICODE(0x2665)% 谢谢你邀请我%UNICODE(0x2665)%」
+			PRINTFORMW 「洗的好舒服啊♥ 谢谢你邀请我♥」
 		;其他
 		ELSE
-			PRINTFORMW 「啊，真舒服%UNICODE(0x2665)% 果然泡澡斯巴拉西 %UNICODE(0x2665)%」
+			PRINTFORMW 「啊，真舒服♥ 果然泡澡斯巴拉西 ♥」
 		ENDIF
 	ELSEIF (CFLAG:MASTER:現在位置 == 13 && FLAG:住宿人物 == 44) || CFLAG:MASTER:現在位置 == 24
 		IF TALENT:恋人 && TALENT:恋慕
 			SELECTCASE RAND:2
 			CASE 1
-				PRINTFORMW 「等会咱们互相冲洗一下后背吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「等会咱们互相冲洗一下后背吧 ♥」
 			CASEELSE
-				PRINTFORMW 「啊，好舒服 %UNICODE(0x2665)%」
+				PRINTFORMW 「啊，好舒服 ♥」
 				PRINTFORMDW 艾伦露出荡漾的表情，依靠着%CALLNAME:MASTER%
 			ENDSELECT
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 			PRINTFORMW （哇//喔//　和%CALLNAME:MASTER%一起泡澡了//）
 		ELSE
-			PRINTFORMW 「哇泡澡了泡澡了%UNICODE(0x2665)% 又暖和又舒服啊%UNICODE(0x2665)%」
+			PRINTFORMW 「哇泡澡了泡澡了♥ 又暖和又舒服啊♥」
 		ENDIF
 	ELSEIF (CFLAG:MASTER:現在位置 == 13 && FLAG:住宿人物 != 44) || CFLAG:MASTER:現在位置 == 30 || CFLAG:MASTER:現在位置 == 39
 		IF CFLAG:MASTER:現在位置 == 13
@@ -5351,12 +5351,12 @@ IF LOCAL && TFLAG:194 == 0
 		ENDIF
 	ELSEIF BATHROOM(CFLAG:現在位置)
 		IF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「泡澡了泡澡了%UNICODE(0x2665)%　呐%CALLNAME:MASTER%、回头咱们互相冲洗一下后背吧 %UNICODE(0x2665)%%UNICODE(0x2665)%」
+			PRINTFORMW 「泡澡了泡澡了♥　呐%CALLNAME:MASTER%、回头咱们互相冲洗一下后背吧 ♥♥」
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 			PRINTFORMW （哇//喔//　和%CALLNAME:MASTER%一起泡澡了//）
 		;其他
 		ELSE
-			PRINTFORMW 「泡澡了泡澡了%UNICODE(0x2665)%　又暖和又舒服啊%UNICODE(0x2665)%」
+			PRINTFORMW 「泡澡了泡澡了♥　又暖和又舒服啊♥」
 		ENDIF
 	ENDIF
 ENDIF
@@ -5439,10 +5439,10 @@ IF LOCAL && !CFLAG:ブチギレ
 	RETURN 1
 	;恋人時専用
 	IF TALENT:恋人
-		PRINTFORMW 「欸嘿嘿ー%UNICODE(0x2665)%　不会放開了哦%UNICODE(0x2665)%%UNICODE(0x2665)%」
+		PRINTFORMW 「欸嘿嘿ー♥　不会放開了哦♥♥」
 	;恋慕時専用
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-		PRINTFORML （哇！%UNICODE(0x2665)%//喔%UNICODE(0x2665)%//　同%CALLNAME:MASTER%牵手了呢%UNICODE(0x2665)%//）
+		PRINTFORML （哇！♥//喔♥//　同%CALLNAME:MASTER%牵手了呢♥//）
 		PRINTFORMDW 艾伦脸红着笑了……
 	;親密５以上時専用
 	ELSEIF TALENT:思慕
@@ -5538,17 +5538,17 @@ IF LOCAL && !CFLAG:ブチギレ
 		IF TALENT:恋人 && TALENT:恋慕
 			SELECTCASE RAND:2
 			CASE 1
-				PRINTFORMW 「佳肴%UNICODE(0x2665)% 非常好吃啊%UNICODE(0x2665)%　下次再来吧 %UNICODE(0x2665)%%UNICODE(0x2665)%」
+				PRINTFORMW 「佳肴♥ 非常好吃啊♥　下次再来吧 ♥♥」
 			CASEELSE
-				PRINTFORMW 「佳肴%UNICODE(0x2665)% 嘴角稍微有点脏啊」
-				PRINTFORMW 「真是的，我来帮你擦干净%UNICODE(0x2665)%」
+				PRINTFORMW 「佳肴♥ 嘴角稍微有点脏啊」
+				PRINTFORMW 「真是的，我来帮你擦干净♥」
 			ENDSELECT
 		;恋慕or恋人時専用
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-			PRINTFORMW 「非常好吃啊%UNICODE(0x2665)% 下次再邀请我哦%UNICODE(0x2665)%」
+			PRINTFORMW 「非常好吃啊♥ 下次再邀请我哦♥」
 		;親密時専用
 		ELSE
-			PRINTFORMW 「谢谢你请我吃饭 %UNICODE(0x2665)% 很好吃啊 %UNICODE(0x2665)%」
+			PRINTFORMW 「谢谢你请我吃饭 ♥ 很好吃啊 ♥」
 		ENDIF
 	ELSE
 		;工作結束からの约会の場合爱莲がおごってくれるよ！
@@ -5556,14 +5556,14 @@ IF LOCAL && !CFLAG:ブチギレ
 			PRINTFORMW 「是由我发出邀请的不能让你请客，我来付钱吧」
 		;恋人かつ恋慕時専用
 		ELSEIF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「呐呐、我另选一个，一起分享吧？那样的话会幸福2倍哦 %UNICODE(0x2665)%」
+			PRINTFORMW 「呐呐、我另选一个，一起分享吧？那样的话会幸福2倍哦 ♥」
 		;恋慕or恋人時専用
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 			PRINTFORMW 「呐，我选另一个吧，之后要不要分享？//」
 		;親密５以上時専用
 		ELSEIF TALENT:思慕
 			PRINTFORMW 「%CALLNAME:MASTER%要做什么呢 ？」
-			PRINTFORMW 「我选另一个，之后互相分享吧%UNICODE(0x2665)%」
+			PRINTFORMW 「我选另一个，之后互相分享吧♥」
 		;親密４以下時専用
 		ELSE
 			PRINTFORMW 「选哪个呐真烦恼啊…」
@@ -5623,15 +5623,15 @@ IF LOCAL && !CFLAG:ブチギレ
 		PRINTFORMW 「哎呀，调味失败了 」
 	;恋人時かつ二人きりなら2分の1の確率で分岐
 	ELSEIF TALENT:恋人 && TALENT:恋慕 && GET_TARGETNUM() == 1 && !RAND:2
-		PRINTFORMW 「来%UNICODE(0x2665)% 张嘴%UNICODE(0x2665)%」
-		PRINTFORMW 「…欸嘿嘿%UNICODE(0x2665)% 接下来轮到我%UNICODE(0x2665)% 啊呜%UNICODE(0x2665)%」
+		PRINTFORMW 「来♥ 张嘴♥」
+		PRINTFORMW 「…欸嘿嘿♥ 接下来轮到我♥ 啊呜♥」
 		EXP:愛情経験 += 2
 	ELSEIF ABL:料理技能 >= 4 && TALENT:恋慕 && !RAND:2
-		PRINTFORMW 「诶嘿嘿%UNICODE(0x2665)%　只要%CALLNAME:MASTER%幸福，我也会幸福的。 %UNICODE(0x2665)%」
+		PRINTFORMW 「诶嘿嘿♥　只要%CALLNAME:MASTER%幸福，我也会幸福的。 ♥」
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
 		SELECTCASE RAND:4
 		CASE 1
-			PRINTFORMW 「我亲手做的鸡蛋三明治怎么样 %UNICODE(0x2665)%」
+			PRINTFORMW 「我亲手做的鸡蛋三明治怎么样 ♥」
 		CASE 2
 			;爱莲は動物の言葉が分かる
 			PRINTFORMDL  苏格拉底正在物色艾伦的便当……
@@ -5646,23 +5646,23 @@ IF LOCAL && !CFLAG:ブチギレ
 			;季節で分岐
 			IF DAY:2 == 1
 				IF TIME:5 <= 1
-					PRINTFORMW 「在春天的阳光下吃的便当比平时更加美味 %UNICODE(0x2665)% %CALLNAME:MASTER%也这么想吗？」
+					PRINTFORMW 「在春天的阳光下吃的便当比平时更加美味 ♥ %CALLNAME:MASTER%也这么想吗？」
 				ELSE
-					PRINTFORMW 「佳肴%UNICODE(0x2665)%」
+					PRINTFORMW 「佳肴♥」
 				ENDIF
 			;なつなつなつなつ甜甜圈！　あいあいあいあい冰淇淋！
 			ELSEIF DAY:2 == 2
 				PRINTFORMW 「甜度控制的甜甜圈味道如何？好吃吗？ 」
 			ELSEIF DAY:2 == 3
-				PRINTFORMW 「秋天悠闲自在，很爽呐 %UNICODE(0x2665)%」
+				PRINTFORMW 「秋天悠闲自在，很爽呐 ♥」
 			ELSE
-				PRINTFORMW 「来，喝一碗热汤吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「来，喝一碗热汤吧 ♥」
 			ENDIF
 		CASEELSE
-			PRINTFORMW 「佳肴%UNICODE(0x2665)%」
+			PRINTFORMW 「佳肴♥」
 		ENDSELECT
 	ELSE
-		PRINTFORMW 「佳肴%UNICODE(0x2665)%」
+		PRINTFORMW 「佳肴♥」
 	ENDIF
 ENDIF
 RETURN 1
@@ -5684,20 +5684,20 @@ IF LOCAL && !CFLAG:ブチギレ
 		IF TALENT:恋人 && TALENT:恋慕
 			SELECTCASE RAND:2
 			CASE 1
-				PRINTFORMW 「佳肴%UNICODE(0x2665)% 非常好吃啊%UNICODE(0x2665)%　下次再来吧 %UNICODE(0x2665)%%UNICODE(0x2665)%」
+				PRINTFORMW 「佳肴♥ 非常好吃啊♥　下次再来吧 ♥♥」
 			CASEELSE
-				PRINTFORMW 「佳肴%UNICODE(0x2665)% 嘴角稍微有点脏啊」
-				PRINTFORMW 「真是的，我来帮你擦干净%UNICODE(0x2665)%」
+				PRINTFORMW 「佳肴♥ 嘴角稍微有点脏啊」
+				PRINTFORMW 「真是的，我来帮你擦干净♥」
 			ENDSELECT
 		;工作結束からの约会の場合爱莲がおごってくれるよ！
 		ELSEIF TCVAR:356 == 1
-			PRINTFORMW 「啊，很好吃 %UNICODE(0x2665)% 下次再来吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「啊，很好吃 ♥ 下次再来吧 ♥」
 		;恋慕or恋人時専用
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
-			PRINTFORMW 「非常好吃啊%UNICODE(0x2665)% 下次再邀请我哦%UNICODE(0x2665)%」
+			PRINTFORMW 「非常好吃啊♥ 下次再邀请我哦♥」
 		;親密時専用
 		ELSE
-			PRINTFORMW 「谢谢你请我吃饭 %UNICODE(0x2665)% 很好吃啊 %UNICODE(0x2665)%」
+			PRINTFORMW 「谢谢你请我吃饭 ♥ 很好吃啊 ♥」
 		ENDIF
 	ELSE
 		;工作結束からの约会の場合爱莲がおごってくれるよ！
@@ -5705,14 +5705,14 @@ IF LOCAL && !CFLAG:ブチギレ
 			PRINTFORMW 「是由我发出邀请的不能让你请客，我来付钱吧」
 		;恋人かつ恋慕時専用
 		ELSEIF TALENT:恋人 && TALENT:恋慕
-			PRINTFORMW 「呐呐、我另选一个，一起分享吧？那样的话会幸福2倍哦 %UNICODE(0x2665)%」
+			PRINTFORMW 「呐呐、我另选一个，一起分享吧？那样的话会幸福2倍哦 ♥」
 		;恋慕or恋人時専用
 		ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 			PRINTFORMW 「呐，我选另一个吧，之后要不要分享？//」
 		;親密５以上時専用
 		ELSEIF TALENT:思慕
 			PRINTFORMW 「%CALLNAME:MASTER%要做什么呢 ？」
-			PRINTFORMW 「我选另一个，之后互相分享吧%UNICODE(0x2665)%」
+			PRINTFORMW 「我选另一个，之后互相分享吧♥」
 		;親密４以下時専用
 		ELSE
 			PRINTFORMW 「选哪个呐真烦恼啊…」
@@ -5854,7 +5854,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	IF TFLAG:194 >= 1000
-		PRINTFORMW 「我钓到了 %UNICODE(0x2665)%」
+		PRINTFORMW 「我钓到了 ♥」
 		IF TFLAG:193 == 706
 			PRINTFORMW 「……青蛙啊？」
 		ELSEIF TFLAG:193 > 15
@@ -5864,21 +5864,21 @@ IF LOCAL
 		SELECTCASE TFLAG:193
 		CASE 1 TO 4
 			IF TALENT:恋人 && TALENT:恋慕
-				PRINTFORMW 「不愧是%CALLNAME:MASTER%%UNICODE(0x2665)%」
+				PRINTFORMW 「不愧是%CALLNAME:MASTER%♥」
 			ELSEIF TALENT:恋慕 || CFLAG:1014 || TALENT:恋人
-				PRINTFORMW 「真厉害%UNICODE(0x2665)%」
+				PRINTFORMW 「真厉害♥」
 			ELSEIF TALENT:思慕
-				PRINTFORMW 「%CALLNAME:MASTER%很会钓鱼呢 %UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:MASTER%很会钓鱼呢 ♥」
 			ELSE
 				PRINTFORMW 「真厉害」
 			ENDIF
 		CASE 11 TO 15
 			IF TALENT:恋人 && TALENT:恋慕
-				PRINTFORMW 「待会儿做个美味的菜吧 %UNICODE(0x2665)%」
+				PRINTFORMW 「待会儿做个美味的菜吧 ♥」
 			ELSEIF TALENT:恋慕 || CFLAG:1014 || TALENT:恋人
-				PRINTFORMW 「啊啦、真棒啊%UNICODE(0x2665)%」
+				PRINTFORMW 「啊啦、真棒啊♥」
 			ELSEIF TALENT:思慕
-				PRINTFORMW 「太好了。 %UNICODE(0x2665)%」
+				PRINTFORMW 「太好了。 ♥」
 			ELSE
 				PRINTFORMW 「看起来很好吃的鱼呢 」
 			ENDIF
@@ -5950,11 +5950,11 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL && !CFLAG:ブチギレ
 	IF TALENT:恋人
-		PRINTFORMW 「来，别客气进来吧 %UNICODE(0x2665)%」
+		PRINTFORMW 「来，别客气进来吧 ♥」
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-		PRINTFORMW 「不用客气进来吧%UNICODE(0x2665)%」
+		PRINTFORMW 「不用客气进来吧♥」
 	ELSE
-		PRINTFORMW 「嘛快点进来吧%UNICODE(0x2665)%」
+		PRINTFORMW 「嘛快点进来吧♥」
 	ENDIF
 ENDIF
 RETURN 1
@@ -5974,34 +5974,34 @@ IF LOCAL && !CFLAG:睡眠
 		IF VISIT(44) || CHK_DATENOW(CFLAG:44:约会中) || ((FLAG:住宿人物 == 44 || FLAG:16 == 44) && (!睡眠時間(44)) && !CFLAG:睡眠)
 			;爱莲的家に泊まっているなら
 			IF TCVAR:(CFLAG:MASTER:招待):连住禁止 && TIME:0 <= 660
-				PRINTFORMW 「今天一天也要加油哦 %UNICODE(0x2665)%」
+				PRINTFORMW 「今天一天也要加油哦 ♥」
 			ELSE
-				PRINTFORMW 「那么，接下来去哪里呢？%UNICODE(0x2665)%」
+				PRINTFORMW 「那么，接下来去哪里呢？♥」
 			ENDIF
 		ELSE
-			PRINTFORMW 「一路走好%UNICODE(0x2665)% 回头见%UNICODE(0x2665)%」
+			PRINTFORMW 「一路走好♥ 回头见♥」
 		ENDIF
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 		IF VISIT(44) || CHK_DATENOW(CFLAG:44:约会中) || ((FLAG:住宿人物 == 44 || FLAG:16 == 44) && (!睡眠時間(44)) && !CFLAG:睡眠)
 			;爱莲的家に泊まっているなら
 			IF TCVAR:(CFLAG:MASTER:招待):连住禁止 && TIME:0 <= 660
-				PRINTFORMW 「今天一天也要加油哦%UNICODE(0x2665)%」
+				PRINTFORMW 「今天一天也要加油哦♥」
 			ELSE
-				PRINTFORMW 「接下来去哪里呢 %UNICODE(0x2665)%」
+				PRINTFORMW 「接下来去哪里呢 ♥」
 			ENDIF
 		ELSE
-			PRINTFORMW 「已经要走了吗，那么回头见%UNICODE(0x2665)%」
+			PRINTFORMW 「已经要走了吗，那么回头见♥」
 		ENDIF
 	ELSE
 		IF VISIT(44) || CHK_DATENOW(CFLAG:44:约会中) || ((FLAG:住宿人物 == 44 || FLAG:16 == 44) && (!睡眠時間(44)) && !CFLAG:睡眠)
 			;爱莲的家に泊まっているなら
 			IF TCVAR:(CFLAG:MASTER:招待):连住禁止 && TIME:0 <= 660
-				PRINTFORMW 「今天一天也要加油哦 %UNICODE(0x2665)%」
+				PRINTFORMW 「今天一天也要加油哦 ♥」
 			ELSE
 				PRINTFORMW 「接下来去哪里？ 」
 			ENDIF
 		ELSE
-			PRINTFORMW 「已经要回去了吗？　那么下次再见吧 %UNICODE(0x2665)%」
+			PRINTFORMW 「已经要回去了吗？　那么下次再见吧 ♥」
 		ENDIF
 	ENDIF
 ENDIF
@@ -6029,12 +6029,12 @@ IF LOCAL && !CFLAG:ブチギレ
 		PRINTFORMW 「哇，我取出好大一块 」
 	;恋人時専用
 	ELSEIF TALENT:恋人
-		PRINTFORMW 「欸嘿嘿%UNICODE(0x2665)% 总觉得好幸福啊 %UNICODE(0x2665)%」
+		PRINTFORMW 「欸嘿嘿♥ 总觉得好幸福啊 ♥」
 	;恋慕時専用
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-		PRINTFORMW 「我的掏耳朵技术怎么样%UNICODE(0x2665)%//」
+		PRINTFORMW 「我的掏耳朵技术怎么样♥//」
 	ELSE
-		PRINTFORMW 「嘿，变干净了哦 %UNICODE(0x2665)%」
+		PRINTFORMW 「嘿，变干净了哦 ♥」
 	ENDIF
 ENDIF
 RETURN 1
@@ -6056,7 +6056,7 @@ IF LOCAL
 		ELSE
 			SIF TFLAG:193 == 0
 			PRINTFORMDL 艾伦的温暖传递了过来……
-			PRINTFORMW 「晚安啦、%CALLNAME:MASTER%%UNICODE(0x2665)%」
+			PRINTFORMW 「晚安啦、%CALLNAME:MASTER%♥」
 		ENDIF
 	ENDIF
 ENDIF
@@ -6077,7 +6077,7 @@ IF LOCAL && !CFLAG:ブチギレ
 		IF ABL:欲望 >= 5 && GET_TARGETNUM() == 1
 			PRINTFORMW 「下次希望你亲吻我的嘴唇//」
 		ELSE
-			PRINTFORMW 「啊哈哈 %UNICODE(0x2665)%」
+			PRINTFORMW 「啊哈哈 ♥」
 		ENDIF
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 		PRINTFORMW 「欸嘿嘿//」
@@ -6102,7 +6102,7 @@ LOCAL = 1
 IF LOCAL && !CFLAG:ブチギレ
 	IF TALENT:恋人 && TALENT:恋慕
 		PRINTFORMW 「啾…咕啾…呼阿」
-		PRINTFORMW 「嗯…姆啾～%UNICODE(0x2665)%」
+		PRINTFORMW 「嗯…姆啾～♥」
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1 || TALENT:恋人
 		PRINTFORMW 「啾、啾露…嗯…啾…呼哈//」
 	ELSE
@@ -6127,12 +6127,12 @@ RETURN 1
 IF LOCAL && !CFLAG:ブチギレ
 	IF TALENT:恋人
 		IF TFLAG:193 == 1
-			PRINTFORMW 「啊哈哈 は%UNICODE(0x2665)%」
+			PRINTFORMW 「啊哈哈 は♥」
 		ELSE
-			PRINTFORMW 「不用那么急也没关系 %UNICODE(0x2665)%」
+			PRINTFORMW 「不用那么急也没关系 ♥」
 		ENDIF
 	ELSEIF TALENT:恋慕 || CFLAG:1014 == 1
-		PRINTFORMW （啊ーーー%UNICODE(0x2665)%%UNICODE(0x2665)%//）
+		PRINTFORMW （啊ーーー♥♥//）
 	ELSE
 		PRINTFORMW 「啊呀！不要突然拉手啊！」
 	ENDIF
@@ -12429,7 +12429,7 @@ IF TCVAR:破瓜
 	;正真正銘処女喪失
 	IF TCVAR:破瓜 == 1
 		SIF TALENT:恋慕 && !TCVAR:烂醉 && !FLAG:70
-			PRINTFORMW 「虽然有点疼…我的第一次能给%CALLNAME:MASTER%感觉很幸福%UNICODE(0x2665)%//」
+			PRINTFORMW 「虽然有点疼…我的第一次能给%CALLNAME:MASTER%感觉很幸福♥//」
 	;再生処女喪失
 	ELSEIF TCVAR:破瓜 == 2
 	;無自覚非処女喪失
@@ -12455,7 +12455,7 @@ ENDIF
 ;処女喪失
 IF TFLAG:4
 	SIF TALENT:恋慕 && !TCVAR:烂醉 && !FLAG:70
-	PRINTFORMW 「虽然有点疼…我的第一次能给%CALLNAME:MASTER%感觉很幸福%UNICODE(0x2665)%//」
+	PRINTFORMW 「虽然有点疼…我的第一次能给%CALLNAME:MASTER%感觉很幸福♥//」
 ENDIF
 
 ;口交で射精後のお掃除

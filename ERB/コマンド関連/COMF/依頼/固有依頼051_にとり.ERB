@@ -46,13 +46,13 @@ CASE 101
 CASE 102
 	SELECTCASE O_DATA
 	CASE "依頼名"
-		CALLF MAKE_STR(V_NAME, "かっぱすたーたー")
+		CALLF MAKE_STR(V_NAME, "河童的启动资金")
 	CASE "依頼内容表示"
-		CALLF MAKE_STR(V_NAME, "研究開発用的資金捐款（100籌碼）")
+		CALLF MAKE_STR(V_NAME, "研究开发用的资金捐款（100筹码）")
 	CASE "依頼報酬表示"
-		CALLF MAKE_STR(V_NAME, "薄禮（跳蛋1個）")
+		CALLF MAKE_STR(V_NAME, "薄礼（跳蛋1个）")
 	CASE "依頼実行指令名"
-		CALLF MAKE_STR(V_NAME, "捐獻資金")
+		CALLF MAKE_STR(V_NAME, "捐献资金")
 		
 	CASE "依頼内容"
 		CALLF MAKE_INT(V_NAME, MAKE_IRAI_DATA(0, "作業"))
@@ -93,7 +93,7 @@ ENDSELECT
 #DIM  CLIENT_ID
 CLIENT_ID = IRAI_ID_TO_CLIENT(IRAI_ID)
 SELECTCASE STR_DATA_IRAI(IRAI_ID, "依頼名", CLIENT_ID)
-;個々の依頼名で分岐
+;个々の依頼名で分岐
 CASE "荷取和黄瓜"
 	SELECTCASE SCENE
 	CASE "依頼条件表示"
@@ -111,7 +111,7 @@ CASE "荷取和黄瓜"
 	;可能な引数は"中止", "実行して成功", "実行して失敗", "実行して未解決"です
 	;独自処理を仕込みたい時は"実行して未解決"で先延ばしするなりしてください
 		SOURCE:TARGET:歓楽 += 500
-		PRINTFORML %CALLNAME:MASTER%は%CALLNAME:TARGET%に提供黄瓜した
+		PRINTFORML %CALLNAME:MASTER%给%CALLNAME:TARGET%提供了黄瓜。
 		CALL LOST_ITEM("黄瓜", 1, 2)
 		RETURN IRAI_CONST_RESULT("実行して成功")
 	CASE "依頼成功時"
@@ -127,7 +127,7 @@ CASE "荷取和黄瓜"
 		TALENT:心情 = LIMIT(TALENT:心情 - 1, -1, 1)
 	ENDSELECT
 
-CASE "かっぱすたーたー"
+CASE "河童的启动资金"
 	SELECTCASE SCENE
 	CASE "依頼条件表示"
 	;何か専用の表示情報を設けたい時用
@@ -144,7 +144,7 @@ CASE "かっぱすたーたー"
 	;可能な引数は"中止", "実行して成功", "実行して失敗", "実行して未解決"です
 	;独自処理を仕込みたい時は"実行して未解決"で先延ばしするなりしてください
 		SOURCE:歓楽 = 1000
-		PRINTFORML %CALLNAME:MASTER%把籌碼捐給了%CALLNAME:TARGET%
+		PRINTFORML %CALLNAME:MASTER%把筹码捐给了%CALLNAME:TARGET%
 		CALL LOST_MONEY_CM(100, 2)
 		RETURN IRAI_CONST_RESULT("実行して成功")
 	CASE "依頼成功時"
@@ -155,7 +155,7 @@ CASE "かっぱすたーたー"
 		;システムメッセージつき信賴度変化
 		;最後の引数だけ信賴度が変化
 		CALL CHANGE_CFLAG(4, TARGET, 10)
-		PRINTFORML 收下了回禮跳蛋
+		PRINTFORML 收下了回礼跳蛋
 		CALL GET_ITEM("跳蛋", 1, 2)
 		RETURN IRAI_CONST_RESULT("実行して成功")
 	CASE "依頼失敗時"

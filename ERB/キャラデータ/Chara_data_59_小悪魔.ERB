@@ -43,11 +43,11 @@ CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（裤子）套")
 
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "長筒襪"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "长筒袜"))
 CASE "便装：裙子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "長裙"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "长裙"))
 CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 CASE "便装：外搭"
@@ -56,13 +56,13 @@ CASE "便装：其他１"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "领带"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "挑衅的")
+	CALLF MAKE_STR(V_NAME, "挑逗的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "蕾丝T字")
+	CALLF MAKE_STR(V_NAME, "蕾丝T字裤")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "透明胸罩")
+	CALLF MAKE_STR(V_NAME, "半透蕾丝胸罩")
 CASE "固有内衣着用条件"
 	SIF !RAND:(3 - (2 * 勝負内衣判定([[小悪魔]])))
 		CALLF MAKE_INT(V_NAME, 1)
@@ -98,7 +98,7 @@ CASE "感性：嫌い"
 
 ;農民関連
 ;まさかの室内栽培
-;主人をからかうのが目的だが気づかれていない様子
+;主人をからかうのが目的だが気づかれていない样子
 ;ぜんぜん儲からない
 CASE "農民：説明"
 	CALLF MAKE_STR(V_NAME, "豆芽農家")
@@ -139,12 +139,12 @@ DISH_TIME = 10
 RETURN 1
 
 ;********************************************************************************************
-;角色別画像表示貂プレ IMAGE_IXX_○○.ERB
+;角色別画像表示テンプレ IMAGE_IXX_○○.ERB
 ;2020/11/07 画像表示修正パッチv2.0 版
 ;制作者		:画像修正パッチの人
 ;Licence	:ライセンスフリー(CC0)
 ;
-;角色特有の表情やエフェクト画像を個別に表示できるようにしたもの。
+;角色特有の表情やエフェクト画像を个別に表示できるようにしたもの。
 ;使用方法は ERB\ステータス表示関連\角色別画像表示 フォルダにある他角色のファイルを参照してください。
 ;使用時は"XX"を角色番号に全置換すること。
 ;********************************************************************************************
@@ -161,6 +161,9 @@ VARSET RESULTS
 
 IF CFLAG:CHARA:差し替え適用
 	;替换用画像
+	;这里是两个KOJO_IMAGE接口示例的原始功能实现，用于不修改本体而通过剧本接口设定CHARADATA可以实现的全部立绘设定
+	;对比@M_KOJO_長短髪_IMAGE_K59_特殊服装(ARGS,ARG,ARG:1)可了解该接口的具体用法
+	[SKIPSTART]
 	;通常口上
 	IF CFLAG:CHARA:口上セレクタ != 1
 		RESULTS =
@@ -177,6 +180,7 @@ IF CFLAG:CHARA:差し替え適用
 		CASE 2
 			RESULTS = _Ｍ
 	ENDSELECT
+	[SKIPEND]
 ELSE
 	;通常画像
 	IF CHECK_NUDE(CHARA)

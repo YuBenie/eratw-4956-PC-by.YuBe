@@ -222,7 +222,7 @@ WAIT
 
 CALL SHOW_REASONWALL(理性判定値)
 IF TALENT:MASTER:謎之魅力
-	CALL COLORMESSAGE(@"%CALLNAME:ARG%、因%CALLNAME:MASTER%的謎之魅力感覺理性有些蒸発……",C_PINK,1,1)
+	CALL COLORMESSAGE(@"%CALLNAME:ARG%、因%CALLNAME:MASTER%的謎之魅力感觉理性有些蒸発……",C_PINK,1,1)
 	理性判定値 = 理性判定値 * 9 / 10
 	CALL SHOW_REASONWALL(理性判定値)
 ENDIF
@@ -235,7 +235,7 @@ ELSEIF TALENT:ARG:自尊心 == 1
 ENDIF
 IF TALENT:ARG:貞操 == 1
 	理性判定値 = 理性判定値 * 6 / 5
-	CALL COLORMESSAGE(@"非常重視贞操的%CALLNAME:ARG%、在改変觀念之前沒那麼容易就接受的……",C_PINK,1,1)
+	CALL COLORMESSAGE(@"非常重視贞操的%CALLNAME:ARG%、在改変觀念之前没那么容易就接受的……",C_PINK,1,1)
 	CALL SHOW_REASONWALL(理性判定値)
 ENDIF
 IF OTOKOGIRAI(ARG)
@@ -292,7 +292,7 @@ ELSE
 	PRINTFORMDW 『其实只要温柔地做的话是不会很痛的……』
 	PRINTFORMDW %CALLNAME:MASTER%好好地教导着妖梦性行为的具体以及\@GETBIT(CFLAG:23:K23_记忆,6) ? 其对夫妻的意义 # 其目的和更多意义\@
 	IF GETBIT(CFLAG:23:K23_记忆,6)
-		PRINTFORMW 「这样的话……那不管%K23_CALLNAME()%怎么做……我都会接受的%UNICODE(0x2665)%」
+		PRINTFORMW 「这样的话……那不管%K23_CALLNAME()%怎么做……我都会接受的♥」
 	ELSEIF TALENT:23:恋慕 || TALENT:23:恋人
 		PRINTFORMW 「如果是%K23_CALLNAME()%的话……那我也可以原谅你……」
 		PRINTFORMW 「不过……你要负起责任啊！」

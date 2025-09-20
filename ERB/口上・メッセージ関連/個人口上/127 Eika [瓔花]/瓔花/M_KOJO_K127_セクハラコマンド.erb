@@ -69,7 +69,7 @@ RETURN 1
 ;==================================================
 ;311,擁抱
 ;TFLAG:193(1=大成功 0=成功 -1=失敗)
-;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 60=ディープ接吻 73=ぱふぱふ 74=乳合わせ 77=乳を吸わせる ＶＡ性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅき大堂ド)
+;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 60=ディープ接吻 73=ぱふぱふ 74=乳合わせ 77=乳を吸わせる ＶＡ性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅきホールド)
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;==================================================
 @M_KOJO_SUCCESS_COM_K127_311
@@ -105,10 +105,10 @@ IF LOCAL
 	ELSEIF TALENT:恋人 || TALENT:恋慕
 		SELECTCASE RAND:3
 			CASE 1
-				PRINTFORMW 「诶嘿嘿…%UNICODE(0x2764)%」
+				PRINTFORMW 「诶嘿嘿…❤」
 				PRINTFORMW 瓔花慢慢地靠在了%CALLNAME:MASTER%的胸口上…
 			CASE 2
-				PRINTFORMW 「%CALLNAME:MASTER%…抱～%UNICODE(0x2764)%」
+				PRINTFORMW 「%CALLNAME:MASTER%…抱～❤」
 				PRINTFORMW 被%CALLNAME:MASTER%拥抱后、瓔花也回抱了过去…
 			CASEELSE
 				PRINTFORMW 「虽然现在还是有点害羞…但这样也很不错呢」
@@ -143,7 +143,7 @@ RETURN 1
 ;==================================================
 ;312,接吻
 ;TFLAG:193(99=拒絶(接吻不可) 1=大成功 0=成功 -1=失敗)
-;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 50=手淫 60=接吻 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅき大堂ド)
+;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 50=手淫 60=接吻 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅきホールド)
 ;PREVCOM(305=膝枕
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;==================================================
@@ -177,7 +177,7 @@ IF LOCAL
 			PRINTFORML 「所有穿越三途河的亡者都说、最想做的事就是和喜欢的人接吻…」
 			PRINTFORMW 「我也一直很在意的啊！」
 			PRINTFORMW 「……嘛、如果你以后多多亲我我就原谅你吧」
-			PRINTFORMW 「呜嗯…%UNICODE(0x2764)%啾…%UNICODE(0x2764)%」
+			PRINTFORMW 「呜嗯…❤啾…❤」
 			PRINTFORMW 「……诶嘿嘿、原来是这种感觉啊…」
 		ELSE
 			PRINTFORMW 「呜嗯！？！？！？！」
@@ -192,33 +192,33 @@ IF LOCAL
 		SELECTCASE RAND:5
 			CASE 0
 				PRINTFORMW 「嗯！嗯呜…啾啪！」
-				PRINTFORMW 「诶嘿…%UNICODE(0x2764)%再来一次…好吗？」
+				PRINTFORMW 「诶嘿…❤再来一次…好吗？」
 			CASE 1
-				PRINTFORMW 「呜嗯…%UNICODE(0x2764)%」
-				PRINTFORMW 「突然袭击也太狡猾了…%UNICODE(0x2764)%看我反击！」
+				PRINTFORMW 「呜嗯…❤」
+				PRINTFORMW 「突然袭击也太狡猾了…❤看我反击！」
 			CASE 2
-				PRINTFORMW 「呸咯%UNICODE(0x2764)%呸咯%UNICODE(0x2764)%」
-				PRINTFORMW 「我可能更喜欢这种接吻方式%UNICODE(0x2764)%」
+				PRINTFORMW 「呸咯❤呸咯❤」
+				PRINTFORMW 「我可能更喜欢这种接吻方式❤」
 			CASE 3
-				PRINTFORMW 「%CALLNAME:MASTER%的嘴唇…好温暖%UNICODE(0x2764)%」
+				PRINTFORMW 「%CALLNAME:MASTER%的嘴唇…好温暖❤」
 				PRINTFORMW 「我的嘴唇感觉怎么样呢？刚刚确认过了吧？」
 				PRINTFORMW 「还不清楚？……那就再来一次吧？」
 			CASEELSE
-				PRINTFORMW 「呜嗯…%UNICODE(0x2764)%啾啪%UNICODE(0x2764)%」
+				PRINTFORMW 「呜嗯…❤啾啪❤」
 				PRINTFORMW 「……想要再多亲一会呢ー」
 		ENDSELECT
 	ELSEIF TALENT:127:愛欲 || TALENT:127:炮友
 		SELECTCASE RAND:3
 			CASE 0
 				PRINTFORMW 「哈啊…想做了？」
-				PRINTFORMW 「呜嗯…%UNICODE(0x2764)%这样够了吗？」
+				PRINTFORMW 「呜嗯…❤这样够了吗？」
 			CASE 1
-				PRINTFORMW 「呜嗯…%UNICODE(0x2764)%好突然…」
+				PRINTFORMW 「呜嗯…❤好突然…」
 				PRINTFORMW 「以为我们是这种关系就可以做任何事吗？」
 				PRINTFORMW 「嘛…接吻这种程度倒是没问题就是了…」
 			CASEELSE
-				PRINTFORMW 「呜嗯…%UNICODE(0x2764)%啾啪%UNICODE(0x2764)%」
-				PRINTFORMW 「要做的话就多做点吧%UNICODE(0x2764)%」
+				PRINTFORMW 「呜嗯…❤啾啪❤」
+				PRINTFORMW 「要做的话就多做点吧❤」
 		ENDSELECT
 	ELSE
 		SELECTCASE RAND:3
@@ -237,7 +237,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;313,胸愛撫
-;CFLAG:诶嘿嘿==2&&TCVAR:20(27=谷間を見せる 33=胸を揉ませる 53=乳交(小分岐は地の文EVENT_MESSAGE_COM_性騷擾.ERB参照) 73=ぱふぱふ 77=乳を吸わせる 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅき大堂ド)
+;CFLAG:诶嘿嘿==2&&TCVAR:20(27=谷間を見せる 33=胸を揉ませる 53=乳交(小分岐は地の文EVENT_MESSAGE_COM_性騷擾.ERB参照) 73=ぱふぱふ 77=乳を吸わせる 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅきホールド)
 ;ABL:Ｂ感覚(2未満=性的には感じてない 5未満=多少感じてる 5以上=カイカン)
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;乳の尺寸でも変わる場合があるので、地の文EVENT_MESSAGE_COM_性騷擾.ERB参照
@@ -283,7 +283,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;315,陰蒂愛撫
-;CFLAG:诶嘿嘿==2&&TCVAR:20(35=裙子の中を見せる 70=強制舐陰 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振り
+;CFLAG:诶嘿嘿==2&&TCVAR:20(35=裙子の中を見せる 70=強制舐陰 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振り
 ;ABL:Ｃ感覚(4未満=くすぐったい 6未満=稍微いいかも 6以上=カイカン)
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;==================================================

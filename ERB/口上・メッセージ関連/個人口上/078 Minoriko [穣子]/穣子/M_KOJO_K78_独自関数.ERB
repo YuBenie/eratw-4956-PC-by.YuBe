@@ -21,7 +21,7 @@ DO
 	ELSEIF HPHインデクス値 == 0
 		LOCAL = GETCOLOR()
 		SETCOLOR 0xFF69B4
-		PRINTFORM %UNICODE(0x2764)%
+		PRINTFORM ❤
 		SETCOLOR LOCAL
 		出力文字数 = 3
 	;HPHがもうない場合
@@ -204,8 +204,8 @@ ENDIF
 
 ;以下は「变成只穿内衣的样子」で脱がないので必ず判定する
 
-;緊身内衣系は緊身内衣、贴身长筒袜（赤と黒）、保暖内衣、鎖帷子のどれかだと不可
-SIF GROUPMATCH( EQUIP:(ARG:0):緊身内衣, CLOTHES_ID("緊身内衣","緊身内衣"), CLOTHES_ID("緊身内衣","贴身长筒袜（赤）"), CLOTHES_ID("緊身内衣","贴身长筒袜（黒）"), CLOTHES_ID("緊身内衣","保暖内衣"), CLOTHES_ID("緊身内衣","鎖帷子") )
+;緊身内衣系は緊身内衣、体操服（赤と黒）、保暖内衣、鎖帷子のどれかだと不可
+SIF GROUPMATCH( EQUIP:(ARG:0):緊身内衣, CLOTHES_ID("緊身内衣","緊身内衣"), CLOTHES_ID("緊身内衣","红色体操服"), CLOTHES_ID("緊身内衣","黑色体操服"), CLOTHES_ID("緊身内衣","保暖内衣"), CLOTHES_ID("緊身内衣","锁子甲") )
 	RETURNF 0
 	
 ;連体内衣系は連体内衣以外不可
@@ -275,7 +275,7 @@ SIF GROUPMATCH( EQUIP:ARG:上身衣服２, CLOTHES_ID("上身衣服２","運動�
 	RETURNF 0
 
 ;緊身内衣系は鎖帷子のみダメ
-SIF EQUIP:ARG:緊身内衣 == CLOTHES_ID("緊身内衣","鎖帷子")
+SIF EQUIP:ARG:緊身内衣 == CLOTHES_ID("緊身内衣","锁子甲")
 	RETURNF 0
 	
 ;連衣裙系は法衣、道士服、罩衫、布偶装だとダメ
@@ -304,13 +304,13 @@ IF RESULT < 2
 	CALL K78_HAIR_STATUS,陰毛or腋毛
 	;どの毛に変えてもらうか選択肢
 	IF 陰毛or腋毛 == 1
-		CALL ASK_M("ツルツルにする", CFLAG:1004 != -2, "剃りあとを残す", CFLAG:1004 != -1, "ふつうに整える", CFLAG:1004 != 0, "ふさふさにする", CFLAG:1004 != 1, "ボーボーにする", CFLAG:1004 != 2, "果然還是放棄", 1)
+		CALL ASK_M("ツルツルにする", CFLAG:1004 != -2, "剃りあとを残す", CFLAG:1004 != -1, "ふつうに整える", CFLAG:1004 != 0, "ふさふさにする", CFLAG:1004 != 1, "ボーボーにする", CFLAG:1004 != 2, "果然還是放弃", 1)
 		SIF RESULT == 5
 			GOTO HAIR_TREATMENT_LOOP
 		;どの陰毛に変更するかが決まる
 		CFLAG:78:1004 = RESULT - 2
 	ELSE
-		CALL ASK_M("ツルツルにする", CFLAG:1008 != 0, "剃りあとを残す", CFLAG:1008 != 1, "ふさふさにする", CFLAG:1008 != 2, "ボーボーにする", CFLAG:1008 != 3, "果然還是放棄", 1)
+		CALL ASK_M("ツルツルにする", CFLAG:1008 != 0, "剃りあとを残す", CFLAG:1008 != 1, "ふさふさにする", CFLAG:1008 != 2, "ボーボーにする", CFLAG:1008 != 3, "果然還是放弃", 1)
 		SIF RESULT == 4
 			GOTO HAIR_TREATMENT_LOOP
 		;どの腋毛に変更するかが決まる

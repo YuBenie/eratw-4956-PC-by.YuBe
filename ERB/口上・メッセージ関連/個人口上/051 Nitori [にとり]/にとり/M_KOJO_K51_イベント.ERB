@@ -22,7 +22,7 @@
 
 ;------ ｷﾘﾄﾘ ｶｲｼ -----------
 ;eraTheWorld proto4.01用 Ver1.12
-;貂プレートの使い方
+;テンプレートの使い方
 ;初めに置換指令等により K1 を K(角色No) に変更して下さい 
 ;角色NoはCSVフォルダのCharaファイルを参照　例(霧雨 魔理沙の場合)：K1 =置換=> K11
 ;
@@ -57,7 +57,7 @@
 
 ;### 口上存在判定 ###################################
 @M_KOJO_K51(ARG)
-;別人版を作成する際はこの貂プレではなく別人版用口上貂プレをご利用ください
+;別人版を作成する際はこのテンプレではなく別人版用口上テンプレをご利用ください
 
 ;口上存在判定です、けしてコメントアウトしないでください
 ;他の処理は一切行わないように
@@ -100,13 +100,13 @@ RETURN 1
 ;ENDIF
 
 ; 作業着 for today
-IF !CFLAG:51:衣装一時変更 && TCVAR:51:351 == 0
-	IF RAND:8 == 0
-		CALL CTRL_CLOTHES_SET(51, "現在衣装の変更_衣装セット", 65)
-		CALL CLOTHES_SETTING_TRAIN(51)
-	ENDIF
-	TCVAR:51:351 = 1
-ENDIF
+;IF !CFLAG:51:衣装一時変更 && TCVAR:51:351 == 0
+;	IF RAND:8 == 0
+;		CALL CTRL_CLOTHES_SET(51, "現在衣装の変更_衣装セット", 65)
+;		CALL CLOTHES_SETTING_TRAIN(51)
+;	ENDIF
+;	TCVAR:51:351 = 1
+;ENDIF
 
 ;### 口上色判定 ###################################
 @M_KOJO_COLOR_K51
@@ -235,7 +235,7 @@ IF LOCAL
 		PRINTFORMW 「但是…、但是呢……」
 		PRINTFORMW 「我己经…不想只是当『友人』了」
 		PRINTFORMW 「想成为友人以上的……对于%CALLNAME:MASTER%来说、最特別的那个人」
-		PRINTFORMW 是因为緊張吗、或是因为恐惧、荷取的肩膀微微抖动着
+		PRINTFORMW 是因为紧张吗、或是因为恐惧、荷取的肩膀微微抖动着
 		PRINTFORMW 「我、喜欢%CALLNAME:MASTER%。非常地喜欢」
 		PRINTFORMW 「与河童、人类什么的无关。我是因为%CALLNAME:MASTER%是%CALLNAME:MASTER%才打心眼里喜欢的」
 		PRINTFORMW 「我真的很害怕说完这些话、至今为止建立的关系都会被破坏掉」
@@ -1215,7 +1215,7 @@ IF LOCAL
 			PRINTFORML 「那个……%CALLNAME:ARG%呆在这里的话稍微让人有些困扰呢」
 			PRINTFORML 什么、展示给别人看也没什么不好吧。%CALLNAME:MASTER%说道
 			PRINTFORML 「笨蛋。我想和%CALLNAME:MASTER%两人独处啊」
-			PRINTFORML 因为%CALLNAME:MASTER%和荷取的様子而发愣的%CALLNAME:ARG%关上门离開了。
+			PRINTFORML 因为%CALLNAME:MASTER%和荷取的样子而发愣的%CALLNAME:ARG%关上门离開了。
 			PRINTFORML 「那么、%CALLNAME:MASTER%……再来一次……」
 			PRINTFORMW 荷取带着热切的表情催促着%CALLNAME:MASTER%。
 			RETURN 1
@@ -1435,10 +1435,10 @@ IF LOCAL
 		ELSE
 			PRINTFORML 「呜嗯…盟友你能抽出点时间吗？」
 			PRINTFORML 听了荷取的话、%CALLNAME:MASTER%转向荷取的方向、
-			PRINTFORML 「盟友。只是一小会儿、陪我玩相撲吧？」
+			PRINTFORML 「盟友。只是一小会儿、陪我玩相扑吧？」
 			PRINTFORML 荷取一边说一边抓住%CALLNAME:MASTER%的领子把他按倒在了地上。
 			PRINTFORML 即使反抗、也完全无法対抗河童的怪力、就这样%CALLNAME:MASTER%被推倒了。
-			PRINTFORML 「嘛、相撲不单单是指这样的相撲哦」
+			PRINTFORML 「嘛、相扑不单单是指这样的相扑哦」
 			PRINTFORML 「是这样的、想稍微借盟友的身体一用呢」
 			PRINTFORMW 荷取一边说着一边压在了%CALLNAME:MASTER%身上。
 		ENDIF
@@ -1637,7 +1637,7 @@ IF LOCAL
 	IF LOCAL:1 && ARG:1 == 4
 		IF TALENT:恋慕
 			PRINTFORML 「唔、%CALLNAME:MASTER%。」
-			PRINTFORML %CALLNAME:MASTER%进入房间时荷取正在做睡觉的準備。
+			PRINTFORML %CALLNAME:MASTER%进入房间时荷取正在做睡觉的准备。
 			PRINTFORML 「对不起、已经是睡觉的时间了」
 			PRINTFORML 「明日再见、好吗？」
 			PRINTFORMW 被荷取从房间里赶出来了。
@@ -1730,29 +1730,29 @@ IF LOCAL
 			PRINTFORML ――咕
 			PRINTFORML 从荷取那里听见了可愛的声音。
 			PRINTFORML 荷取红着脸捂着肚子。
-			PRINTFORML %CALLNAME:MASTER%一边苦笑、一边把%DISHNAME%递给荷取
+			PRINTFORML %CALLNAME:MASTER%一边苦笑、一边把%DISHNAME_TR()%递给荷取
 			PRINTFORML 「请问、我可以把这个吃掉吗」
 			PRINTFORML 本来就是为了荷取而特意准备的东西啊、%CALLNAME:MASTER%回答道
 			PRINTFORML 「为了我……、诶嘿嘿……谢谢你。%CALLNAME:MASTER%」
-			PRINTFORML 喜笑颜開接过%DISHNAME%。
+			PRINTFORML 喜笑颜開接过%DISHNAME_TR()%。
 			PRINTFORMW 「那么、我就不客气了」
 			RETURN 1
 		ELSEIF TALENT:恋慕
 			PRINTFORML 「%CALLNAME:MASTER%、肚子有点饿了呢」
 			PRINTFORML 「有带什么吃的东西吗？」
-			PRINTFORML %CALLNAME:MASTER%把%DISHNAME%取出来交给荷取。
+			PRINTFORML %CALLNAME:MASTER%把%DISHNAME_TR()%取出来交给荷取。
 			PRINTFORML 「请问……我可以吃吗？」
 			PRINTFORML 当然、你这样说道
 			PRINTFORML 「谢谢、那我就收下了？」
-			PRINTFORMW 荷取笑着把%DISHNAME%送进嘴里
+			PRINTFORMW 荷取笑着把%DISHNAME_TR()%送进嘴里
 		ELSE
 			PRINTFORML 「……总觉得有什么味道好香啊？」
 			PRINTFORML 荷取向%CALLNAME:MASTER%说道。
-			PRINTFORML %CALLNAME:MASTER%把突然想起来的%DISHNAME%拿了出来。
+			PRINTFORML %CALLNAME:MASTER%把突然想起来的%DISHNAME_TR()%拿了出来。
 			PRINTFORML 「呼ー呼ー……这是盟友做的吗？」
 			PRINTFORML 「看起来很好吃的样子呢」
 			PRINTFORML 「那么、我就收下了」
-			PRINTFORML 话音刚落没多久、连制止的时間都没有%DISHNAME%就快被吃光了。
+			PRINTFORML 话音刚落没多久、连制止的时間都没有%DISHNAME_TR()%就快被吃光了。
 			PRINTFORML 「虽然很不好意思……果然我还是很喜欢料理呢」
 			PRINTFORML 「多谢款待」
 			PRINTFORMW 荷取一边恣意的吃着一边说道。
@@ -2060,21 +2060,21 @@ IF LOCAL
 				PRINTFORML 荷取察觉到了突然出现在嘴里的精液、并没有吞下去而是用舌尖慢慢品味着。
 				PRINTFORML 「嗯嗯……。泼啾……噜啾……」
 				PRINTFORML 用舌头逗弄了精液许久之后、荷取慢慢的把它咽了下去。
-				PRINTFORML 「咕噜……咕噜……哈啊……%UNICODE(0x2665)%」
-				PRINTFORML 「对不起、%CALLNAME:MASTER%。但是不把精液喝下去身体就……%UNICODE(0x2665)%」
+				PRINTFORML 「咕噜……咕噜……哈啊……♥」
+				PRINTFORML 「对不起、%CALLNAME:MASTER%。但是不把精液喝下去身体就……♥」
 				PRINTFORMW 荷取的身体因为精液的刺激而颤抖着。
 			ELSEIF CFLAG:1 == 1
 				PRINTFORML 「嗯嗯……。」
 				PRINTFORML 荷取察觉到了突然出现在嘴里的精液、并没有吞下去而是用舌尖慢慢品味着。
 				PRINTFORML 「嗯嗯……。泼啾……噜啾……」
-				PRINTFORML 「咕噜……咕噜……哈啊……精液好好吃……%UNICODE(0x2665)%」
+				PRINTFORML 「咕噜……咕噜……哈啊……精液好好吃……♥」
 				PRINTFORMW 荷取由于精液的味道而神情恍惚。
 			ELSE
 				PRINTFORML 「嗯嗯……。」
 				PRINTFORML 荷取察觉到了突然出现在嘴里的精液、并没有吞下去而是用舌尖慢慢品味着。
 				PRINTFORML 「嗯嗯……。泼啾……噜啾……」
 				PRINTFORML 用舌头逗弄了精液许久之后、荷取慢慢的把它咽了下去。
-				PRINTFORML 「咕噜……咕噜……哈啊……%UNICODE(0x2665)%」
+				PRINTFORML 「咕噜……咕噜……哈啊……♥」
 				PRINTFORMW 不知不觉间被精液征服的荷取露出了恍惚的表情。
 				RETURN 1
 			ENDIF
@@ -2460,7 +2460,7 @@ IF LOCAL
 			PRINTFORML 「啊已经是这个时间了……」
 			PRINTFORML 「对不起、我也该回去了……」
 			PRINTFORMW 荷取稍微犹豫了一会儿之后
-			PRINTFORMW 啾%UNICODE(0x2665)%
+			PRINTFORMW 啾♥
 			PRINTFORML 「……虽然非常不喜欢使用咒语、不过」
 			PRINTFORML 「到明天为止%CALLNAME:MASTER%都不能把我忘了哦、呐」
 			PRINTFORMW 荷取说完害羞的回去了。
@@ -2493,7 +2493,7 @@ IF LOCAL
 			PRINTFORML %CALLNAME:MASTER%不知如何作答
 			PRINTFORML 「呼呼……、開玩笑的」
 			PRINTFORMW 「再约我哦、%CALLNAME:MASTER%」
-			PRINTFORMW 啾%UNICODE(0x2665)%
+			PRINTFORMW 啾♥
 			PRINTFORML 依依不舍得長吻之后
 			PRINTFORML 「我、会等着你的」
 			PRINTFORMW 荷取笑着回去了
@@ -2789,7 +2789,7 @@ IF LOCAL
 			PRINTFORMW 「那个……所以说……」
 			PRINTFORMW 荷取脸色通红语无伦次。
 			PRINTFORMW 「总、总之就是不行！」
-			PRINTFORMW 唔……这様子看来行不通呢
+			PRINTFORMW 唔……这样子看来行不通呢
 			PRINTFORMW %CALLNAME:MASTER%只好放弃了。
 			RETURN 1
 		ELSE

@@ -199,7 +199,7 @@ IF LOCAL
 					   PRINTFORML 「成为恋人后、第一次被邀请出来约会呢」
 					   PRINTFORMW 「%MASTERNAME:16%要好好表现哦~」
 					   CFLAG:16:1509 = 1
-				    ELSEIF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+				    ELSEIF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 					;醉酒
 					     SELECTCASE RAND:2
 						 CASE 1
@@ -322,7 +322,7 @@ IF LOCAL
 				    ENDIF
 				CASEELSE
 				;到目的地了
-				    IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+				    IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 					    SELECTCASE RAND:2
 					    CASE 1
 					    PRINTFORML 「%MASTERNAME:16%...这是哪...」
@@ -1427,7 +1427,7 @@ IF LOCAL
              SELECTCASE CFLAG:16:現在位置
              CASE ROAD_TO(CFLAG:TARGET:约会中)
              ;从影狼口上看到的、在约会的路上
-            IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+            IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 			   PRINTFORMW 「唔...这是要去哪里...」 
                IF TCVAR:媚薬 || TCVAR:発情 || CFLAG:TARGET:积攒度 > 850
 			     PRINTFORMW 「不会要对我做奇怪的事情吧...是%CALLNAME:MASTER%?那就可以哦...」
@@ -1517,7 +1517,7 @@ IF LOCAL
             ENDIF
         	;到约会地点了
             CASEELSE		
-                IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+                IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
                     PRINTFORML 「怎么突然停下了...」
                     PRINTFORML 「到目的地了?是%CALLNAME:MASTER%的家吗...」
                     PRINTFORMDW  蕾米莉亚似乎醉的更厉害了
@@ -2285,7 +2285,7 @@ IF LOCAL
             IF CHK_DATENOW(CFLAG:约会中)		
                 SELECTCASE CFLAG:16:現在位置
                 CASE ROAD_TO(CFLAG:TARGET:约会中)
-                    IF  ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+                    IF  ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 					;醉酒
                         PRINTFORML 「我现在晕乎乎的...看不清路了...」
                         PRINTFORMW 「不过跟着%CALLNAME:MASTER%就行吧...要好好带路啊...」
@@ -2363,7 +2363,7 @@ IF LOCAL
                         ENDIF
                     ENDIF
                 CASEELSE
-                    IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+                    IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
                         PRINTFORML 「唔...这是到哪了...是%CALLNAME:MASTER%把我带来的吗...」 
                     ELSE
                         IF CFLAG:現在位置 >= 10  && CFLAG:現在位置 <= 60
@@ -2587,7 +2587,7 @@ IF LOCAL
 								PRINTFORMW 「'现在已经不那么恐惧了'?呵呵、肯定是我给你的安全感吧」 
                                 CASE 2
 								PRINTFORML 「曾经魔界的恶魔来到幻想乡、最终惊动了巫女、这件事最后让魔界神的名字闻名于世」
-                                PRINTFORML 「而我不久前散播的红雾也被巫女解决、蕾米莉亚·斯喀雷特的名号也为世人所知」
+                                PRINTFORML 「而我不久前散播的红雾也被巫女解决、蕾米莉亚·斯卡蕾特的名号也为世人所知」
 								PRINTFORMDW 看着蕾米莉亚在说着似乎很久远的事情、%CALLNAME:MASTER%不大理解的挠了挠头
                                 PRINTFORML 「不过这些都是过去的事情了、当下最重要的还是%CALLNAME:MASTER%陪伴在我身边这件事啊~」
 								PRINTFORMDW 蕾米莉亚刚刚威严的气场散去、握着%CALLNAME:MASTER%的手的就像一个普通的小女孩 
@@ -2984,7 +2984,7 @@ IF LOCAL
             SELECTCASE CFLAG:16:現在位置
             CASE ROAD_TO(CFLAG:TARGET:约会中)
             ;从影狼口上看到的、在约会的路上
-			    IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+			    IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 				    SELECTCASE RAND:2
 					CASE 1
 					PRINTFORML 「咲夜...是要回红魔馆吗...」
@@ -3013,7 +3013,7 @@ IF LOCAL
                     ENDSELECT
                 ENDIF
             CASEELSE
-                IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+                IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
                     PRINTFORML 「这里...是哪...」
                     PRINTFORML 「红魔馆什么时候...有这样的房间了...」
                     PRINTFORMDW 蕾米莉亚醉得很厉害
@@ -3491,7 +3491,7 @@ IF LOCAL
                 SELECTCASE CFLAG:16:現在位置
                 CASE ROAD_TO(CFLAG:TARGET:约会中)
                 ;从影狼口上看到的、在约会的路上
-                IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+                IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 				;醉酒
    					PRINTFORML 「%CALLNAME:MASTER%...最差劲...」
                     PRINTFORML 「把我灌醉...然后想做什么奇怪的事啊...」
@@ -3537,7 +3537,7 @@ IF LOCAL
 				ENDIF
 			    ;到约会地点了
 				CASEELSE
-				    IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+				    IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
                         PRINTFORML 「旅馆...还没到吗...」 
                         PRINTFORML 「%CALLNAME:MASTER%...想在外面做...?」
                         PRINTFORML 「真是...越来越变态了...」
@@ -4162,7 +4162,7 @@ IF LOCAL
                 SELECTCASE CFLAG:16:現在位置
                 CASE ROAD_TO(CFLAG:TARGET:约会中)
                 ;从影狼口上看到的、在约会的路上
-                IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+                IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 				;醉酒
    					PRINTFORMDL 只是轻轻触碰、喝醉了的蕾米莉亚就发出了小声的娇喘
                     PRINTFORMDW 这样子的话根本无法去约会吧    
@@ -4236,7 +4236,7 @@ IF LOCAL
 				ENDIF
 			    ;到约会地点了
 				CASEELSE
-				    IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+				    IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
                         PRINTFORML 「醉醺醺地被这样带出来...会被%CALLNAME:MASTER%做什么都不知道啊...」 
                         PRINTFORML 「明天会不会出现吸血鬼榨干人类的头条新闻呢...」
                         PRINTFORMDW 不确定蕾米莉亚是不是真的醉了
@@ -4868,7 +4868,7 @@ IF LOCAL
             SELECTCASE CFLAG:16:現在位置
             CASE ROAD_TO(CFLAG:TARGET:约会中)
             ;从影狼口上看到的、在约会的路上
-			    IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+			    IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 				    SELECTCASE RAND:2
 					CASE 1
 					PRINTFORML 「唔...我怎么走到这里了来了...」
@@ -4894,7 +4894,7 @@ IF LOCAL
                     ENDSELECT
                 ENDIF
             CASEELSE
-                IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+                IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
                     PRINTFORML 「是宴会换场地了吗...」
                     PRINTFORMDW 蕾米莉亚醉得很厉害
 				ELSE
@@ -7390,7 +7390,7 @@ IF LOCAL
         ;1532、无素质第一次膝枕	
             PRINTFORML 「膝枕啊、就是把大腿当枕头吧」
             PRINTFORMW 「想要我给你做?让我看看你的决心吧」
-            CALL ASK_YN("请威严无上的顶级吸血鬼蕾米莉亚斯喀雷特大人赐予我用您白嫩柔滑的大腿进行膝枕的权力吧","好麻烦、算了")
+            CALL ASK_YN("请威严无上的顶级吸血鬼蕾米莉亚斯卡蕾特大人赐予我用您白嫩柔滑的大腿进行膝枕的权力吧","好麻烦、算了")
             IF !RESULT
             PRINTFORMW 「很坚定的决心啊、虽然听上去有点变态的部分不过还是满足你吧」
             PRINTFORMDW 蕾米莉亚把%CALLNAME:MASTER%的头抱住、面部朝外按在了大腿上
@@ -9471,12 +9471,12 @@ IF LOCAL
 			;▼買い物［買い物を手伝う］
 			;PRINTFORMDW 
 		CASE 15
-			;▼説教［様子をうかがう］
+			;▼説教［样子をうかがう］
 			;※神霊・蓬莱人は除く
 			;TFLAG:193,-1
 			;PRINTFORMDW 
 		CASE 16
-			;▼落とし穴［いたずらに付き合う］or［様子をうかがう］
+			;▼落とし穴［いたずらに付き合う］or［样子をうかがう］
 			;※三月精・チルノ・クラウンピースのみ
 			;それ以外は落ちる側
 			;PRINTFORMDW 
@@ -10205,7 +10205,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	IF DISHNAME == "鲜红的血汤"
-		PRINTFORMW 「很美味、斯喀雷特家的吸血鬼就应该喝这种东西啊」 
+		PRINTFORMW 「很美味、斯卡蕾特家的吸血鬼就应该喝这种东西啊」 
 	ELSEIF DISHNAME == "红魔馆午餐"
 		PRINTFORMW 「和平时吃的没什么区别呢、这个」
 	ELSEIF DISHNAME == "蔓越莓陷阱"
@@ -10235,13 +10235,13 @@ IF LOCAL
 		ELSE
 			PRINTFORML 「在幻想乡这么久了、吃这个还是不习惯啊...」
 		ENDIF
-		PRINTFORMDW 蕾米莉亚勉强吃着%DISHNAME%、进食的动作没了往日的优雅反而有点笨拙
+		PRINTFORMDW 蕾米莉亚勉强吃着%DISHNAME_TR()%、进食的动作没了往日的优雅反而有点笨拙
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("謎料理/"))
 		PRINTFORML 「这是什么鬼东西?」
-		PRINTFORMDW 蕾米莉亚一脸紧张地看着%DISHNAME%
+		PRINTFORMDW 蕾米莉亚一脸紧张地看着%DISHNAME_TR()%
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("女僕流/")) 
 		PRINTFORML 「和女仆们做得料理差不多呢、这个味道还是比较习惯啊」
-		PRINTFORMDW 蕾米莉亚优雅地吃着%DISHNAME%
+		PRINTFORMDW 蕾米莉亚优雅地吃着%DISHNAME_TR()%
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("洋食/"))
 		IF TALENT:恋人
 			PRINTFORML 「%MASTERNAME:16%会做西洋的食物啊、明明外貌上和幻想乡的人类没什么区别呢」
@@ -10251,7 +10251,7 @@ IF LOCAL
 			PRINTFORMW 「做得还不错啊、没想到除了咲夜还有人能做这么正的西洋菜」
 		ELSE
 		    PRINTFORML 「啊啊、吸血鬼果然还得是吃这个啊」
-		    PRINTFORMDW 蕾米莉亚仔细品尝着%DISHNAME%
+		    PRINTFORMDW 蕾米莉亚仔细品尝着%DISHNAME_TR()%
 		ENDIF
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("甜/"))  
 		IF TALENT:恋人
@@ -10318,13 +10318,13 @@ IF LOCAL
 		ELSE
 			PRINTFORML 「在幻想乡这么久了、吃这个还是不习惯啊...」
 		ENDIF
-		PRINTFORMDW 蕾米莉亚勉强吃着%DISHNAME%、进食的动作没了往日的优雅反而有点笨拙
+		PRINTFORMDW 蕾米莉亚勉强吃着%DISHNAME_TR()%、进食的动作没了往日的优雅反而有点笨拙
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("謎料理/"))
 		PRINTFORML 「你端上来的是什么鬼东西?」
-		PRINTFORMDW 蕾米莉亚一脸紧张地看着%DISHNAME%
+		PRINTFORMDW 蕾米莉亚一脸紧张地看着%DISHNAME_TR()%
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("女僕流/")) 
 		PRINTFORML 「和女仆们做得料理差不多呢、这个味道还是比较习惯啊」
-		PRINTFORMDW 蕾米莉亚优雅地吃着%DISHNAME%
+		PRINTFORMDW 蕾米莉亚优雅地吃着%DISHNAME_TR()%
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("洋食/"))
 		IF TALENT:恋人
 			PRINTFORML 「%MASTERNAME:16%递来的是西洋的食物啊、明明外貌上和幻想乡的人类没什么区别呢」
@@ -10334,7 +10334,7 @@ IF LOCAL
 			PRINTFORMW 「做得还不错啊、没想到除了咲夜还有人能做这么正的西洋菜」
 		ELSE
 		    PRINTFORML 「啊啊、吸血鬼果然还得是吃这个啊」
-		    PRINTFORMDW 蕾米莉亚仔细品尝着%DISHNAME%
+		    PRINTFORMDW 蕾米莉亚仔细品尝着%DISHNAME_TR()%
 		ENDIF
 	ELSEIF STRCOUNT(DISH_TASTE, ESCAPE("甜/"))  
 		IF TALENT:恋人
@@ -11016,7 +11016,7 @@ RETURN 1
 ;==================================================
 ;445,採集する
 ;TFLAG:193(採集物のID, 0=『何も見つからなかった...』
-;TFLAG:194(今回採集した個数
+;TFLAG:194(今回採集した个数
 ;==================================================
 @M_KOJO_AYA10_MESSAGE_COM_K16_445
 CALL M_KOJO_AYA10_MESSAGE_COM_K16_445_1
@@ -11044,7 +11044,7 @@ IF LOCAL
 		ENDIF
 	ELSE
 		;参考四季口上内容
-		LOCALS = %ITEMNAME:(TFLAG:193)%
+		LOCALS = %ITEMNAME_TR((TFLAG:193))%
 		SELECTCASE ITEMPRICE:(TFLAG:193)
 		;初级素材
 		CASE 1 TO 999
@@ -11231,10 +11231,10 @@ IF LOCAL
    SELECTCASE RAND:2
    CASE 0
    PRINTFORML 「人类用的东西、对吸血鬼真的有作用吗」
-   PRINTFORMDW 蕾米莉亚将信将疑地接过了%ITEMNAME:(TFLAG:193)%
+   PRINTFORMDW 蕾米莉亚将信将疑地接过了%ITEMNAME_TR(TFLAG:193)%
    CASE 1
-   PRINTFORML 「%ITEMNAME:(TFLAG:193)%?这个有什么作用吗」
-   PRINTFORMDW 蕾米莉亚一脸好奇地看着%CALLNAME:MASTER%手上的%ITEMNAME:(TFLAG:193)%
+   PRINTFORML 「%ITEMNAME_TR(TFLAG:193)%?这个有什么作用吗」
+   PRINTFORMDW 蕾米莉亚一脸好奇地看着%CALLNAME:MASTER%手上的%ITEMNAME_TR(TFLAG:193)%
    ENDSELECT
 ENDIF
 RETURN 1
@@ -11316,7 +11316,7 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-    IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+    IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 		PRINTFORMDW 握着醉醺醺的蕾米莉亚的手、如果不这样带着蕾米莉亚就会走不动路吧
 	ELSEIF TCVAR:媚薬 || TCVAR:発情 || CFLAG:TARGET:积攒度 > 850
 		IF TALENT:恋人
@@ -11446,7 +11446,7 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	IF ALCOHOL_FACE(16) == "酔酒" || ALCOHOL_FACE(16) == "不省人事"
+	IF ALCOHOL_FACE(16) == "醉酒" || ALCOHOL_FACE(16) == "不省人事"
 		IF TALENT:恋人
 			PRINTFORML 「%MASTERNAME:16%...要带我去哪啊...」
 		ELSEIF TALENT:愛欲
@@ -12338,10 +12338,10 @@ IF LOCAL
 		;お宝
 		CASE 606, 609, 643
 			IF TFLAG:194 > 1000
-				PRINTFORMW 「%ITEMNAME:(TFLAG:193)%?在红魔馆都少见的东西就这样被我钓上来了啊」
+				PRINTFORMW 「%ITEMNAME_TR(TFLAG:193)%?在红魔馆都少见的东西就这样被我钓上来了啊」
 			ELSE
 				PRINTFORML 「这种东西也是能钓出来的?不会是冒牌货吧」
-				PRINTFORMDW 蕾米莉亚一脸好奇且认真地看着%ITEMNAME:(TFLAG:193)%
+				PRINTFORMDW 蕾米莉亚一脸好奇且认真地看着%ITEMNAME_TR(TFLAG:193)%
 			ENDIF
 		;木材
 		CASE 610

@@ -58,18 +58,18 @@ CASE "今天的睡衣"
 CASE "便装：外搭"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("外搭", "披肩"))
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))
 CASE "便装：連衣裙"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("連衣裙", "連衣裙"))
 CASE "便装：其他１"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "胸针"))
 CASE "便装：帽子"
 	; IF GET_MAPID(CFLAG:ARG:現在位置) == 2 && CFLAG:ARG:基本服装セット == (100 + [[影狼]])
-	; 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "頭巾"))
+	; 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "头巾"))
 	; ELSEIF CFLAG:ARG:口上セレクタ == 0 && CFLAG:ARG:基本服装セット == (100 + [[影狼]]) && TCVAR:ARG:363 == 101
-	; 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "麦藁帽子"))
+	; 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "草帽"))
 	; ENDIF
 CASE "便装：其他２"
 	; IF CFLAG:ARG:口上セレクタ == 0 && CFLAG:ARG:基本服装セット == (100 + [[影狼]]) && TCVAR:ARG:363 == 2
@@ -80,13 +80,13 @@ CASE "特殊衣装着用"
 	SIF TCVAR:63:371 == 1
 		CALLF MAKE_INT(V_NAME, 74)
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "有“菊花杯”装饰图案")
+	CALLF MAKE_STR(V_NAME, "菊花杯式样的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "麻布の胖次")
+	CALLF MAKE_STR(V_NAME, "麻布胖次")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "麻布の胸罩")
+	CALLF MAKE_STR(V_NAME, "麻布胸罩")
 CASE "固有内衣着用条件"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有内衣半透明(前)"
@@ -100,7 +100,7 @@ CASE "固有内衣布料厚度"
 CASE "料理：喜欢的味道"
 	CALLF MAKE_STR(V_NAME, "油炸食品/甜/丰盛/濃厚/野趣/赏月/芸術的/芸術的/魚料理/肉料理/肉料理/肉料理/")
 CASE "料理：讨厌的味道"
-	CALLF MAKE_STR(V_NAME, "简易/淡白/辣/辣/虫肉/野菜/酸/天狗流" + "謎料理/蘑菇/" * 3 + "香料/" * 5)
+	CALLF MAKE_STR(V_NAME, "简易/淡白/辣/辣/虫肉/野菜/酸/天狗流/" + "謎料理/蘑菇/" * 3 + "香料/" * 5)
 CASE "料理：助手効果"
 	CALLF MAKE_STR(V_NAME, "浓郁/得意料理＊肉料理＊/")
 ;贈り物関連
@@ -131,7 +131,7 @@ ENDSELECT
 DISH_NAME = 野味菜
 RESULTS = 主食
 CALL 材料設定("獣肉", "鳥肉", "野雞肉")
-DISH_TASTE = 肉料理/獣肉/鳥肉/咸/丰盛/濃厚/温暖/野趣/野趣/野趣/豪快/强精/
+DISH_TASTE = 肉料理/獣肉/鳥肉/咸/丰盛/濃厚/温暖/野趣/野趣/野趣/豪快/強精/
 DISH_COMMENT = 使用狩猎所得的肉制作的猎人料理。附加[强精]效果。
 RETURN 1
 
@@ -174,7 +174,7 @@ IF CFLAG:CHARA:差し替え適用 == 1
 	ENDIF
 ELSE
 	;通常画像
-	IF FLAG:立ち絵種類
+	IF FLAG:立絵種類
 		;顔絵
 	ELSE
 		;立ち絵
@@ -215,12 +215,12 @@ VARSET RESULTS
 
 IF CFLAG:CHARA:差し替え適用 == 1
 	;差し替え画像
-	IF TALENT:CHARA:母乳体質 && NOWEX:CHARA:噴乳 && CHECK_NUDE(CHARA) && FLAG:立ち絵種類
+	IF TALENT:CHARA:母乳体質 && NOWEX:CHARA:噴乳 && CHECK_NUDE(CHARA) && FLAG:立絵種類
 		RESULTS:エフェクト数 = 母乳
 		エフェクト数 += 1
 	ENDIF
 	IF 充填率(CHARA,4) > 20 && !TALENT:CHARA:妊娠 && !CFLAG:CHARA:うふふ
-		IF FLAG:立ち絵種類
+		IF FLAG:立絵種類
 			;顔絵
 			RESULTS:エフェクト数 = 子宮
 			エフェクト数 ++
@@ -295,7 +295,7 @@ VARSET RESULTS
 
 IF CFLAG:CHARA:差し替え適用
 	;差し替え画像
-	IF FLAG:立ち絵種類
+	IF FLAG:立絵種類
 		;顔絵
 	ELSE
 		;立ち絵

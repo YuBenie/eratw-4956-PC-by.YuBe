@@ -480,7 +480,7 @@ IF BASE:ARG:気力 <= 0
 	CUP:ARG:恥情 /= 2
 	CUP:ARG:恐怖 /= 2
 	CUP:ARG:苦痛 /= 2
-	IF !FLAG:70 && !CFLAG:恶作剧
+	IF (!FLAG:70 || CFLAG:ARG:344 == 1) && !CFLAG:ARG:恶作剧
 		DOWNBASE:ARG:体力 *= 2
 		SIF ARG == TARGET
 			DOWNBASE:ARG:体力 += 80
@@ -498,7 +498,7 @@ ENDIF
 ;-------------------------------------------------
 ;随便
 ;-------------------------------------------------
-IF TCVAR:ARG:随便
+IF GETBIT(TCVAR:ARG:随便,0)
 	TIMES CUP:ARG:恭順 , 0.10
 	TIMES CUP:ARG:屈服 , 0.10
 	TIMES CUP:ARG:恥情 , 0.50

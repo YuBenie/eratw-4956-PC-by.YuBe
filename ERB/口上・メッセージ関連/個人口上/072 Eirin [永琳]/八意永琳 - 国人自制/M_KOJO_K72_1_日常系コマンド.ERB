@@ -298,7 +298,7 @@ IF LOCAL
 			PRINTFORMW  永琳娇羞的看着你
 			PRINTFORMW 「温柔些哦。」
 		ELSE
-			PRINTFORMW 「%UNICODE(0x2665) *1%…感觉不错。」
+			PRINTFORMW 「♥…感觉不错。」
 			PRINTFORMW  永琳娇羞的看着你
 			PRINTFORMW 「再多一些吧。」
 		ENDIF
@@ -308,17 +308,17 @@ IF LOCAL
 			PRINTFORMW  永琳娇羞的看着你
 			PRINTFORMW 「恩……恩，好吧。」
 		ELSEIF RAND:2 == 0
-			PRINTFORMW 「别碰太多……%UNICODE(0x2665) *1%。」
+			PRINTFORMW 「别碰太多……♥。」
 			PRINTFORMW  永琳娇羞的看着你
 			PRINTFORMW 「我也会害羞的啊。」
 		ELSE
-			PRINTFORMW 「诶呀……%UNICODE(0x2665) *1%。」
+			PRINTFORMW 「诶呀……♥。」
 			PRINTFORMW  永琳娇羞的看着你
 			PRINTFORMW 「被别人看到就不好了啦。」
 		ENDIF
 	ELSEIF TALENT:思慕
 		IF RAND:3 == 0
-			PRINTFORMW 「这种事情……%UNICODE(0x2665) *1%。」
+			PRINTFORMW 「这种事情……♥。」
 			PRINTFORMW  永琳娇羞的看着你
 			PRINTFORMW 「…我倒是不介意啊。」
 		ELSEIF RAND:2 == 0
@@ -538,12 +538,12 @@ IF LOCAL
 	IF FLAG:70
 		IF TALENT:妊娠
 			PRINTFORMW 手悄悄的摸上去，能感觉永琳孩子的胎动…。
-		ELSEIF 充填率(124,1) > 30
+		ELSEIF 充填率(72,1) > 30
 			PRINTFORMW 浑圆充满精液的永琳的肚子仿佛怀孕了一般…。
 		ELSE
 			PRINTFORMW 手悄悄的摸上去、永琳毫无反应…。
 		ENDIF
-	ELSEIF TALENT:124:恋人
+	ELSEIF TALENT:72:恋人
 		IF TFLAG:193 == 1
 			SELECTCASE RAND:3
 			CASE 0
@@ -559,7 +559,7 @@ IF LOCAL
 				PRINTFORMW 「我们的孩子在动哦」
 				PRINTFORMW 手温柔的摸上去、永琳亲昵的笑着。
 			ENDSELECT
-		ELSEIF 充填率(124,1) > 30
+		ELSEIF 充填率(72,1) > 30
 			SELECTCASE RAND:3
 			CASE 0
 				PRINTFORML 「%CALLNAME:MASTER%…你干的好事」
@@ -589,7 +589,7 @@ IF LOCAL
 				PRINTFORMW 「啊……人家的肚子才不胖呢。」
 			ENDSELECT
 		ENDIF
-	ELSEIF TALENT:124:恋慕
+	ELSEIF TALENT:72:恋慕
 		IF TFLAG:193 == 1
 			SELECTCASE RAND:2
 			CASE 0
@@ -601,9 +601,9 @@ IF LOCAL
 				PRINTFORMW 「孩子好像很健康啊，希望平安」
 				PRINTFORMW 手温柔的摸上去、永琳亲昵的笑着。
 			ENDSELECT
-		ELSEIF 充填率(124,1) > 30
+		ELSEIF 充填率(72,1) > 30
 			;時止め膣内射精済み
-			IF TCVAR:124:352 == 5
+			IF TCVAR:72:352 == 5
 				PRINTFORML 「%CALLNAME:MASTER%…你干的好事」
 				PRINTFORMW 「居然射了这么多」
 				PRINTFORMW 手温柔的摸上去、永琳娇羞的扭动，精液似乎被挤压出来了。
@@ -635,7 +635,7 @@ IF LOCAL
 					PRINTFORMW 手温柔的摸上去、永琳盯着你。
 					PRINTFORMW 「………别摸的那么随便」
 			ENDSELECT
-		ELSEIF 充填率(124,1) > 30
+		ELSEIF 充填率(72,1) > 30
 				PRINTFORML 「%CALLNAME:MASTER%阁下别，别现在摸」
 				PRINTFORMW 「啊啊……啊」
 				PRINTFORMW 手温柔的摸上去、永琳娇羞的扭动，精液似乎被挤压出来了。
@@ -921,20 +921,20 @@ IF LOCAL
 			PRINTFORMW 永琳把茶水泊到了%CALLNAME:MASTER%眼前的地面上。
 		ENDIF
 	ELSE
-		IF TCVAR:124:媚薬 == 210
+		IF TCVAR:72:媚薬 == 210
 			PRINTFORML 「嗯…？ 这感觉难道是……」
 			PRINTFORMW 「你胆子不小啊，给我喝这种东西！？」
 			PRINTFORMW 「难道…你买了就是………」
 			PRINTFORMW 「居然用我的药来给我下药么……我居然喝下去了…」
 			PRINTFORMW 永琳娇羞的扭动着大腿
 			PRINTFORMW 小小的玉贝正紧张的抽动
-		ELSEIF TCVAR:124:利尿剤 == 210
+		ELSEIF TCVAR:72:利尿剤 == 210
 			PRINTFORMW （欸，突然有尿意，而且好想去厕所）
 			PRINTFORMW 永琳娇羞的扭动着大腿
 			PRINTFORMW 小小的玉贝正紧张的抽动
 			PRINTFORML 「嗯…？ 这感觉难道是……」
 			PRINTFORMW 「居然用我的药来给我下药么……我居然喝下去了…」
-		ELSEIF TCVAR:124:催情薬 == 210
+		ELSEIF TCVAR:72:催情薬 == 210
 			PRINTFORMW （欸，这感觉到底是……）
 			PRINTFORMW 永琳娇羞的扭动着大腿，浑身泛起潮红
 			PRINTFORMW 小小的玉贝正紧张的抽动
@@ -947,7 +947,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_国人自制_MESSAGE_COM_K72_332
@@ -961,7 +961,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	LOCAL:1 = ALCOHOL_TASTE(TFLAG:194)
-	IF TALENT:124:恋慕 || TALENT:124:恋人
+	IF TALENT:72:恋慕 || TALENT:72:恋人
 		;気に入った
 		IF LOCAL:1 >= 15
 			PRINTFORML 「味道不错，我喜欢哈哈！」
@@ -1345,14 +1345,14 @@ LOCAL = 1
 IF LOCAL
 	IF TFLAG:193 == 1
 		PRINTFORMW 「%CALLNAME:MASTER%閣下、您刚才说什么！？」
-		PRINTFORMW 八意永琳凝視著你，你感覺氣氛似乎和往常不同。
+		PRINTFORMW 八意永琳凝視著你，你感觉气氛似乎和往常不同。
 		PRINTFORMW 「我，恋人？真的是我么？」
 		PRINTFORMW 永琳接受了告白，沉默了一会后開了口。
 		PRINTFORMW 「真的是漫長的時間啊。」
 		PRINTFORMW 「以前紫她们冲到月球的时候。」
-		PRINTFORMW 「雖然嘲笑過她們的愚蠢，但是這次愚蠢的是我呢。」
+		PRINTFORMW 「雖然嘲笑過她们的愚蠢，但是這次愚蠢的是我呢。」
 		PRINTFORMW 「恋爱是病呢，愚蠢的病，到死都治不好。」
-		PRINTFORMW 「但是，我確實是沒辦法死去的。」
+		PRINTFORMW 「但是，我確實是没辦法死去的。」
 		PRINTFORMW 「和公主逃到了這裏，事到如今还谈恋爱，可能会被人笑话——」
 		PRINTFORMW 「但我已經不想再逃避了，也不想只去治療別人。」
 		PRINTFORMW 「僅僅這次，請治好我吧，%CALLNAME:MASTER%」
@@ -1448,7 +1448,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_国人自制_MESSAGE_COM_K72_360
 CALL M_KOJO_国人自制_MESSAGE_COM_K72_360_1
@@ -1465,7 +1465,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;361,抵抗
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_国人自制_MESSAGE_COM_K72_361
 CALL M_KOJO_国人自制_MESSAGE_COM_K72_361_1
@@ -1506,7 +1506,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_国人自制_MESSAGE_COM_K72_364
@@ -1915,7 +1915,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -2042,7 +2042,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;==================================================
 
 
@@ -2612,7 +2612,7 @@ LOCAL = 1
 IF LOCAL
 	IF TALENT:恋人
 				PRINTFORML 「永琳特别个人服务，很好，取出来了哦…」
-				PRINTFORML 「好了好了，这样行吗？%UNICODE(0x2665) *1%干净咯♪」
+				PRINTFORML 「好了好了，这样行吗？♥干净咯♪」
 				PRINTFORMW 永琳笑着说到、%CALLNAME:MASTER%的头被温柔的抚摸着。
 				PRINTFORMW 因为靠的很近，能闻到永琳私处和双乳上那独特的雌性芬芳
 				PRINTFORMW 绵软的触感也无比的舒适
@@ -2740,21 +2740,21 @@ IF LOCAL
 		PRINTFORML 「嗯……嗯…啊」
 		PRINTFORMW 因为无法顺畅呼吸、永琳似乎很难受。
 	ELSEIF TALENT:恋人
-		PRINTFORML 「嗯%UNICODE(0x2764)% 呼啊，呼啊、～～～呃%UNICODE(0x2764)%%UNICODE(0x2764)%」
-		PRINTFORML %CALLNAME:MASTER%緊緊抱住永琳，不嫌從口邊流出唾液，接受著她的深深的吻。
+		PRINTFORML 「嗯❤ 呼啊，呼啊、～～～呃❤❤」
+		PRINTFORML %CALLNAME:MASTER%緊緊抱住永琳，不嫌從口边流出唾液，接受著她的深深的吻。
 		PRINTFORMW 两人的舌头紧紧的包裹住彼此，纠缠着。淫荡的声音不断泄露出来。
-		PRINTFORMW 「……啊！哈啊、哈啊……%CALLNAME:MASTER%、我……我喜欢你%UNICODE(0x2764)%」
+		PRINTFORMW 「……啊！哈啊、哈啊……%CALLNAME:MASTER%、我……我喜欢你❤」
 		PRINTFORML 「更多，更多。」
 	ELSEIF TALENT:恋慕
-		PRINTFORML 「嗯%UNICODE(0x2764)% 啊啊、～～～呃%UNICODE(0x2764)%%UNICODE(0x2764)%」
+		PRINTFORML 「嗯❤ 啊啊、～～～呃❤❤」
 		PRINTFORML %CALLNAME:MASTER%緊緊抱住永琳，是意外的深吻。
 		PRINTFORMW 两人的舌头紧紧的包裹住彼此，纠缠着。淫荡的声音不断泄露出来。
-		PRINTFORMW 「……啊！哈啊、哈啊……%CALLNAME:MASTER%、不要听%UNICODE(0x2764)%」
+		PRINTFORMW 「……啊！哈啊、哈啊……%CALLNAME:MASTER%、不要听❤」
 	ELSE
-		PRINTFORML 「什么！%UNICODE(0x2764)% 嗯，嗯啊%UNICODE(0x2764)%%UNICODE(0x2764)%」
+		PRINTFORML 「什么！❤ 嗯，嗯啊❤❤」
 		PRINTFORML %CALLNAME:MASTER%緊緊抱住永琳，是意外的深吻。
 		PRINTFORMW 两人的舌头紧紧的包裹住彼此，纠缠着。淫荡的声音不断泄露出来。
-		PRINTFORMW 「……啊！哈啊、哈啊……%CALLNAME:MASTER%、不要听%UNICODE(0x2764)%」
+		PRINTFORMW 「……啊！哈啊、哈啊……%CALLNAME:MASTER%、不要听❤」
 		PRINTFORMW 因为无法顺畅呼吸、永琳似乎有所抵抗，但是还是接受了你。
 	ENDIF
 ENDIF

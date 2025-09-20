@@ -46,7 +46,7 @@
 
 ;### 口上存在判定 ###################################
 @M_KOJO_K62(ARG)
-;別人版を作成する際はこの貂プレではなく別人版用口上貂プレをご利用ください
+;別人版を作成する際はこのテンプレではなく別人版用口上テンプレをご利用ください
 RESULTS:2 = 初期口上<br>内容量适中
 ;本简介由画蛇添足制作组补充，若原作者想自行补充请联系我们
 ;口上存在判定です、けしてコメントアウトしないでください
@@ -3375,26 +3375,26 @@ IF LOCAL
 				PRINTFORMW 充满肉欲而浑浊的瞳孔看向%CALLNAME:MASTER%、将身体压了过来。
 			ENDIF
 		ELSEIF TALENT:恋人 || (TALENT:迷信 && TALENT:MASTER:追加種族 == 4)
-			PRINTFORMW 「……夫君大人、那是%DISHNAME%吗？」
+			PRINTFORMW 「……夫君大人、那是%DISHNAME_TR()%吗？」
 			PRINTFORML 辉夜饶有兴致地看着%CALLNAME:MASTER%手里的盘子。
 			PRINTFORML 还没等%CALLNAME:MASTER%说什么、辉夜的肚子突然咕咚地响了一声、她的脸瞬间就变得通红。
-			PRINTFORML %CALLNAME:MASTER%苦笑着把%DISHNAME%递给她、她害羞地開口说道。
+			PRINTFORML %CALLNAME:MASTER%苦笑着把%DISHNAME_TR()%递给她、她害羞地開口说道。
 			PRINTFORML 「……作为妻子的我真是太失态了」
 			PRINTFORMW 吃完饭后、她满脸通红地连连鞠躬表示歉意。
 			
 		ELSEIF TALENT:恋慕
-			PRINTFORMW 「……那是、%DISHNAME%？」
+			PRINTFORMW 「……那是、%DISHNAME_TR()%？」
 			PRINTFORML 辉夜饶有兴致地看着%CALLNAME:MASTER%手里的盘子。
 			PRINTFORML 还没等%CALLNAME:MASTER%说什么、辉夜的肚子突然咕咚地响了一声、她的脸瞬间就变得通红。
-			PRINTFORML %CALLNAME:MASTER%苦笑着把%DISHNAME%递给她、她害羞地開口说道。
+			PRINTFORML %CALLNAME:MASTER%苦笑着把%DISHNAME_TR()%递给她、她害羞地開口说道。
 			PRINTFORML 「……唔唔、对不起」
 			PRINTFORMW 吃完饭后、她满脸通红地连连鞠躬表示歉意。
 			
 		ELSEIF TALENT:思慕
-			PRINTFORMW 「……那是、%DISHNAME%？」
+			PRINTFORMW 「……那是、%DISHNAME_TR()%？」
 			PRINTFORML 辉夜饶有兴致地看着%CALLNAME:MASTER%手里的盘子。
 			PRINTFORML 还没等%CALLNAME:MASTER%说什么、辉夜的肚子突然咕咚地响了一声、她的脸瞬间就变得通红。
-			PRINTFORML %CALLNAME:MASTER%苦笑着把%DISHNAME%递给她、她害羞地開口说道。
+			PRINTFORML %CALLNAME:MASTER%苦笑着把%DISHNAME_TR()%递给她、她害羞地開口说道。
 			PRINTFORML 「……唔唔、对不起」
 			PRINTFORMW 吃完饭后、她满脸通红地鞠躬表示歉意。
 		ENDIF
@@ -5594,7 +5594,8 @@ IF LOCAL
 	IF LOCAL:1 && ARG
 		IF ARG == 30
 			;流石に不安だが蓬莱人なら安心。
-			CALL EVENTEND_TSUBUYAKI
+			SIF TALENT:恋人 || (TALENT:恋慕 && CFLAG:好感度 >= 20000)
+				CALL EVENTEND_TSUBUYAKI
 			IF TALENT:迷信 && TALENT:MASTER:追加種族 == 4
 				PRINTFORML 「呜呜……」
 				PRINTFORML （……自上次见面以来、已经过了一个月了。）
@@ -5606,8 +5607,8 @@ IF LOCAL
 				PRINTFORML 
 				PRINTFORML （如果夫君大人就这样去了哪里的话……。）
 				PRINTFORMW 为了忘掉讨厌的事情而闭上了眼睛。
-				CFLAG:62 += 10
-				IF CFLAG:62 > 99
+				CFLAG:62:1105 += 10
+				IF CFLAG:62:1105 > 99
 					PRINTFORML 
 					PRINTFORML 但过了一会儿、辉夜睁開眼并站起身、朝橱柜走去。
 					PRINTFORML 「……都是夫君大人不好」
@@ -5619,8 +5620,8 @@ IF LOCAL
 				PRINTFORML 
 				PRINTFORML （如果那个人就这样去了哪里的话……。）
 				PRINTFORMW 为了忘掉讨厌的事情而闭上了眼睛。
-				CFLAG:62 += 10
-				IF CFLAG:62 > 99
+				CFLAG:62:1105 += 10
+				IF CFLAG:62:1105 > 99
 					PRINTFORML 
 					PRINTFORML 但过了一会儿、辉夜睁開眼并站起身、朝橱柜走去。
 					PRINTFORML 「……都是你不好」
@@ -5629,7 +5630,8 @@ IF LOCAL
 			ENDIF
 ;			CFLAG:62:翌日来訪 = 1
 		ELSEIF ARG == 15
-			CALL EVENTEND_TSUBUYAKI
+			SIF TALENT:恋人 || TALENT:恋慕
+				CALL EVENTEND_TSUBUYAKI
 			;まだゆとりがある。
 			IF TALENT:恋人 || (TALENT:迷信 && TALENT:MASTER:追加種族 == 4)
 				PRINTFORML 「……太过分了」
@@ -5640,10 +5642,12 @@ IF LOCAL
 				PRINTFORML （虽说确实不是恋人、但即便如此稍微考虑一下我的感受也没什么不可以的吧？）
 				PRINTFORML （已经半个月没来看我了。）
 			ENDIF
-			PRINTFORMW 辉夜一个人在被窝里闹着别扭。
+			SIF TALENT:恋人 || TALENT:恋慕
+				PRINTFORMW 辉夜一个人在被窝里闹着别扭。
 			CFLAG:62:翌日来訪 = 1
 		ELSEIF ARG == 7
-			CALL EVENTEND_TSUBUYAKI
+			SIF TALENT:恋人 || TALENT:恋慕
+				CALL EVENTEND_TSUBUYAKI
 			;会いたい病を煩う輝夜様。
 			IF TALENT:恋人 || (TALENT:迷信 && TALENT:MASTER:追加種族 == 4)
 				PRINTFORML 「……好寂寞」
@@ -5654,7 +5658,8 @@ IF LOCAL
 				PRINTFORML （上次见面还是一周前。）
 				PRINTFORML （明天去见个面吧……？）
 			ENDIF
-			PRINTFORMW 辉夜一个人在被窝里闷闷不乐地思考着。
+			SIF TALENT:恋人 || TALENT:恋慕
+				PRINTFORMW 辉夜一个人在被窝里闷闷不乐地思考着。
 ;			CFLAG:62:翌日来訪 = 1
 		ENDIF
 	ENDIF
@@ -6037,7 +6042,6 @@ RETURN 1
 @M_KOJO_DAILY_EVENT_KX_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
 ;※コメントアウトすると欲情の珠＋1000（JUEL:11 += 1000）もカットされるので注意
-CALL DAILY_MESSAGE_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 0
@@ -6056,7 +6060,6 @@ RETURN 1
 ;==================================================
 @M_KOJO_DAILY_EVENT_K62_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
-CALL DAILY_MESSAGE_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -6087,7 +6090,6 @@ RETURN 1
 @M_KOJO_DAILY_EVENT_KX_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
 ;コメントアウトできるのはARG:1=1,2のみです
-CALL DAILY_MESSAGE_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 0
@@ -6240,7 +6242,7 @@ PRINTFORML ◆摆放着许多能让人感受到厚重历史的陈设品。
 ;SENSE        贈り物に設定された属性。STRCOUNT(DISH_TASTE, "ほげほげ/")を使用と特定の属性を判定できます。
 ;GIFT_ID      これ単体では使いません。以下の式内関数を使用とデータを抽出できます（こだわりたい人用）
 ;　GET_GIFTDATA(GIFT_ID, "回数")    貰った（あげた）回数
-;　GET_GIFTDATA(GIFT_ID, "得点")    得点（1～999）,口上貂プレ内では用意されてます。
+;　GET_GIFTDATA(GIFT_ID, "得点")    得点（1～999）,口上テンプレ内では用意されてます。
 ;　GET_GIFTDATA(GIFT_ID, "日期")    貰った（あげた）日期（1～9999）
 ;　GET_GIFTDATA(GIFT_ID, "場所")    買った場所（约会の行き先）
 ;　GET_GIFTDATA(GIFT_ID, "形容詞")  形容詞番号（贈り物_形容詞.erb参照）
@@ -6316,7 +6318,7 @@ ELSEIF ARG == 2
 			PRINTFORMW 然后突然情不自禁地吻了一下礼物、辉夜一个人脸红了起来。
 		ENDIF
 		CFLAG:62:信賴度 += 100
-		;この三種は特に恋慕未満では大きなBONUS。個人的に中々手に入らない気がする。
+		;この三種は特に恋慕未満では大きなBONUS。个人的に中々手に入らない気がする。
 	ELSE
 		IF TALENT:62:恋慕
 			SELECTCASE RAND:4

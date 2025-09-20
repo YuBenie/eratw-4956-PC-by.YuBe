@@ -669,7 +669,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_MESSAGE_COM_K4_332
@@ -852,7 +852,7 @@ IF LOCAL
 		SELECTCASE TCVAR:初次拥抱
 			CASE 1
 				IF TALENT:恋慕
-					PRINTFORML 「嗯唔……%CALLNAME:MASTER%……%UNICODE(0x2665)%」
+					PRINTFORML 「嗯唔……%CALLNAME:MASTER%……♥」
 					PRINTFORML 「你要抱我吗…？」
 					PRINTFORMW 魅魔は瞳を潤ませ、期待に満ちた顔で%CALLNAME:MASTER%を看了过来
 				ELSEIF TALENT:思慕
@@ -875,18 +875,18 @@ IF LOCAL
 				ENDIF
 			CASE 3
 				IF TALENT:恋慕
-					PRINTFORML 「啊啊%UNICODE(0x2665)%　%CALLNAME:MASTER%%UNICODE(0x2665)%」
+					PRINTFORML 「啊啊♥　%CALLNAME:MASTER%♥」
 					PRINTFORMW 兴奋的魅魔伸出手臂拥抱着%CALLNAME:MASTER%
 				ELSEIF TALENT:思慕
-					PRINTFORML 「哈啊……呼…%UNICODE(0x2665)%」
+					PRINTFORML 「哈啊……呼…♥」
 					PRINTFORMW 「真是一点自制力都没有呐」
 				ELSE
-					PRINTFORML 「哈啊……%UNICODE(0x2665)%　哈啊……%UNICODE(0x2665)%」
-					PRINTFORMW 「唔……身体，好疼…%UNICODE(0x2665)%」
+					PRINTFORML 「哈啊……♥　哈啊……♥」
+					PRINTFORMW 「唔……身体，好疼…♥」
 				ENDIF
 			CASE 4
 				IF TALENT:恋慕
-					PRINTFORML 「啊……%UNICODE(0x2665)%」
+					PRINTFORML 「啊……♥」
 					PRINTFORMW 魅魔毫不抵抗地被%CALLNAME:MASTER%推倒了
 				ELSEIF TALENT:思慕
 					PRINTFORML 「好奇怪啊呐…」
@@ -928,19 +928,19 @@ IF LOCAL
 		IF TALENT:恋慕
 			IF RAND:5 == 0
 				PRINTFORML 「要让我好好的舒服一下哟？？」
-				PRINTFORMW 「我也会让你好好舒服起来的%UNICODE(0x2665)%」
+				PRINTFORMW 「我也会让你好好舒服起来的♥」
 			ELSEIF RAND:4 == 0
 				PRINTFORML 魅魔在被%CALLNAME:MASTER%逆推的同时，在耳边轻声细语
-				PRINTFORMW 「H…%UNICODE(0x2665)%」
+				PRINTFORMW 「H…♥」
 			ELSEIF RAND:3 == 0
-				PRINTFORML 「那么，这次要到哪一步呢？%UNICODE(0x2665)%」
+				PRINTFORML 「那么，这次要到哪一步呢？♥」
 				PRINTFORMW 魅魔抚摸着%CALLNAME:MASTER%的胯间
 			ELSEIF RAND:2 == 0
-				PRINTFORML 「想尽情的撒娇呢%UNICODE(0x2665)%」
-				PRINTFORMW 「那么，就用大人的做法尽情的撒娇吧%UNICODE(0x2665)%」
+				PRINTFORML 「想尽情的撒娇呢♥」
+				PRINTFORMW 「那么，就用大人的做法尽情的撒娇吧♥」
 			ELSE
 				PRINTFORML 「做好抱恶灵的觉悟了吗？」
-				PRINTFORMW 「即使腰腿站不起来我也不管哟%UNICODE(0x2665)%」
+				PRINTFORMW 「即使腰腿站不起来我也不管哟♥」
 			ENDIF
 		ELSEIF TALENT:思慕
 			IF RAND:5 == 0
@@ -1128,7 +1128,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K4_360
 CALL M_KOJO_MESSAGE_COM_K4_360_1
@@ -1163,7 +1163,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_MESSAGE_COM_K4_364
@@ -1646,7 +1646,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -1737,7 +1737,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;==================================================
 
 

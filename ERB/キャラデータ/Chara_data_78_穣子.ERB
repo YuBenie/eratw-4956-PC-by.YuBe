@@ -56,15 +56,22 @@ CASE "便装：帽子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "帽子"))
 CASE "便装：連衣裙"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("連衣裙", "围裙洋装"))
+;冬季到春季第10日，装备裤袜和围巾
+CASE "便装：其他１"
+	SIF (DAY:2 == 1 && DAY:3 < 11) || DAY:2 == 4
+		CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "围巾"))
+CASE "便装：襪子"
+	SIF (DAY:2 == 1 && DAY:3 < 11) || DAY:2 == 4
+		CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "裤襪"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "有点甜的香味")
+	CALLF MAKE_STR(V_NAME, "甜甜香氛的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "烤白薯的胖次")
+	CALLF MAKE_STR(V_NAME, "烤红薯色胖次")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "烤番薯色的胸罩")
+	CALLF MAKE_STR(V_NAME, "烤红薯色胸罩")
 CASE "固有内衣着用条件"
 	SIF !RAND:(1 + (2 * 勝負内衣判定([[穣子]])))
 		CALLF MAKE_INT(V_NAME, 1)
@@ -166,7 +173,7 @@ ELSE
 		ENDIF
 	ELSE
 		;服
-		IF CFLAG:CHARA:衣装一時変更 == 55 || (CFLAG:CHARA:基本服装セット == 55 && CFLAG:CHARA:衣装一時変更==0)
+		IF CURRENT_CLOTHES_SET(CHARA) == 55
 			IF FLAG:立絵種類
 				;顔絵
 				RESULTS = _バニー

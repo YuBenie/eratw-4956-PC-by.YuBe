@@ -13,6 +13,7 @@
 #DIM CHARA
 #DIM CHARATRANS
 #DIM DYNAMIC 縦位置 = 0
+#DIMS DYNAMIC IMAGE_TITLE
 #DIM DYNAMIC XRAY_VERTICAL = 0
 #DIM XRAY_LAYER
 ;Better Xray
@@ -125,7 +126,8 @@ FOR LOCAL, iPrintStart, FLAG:画像表示 + iPrintStart
 		sPrint_Text += @"<font color='#0xffC864'>"
 	ENDIF
 
-	sPrint_Text += @"<button value='{1000+ターゲット:LOCAL}' title='ターゲット{LOCAL}'>[%CALLNAME:(ターゲット:LOCAL)%]</button>"
+	CHARA = ターゲット:LOCAL
+	sPrint_Text += @"<button value='{1000+ターゲット:LOCAL}' title='TARGET{LOCAL}'>[%CALLNAME:(ターゲット:LOCAL)%]</button>"
 
 	SIF (ターゲット:LOCAL == ターゲット) || CFLAG:(ターゲット:LOCAL):同行
 		sPrint_Text += @"</font>"
@@ -137,6 +139,7 @@ FOR LOCAL, iPrintStart, FLAG:画像表示 + iPrintStart
 	;--- END
 
 	sPrint_Text += @"<shape type = 'space' param = '{iSpaceSize}px'>"
+
 NEXT
 HTML_PRINT sPrint_Text
 
@@ -161,6 +164,8 @@ FOR LOCAL, iPrintStart, FLAG:画像表示 + iPrintStart
 		縦位置 = TEMP_HTML_MAX_HEIGHT - 默认角色画像横幅 * 角色画像表示尺寸比 / 100
 	ENDIF
 	
+	IMAGE_TITLE '= @"%CALLNAME:CHARA% ID:{CHARA}"
+
 	;変化中処理 対象キャラは自身の状態をもとに変化先キャラの画像リソースを取得
 	IF CFLAG:CHARA:変化先 > 0
 		;基本画像　表示形式_服装_表情_キャラ番号_差分 (RESULTS:0に格納、RESULTS:1にマウスオーバー画像格納)
@@ -174,27 +179,35 @@ FOR LOCAL, iPrintStart, FLAG:画像表示 + iPrintStart
     	;時間停止時はマウスオーバー画像を表示しない
 		SIF FLAG:時間停止
 		RESULTS:1 =
+
+		[IF_DEBUG]
+			IMAGE_TITLE '= @"%RESULTS:2%"
+		[ENDIF]
+
 		;0番レイヤーに基本画像をセット
 		CALL 画像セット(RESULTS:0, 縦位置, 0, 角色画像表示尺寸比, 0, 1, @"{1000+CHARA}", RESULTS:2, RESULTS:1)
 
 		;エフェクト画像　表示形式_エフェクト_キャラ番号_差分 (RESULTS配列に格納、RESULTにエフェクト数格納)
 		CALL GET_EFFECT_RESOURCE_TRANS(CHARA,CHARATRANS)
 	ELSE
-
 		;基本画像　表示形式_服装_表情_角色番号_差分 (RESULTS:0に格納、RESULTS:1にマウスオーバー画像格納)
 		CALL GET_BASE_RESOURCE(CHARA)
 		;リソースが見つからない場合は通常服状態の通常顔に切り替え
 		RESULTS:2 = %RESULTS:0%
 		IF !RESULT
-			;PRINTFORML リソース「%RESULTS:0%」が見つからないから通常顔だよ
 			RESULTS:0 = %GET_BASESTYLE(CHARA)%_服_通常_{CHARA}
 			RESULTS:1 =
 		ENDIF
 		;時間停止時はマウスオーバー画像を表示しない
 		SIF FLAG:時間停止
 			RESULTS:1 =
+
+		[IF_DEBUG]
+			IMAGE_TITLE '= @"%RESULTS:2%"
+		[ENDIF]
+
 		;0番レイヤーに基本画像をセット
-		CALL 画像セット(RESULTS:0, 縦位置, 0, 角色画像表示尺寸比, 0, 1, @"{1000+CHARA}", RESULTS:2, RESULTS:1)
+		CALL 画像セット(RESULTS:0, 縦位置, 0, 角色画像表示尺寸比, 0, 1, @"{1000+CHARA}", IMAGE_TITLE, RESULTS:1)
 
 		;--- ALTER XRay_show add ---
 		IF FLAG:XRay_show && Chara_Xray_Block_by_Better_Xray:CHARA != 1
@@ -222,6 +235,7 @@ FOR LOCAL, iPrintStart, FLAG:画像表示 + iPrintStart
 		NEXT
 		最大レイヤー数 += 1
 	NEXT
+
 	;多尺寸時の処理
 	IF FLAG:多尺寸
 		默认角色画像横幅 = 各角色画像尺寸:CHARA:0
@@ -297,18 +311,18 @@ IF FLAG:画像表示設定
 	;表示設定関連
 	;-----------------
 	sPrint_Text = <p align='\@FLAG:画像表示位置?left#center\@'>
-	sPrint_Text += @"<button value='3105' title='現在：\@FLAG:立絵種類?顔絵#立絵\@'>"
-	sPrint_Text += @"立絵種類[\@FLAG:立絵種類?顔絵#立絵\@]</button>"
-	sPrint_Text += @"　<button value='3103' title='現在：\@FLAG:画像表示位置?左对齐#居中对齐\@'>"
+	sPrint_Text += @"<button value='3105' title='现在：\@FLAG:立絵種類?颜绘#立绘\@'>"
+	sPrint_Text += @"立绘种类[\@FLAG:立絵種類?颜绘#立绘\@]</button>"
+	sPrint_Text += @"　<button value='3103' title='现在：\@FLAG:画像表示位置?左对齐#居中对齐\@'>"
 	sPrint_Text += @"表示位置[\@FLAG:画像表示位置?left#center\@]</button>"
-	sPrint_Text += @"　<button value='3104' title='現在：\@FLAG:画像枠表示?ON#OFF\@'>"
+	sPrint_Text += @"　<button value='3104' title='现在：\@FLAG:画像枠表示?ON#OFF\@'>"
 	sPrint_Text += @"边框显示[\@FLAG:画像枠表示?ON#OFF\@]</button>"
-	sPrint_Text += @"　<button value='3108' title='現在：\@FLAG:巨乳差分表示?ON#OFF\@'>"
+	sPrint_Text += @"　<button value='3108' title='现在：\@FLAG:巨乳差分表示?ON#OFF\@'>"
 	sPrint_Text += @"巨乳差分[\@FLAG:巨乳差分表示?ON#OFF\@]</button>"
-	sPrint_Text += @"　<button value='3109' title='現在：\@FLAG:追加エフェクト?ON#OFF\@'>"
-	sPrint_Text += @"エフェクト[\@FLAG:追加エフェクト?ON#OFF\@]</button>"
+	sPrint_Text += @"　<button value='3109' title='现在：\@FLAG:追加エフェクト?ON#OFF\@'>"
+	sPrint_Text += @"特效表情[\@FLAG:追加エフェクト?ON#OFF\@]</button>"
 	; --- ALTER xray add---
-	sPrint_Text += @"　<button value='3999' title='現在：\@FLAG:XRay_show?{FLAG:XRay_show}#OFF\@'>"
+	sPrint_Text += @"　<button value='3999' title='现在：\@FLAG:XRay_show?{FLAG:XRay_show}#OFF\@'>"
 	LOCALS = \@GETBIT(FLAG:XRay_show,0)?Ａ#nA\@\@GETBIT(FLAG:XRay_show,1)?心#胎\@
 	sPrint_Text += @"XRAY[\@FLAG:XRay_show?%LOCALS%#OFF\@]</button>"
 	; --- END ---
@@ -317,7 +331,7 @@ IF FLAG:画像表示設定
 	SIF CFLAG:TARGET:変化先
 		CHARATRANS = CFLAG:TARGET:変化先
 	IF CFLAG:CHARATRANS:別顔有 || CFLAG:CHARATRANS:別立ち有
-		sPrint_Text += @"　<button value='3110' title='現在：\@CFLAG:CHARATRANS:差し替え適用?ON#OFF\@'>"
+		sPrint_Text += @"　<button value='3110' title='现在：\@CFLAG:CHARATRANS:差し替え適用?ON#OFF\@'>"
 		sPrint_Text += @"差分[\@CFLAG:CHARATRANS:差し替え適用?ON({CFLAG:CHARATRANS:差し替え適用})#OFF\@]　</button>"
 	ENDIF
 	sPrint_Text += "<br>"
@@ -325,16 +339,16 @@ IF FLAG:画像表示設定
 	;-----------------
 	;表示人数の増減　＜＜＞＞でTARGETを横に移動
 	;-----------------
-	sPrint_Text += @"<button value='{1000+ターゲット:(MAX(現在ターゲット-1,1))}' title='ターゲット－'>＜＜</button>"
-	sPrint_Text += @"<button value='3101' title='表示人数－'>[－]</button>"
+	sPrint_Text += @"<button value='{1000+ターゲット:(MAX(現在ターゲット-1,1))}' title='上一角色'>＜＜</button>"
+	sPrint_Text += @"<button value='3101' title='显示图像人数－'>[－]</button>"
 	sPrint_Text += @"显示人数[{FLAG:画像表示}]"
-	sPrint_Text += @"<button value='3102' title='表示人数＋'>[＋]</button>"
-	sPrint_Text += @"<button value='{1000+ターゲット:(MIN(現在ターゲット+1,ターゲット人数+1))}' title='ターゲット＋'>＞＞</button>"
+	sPrint_Text += @"<button value='3102' title='显示图像人数＋'>[＋]</button>"
+	sPrint_Text += @"<button value='{1000+ターゲット:(MIN(現在ターゲット+1,ターゲット人数+1))}' title='下一角色'>＞＞</button>"
 
-	sPrint_Text += @"　<button value='3106' title='画像尺寸－'>[－]</button>"
-	sPrint_Text += @"<button value='3111' title='現在：\@FLAG:多尺寸?マルチ#{默认角色画像横幅}\@'>"
-	sPrint_Text += @"画像尺寸[\@FLAG:多尺寸?マルチ#{默认角色画像横幅}\@:{100 + isModifier}％]</button>"
-	sPrint_Text += @"<button value='3107' title='表示人数＋'>[＋]</button>"
+	sPrint_Text += @"　<button value='3106' title='统一减小缩放比例'>[－]</button>"
+	sPrint_Text += @"<button value='3111' title='设定调整缩放比例前的图像尺寸：现在是\@FLAG:多尺寸?图片原始尺寸（※可能出现大小不一）#统一{默认角色画像横幅}px\@'>"
+	sPrint_Text += @"画像尺寸[\@FLAG:多尺寸?原始尺寸#{默认角色画像横幅}px\@:{100 + isModifier}％]</button>"
+	sPrint_Text += @"<button value='3107' title='统一增加缩放比例'>[＋]</button>"
 	HTML_PRINT sPrint_Text
 ENDIF
 
@@ -358,15 +372,15 @@ SIF !iID && !自机立绘开关
 	RETURN RESULT
 ;画像表示
 IF !FLAG:画像表示
-	LOCALS = 無し
+	LOCALS = 无
 ELSEIF !FLAG:立絵種類
-	LOCALS = 立絵
+	LOCALS = 立绘
 ELSE
-	LOCALS = 顔絵
+	LOCALS = 颜绘
 ENDIF
-PRINTFORMLC [99] 画像切换:%LOCALS%
+PRINTFORMLC [99]立绘类别:%LOCALS%
 SIF ((FLAG:立絵種類 == 1 && CFLAG:iID:別顔有) || (FLAG:立絵種類 == 0 && CFLAG:iID:別立ち有)) && FLAG:画像表示
-	PRINTFORMLC [98] 替换用画像:\@CFLAG:iID:差し替え適用?ON({CFLAG:iID:差し替え適用})#OFF\@
+	PRINTFORMLC [98]立绘包:\@CFLAG:iID:差し替え適用?可选立绘{CFLAG:iID:差し替え適用}#初始立绘\@
 PRINTL
 
 SIF !FLAG:画像表示
@@ -425,6 +439,7 @@ SIF !FLAG:画像表示 || sRes_Name == ""
 iEnter_Con = 0
 iFont_Hei_mag = GETCONFIG("一行の高さ") * iSize*10 / GETCONFIG("フォントサイズ")
 iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
+
 SIF SPRITECREATED(sRes_Name)
 	HTML_PRINT @"<p align='%sAlign%'><nobr><img src='%sRes_Name%' height='{iFont_Hei_mag}'>"
 iEnter_Con++
@@ -466,8 +481,7 @@ SIF !FLAG:画像表示
 
 角色画像表示尺寸比 = 100
 
-立ち顔保存 = FLAG:立ち絵種類
-LOCAL:2 = FLAG:立ち絵種類
+立ち顔保存 = FLAG:立絵種類
 FLAG:立絵種類 = 1
 
 CALL GET_BASE_RESOURCE(C_ID, "顔絵", "裸", "自慰")
@@ -479,7 +493,6 @@ IF !RESULT
 ENDIF
 SIF FLAG:多尺寸
 	默认角色画像横幅 = SPRITEHEIGHT(RESULTS)
-
 CALL 画像セット(RESULTS, 0, 0, 角色画像表示尺寸比, 0)
 
 CALL GET_EFFECT_RESOURCE(C_ID, "吐息")
@@ -492,16 +505,16 @@ IF RESULTS == "EagloV"
 	SIF RESULT
 		CALL 画像セット(RESULTS, 0, 0, 角色画像表示尺寸比, 1)
 ELSE
-	TRYCCALLFORM IMAGE_I{C_ID}_自慰エフェクト(C_ID)
+	CALL IMAGE_CHARA_OVERRIDE("自慰エフェクト", C_ID)
+	IF RESULT:1
 		FOR LOCAL, 0, RESULT
-			TEMP_HTML:LOCAL =
-			CALL 画像セット(RESULTS:LOCAL, 0, 0, 角色画像表示尺寸比, LOCAL)
+			SIF SPRITECREATED(RESULTS:LOCAL)
+				CALL 画像セット(RESULTS:LOCAL, 0, 0, 角色画像表示尺寸比, LOCAL + 2)
 		NEXT
-	CATCH
-	ENDCATCH
+	ENDIF
 ENDIF
 CALL 画像一斉表示(0, 0, 1, -1)
-FLAG:立ち絵種類 = 立ち顔保存
+FLAG:立絵種類 = 立ち顔保存
 ;=========================================================
 ;@GET_BASE_RESOURCE(CHARA, 表示形式, 服装, 表情, 表情_マウスオーバー, 差分)
 ;	基本画像のリソースを返却する
@@ -535,16 +548,15 @@ ENDIF
 CATCH
 ENDCATCH
 
-RESULT = 0
 ;表示形式
 表示形式 = %GET_BASESTYLE(CHARA, 表示形式)%
 ;差分
 IF 差分 == ""
 	RESULTS:2 = %表情%
-    TRYCCALLFORM IMAGE_I{CHARA}_差分(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("差分", CHARA)
+	IF RESULT:1
         差分 = %RESULTS%
-	CATCH
-    ENDCATCH
+	ENDIF
 ENDIF
 
 ;服装
@@ -554,10 +566,10 @@ IF 服装 == ""
     ELSE
         服装 = 服
     ENDIF
-	TRYCCALLFORM IMAGE_I{CHARA}_特殊服装(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("特殊服装", CHARA)
+	IF RESULT:1
 		服装 += RESULTS
-	CATCH
-	ENDCATCH
+	ENDIF
 ENDIF
 ;-------PRINTFORML %CALLNAME:CHARA%の服装：%服装%、表情：%表情%、MO表情：%表情_マウスオーバー%、差分：%差分%を確認
 IF FLAG:巨乳差分表示
@@ -603,11 +615,11 @@ RETURN RESULT
 
 TEMP_服装 = %服装%
 服装 = %乳量%%服装%
-TRYCCALLFORM IMAGE_I{CHARA}_体形(CHARA)
+CALL IMAGE_CHARA_OVERRIDE("体形", CHARA)
+IF RESULT:1
 	服装 = %RESULTS%%服装%
 	TEMP_服装 = %RESULTS%%TEMP_服装%
-CATCH
-ENDCATCH
+ENDIF
 
 ;表情(RESULTSに格納)
 IF 表情 == ""
@@ -649,11 +661,11 @@ RETURN 1
 #DIMS SET_RESOURCE = "BASE巨乳拆分", "マウスオーバー巨乳拆分", "BASE", "マウスオーバー", "BASE巨乳", "マウスオーバー巨乳"
 
 SET_RESOURCE:4 = %乳量%%服装%
-TRYCCALLFORM IMAGE_I{CHARA}_体形(CHARA)
+CALL IMAGE_CHARA_OVERRIDE("体形", CHARA)
+IF RESULT:1
 	服装 = %RESULTS%%服装%
 	SET_RESOURCE:4 = %RESULTS%%SET_RESOURCE:4%
-CATCH
-ENDCATCH
+ENDIF
 
 ;表情(RESULTSに格納)
 IF 表情 == ""
@@ -669,9 +681,11 @@ SIF 表情_マウスオーバー != ""
 
 ;get 巨乳拆分
 SET_RESOURCE:0 = %表示形式%_%服装%_%SET_RESOURCE:2%_%乳量%拆分_{CHARA}%差分%
+
 TRYCCALLFORM IMAGE_EX_I{CHARA}_PREリソースチェック(CHARA, 表示形式, 服装, 表情, 表情_マウスオーバー, 差分, 乳量)
 CATCH
 ENDCATCH
+
 IF !SPRITECREATED(SET_RESOURCE:0)
 	SET_RESOURCE:0 = %表示形式%_%服装%_%乳量%拆分_{CHARA}%差分%
 	SIF !SPRITECREATED(SET_RESOURCE:0)
@@ -718,6 +732,7 @@ RETURN 1
 #DIMS 表示形式
 	
 LOCAL = CFLAG:CHARA:差し替え適用
+
 IF 表示形式=="顔絵" || (FLAG:立絵種類 && 表示形式=="")
 	SIF CFLAG:CHARA:差し替え適用 > CFLAG:CHARA:別顔有
 		CFLAG:CHARA:差し替え適用 = 0
@@ -836,7 +851,7 @@ IF CFLAG:CHARA:诶嘿嘿 && GETPALAMLV(PALAM:CHARA:欲情, 10) >= 7 && SPRITECRE
 	ENDIF
 ENDIF
 ;専用の特殊表情変化
-TRYCALLFORM IMAGE_I{CHARA}_特殊表情(CHARA)
+CALL IMAGE_CHARA_OVERRIDE("特殊表情", CHARA)
 SIF RESULTS:0 == ""
 	RESULTS:0 = 通常
 SIF RESULTS:1 == ""
@@ -884,7 +899,7 @@ SIF RAND:3 && TCVAR:CHARA:発情 && SPRITECREATED(@"%表示形式%_%服装%_発�
 	SWAP RESULTS:0, RESULTS:1
 
 ;専用の特殊表情変化
-TRYCALLFORM IMAGE_I{CHARA}_特殊表情COM(CHARA, SELECTCOM)
+CALL IMAGE_CHARA_OVERRIDE("特殊表情COM", CHARA, SELECTCOM)
 
 ;性交中判定
 @IS_SEXING(ARG)
@@ -920,6 +935,7 @@ RETURNF 0
 SIF !FLAG:追加エフェクト
 	RETURN 0
 VARSET RESULTS
+
 ;custom code, EagloV's alt images
 TRYCCALLFORM SPECIAL_EFFECT_IMAGE_{CHARA}
 IF RESULTS != ""
@@ -932,21 +948,22 @@ ENDIF
 CATCH
 ENDCATCH
 
+
 表示形式 = %GET_BASESTYLE(CHARA, 表示形式)%
 IF 差分 == ""
-    TRYCCALLFORM IMAGE_I{CHARA}_差分(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("差分", CHARA)
+	IF RESULT:1
         差分 = %RESULTS%
-	CATCH
-    ENDCATCH
+	ENDIF
 ENDIF
 
 ;照れ
 IF STRFIND(エフェクト, "照れ") != -1 || (エフェクト == "" && CHECK_BLUSH(CHARA, 表示形式, 差分))
 	エフェクト名 = 照れ
-	TRYCCALLFORM IMAGE_I{CHARA}_特殊照れ(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("特殊照れ", CHARA)
+	IF RESULT:1
 		エフェクト名 '= RESULTS + エフェクト名
-	CATCH
-	ENDCATCH
+	ENDIF
 	SIF (CHECK_NUDE(CHARA) || STRFIND(エフェクト, "照れ") != -1) && SPRITECREATED(@"%表示形式%_裸%エフェクト名%_{CHARA}%差分%")
 		エフェクト名 '= "裸" + エフェクト名
 	IF SPRITECREATED(@"%表示形式%_%エフェクト名%_{CHARA}%差分%")
@@ -958,10 +975,10 @@ ENDIF
 ;吐息
 IF STRFIND(エフェクト, "吐息") != -1 || (エフェクト == "" && CHECK_EXHALATION(CHARA))
 	エフェクト名 = 吐息
-	TRYCCALLFORM IMAGE_I{CHARA}_特殊吐息(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("特殊吐息", CHARA)
+	IF RESULT:1
 		エフェクト名 '= RESULTS + エフェクト名
-	CATCH
-	ENDCATCH
+	ENDIF
 	SIF (CHECK_NUDE(CHARA) || STRFIND(エフェクト, "吐息") != -1) && SPRITECREATED(@"%表示形式%_裸%エフェクト名%_{CHARA}%差分%")
 		エフェクト名 '= "裸" + エフェクト名
 	IF SPRITECREATED(@"%表示形式%_%エフェクト名%_{CHARA}%差分%")
@@ -973,10 +990,10 @@ ENDIF
 ;汗
 IF STRFIND(エフェクト, "汗") != -1 || (エフェクト == "" && CHECK_SWEAT(CHARA))
 	エフェクト名 = 汗
-	TRYCCALLFORM IMAGE_I{CHARA}_特殊汗(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("特殊汗", CHARA)
+	IF RESULT:1
 		エフェクト名 '= RESULTS + エフェクト名
-	CATCH
-	ENDCATCH
+	ENDIF
 	SIF (CHECK_NUDE(CHARA) || STRFIND(エフェクト, "汗") != -1) && SPRITECREATED(@"%表示形式%_裸%エフェクト名%_{CHARA}%差分%")
 		エフェクト名 '= "裸" + エフェクト名
 	IF SPRITECREATED(@"%表示形式%_%エフェクト名%_{CHARA}%差分%")
@@ -987,9 +1004,9 @@ ENDIF
 
 ;特殊
 RESULT = 0
-TRYCALLFORM IMAGE_I{CHARA}_特殊エフェクトチェック(CHARA, エフェクト)
+CALL IMAGE_CHARA_OVERRIDE("特殊エフェクトチェック", CHARA,,エフェクト)
 IF RESULT || エフェクト == ""
-	TRYCALLFORM IMAGE_I{CHARA}_特殊エフェクト(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("特殊エフェクト", CHARA)
 	FOR LOCAL, 0, RESULT
 		IF SPRITECREATED(@"%表示形式%_%RESULTS:LOCAL%_{CHARA}%差分%")
 			リソース:(エフェクト数) = %表示形式%_%RESULTS:LOCAL%_{CHARA}%差分%
@@ -1076,3 +1093,41 @@ SIF SPENT_TIME > 0 && CFLAG:CHARA:诶嘿嘿
 SIF BASE:CHARA:体力 < MAXBASE:CHARA:体力*3/4 && BASE:CHARA:気力 < MAXBASE:CHARA:気力/4
 	RETURNF 1
 RETURNF 0
+
+@IMAGE_CHARA_OVERRIDE(FUNC_TYPE, CHARA, VALUE, STR_VALUE, TARGET_CHARA = -1)
+#DIMS FUNC_TYPE
+#DIM CHARA
+#DIM VALUE
+#DIMS STR_VALUE
+#DIM TARGET_CHARA
+SIF TARGET_CHARA == -1
+	TARGET_CHARA = CHARA
+
+;store content of RESULTS since KOJO_MESSAGE_SEND will clear it
+LOCALS:0 '= RESULTS:0
+LOCALS:1 '= RESULTS:1
+CALL KOJO_MESSAGE_SEND("IMAGE", 0, CHARA, VALUE,, FUNC_TYPE, STR_VALUE,,,TARGET_CHARA)
+SIF RESULT
+	RETURN RESULT < 0 ? 0 # RESULT, 1
+
+RESULTS:0 '= LOCALS:0
+RESULTS:1 '= LOCALS:1
+
+SELECTCASE FUNC_TYPE
+	CASE "特殊表情COM"
+		TRYCCALLFORM IMAGE_I{NO:CHARA}_%FUNC_TYPE%(TARGET_CHARA, VALUE)
+			RETURN RESULT, 1
+		CATCH
+		ENDCATCH
+	CASE "特殊エフェクトチェック"
+		TRYCCALLFORM IMAGE_I{NO:CHARA}_%FUNC_TYPE%(TARGET_CHARA, STR_VALUE)
+			RETURN RESULT, 1
+		CATCH
+		ENDCATCH
+	CASEELSE
+		TRYCCALLFORM IMAGE_I{NO:CHARA}_%FUNC_TYPE%(TARGET_CHARA)
+			RETURN RESULT, 1
+		CATCH
+		ENDCATCH
+ENDSELECT
+RETURN 0, 0

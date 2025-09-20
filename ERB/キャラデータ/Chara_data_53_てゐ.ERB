@@ -72,12 +72,12 @@ CASE "便装：連衣裙"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("連衣裙", "連衣裙"))
 
 CASE "固有指令"
-	CALLF MAKE_STR(V_NAME, "買薬")
+	CALLF MAKE_STR(V_NAME, "买药")
 CASE "固有指令実行可能"
 	CALLF MAKE_INT(V_NAME, 1)
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "风水上有金钱运的")
+	CALLF MAKE_STR(V_NAME, "带来财运的")
 CASE "固有下半身内衣名"
 	CALLF MAKE_STR(V_NAME, "缎带内裤")
 CASE "固有上半身内衣"
@@ -95,7 +95,7 @@ CASE "固有内衣布料厚度"
 
 ;料理関連
 CASE "料理：喜欢的味道"
-	CALLF MAKE_STR(V_NAME, "野菜/蘑菇/和食/葉物/简易/濃厚/豪華/野趣/家庭的/软糯的/神力/玉兎流/赏月/甜/甜/咸/咸/胡蘿卜/胡蘿卜/胡蘿卜/胡蘿卜/胡蘿卜/")
+	CALLF MAKE_STR(V_NAME, "野菜/蘑菇/和食/葉物/简易/濃厚/豪華/野趣/家庭的/软糯的/神力/玉兎流/赏月/甜/甜/咸/咸/胡萝卜/胡萝卜/胡萝卜/胡萝卜/胡萝卜/")
 CASE "料理：讨厌的味道"
 	CALLF MAKE_STR(V_NAME, "丰盛/質素/辣/辣/" + "青蛙/獣肉/虫肉/謎料理/" * 3)
 CASE "料理：助手効果"
@@ -109,11 +109,11 @@ CASE "感性：嫌い"
 ;農民関連
 ;金もってそう
 CASE "農民：説明"
-	CALLF MAKE_STR(V_NAME, "胡蘿卜農家")
+	CALLF MAKE_STR(V_NAME, "胡萝卜農家")
 CASE "農民：作物"
-	CALLF MAKE_STR(V_NAME, "胡蘿卜")
+	CALLF MAKE_STR(V_NAME, "胡萝卜")
 CASE "農民：田的种类"
-	CALLF MAKE_STR(V_NAME, "胡蘿卜畑")
+	CALLF MAKE_STR(V_NAME, "胡萝卜畑")
 CASE "農民：畑の所在地"
 	CALLF MAKE_STR(V_NAME, "迷途竹林")
 
@@ -140,7 +140,7 @@ ENDSELECT
 @SPECIAL_MENU_53
 DISH_NAME = 紅白膾
 RESULTS = 軽食
-CALL 材料設定("高级食材", "胡蘿卜")
+CALL 材料設定("高级食材", "胡萝卜")
 DISH_TASTE = 和食/野菜/酸/简易/健康/幸運/
 DISH_COMMENT = 这道年节菜里包含了具有红白色系、象征好运的醋渍菜。
 RETURN 1
@@ -159,14 +159,14 @@ IF CFLAG:CHARA:差し替え適用
 	;差し替え画像
 	IF CHECK_NUDE(CHARA)
 		;裸
-		IF FLAG:立ち絵種類
+		IF FLAG:立絵種類
 			;顔絵
 		ELSE
 			;立ち絵
 		ENDIF
 	ELSE
 		;服
-		IF FLAG:立ち絵種類
+		IF FLAG:立絵種類
 			;顔絵
 		ELSE
 			;立ち絵

@@ -20,7 +20,7 @@
 
 ;-----------------------------------------------------------
 ;毒Counterの制御用関数（梅蒂欣専用）
-;ARG:0 ループ回数（接触が濃厚的ほど回数を増す）
+;ARG:0 ループ回数（接触が浓厚的ほど回数を増す）
 ;-----------------------------------------------------------
 @K75_POISON_COUNTER(ARG:0)
 #DIM 減少値
@@ -96,7 +96,7 @@ SIF CFLAG:75:ブチギレ
 	減少値 -= 50
 ;√累計回数の補正
 SIF CFLAG:75:1301 || CFLAG:75:1302 || CFLAG:75:1303
-	減少値 -= SQRT(CFLAG:75:1301 + CFLAG:75:1302 + CFLAG:75:1303)
+	減少値 += CBRT(CFLAG:75:1301 + CFLAG:75:1302 + CFLAG:75:1303)
 
 ;恋人の場合は、一律ゼロに補正／プラス値のときも補正
 SIF TALENT:75:恋人
@@ -168,7 +168,7 @@ ENDIF
 
 ;-----------------------------------------------------------
 ;毒システムの減算実行関数（梅蒂欣専用）
-;ARG:0 ループ回数（接触が濃厚的ほど回数を増す、指令毎に指定）
+;ARG:0 ループ回数（接触が浓厚的ほど回数を増す、指令毎に指定）
 ;ARG:1 減少値、負の値を入れる
 ;-----------------------------------------------------------
 @K75_POISON_MAIN(ARG:0, ARG:1)
@@ -208,7 +208,7 @@ ENDIF
 
 ;-----------------------------------------------------------------------------------------------
 ;@CHARA_INFO_KOJO_K75()
-;個人情報の「角色介绍」の文章を書き換える
+;个人情報の「角色介绍」の文章を書き換える
 ;これが那个ば「CSTR」の20番以降(20～39)に文字列を書き込むだけで書き換わるはず
 ;早苗口上より引用、改変
 ;-----------------------------------------------------------------------------------------------
@@ -995,16 +995,16 @@ IF (CFLAG:[[愛麗絲]]:信賴度 >= 250 || CFLAG:[[紫]]:信賴度 >= 1000 || C
 		MAXBASE:MASTER:気力 -= 100
 		MAXBASE:MASTER:精力 -= 100
 		
-		IF ITEM:鬼殺酒 > 0
-			ITEM:鬼殺酒 -= 1
+		IF ITEM:鬼杀酒 > 0
+			ITEM:鬼杀酒 -= 1
 			PRINTFORML 失去了1瓶鬼杀酒…
 			PRINTW 
 		ELSEIF ITEM:清酒 > 0
 			ITEM:清酒 -= 1
 			PRINTFORML 失去了1瓶清酒…
 			PRINTW 
-		ELSEIF ITEM:濁酒 > 0
-			ITEM:濁酒 -= 1
+		ELSEIF ITEM:浊酒 > 0
+			ITEM:浊酒 -= 1
 			PRINTFORML 失去了1瓶浊酒…
 			PRINTW 
 		ELSEIF ITEM:甜酒 > 0
@@ -1143,15 +1143,15 @@ IF (CFLAG:[[愛麗絲]]:信賴度 >= 250 || CFLAG:[[紫]]:信賴度 >= 1000 || C
 			PRINTFORML 「说到采取的话、要做的事只有一件了对吧？」
 			PRINTFORML 「毕竟堂堂正正的发表了不贞宣言嘛。让我得到这种程度的好处、不也挺好的嘛？」
 			PRINTW 
-			PRINTFORML 「啊%UNICODE(0x2665) *1%　还要%UNICODE(0x2665) *1%
+			PRINTFORML 「啊♥　还要♥
 			PRINTFORML 
-			PRINTFORML 　好棒%UNICODE(0x2665) *1%　再激烈些%UNICODE(0x2665) *1%
+			PRINTFORML 　好棒♥　再激烈些♥
 			PRINTFORML 
-			PRINTFORML 　请在人家体内射出好多的%UNICODE(0x2665) *1%　啊啊啊～～～～%UNICODE(0x2665) *1%」
+			PRINTFORML 　请在人家体内射出好多的♥　啊啊啊～～～～♥」
 			PRINTFORML 
 			PRINTW 
-			PRINTFORML 「哈啊…哈啊…%UNICODE(0x2665) *1%　真的是好厉害哇…%UNICODE(0x2665) *1%」
-			PRINTFORML 「%CALLNAME:MASTER%也、射出来了这么多…%UNICODE(0x2665) *1%」
+			PRINTFORML 「哈啊…哈啊…♥　真的是好厉害哇…♥」
+			PRINTFORML 「%CALLNAME:MASTER%也、射出来了这么多…♥」
 			PRINTFORML 「其实呢、虽然想再稍微和睦相处一点、但是没办法这样子悠闲下去了呢」
 			PRINTW 
 		ELSEIF TALENT:90:恋慕
@@ -1159,15 +1159,15 @@ IF (CFLAG:[[愛麗絲]]:信賴度 >= 250 || CFLAG:[[紫]]:信賴度 >= 1000 || C
 			PRINTFORML 「说到采取的话、要做的事只有一件了对吧？」
 			PRINTFORML 「毕竟被强加了麻烦的事情嘛。让我得到这种程度的好处、不也挺好的嘛？」
 			PRINTW 
-			PRINTFORML 「啊%UNICODE(0x2665) *1%　还要%UNICODE(0x2665) *1%
+			PRINTFORML 「啊♥　还要♥
 			PRINTFORML 
-			PRINTFORML 　好棒%UNICODE(0x2665) *1%　再激烈些%UNICODE(0x2665) *1%
+			PRINTFORML 　好棒♥　再激烈些♥
 			PRINTFORML 
-			PRINTFORML 　请在人家体内射出好多的%UNICODE(0x2665) *1%　啊啊啊～～～～%UNICODE(0x2665) *1%」
+			PRINTFORML 　请在人家体内射出好多的♥　啊啊啊～～～～♥」
 			PRINTFORML 
 			PRINTW 
-			PRINTFORML 「哈啊…哈啊…%UNICODE(0x2665) *1%　真的是好厉害哇…%UNICODE(0x2665) *1%」
-			PRINTFORML 「%CALLNAME:MASTER%也、射出来了这么多…%UNICODE(0x2665) *1%」
+			PRINTFORML 「哈啊…哈啊…♥　真的是好厉害哇…♥」
+			PRINTFORML 「%CALLNAME:MASTER%也、射出来了这么多…♥」
 			PRINTFORML 「其实呢、虽然想再稍微和睦相处一点、但是没办法这样子悠闲下去了呢」
 			PRINTW 
 		ELSEIF TALENT:90:思慕
@@ -1176,12 +1176,12 @@ IF (CFLAG:[[愛麗絲]]:信賴度 >= 250 || CFLAG:[[紫]]:信賴度 >= 1000 || C
 			CALL ASK_YN("拜托你了","我自己来")
 			IF !RESULT
 				PRINTFORML 「啊啦啊啦、真是个坏家伙…♪」
-				PRINTFORML 「真是拿你没办法呢…我会温柔地给你撸到射出来为止呢%UNICODE(0x2665) *1%」
+				PRINTFORML 「真是拿你没办法呢…我会温柔地给你撸到射出来为止呢♥」
 				PRINTW 
 				PRINTFORML 「你～看、撸呀撸呀、撸呀撸呀…♪」
-				PRINTFORML 「大鸡巴、变得硬邦邦了呀…%UNICODE(0x2665) *1%」
+				PRINTFORML 「大鸡巴、变得硬邦邦了呀…♥」
 				PRINTFORML 「快看、雄性的气味变得浓烈了哇。是快要去了呢？」
-				PRINTFORML 「浓厚且新鲜的鸡巴汁液、快点射出来♪　快点、PiuPiu%UNICODE(0x2665) *1%」
+				PRINTFORML 「浓厚且新鲜的鸡巴汁液、快点射出来♪　快点、PiuPiu♥」
 				PRINTW 
 				PRINTFORML 「很好地射精了呢…♪　很了不起哟」
 				PRINTFORML 「辛苦了呢。收集到这么多的话、已经足够了哇」

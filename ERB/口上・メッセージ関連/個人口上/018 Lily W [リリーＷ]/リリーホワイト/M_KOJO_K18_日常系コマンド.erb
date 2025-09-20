@@ -544,7 +544,7 @@ IF LOCAL
 		IF TALENT:恋慕 
 			SELECTCASE RAND:2
 				CASE 1
-					PRINTFORML 「H…%UNICODE(0x2665) *1%」
+					PRINTFORML 「H…♥」
 					PRINTFORMW 莉莉笑着感受着%CALLNAME:MASTER%的手的抚摸。
 				CASE 0
 					PRINTFORML 「嗯呼呼～%CALLNAME:MASTER%的话不管摸哪里也没ー问题」
@@ -647,7 +647,7 @@ IF LOCAL
 					PRINTFORMW 「作为回礼也要捏%CALLNAME:MASTER%的脸颊哟～、唉咿」
 				CASE 0
 					PRINTFORML 「这可不是樱饼哟～」
-					PRINTFORMW 「但是无论如何都想要吃的话…可以的哟%UNICODE(0x2665) *1%」
+					PRINTFORMW 「但是无论如何都想要吃的话…可以的哟♥」
 				CASEELSE
 					PRINTFORML 「姆尼ー」
 					PRINTFORMW 「姆nvー」
@@ -953,7 +953,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_MESSAGE_COM_K18_332
@@ -1351,7 +1351,7 @@ IF LOCAL
 			;0=成功
 			CASE 0
 				IF TALENT:恋慕
-					PRINTFORML 「这也是一种春天哟ー…%UNICODE(0x2665) *1%」
+					PRINTFORML 「这也是一种春天哟ー…♥」
 					PRINTFORMW 
 				ELSEIF TALENT:思慕
 					PRINTFORML 「还、想要做吗ー…？」
@@ -1437,13 +1437,13 @@ IF LOCAL
 				ENDIF 
 			;3=媚薬or発情には勝てなかったよお…
 			CASE 3
-				PRINTFORML 「啊…哈啊…%UNICODE(0x2665) *1%」
-				PRINTFORMW 「身体暖洋洋的好热ー…%UNICODE(0x2665) *1%」					
+				PRINTFORML 「啊…哈啊…♥」
+				PRINTFORMW 「身体暖洋洋的好热ー…♥」					
 			;4=悔しい…刻印さえなければﾋﾞｸﾋﾞｸﾝ
 			CASE 4
 				PRINTFORML 「呼唉？…啊咧…？」
 				PRINTFORML 「身体很奇怪哟ー……啊」
-				PRINTFORML 「啊、啊啊啊…%UNICODE(0x2665) *1%停不下来的说ー…%UNICODE(0x2665) *1%」
+				PRINTFORML 「啊、啊啊啊…♥停不下来的说ー…♥」
 				PRINTFORMW 莉莉在自己也不能理解的情况下按%CALLNAME:MASTER%所期待的那样接受了男性。
 				
 			;6=まんざらでもない
@@ -1682,7 +1682,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K18_360
 CALL M_KOJO_MESSAGE_COM_K18_360_1
@@ -1700,7 +1700,7 @@ IF LOCAL
 			PRINTFORML 「这样看起来只有一点点哟ー…？」
 		;前から抱きつく 
 		CASE 32
-			PRINTFORML 「%UNICODE(0x2665) *1%要独占着哟ー…%UNICODE(0x2665) *1%」
+			PRINTFORML 「♥要独占着哟ー…♥」
 		;裙子の中を見せる
 		CASE 35
 			PRINTFORML 
@@ -1716,7 +1716,7 @@ IF LOCAL
 		;V挿入する
 		CASE 85
 			PRINTFORML
-		;だいしゅき大堂ド
+		;だいしゅきホールド
 		CASE 86
 			PRINTFORML 
 		;腰振りV
@@ -1728,7 +1728,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;361,抵抗
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K18_361
 CALL M_KOJO_MESSAGE_COM_K18_361_1
@@ -1756,7 +1756,7 @@ IF LOCAL
 		;乳を吸わせる
 		CASE 77
 			PRINTFORML 
-		;だいしゅき大堂ド
+		;だいしゅきホールド
 		CASE 86
 			PRINTFORML 
 	ENDSELECT
@@ -1788,7 +1788,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_MESSAGE_COM_K18_364
@@ -2210,7 +2210,7 @@ IF LOCAL
 					PRINTFORML 「感觉和%CALLNAME:MASTER%训练之后变得强大了很多了哟ー」
 					PRINTFORMW 
 				CASE 0
-					PRINTFORML 「向弹幕里注入春和爱%UNICODE(0x2665) *1%」
+					PRINTFORML 「向弹幕里注入春和爱♥」
 					PRINTFORMW 
 				CASEELSE
 					PRINTFORML 「不管是恋爱还是弹幕、即使是练习也要全力以赴哟ー！！」
@@ -2297,7 +2297,7 @@ IF LOCAL
 		IF TALENT:恋慕 
 			SELECTCASE RAND:2
 				CASE 1
-					PRINTFORML 「今日学习了许多关于%CALLNAME:MASTER%的事情哟ー…%UNICODE(0x2665) *1%」
+					PRINTFORML 「今日学习了许多关于%CALLNAME:MASTER%的事情哟ー…♥」
 					PRINTFORMW %CALLNAME:MASTER%被莉莉学习到了很多的事情。
 				CASE 0
 					PRINTFORML 「今天也和%CALLNAME:MASTER%一起学习～♪」
@@ -2483,9 +2483,9 @@ IF LOCAL
 	ELSEIF CFLAG:318 == 1
 		PRINTFORML 
 	ELSEIF TFLAG:194 == 1
-	;涮涮锅料理の時に胖次を沒穿
-		PRINTFORML (啊，没有穿内裤的情况下吃涮涮锅了ー…%UNICODE(0x2665) *1%）
-		PRINTFORMW (虽然很害羞…但是手还是停不下来地一直在吃涮涮锅呢…%UNICODE(0x2665) *1%」
+	;涮涮锅料理の時に胖次を没穿
+		PRINTFORML (啊，没有穿内裤的情况下吃涮涮锅了ー…♥）
+		PRINTFORMW (虽然很害羞…但是手还是停不下来地一直在吃涮涮锅呢…♥」
 	ELSEIF TFLAG:194 == 31
 	;奶酪番茄沙拉
 		PRINTFORML 「没有什么味道呀ー…这个奶酪…」
@@ -2827,7 +2827,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -3055,7 +3055,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;==================================================
 
 
@@ -3641,7 +3641,7 @@ IF LOCAL
 			CASE 3
 			;秋
 				IF ABL:料理技能 < 2
-					PRINTFORML 莉莉带来的篮子里盛满了山上采到的苹果、柿子、木通属组成的究极沙拉。
+					PRINTFORML 莉莉带来的篮子里盛满了山上采到的苹果、柿子、木通果组成的究极沙拉。
 					PRINTFORMW 「这是时令的美味水果哟ー…」
 				ELSE
 					PRINTFORML 「今天很难得所以做了便当带来了哟ー」
@@ -3727,7 +3727,7 @@ IF LOCAL
 					;PRINTFORML 
 					;PRINTFORMW 
 				CASEELSE
-					PRINTFORML 「哈姆哈姆…软绵绵的黏稠稠的很美味哟ー%UNICODE(0x2665) *1%」
+					PRINTFORML 「哈姆哈姆…软绵绵的黏稠稠的很美味哟ー♥」
 					PRINTFORMW 莉莉嘴上沾满了蜂蜜和奶油大口地吃着松饼。（日式pancake会浇上糖浆顶端有块方形黄油）
 			ENDSELECT
 		ENDIF
@@ -3958,7 +3958,7 @@ IF LOCAL
 					PRINTFORMW 
 				CASE 8
 				;カーマスートラ
-					PRINTFORML 「呼ー%UNICODE(0x2665) *1%呼ー%UNICODE(0x2665) *1%」
+					PRINTFORML 「呼ー♥呼ー♥」
 					PRINTFORML 「？？？」
 					PRINTFORMW 莉莉无法掩饰自己为何兴奋的困惑、不停地磨蹭着大腿。
 				CASEELSE

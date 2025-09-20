@@ -55,13 +55,13 @@ CASE "今天的睡衣"
 CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "solid metal")
+	CALLF MAKE_STR(V_NAME, "固态金属的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "copper panties")
+	CALLF MAKE_STR(V_NAME, "黄铜内裤")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "copper bra")
+	CALLF MAKE_STR(V_NAME, "黄铜胸罩")
 CASE "固有内衣着用条件"
 	SIF !RAND:(3 - (2 * 勝負内衣判定([[菊理]])))
 		CALLF MAKE_INT(V_NAME, 1)
@@ -76,7 +76,7 @@ CASE "固有内衣布料厚度"
 CASE "料理：喜欢的味道"
 	CALLF MAKE_STR(V_NAME, "煎餅/派/淡白/魔界風/隠し味/魔性/秘術/蛋糕/漢堡/樸素/外界風/大火力/" + "春物/加護/道具の共鳴/" * 3 + "和食/" * 5)
 CASE "料理：讨厌的味道"
-	CALLF MAKE_STR(V_NAME, "怪诞/謎料理/霊障/垃圾/浓郁/玉兎流/逆転/純化的味道/貧乏飯/洋食/わんぱく/怪しい/" + "科学的/扑鼻/平价食材/" * 3 + "もちもち/" * 5)
+	CALLF MAKE_STR(V_NAME, "怪诞/謎料理/霊障/垃圾/浓郁/玉兎流/逆転/純化的味道/貧乏飯/洋食/わんぱく/怪しい/" + "科学的/扑鼻/平价食材/" * 3 + "软糯的/" * 5)
 CASE "料理：助手効果"
 	CALLF MAKE_STR(V_NAME, "闪耀/神力/魔界風/")
 ;贈り物関連

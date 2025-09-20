@@ -1,4 +1,4 @@
-#DIM SAVEDATA nCloseAndPersonal ;for close up image mode
+﻿#DIM SAVEDATA nCloseAndPersonal ;for close up image mode
 #DIM nSexDone
 #DIM nVigCheck
 #DIM nMoveAsked
@@ -26,4 +26,3 @@
 #DIM TSP_RESTORATION_TIME
 #DIM TSP_RESTORATION_REMAINING ;in thousands
 
-#DIM SAVEDATA PregnancyProgress,人物数量上限,MAXCHILD

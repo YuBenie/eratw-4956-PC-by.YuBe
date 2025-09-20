@@ -62,9 +62,9 @@ CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（裤子）套")
 
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "長筒襪"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "长筒袜"))
 CASE "便装：裙子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "裙子"))
 CASE "便装：上身衣服２"
@@ -77,11 +77,11 @@ CASE "便装：其他１"
 CASE "固有内衣形容詞"
 	CALLF MAKE_STR(V_NAME, "除了朴素毫无特点的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "玉兎支給胖次")
+	CALLF MAKE_STR(V_NAME, "玉兔配给胖次")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "玉兎支給胸罩")
+	CALLF MAKE_STR(V_NAME, "玉兔配给胸罩")
 CASE "固有内衣着用条件"
 	SIF !RAND:(1 + (2 * 勝負内衣判定([[鈴仙二號]])))
 		CALLF MAKE_INT(V_NAME, 1)
@@ -94,7 +94,7 @@ CASE "固有内衣布料厚度"
 
 ;料理関連
 CASE "料理：喜欢的味道"
-	CALLF MAKE_STR(V_NAME, "野菜/米/中華/葉物/简易/健康/質素/機能的/家庭的/玉兎流/月都風/赏月/甜/甜/酸/酸/胡蘿卜/胡蘿卜/胡蘿卜/胡蘿卜/胡蘿卜/")
+	CALLF MAKE_STR(V_NAME, "野菜/米/中華/葉物/简易/健康/質素/機能的/家庭的/玉兎流/月都風/赏月/甜/甜/酸/酸/胡萝卜/胡萝卜/胡萝卜/胡萝卜/胡萝卜/")
 CASE "料理：讨厌的味道"
 	CALLF MAKE_STR(V_NAME, "咸/咸/" + "青蛙/獣肉/虫肉/生命力/" * 3 + "怪诞/謎料理/" * 5)
 CASE "料理：助手効果"
@@ -119,8 +119,8 @@ ENDSELECT
 @SPECIAL_MENU_100
 DISH_NAME = 胡萝卜炒蛋
 RESULTS = 主食
-CALL 材料設定("胡蘿卜")
-DISH_TASTE = 野菜/卵/質素/甜/健康/家庭的/胡蘿卜/胡蘿卜/胡蘿卜/胡蘿卜/胡蘿卜/
+CALL 材料設定("胡萝卜")
+DISH_TASTE = 野菜/卵/質素/甜/健康/家庭的/胡萝卜/胡萝卜/胡萝卜/胡萝卜/胡萝卜/
 DISH_COMMENT = 将切成片的胡萝卜和鸡蛋一起炒、再加入调味料做成的料理。即使凉了也很好吃。
 RETURN 1
 
@@ -163,7 +163,7 @@ ELSE
 		ENDIF
 	ELSE
 		;服
-		IF CFLAG:CHARA:衣装一時変更 == 55 || (CFLAG:CHARA:基本服装セット == 55 && CFLAG:CHARA:衣装一時変更==0)
+		IF CURRENT_CLOTHES_SET(CHARA) == 55
 			IF FLAG:立絵種類
 				;顔絵
 				RESULTS = _バニー

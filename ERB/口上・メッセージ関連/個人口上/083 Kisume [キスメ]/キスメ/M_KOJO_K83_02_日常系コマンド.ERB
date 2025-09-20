@@ -30,7 +30,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K83
 	;酔ってる
 	IF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;会話不能
 	ELSEIF TCVAR:[[琪斯美]]:会話不能
 		IF TALENT:[[琪斯美]]:恋慕
@@ -219,7 +219,7 @@ CASE "思慕"
 	CASEELSE
 		PRINTFORMW 「釣瓶落……会放出鬼火哦……」(原作中ZUN缝合了钓瓶落和钓瓶火两种妖怪)
 	ENDSELECT
-CASE "酔酒"
+CASE "醉酒"
 	SELECTCASE RAND:4
 	CASE 1
 		PRINTFORML 「嘿嘿嘿……呼呼」
@@ -254,7 +254,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K83
 	;酔ってる
 	IF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		PRINTFORMW 「呼……咕呼……」
@@ -297,7 +297,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K83
 	;酔ってる
 	IF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		IF TALENT:[[琪斯美]]:恋慕
@@ -442,7 +442,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K83
 	;酔ってる
 	IF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		IF TALENT:[[琪斯美]]:恋慕
@@ -505,7 +505,7 @@ IF LOCAL
 	IF FLAG:時間停止
 	;酔ってる
 	ELSEIF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		IF TALENT:[[琪斯美]]:恋慕
@@ -573,7 +573,7 @@ IF LOCAL
 		PRINTFORMW 「呼诶诶……」
 	;酔ってる
 	ELSEIF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		IF TALENT:[[琪斯美]]:恋慕
@@ -682,7 +682,7 @@ IF LOCAL
 		PRINTFORMW 「库……」
 	;酔ってる
 	ELSEIF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		IF TALENT:[[琪斯美]]:恋慕
@@ -749,7 +749,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K83
 	;酔ってる
 	IF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;大成功
 	ELSEIF TFLAG:SELECTCOM的分岐 == 1
 		PRINTFORML 「谢、谢谢……」
@@ -773,7 +773,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_MESSAGE_COM_K83_332
@@ -788,7 +788,7 @@ LOCAL = 1
 IF LOCAL
 	;酔ってる
 	IF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	ELSE
 		PRINTFORMW 「酒吗？ 喝、喝呀……！ 谢谢……！」
 	ENDIF
@@ -938,7 +938,7 @@ IF LOCAL
 		ENDSELECT
 	;酔ってる
 	ELSEIF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		IF TALENT:[[琪斯美]]:恋慕
@@ -1025,7 +1025,7 @@ IF LOCAL
 		PRINTFORMW 「%M_KOJO_K83_AUTO("悲鳴：弱")% 抱、抱歉……」
 	;烂醉失敗
 	ELSEIF TFLAG:194 == 5
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 		PRINTL 
 		PRINTFORMDW 附近好像有目击者的样子不能下手
 	;烂醉
@@ -1280,7 +1280,7 @@ RETURN 1
 ;RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K83_360
 CALL M_KOJO_MESSAGE_COM_K83_360_1
@@ -1352,7 +1352,7 @@ IF LOCAL
 	;Ｖ挿入,Ａ挿入
 	CASE 85, 87
 		CALL HPH_PRINT(@"「嗯啊！ %CALLNAME:MASTER%的鸡鸡……进来了HPH」", "W")
-	;だいしゅき大堂ド
+	;だいしゅきホールド
 	CASE 86
 		CALL HPH_PRINT(@"「%M_KOJO_K83_AUTO("単刺激")%%M_KOJO_K83_AUTO("二連刺激")%啊～～HPH」", "W")
 	;Ｖ腰振り,Ａ腰振り
@@ -1363,7 +1363,7 @@ ENDIF
 RETURN 1
 ;;==================================================
 ;;361,抵抗
-;;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;;==================================================
 ;@M_KOJO_MESSAGE_COM_K83_360
 ;CALL M_KOJO_MESSAGE_COM_K83_360_1
@@ -1404,7 +1404,7 @@ RETURN 1
 ;ENDIF
 ;RETURN 1
 ;;==================================================
-;;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;;TFLAG:193(撒豆子に参加してる人数
 ;;==================================================
 ;@M_KOJO_MESSAGE_COM_K83_364
@@ -1502,7 +1502,7 @@ IF LOCAL
 	IF CFLAG:[[琪斯美]]:同行
 		;酔ってる
 		IF M_KOJO_K83_YOIDORE([[琪斯美]])
-			CALL M_KOJO_K83_TALKSET("酔酒")
+			CALL M_KOJO_K83_TALKSET("醉酒")
 		;心情不快
 		ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 			IF TALENT:[[琪斯美]]:恋慕
@@ -1555,7 +1555,7 @@ IF LOCAL
 		PRINTFORMW 「？ 在、在做什么呢……？」
 	;酔ってる
 	ELSEIF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		PRINTFORML 「扫除……」
@@ -1841,7 +1841,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -1950,7 +1950,7 @@ RETURN 1
 ;RETURN 1
 ;
 ;;==================================================
-;;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;;==================================================
 ;
 ;
@@ -2405,7 +2405,7 @@ IF LOCAL
 	CASE 21
 		LOCALS = 跳蛋
 	CASEELSE
-		LOCALS = %ITEMNAME:(TFLAG:193)%
+		LOCALS = %ITEMNAME_TR((TFLAG:193))%
 	ENDSELECT
 	;琪斯美が釣った
 	IF TFLAG:194 > 1000
@@ -2435,11 +2435,11 @@ IF LOCAL
 			PRINTFORMW 「哇、好漂亮……！」
 		CASE "龍涎香"
 			PRINTFORMW 「这是石头吧……？」
-		CASE "雀鳝", "雷魚", "腔棘鱼", "鲟", "伊富魚", "巨骨舌鱼", "泷太郎"
+		CASE "雀鳝", "雷鱼", "腔棘鱼", "鲟", "伊富鱼", "巨骨舌鱼", "泷太郎"
 			PRINTFORMW 「%M_KOJO_K83_AUTO("悲鳴：強")% 啊、好重！ %CALLNAME:MASTER%、帮帮我……！」
-		CASE "山女"
+		CASE "山女鱼"
 			PRINTFORMW 「山女酱……诶嘿嘿……」
-		CASE "鰻魚", "八目鰻", "鲶魚"
+		CASE "鳗鱼", "八目鳗", "鲶鱼"
 			PRINTFORMW 「滑溜溜黏糊糊……」
 		CASEELSE
 			PRINTFORMW 「上、上钩了……！」
@@ -2490,9 +2490,9 @@ IF LOCAL
 			PRINTFORMW 「很漂亮呢……！」
 		CASE "龍涎香"
 			PRINTFORMW 「那、那个是……什么？」
-		CASE "山女"
+		CASE "山女鱼"
 			PRINTFORMW 「啊、山女酱……」
-		CASE "鰻魚", "八目鰻", "鲶魚"
+		CASE "鳗鱼", "八目鳗", "鲶鱼"
 			PRINTFORMW 「滑溜溜黏糊糊……」
 		CASEELSE
 			IF LOCAL:1 >= 80
@@ -2641,7 +2641,7 @@ IF LOCAL
 		PRINTFORMW 「呼喵……」
 	;酔ってる
 	ELSEIF M_KOJO_K83_YOIDORE([[琪斯美]])
-		CALL M_KOJO_K83_TALKSET("酔酒")
+		CALL M_KOJO_K83_TALKSET("醉酒")
 	;心情不快
 	ELSEIF M_KOJO_K83_FUKIGEN([[琪斯美]])
 		PRINTFORMW 「呜呜……」

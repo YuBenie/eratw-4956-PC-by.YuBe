@@ -62,28 +62,28 @@ CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（襦袢）套")
 
 CASE "便装：帽子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "束髪簪"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "束发簪"))
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))
 CASE "便装：連衣裙"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("連衣裙", "道士服"))
 CASE "便装：裙子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "裙子"))
 CASE "便装：其他１"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "绷帯"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "绷带"))
 CASE "便装：其他２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他２", "拘束具"))
 
 CASE "固有内衣形容詞"
 	CALLF MAKE_STR(V_NAME, "淡粉色的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "喇叭短裤")
+	CALLF MAKE_STR(V_NAME, "褶边短裤")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "弹性胸罩")
+	CALLF MAKE_STR(V_NAME, "褶边胸罩")
 CASE "固有内衣着用条件"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有内衣半透明(前)"
@@ -97,7 +97,7 @@ CASE "固有内衣布料厚度"
 CASE "料理：喜欢的味道"
 	CALLF MAKE_STR(V_NAME, "肉料理/米/中華/油炸食品/開胃/丰盛/濃厚/上品/新鲜/豪快/软糯的/仙術/地底風/地獄風/甜/甜/咸/咸/")
 CASE "料理：讨厌的味道"
-	CALLF MAKE_STR(V_NAME, "淡白/酸/酸/冥界風/冥界風/冥界風/" + "謎料理/小人族秘伝的味道/" * 5)
+	CALLF MAKE_STR(V_NAME, "淡白/酸/酸/冥界風/冥界風/冥界風/" + "謎料理/小人族秘伝の味/" * 5)
 CASE "料理：助手効果"
 	CALLF MAKE_STR(V_NAME, "浓郁/得意料理＊中華＊/")
 ;贈り物関連
@@ -125,9 +125,9 @@ ENDSELECT
 @SPECIAL_MENU_43
 DISH_NAME = 中華饅
 RESULTS = 主食
-CALL 材料設定("獣肉", "竹笋", "洋葱", "捲心菜", "白菜", "魚")
+CALL 材料設定("獣肉", "竹笋", "洋葱", "卷心菜", "白菜", "魚")
 DISH_TASTE = 中華/獣肉/野菜/咸/丰盛/豪快/温暖/软糯的/鬼の魔力/
-DISH_COMMENT = 这种中式馒头除了肉以外,还加入了各种不同的馅料。所有的馅料都塞得滿滿當當的在面皮里。
+DISH_COMMENT = 这种中式馒头除了肉以外,还加入了各种不同的馅料。所有的馅料都塞得满满當當的在面皮里。
 ;めっちゃ量出来て料理に時間かかるし腹持ちもすごいっていうのを表現したいけど数値どのくらいがいいかわかんないから保留
 RETURN 1
 
@@ -170,7 +170,7 @@ ELSE
 		ENDIF
 	ELSE
 		;服
-		IF CFLAG:CHARA:衣装一時変更 == 55 || (CFLAG:CHARA:基本服装セット == 55 && CFLAG:CHARA:衣装一時変更==0)
+		IF CURRENT_CLOTHES_SET(CHARA) == 55
 			IF FLAG:立絵種類
 				;顔絵
 				RESULTS = _バニー

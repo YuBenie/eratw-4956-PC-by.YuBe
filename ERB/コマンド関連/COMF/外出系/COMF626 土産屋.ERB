@@ -14,7 +14,7 @@
 #DIM 重複防止,21
 #DIMS 台詞
 
-;とりあえず５つ。11個以上のときは#DIMも修整する
+;とりあえず５つ。11个以上のときは#DIMも修整する
 IF FLAG:市場の神 == 10
 	品揃え上限 = 20
 ELSE
@@ -82,7 +82,7 @@ PRINTFORML [100] - 定制礼物
 PRINTFORML [ 0] - 取消
 INPUT
 
-;果然還是放棄,中止だとリロードできてしまうのでSOURCEまで回す
+;果然還是放弃,中止だとリロードできてしまうのでSOURCEまで回す
 IF RESULT == 0
 	TFLAG:194 = -1
 	;ウィンドウショッピングとして少量のソースを獲得
@@ -135,10 +135,10 @@ ELSEIF INRANGE(RESULT, 1, 品揃え上限 + 1)
 		;批評する
 		CALL REVIEW_GIFT(TARGET, GIFT_LIST:BOUGHT_GIFT)
 		SCORE = RESULT
-		[IF_DEBUG]
+		[IF DEBUG]
 			PRINTFORML ◆DEBUG用◆
-			PRINTFORML 得点：{SCORE}
-			PRINTFORML 得点を操作できます（1～999）
+			PRINTFORML 得分：{SCORE}
+			PRINTFORML 可以操控得分（1～999）
 			INPUT
 			SIF INRANGE(RESULT, 1, 999)
 				SCORE = RESULT
@@ -203,7 +203,9 @@ RETURN 1
 ;-------------------------------------------------
 ;土産屋
 @COM_ABLE626
-;一括管理
+SIF !TFLAG:100
+	RETURN 0
+;批量管理
 SIF GLOBAL_COMABLE(626)
 	RETURN RESULT
 ;土産屋ではない場所

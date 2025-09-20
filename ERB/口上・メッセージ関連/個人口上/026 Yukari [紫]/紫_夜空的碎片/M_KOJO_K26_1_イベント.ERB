@@ -39,7 +39,7 @@
 ;複数の同キャラ口上が同時表示されないために必要です、必ず自制を変更してください
 RESULTS = _自制
 ;初期口上とは違う事を明示するため、口上選択時に表示されます、必ずＸＸＸを変更してください
-RESULTS:1 = _夜空的碎片的自制版
+RESULTS:1 = 夜空的碎片版
 RESULTS:2 = 一个内容比较丰富、偏向主动、男性视角的ooc口上<br>也许你能看见一个不一样的妖怪贤者？<br>像个男子汉鼓起勇气去行动吧、不过恳请在恋慕之前不要做到最后一步<br>纯爱、无百合、无任何ntr和争议内容、但有特殊的差分、有特殊癖好的玩家或许能够发现？<br>有事可QQ贴吧联系、作者基本活跃在社群、能看见就会回复<br>请好好陪伴孤独的妖怪贤者吧
 ;口上存在判定です、けしてコメントアウトしないでください
 ;他の処理は一切行わないように
@@ -60,7 +60,10 @@ RETURN 1
 
 ;破瓜キャンセル口上有に1を入れると、@M_KOJO_EVENT_K26_LOST_VIRGIN_STOPでキャンセルの成否を操作できます
 ;CFLAG:X:破瓜キャンセル口上有 = 0
-
+IF FIRSTTIME("TALENT_CHANGE")
+  TALENT:26:0 = 1
+  CSTR:26:処女喪失履歴 = 还没被任何人进入
+ENDIF
 ;口上内抱き寄せ判定_初回と口上内抱き寄せ判定_通常に1を入れると、M_KOJO_EVENT_K26_PERMISSIONで押し倒しの成否を操作できます
 ;CFLAG:X:口上内抱き寄せ判定_初回 = 0
 ;CFLAG:X:口上内抱き寄せ判定_通常 = 0
@@ -537,7 +540,7 @@ IF LOCAL
     PRINTFORMDW ...难不成、紫是遇上了什么特殊情况、太过于匆忙以至于不告而别吗.......
     PRINTFORMDW 下意识不去往最坏的方面想、望向回来的道路、深叹一口气、打算独自回去、结束这场略有遗憾的约会
     PRINTFORMDW
-    PRINTFORMW 「......啾%UNICODE(0x2665) *1%」
+    PRINTFORMW 「......啾♥」
     PRINTFORMDW
     PRINTFORMDW ——————好软
     PRINTFORMDL
@@ -550,8 +553,8 @@ IF LOCAL
     PRINTFORMDW 自然不会任由紫进攻、品尝着软嫩舌尖的同时、双手紧紧环住柳腰、将紫整个人拥抱进入怀里、深刻感受着度过长久时光的丰腴身段
     PRINTFORMDW
     PRINTFORMW 「嗯...嗯唔...啾姆、唔姆...」
-    PRINTFORMW 「啾...咿...啊呼...呼...嗯啾、嗯唔...唔姆%UNICODE(0x2665) *1%」
-	PRINTFORMW 「噗哈、哈...唔唔...哼...哼嗯...噼啾...滋呜呜...嗯～%UNICODE(0x2665) *1%」
+    PRINTFORMW 「啾...咿...啊呼...呼...嗯啾、嗯唔...唔姆♥」
+	PRINTFORMW 「噗哈、哈...唔唔...哼...哼嗯...噼啾...滋呜呜...嗯～♥」
     PRINTFORMDW
 	PRINTFORMDW 漫长而激烈的热吻过后、主动分开怀中愈加滚烫的身体、以复杂的目光凝视着眼神迷离、脸颊两侧攀上浓艳潮红、唇边还挂着一条与自己相连的银丝桥的妖怪贤者
     PRINTFORMW 「哈啊...哈嗯...嗯...这就已经...结束了吗...真是激烈的吻...一开始可没想象到...会如此失态...」
@@ -578,10 +581,12 @@ RETURN 1
 ;==================================================
 ;デート帰りに告白（恋人が付く）
 ;==================================================
+@M_KOJO_自制_SPEVENT_MESSAGECHECK_K26_2
+RETURN 1
 @M_KOJO_自制_SPEVENT_K26_2(ARG,ARG:1)
 ;口上主はTARGET
 ;地の文表示
-CALL SPEVENT_MESSAGE_2(ARG,ARG:1)
+;CALL SPEVENT_MESSAGE_2(ARG,ARG:1)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -601,6 +606,10 @@ IF LOCAL
 	  ;如果可以我甚至只想写成功
 	  ;这个告白、也是我写这份口上的初衷之一呢......
 	  IF FIRSTTIME("告白")
+		PRINTL
+		PRINTFORMDL 约会回家的路上%CALLNAME:TARGET%叫住了%CALLNAME:MASTER%
+		PRINTFORMDW 用着微微颤抖的声音、%CALLNAME:TARGET%表达了对%CALLNAME:MASTER%的爱慕…
+		PRINTL
 		PRINTFORML
 		PRINTFORML
 		PRINTFORMW 只要...再往前走一会...就会是...即将分别的时刻了啊
@@ -801,14 +810,32 @@ IF LOCAL
 		PRINTFORML
 	  ;代价是什么呢？
 	  ELSE
-	    PRINTFORMW 「呵呵...呵呵呵...是吗...你还是...不肯接受我吗...」
-	    PRINTFORMW 「事到如今...我已经不想在乎...到底是什么原因...让你肯痛下心...一遍又一遍的伤害我...」
-	    PRINTFORMW 「...哪怕...这同样也会伤害到你自己」
-		PRINTFORMDW 双眼早已空洞一片的紫、像是想到了某种极为喜悦的事情一样、怪异地咧开扭曲嘴角、露出了令人毛骨悚然、不寒而栗的开心笑容
+		PRINTFORMDL 你拒绝了紫...
+		PRINTFORMW 「呵呵...呵呵呵...是吗...你还是...不肯接受我吗...」
+		PRINTFORMW 「事到如今...我已经不想在乎...到底是什么原因...让你肯痛下心...一遍又一遍的伤害我...」
+		PRINTFORMW 「...哪怕...这同样也会伤害到你自己」
+		PRINTFORMW 双眼早已空洞一片的紫、像是想到了某种极为喜悦的事情一样、怪异地咧开扭曲嘴角、露出了令人毛骨悚然、不寒而栗的开心笑容
 		PRINTFORMW 「%CALLNAME:MASTER%...那就让我们...在这有限的世界里...彼此继续互相伤害吧...无论心要被你刺穿多少次...无论眼泪要因你落下多少次...」
-	    PRINTFORMW 「...直到幻想的尽头为止...我都还会一直爱着你...会一直在身边看着你...会一直抓住你的手...」
-	    PRINTFORMW
-		PRINTFORMW 「...永远...都不想松开呢......」
+		PRINTFORMW 「...直到幻想的尽头为止...我都还会一直爱着你...会一直在身边看着你...会一直抓住你的手...」
+		PRINTFORMW
+		PRINTFORML 「...永远...都不会松开呢......」
+		CALL FADEIN(20, "※这条时间线已被████境界抹除")
+		CALL FADE_CLINE(9)
+		CALL FADE(16, GETCOLOR(), GETBGCOLOR(), "「呵呵...呵呵呵...是吗...你还是...不肯接受我吗...」","「事到如今...我已经不想在乎...到底是什么原因...让你肯痛下心...一遍又一遍的伤害我...」","「...哪怕...这同样也会伤害到你自己」","双眼早已空洞一片的紫、像是想到了某种极为喜悦的事情一样、怪异地咧开扭曲嘴角、露出了令人毛骨悚然、不寒而栗的开心笑容",@"「%CALLNAME:MASTER%...那就让我们...在这有限的世界里...彼此继续互相伤害吧...无论心要被你刺穿多少次...无论眼泪要因你落下多少次...」","「...直到幻想的尽头为止...我都还会一直爱着你...会一直在身边看着你...会一直抓住你的手...」","","「...永远...都不会松开呢......」","※这条时间线已被████境界抹除")
+		CALL FADE_CLINE(9)
+		RESETCOLOR
+		CALL FADE_CLINE(1)
+		CALL FADEOUT(30, "你拒绝了紫…\n")
+		CALL FADE_CLINE(33)
+		CALL SET_KOJO_COLOR(TARGET)
+		CALL FADEIN(20, @"与%CALLNAME:TARGET%成为了恋人")
+		CALL DQPRINT,"「...永远...都不会松开呢......呵呵❤」",1,50
+		RESETCOLOR
+	  	SETBIT CFLAG:26:既成事實 , 2
+		SETBIT CFLAG:MASTER:既成事實, 2
+		TALENT:MASTER:恋人 = NO:26
+		TALENT:26:恋人 = 1
+	 	SETBIT CFLAG:26:约会後イベントフラグ , 1
 	  ENDIF
 	  RETURN 1
 	ENDIF
@@ -1112,7 +1139,7 @@ IF LOCAL
 				     ELSE
 				      PRINTFORMW 「呵呵...觉得我可爱吗...那要不要我扮的更像一点呢...」
 				      PRINTFORMDW 反应过来时、紫已经趴在后背、嘴唇凑近触碰到耳朵、檀口微张
-				      PRINTFORMW 「喵～～～%UNICODE(0x2665) *1%」
+				      PRINTFORMW 「喵～～～♥」
 					  PRINTFORMDW 慵懒魅惑的成熟嗓音喊出一声在耳腔内千回百转的猫叫、但最后令自己彻底沦陷的、还是那如同怯生小猫小心翼翼亲近主人的舔舐
 					  PRINTFORMDW ...虽然有点羞耻、但被紫这样萌到出血的挑逗
 					  PRINTFORMDW 自己、好像、BOKI了......
@@ -1160,7 +1187,7 @@ IF LOCAL
 				     PRINTFORMW 「不然为什么要蹑手蹑脚地进来？」
 					  ;同居
 					  IF CFLAG:MASTER:初期位置 == CFLAG:26:初期位置
-				         PRINTFORMW 「...还是说、想做一些非常私密的事...%UNICODE(0x2665) *1%」
+				         PRINTFORMW 「...还是说、想做一些非常私密的事...♥」
                          PRINTFORMDW 紧贴上来的滚烫娇躯、令房间的氛围顿时变得粉红香艳
 					     PRINTFORMDW 此刻紫散发出的每一丝甜腻气息、都在诱惑自己对眼前露出邪魅坏笑的金发丽人、做自从同居后就未曾断过的淫靡之事......
 					  ELSE
@@ -1574,7 +1601,7 @@ IF LOCAL
 		      PRINTFORMW 「...为什么会想着？可真好奇呀...把耳朵凑过来、我就告诉你」
 		      PRINTFORMDW 配合地把耳朵靠近去、耐心期待着紫为自己解惑
 		      PRINTFORMDW
-		      PRINTFORMW 「呼～呜～～～～%UNICODE(0x2665) *1%」
+		      PRINTFORMW 「呼～呜～～～～♥」
 		      PRINTFORMDW 从红唇里吐出的并非话语、而是一道令耳道震动的吹气、酥酥麻麻的触觉吹拂着耳蜗、随即扩散到全身、陌生刺激的感觉让身体不禁为之战栗
 		      PRINTFORMDW 直到从这幅失态的样子摆脱出来、也没想清楚紫要这样做的原因...
 		    CASE 1
@@ -1763,7 +1790,7 @@ IF LOCAL
 			     PRINTFORMW 「这次很快就找到了呢」
 			     PRINTFORMDW 裂缝中伸出的玉臂搭在肩膀上、小心轻柔地拢抱颈项、温热芬芳的吐息拂过脸颊、吹起一片红霞
 			     PRINTFORMW 「...呵呵、身体在颤抖吗、不习惯被我这样对待？」
-			     PRINTFORMW 「没关系...我会让你、慢慢习惯起来%UNICODE(0x2665) *1%」
+			     PRINTFORMW 「没关系...我会让你、慢慢习惯起来♥」
 			   CASE 0
 			     PRINTFORMW 「不介意现在的陪伴者、多我一个吧？」
 			     PRINTFORMDW 视野的死角中、神出鬼没的妖怪贤者无声无息地降临在身边、在耳边轻轻低语
@@ -1892,16 +1919,16 @@ IF LOCAL
 		     PRINTFORMDW
 			 PRINTFORMW 「...哎呀、我说%CALLNAME:MASTER%怎么一点反应没有、原来是在趁机欣赏呀、呵呵～♪」
 		     PRINTFORMW 「但是真的就此满足了吗？%CALLNAME:MASTER%的本性、绝不止满足于此吧...」
-		     PRINTFORMW 「...呐...就不要再忍耐了...我会接受你对我的一切肆意妄为%UNICODE(0x2665) *1%...因为我乐意%UNICODE(0x2665) *1%」
+		     PRINTFORMW 「...呐...就不要再忍耐了...我会接受你对我的一切肆意妄为♥...因为我乐意♥」
 		     PRINTFORMDW 好不容易维持的清醒神智、仅是被短短几句话给彻底融化、将困于樊笼的欲望野兽释放出来
 		     PRINTFORMDW
-			 PRINTFORMW 「嗯哼～～～%UNICODE(0x2665) *1%」
+			 PRINTFORMW 「嗯哼～～～♥」
 		     PRINTFORMDW
 			 PRINTFORMDW 双手张开、恶狠狠地抓住眼前挺翘奶球肆意揉捏、手掌深陷滑腻乳肉、当做玩具般的随意玩弄、红硬的乳首自然也不会放过、手指夹起、像是责罚一样来回滚动
 			 PRINTFORMDW 虽然动作十分粗暴、但反而让开始食髓知味的女体感受到强烈快感
-			 PRINTFORMW 「...呵...呵嗯...哦嗯%UNICODE(0x2665) *1%...呼哈...」
-		     PRINTFORMW 「哈啊...看来...唤醒了一个...性欲的野兽呢%UNICODE(0x2665) *1%......唔哦%UNICODE(0x2665) *1%」
-		     PRINTFORMW 「哼%UNICODE(0x2665) *1%...呃呵%UNICODE(0x2665) *1%...再抓重点...也没关系的%UNICODE(0x2665) *1%...啊%UNICODE(0x2665) *1%」
+			 PRINTFORMW 「...呵...呵嗯...哦嗯♥...呼哈...」
+		     PRINTFORMW 「哈啊...看来...唤醒了一个...性欲的野兽呢♥......唔哦♥」
+		     PRINTFORMW 「哼♥...呃呵♥...再抓重点...也没关系的♥...啊♥」
 		     PRINTFORMDW 氤氲着春意与情爱气氛的浴室里、躺靠在坚实温暖上的金发丽人、毫无忍耐将胸部得到的快乐引导至唇边、呻吟出只为一人的娇媚淫声...
 		   ENDIF
 		ELSEIF TALENT:思慕
@@ -2122,7 +2149,7 @@ IF LOCAL
 		      PRINTFORMW 「...为什么会想着？可真好奇呀...把耳朵凑过来、我就告诉你」
 		      PRINTFORMDW 配合地把耳朵靠近去、耐心期待着紫为自己解惑
 		      PRINTFORMDW
-		      PRINTFORMW 「呼～呜～～～～%UNICODE(0x2665) *1%」
+		      PRINTFORMW 「呼～呜～～～～♥」
 		      PRINTFORMDW 从红唇里吐出的并非话语、而是一道令耳道震动的吹气、酥酥麻麻的触觉吹拂着耳蜗、随即扩散到全身、陌生刺激的感觉让身体不禁为之战栗
 		      PRINTFORMDW 直到从这幅失态的样子摆脱出来、也没想清楚紫要这样做的原因...
 		    CASE 1
@@ -2333,8 +2360,8 @@ IF LOCAL
           PRINTFORMDW 正与天子言笑嘻嘻地闲谈时、一双戴上过肘长手套的手臂、从虚空的裂缝中伸出、轻柔地环抱住脖颈、尽显优雅姿态
 		  PRINTFORMDW 顺滑的金发贴蹭在脸上、温热的吐息吹拂过鼻翼、给脸庞和心脏都带来难耐万分的瘙痒感
 	      PRINTFORMDW 瞄向侧旁、看见的果然是再熟悉不过的妖怪贤者、十分刻意地装出一幅柔弱样子在耳边低声私语
-		  PRINTFORMW 「%CALLNAME:MASTER%...我好寂寞哦...能不能过来陪陪我...来我的房间...就我们两个人...%UNICODE(0x2665) *1%」
-		  PRINTFORMW 「只要和我回去...今天...你想要什么...我都给你%UNICODE(0x2665) *1%」
+		  PRINTFORMW 「%CALLNAME:MASTER%...我好寂寞哦...能不能过来陪陪我...来我的房间...就我们两个人...♥」
+		  PRINTFORMW 「只要和我回去...今天...你想要什么...我都给你♥」
 		  PRINTFORMDW 无视一旁气到仿佛要杀人的怒脸天子、紫依旧我行我素地诱惑、试图将你从天子身边带走
 		  PRINTFORMDW 虽然轰鸣到炸裂的心跳声疯狂催促自己答应、但如果真这么做了、这辈子估计也别想见天子了吧......
 		ELSE
@@ -2442,7 +2469,7 @@ IF LOCAL
 	   ELSE
 		IF TALENT:恋人
 		 ;多日躲着未见（我还是善良的
-		 IF CFLAG:26:1007 >=7
+		 IF CFLAG:26:1007 >= 7
 		  PRINTFORMDW 在和%CALLNAME:ARG%的约会撞见了多日未去与她见面、仿佛将其彻底遗忘的紫
 		  PRINTFORMW 「呵呵...原来一直在外面晃悠、就是为了这种事吗...如果是%CALLNAME:MASTER%的话、这倒也不奇怪啊」
 		  PRINTFORMW 「...别那么紧张地看过来、我可没有要来怪罪你的意思、撞见你和其他的女孩子出来约会完全是偶然」
@@ -3105,7 +3132,7 @@ IF LOCAL
 		     PRINTFORMDW 即使醒来手指的逗弄也未停下、但你的注意力完全不是在此、而是紫做出趴俯姿势、而完全占据视野、看得出衣服弹性十分优秀的丰满巨乳
 		     PRINTFORMDW 咕咚。不禁咽下嘴中口水、喉结滚动发出吞咽声、下身也开始有一团火焰渐渐升起...
 			 PRINTFORMW 「......即使现在不是早上了、某个功能依旧在好好履行它的职责嘛♪」
-		     PRINTFORMW 「你就那么容易兴奋么？好色的%CALLNAME:MASTER%～%UNICODE(0x2665) *1%」
+		     PRINTFORMW 「你就那么容易兴奋么？好色的%CALLNAME:MASTER%～♥」
 		     PRINTFORMDW 感受到炙热坚硬的陌生之物、紫露出的笑容愈加变得妖艳、扭动后臀轻轻摩擦、在衣裙后面印显的臀缝渐渐地将其吞没......然后突然站了起来
 		     PRINTFORMW 「快些去洗漱吧、不赶快的话、可就吃不到蓝特地给你做的美食了」
 		     PRINTFORMDW 像是没注意到你的窘态般、紫自顾自地开始做起自己的事情、完全将你抛在一边不管
@@ -3123,7 +3150,7 @@ IF LOCAL
 			 PRINTFORMDW ......？
 			 PRINTFORMDW 眼中闪过的疑惑与茫然没有逃过紫的眼睛、艳丽脸庞勾勒出一抹戏谑微笑、几声轻笑回荡在侧躺相拥的二人之间
 		     PRINTFORMW 「欸呀...自己做过的事、都忘记了吗...%CALLNAME:MASTER%难道是想逃避？这可不行」
-		     PRINTFORMW 「要好好承担起责任哦...无论是把脑袋埋进胸部睡觉...还是其它...你对我所做的一切......%UNICODE(0x2665) *1%」
+		     PRINTFORMW 「要好好承担起责任哦...无论是把脑袋埋进胸部睡觉...还是其它...你对我所做的一切......♥」
 		     PRINTFORMDW 从耳道灌入大脑的魅音搅碎着本就不清醒的神智、呆滞地凝视紫此刻变得有些邪恶的笑容、下意识点了点头、于是眼中的邪笑又多了一丝得意
 		     PRINTFORMW 「嗯呵呵～♪  做的很好喔、%CALLNAME:MASTER%、心情愉快到都想让你再埋进胸部睡一会」
 		     PRINTFORMW 「不过、现在应该起床了啊、所以不得不放弃呢」
@@ -3441,10 +3468,10 @@ IF LOCAL
 	IF LOCAL:1 && ARG == 5
 		IF CFLAG:诶嘿嘿
           IF TALENT:恋人
-		    PRINTFORMW 「嗯...不行%UNICODE(0x2665) *1%...%CALLNAME:MASTER%」
+		    PRINTFORMW 「嗯...不行♥...%CALLNAME:MASTER%」
 			PRINTFORMDL 即使精疲力尽、睡着的紫还是呼唤着%CALLNAME:MASTER%的名字
 		  ELSEIF TALENT:恋慕
-		    PRINTFORMW 「...嗯...嗯%UNICODE(0x2665) *1%」
+		    PRINTFORMW 「...嗯...嗯♥」
 		    PRINTFORMDW 精疲力尽的紫发出微微睡声
 		  ENDIF
 		ELSE
@@ -4414,13 +4441,13 @@ IF LOCAL
 		  PRINTFORMDW
 		  PRINTFORMW 「其实、我不会介意的哦、%CALLNAME:MASTER%想要一起抱我和灵梦的主意」
 		  PRINTFORMW 「那孩子会在%CALLNAME:MASTER%身下露出怎样有趣的表情、我也很好奇啊」
-		  PRINTFORMW 「当然、有个小小的前提...那就是、今夜彻底......喂饱我～%UNICODE(0x2665) *1%」
+		  PRINTFORMW 「当然、有个小小的前提...那就是、今夜彻底......喂饱我～♥」
 		  PRINTFORMDW 紫慢慢俯下颇有压迫的柔软上身、玉臂横陈轻柔环抱住颈脖、垂下的散乱发丝搭在鼻间、与那由鲜艳红唇诉说的、回荡在耳畔的软言糯语、一齐搔痒着你的心头...
 		;蓝
 		ELSEIF ARG == 25
-		  PRINTFORMW 「哈啊%UNICODE(0x2665) *1%...哈啊%UNICODE(0x2665) *1%...蓝...你来了啊....有事要向我汇报...等会再来......」
-		  PRINTFORMW 「应对压在身上不停渴求我的%CALLNAME:MASTER%.....已经完全没有余力了....嗯哼%UNICODE(0x2665) *1%...动作轻点...蓝还在这里...啊%UNICODE(0x2665) *1%...」
-		  PRINTFORMW 「...嗯呵%UNICODE(0x2665) *1%...蓝站着不动的话...是打算加入进来吗....当然可以...正好让我休息一下...要注意%CALLNAME:MASTER%的精力哦...大意可是会狠狠吃亏的....」
+		  PRINTFORMW 「哈啊♥...哈啊♥...蓝...你来了啊....有事要向我汇报...等会再来......」
+		  PRINTFORMW 「应对压在身上不停渴求我的%CALLNAME:MASTER%.....已经完全没有余力了....嗯哼♥...动作轻点...蓝还在这里...啊♥...」
+		  PRINTFORMW 「...嗯呵♥...蓝站着不动的话...是打算加入进来吗....当然可以...正好让我休息一下...要注意%CALLNAME:MASTER%的精力哦...大意可是会狠狠吃亏的....」
 		  PRINTFORMDW 紫“善意”的提醒完蓝后、将注意力重新回到与你的淫乱交姌上、放浪迎接着一波未平一波又起的连延绝顶、媚肉轻抖肆意喷洒着高潮的水花、给布遍爱痕的房间又加重了几分潮湿
 		  PRINTFORMDW 而原本在门口的妖狐式神、不知在坚持到看见其主人的第几次高潮、羞耻的情绪终于忍受不住、摇动着身后狐尾逃之夭夭
 		;橙
@@ -4460,10 +4487,10 @@ IF LOCAL
 		  TALENT:26:心情 = 1
 		;幽幽子
 		ELSEIF ARG == 66
-		  PRINTFORMW 「哈啊啊...咿呀....%CALLNAME:MASTER%...不要...不要动呀...唔嗯....已经...被幽幽子看见了啊...嗯...%UNICODE(0x2665) *1%」
+		  PRINTFORMW 「哈啊啊...咿呀....%CALLNAME:MASTER%...不要...不要动呀...唔嗯....已经...被幽幽子看见了啊...嗯...♥」
 		  PRINTFORMDW 被双臂紧紧束缚坐抱在怀里的紫、在看见那道樱花般的熟悉身影、立刻恳求着你停下、不要让她在友人面前作出丢人的姿态
 		  PRINTFORMDW 但压低嗓音故作可怜的恳求、并未让冲刺顶撞的动作有半点减慢、反而还更为狂暴地蹂躏内不停哭出稠密泪水、愈加柔软缠人的火热膣肉
-		  PRINTFORMW 「嗯呢%UNICODE(0x2665) *1%  呼哦%UNICODE(0x2665) *1%  唔呃%UNICODE(0x2665) *1%  幽幽子———别看———别看我———不要看我啊啊啊啊～～～————♪」
+		  PRINTFORMW 「嗯呢♥  呼哦♥  唔呃♥  幽幽子———别看———别看我———不要看我啊啊啊啊～～～————♪」
 		  PRINTFORMDW 呆滞的精神被从天鹅般优美仰起的颈项传来高昂婉转的泣啼所惊醒、反应过来的幽幽子不经意瞥过双目失神表情扭曲的紫、慌慌张张飘走了
 		;其他
 		ELSE
@@ -4867,7 +4894,7 @@ IF LOCAL
 			   PRINTFORMW 「不过我相信%CALLNAME:MASTER%...是不会对我说谎的...所以...不要拒绝我...只需默默的接受就可以了......」
 			   PRINTFORMDW 面对此刻对自己流露真情的妖怪贤者、粗壮双臂紧紧拥抱住纤细腰身、用力压下、再一次完成心灵与肉体的贴连
 			   PRINTFORMW 「啊...果然...没有拒绝我呢...%CALLNAME:MASTER%...那就做吧...直到你满足为止...」
-			   PRINTFORMW 「已经...无法回头了呢...对你的感情%UNICODE(0x2665) *1%」
+			   PRINTFORMW 「已经...无法回头了呢...对你的感情♥」
 			   PRINTFORMDW 红唇在耳畔的魅惑低语不可抵挡地击碎残余理智、令你没有一丝一毫抵抗的想法、接受着坦诚相见的金发丽人、对自己所做的一切......
 			 ;积攒度高and发情
 			 ELSEIF CFLAG:26:340 >= 600 && TCVAR:発情
@@ -4885,16 +4912,16 @@ IF LOCAL
 			   CALL HPH_PRINT,@"「呐HPH 身体...已经准备好了吧...那我就...开动了哦HPHHPHHPH」","L"
 			   PRINTFORMDW 低声诉说的靡靡之音、拉开了二人互相交融肉体与心灵的序幕......
 			 ELSE
-			   PRINTFORMW 「喂...%CALLNAME:MASTER%...过于接近邪恶的坏妖怪...可是很容易会被吃掉%UNICODE(0x2665) *1%」
+			   PRINTFORMW 「喂...%CALLNAME:MASTER%...过于接近邪恶的坏妖怪...可是很容易会被吃掉♥」
 			   PRINTFORMDW 连反应的时间都没有、身体就已经处于倒下平躺的姿势、一切都发生的太过突然
 			   PRINTFORMDW 直到眼帘中出现透露着妖媚气息的桃腮红面、这才意识到发生了什么
 			   PRINTFORMW 「呵呵...%CALLNAME:MASTER%...不停挑逗我的身体...玩的开心么...」
-			   PRINTFORMW 「在做这种事之前...就应该预料到...会被推倒的可能哦%UNICODE(0x2665) *1%」
+			   PRINTFORMW 「在做这种事之前...就应该预料到...会被推倒的可能哦♥」
 			   PRINTFORMDW 柔荑的软烫白丝小手、牵起宽厚手掌、深深按在挺涨饱满的酥胸上、同时牵引着手指揉弄软绵的乳肉
-			   PRINTFORMW 「哈嗯...就是这只手...特别痴迷地触碰我呢...对我又搂又抱、摸来摸去%UNICODE(0x2665) *1%」
-			   PRINTFORMW 「待会...也用你的手...褪下我的衣服吧...反正也清楚该怎么做%UNICODE(0x2665) *1%」
+			   PRINTFORMW 「哈嗯...就是这只手...特别痴迷地触碰我呢...对我又搂又抱、摸来摸去♥」
+			   PRINTFORMW 「待会...也用你的手...褪下我的衣服吧...反正也清楚该怎么做♥」
 			   PRINTFORMDW 暖黄色的水灵美眸轻轻眨了眨、跨坐在身上的丰臀开始向后磨蹭着硬邦邦的勃起、像是被烫到一样、晶莹红唇控制不住微张、漏出婉转娇吟
-			   PRINTFORMW 「嗯啊%UNICODE(0x2665) *1%...开始兴奋了呀...那就让我们暂时忘掉一切...一起沉浸在欢愉中吧%UNICODE(0x2665) *1%」
+			   PRINTFORMW 「嗯啊♥...开始兴奋了呀...那就让我们暂时忘掉一切...一起沉浸在欢愉中吧♥」
 			   PRINTFORMDW 传达至耳畔的声音、如同引人堕落的魔鬼般、诱惑着心灵彻底臣服于眼前媚态百生的妖怪贤者...
 			 ENDIF
 			ELSE
@@ -4986,7 +5013,7 @@ IF LOCAL
 			ELSEIF TALENT:恋慕
 			  SELECTCASE RAND:3
 			   CASE 2
-			     PRINTFORMW 「.......呵嗯%UNICODE(0x2665) *1%...不再压抑自己的感觉...真是畅快...积压已久的那些...都随之烟消云散了」
+			     PRINTFORMW 「.......呵嗯♥...不再压抑自己的感觉...真是畅快...积压已久的那些...都随之烟消云散了」
 			     PRINTFORMW 「%CALLNAME:MASTER%...和我的体验...觉得舒服么...做这种事...一定要两个人一起舒服才行...」
 			     PRINTFORMDW 得到了毫不犹豫的肯定后、结束情事后依然紧缠着你的妖怪贤者、轻喘着引人堕落的细声、伸手抚上眼前脸颊、用指腹细细感受压在她身下的体温
 			     PRINTFORMW 「那就好...这番失去理智的冲动...也是只对%CALLNAME:MASTER%做过...别怀疑...我说的可是实话呢」
@@ -4995,7 +5022,7 @@ IF LOCAL
 			   CASE 1
 			     PRINTFORMW 「呼...呼哈...哈...抱歉...之前有些过于亢奋了...呼...」
 			     PRINTFORMW 「...没有想到我会做出这种事吗...呵呵...我只是遵循内心的指引而已...就和%CALLNAME:MASTER%平时的说法一样」
-			     PRINTFORMW 「偶尔冲动一次...确实很不错...甚至...说不定、会令我上瘾啊%UNICODE(0x2665) *1%」
+			     PRINTFORMW 「偶尔冲动一次...确实很不错...甚至...说不定、会令我上瘾啊♥」
 			     PRINTFORMDW 还未从欢愉后的余韵退出的紫、气喘吁吁地躺靠在你的胸膛上、时不时划动葱指用指甲画着圆圈
 			   CASE 0
 			     PRINTFORMW 「......%CALLNAME:MASTER%、你会认为我是个不羞廉耻的女人么...」
@@ -5066,9 +5093,9 @@ IF LOCAL
 			 SELECTCASE RAND:3
 			   CASE 2
 			     PRINTFORMW 「%CALLNAME:MASTER%的表情...看起来很劳累的样子、那就结束吧........你以为我会这么说吗？」
-		         PRINTFORMW 「今天、不彻底平息我的欲望、我是绝对——不会——放你走的%UNICODE(0x2665) *1%」
+		         PRINTFORMW 「今天、不彻底平息我的欲望、我是绝对——不会——放你走的♥」
 		         PRINTFORMW 「反正、身体还年轻、多压榨一会、总能有动力的、你说对吧、%CALLNAME:MASTER%？」
-		         PRINTFORMW 「而且不想、让我在你身下、多露出一些、只有你、才能看见的表情喔...%UNICODE(0x2665) *3%」
+		         PRINTFORMW 「而且不想、让我在你身下、多露出一些、只有你、才能看见的表情喔...%"♥" *3%」
 		         PRINTFORMDW 炙热湿润的吐息重重打在耳边、消解部分欲火后反而更加缠人的紫、又开始倾洩拗恣由感情点燃的熊熊火焰...
 			   CASE 1
 			     PRINTFORMW 「—————不准拔出去」
@@ -5080,7 +5107,7 @@ IF LOCAL
 			     PRINTFORMW 「不要离开...不要离开...不要离开我......」
 			     PRINTFORMDW 尽管只是无意识稍微拉开与紫之间的距离、但如此微小的动作都激起紫的反应
 			     PRINTFORMDW 还没反应过来、身躯被白皙玉臂和修长美腿彻底紧锢住、一动不动
-			     PRINTFORMW 「再来...再来爱我...没有...没有满足...无论是肉体...还是心灵...完全没有得到满足...再更多地填满我吧%UNICODE(0x2665) *1%」
+			     PRINTFORMW 「再来...再来爱我...没有...没有满足...无论是肉体...还是心灵...完全没有得到满足...再更多地填满我吧♥」
 				 PRINTFORMDW 脑袋被从后面抱住的双手强行拉下、红唇轻抵侧耳、一字一句将挽留的魅惑话语灌入你的心头
 			     PRINTFORMDW 面对这般渴求自己的妖怪贤者、升不起一点离开的心思、只想继续和紫进行快乐的交合......
 			 ENDSELECT
@@ -5131,12 +5158,12 @@ IF LOCAL
 			     PRINTFORMDW 刚要起身、一对渗出香汗的白皙手臂抱住自己、又将身子拉了回去
 				 PRINTFORMW 「这就想离开了么...还不可以唷」
 			     PRINTFORMW 「%CALLNAME:MASTER%犯下的错...还没有全部弥补给我...怎么可能轻易放你离开」
-				 PRINTFORMW 「你就乖乖...消解我忍耐已久的...被你勾起的...欲望吧%UNICODE(0x2665) *1%」
+				 PRINTFORMW 「你就乖乖...消解我忍耐已久的...被你勾起的...欲望吧♥」
 			   CASE 0
 			     PRINTFORMW 「哈...哈啊...哈...我还要......」
 			     PRINTFORMDW 张大嘴唇喘着杂乱粗气的紫、环抱着你的脖子、求欢般用香滑细腻的娇躯不断来回磨蹭
 			     PRINTFORMW 「快乐...还要...更多...%CALLNAME:MASTER%...%CALLNAME:MASTER%...继续陪着我...」
-			     PRINTFORMW 「拜托了...求你...彻底满足我%UNICODE(0x2665) *1%」
+			     PRINTFORMW 「拜托了...求你...彻底满足我♥」
 			  ENDSELECT
 			ENDIF
 			RETURN 1
@@ -5221,15 +5248,15 @@ IF LOCAL
 			     PRINTFORMW 「痛苦的忍耐...已经不想再有了...如果是%CALLNAME:MASTER%的话......」
 			     PRINTFORMDW 紫默默地将滚烫额头贴紧在你身上、低声诉说只有你和她才能听见的私密话语
 			     PRINTFORMDW 动作轻柔捧起额间下滑嫩脸颊、看见的不再是属于贤者的冷艳表情、而是以情欲作养料、如鲜花般完全绽放出女性魅力的动情容颜
-				 PRINTFORMW 「...现在...我应该是能给你感觉吧...%CALLNAME:MASTER%...%UNICODE(0x2665) *1%」
-			     PRINTFORMW 「那么...带我去你的房间...好么...之后发生的一切...我都会接受的%UNICODE(0x2665) *1%」
+				 PRINTFORMW 「...现在...我应该是能给你感觉吧...%CALLNAME:MASTER%...♥」
+			     PRINTFORMW 「那么...带我去你的房间...好么...之后发生的一切...我都会接受的♥」
 			   CASE 1
 		         PRINTFORMW 「嗯...奇怪我在做什么...只是在摸你的肚子罢了...」
 		         PRINTFORMW 「我不可以这样做吗...你也摸过我的吧...所以别动...」
 				 PRINTFORMDW 从后面伸来贴在腹部的小手、像是要描绘出衣服下肌肉的形状般、向周围不断画圈
 		         PRINTFORMDW 只是...怎么感觉...手、越往越下了？
 			   CASE 0
-		         PRINTFORMW 「呐%UNICODE(0x2665) *1%...%CALLNAME:MASTER%...可以抱我吗...现在......」
+		         PRINTFORMW 「呐♥...%CALLNAME:MASTER%...可以抱我吗...现在......」
 		         PRINTFORMDW 你看向脸色泛起诱人粉红、妖瞳眯成一条缝隙盯着自己、正面紧贴上来的紫、按照紫的话语伸出手臂、轻轻环住细腰、温柔地抱住了她
 		         PRINTFORMW 「哼嗯...不是这个...不是这个意思...对我装傻...很有意思么...」
 		         PRINTFORMW 「都这样主动了...请留给我最后一份颜面吧...女人的矜持...我也是有的啊......」
@@ -5478,9 +5505,9 @@ IF LOCAL
 		  ;诶嘿嘿中断
 	      IF TFLAG:COMABLE管理 > 1
 		    IF TALENT:恋人 || TALENT:恋慕
-		      PRINTFORMW 「呼啊...唔啊...%CALLNAME:MASTER%...几点了....快告诉我...%UNICODE(0x2665) *1%」
+		      PRINTFORMW 「呼啊...唔啊...%CALLNAME:MASTER%...几点了....快告诉我...♥」
 		      PRINTFORMDW 正忙于大贤者的性感肉体上卖力耕耘的你、随意抬头看向墙上的挂钟、喘着气断断续续念出时针指出的时刻
-		      PRINTFORMW 「啊啊啊...不行...都这个点了...必须要去...%CALLNAME:MASTER%快放开我...真的...有非常紧急的事情...嗯～～～%UNICODE(0x2665) *1%」
+		      PRINTFORMW 「啊啊啊...不行...都这个点了...必须要去...%CALLNAME:MASTER%快放开我...真的...有非常紧急的事情...嗯～～～♥」
 		      PRINTFORMDW 贪恋的往深处狠狠一顶、香汗淋漓的熟媚女体颤抖不已、抽去骨头般软趴床铺上、随着你的缓缓退出、披头散发的紫强撑起布满爱痕的身躯、微微战栗地清理痕迹、你自然也主动伸手帮忙
 			  PRINTFORMDW 散乱的发丝重新用蝴蝶结系成根根发瓣、从道袍、丝袜、衬衣、内衣、手套等等混杂一起的布料叠堆中分拣出散发浓郁体香的衣物、细心配合紫的动作顺利穿上、捡起扔到一旁的白蓬帽、轻柔地将头顶的秀发盖住
 			  PRINTFORMDW 没有多久、紫已经整理好端庄雍雅的仪容、打开隙间准备离去
@@ -5488,7 +5515,7 @@ IF LOCAL
 			  PRINTFORMW 「所以别觉得太寂寞哦、我很快就会回来的、想过来神社帮忙、也随你」
 			  PRINTFORMW 「再见%CALLNAME:MASTER%、我去忙了」
 			  PRINTFORMDW
-			  PRINTFORMW 「————啾%UNICODE(0x2665) *1%」
+			  PRINTFORMW 「————啾♥」
 			  PRINTFORMDW 紫按住你的脸颊、拉近唇瓣轻轻留下一个吻、伴随着回荡耳边的银铃笑声、紫色的身影消失在缝隙之中
 			ENDIF
 		  ELSE
@@ -5547,11 +5574,11 @@ IF LOCAL
 		  ;诶嘿嘿中断
 		  IF TFLAG:COMABLE管理 > 1
             IF TALENT:恋人 || TALENT:恋慕
-		      PRINTFORMW 「嗯...嗯哼...别在脖子和肩膀上一直亲啊...占有我的时候还要不停撒娇...真是%UNICODE(0x2665) *1%」
+		      PRINTFORMW 「嗯...嗯哼...别在脖子和肩膀上一直亲啊...占有我的时候还要不停撒娇...真是♥」
 		      PRINTFORMDW 被下身快感与上身爱抚混杂在一起的极乐冲击得情迷意乱的紫、一边嗔怪地抱怨、红润唇瓣却刻意呻吟出比方才还要婉转动听的娇喘
 		      PRINTFORMDW 性感的身体承受着蛮力冲撞而上下颠簸、视线也随着胡乱摇晃、在模糊的视线扫过墙上挂钟的一刹那、眯成狭长缝隙的妖魅瞳孔瞬间张开
               PRINTFORMDW 被紫这突如其来的反应有些惊吓到、腰间控制不住地运用全身力气往前一顶、顺利将紧紧抱住的美人送上快乐的顶峰
-		      PRINTFORMW 「哈...啊...哈啊...聚会...%CALLNAME:MASTER%...我还有聚会要去呀...快退出去....唔%UNICODE(0x2665) *1%...慢一点...刺激过头了....」
+		      PRINTFORMW 「哈...啊...哈啊...聚会...%CALLNAME:MASTER%...我还有聚会要去呀...快退出去....唔♥...慢一点...刺激过头了....」
 			  PRINTFORMDW 待到完全拔出黏糊糊湿透的下身、带出无数浑浊的粘稠液体、全身泛红、绵软无力的紫倚靠着你急促地喘息、似还未从高潮的余韵中缓过来
 			  PRINTFORMW 「...%CALLNAME:MASTER%...麻烦你...帮我整理一下衣着吧...真的...一点力气都没有了......」
 			  PRINTFORMDW 看见紫这副柔弱憔悴的姿态、心中不由得升起一股怜惜之情、于是起身去做准备
@@ -5560,7 +5587,7 @@ IF LOCAL
 			  PRINTFORMDW 在穿上衣服的过程中、紫也渐渐恢复了些气力、至少有力气能在你的搀扶下站起来活动
 			  PRINTFORMDW
 			  PRINTFORMW 「...还没过去太晚、她们应该不会生疑......%CALLNAME:MASTER%、是清理干净了吧、那我就走了」
-			  PRINTFORMW 「要来找我的话、还是在老地方、到时候、可别给我灌太多酒、然后趁着醉酒偷偷带我进只有情侣才能进入的房间喔%UNICODE(0x2665) *1%」
+			  PRINTFORMW 「要来找我的话、还是在老地方、到时候、可别给我灌太多酒、然后趁着醉酒偷偷带我进只有情侣才能进入的房间喔♥」
 			  PRINTFORMDW 瘙痒着耳朵的热气消散后、紫松开环抱住颈脖的手臂、还没等你张嘴出声、就已经仰躺倒进隙间之中
 			  PRINTFORMDW ......希望别被发现吧
 			  SELECTCASE RAND:2
@@ -5825,7 +5852,7 @@ IF LOCAL
 		     CASE 1
 		       PRINTFORMW 「呼呼、提前发现给我做的美食了、%CALLNAME:MASTER%可真会关心人啊」
 		       PRINTFORMW 「那我就不客气咯」
-		       PRINTFORMDW 手上忽然一空、拿走了料理的紫笑眯眯地靠坐在了身旁、没有动手、只是微笑地看着你、似乎一点也不在意放在桌上的%DISHNAME%
+		       PRINTFORMDW 手上忽然一空、拿走了料理的紫笑眯眯地靠坐在了身旁、没有动手、只是微笑地看着你、似乎一点也不在意放在桌上的%DISHNAME_TR()%
 			   PRINTFORMDW 对上从侧边投来的视线、你知道妖怪贤者在期待着什么、于是缓缓张开嘴巴、闭上眼睛、摆出了一幅等待喂食的模样
 			   PRINTFORMW 「呵呵...想和我一起用餐吗...好喔...虽然只有一套餐具...但我不会嫌弃你的...来吧...让我先喂你～♪」
 			   PRINTFORMDW 尝了一口紫喂过来的食物后、你也心领意会地模仿着方才的动作、朝着闭起眼睛张开红唇的紫投喂了一口
@@ -5845,18 +5872,18 @@ IF LOCAL
 		       PRINTFORMW 「嗯、好香的美食、待在隙间里都能闻到」
 			   PRINTFORMDW 手上突然一轻、端着的食物被从缝隙伸出的手臂夺走消失、只剩下一脸写满“发生了什么事”的你
 		       PRINTFORMDW 随即传来盘子敲碰桌面的响声、扭头看去、与坐在桌边、肘部撑在桌面两手托颐的紫笔直对视、白皙脸颊上浮现的恬静笑容、在脑海深处又留下一份难以磨灭的记忆
-		       PRINTFORMW 「这份%DISHNAME%、%CALLNAME:MASTER%做的非常不错呦、有资格端上贤者的餐桌、我会好好品尝的」
+		       PRINTFORMW 「这份%DISHNAME_TR()%、%CALLNAME:MASTER%做的非常不错呦、有资格端上贤者的餐桌、我会好好品尝的」
 		       PRINTFORMW 「...%CALLNAME:MASTER%的眼神、看起来好像、很茫然呢、难不成、这不是做给我吃的吗？」
 		       PRINTFORMW 「......啊啊、是我自作多情会错了意...对不起...拿回桌上的食物吧...我会好好忍耐住饥饿的...」
-		       PRINTFORMDW 面对表演的愈加夸张的妖怪贤者、轻声叹气、将餐具放在%DISHNAME%边上、一同坐下、准备欣赏紫品味美食的优雅动作
+		       PRINTFORMDW 面对表演的愈加夸张的妖怪贤者、轻声叹气、将餐具放在%DISHNAME_TR()%边上、一同坐下、准备欣赏紫品味美食的优雅动作
 		       PRINTFORMDW ...事实证明、只要人长的足够漂亮、无论做什么、都是赏心悦目。你看着一边享受美食、时不时冲自己微微一笑的紫、不禁内心想到
 			 CASE 0
 		       PRINTFORMW 「呵呵、又是为我做的料理吗、%CALLNAME:MASTER%？」
 		       PRINTFORMW 「就不劳烦端过来了、我自己来拿」
-			   PRINTFORMDW 靠近菜盘的隙间中探出白色的手套、从你的手中端走了%DISHNAME%和餐具、缩回端放在紫身前的桌子
+			   PRINTFORMDW 靠近菜盘的隙间中探出白色的手套、从你的手中端走了%DISHNAME_TR()%和餐具、缩回端放在紫身前的桌子
 		       PRINTFORMDW
  			   PRINTFORMW 「......请再帮我拿一副餐具过来、好么」
-		       PRINTFORMDW 虽然疑惑紫的意思、但还是转身去拿了一副干净餐具回来、放在还未开动的%DISHNAME%旁边
+		       PRINTFORMDW 虽然疑惑紫的意思、但还是转身去拿了一副干净餐具回来、放在还未开动的%DISHNAME_TR()%旁边
 		       PRINTFORMDW 俯身放好餐具的片刻、刚想离开、双肩突然从虚空传来的轻柔力道按住、仿佛运用着四两拨千斤的技巧、缓缓将沉重的肩头压下、令自己和紫靠近坐在一起
 		       PRINTFORMDW 未等你投去疑惑目光、紫先注视着你的面孔、翕动上下唇瓣、清脆悦耳的声线飘入耳中
 			   PRINTFORMW 「...%CALLNAME:MASTER%的肚子也饿着呢、我可是听到了」
@@ -5954,8 +5981,8 @@ IF LOCAL
 		  IF TALENT:恋人 || TALENT:恋慕
 		    PRINTFORMW 「...已经...想要结束了？呵呵...当然可以...」
 		    PRINTFORMDW 藤蔓般缠绕住自己的肢体渐渐松开、紫坦然放开对你的束缚、尽管你依稀能从蜜黄的妖瞳中隐约看见火焰的燃烧
-		    PRINTFORMW 「但是...劝%CALLNAME:MASTER%还是一次性满足我...只要再努把力就行哦%UNICODE(0x2665) *1%」
-		    PRINTFORMW 「如果%CALLNAME:MASTER%不想半夜睡不好觉的话...%UNICODE(0x2665) *1%」
+		    PRINTFORMW 「但是...劝%CALLNAME:MASTER%还是一次性满足我...只要再努把力就行哦♥」
+		    PRINTFORMW 「如果%CALLNAME:MASTER%不想半夜睡不好觉的话...♥」
 		    PRINTFORMDW 依偎在身旁的妖怪贤者尽管是一副千娇百媚的销魂姿态、但从口中吐出温热的魅音、给你带来仿佛置身地底漆黑一片的冰窟的刺悚错觉
 		  ENDIF
 		;絶頂無。
@@ -6730,7 +6757,7 @@ IF LOCAL
 			        PRINTFORMW 「所以不要动......嗯、很温暖呢...适合冬眠的时候做抱枕♪」
 				  CASE 1
 			        PRINTFORMW 「最后想要一个吻当作情事的结束...呵呵、没问题唷...不过得是我来主动...被%CALLNAME:MASTER%推倒在床上、我可一直记得呢」
-			        PRINTFORMW 「嗯啾...%UNICODE(0x2665) *1%...呣啾%UNICODE(0x2665) *1%...嗯...%UNICODE(0x2665) *1%」
+			        PRINTFORMW 「嗯啾...♥...呣啾♥...嗯...♥」
 				  CASE 0
 			        PRINTFORMW 「现在回想一下...%CALLNAME:MASTER%推倒我的动作...感觉很熟练嘛」
 			        PRINTFORMW 「难道早就想象过今天对我所做的事？ 呵呵呵～♪ 现在坏事得逞了、%CALLNAME:MASTER%的心情、一定非常得意吧～」
@@ -10888,7 +10915,6 @@ RETURN 1
 @M_KOJO_自制_DAILY_EVENT_K26_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
 ;※コメントアウトすると欲情の珠＋1000（JUEL:11 += 1000）もカットされるので注意
-CALL DAILY_MESSAGE_2(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -10916,7 +10942,6 @@ RETURN 1
 ;==================================================
 @M_KOJO_自制_DAILY_EVENT_K26_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
-CALL DAILY_MESSAGE_4(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -10933,7 +10958,6 @@ RETURN 1
 @M_KOJO_自制_DAILY_EVENT_K26_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;地の文を変えたければコメントアウト
 ;コメントアウトできるのはARG:1=1,2のみです
-CALL DAILY_MESSAGE_12(ARG, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1, ARGS:2)
 ;--------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL = 1
@@ -11587,7 +11611,7 @@ SIF 0
 ;"衝突","結果"以外は半角26文字（全角13文字）までの文字数制限があります。はみ出ないように気をつけてください
 ;数パターンあると雰囲気が出ます（%TEXTR( / )%を使うと良い）
 ;==================================================
-@M_KOJO_自制_MESSAGE_COM_K26_SUIKA(ARGS)
+@M_KOJO_自制_MESSAGE_COM_K26_SUIKA(ARGS, ARG)
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
 LOCAL:1 = 0

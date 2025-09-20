@@ -178,14 +178,14 @@ IF LOCAL
 				;PRINTFORMW 
 			CASE 1
 				PRINTFORML %CALLNAME:MASTER%用膝盖不停地蹭着坐在你大腿上的桑尼的私处。
-				PRINTFORML 「呀…不可以那样的蹭着啊…%UNICODE(0x2665) *1%」
+				PRINTFORML 「呀…不可以那样的蹭着啊…♥」
 				PRINTFORMW 桑尼带着湿润地眼眸想要离開%CALLNAME:MASTER%的膝盖、但是她的力量弱弱的。
 			CASE 0
-				PRINTFORML 「摩擦这里的感觉好舒服哦。嗯…%UNICODE(0x2665) *1%」
+				PRINTFORML 「摩擦这里的感觉好舒服哦。嗯…♥」
 				PRINTFORML 桑尼毫不在意别人的目光、拿起%CALLNAME:MASTER%的手隔着胖次摩擦自己的秘缝。
 				PRINTFORMW %CALLNAME:MASTER%慌忙地阻止了桑尼的痴态。
 			CASEELSE
-				PRINTFORML 「嗯…多摸一摸…%UNICODE(0x2665) *1%」
+				PRINTFORML 「嗯…多摸一摸…♥」
 				PRINTFORMW 桑尼带着很热似的表情将头埋进了%CALLNAME:MASTER%的胸前。
 		ENDSELECT
 	ELSEIF TALENT:恋慕
@@ -321,7 +321,7 @@ IF LOCAL
 				PRINTFORMW 「欸嘿嘿～%CALLNAME:MASTER%～♪」
 			CASE 0
 				PRINTFORML 和桑尼玩起了新婚夫妇的游戏。
-				PRINTFORMW 「好的亲爱的、啊ー嗯%UNICODE(0x2665) *1%」
+				PRINTFORMW 「好的亲爱的、啊ー嗯♥」
 			CASEELSE
 				PRINTFORMW 「呐、要不要偷偷溜出去两个人一起玩？」
 		ENDSELECT
@@ -720,7 +720,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_MESSAGE_COM_K5_332
@@ -958,7 +958,7 @@ IF LOCAL
 			;0=成功
 			CASE 0
 				IF TALENT:恋慕
-					PRINTFORMW 「%CALLNAME:MASTER%想要的话不管什么时候都可以…都可以哟%UNICODE(0x2665) *1%」
+					PRINTFORMW 「%CALLNAME:MASTER%想要的话不管什么时候都可以…都可以哟♥」
 				ELSEIF TALENT:思慕
 					PRINTFORMW 「让我们一起開心地玩耍吧♪」
 				ELSE
@@ -1037,7 +1037,7 @@ IF LOCAL
 				IF TALENT:恋慕
 					PRINTFORMW %CALLNAME:MASTER%伸出手时桑尼抱住了你的脖子小小的身体抱了过来。
 					PRINTFORML 「…我已经忍耐不住了呢」
-					PRINTFORMW 「要给我很多的爱呢%UNICODE(0x2665) *1%」
+					PRINTFORMW 「要给我很多的爱呢♥」
 				ELSEIF TALENT:思慕
 					PRINTFORML 桑尼无意识的紧贴和摩擦に%CALLNAME:MASTER%的胯部。
 					PRINTFORMW 「我、是变得奇怪了吗…嗯」
@@ -1282,7 +1282,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K5_360
 CALL M_KOJO_MESSAGE_COM_K5_360_1
@@ -1338,24 +1338,24 @@ IF LOCAL
 			PRINTFORMW 「被吸的时候胸口总觉得暖洋洋的…嗯」
 		;V挿入する
 		CASE 85
-			PRINTFORMW 「啊…嗯%UNICODE(0x2665) *1%好…插进去了…%UNICODE(0x2665) *1%」
-		;だいしゅき大堂ド
+			PRINTFORMW 「啊…嗯♥好…插进去了…♥」
+		;だいしゅきホールド
 		CASE 86
 			IF TALENT:恋慕
-				PRINTFORMW 「喜欢%UNICODE(0x2665) *1%喜欢%UNICODE(0x2665) *1%」
+				PRINTFORMW 「喜欢♥喜欢♥」
 			ELSE
-				PRINTFORMW 「啊…总觉得这个…很棒%UNICODE(0x2665) *1%」
+				PRINTFORMW 「啊…总觉得这个…很棒♥」
 			ENDIF
 		;腰振りV
 		CASE 88
-			PRINTFORMW 「嗯%UNICODE(0x2665) *1%嗯%UNICODE(0x2665) *1%呐你舒服吗？我的里面很舒服吗？」
+			PRINTFORMW 「嗯♥嗯♥呐你舒服吗？我的里面很舒服吗？」
 		CASEELSE
 	ENDSELECT
 ENDIF
 RETURN 1
 ;==================================================
 ;361,抵抗
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K5_361
 CALL M_KOJO_MESSAGE_COM_K5_361_1
@@ -1371,7 +1371,7 @@ IF LOCAL
 		;前から抱きつく 
 		CASE 32
 			IF TALENT:恋慕
-				PRINTFORML 「这样做的话反而更想要欺负你了哦%UNICODE(0x2665) *1%」
+				PRINTFORML 「这样做的话反而更想要欺负你了哦♥」
 				PRINTFORMW 桑尼露出恶作剧般的笑容接近了%CALLNAME:MASTER%。
 			ELSE
 				PRINTFORML 「mo！你老实点儿！」
@@ -1403,7 +1403,7 @@ IF LOCAL
 		;乳を吸わせる
 		CASE 77
 			PRINTFORMW 「…总觉得你对这个不感兴趣呢」
-		;だいしゅき大堂ド
+		;だいしゅきホールド
 		CASE 86
 			IF TALENT:恋慕
 				PRINTFORML 「不可以！不能射在外面！我就是想要%CALLNAME:MASTER%的孩子！」
@@ -1411,7 +1411,7 @@ IF LOCAL
 				PRINTFORML 「拜托了！%CALLNAME:MASTER%满满的射进来吧！」
 				PRINTFORMW 用力摇晃着未成熟的小小臀部、让子宫喝干净%CALLNAME:MASTER%的精液…。
 			ELSE
-				PRINTFORMW 「还差一点%UNICODE(0x2665) *1%还差一点我也舒服起来了%UNICODE(0x2665) *1%」
+				PRINTFORMW 「还差一点♥还差一点我也舒服起来了♥」
 			ENDIF
 		CASEELSE
 	ENDSELECT
@@ -1443,7 +1443,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_MESSAGE_COM_K5_364
@@ -2146,7 +2146,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -2323,7 +2323,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;==================================================
 
 

@@ -30,7 +30,7 @@ RETURN 1
 ;==================================================
 ;311,擁抱
 ;TFLAG:193(1=大成功 0=成功 -1=失敗)
-;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 60=ディープ接吻 73=ぱふぱふ 74=乳合わせ 77=乳を吸わせる ＶＡ性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅき大堂ド)
+;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 60=ディープ接吻 73=ぱふぱふ 74=乳合わせ 77=乳を吸わせる ＶＡ性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅきホールド)
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;==================================================
 @M_KOJO_MESSAGE_COM_K95_311
@@ -110,7 +110,7 @@ RETURN 1
 ;==================================================
 ;312,接吻
 ;TFLAG:193(99=拒絶(接吻不可) 1=大成功 0=成功 -1=失敗)
-;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 50=手淫 60=接吻 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅき大堂ド)
+;CFLAG:诶嘿嘿==2&&TCVAR:20(32=前から抱きつく 50=手淫 60=接吻 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅきホールド)
 ;PREVCOM(305=膝枕
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;==================================================
@@ -135,12 +135,12 @@ IF LOCAL
 		CALL M_KOJO_MESSAGE_COM_K95_20_1
 	ELSEIF TALENT:恋人
 		IF RAND:3 == 0
-			PRINTFORMW 「嗯嗯...%UNICODE(0x2665) *1%...嗯...%UNICODE(0x2665) *1%」
-			PRINTFORMW 「...接吻...怎么样...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「嗯嗯...♥...嗯...♥」
+			PRINTFORMW 「...接吻...怎么样...♥」
 			PRINTFORMW 八桥反过来夺走了%CALLNAME:MASTER%的双唇。
 		ELSEIF RAND:2 == 0
 			PRINTFORMW 「...嗯嗯...!」
-			PRINTFORMW 「......嗯%UNICODE(0x2665) *1%」
+			PRINTFORMW 「......嗯♥」
 			PRINTFORMW 八桥反过来夺走了%CALLNAME:MASTER%的双唇。
 		ELSE
 			PRINTFORMW 「...嗯...」
@@ -150,7 +150,7 @@ IF LOCAL
 	ELSEIF TALENT:恋慕
 		IF RAND:3 == 0
 			PRINTFORMW 「...嗯...」
-			PRINTFORMW 「呼...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「呼...♥」
 			PRINTFORMW 八桥被%CALLNAME:MASTER%亲吻后,将手指放在嘴唇上思考着什么。
 		ELSEIF RAND:2 == 0
 			PRINTFORMW 「嗯!」
@@ -193,7 +193,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;313,胸愛撫
-;CFLAG:诶嘿嘿==2&&TCVAR:20(27=谷間を見せる 33=胸を揉ませる 53=乳交(小分岐は地の文EVENT_MESSAGE_COM_性騷擾.ERB参照) 73=ぱふぱふ 77=乳を吸わせる 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅき大堂ド)
+;CFLAG:诶嘿嘿==2&&TCVAR:20(27=谷間を見せる 33=胸を揉ませる 53=乳交(小分岐は地の文EVENT_MESSAGE_COM_性騷擾.ERB参照) 73=ぱふぱふ 77=乳を吸わせる 性交(85=Ｖ挿入する 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ) 86=だいしゅきホールド)
 ;ABL:Ｂ感覚(2未満=性的には感じてない 5未満=多少感じてる 5以上=カイカン)
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;乳の尺寸でも変わる場合があるので、地の文EVENT_MESSAGE_COM_性騷擾.ERB参照
@@ -228,27 +228,27 @@ IF LOCAL
 		ENDIF
 	ELSEIF TALENT:恋人
 		IF RAND:3 == 0
-			PRINTFORMW 「嗯%UNICODE(0x2665) *1%」
-			PRINTFORMW 「再多摸一点…%UNICODE(0x2665) *1%」
+			PRINTFORMW 「嗯♥」
+			PRINTFORMW 「再多摸一点…♥」
 		ELSEIF RAND:2 == 0
-			PRINTFORMW 「啊…%UNICODE(0x2665) *1%」
+			PRINTFORMW 「啊…♥」
 			PRINTFORM 「…
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW 的话…可以碰我哦…%UNICODE(0x2665) *1%」
+			PRINTFORMW 的话…可以碰我哦…♥」
 		ELSE
-			PRINTFORMW 「啊%UNICODE(0x2665) *1%」
-			PRINTFORMW 「…胸部…呀…%UNICODE(0x2665) *1%」
+			PRINTFORMW 「啊♥」
+			PRINTFORMW 「…胸部…呀…♥」
 		ENDIF
 	ELSEIF TALENT:恋慕
 		IF RAND:3 == 0
 			PRINTFORMW 「…啊…已经…」
-			PRINTFORMW 「嗯…%UNICODE(0x2665) *1%」
+			PRINTFORMW 「嗯…♥」
 		ELSEIF RAND:2 == 0
 			PRINTFORMW 「胸部…你这样有点讨厌哦？」
-			PRINTFORMW 「嗯…%UNICODE(0x2665) *1%」
+			PRINTFORMW 「嗯…♥」
 		ELSE
 			PRINTFORMW 「…你那是什么手法啊…等」
-			PRINTFORMW 「嗯啊…%UNICODE(0x2665) *1%」
+			PRINTFORMW 「嗯啊…♥」
 		ENDIF
 	ELSEIF TALENT:思慕
 		IF RAND:3 == 0
@@ -295,7 +295,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;315,陰蒂愛撫
-;CFLAG:诶嘿嘿==2&&TCVAR:20(35=裙子の中を見せる 70=強制舐陰 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振り
+;CFLAG:诶嘿嘿==2&&TCVAR:20(35=裙子の中を見せる 70=強制舐陰 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振り
 ;ABL:Ｃ感覚(4未満=くすぐったい 6未満=稍微いいかも 6以上=カイカン)
 ;TFLAG:400(1=约会先or地底の路人が反応する)
 ;==================================================
@@ -351,40 +351,40 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 		IF RAND:9 == 0
-			PRINTFORMW 「啊%UNICODE(0x2665) *1%嗯啊%UNICODE(0x2665) *1%」
+			PRINTFORMW 「啊♥嗯啊♥」
 		ELSEIF RAND:8 == 0
-			PRINTFORMW 「...啊...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...啊...♥」
 			PRINTFORM 「
 			CALL MASTER_CALLNAME_K95
-			PRINTFORM ...%UNICODE(0x2665) *1%
+			PRINTFORM ...♥
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW ...喜欢%UNICODE(0x2665) *1%」
+			PRINTFORMW ...喜欢♥」
 		ELSEIF RAND:7 == 0
-			PRINTFORMW 「...嗯...%UNICODE(0x2665) *1%...啊啊%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...嗯...♥...啊啊♥」
 			PRINTFORM 「...啊嗯嗯
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW %UNICODE(0x2665) *1%最喜欢了...%UNICODE(0x2665) *1%」
+			PRINTFORMW ♥最喜欢了...♥」
 		ELSEIF RAND:6 == 0
-			PRINTFORMW 「啊...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「啊...♥」
 			PRINTFORM 「...喜欢你...
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW %UNICODE(0x2665) *1%」
+			PRINTFORMW ♥」
 		ELSEIF RAND:5 == 0
 			PRINTFORM 「
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW ...%UNICODE(0x2665) *1%...嗯啊%UNICODE(0x2665) *1%」
-			PRINTFORMW 「...嗯嗯...%UNICODE(0x2665) *1%啊...%UNICODE(0x2665) *1%」
+			PRINTFORMW ...♥...嗯啊♥」
+			PRINTFORMW 「...嗯嗯...♥啊...♥」
 		ELSEIF RAND:4 == 0
-			PRINTFORMW 「...啊...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...啊...♥」
 			PRINTFORM 「嗯啊...
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW ...嗯...%UNICODE(0x2665) *1%」
+			PRINTFORMW ...嗯...♥」
 		ELSEIF RAND:3 == 0
-			PRINTFORMW 「...啊啊...%UNICODE(0x2665) *1%...嗯%UNICODE(0x2665) *1%...啊%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...啊啊...♥...嗯♥...啊♥」
 		ELSEIF RAND:2 == 0
-			PRINTFORMW 「...%UNICODE(0x2665) *1%...啊...%UNICODE(0x2665) *1%...嗯...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...♥...啊...♥...嗯...♥」
 		ELSE
-			PRINTFORMW 「...嗯啊...%UNICODE(0x2665) *1%哈啊%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...嗯啊...♥哈啊♥」
 		ENDIF
 
 ENDIF
@@ -403,37 +403,37 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 		IF RAND:9 == 0
-			PRINTFORMW 「屁股...%UNICODE(0x2665) *1%...好舒服...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「屁股...♥...好舒服...♥」
 		ELSEIF RAND:8 == 0
-			PRINTFORMW 「...啊...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...啊...♥」
 			PRINTFORM 「
 			CALL MASTER_CALLNAME_K95
-			PRINTFORM ...%UNICODE(0x2665) *1%
+			PRINTFORM ...♥
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW ...最喜欢了%UNICODE(0x2665) *1%」
+			PRINTFORMW ...最喜欢了♥」
 		ELSEIF RAND:7 == 0
-			PRINTFORMW 「...嗯...%UNICODE(0x2665) *1%...啊啊%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...嗯...♥...啊啊♥」
 			PRINTFORM 「...啊嗯
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW %UNICODE(0x2665) *1%要变得奇怪了...%UNICODE(0x2665) *1%」
+			PRINTFORMW ♥要变得奇怪了...♥」
 		ELSEIF RAND:6 == 0
 			PRINTFORM 「...这个好舒服...
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW %UNICODE(0x2665) *1%」
+			PRINTFORMW ♥」
 		ELSEIF RAND:5 == 0
 			PRINTFORM 「
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW ...%UNICODE(0x2665) *1%...嗯这边也很喜欢...%UNICODE(0x2665) *1%」
+			PRINTFORMW ...♥...嗯这边也很喜欢...♥」
 		ELSEIF RAND:4 == 0
 			PRINTFORM 「嗯...
 			CALL MASTER_CALLNAME_K95
-			PRINTFORMW ...喜欢...%UNICODE(0x2665) *1%」
+			PRINTFORMW ...喜欢...♥」
 		ELSEIF RAND:3 == 0
-			PRINTFORMW 「...这边也要...变得奇怪了%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...这边也要...变得奇怪了♥」
 		ELSEIF RAND:2 == 0
-			PRINTFORMW 「...嗯%UNICODE(0x2665) *1%啊...%UNICODE(0x2665) *1%嗯%UNICODE(0x2665) *1%...屁股...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...嗯♥啊...♥嗯♥...屁股...♥」
 		ELSE
-			PRINTFORMW 「...屁股也...%UNICODE(0x2665) *1%...喜欢...%UNICODE(0x2665) *1%」
+			PRINTFORMW 「...屁股也...♥...喜欢...♥」
 		ENDIF
 
 ENDIF
@@ -454,13 +454,13 @@ IF LOCAL
 	IF RAND:3 == 0
 		PRINTFORM 「嗯…
 		CALL MASTER_CALLNAME_K95
-		PRINTFORMW 如果是你的话…可以的%UNICODE(0x2665) *1%」
+		PRINTFORMW 如果是你的话…可以的♥」
 	ELSEIF RAND:2 == 0
 		PRINTFORM 「准备好了，
 		CALL MASTER_CALLNAME_K95
-		PRINTFORMW 如果是你的话…可以的%UNICODE(0x2665) *1%」
+		PRINTFORMW 如果是你的话…可以的♥」
 	ELSE
-		PRINTFORMW 「因为害羞，快点插入吧%UNICODE(0x2665) *1%」
+		PRINTFORMW 「因为害羞，快点插入吧♥」
 	ENDIF
 ENDIF
 RETURN 1
@@ -478,13 +478,13 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	IF RAND:3 == 0
-		PRINTFORMW 「也喜欢这种体位吗%UNICODE(0x2665) *1%」
+		PRINTFORMW 「也喜欢这种体位吗♥」
 	ELSEIF RAND:2 == 0
 		PRINTFORMW 「
 		CALL MASTER_CALLNAME_K95
-		PRINTFORMW 如果是你的话…%UNICODE(0x2665) *1%」
+		PRINTFORMW 如果是你的话…♥」
 	ELSE
-		PRINTFORMW 「怎、怎么样呢……%UNICODE(0x2665) *1%」
+		PRINTFORMW 「怎、怎么样呢……♥」
 	ENDIF
 ENDIF
 RETURN 1
@@ -509,7 +509,7 @@ IF LOCAL
 		PRINTFORMW 在冻结的时间中掀开了八桥有特色的裙子。
 		PRINTFORMW %CALLNAME:MASTER%欣赏着八桥娇小的臀部。
 	ELSEIF CFLAG:诶嘿嘿 == 2
-		PRINTFORMW 「变ー态ー%UNICODE(0x2665) *1%」
+		PRINTFORMW 「变ー态ー♥」
 	ELSEIF CFLAG:318 == 1
 		IF RAND:3 == 0
 			PRINTFORMW 「...笨蛋!变态!」

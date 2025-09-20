@@ -27,32 +27,21 @@ FONTREGULAR
 ;-------------------------------------------------
 ; 神秘小功能、判断角色未陷落的函数
 ; 有点多此一举的感觉其实()
+; 按顺序分别是恋人、恋慕、爱欲、思慕、炮友
+; 如果要另做陷落状态，那么再另外考虑
 ;-------------------------------------------------
-@YUBE_未陷落(ARG)
+@YUBE_FALLEN(ARG)
 #FUNCTION
-#DIMS CONST	陷落状态 = "恋人","恋慕","愛欲","思慕","炮友"
-#DIMS KEY
+#DIM CONST	FALLEN = 7, 3, 184, 8, 185
+#DIM KEY
+#DIM V_KEY
 FOR LOCAL, 0 , 5
-	KEY = %陷落状态:LOCAL%
+	KEY = FALLEN:LOCAL
 	SIF TALENT:ARG:KEY
-		RETURNF 0
+		SETBIT V_KEY,LOCAL
 NEXT
-RETURNF	1
-; ↓返回字符串版↓
-@YUBE_陷落状态(ARG)
-#FUNCTIONS
-#DIMS CONST	陷落状态 = "恋人","恋慕","愛欲","思慕","炮友"
-#DIMS KEY
-FOR LOCAL, 0 , 5
-	KEY = %陷落状态:LOCAL%
-	SIF TALENT:ARG:KEY
-		RETURNF KEY
-NEXT
-; ↓自定的条件追加↓
-SIF ABL:ARG:9 > 2
-	RETURNF	"朋友"
-; ↑自定的条件追加↑
-RETURNF	"未陷落"
+RETURNF	V_KEY
+
 ;-------------------------------------------------
 ; 里文本，大概会在右边显示一段偏黑色的字
 ; 参数说明:表文本 是否包含口上色 里文本 是否需要点击换行（默认点击，除非传入L）

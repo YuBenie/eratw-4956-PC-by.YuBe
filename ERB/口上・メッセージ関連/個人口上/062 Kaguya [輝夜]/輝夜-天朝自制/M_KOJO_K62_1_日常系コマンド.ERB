@@ -28,8 +28,8 @@ SIF !TCVAR:62:353
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-IF ALCOHOL_FACE(62) == "酔酒" || ALCOHOL_FACE(62) == "不省人事"
-		PRINTFORML %CALLNAME:PLAYER%向%CALLNAME:TARGET%搭著話、但是%CALLNAME:TARGET%那口齒不清的回答怎麼也聽不清楚
+IF ALCOHOL_FACE(62) == "醉酒" || ALCOHOL_FACE(62) == "不省人事"
+		PRINTFORML %CALLNAME:PLAYER%向%CALLNAME:TARGET%搭著話、但是%CALLNAME:TARGET%那口齒不清的回答怎么也聽不清楚
 	;会話不能の地の文は恋慕でない場合は省略できず、恋慕の時は表示されないので、ここではどちらの場合も同じように表示されるようにする
 	ELSEIF TCVAR:62:会話不能
 		IF TALENT:62:恋慕
@@ -51,7 +51,7 @@ IF ALCOHOL_FACE(62) == "酔酒" || ALCOHOL_FACE(62) == "不省人事"
 				DATAFORM 在相互微笑着的同时
 				DATAFORM 在一片和睦的气氛中
 				DATAFORM 简短地寒暄了一番后
-				DATAFORM 一邊和%CALLNAME:TARGET%玩鬧一邊
+				DATAFORM 一边和%CALLNAME:TARGET%玩鬧一边
 			ENDDATA
 		ELSE
 			PRINTDATA
@@ -73,7 +73,7 @@ IF ALCOHOL_FACE(62) == "酔酒" || ALCOHOL_FACE(62) == "不省人事"
 		ENDIF
 	ENDIF
 	PRINTW 
-	IF ALCOHOL_FACE(62) == "酔酒" || ALCOHOL_FACE(62) == "不省人事"
+	IF ALCOHOL_FACE(62) == "醉酒" || ALCOHOL_FACE(62) == "不省人事"
 		IF !RAND:2
 			PRINTFORML 「哈哈哈，好有意思，有趣的%CALLNAME:TARGET%大人」
 			PRINTFORMW 「～～！！＠＃！＄％！？＊＊＊＊ッ！！」
@@ -168,13 +168,13 @@ IF ALCOHOL_FACE(62) == "酔酒" || ALCOHOL_FACE(62) == "不省人事"
 					IF TALENT:62:処女
 						PRINTFORMW 「……嗯」
 					ELSE
-						PRINTFORMW 「……%UNICODE(0x2764)%」
+						PRINTFORMW 「……❤」
 					ENDIF
 				ELSE
 					IF TALENT:62:処女
 						PRINTFORMW 「喂、这里……」
 					ELSE
-						PRINTFORMW 「快点%UNICODE(0x2764)% 快点%UNICODE(0x2764)%」
+						PRINTFORMW 「快点❤ 快点❤」
 					ENDIF
 				ENDIF
 			ELSE
@@ -326,13 +326,13 @@ IF ALCOHOL_FACE(62) == "酔酒" || ALCOHOL_FACE(62) == "不省人事"
 					IF TALENT:62:処女
 						PRINTFORMW 「嗯…这里…」
 					ELSE
-						PRINTFORMW 「快点%UNICODE(0x2764)% …快点吧%UNICODE(0x2764)%」
+						PRINTFORMW 「快点❤ …快点吧❤」
 					ENDIF
 				ELSE
 					IF TALENT:111:処女
 						PRINTFORMW 「喂，这里啦……\/\/\/」
 					ELSE
-						PRINTFORMW 「快点%UNICODE(0x2764)% 快点%UNICODE(0x2764)%」
+						PRINTFORMW 「快点❤ 快点❤」
 					ENDIF
 				ENDIF
 			ELSEIF POINT == 96
@@ -1437,7 +1437,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_PLUS_MESSAGE_COM_K62_332
@@ -2015,7 +2015,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_PLUS_MESSAGE_COM_K62_360
 CALL TRAIN_MESSAGE
@@ -2052,7 +2052,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_PLUS_MESSAGE_COM_K62_364
@@ -2439,7 +2439,7 @@ IF LOCAL && !CFLAG:62:睡眠
 				PRINTFORMW 「还不错吧♪」
 			ELSE
 				IF TALENT:62:恋慕
-					PRINTFORMW 「%CALLNAME:MASTER%、啊~!啊～～嗯%UNICODE(0x2764)%」
+					PRINTFORMW 「%CALLNAME:MASTER%、啊~!啊～～嗯❤」
 					;接吻経験済み
 					IF !TALENT:62:無接吻経験 && !RAND:6
 						PRINTL 
@@ -2586,7 +2586,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -2692,7 +2692,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;==================================================
 
 

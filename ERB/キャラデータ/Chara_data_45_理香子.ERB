@@ -44,24 +44,24 @@ CASE "今天的睡衣"
 CASE "便装：飾品"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("飾品", "眼鏡"))
 CASE "便装：帽子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "蝴蝶結"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "蝴蝶结"))
 CASE "便装：外搭"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("外搭", "白大褂"))
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))
 CASE "便装：裙子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "長裙"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "长裙"))
 CASE "便装：上身衣服１"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "上衣"))
 CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "安価で樸素的")
+	CALLF MAKE_STR(V_NAME, "朴实的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "白內褲")
+	CALLF MAKE_STR(V_NAME, "白内裤")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
@@ -90,3 +90,20 @@ CASE "感性：嫌い"
 	CALLF MAKE_STR(V_NAME, "混沌/奇妙/懷舊/不思議/洛麗塔/" + "生体品/护臂/" * 3 + "魔法/" * 10)
 ENDSELECT
 
+;-------------------------------------------------
+;固有料理設定
+;DISH_NAME          料理名
+;RESULTS            料理の種類（軽食/主食/デザート）
+;CALL 材料設定("")  材料の指定。"汎用"を入れると自動で汎用食材になる
+;DISH_TASTE         味の設定
+;DISH_COMMENT       （任意）一行コメント
+;DISH_TIME          （任意）調理にかかる時間
+;DISH_MAXLIMIT      （任意）料理の持続時間
+;-------------------------------------------------
+@SPECIAL_MENU_45
+DISH_NAME = 反乌托邦餐
+RESULTS = 主食
+CALL 材料設定("汎用", "來歷不明的肉", "虫")
+DISH_TASTE = 健康/淡白/淡白/質素/質素/機能的/化学的/謎料理/
+DISH_COMMENT = 科幻动画中常见的膏状营养餐；看起来毫无食欲，但营养绝对充足。
+RETURN 1

@@ -77,7 +77,7 @@ IF LOCAL
 	SELECTCASE LOCAL:1
 	CASE 11, 12, 21, 22
 		;関係が普通もしくは同行許可かつ心情がいい
-		IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+		IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 			;酔ってる
 			PRINTFORML 「唔姆…嗝……我听着呢～、…我听着呢……」
 			PRINTFORML 「你、刚才说了什么来着…？」
@@ -179,7 +179,7 @@ IF LOCAL
 		PRINTFORMDW 夢子一脸不耐烦地转身离開了
 	CASE 31, 32, 61, 62
 		;関係が思慕かつ心情がいい※暫定で炮友も共有
-		IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+		IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 			;酔ってる
 			PRINTFORML 「唔唔…嗝……唔～？…真可爱的表情呐～、嘿嘿～…」
 			PRINTFORML 「来吧、你也来喝点吧、…啊咧、瓶子怎么空了…」
@@ -278,7 +278,7 @@ IF LOCAL
 		PRINTFORMDW 夢子双手叉腰瞪着这边
 	CASE 41, 42 ,51, 52 ,71, 72
 		;関係が恋慕か恋人かつ心情がいい※暫定で愛欲も共有
-		IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+		IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 			;酔ってる
 			PRINTFORML 「%CALLNAME:MASTER%～、呐～、再稍微靠近一点呐」
 			PRINTFORMW 「唔～、啾！」
@@ -614,7 +614,7 @@ IF LOCAL
 	SELECTCASE LOCAL:1
 	CASE 11, 12, 21, 22
 		;関係が普通もしくは同行許可かつ心情がいい
-		IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+		IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 			;酔ってる
 			PRINTFORML 「呀啊！真是的、你想在这种时候做些什么无力的事！」
 			PRINTFORML 「…噫库……作为惩罚、再给我拿点酒来」
@@ -692,7 +692,7 @@ IF LOCAL
 		PRINTFORMDW %CALLNAME:MASTER%小心翼翼地为夢子揉着肩膀…
 	CASE 31, 32, 61, 62
 		;関係が思慕かつ心情がいい※暫定で炮友も共有
-		IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+		IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 			;酔ってる
 			$KAIWA_YOI02
 			PRINTFORML 「怎么了……突然就摸过来…」
@@ -764,7 +764,7 @@ IF LOCAL
 		PRINTFORMDW 夢子双手叉腰瞪着这边
 	CASE 41, 42 ,51, 52 ,71, 72
 		;関係が恋慕か恋人かつ心情がいい※暫定で愛欲も共有
-		IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+		IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 			;酔ってる
 			SELECTCASE M_KOJO_K103_RANDNR(3,302)
 			CASE 1
@@ -998,7 +998,7 @@ IF LOCAL
 		IF TFLAG:193 >= 0
 			$KAIWA01
 			;成功時
-			IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+			IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 				;酔ってる
 				SELECTCASE M_KOJO_K103_RANDNR(3,305)
 				CASE 1
@@ -1112,7 +1112,7 @@ IF LOCAL
 		IF TFLAG:193 >= 0
 			;成功時
 			$KAIWA02
-			IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+			IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 				;酔ってる
 				SELECTCASE M_KOJO_K103_RANDNR(3,305)
 				CASE 1
@@ -1206,7 +1206,7 @@ IF LOCAL
 			;成功時
 			$KAIWA03
 			
-			IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+			IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 				;酔ってる
 				SELECTCASE M_KOJO_K103_RANDNR(3,305)
 				CASE 1
@@ -1514,7 +1514,7 @@ IF LOCAL
 			IF TFLAG:193 >= 0
 				$KAIWA01
 				;成功時
-				IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+				IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 					;酔ってる
 					SELECTCASE M_KOJO_K103_RANDNR(3,309)
 					CASE 1
@@ -1589,7 +1589,7 @@ IF LOCAL
 			IF TFLAG:193 >= 0
 				;成功時
 				$KAIWA02
-				IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+				IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 					;酔ってる
 					SELECTCASE M_KOJO_K103_RANDNR(3,309)
 					CASE 1
@@ -1670,7 +1670,7 @@ IF LOCAL
 				;成功時
 				$KAIWA03
 				
-				IF ALCOHOL_FACE(TARGET) == "酔酒" || ALCOHOL_FACE(TARGET) == "不省人事"
+				IF ALCOHOL_FACE(TARGET) == "醉酒" || ALCOHOL_FACE(TARGET) == "不省人事"
 					;酔ってる
 					SELECTCASE M_KOJO_K103_RANDNR(3,309)
 					CASE 1
@@ -1759,7 +1759,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_MESSAGE_COM_K103_332
@@ -2471,7 +2471,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K103_360
 CALL M_KOJO_MESSAGE_COM_K103_360_1
@@ -2490,7 +2490,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;361,抵抗
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K103_361
 CALL M_KOJO_MESSAGE_COM_K103_361_1
@@ -2533,7 +2533,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_MESSAGE_COM_K103_364
@@ -3074,7 +3074,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -3277,7 +3277,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;==================================================
 
 
@@ -3911,7 +3911,7 @@ IF LOCAL
 		PRINTFORMW 「不过还是可以吃的……怎么了？」
 	CASE 609
 		PRINTFORML 「……冰？ 看起来、不是呢」
-		PRINTFORMW 「啊、是好東西么？那就太好了」
+		PRINTFORMW 「啊、是好东西么？那就太好了」
 	CASE 606
 		PRINTFORML 「……是什么的爪子呢？」
 		PRINTFORMW 「龍？ 嘿诶ー？真的么？」
@@ -3966,7 +3966,7 @@ IF LOCAL
 	CASE -2
 		PRINTFORML 「好像有各种各样的东西呢………啊、这是什么？」
 		PRINTFORMW 「其他还有……诶？要出去了？………嘛、反正我也没打算买」
-	;果然還是放棄（見送り）
+	;果然還是放弃（見送り）
 	CASE -1
 		LOCAL:1 = M_KOJO_K103_KANKEI()
 		SELECTCASE LOCAL:1

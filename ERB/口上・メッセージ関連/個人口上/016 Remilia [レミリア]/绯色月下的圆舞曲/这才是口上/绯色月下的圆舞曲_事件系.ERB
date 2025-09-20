@@ -183,12 +183,11 @@ INPUT
 SELECTCASE RESULT
 	CASE 0
 	PRINTFORMW	关于测试
-	TALENT:16:愛欲 = 1
-	IF YUBE_未陷落(16)
-		PRINTFORMDL	返回了1
-	ELSE
-		PRINTFORMDL	返回了0
-	ENDIF
+;-----------------------------------------------------
+; 于此输入测试内容
+	PRINTFORMW {YUBE_FALLEN(16)}
+
+;-----------------------------------------------------
 	PRINTDW	
 	CLEARLINE LINECOUNT - UPDATELINE
 	RESTART

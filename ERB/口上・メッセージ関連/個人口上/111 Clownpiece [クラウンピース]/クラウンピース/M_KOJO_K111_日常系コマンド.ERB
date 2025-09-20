@@ -32,7 +32,7 @@ IF LOCAL
 	RESETCOLOR
 	DRAWLINE
 	;ここに口上書いて下さい
-	IF ALCOHOL_FACE(111) == "酔酒" || ALCOHOL_FACE(111) == "不省人事"
+	IF ALCOHOL_FACE(111) == "醉酒" || ALCOHOL_FACE(111) == "不省人事"
 		PRINTFORML %CALLNAME:MASTER%尝试向%CALLNAME:TARGET%搭话、可%CALLNAME:TARGET%口齿不清完全听不懂在说些什么
 	;会話不能の地の文は恋慕でない場合は省略できず、恋慕の時は表示されないので、ここではどちらの場合も同じように表示されるようにする
 	ELSEIF TCVAR:111:会話不能
@@ -55,7 +55,7 @@ IF LOCAL
 				DATAFORM 在相互微笑着的同时
 				DATAFORM 在一片和睦的气氛中
 				DATAFORM 简短地寒暄了一番后
-				DATAFORM 一邊和%CALLNAME:TARGET%玩鬧一邊
+				DATAFORM 一边和%CALLNAME:TARGET%玩鬧一边
 			ENDDATA
 		ELSE
 			PRINTDATA
@@ -78,7 +78,7 @@ IF LOCAL
 	ENDIF
 	PRINTW 
 	CALL M_KOJO_COLOR_K111
-	IF ALCOHOL_FACE(111) == "酔酒" || ALCOHOL_FACE(111) == "不省人事"
+	IF ALCOHOL_FACE(111) == "醉酒" || ALCOHOL_FACE(111) == "不省人事"
 		IF !RAND:2
 			PRINTFORML 「欸嘿嘿♪ 喝酒超棒的♪ 还有，同样喜欢喝酒的%CALLNAME:MASTER%也是我的最爱哦❤」
 			PRINTFORMW 「～～ッ！！＠＃！＄％！？＊＊＊＊ッ！！」
@@ -323,7 +323,7 @@ IF LOCAL
 				IF TALENT:111:処女
 					PRINTFORMW 「%CALLNAME:MASTER%……就在这儿做吧……\/\/\/」
 				ELSE
-					PRINTFORMW 「快点%UNICODE(0x2764)% 快点来嘛%UNICODE(0x2764)%」
+					PRINTFORMW 「快点❤ 快点来嘛❤」
 				ENDIF
 			ENDIF
 		CASE "長屋街"
@@ -518,7 +518,7 @@ IF LOCAL
 				IF TALENT:111:処女
 					PRINTFORMW 「%CALLNAME:MASTER%……就在这儿做吧……\/\/\/」
 				ELSE
-					PRINTFORMW 「快点%UNICODE(0x2764)% 快点来嘛%UNICODE(0x2764)%」
+					PRINTFORMW 「快点❤ 快点来嘛❤」
 				ENDIF
 			ENDIF
 		CASE "地霊殿"
@@ -1390,11 +1390,11 @@ ELSEIF ARGS == "状況会話"
 				PRINTFORMW 「S、STAR WARS！」
 			CASE 3
 				;work by Transformers
-				PRINTFORMW 「ス、斯塔スクリーム！」
+				PRINTFORMW 「ス、スタースクリーム！」
 			CASE 4
 				PRINTFORMW 「ス、斯塔牛奶！」
 			CASEELSE
-				PRINTFORMW 「ス、斯塔チャイルド！」
+				PRINTFORMW 「ス、スターチャイルド！」
 			ENDSELECT
 		ENDIF
 	;琪露諾の話
@@ -1768,7 +1768,7 @@ ELSEIF ARGS == "状況会話"
 					CALLF FIRSTTIME("家賃")
 				ELSE
 					PRINTL 
-					PRINTFORMDL \\10,000 被收走啦！
+					PRINTFORMDL %金額表示(10000)% 被收走啦！
 					PRINTW 
 					IF FIRSTTIME("家賃")
 						PRINTFORMW 「怎么可能白白让%CALLNAME:MASTER%住啊，開什么玩笑？」
@@ -2452,7 +2452,7 @@ ELSEIF ARGS == "汎用"
 		CASE 11
 			PRINTFORM 『サークル・オブ・アナイアレーション』
 		CASE 12
-			PRINTFORM 『​​舞​ンドツイ斯塔』
+			PRINTFORM 『​​舞​ンドツイスター』
 		CASE 13
 			PRINTFORM 『メイズ・イン・アビス』
 		CASE 14
@@ -2486,7 +2486,7 @@ ELSEIF ARGS == "汎用"
 					CASE "ロリコン"
 						PRINTFORMW 「妖精小妹妹真可爱～、啾啾！」
 					CASE "清掃中毒者"
-						PRINTFORMW 「『清潔度：中』！ 该扫地了！ 」
+						PRINTFORMW 「『清洁度：中』！ 该扫地了！ 」
 					CASE "料理人"
 						PRINTFORMW 「气力又少了好多，该做饭了，做饭做饭～」
 					CASE "弾幕強者"
@@ -2504,7 +2504,7 @@ ELSEIF ARGS == "汎用"
 						PRINTFORMW 「传说中的宝剑～、虽然价格有点贵、但是偶尔也该逼自己一下了～！」
 					CASEELSE
 						;念の為
-						PRINTFORMW 「『清潔度：中』！ 该扫地了！ 」
+						PRINTFORMW 「『清洁度：中』！ 该扫地了！ 」
 					ENDSELECT
 					PRINTFORMW 「呀哈哈哈哈ー♪ 像%CALLNAME:MASTER%的样子吗～！」
 				CASE 2
@@ -3118,7 +3118,7 @@ IF LOCAL
 		;Ｖ挿入,Ａ挿入
 		CASE 85, 87, 
 			PRINTFORMW 「啊っ❤ 抱紧我❤ 用力❤ %CALLNAME:MASTER%❤ 再用力点❤」
-		;だいしゅき大堂ド
+		;だいしゅきホールド
 		CASE 86
 			PRINTFORMW 「哈啊っ❤ 哈啊っ❤ 要去了っ❤ %ONEDARI_MASTER_TINKO()%牛奶～要biubiu的射进来了～っっ❤」
 		;Ｖ腰振り,Ａ腰振り
@@ -3290,9 +3290,9 @@ IF LOCAL
 			ELSE
 				PRINTFORMW 「哈啊っ、哈啊っ❤ 嗯啾っ❤ 嗯っ、嗯っ❤ prprっ❤」
 			ENDIF
-		;だいしゅき大堂ド
+		;だいしゅきホールド
 		CASE 86
-			PRINTFORMW 「哈啊っ❤ 哈啊っ❤ 嗯啾っ❤ 射出来❤ 就这样biubiu的射出来吧❤ %ONEDARI_MASTER_TINKO()%牛奶牛奶快出来っ%UNICODE(0x2764) * 2%」
+			PRINTFORMW 「哈啊っ❤ 哈啊っ❤ 嗯啾っ❤ 射出来❤ 就这样biubiu的射出来吧❤ %ONEDARI_MASTER_TINKO()%牛奶牛奶快出来っ%"❤" * 2%」
 		;それ以外
 		CASEELSE
 			PRINTFORMW 「嗯っ❤ 啾ーっ❤ 舔舔、阿姆、pr……❤」
@@ -3582,7 +3582,7 @@ ELSEIF ARGS == "恋慕"
 					BREAK
 			WEND
 			SIF LOCAL:1
-				PRINTFORMW 「诶嘿っ%UNICODE(0x2764) * LOCAL:1%」
+				PRINTFORMW 「诶嘿っ%"❤" * LOCAL:1%」
 		ELSE
 			IF EXP:111:接吻経験 * 2 < RAND:100
 				PRINTL 
@@ -3643,11 +3643,11 @@ IF LOCAL
 		;Ｖ挿入,Ａ挿入,Ｖ腰振り,Ａ腰振り
 		CASE 85, 87, 88, 89
 			IF NOWEX:MASTER:11
-				PRINTFORMW 「哈啊❤ 啊嗯っ❤ 这样子激烈、欧派好舒服ぃッ❤ 要去了っ❤ 要高潮了啊啊ぇ%UNICODE(0x2764) * 2%」
+				PRINTFORMW 「哈啊❤ 啊嗯っ❤ 这样子激烈、欧派好舒服ぃッ❤ 要去了っ❤ 要高潮了啊啊ぇ%"❤" * 2%」
 			ELSE
-				PRINTFORMW 「哈啊っ❤ 啊嗯っ❤ 好棒っ❤ 再多欺负一下胸部吧っ%UNICODE(0x2764) * 2%」
+				PRINTFORMW 「哈啊っ❤ 啊嗯っ❤ 好棒っ❤ 再多欺负一下胸部吧っ%"❤" * 2%」
 			ENDIF
-		;だいしゅき大堂ド
+		;だいしゅきホールド
 		CASE 86
 			PRINTFORMW 「哈啊啊～～っっ❤ 继续、不要停～っ❤ %CALLNAME:MASTER%～っ❤ 喵～～❤」
 		;それ以外
@@ -3890,8 +3890,8 @@ IF LOCAL
 			PRINTFORMW 「嗯喵っ❤ 这样子❤ 不要揪着乱拽啊❤」
 		;Ｖ挿入,Ａ挿入,Ｖ腰振り,Ａ腰振り
 		CASE 85, 87, 88, 89
-			PRINTFORMW 「啊嗯っ❤  不行，不能捏小豆豆ぇ❤ 脑袋要变奇怪了ぅ～～っ%UNICODE(0x2764) * 2%」
-		;だいしゅき大堂ド
+			PRINTFORMW 「啊嗯っ❤  不行，不能捏小豆豆ぇ❤ 脑袋要变奇怪了ぅ～～っ%"❤" * 2%」
+		;だいしゅきホールド
 		CASE 86
 			PRINTFORMW 「啊啊嗯っ❤ 好棒っ❤ 小豆豆好舒服っ❤ 再用力些っ❤ 就这样捏坏我的小豆豆吧っ❤」
 		;それ以外
@@ -4127,23 +4127,23 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	;默认（ぼくのかんがえた克勞恩皮絲ちゃん…もとい自前CSV（受け入れてくれた作者さんには大感謝））
-	;では[擅于喝酒]のでまずい＞濁酒,おいしい＞清酒
+	;では[擅于喝酒]のでまずい＞浊酒,おいしい＞清酒
 	;口上が出る時点で既に酒気は加算されてる,不省人事口上は果たして表示できるのか
 	IF ALCOHOL_FACE(111) == "不省人事"
 		PRINTFORMW 「呀哈哈哈♪ 喝酒喽♪♪♪」
 	;現在は無い
 	ELSEIF ALCOHOL_FACE(111) == "酩酊大醉"
 		PRINTFORMW 「多喝点多喝点嘛～～♪」
-	ELSEIF ALCOHOL_FACE(111) == "酔酒"
+	ELSEIF ALCOHOL_FACE(111) == "醉酒"
 		PRINTFORMW 「欸嘿嘿～♪ 才不会就这样结束～～♪」
 	ELSE
 		PRINTFORMW 「耶ー！ 喝酒啦ー♪」
 	ENDIF
-	;濁酒
+	;浊酒
 	IF ALCOHOL_TASTE(TFLAG:194) < 10
 		IF ALCOHOL_FACE(111) == "不省人事"
 			PRINTFORMW 「这ー！！ 上这酒的家伙给我过来！！」
-		ELSEIF ALCOHOL_FACE(111) == "酔酒"
+		ELSEIF ALCOHOL_FACE(111) == "醉酒"
 			PRINTFORMW 「嗯～♪ 这种程度根本不会喝醉嘛～～」
 		ELSE
 			PRINTFORMW 「嗯ー♪ 太淡了，不适合我～」
@@ -4152,16 +4152,16 @@ IF LOCAL
 	ELSEIF ALCOHOL_TASTE(TFLAG:194) >= 15
 		IF ALCOHOL_FACE(111) == "不省人事"
 			PRINTFORMW 「这个～～♪ 这个酒我很中意～♪ 更喜欢喜欢这个酒的%CALLNAME:MASTER%❤」
-		ELSEIF ALCOHOL_FACE(111) == "酔酒"
+		ELSEIF ALCOHOL_FACE(111) == "醉酒"
 			PRINTFORMW 「还要喝啦～♪ %CALLNAME:MASTER%不要把其他酒藏起来好不好嘛～～？？」
 		ELSE
 			PRINTFORMW 「好喝～♪ 你应该不会只有这点吧？ 快快拿出来♪」
 		ENDIF
-	;鬼殺酒
+	;鬼杀酒
 	ELSE
 		IF ALCOHOL_FACE(111) == "不省人事"
 			PRINTFORMW 「～～ッ！！＠＃！＄％！？＊＊＊＊ッ！！」
-		ELSEIF ALCOHOL_FACE(111) == "酔酒"
+		ELSEIF ALCOHOL_FACE(111) == "醉酒"
 			PRINTFORMW 「呀吼～～！ 带来这种酒的%CALLNAME:MASTER%不会想自己先跑路吧～～！？」
 		ELSE
 			PRINTFORMW 「呀呀呀ー！ 这个好辣ー！ 过瘾啊过瘾ー！！」
@@ -4736,9 +4736,9 @@ IF LOCAL
 	CASE 51
 		IF NOWEX:MASTER:11
 			IF FIRSTTIME("精液の味")
-				PRINTFORMW 「嗯っ、嗯っ、嗯～～～っ%UNICODE(0x2764) * 2%」
+				PRINTFORMW 「嗯っ、嗯っ、嗯～～～っ%"❤" * 2%」
 			ELSE
-				PRINTFORMW 「嗯っ、嗯っ、嗯～～～っ%UNICODE(0x2764) * 2%」
+				PRINTFORMW 「嗯っ、嗯っ、嗯～～～っ%"❤" * 2%」
 			ENDIF
 		ELSE
 			PRINTFORMW 「嗯ー、咕咕っ……prpr、嗯、好美味❤」
@@ -4776,11 +4776,11 @@ IF LOCAL
 	CASE 70
 		SELECTCASE RAND:3
 		CASE 0
-			PRINTFORML 「哇哇ぁっ❤ 啊っ❤ 啊啊啊っ%UNICODE(0x2764) * 2%」
-			PRINTFORMW 「好爽～～っ%UNICODE(0x2764) * 2%」
+			PRINTFORML 「哇哇ぁっ❤ 啊っ❤ 啊啊啊っ%"❤" * 2%」
+			PRINTFORMW 「好爽～～っ%"❤" * 2%」
 		CASE 1
 			PRINTFORML 「啊っ❤ 用力❤ 更深点❤」
-			PRINTFORMW 「还要っ❤ 就这样吸❤ 狠狠地舔舐っ%UNICODE(0x2764) * 2%」
+			PRINTFORMW 「还要っ❤ 就这样吸❤ 狠狠地舔舐っ%"❤" * 2%」
 		CASE 2
 			PRINTFORML 「%CALLNAME:MASTER%っ❤ 怎样？ 我的幼女的小穴美味吗？」
 			PRINTFORMW 「再用力吸的话子宫都要被吸出来了哦？❤」
@@ -4807,8 +4807,8 @@ IF LOCAL
 		PRINTFORMW 「哈啊っ❤ 啊嗯っ❤ 用力❤ 不要停❤」
 	;Ｖ挿入,Ａ挿入
 	CASE 85, 87
-		PRINTFORMW 「啊～～っ❤ 进来了～～っっ%UNICODE(0x2764) * 2%」
-	;だいしゅき大堂ド
+		PRINTFORMW 「啊～～っ❤ 进来了～～っっ%"❤" * 2%」
+	;だいしゅきホールド
 	CASE 86
 		;一緒にイく
 		IF NOWEX:111:1
@@ -4825,7 +4825,7 @@ ENDIF
 RETURN 1
 ;;==================================================
 ;;361,抵抗
-;;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;;==================================================
 ;@M_KOJO_MESSAGE_COM_K111_361
 ;CALL M_KOJO_MESSAGE_COM_K111_361_1
@@ -4857,7 +4857,7 @@ RETURN 1
 ;ENDIF
 ;RETURN 1
 ;;==================================================
-;;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;;==================================================
 ;@M_KOJO_MESSAGE_COM_K111_364
 ;CALL M_KOJO_MESSAGE_COM_K111_364_1
@@ -5173,12 +5173,12 @@ IF LOCAL
 		;▼買い物［買い物を手伝う］
 		;PRINTFORMW 
 	CASE 15
-		;▼説教［様子をうかがう］
+		;▼説教［样子をうかがう］
 		;※神霊・蓬莱人は除く
 		;TFLAG:193,-1
 		;PRINTFORMW 
 	CASE 16
-		;▼落とし穴［いたずらに交手］or［様子をうかがう］
+		;▼落とし穴［いたずらに交手］or［样子をうかがう］
 		;※三月精・琪露諾・克勞恩皮絲のみ
 		;それ以外は落ちる側
 		;PRINTFORMW 
@@ -5845,8 +5845,8 @@ IF LOCAL && !CFLAG:111:睡眠
 		PRINTFORML 「開动了哦♪」
 	CASE "苹果糖"
 		IF DISH_ASSI == [[皮絲]]
-			IF GROUPMATCH(FESTIVAL(), "聖誕節", "聖誕節イブ", "萬聖節")
-				PRINTFORML 「果然少不了%FESTIVAL()%～！」
+			IF GROUPMATCH(FESTIVAL(), "聖誕節", "平安夜", "萬聖節")
+				PRINTFORML 「果然少不了%FESTIVAL_TR()%～！」
 			ELSEIF FESTIVAL() != ""
 				PRINTFORML 「果然节日就该吃这个～！」
 			ELSE
@@ -6261,7 +6261,7 @@ RETURN 1
 ;;==================================================
 ;;445,採集
 ;;TFLAG:193(採集物のID, 0=『何も見つからなかった…』
-;;TFLAG:194(今回採集した個数
+;;TFLAG:194(今回採集した个数
 ;;==================================================
 ;@M_KOJO_MESSAGE_COM_K111_445
 ;CALL M_KOJO_MESSAGE_COM_K111_445_1
@@ -6820,9 +6820,9 @@ IF LOCAL
 			PRINTFORMW 「这是什么ー！？ 好好看～～っ！！」
 		CASE "龍涎香"
 			PRINTFORMW 「这是什么、垃圾吗」
-		CASE "食人魚"
+		CASE "食人鱼"
 			PRINTFORMW 「哦哦～食人鱼欸！ 」
-		CASE "鰻魚", "八目鰻", "鲶魚"
+		CASE "鳗鱼", "八目鳗", "鲶鱼"
 			PRINTFORMW 「呀哈哈哈！滑溜溜的～！」
 		CASEELSE
 			IF LOCAL:1 >= 80
@@ -6872,7 +6872,7 @@ IF LOCAL
 	CASE -2
 		PRINTFORMW 「呀吼！ 被骂了哦ー！」
 		PRINTFORMW 「%CALLNAME:MASTER%挑来拣去实在太慢了啦～」
-	;果然還是放棄（見送り）
+	;果然還是放弃（見送り）
 	CASE -1
 		PRINTFORMW 「诶ー！ 好不容易来一次，什么都不买也太可惜了吧ー！？」
 	;400点未満（BAD）

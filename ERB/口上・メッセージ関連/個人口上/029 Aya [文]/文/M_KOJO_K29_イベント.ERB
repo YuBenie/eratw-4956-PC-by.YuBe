@@ -28,7 +28,7 @@
 
 ;------ ｷﾘﾄﾘ ｶｲｼ -----------
 ;eraTheWorld proto4.07パッチ取り込み用 Ver1.13
-;貂プレートの使い方
+;テンプレートの使い方
 ;初めに置換指令等により K29 を K(角色No) に変更して下さい  
 ;角色NoはCSVフォルダのCharaファイルを参照　例(霧雨 魔理沙の場合)：K29 =置換=> K11
 ;
@@ -89,7 +89,7 @@
 
 ;### 口上存在判定 ###################################
 @M_KOJO_K29(ARG)
-;別人版を作成する際はこの貂プレではなく別人版用口上貂プレをご利用ください
+;別人版を作成する際はこのテンプレではなく別人版用口上テンプレをご利用ください
 
 ;口上存在判定です、けしてコメントアウトしないでください
 ;他の処理は一切行わないように
@@ -278,7 +278,7 @@ IF LOCAL
 			PRINTFORMW 点头。
 			PRINTFORMW 扎库、扎库、听到了这样的脚步声。
 			PRINTFORMW 脚步声在眼前停止了、即使闭上眼也能感覚得到近在眼前的文文的气息。
-			PRINTFORMW 在这气息里夹杂着荒乱、緊張、興奮等各种情感。
+			PRINTFORMW 在这气息里夹杂着荒乱、紧张、興奮等各种情感。
 			PRINTFORMW 很快这一呼吸变的平静下来、在这一瞬间、文文的气息一口气逼近过来。
 			PRINTFORMW 
 			PRINTFORMW 啾。
@@ -1186,7 +1186,7 @@ IF LOCAL
 			PRINTFORML 文文看见气息荒乱、倒在地板上的%CALLNAME:MASTER%后呼喊着。
 			PRINTFORML ……麻烦你了。
 			PRINTFORML 「那个、那个……总之、先把你送到房间去吧？还是说、那个……」
-			PRINTFORML 文文十分慌张的様子、手忙脚乱。
+			PRINTFORML 文文十分慌张的样子、手忙脚乱。
 			PRINTFORML 送到房间、拜托了。
 			PRINTFORMW 听到这话、文文轻轻地抬起%CALLNAME:MASTER%的身体。
 		ENDIF
@@ -2212,7 +2212,7 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == -1
-	;%DISHNAME% 食べ物をメモメモ
+	;%DISHNAME_TR()% 食べ物をメモメモ
 		IF TALENT:恋人
 			PRINTFORML 
 			PRINTFORML 「……%CALLNAME:MASTER%桑？」
@@ -2222,10 +2222,10 @@ IF LOCAL
 			PRINTFORMW 「……你是不是、藏着什么东西呢？」
 			PRINTFORML 呼呼～、文文露出灿烂的笑容、站起身来。
 			PRINTFORML 「想要骗过我的眼睛什么的……你还早了一千年呢～！」
-			PRINTFORML 一瞬间身体就被搜查了、回过神时文文已经把%DISHNAME%拿在了眼前。
+			PRINTFORML 一瞬间身体就被搜查了、回过神时文文已经把%DISHNAME_TR()%拿在了眼前。
 			PRINTFORMW 「啊啦、看起来很美味的样子呢……呼呼、我開动了～」
-			PRINTFORML %DISHNAME%以肉眼可见的速度减少着、一转眼的工夫就被文文全部消灭了。
-			PRINTFORML 「多谢款待、非常美味哦%UNICODE(0x2665)%」
+			PRINTFORML %DISHNAME_TR()%以肉眼可见的速度减少着、一转眼的工夫就被文文全部消灭了。
+			PRINTFORML 「多谢款待、非常美味哦♥」
 			PRINTFORMW 面对着满脸笑容的文文、%CALLNAME:MASTER%只好说了声招待不周还请见谅。
 		ELSEIF TALENT:恋慕
 			PRINTFORML 
@@ -2234,11 +2234,11 @@ IF LOCAL
 			PRINTFORML 「……有什么好闻的味道呢？　%CALLNAME:MASTER%桑」
 			PRINTFORML 文文一边抽动着鼻子、一边嬉皮笑脸地看着你。
 			PRINTFORMW 「那么、到底为什么会发出这么好闻的味道呢……？」
-			PRINTFORML 终于被这目光打败了、%CALLNAME:MASTER%不得不把%DISHNAME%交了出来。
+			PRINTFORML 终于被这目光打败了、%CALLNAME:MASTER%不得不把%DISHNAME_TR()%交了出来。
 			PRINTFORML 「哦呀、这是……我開动了」
-			PRINTFORML 吃东西时最好别说话么、文文開始吃起了%DISHNAME%。
+			PRINTFORML 吃东西时最好别说话么、文文開始吃起了%DISHNAME_TR()%。
 			PRINTFORML 「哈姆……嗯、十分……不错嘛」
-			PRINTFORML 心疼地看着%DISHNAME%不断减少、终于被文文全部摆平了。
+			PRINTFORML 心疼地看着%DISHNAME_TR()%不断减少、终于被文文全部摆平了。
 			PRINTFORMW 「多谢款待、%CALLNAME:MASTER%桑♪」
 			PRINTFORML ……招待不周还请见谅。
 			PRINTFORMW 文文看上去满脸笑容、责备这个样子的文文什么的、%CALLNAME:MASTER%实在做不到。
@@ -2249,9 +2249,9 @@ IF LOCAL
 			PRINTFORML 「……有什么、好闻的味道呢？　%CALLNAME:MASTER%桑」
 			PRINTFORML 文文目不转睛的看着你说道。
 			PRINTFORMW 「……想瞒过我、可是行不通的～」
-			PRINTFORML 一瞬间文文的身影消失了、回过神时文文已经把%DISHNAME%拿在了手上。
-			PRINTFORML 「呼呼～、是%DISHNAME%啊……我開动了」
-			PRINTFORML 心疼地看着%DISHNAME%不断消失、%CALLNAME:MASTER%什么话也说不出来。
+			PRINTFORML 一瞬间文文的身影消失了、回过神时文文已经把%DISHNAME_TR()%拿在了手上。
+			PRINTFORML 「呼呼～、是%DISHNAME_TR()%啊……我開动了」
+			PRINTFORML 心疼地看着%DISHNAME_TR()%不断消失、%CALLNAME:MASTER%什么话也说不出来。
 			PRINTFORMW 「……唔唔、嘛、真美味呢……嗯、很好吃哦」
 			PRINTFORML 文文有点害羞的述说着品尝感想。
 			PRINTFORMW 看着小声打嗝的文文、%CALLNAME:MASTER%苦笑着说了声招待不周还请见谅。
@@ -2262,9 +2262,9 @@ IF LOCAL
 			PRINTFORML 怎么了、突然没事叫住我、
 			PRINTFORMW 「……你、是不是藏着什么东西啊？」
 			PRINTFORML 文文摆出乌鴉那样锐利的眼神说道。
-			PRINTFORML 算了实在不想被强行搜查身体、%CALLNAME:MASTER%老实地把%DISHNAME%交了出来。
-			PRINTFORML 「……呼～、是%DISHNAME%啊……那我就收下咯」
-			PRINTFORML 文文得意地说着、接过了%DISHNAME%。
+			PRINTFORML 算了实在不想被强行搜查身体、%CALLNAME:MASTER%老实地把%DISHNAME_TR()%交了出来。
+			PRINTFORML 「……呼～、是%DISHNAME_TR()%啊……那我就收下咯」
+			PRINTFORML 文文得意地说着、接过了%DISHNAME_TR()%。
 			PRINTFORML 嘛、收下礼物也不表示点什么这样好吗。
 			PRINTFORMW 「……唔……唔、唔嗯……嘛、说的也是」
 			PRINTFORML 随便说点什么吧、%CALLNAME:MASTER%直率地准备接受致谢。
@@ -2893,7 +2893,7 @@ IF LOCAL
 			PRINTFORMW 文文有点心不在焉的说道。
 			PRINTFORML 「……%CALLNAME:MASTER%桑的、孩子……生孩子……」
 			PRINTFORML 文文发自内心幸福地笑了。
-			PRINTFORMW 「…………那么、请多多关照、%CALLNAME:MASTER%桑%UNICODE(0x2665)%」
+			PRINTFORMW 「…………那么、请多多关照、%CALLNAME:MASTER%桑♥」
 		ELSE
 			PRINTFORML 
 			PRINTFORML 「……不是说过了吗、都没听进去吗？」
@@ -3211,7 +3211,7 @@ IF LOCAL
 				PRINTFORML 「哈啊～、哈啊～、嗯、啊呜～」
 				PRINTFORML 文文、沉溺在性玩具自慰行為之中。
 				PRINTFORML 她的神情恍惚、弥漫着春意。
-				PRINTFORML 「哈啊～、%CALLNAME:MASTER%、%CALLNAME:MASTER%～……%UNICODE(0x2665)%」
+				PRINTFORML 「哈啊～、%CALLNAME:MASTER%、%CALLNAME:MASTER%～……♥」
 				PRINTFORML 文文呼唤着%CALLNAME:MASTER%的名字、身体在性玩具的振動下震颤着。
 			CASE 1
 				PRINTFORML 「……嗯～……咕、唔～……啊～……」
@@ -3225,7 +3225,7 @@ IF LOCAL
 				PRINTFORML 「%CALLNAME:MASTER%、%CALLNAME:MASTER%～、哈啊～、%CALLNAME:MASTER%～……」
 				PRINTFORML 文文一边呼唤着%CALLNAME:MASTER%的名字、一边喘息着。
 				PRINTFORML 手上、也紧握着細长的振動玩具。
-				PRINTFORML 「哈啊～、嗯、啊啊～……喜欢、好喜欢～、啊～、啊啊%UNICODE(0x2665)%」
+				PRINTFORML 「哈啊～、嗯、啊啊～……喜欢、好喜欢～、啊～、啊啊♥」
 				PRINTFORML 沉溺于快楽中的文文、無意識地说道。
 				PRINTFORML 「……啊……诶……？　……嗯」
 				PRINTFORML 文文犹豫了一瞬间、红着脸继续開始玩弄着私处……。
@@ -3397,28 +3397,28 @@ IF LOCAL
 			PRINTFORML 突然、聽到了文的聲音。
 			PRINTFORML 「有一件、要報告的事情……」
 			PRINTFORMW 聲音很認真、但是帶著笑容、文繼續說了下去。
-			PRINTFORML 「……因為%CALLNAME:MASTER%射出的滿滿的那個……」
+			PRINTFORML 「……因為%CALLNAME:MASTER%射出的满满的那个……」
 			PRINTFORML 「……呵呵、我懷孕了」
-			PRINTFORMW 一邊撫摸著腹部、文靜靜的說道。
-			PRINTFORML 「……是男孩子、還是女孩子呢……？　呵呵、要取什麼名字呢……」
-			PRINTFORML 一個人嘟囔著的同時、文把身體靠了過來。
+			PRINTFORMW 一边撫摸著腹部、文靜靜的說道。
+			PRINTFORML 「……是男孩子、還是女孩子呢……？　呵呵、要取什么名字呢……」
+			PRINTFORML 一个人嘟囔著的同時、文把身體靠了過來。
 			PRINTFORML 「……我愛你、%CALLNAME:MASTER%桑」
-			PRINTFORMW 用溫柔的聲音、文這麼說道。
+			PRINTFORMW 用温柔的聲音、文這麼說道。
 			PRINTFORMW 
-			PRINTFORML 「……要多一個人的話、是不是有點太急性子了？」
-			PRINTFORML 稍微有點想要濃厚的身體接觸、文開玩笑的說道。
+			PRINTFORML 「……要多一个人的話、是不是有点太急性子了？」
+			PRINTFORML 稍微有点想要浓厚的身體接觸、文開玩笑的說道。
 		ELSE
 			PRINTFORML 
 			PRINTFORML 「……那个、%CALLNAME:MASTER%桑……」
 			PRINTFORML 文臉色泛紅、叫住了%CALLNAME:MASTER%。
-			PRINTFORML 「……那個、有一件、需要報告的事情……要告訴你……」
+			PRINTFORML 「……那个、有一件、需要報告的事情……要告訴你……」
 			PRINTFORMW 文有些口齒不清的繼續說著。
-			PRINTFORML 怎麼了？
-			PRINTFORML 「對了……就是……就是那個啊　最近……不是做了很多麼……？」
-			PRINTFORML 「……然後、就、那個……好像是、妊娠了……」
+			PRINTFORML 怎么了？
+			PRINTFORML 「對了……就是……就是那个啊　最近……不是做了很多麼……？」
+			PRINTFORML 「……然後、就、那个……好像是、妊娠了……」
 			PRINTFORML 滿臉通紅低下了頭的文這麼說著。
-			PRINTFORML %CALLNAME:MASTER%、不知道該說什麼才好沉默了一段時間。
-			PRINTFORMW 就這麼過了一會、文默默的坐到了身旁。
+			PRINTFORML %CALLNAME:MASTER%、不知道該說什么才好沉默了一段時間。
+			PRINTFORMW 就這麼过了一會、文默默的坐到了身旁。
 			PRINTFORML 「……%CALLNAME:MASTER%桑……我、我……」
 			PRINTFORML 「……想生下來、%CALLNAME:MASTER%桑的、孩子……」
 			PRINTFORML 抱住胳膊的時候、文這麼說道。
@@ -3426,7 +3426,7 @@ IF LOCAL
 			PRINTFORML 「……呼呼ー……」
 			PRINTFORML 文改変了姿勢抱了過來。
 			PRINTFORML 撫摸著文的頭、讓文非常開心。
-			PRINTFORML 在些許時間內、文和%CALLNAME:MASTER%就這樣靠在一起。
+			PRINTFORML 在些许時間内、文和%CALLNAME:MASTER%就這樣靠在一起。
 		ENDIF
 		RETURN 1
 	ENDIF

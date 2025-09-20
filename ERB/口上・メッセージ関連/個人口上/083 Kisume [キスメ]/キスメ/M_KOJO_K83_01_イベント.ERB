@@ -28,7 +28,7 @@ RETURNF 0
 ;酔ってる判定
 @M_KOJO_K83_YOIDORE(ARG)
 #FUNCTION
-SIF ALCOHOL_FACE(ARG) == "酔酒"
+SIF ALCOHOL_FACE(ARG) == "醉酒"
 	RETURNF 1
 SIF ALCOHOL_FACE(ARG) == "不省人事"
 	RETURNF 1
@@ -214,7 +214,7 @@ ENDSELECT
 
 ;### 口上存在判定 ###################################
 @M_KOJO_K83(ARG)
-;別人版を作成する際はこの貂プレではなく別人版用口上貂プレをご利用ください
+;別人版を作成する際はこのテンプレではなく別人版用口上テンプレをご利用ください
 
 ;口上存在判定です、けしてコメントアウトしないでください
 RETURN 1
@@ -465,7 +465,7 @@ IF LOCAL
 		PRINTFORMW 「%CALLNAME:MASTER%……闭一下眼睛……」
 		PRINTW 
 		SETCOLOR 255, 100, 255
-		PRINTFORML 啾…%UNICODE(0x2764)%
+		PRINTFORML 啾…❤
 		CALL M_KOJO_COLOR_K83
 		PRINTW 
 		PRINTFORMW 「对、对不起……这么突然……那个、我呀、只是……那个……」

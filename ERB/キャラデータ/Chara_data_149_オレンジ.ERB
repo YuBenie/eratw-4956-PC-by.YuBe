@@ -52,9 +52,9 @@ CASE "今天的睡衣"
 CASE "便装：帽子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "帽子"))
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))
 CASE "便装：裤子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裤子", "热裤"))
 CASE "便装：上身衣服２"
@@ -62,18 +62,18 @@ CASE "便装：上身衣服２"
 CASE "便装：上身衣服１"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服１", "无袖上衣"))
 CASE "便装：其他１"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "蝴蝶結"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "蝴蝶结"))
 CASE "便装：其他２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他２", "バトン"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "skintight")
+	CALLF MAKE_STR(V_NAME, "紧身的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "gymnastics shorts")
+	CALLF MAKE_STR(V_NAME, "运动短裤")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "training bra")
+	CALLF MAKE_STR(V_NAME, "运动文胸")
 CASE "固有内衣着用条件"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有内衣半透明(前)"
@@ -92,7 +92,7 @@ CASE "料理：助手効果"
 	CALLF MAKE_STR(V_NAME, "果物/")
 ;贈り物関連
 CASE "感性：好き"
-	CALLF MAKE_STR(V_NAME, "夏の/緑/黄/指揮棒/蝴蝶結/发带/芸術的/" + "手板/杖/妖術/" * 3 + "橙子の/充滿力量/"* 5)
+	CALLF MAKE_STR(V_NAME, "夏の/緑/黄/指揮棒/蝴蝶结/发带/芸術的/" + "手板/杖/妖術/" * 3 + "橙子の/充滿力量/"* 5)
 CASE "感性：嫌い"
 	CALLF MAKE_STR(V_NAME, "知的/欲望の/" + "厄の/不吉の/巫女の/驅魔棒/博霊の/" * 10) 
 ENDSELECT

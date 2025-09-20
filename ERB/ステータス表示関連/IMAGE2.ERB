@@ -1,5 +1,5 @@
 ﻿;=========================================================
-;@GET_BASE_RESOURCE(CHARA, 表示形式, 服装, 表情, 表情_マウスオーバー, 差分)
+;@GET_BASE_RESOURCE_TRANS(CHARA, CHARATRANS, 表示形式, 服装, 表情, 表情_マウスオーバー, 差分)
 ;	基本画像のリソースを返却する
 ;		RETURNS:0 にリソース、RETURNS:1 にマウスオーバーリソースをそれぞれ格納
 ;		CHARAにキャラクタ番号、その他の引数を入力でリソースを指定できる
@@ -21,9 +21,9 @@ RESULT = 0
 
 ;custom code, EagloV's alt images
 VARSET RESULTS ;bug fix, fix reusing previous calls RESULTS
-TRYCCALLFORM SPECIAL_BASE_IMAGE_{CHARA}
+TRYCCALLFORM SPECIAL_BASE_IMAGE_{NO:CHARATRANS}
 IF RESULTS != ""
-	TRYCCALLFORM %RESULTS%_GET_BASE_RESOURCE(CHARA, 服装, 表情)
+	TRYCCALLFORM %RESULTS%_GET_BASE_RESOURCE(NO:CHARATRANS, 服装, 表情)
 	CATCH
 		VARSET RESULTS
 	ENDCATCH
@@ -37,10 +37,10 @@ ENDCATCH
 ;差分
 IF 差分 == ""
 	RESULTS:2 = %表情%
-    TRYCCALLFORM IMAGE_I{CHARATRANS}_差分(CHARATRANS)
+	CALL IMAGE_CHARA_OVERRIDE("差分", CHARATRANS,,,CHARA)
+    IF RESULT:1
         差分 = %RESULTS%
-	CATCH
-    ENDCATCH
+	ENDIF
 ENDIF
 
 ;服装
@@ -50,6 +50,11 @@ IF 服装 == ""
     ELSE
         服装 = 服
     ENDIF
+	CALL IMAGE_CHARA_OVERRIDE("特殊服装", CHARATRANS,,,CHARA)
+	IF RESULT:1
+		服装 += RESULTS
+	ENDIF
+	;todo remove
     ;この関数中の裸判定が変化先のキャラで行われているため特殊服があるキャラで裸が正しく表示できない
     ;逆に言うと変化先のキャラが裸だと元のキャラが服を正しく着られないことになる
     ;そもそも変身後の服装まで正確である必要なくない？というわけでコメントアウト
@@ -104,6 +109,12 @@ RETURN RESULT
 
 TEMP_服装 = %服装%
 服装 = %乳量%%服装%
+CALL IMAGE_CHARA_OVERRIDE("体形", CHARATRANS,,,CHARA)
+IF RESULT:1
+	服装 = %RESULTS%%服装%
+	TEMP_服装 = %RESULTS%%TEMP_服装%
+ENDIF
+;todo remove
 ;53行参照 コメントアウト
 ;TRYCCALLFORM IMAGE_I{CHARATRANS}_体形(CHARATRANS)
 ;	服装 = %RESULTS%%服装%
@@ -152,6 +163,12 @@ RETURN 1
 #DIMS SET_RESOURCE = "BASE巨乳拆分", "マウスオーバー巨乳拆分", "BASE", "マウスオーバー", "BASE巨乳", "マウスオーバー巨乳"
 
 SET_RESOURCE:4 = %乳量%%服装%
+CALL IMAGE_CHARA_OVERRIDE("体形", CHARATRANS,,,CHARA)
+IF RESULT:1
+	服装 = %RESULTS%%服装%
+	SET_RESOURCE:4 = %RESULTS%%SET_RESOURCE:4%
+ENDIF
+;todo remove
 ;53行参照 コメントアウト
 ;TRYCCALLFORM IMAGE_I{CHARATRANS}_体形(CHARATRANS)
 ;	服装 = %RESULTS%%服装%
@@ -226,7 +243,7 @@ RETURN 1
 	
 LOCAL = CFLAG:CHARATRANS:差し替え適用
 
-IF 表示形式=="顔絵" || (FLAG:立ち絵種類 && 表示形式=="")
+IF 表示形式=="顔絵" || (FLAG:立絵種類 && 表示形式=="")
 	SIF CFLAG:CHARATRANS:差し替え適用 > CFLAG:CHARATRANS:別顔有
 		CFLAG:CHARATRANS:差し替え適用 = 0
 	IF CFLAG:CHARATRANS:差し替え適用 && CFLAG:CHARATRANS:別顔有 && HAS_FACE(CHARATRANS)
@@ -234,13 +251,13 @@ IF 表示形式=="顔絵" || (FLAG:立ち絵種類 && 表示形式=="")
 	ELSE
 		表示形式 = 顔絵
 	ENDIF
-ELSEIF 表示形式=="立ち絵" || (!FLAG:立ち絵種類 && 表示形式=="")
+ELSEIF 表示形式=="立絵" || (!FLAG:立絵種類 && 表示形式=="")
 	SIF CFLAG:CHARATRANS:差し替え適用 > CFLAG:CHARATRANS:別立ち有
 		CFLAG:CHARATRANS:差し替え適用 = 0
 	IF CFLAG:CHARATRANS:差し替え適用 && CFLAG:CHARATRANS:別立ち有 && HAS_STANDING(CHARATRANS)
 		表示形式 = %\@CFLAG:CHARATRANS:差し替え適用 >= 2 ?別立ち{CFLAG:CHARATRANS:差し替え適用}#別立ち\@%
 	ELSE
-		表示形式 = 立ち絵
+		表示形式 = 立絵
 	ENDIF
 ENDIF
 
@@ -248,22 +265,8 @@ CFLAG:CHARATRANS:差し替え適用 = LOCAL
 
 RETURNF 表示形式
 
-
-;裸表示条件を返却する
-@CHECK_NUDE_TRANS(CHARA)
-#FUNCTION
-#DIM CHARA
-
-SIF FLAG:立ち絵種類 && !TEQUIP:CHARA:上半身着衣状況
-	RETURNF 1
-SIF !FLAG:立ち絵種類 && !TEQUIP:CHARA:上半身着衣状況 && !TEQUIP:CHARA:下半身着衣状況
-	RETURNF 1
-SIF BATHROOM(CFLAG:CHARA:現在位置) && !TFLAG:泡風呂
-	RETURNF 1
-RETURNF 0
-
 ;=========================================================
-;@GET_FACETYPE(CHARA, 表示形式, 服装, 差分 )
+;@GET_FACETYPE_TRANS(CHARA, CHARATRANS, 表示形式, 服装, 差分 )
 ;	表情を現在のステータスから自動決定する
 ;		RETURNS:0 にリソース、RETURNS:1 にマウスオーバーリソースをそれぞれ格納
 ;=========================================================
@@ -345,7 +348,7 @@ IF CFLAG:CHARA:うふふ && GETPALAMLV(PALAM:CHARA:欲情, 10) >= 7 && SPRITECRE
 	ENDIF
 ENDIF
 ;専用の特殊表情変化
-TRYCALLFORM IMAGE_I{CHARATRANS}_特殊表情(CHARATRANS)
+CALL IMAGE_CHARA_OVERRIDE("特殊表情", CHARATRANS,,,CHARA)
 SIF RESULTS:0 == ""
 	RESULTS:0 = 通常
 SIF RESULTS:1 == ""
@@ -366,7 +369,7 @@ SELECTCASE SELECTCOM
 	;愛撫系
 	CASE 0 TO 15
 		IF SELECTCOM == 9
-			RESULTS:0 = オナニー
+			RESULTS:0 = 自慰
 		ELSE
 			RESULTS:0 = 愛撫
 		ENDIF
@@ -393,17 +396,7 @@ SIF RAND:3 && TCVAR:CHARA:発情 && SPRITECREATED(@"%表示形式%_%服装%_発�
 	SWAP RESULTS:0, RESULTS:1
 
 ;専用の特殊表情変化
-TRYCALLFORM IMAGE_I{CHARATRANS}_特殊表情COM(CHARATRANS, SELECTCOM)
-
-;性交中判定
-@IS_SEXING_TRANS(ARG)
-#FUNCTION
-
-SIF !ARG
-	ARG = TARGET
-SIF TEQUIP:ARG:Ｖ接触部位 == MASTER || TEQUIP:ARG:Ａ接触部位 == MASTER || TEQUIP:MASTER:Ｖ接触部位 == ARG || TEQUIP:MASTER:Ａ接触部位 == ARG
-	RETURNF 1
-RETURNF 0
+CALL IMAGE_CHARA_OVERRIDE("特殊表情COM", CHARATRANS, SELECTCOM,,CHARA)
 
 ;=========================================================
 ;@GET_EFFECT_RESOURCE_TRANS(CHARA,CHARATRANS, エフェクト, 表示形式, 差分)
@@ -430,9 +423,9 @@ SIF !FLAG:追加エフェクト
 VARSET RESULTS
 
 ;custom code, EagloV's alt images
-TRYCCALLFORM SPECIAL_EFFECT_IMAGE_{CHARATRANS}
+TRYCCALLFORM SPECIAL_EFFECT_IMAGE_{NO:CHARATRANS}
 IF RESULTS != ""
-	TRYCCALLFORM %RESULTS%_GET_EFFECT_RESOURCE(CHARATRANS, エフェクト)
+	TRYCCALLFORM %RESULTS%_GET_EFFECT_RESOURCE(NO:CHARATRANS, エフェクト)
 	CATCH
 		VARSET RESULTS
 	ENDCATCH
@@ -443,6 +436,13 @@ ENDCATCH
 
 
 表示形式 = %GET_BASESTYLE_TRANS(CHARA,CHARATRANS, 表示形式)%
+IF 差分 == ""
+	CALL IMAGE_CHARA_OVERRIDE("差分", CHARATRANS,,,CHARA)
+	IF RESULT:1
+        差分 = %RESULTS%
+	ENDIF
+ENDIF
+;todo remove
 ;53行参照
 ;IF 差分 == ""
 ;	TRYCCALLFORM IMAGE_I{CHARATRANS}_差分(CHARATRANS)
@@ -454,10 +454,10 @@ ENDCATCH
 ;照れ
 IF STRFIND(エフェクト, "照れ") != -1 || (エフェクト == "" && CHECK_BLUSH_TRANS(CHARA,CHARATRANS, 表示形式, 差分))
 	エフェクト名 = 照れ
-	TRYCCALLFORM IMAGE_I{CHARATRANS}_特殊照れ(CHARATRANS)
+	CALL IMAGE_CHARA_OVERRIDE("特殊照れ", CHARATRANS,,,CHARA)
+	IF RESULT:1
 		エフェクト名 '= RESULTS + エフェクト名
-	CATCH
-	ENDCATCH
+	ENDIF
 	SIF (CHECK_NUDE(CHARA) || STRFIND(エフェクト, "照れ") != -1) && SPRITECREATED(@"%表示形式%_裸%エフェクト名%_{CHARATRANS}%差分%")
 		エフェクト名 '= "裸" + エフェクト名
 	IF SPRITECREATED(@"%表示形式%_%エフェクト名%_{CHARATRANS}%差分%")
@@ -469,10 +469,10 @@ ENDIF
 ;吐息
 IF STRFIND(エフェクト, "吐息") != -1 || (エフェクト == "" && CHECK_EXHALATION(CHARA))
 	エフェクト名 = 吐息
-	TRYCCALLFORM IMAGE_I{CHARATRANS}_特殊吐息(CHARATRANS)
+	CALL IMAGE_CHARA_OVERRIDE("特殊吐息", CHARATRANS,,,CHARA)
+	IF RESULT:1
 		エフェクト名 '= RESULTS + エフェクト名
-	CATCH
-	ENDCATCH
+	ENDIF
 	SIF (CHECK_NUDE(CHARA) || STRFIND(エフェクト, "吐息") != -1) && SPRITECREATED(@"%表示形式%_裸%エフェクト名%_{CHARATRANS}%差分%")
 		エフェクト名 '= "裸" + エフェクト名
 	IF SPRITECREATED(@"%表示形式%_%エフェクト名%_{CHARATRANS}%差分%")
@@ -484,10 +484,10 @@ ENDIF
 ;汗
 IF STRFIND(エフェクト, "汗") != -1 || (エフェクト == "" && CHECK_SWEAT(CHARA))
 	エフェクト名 = 汗
-	TRYCCALLFORM IMAGE_I{CHARATRANS}_特殊汗(CHARA)
+	CALL IMAGE_CHARA_OVERRIDE("特殊汗", CHARATRANS,,,CHARA)
+	IF RESULT:1
 		エフェクト名 '= RESULTS + エフェクト名
-	CATCH
-	ENDCATCH
+	ENDIF
 	SIF (CHECK_NUDE(CHARA) || STRFIND(エフェクト, "汗") != -1) && SPRITECREATED(@"%表示形式%_裸%エフェクト名%_{CHARATRANS}%差分%")
 		エフェクト名 '= "裸" + エフェクト名
 	IF SPRITECREATED(@"%表示形式%_%エフェクト名%_{CHARATRANS}%差分%")
@@ -498,9 +498,9 @@ ENDIF
 
 ;特殊
 RESULT = 0
-TRYCALLFORM IMAGE_I{CHARATRANS}_特殊エフェクトチェック(CHARATRANS, エフェクト)
+CALL IMAGE_CHARA_OVERRIDE("特殊エフェクトチェック", CHARATRANS,,エフェクト, CHARA)
 IF RESULT || エフェクト == ""
-	TRYCALLFORM IMAGE_I{CHARATRANS}_特殊エフェクト(CHARATRANS)
+	CALL IMAGE_CHARA_OVERRIDE("特殊エフェクト", CHARATRANS,,,CHARA)
 	FOR LOCAL, 0, RESULT
 		IF SPRITECREATED(@"%表示形式%_%RESULTS:LOCAL%_{CHARATRANS}%差分%")
 			リソース:(エフェクト数) = %表示形式%_%RESULTS:LOCAL%_{CHARATRANS}%差分%

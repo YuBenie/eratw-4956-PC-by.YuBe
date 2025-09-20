@@ -44,9 +44,9 @@ CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（裤子）套")
 
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))
 CASE "便装：連衣裙"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("連衣裙", "連衣裙"))
 CASE "便装：上身衣服２"
@@ -55,13 +55,13 @@ CASE "便装：其他１"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "结丝巾"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "embarrassingly childish")
+	CALLF MAKE_STR(V_NAME, "孩子气到让人脸红的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "teddy bear scanties")
+	CALLF MAKE_STR(V_NAME, "泰迪熊内裤")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "flexible chest protector")
+	CALLF MAKE_STR(V_NAME, "柔性胸衣")
 CASE "固有内衣着用条件"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有内衣半透明(前)"
@@ -99,7 +99,7 @@ ENDSELECT
 ;DISH_NAME = Sara's Salad
 DISH_NAME = 萨拉沙拉
 RESULTS = 軽食
-CALL 材料設定("捲心菜", "番茄", "胡蘿卜", "黄瓜", "芜菁", "白菜", "南瓜", "山菜")
+CALL 材料設定("卷心菜", "番茄", "胡萝卜", "黄瓜", "芜菁", "白菜", "南瓜", "山菜")
 DISH_TASTE = 葉物/野菜/酸/简易/健康/新鲜/家庭的/春物/野趣/松脆/松脆/質素/質素/樸素/樸素/樸素/薬効/
 ;DISH_COMMENT = A fresh salad made with various vegetables that are easy to cut. It's light and crunchy, but also has a tangy flavor that stimulates the appetite. Suitable for beginners in cooking and eating healthy.
 DISH_COMMENT =  一种容易切制而成的多种蔬菜混搭的沙拉，分量轻口感脆，同时有着很浓烈的酸味来刺激胃口，十分适合做菜和健康饮食方面的新手

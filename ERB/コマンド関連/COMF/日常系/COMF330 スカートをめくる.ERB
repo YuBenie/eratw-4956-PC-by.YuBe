@@ -4,7 +4,7 @@
 ;-------------------------------------------------
 @COM330
 #DIM MEKURI
-IF FLAG:70 == 1
+IF (FLAG:70 == 1 && CFLAG:TARGET:344 == 0)
 	BASE:MASTER:TSP -= 10
 ELSE
 	;固定で獲得するソース
@@ -58,11 +58,11 @@ ELSE
 	;好感度が低いと好感度低下
 	IF CFLAG:2 <= 100
 		TFLAG:193 = -5
-		DOWNBASE:MASTER:体力 -= ABL:戦闘能力 * 100
+		DOWNBASE:MASTER:体力 += ABL:戦闘能力 * 100
 		TFLAG:掀裙子すぎ += RAND:30
 	ELSEIF CFLAG:2 <= 1000
 		TFLAG:193 = -3
-		DOWNBASE:MASTER:体力 -= ABL:戦闘能力 * 30
+		DOWNBASE:MASTER:体力 += ABL:戦闘能力 * 30
 		TFLAG:掀裙子すぎ += RAND:20
 	ELSEIF CFLAG:2 <= 3000
 		TFLAG:193 = -1
@@ -126,7 +126,7 @@ SIF !TFLAG:100
 SIF GLOBAL_COMABLE(330)
 	RETURN RESULT
 ;时间停止中以及潜伏诶嘿嘿时跳过
-IF !FLAG:70 || CFLAG:344 == 1 || !GETBIT(CFLAG:526,0)
+IF (!FLAG:70 || CFLAG:344 == 1) && !GETBIT(CFLAG:526,0)
 	;睡眠中
 	SIF CFLAG:睡眠
 		RETURN 0

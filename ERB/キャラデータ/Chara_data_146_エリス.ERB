@@ -50,32 +50,32 @@ CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（连衣裙）套")
 
 CASE "便装：帽子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "蝴蝶結"))
-CASE "便装：和服"
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "蝴蝶结"))
+CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 CASE "便装：裙子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "長裙"))	
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "长裙"))	
 CASE "便装：其他１"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "丝帯領巾"))
 CASE "便装：其他２"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他２", "花飾り"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他２", "花饰"))
 CASE "便装：其他３"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他３", "魔法のステッキ"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他３", "星之杖"))
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))	
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))	
 CASE "便装：外搭"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("外搭", "夹克衫"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "mischievously devilish")
+	CALLF MAKE_STR(V_NAME, "小恶魔风的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "red star-shaped panties")
+	CALLF MAKE_STR(V_NAME, "红星图案内裤")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "red star-shaped bra")
+	CALLF MAKE_STR(V_NAME, "红星图案胸罩")
 CASE "固有内衣着用条件"
 	SIF !RAND:(3 - (2 * 勝負内衣判定([[依莉斯]])))
 		CALLF MAKE_INT(V_NAME, 1)
@@ -115,7 +115,7 @@ ENDSELECT
 DISH_NAME = 巧克力带来死亡
 RESULTS = 甜点
 CALL 材料設定("高級巧克力", "巧克力")
-DISH_TASTE '= "蛋糕/卵/牛奶/上品/高級食材/芸術的/魔界風/丰盛/丰盛/豪快/豪華/" + "濃厚/"*3 + "甘い/"*10 + "魔力/強精/魔性/"
+DISH_TASTE '= "蛋糕/卵/牛奶/上品/高级食材/芸術的/魔界風/丰盛/丰盛/豪快/豪華/" + "濃厚/"*3 + "甘い/"*10 + "魔力/強精/魔性/"
 ;DISH_COMMENT = A decadent dessert made with layers of chocolate cake, mousse, ganache, and shavings. Rich and indulgent, but also very filling (in every sense), and can cause a sugar coma if eaten too much.
 DISH_COMMENT = 由巧克力蛋糕、巧克力慕斯、巧克力酱和巧克力刨花层层制成的颓废但非常令人满足（各种意义上）的甜品，吃太多的话要小心糖昏迷哦
 RETURN 1

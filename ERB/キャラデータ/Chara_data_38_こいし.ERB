@@ -78,16 +78,16 @@ CASE "今天的睡衣"
 CASE "便装：帽子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "帽子"))
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))
 CASE "便装：裙子"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("裙子", "裙子"))
 CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "大概不是恋恋的东西")
+	CALLF MAKE_STR(V_NAME, "大概不是恋恋的")
 CASE "固有下半身内衣名"
 	CALLF MAKE_STR(V_NAME, "性感内裤")
 CASE "固有上半身内衣"
@@ -159,15 +159,15 @@ IF CFLAG:CHARA:差し替え適用
 	ELSE
 		;服
 		IF  NUDITYCHECK(CHARA) == 1
-			RESULTS = _内衣P
+			RESULTS = _下着P
 			SIF FLAG:立絵種類
 				RESULTS = _半裸
 		ELSEIF NUDITYCHECK(CHARA) == 2
-			RESULTS = _内衣B
+			RESULTS = _下着B
 		ELSEIF NUDITYCHECK(CHARA) == 3
-			RESULTS = _内衣
+			RESULTS = _下着
 			SIF FLAG:立絵種類
-				RESULTS = _内衣B
+				RESULTS = _下着B
 		ENDIF
 	ENDIF
 ELSE

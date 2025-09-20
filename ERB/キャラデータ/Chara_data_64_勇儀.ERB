@@ -60,11 +60,13 @@ CASE "便装：上身衣服２"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("上身衣服２", "女式衬衫"))
 CASE "便装：其他１"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "拘束具"))
+CASE "便装：飾品"
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("飾品", "酒杯"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "超强")
+	CALLF MAKE_STR(V_NAME, "超强的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "虎皮の鬼胖次")
+	CALLF MAKE_STR(V_NAME, "虎皮鬼胖次")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
@@ -83,7 +85,7 @@ CASE "固有内衣布料厚度"
 CASE "料理：喜欢的味道"
 	CALLF MAKE_STR(V_NAME, "肉料理/香料/和食/鍋物/開胃/辣/丰盛/濃厚/芸術的/野趣/豪快/松脆/地底風/天狗流/" + "咸/" * 3)
 CASE "料理：讨厌的味道"
-	CALLF MAKE_STR(V_NAME, "简易/淡白/甜/甜/謎料理/謎料理/謎料理/化学的/化学的/化学的/" + "小人族秘伝的味道/" * 5)
+	CALLF MAKE_STR(V_NAME, "简易/淡白/甜/甜/謎料理/謎料理/謎料理/化学的/化学的/化学的/" + "小人族秘伝の味/" * 5)
 CASE "料理：助手効果"
 	CALLF MAKE_STR(V_NAME, "地底風/得意料理＊豪快＊/")
 ;贈り物関連
@@ -108,7 +110,7 @@ DISH_NAME = 牡丹火鍋
 RESULTS = 主食
 CALL 材料設定("獣肉")
 DISH_TASTE = 肉料理/野菜/和食/鍋物/丰盛/濃厚/芸術的/野趣/咸/
-DISH_COMMENT = 使用和妖怪非常接近的野猪的肉的鍋料理。排列整齐的肉就像牡丹花一样美丽。
+DISH_COMMENT = 使用和妖怪非常接近的野猪的肉的锅料理。排列整齐的肉就像牡丹花一样美丽。
 RETURN 1
 
 ;IMAGE_I64_差分(CHARA)-----------------------------------------------------------------------
@@ -130,8 +132,9 @@ IF CFLAG:CHARA:差し替え適用
 		;立絵
 	ENDIF
 ELSE
-	SIF CFLAG:CHARA:1001
+	IF CURRENT_CLOTHES_SET(CHARA) == 75 && !CHECK_NUDE(CHARA)
 		RESULTS = _黄昏
+	ENDIF
 ENDIF
 
 ;IMAGE_I64_特殊エフェクト(CHARA)--------------------------------------------------------------------
@@ -156,18 +159,6 @@ ELSE
 	;通常画像
 	IF FLAG:立絵種類
 		;顔絵
-		IF CFLAG:CHARA:1001
-			IF CFLAG:64:脸上精液
-				;胸ぶっかけ
-				RESULTS:エフェクト数 = 顔精液
-				エフェクト数 += 1
-			ENDIF
-			IF CFLAG:64:口内精液
-				;口交
-				RESULTS:エフェクト数 = 胸精液
-				エフェクト数 += 1
-			ENDIF
-		ENDIF
 	ELSE
 		;立絵
 	ENDIF

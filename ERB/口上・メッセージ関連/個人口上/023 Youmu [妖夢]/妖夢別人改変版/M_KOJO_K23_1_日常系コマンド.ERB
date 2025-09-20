@@ -3,7 +3,7 @@
 ;※※※※※※※※※※※※※※※※※※※※※※※※※
 ;==================================================
 ;300,会话
-;TFLAG:193(1=大成功 0=成功 -1=失败 -2=大失败（TARGETがMASTERより教養が4以上高い)
+;TFLAG:193(1=大成功 0=成功 -1=失败 -2=大失败（TARGETがMASTERより教养が4以上高い)
 ;TCVAR:302(0=会话可能 1>=非恋慕时会话不能)
 ;MARK:反発刻印(3以上=会话不能)(4以上はバグ
 ;TCVAR:烂醉(1=通常成功or大失败)
@@ -39,17 +39,17 @@ IF LOCAL
 
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦默默地将手放在刀柄上……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦默默地将手放在刀柄上……
 
-	;反発刻印有
+	;反感刻印有
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTDATAW
 			DATAFORM 「……请不要轻易和我交谈」
 			DATAFORM 「……这是浪费时间」
 			DATAFORM 「……可以考虑收拾一下离开吗？」
 		ENDDATA
-		PRINTFORMW 无法隐藏烦躁，妖梦不悦地瞪着%CALLNAME:MASTER%……
+		PRINTFORMDW 无法隐藏烦躁，妖梦不悦地瞪着%CALLNAME:MASTER%……
 
 	;心情不快　3分の1で选择
 	ELSEIF TALENT:心情 == -1 && RAND:3 == 0
@@ -61,7 +61,7 @@ IF LOCAL
 		ELSE
 			PRINTFORMW 「……是这样%TEXTR("吗/啊/")%」
 		ENDIF
-		PRINTFORMW 尽管面带佛系表情，妖梦似乎并没有完全忽略%CALLNAME:MASTER%的谈话
+		PRINTFORMDW 尽管面带佛系表情，妖梦似乎并没有完全忽略%CALLNAME:MASTER%的谈话
 
 	;会话不能
 	ELSEIF TCVAR:302
@@ -70,7 +70,7 @@ IF LOCAL
 			PRINTFORMW 「但我现在这样已经足够了……明白吗？」
 		ELSE
 			PRINTFORML 「嗯？那个话题刚才不是已经……」
-			PRINTFORMW 察觉到话题的重复，妖梦表情有些尴尬……
+			PRINTFORMDW 察觉到话题的重复，妖梦表情有些尴尬……
 		ENDIF
 
 	;失败
@@ -79,19 +79,19 @@ IF LOCAL
 			SELECTCASE RAND:2
 				CASE 0
 					PRINTFORML 「……啊，说起来前几天发生了这样一件事——」
-					PRINTFORMW 虽然有些生硬，但妖梦体贴地抛出了一个话题
+					PRINTFORMDW 虽然有些生硬，但妖梦体贴地抛出了一个话题
 				CASE 1
 					PRINTFORML 「诶……？%CALLNAME:MASTER%先生，这种玩笑还是不要在其他场合开比较好……」
-					PRINTFORMW 看来这只是句玩笑话……
+					PRINTFORMDW 看来这只是句玩笑话……
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:2
 				CASE 0
 					PRINTFORML 「嗯……那个……嗯，怎么了？」
-					PRINTFORMW 妖梦一脸疑惑，似乎不太明白发生了什么……
+					PRINTFORMDW 妖梦一脸疑惑，似乎不太明白发生了什么……
 				CASE 1
 					PRINTFORML 「…………诶？抱歉，我，刚才没听清楚」
-					PRINTFORMW 似乎是被忽略了，妖梦有点尴尬地歪着头……
+					PRINTFORMDW 似乎是被忽略了，妖梦有点尴尬地歪着头……
 			ENDSELECT
 		ENDIF
 
@@ -102,7 +102,7 @@ IF LOCAL
 				CASE 0
 					PRINTFORMW 「啊？啊，哇……被%CALLNAME:MASTER%先生这么说……我都不好意思了……」
 					PRINTFORML 「……呜……那、那样说太过奖了吧……呜呜……」
-					PRINTFORMW 在谈话中突然被大加赞赏的妖梦脸红着缩成一团
+					PRINTFORMDW 在谈话中突然被大加赞赏的妖梦脸红着缩成一团
 				CASE 1
 					PRINTFORML 「……嗯嗯，原来如此。%CALLNAME:MASTER%先生的话有时真的很有启发性呢」
 					PRINTFORMW 「——不、不是……偶尔有启发性的话就够了」
@@ -112,18 +112,18 @@ IF LOCAL
 			SELECTCASE RAND:2
 				CASE 0
 					PRINTFORML 「这是什么，就算是我也……哈哈哈！」
-					PRINTFORMW 这个玩笑非常受欢迎
+					PRINTFORMDW 这个玩笑非常受欢迎
 				CASE 1
 					PRINTFORML 「嗯嗯……原来如此……」
-					PRINTFORMW 妖梦对这个不经意提到的话题似乎产生了出乎意料的兴趣
+					PRINTFORMDW 妖梦对这个不经意提到的话题似乎产生了出乎意料的兴趣
 			ENDSELECT
 		ENDIF
 
 	;恋慕　まず20は书き出したい
 	ELSEIF TALENT:恋慕
-		SELECTCASE RAND:27
+		SELECTCASE RAND:28
 			CASE 0
-				PRINTFORML 「其实半灵也是能够在一定程度上独自行動的」
+				PRINTFORML 「其实半灵也是能够在一定程度上独自行动的」
 				PRINTFORMW 「所以如果%CALLNAME:MASTER%有什么要求的话，我可以借给你一天」
 				PRINTFORML 「……诶？ 食物？ 散步？」
 				PRINTFORMW 「喂！我可不是宠物！」
@@ -142,7 +142,7 @@ IF LOCAL
 				PRINTFORMW 「……我希望有一天能介绍给你认识。我一直这么想着」
 			CASE 4
 				PRINTFORML 「真是的，如果总是说些随便的话，你可能会对我失去兴趣的哦？」
-				PRINTFORMW 妖梦愉快地听着%CALLNAME:MASTER%的故事
+				PRINTFORMDW 妖梦愉快地听着%CALLNAME:MASTER%的故事
 				PRINTFORMW 「虽然我已经习惯了♪」
 			CASE 5
 				PRINTFORML 「——好像有这样的事情。是不是很了不起？」
@@ -152,7 +152,7 @@ IF LOCAL
 						PRINTFORMW 「啊不好意思太得意了，所以半灵是咻咻！？」
 					ELSE
 						PRINTFORML 「……哎呀？嗯，好像露馅了？为什么……？」
-						PRINTFORMW %CALLNAME:MASTER%选择对身旁那个看起来不自然而焦躁的半灵保持沉默
+						PRINTFORMDW %CALLNAME:MASTER%选择对身旁那个看起来不自然而焦躁的半灵保持沉默
 					ENDIF
 			CASE 6
 				PRINTFORMW 「由于幽幽子大人根本不来练习，我对『指南者』这个头衔开始感到危机感」
@@ -163,7 +163,7 @@ IF LOCAL
 				PRINTFORML 「快乐？盘念？那是什么？」
 				PRINTFORMW 「嗯，呃……？大概不会变成大炮吧，但……？」
 			CASE 8
-				IF CFLAG:23:2001 == 1
+				IF CFLAG:23:1001 == 1
 					PRINTFORMW 「……或许我还没有握有白楼剑的资格吧」
 					PRINTFORML 「不得不放弃的情感，一直缠绕着」
 					PRINTFORMW 「甚至，我希望它能够变成一片无所谓的模糊……」
@@ -196,7 +196,7 @@ IF LOCAL
 					;合意前后で分岐させられるだろうか？
 					IF CFLAG:1 > 0 && RAND:2 == 0
 						PRINTFORMW 「如果是这样的话……我想请你多多教导我」
-						PRINTFORMW 妖梦静静地微笑着看向%CALLNAME:MASTER%，眼中似乎有一丝妖异的光芒……
+						PRINTFORMDW 妖梦静静地微笑着看向%CALLNAME:MASTER%，眼中似乎有一丝妖异的光芒……
 					ELSE
 						PRINTFORMW 「如果是这样的话，请多多教导我，日日精进！」
 					ENDIF
@@ -211,7 +211,7 @@ IF LOCAL
 						PRINTFORML 「啊，幽幽子大人。发生了什么事吗？」
 						PRINTFORMW 「……诶，点心？」
 						PRINTFORML 「怎么办……唔，那就用这个%TEXTR("馒头/最中/羊羹/蕨饼/蜂蜜蛋糕/")%当作代替吧……」
-						PRINTFORMW 从她犹豫的表情看，那应该是她自己的点心吧……
+						PRINTFORMDW 从她犹豫的表情看，那应该是她自己的点心吧……
 					ENDIF
 				ELSE
 					IF TALENT:66:恋慕
@@ -268,7 +268,7 @@ IF LOCAL
 				PRINTFORMW 「现在，或许能更冷静地面对这个教诲了」
 			;捕虫しよう！
 			CASE 19
-				IF CFLAG:23:3303 == 1
+				IF CFLAG:23:1303 == 1
 					PRINTFORML 「那只蝴蝶……是黑死蝶吗。单枪匹马就想抓住它是不可能的哦」
 					PRINTFORMW 「不知何时飞在冥界的那只蝴蝶，我第一次发现它的时候，是停在西行妖的树枝上休息翅膀」
 					PRINTFORML 「难道紫大人的弹幕就这样拥有了生命吗？如果是她的话，连这种事也是有可能的」
@@ -281,7 +281,7 @@ IF LOCAL
 					PRINTFORMW 「虽然不至于认真警戒，但还是会感到有些担心」
 				ENDIF
 			CASE 20
-				IF CFLAG:23:3313 == 1
+				IF CFLAG:23:1313 == 1
 					PRINTFORML 「唔唔唔…………是的，我有点在想事情」
 					PRINTFORMW 「多亏了%CALLNAME:MASTER%先生，我知道了有一种叫做天鱼的虫子的存在，但这次我在好奇它机动力的秘密」
 					PRINTFORML 「即使是瞬间的事也就算了，能够一直保持那个速度飞行的生物很少见呢」
@@ -293,10 +293,10 @@ IF LOCAL
 					PRINTFORMW 「……回想起来，感觉大多是在月初遇到的。到底是什么东西呢……？」
 				ENDIF
 			CASE 21
-				IF CFLAG:23:3319 == 1
+				IF CFLAG:23:1319 == 1
 					PRINTFORML 「之前和%CALLNAME:MASTER%先生一起发现过三叶虫对吧。从那以后我自己也时常去找」
 					PRINTFORMW 「一旦有了主动去找的意识反而很难找到。看来是比想象中更稀有的虫子呢」
-					PRINTFORML 「话说回来、就算突然遇到也不像\@ CFLAG:23:3320 == 1 ? 异虫 # 那种奇怪的虾 \@或巨大鼠妇那样需要警惕、是种和平无害的生物呢」
+					PRINTFORML 「话说回来、就算突然遇到也不像\@ CFLAG:23:1320 == 1 ? 异虫 # 那种奇怪的虾 \@或巨大鼠妇那样需要警惕、是种和平无害的生物呢」
 					PRINTFORMW 「……诶、这种虫还能长到那么大吗！？　那已经几乎是妖怪了吧……」
 				ELSE
 					PRINTFORML 「我有个可能有点突兀的问题……水里也有鼠妇吗？」
@@ -306,7 +306,7 @@ IF LOCAL
 					PRINTFORMW 「另一种怎么说呢……外表有很多尖刺。奇怪的是这种只在冥界见过、包括上一点在内都很不可思议呢」
 				ENDIF
 			CASE 22
-				IF CFLAG:23:3320 == 1
+				IF CFLAG:23:1320 == 1
 					PRINTFORML 「虽然抓到后真相大白，但至今看到那只虾还是会不由自主地提高警惕……」
 					PRINTFORMW 「要是能当食材就好了……诶，那只虾在外面已经绝种了吗？」
 					PRINTFORML 「而且是在遥远的过去……我大概明白了为什么在此岸看不到它的原因」
@@ -315,13 +315,13 @@ IF LOCAL
 					PRINTFORML 「深夜在黄泉川边钓鱼时，有时会在灯光照亮的水面看到奇怪的生物」
 					PRINTFORMW 「是某种虾吗？但那样的虾从未见过」
 					PRINTFORML 「那是种难以描述的生物，想象一下它从黑暗中爬出来，真叫人毛骨悚然……」
-					PRINTFORMW 「---嘿？你打算抓住它吗？我觉得用网比鱼竿更好...可能它不能吃吧？」
+					PRINTFORMW 「---嘿？你打算抓住它吗？我觉得用网比鱼竿更好…可能它不能吃吧？」
 				ENDIF
 			CASE 23
-				PRINTFORML 「%CALLNAME:MASTER%似乎也会变成像饼、团子或白丸那样的东西...」
-				PRINTFORMW 「我曾差点被陷入爱河的幽幽子小姐吃了半个幽灵...」
-				PRINTFORML 「如果幽灵不见了，我只剩一半人了吗...？」
-				PRINTFORMW 「虽然看不见幽灵，但她们现在大概用不安的眼神对视着吧...」
+				PRINTFORML 「%CALLNAME:MASTER%似乎也会变成像饼、团子或白丸那样的东西…」
+				PRINTFORMW 「我曾差点被陷入爱河的幽幽子小姐吃了半个幽灵…」
+				PRINTFORML 「如果幽灵不见了，我只剩一半人了吗…？」
+				PRINTFORMW 「虽然看不见幽灵，但她们现在大概用不安的眼神对视着吧…」
 			CASE 24
 				PRINTFORML 「之前我第一次去畜生界的时候，借用了三种动物灵的力量」
 				PRINTFORMW 「但是，不知为何只有大鹰灵感觉用得不太顺手……」
@@ -331,10 +331,17 @@ IF LOCAL
 				PRINTFORML 「%CALLNAME:MASTER%先生平时有意识到残心的瞬间吗？」
 				PRINTFORMW 「在完成一个动作后不放松警惕、为下一个动作做准备。说起来残心就是这样、但这种心态不仅限于剑术、在其他事情上也很重要呢」
 				PRINTFORML 「与武道艺道无关、在日常生活中也要保持适度的紧张感」
-				PRINTDATAW
-					DATAFORM 「――诶！　？不、那个、我平时是故意放松的、把集中力留给紧急情况……无意识地」
-					DATAFORM 平时的妖梦还挺经常露出破绽的、这么想着的%CALLNAME:MASTER%最后还是决定听从良心保持沉默了
-				ENDDATA
+					SELECTCASE RAND:2
+						CASE 0
+							PRINTFORMW 「――诶！　？不、那个、我平时是故意放松的、把集中力留给紧急情况……无意识地」
+						CASE 1
+							PRINTFORMDW 平时的妖梦还挺经常露出破绽的、这么想着的%CALLNAME:MASTER%最后还是决定听从良心保持沉默了
+					ENDSELECT
+			CASE 26
+				PRINTFORML 「其实之前，我曾因为一些任务潜入月之都。」
+				PRINTFORMW 「据说作为亡灵的幽幽子大人和半人半灵的我，身上月人所厌恶的生命力……呃也就是污秽？比较少，所以是个合适的人选。」
+				PRINTFORML 「……最近我突然想到，既然幻想乡或多或少都受到了外界的影响，那么月之都应该也是如此吧。」
+				PRINTFORMW 「如果真是这样……那些从外面流进来的，被他们视为污秽而厌恶的东西，他们究竟是如何处理的呢……？」
 			CASEELSE
 				PRINTFORMW 「嗯嗯嗯……你说得对」
 				PRINTFORML 「确实买菜本来不是我作为园艺师的职责，但」
@@ -349,11 +356,11 @@ IF LOCAL
 					SELECTCASE RAND:4
 						CASE 0
 							PRINTFORML 「……嗯，不能用来炼制材料吗？你，你说什么呢！？」
-							PRINTFORMW 看来它似乎无法取代徘徊的灵魂
+							PRINTFORMDW 看来它似乎无法取代徘徊的灵魂
 						CASE 1
 							PRINTFORML 「――像个大年糕一样？」
 							PRINTFORML 「…………不要试图吃掉哦」
-							PRINTFORMW 虽然只是轻松的评论，但却被怀疑地露骨地戒备着
+							PRINTFORMDW 虽然只是轻松的评论，但却被怀疑地露骨地戒备着
 						CASE 2
 							PRINTFORML 「它能变成交通工具吗？」
 							PRINTFORML 「啊，毕竟不是魔理沙的扫帚，普通飞行可能更快……」
@@ -361,7 +368,7 @@ IF LOCAL
 						CASE 3
 							PRINTFORML 「当然，也可以当武器使用！把它扔向对手是最快的方式」
 							PRINTFORML 「……要试试吗？」
-							PRINTFORMW %CALLNAME:MASTER% 礼貌地拒绝了
+							PRINTFORMDW %CALLNAME:MASTER% 礼貌地拒绝了
 					ENDSELECT
 			CASE 2
 				PRINTFORML 「最近，偶尔会吹来奇怪的风」
@@ -376,7 +383,7 @@ IF LOCAL
 				PRINTFORMW 「……嗯，开玩笑？」
 					IF TALENT:思慕
 						PRINTFORML 「真是的！请不要取笑我！」
-						PRINTFORMW 尽管提出抗议，但并没有感受到妖梦的愤怒气息
+						PRINTFORMDW 尽管提出抗议，但并没有感受到妖梦的愤怒气息
 					ELSE
 						PRINTFORMW 「真是的！再取笑我我就生气了！」
 					ENDIF
@@ -385,7 +392,7 @@ IF LOCAL
 				PRINTFORMW 「……嗯，是在开玩笑？」
 					IF TALENT:思慕
 						PRINTFORML 「唔，又来这种马虎的事情……！」
-						PRINTFORMW 虽然表面上有点生气，但并没有感受到妖梦的愤怒气息
+						PRINTFORMDW 虽然表面上有点生气，但并没有感受到妖梦的愤怒气息
 					ELSE
 						PRINTFORMW 「嗯，要是记错了怎么办！会被嘲笑的！」
 					ENDIF
@@ -402,7 +409,7 @@ IF LOCAL
 				PRINTFORML 「这把刀叫白楼剑，可以斩断被斩者的犹豫」
 				PRINTFORMW 「虽然斩妖除魔能轻松些，但我被阎魔大人责备过斩得太多……」
 				PRINTFORML 「――要是能不在意就好了」
-				PRINTFORMW 决定装作没有听到什么危险的低语
+				PRINTFORMDW 决定装作没有听到什么危险的低语
 			CASE 9
 				IF TALENT:思慕
 					PRINTFORML 「在这里的生活适应了吗？」
@@ -418,12 +425,12 @@ IF LOCAL
 					PRINTFORML 「前几天从幽幽子大人那里了解到，%CALLNAME:MASTER%先生似乎对各种料理都很了解呢」
 					PRINTFORMW 「……如果可以的话，能不能教我一点食谱呢？」
 					PRINTFORML 「而且，最好不是写下来，而是实际教授，这样更容易理解呢，嗯――」
-					PRINTFORMW 妖梦投过来的眼神让人感到有些不好意思……
+					PRINTFORMDW 妖梦投过来的眼神让人感到有些不好意思……
 				ELSEIF ABL:MASTER:料理技能 > 2
 					PRINTFORML 「%CALLNAME:MASTER%桑的烹饪技能似乎相当了得呢……」
 					PRINTFORMW 「虽然我不是专业的，但也有一些心得」
 					PRINTFORML 「能够按照自己的想法做出料理，有一种……成就感吧」
-					PRINTFORMW 妖梦深有感触地点了点头
+					PRINTFORMDW 妖梦深有感触地点了点头
 				ELSE
 					PRINTFORML 「学会自己做饭之后发现做饭这件事还挺有趣的呢」
 					PRINTFORMW 「虽然学会的过程很辛苦，也很费时，但在意想不到的时候可能会救你一命」
@@ -434,17 +441,17 @@ IF LOCAL
 				PRINTFORML 「不过幽幽子大人的指摘也有一定道理……」
 				PRINTFORMW 「唔……」
 					IF TALENT:思慕
-						PRINTFORML 看着陷入沉思的妖梦，%CALLNAME:MASTER%给了一些建议
+						PRINTFORMDL 看着陷入沉思的妖梦，%CALLNAME:MASTER%给了一些建议
 						PRINTFORMW 「……嗯，是的。我会注意的，谢谢你」
 					ELSE
-						PRINTFORMW 妖梦把手指放在嘴边，陷入了沉思……
+						PRINTFORMDW 妖梦把手指放在嘴边，陷入了沉思……
 					ENDIF
 			CASE 12
 				IF CFLAG:66:現在位置 == CFLAG:23:現在位置
 					PRINTFORML 「怎么了幽幽子大人？发生什么事了？」
 					PRINTFORMW 「……嗯，茶吗？」
 					PRINTFORML 「有点麻烦，立刻准备好……啊」
-					PRINTFORMW 妖梦期待的眼神让人感到一阵压力……
+					PRINTFORMDW 妖梦期待的眼神让人感到一阵压力……
 				ELSE
 					PRINTFORML 「幽幽子大人负责管理冥界，是位了不起的大人物」
 					PRINTFORMW 「只是涉及食物的时候就会不可避免地……」
@@ -483,7 +490,7 @@ IF LOCAL
 	;初めて
 	IF FIRSTTIME(SELECTCOM)
 		PRINTFORML 「哎呀，给我茶喝吗？」
-		PRINTFORMW 妖梦有些困惑地接过茶杯，一口喝下去后\@ TFLAG:193 == -1 ? 瞬间呛到了 # 缓解了表情 \@
+		PRINTFORMDW 妖梦有些困惑地接过茶杯，一口喝下去后\@ TFLAG:193 == -1 ? 瞬间呛到了 # 缓解了表情 \@
 			IF TFLAG:193 == -1
 				PRINTFORMW 「这、这真的是茶吗！？ 不会是搞错成苦草汁了吧……」
 			ELSE
@@ -497,12 +504,12 @@ IF LOCAL
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
 		PRINTFORML 「……您是认真的吗？」
-		PRINTFORMW 妖梦盯着%CALLNAME:MASTER%……
+		PRINTFORMDW 妖梦盯着%CALLNAME:MASTER%……
 	
-	;反発刻印有　1で2分の1、2以上で确定
+	;反感刻印有　1で2分の1、2以上で确定
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……我可不会上当」
-		PRINTFORMW 妖梦一脸不悦，勉强接过了茶杯……
+		PRINTFORMDW 妖梦一脸不悦，勉强接过了茶杯……
 	
 	;心情不快
 	ELSEIF TALENT:心情 == -1 && RAND:3 == 0
@@ -512,14 +519,14 @@ IF LOCAL
 		ELSE
 			PRINTFORMW 「……谢谢」
 		ENDIF
-		PRINTFORMW 妖梦一边喝着茶，一边露出复杂的表情……
+		PRINTFORMDW 妖梦一边喝着茶，一边露出复杂的表情……
 	
 	;失败
 	ELSEIF TFLAG:193 == -1
 		SELECTCASE RAND:2
 			CASE 0
 				PRINTFORML 「嗯嗯，白开水……？」
-				PRINTFORMW 虽然调配失误，但由于是这种茶叶，还能糊弄过去……
+				PRINTFORMDW 虽然调配失误，但由于是这种茶叶，还能糊弄过去……
 					;思慕以上だと2分の1で误魔化せない
 					IF TALENT:思慕 || TALENT:恋慕
 						SELECTCASE RAND:2
@@ -531,7 +538,7 @@ IF LOCAL
 					ENDIF
 			CASE 1
 				PRINTFORML 「什、什么？！？　这、这是苦的……！！」
-				PRINTFORMW 虽然调配失误，但由于是这种茶叶，还能糊弄过去……
+				PRINTFORMDW 虽然调配失误，但由于是这种茶叶，还能糊弄过去……
 					IF TALENT:思慕 || TALENT:恋慕
 						SELECTCASE RAND:2
 							CASE 0
@@ -589,20 +596,20 @@ IF LOCAL
 				CASE 0
 					PRINTFORML 「%CALLNAME:MASTER% 您泡茶的动作相当精致呢」
 					PRINTFORML 「甚至连眼神的交流都很了得，或许已经达到茶道的境地了吧？」
-					PRINTFORMW 妖梦对此表示赞叹，一边喝着茶
+					PRINTFORMDW 妖梦对此表示赞叹，一边喝着茶
 				CASE 1
 					PRINTFORML 「这一杯喝得恰到好处……」
 					PRINTFORML 「如果有什么比平时更体贴入微的步骤，我想请教一下」
-					PRINTFORMW %CALLNAME:MASTER% 与妖梦愉快地聊起了泡茶的技巧……
+					PRINTFORMDW %CALLNAME:MASTER% 与妖梦愉快地聊起了泡茶的技巧……
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:2
 				CASE 0
 					PRINTFORML 「如果我也能泡出这么美味的茶送给幽幽子大人就好了……」
-					PRINTFORMW 妖梦感叹着，对味道和香气表示赞赏
+					PRINTFORMDW 妖梦感叹着，对味道和香气表示赞赏
 				CASE 1
 					PRINTFORML 「哇……好喝。您随时都能准备出这样的好茶吗？」
-					PRINTFORMW 从妖梦的眼神中可以感受到尊敬之情……
+					PRINTFORMDW 从妖梦的眼神中可以感受到尊敬之情……
 			ENDSELECT
 		ENDIF
 	
@@ -681,23 +688,23 @@ IF LOCAL
 	;烂醉
 	IF TCVAR:烂醉 == 1
 		PRINTFORML 「如果你要做的话……就摸摸背后吧……」
-		PRINTFORMW %CALLNAME:MASTER%似乎不舒服地摸了妖梦的背部
+		PRINTFORMDW %CALLNAME:MASTER%似乎不舒服地摸了妖梦的背部
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 看到刀身从鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
-	;反発刻印有
+		PRINTFORML 「……」
+		PRINTFORMDW 看到刀身从鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
+	;反感刻印有
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……请停止」
-		PRINTFORMW 妖梦无情地拂开了%CALLNAME:MASTER%的手……
+		PRINTFORMDW 妖梦无情地拂开了%CALLNAME:MASTER%的手……
 	;失败
 	ELSEIF TFLAG:193 == -1
 		IF TALENT:恋慕
 			PRINTFORML 「呀……现在有点……」
-			PRINTFORMW 看起来真的很困扰，还是算了吧……
+			PRINTFORMDW 看起来真的很困扰，还是算了吧……
 		ELSE
 			PRINTFORML 「不行……请收敛一点……！」
-			PRINTFORMW 拂开手的妖梦瞬间与%CALLNAME:MASTER%保持了距离……
+			PRINTFORMDW 拂开手的妖梦瞬间与%CALLNAME:MASTER%保持了距离……
 		ENDIF
 	;大成功
 	ELSEIF TFLAG:193 == 1
@@ -705,22 +712,22 @@ IF LOCAL
 			SELECTCASE RAND:2
 				CASE 0
 					PRINTFORML 「呵呵，这是回礼」
-					PRINTFORMW 妖梦谨慎地触摸了%CALLNAME:MASTER%的身体
+					PRINTFORMDW 妖梦谨慎地触摸了%CALLNAME:MASTER%的身体
 					PRINTFORMW 「能够这样互相触碰……真的很幸福呢」
 				CASE 1
 					PRINTFORML 「嗯，您也可以关注我……好吗？」
-					PRINTFORMW 妖梦复杂地看着正在抚摸半灵的%CALLNAME:MASTER%
+					PRINTFORMDW 妖梦复杂地看着正在抚摸半灵的%CALLNAME:MASTER%
 					PRINTFORMW （虽然高兴但有点不解……）
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:2
 				CASE 0
 					PRINTFORML 「哇，%CALLNAME:MASTER%先生手法真娴熟啊……」
-					PRINTFORMW %CALLNAME:MASTER%轻轻为妖梦按摩
+					PRINTFORMDW %CALLNAME:MASTER%轻轻为妖梦按摩
 					PRINTFORMW 「感觉疲劳一扫而空……谢谢」
 				CASE 1
 					PRINTFORML 「%CALLNAME:MASTER%先生，那个地方……！？」
-					PRINTFORMW %CALLNAME:MASTER%无意中碰到半灵，妖梦的身体猛地跳动
+					PRINTFORMDW %CALLNAME:MASTER%无意中碰到半灵，妖梦的身体猛地跳动
 					PRINTFORMW （有点飘飘然……不、不好！）
 			ENDSELECT
 		ENDIF
@@ -728,20 +735,20 @@ IF LOCAL
 	ELSEIF TALENT:恋慕
 		SELECTCASE RAND:10
 			CASE 0
-				PRINTFORMW %CALLNAME:MASTER%轻轻抚摸着旁边的半灵
+				PRINTFORMDW %CALLNAME:MASTER%轻轻抚摸着旁边的半灵
 				PRINTFORML 「呀……嗯，感觉怎么样呢……？」
-				PRINTFORMW 有点凉爽，触感很好……
+				PRINTFORMDW 有点凉爽，触感很好……
 			CASE 1
-				PRINTFORMW %CALLNAME:MASTER%突然紧紧拥抱起旁边的半灵
+				PRINTFORMDW %CALLNAME:MASTER%突然紧紧拥抱起旁边的半灵
 				PRINTFORML 「诶！？ 这、这样，太大胆了吧！」
-				PRINTFORMW 半灵虽然挣扎着，但似乎并没有认真想要挣脱
+				PRINTFORMDW 半灵虽然挣扎着，但似乎并没有认真想要挣脱
 			CASE 2
-				PRINTFORMW %CALLNAME:MASTER%试图挠挠旁边半灵的尾巴
+				PRINTFORMDW %CALLNAME:MASTER%试图挠挠旁边半灵的尾巴
 				PRINTFORML 「嗯嗯……%CALLNAME:MASTER%先生，这有点……」
 				PRINTFORMW 「虽然不讨厌，但感觉有点奇怪……」
 			CASE 3
 				PRINTFORML 「呀呀！？」
-				PRINTFORMW %CALLNAME:MASTER%戳了一下旁边的半灵，妖梦发出了可爱的尖叫声
+				PRINTFORMDW %CALLNAME:MASTER%戳了一下旁边的半灵，妖梦发出了可爱的尖叫声
 				PRINTFORMW 「不、不可以碰那里，不行了！」
 			CASE 4
 				PRINTFORML 「我觉得我的手只会弄脏您的手吧……」
@@ -749,44 +756,44 @@ IF LOCAL
 				PRINTFORMW 「——诶」
 				PRINTFORMW 「被当面这样说的话……对、对不起，请不要看这边……」
 			CASE 5
-				PRINTFORMW %CALLNAME:MASTER%轻轻触摸了妖梦的手臂
+				PRINTFORMDW %CALLNAME:MASTER%轻轻触摸了妖梦的手臂
 				PRINTFORML 「咦……」
-				PRINTFORMW 妖梦一开始有些惊讶，但很快就靠近了，略显胆怯地靠近了
+				PRINTFORMDW 妖梦一开始有些惊讶，但很快就靠近了，略显胆怯地靠近了
 			CASE 6
-				PRINTFORMW %CALLNAME:MASTER%用手梳理了有些凌乱的妖梦头发
+				PRINTFORMDW %CALLNAME:MASTER%用手梳理了有些凌乱的妖梦头发
 				PRINTFORML 「难道弄乱了吗？我自己也没怎么注意到」
-				PRINTFORMW 那些看起来经常打理的银丝触感非常好……
+				PRINTFORMDW 那些看起来经常打理的银丝触感非常好……
 			CASE 7
-				PRINTFORMW %CALLNAME:MASTER%坚定地揉了揉妖梦的肩膀
+				PRINTFORMDW %CALLNAME:MASTER%坚定地揉了揉妖梦的肩膀
 				PRINTFORML 「%CALLNAME:MASTER%先生揉肩真能缓解僵硬，太感谢了」
 				PRINTFORMW 「感觉到需要定期请求这个了呢」
 			CASE 8
-				PRINTFORMW %CALLNAME:MASTER%轻轻抚摸了妖梦的脸颊
+				PRINTFORMDW %CALLNAME:MASTER%轻轻抚摸了妖梦的脸颊
 				PRINTFORML 「啊……这、这么近了吗？」
-				PRINTFORMW 原本皮肤白皙的妖梦脸颊瞬间泛起红晕……
+				PRINTFORMDW 原本皮肤白皙的妖梦脸颊瞬间泛起红晕……
 			CASE 9
-				PRINTFORMW %CALLNAME:MASTER%不经意地绕到妖梦身后，用手指在背脊上轻轻划过
+				PRINTFORMDW %CALLNAME:MASTER%不经意地绕到妖梦身后，用手指在背脊上轻轻划过
 				PRINTFORML 「呀呜！？ 别、别吓我！」
-				PRINTFORMW 从旁边被半灵狠狠地敲了一下……
+				PRINTFORMDW 从旁边被半灵狠狠地敲了一下……
 		ENDSELECT
 	;思慕
 	ELSEIF TALENT:思慕
 		SELECTCASE RAND:4
 			CASE 0
-				PRINTFORML %CALLNAME:MASTER%试图挠挠旁边的半灵
+				PRINTFORMDL %CALLNAME:MASTER%试图挠挠旁边的半灵
 				PRINTFORMW 「痒、痒啦……哈哈哈哈哈哈！」
 			CASE 1
-				PRINTFORMW %CALLNAME:MASTER%揉了妖梦的肩膀
+				PRINTFORMDW %CALLNAME:MASTER%揉了妖梦的肩膀
 				PRINTFORML 「啊，对不起。因为经常做力气活肩膀总是很紧……」
-				PRINTFORMW 这确实是一种出乎意料的强硬僵硬感……
+				PRINTFORMDW 这确实是一种出乎意料的强硬僵硬感……
 			CASE 2
-				PRINTFORMW %CALLNAME:MASTER%牵起妖梦的手，轻轻触摸掌心
+				PRINTFORMDW %CALLNAME:MASTER%牵起妖梦的手，轻轻触摸掌心
 				PRINTFORML 「这是按摩吗？掌心也有穴位可以按的吗？」
-				PRINTFORMW 虽然并非有意这样做，但妖梦似乎心满意足
+				PRINTFORMDW 虽然并非有意这样做，但妖梦似乎心满意足
 			CASE 3
-				PRINTFORMW %CALLNAME:MASTER%轻轻触摸了妖梦的手臂
+				PRINTFORMDW %CALLNAME:MASTER%轻轻触摸了妖梦的手臂
 				PRINTFORML 「诶……这、这是在做什么……？」
-				PRINTFORMW 妖梦显得困惑，但并没有挣扎要甩开%CALLNAME:MASTER%的手
+				PRINTFORMDW 妖梦显得困惑，但并没有挣扎要甩开%CALLNAME:MASTER%的手
 		ENDSELECT
 	;その他
 	ELSE
@@ -795,7 +802,7 @@ IF LOCAL
 			DATAFORM 「太过随意地触碰他人的身体是否妥当呢……」
 			DATAFORM 「我知道您在意，但半灵也是我的一部分……」
 		ENDDATA
-		PRINTFORMW 妖梦匆匆退开，用警惕的眼神看着%CALLNAME:MASTER%
+		PRINTFORMDW 妖梦匆匆退开，用警惕的眼神看着%CALLNAME:MASTER%
 	ENDIF
 ENDIF
 RETURN 1
@@ -833,16 +840,16 @@ IF LOCAL
 			PRINTFORML
 			PRINTFORML 「%CALLNAME:MASTER%先生、请抬起头来。我已经感受到您的歉意了、这件事就让我们一笔勾销吧」
 			PRINTFORML 「而且正好有点心不如我们去喝杯茶吧？　我、想要%CALLNAME:MASTER%为我泡茶呢」
-			PRINTFORMW 完全平息了怒气的妖梦接过点心盒、然后开始在其中挑拣了起来
+			PRINTFORMDW 完全平息了怒气的妖梦接过点心盒、然后开始在其中挑拣了起来
 		ELSE
 			PRINTFORML 「想用东西来收买我什么的……啊！？」
 			PRINTFORMW （这是我排队都买不到的日式点心店里的……！　幽幽子大人一定会很高兴的……）
 			PRINTFORML
 			PRINTFORML 「……%CALLNAME:MASTER%先生、请抬起头来。我就暂且相信您是真心向我道歉的吧」
 			PRINTFORML 「我就把这盒点心用作宅邸里的茶点了」
-			PRINTFORMW 平息怒气的妖梦将接过的点心盒放在了旁边的半灵上
+			PRINTFORMDW 平息怒气的妖梦将接过的点心盒放在了旁边的半灵上
 		ENDIF
-		PRINTFORMW 看来自己是被原谅了……
+		PRINTFORMDW 看来自己是被原谅了……
 	;点心盒失败
 	ELSEIF TFLAG:193 == -2
 		IF TALENT:恋慕
@@ -853,27 +860,27 @@ IF LOCAL
 			PRINTFORML 「竟然想要收买我什么的……」
 			PRINTFORMW 「真是被小看了啊、这种浅薄的做法可糊弄不了我」
 		ENDIF
-		PRINTFORMW 递过去的点心盒被轻轻推了回来……
+		PRINTFORMDW 递过去的点心盒被轻轻推了回来……
 	;失败
 	ELSEIF TFLAG:193 == -1
 		PRINTFORML 「……在口头上表达歉意很容易、但想让对方感受到这份歉意可没那么简单」
 			IF TALENT:恋慕
 				PRINTFORML 「请您再多斟酌一下自己的话语、重新考虑一下怎么道歉吧」
-				PRINTFORMW 虽然妖梦的语气十分平和、但可以感受到她隐藏在这份平和之下的愤怒……
+				PRINTFORMDW 虽然妖梦的语气十分平和、但可以感受到她隐藏在这份平和之下的愤怒……
 			ELSE
 				PRINTFORML 「如果您认为刚才的那些就能算是道歉的话、那看来您已经相当适应幻想乡了呢」
-				PRINTFORMW 看来自己是说错话了……
+				PRINTFORMDW 看来自己是说错话了……
 			ENDIF
 	;大成功or成功
 	ELSE
 		IF TALENT:恋慕
 			PRINTFORML 「……看来您是真的好好反省了呢、%CALLNAME:MASTER%先生」
 			PRINTFORML 「我也不想一直保持现在这样不愉快的气氛、这件事就此揭过吧」
-			PRINTFORMW 慢慢浮起的半灵用尾巴轻轻地戳了戳你的额头……看起来自己是被原谅了
+			PRINTFORMDW 慢慢浮起的半灵用尾巴轻轻地戳了戳你的额头……看起来自己是被原谅了
 		ELSE
 			PRINTFORML 「……既然您能好好地向我道歉了的话、我也就不在继续纠结这件事了」
 			PRINTFORML 「但如果再次发生类似的事、我可能就要拔刀了」
-			PRINTFORMW 虽然妖梦的眼神十分锐利、但其中已经没有怒气了。看来自己暂时是被原谅了……
+			PRINTFORMDW 虽然妖梦的眼神十分锐利、但其中已经没有怒气了。看来自己暂时是被原谅了……
 		ENDIF
 	ENDIF
 ENDIF
@@ -882,7 +889,7 @@ RETURN 1
 ;304,帮忙干活
 ;TFLAG:193(1=大成功 0=成功 -1=失败)
 ;CFLAG:350(仕事内容(JOB_仕事内容.ERB参照のこと
-;TCVAR:没法帮忙(=2 手传っても早くは终わらない、時間停止中不可 永琳の诊察等)
+;TCVAR:沒法幫忙(=2 手传っても早くは终わらない、时间停止中不可 永琳の诊察等)
 ;==================================================
 @M_KOJO_别人版_SUCCESS_COM_K23_304
 ;成否判定
@@ -906,18 +913,18 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	;時間停止中
+	;时间停止中
 	IF FLAG:70
 	;通常
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 在忽略%CALLNAME:MASTER%的情况下，妖梦默默地进行工作……
+		PRINTFORML 「……」
+		PRINTFORMDW 在忽略%CALLNAME:MASTER%的情况下，妖梦默默地进行工作……
 	
-	;反発刻印有
+	;反感刻印有
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……感谢您的帮助」
-		PRINTFORMW 在尴尬的氛围中，按照妖梦的指示进行工作……
+		PRINTFORMDW 在尴尬的氛围中，按照妖梦的指示进行工作……
 	
 	;失败
 	ELSEIF TFLAG:193  == -1
@@ -1045,7 +1052,7 @@ IF LOCAL
 	
 	ELSEIF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……您不觉得膝枕这种行为、即使接触的部位更少一些也能成立吗？」
-		PRINTFORMW 感受到确切杀气的%CALLNAME:MASTER%慌忙地坐起身来……
+		PRINTFORMDW 感受到确切杀气的%CALLNAME:MASTER%慌忙地坐起身来……
 	ELSEIF TFLAG:193 == -1
 		PRINTFORMW （唔……\@ DAY:2 == 4 ? 这种季节竟然有苍蝇 # 有苍蝇在附近 \@……）
 		PRINTFORM 「……姆！　不要动――
@@ -1056,30 +1063,32 @@ IF LOCAL
 			ELSE
 				PRINTFORML 啊」
 			ENDIF
-		PRINTFORMW 妖梦想要站起来、膝盖一抬、%CALLNAME:MASTER%的脑袋便被甩了下去……
+		PRINTFORMDW 妖梦想要站起来、膝盖一抬、%CALLNAME:MASTER%的脑袋便被甩了下去……
 	ELSEIF TALENT:恋慕
 		SELECTCASE RAND:4
 			CASE 0
 				PRINTFORML 「您觉得还舒服吗？　会不会太硬了不好睡什么的……」
 				PRINTFORMW 「――被、被您这么夸奖、我都不好意思了……您能满意那就太好了」
-				PRINTDATAW
-					DATAFORM 妖梦那适度紧致又保留着柔软的大腿所带有的绝妙的肉感让人本能的感受到了安心……
-					DATAFORM （如果他不喜欢的话我可能就要暂时停止锻炼了……）
-				ENDDATA
+				SELECTCASE RAND:2
+					CASE 0
+						PRINTFORMDW 妖梦的大腿适度紧实又保留柔软，那绝妙的肉感从本能上就让人感到安心……
+					CASE 1
+						PRINTFORMW （万一+++不喜欢的话，我可能就要暂时停止锻炼了……）
+				ENDSELECT
 			CASE 1
 				PRINTFORML 「诶……想让半灵给您膝枕？　虽然它没有大腿……但如果您希望的话、请便」
-				PRINTFORMW 妖梦疑惑地歪着头、将半灵缓缓地凑到%CALLNAME:MASTER%面前、让他枕了上去
-				PRINTFORMW 那恰到好处的弹性和冰凉的触感营造出的舒适感觉、即使是上等的枕头也绝对比不上……
+				PRINTFORMDW 妖梦疑惑地歪着头、将半灵缓缓地凑到%CALLNAME:MASTER%面前、让他枕了上去
+				PRINTFORMDW 那恰到好处的弹性和冰凉的触感营造出的舒适感觉、即使是上等的枕头也绝对比不上……
 			CASEELSE
-				PRINTFORMW 散发出惊人的气势的妖梦和俯卧的半灵正襟危坐地对峙在%CALLNAME:MASTER%面前……
+				PRINTFORMDW 散发出惊人的气势的妖梦和俯卧的半灵正襟危坐地对峙在%CALLNAME:MASTER%面前……
 				PRINTFORML
 					SELECTCASE RAND:2
 						CASE 0
 							PRINTFORML 「――哼哼」
-							PRINTFORMW ……现在更想要妖梦。%CALLNAME:MASTER%将头靠在妖梦露出的白皙大腿上、妖梦得意洋洋地哼了一声
+							PRINTFORMDW ……现在更想要妖梦。%CALLNAME:MASTER%将头靠在妖梦露出的白皙大腿上、妖梦得意洋洋地哼了一声
 						CASE 1
 							PRINTFORML 「――什……」
-							PRINTFORMW ……现在更想要半灵。将头靠在做好准备成为枕头的半灵身上、妖梦发出了一声惊讶的声音
+							PRINTFORMDW ……现在更想要半灵。将头靠在做好准备成为枕头的半灵身上、妖梦发出了一声惊讶的声音
 					ENDSELECT
 		ENDSELECT
 	ELSEIF ABL:親密 > 2
@@ -1095,18 +1104,18 @@ IF LOCAL
 			CASE 1
 				PRINTFORML 「哈！？　突然说想要我的膝枕什么的、我这边也要做些准备的……」
 				PRINTFORMW （主要是心理上的准备就是了……怎、怎么样才能蒙混过关…………有了！）
-				PRINTFORMW 妖梦一拍手、将\@ TALENT:思慕 ? 焦躁不安的 # 一脸不服气的 \@半灵送到了正在等待的%CALLNAME:MASTER%面前……
+				PRINTFORMDW 妖梦一拍手、将\@ TALENT:思慕 ? 焦躁不安的 # 一脸不服气的 \@半灵送到了正在等待的%CALLNAME:MASTER%面前……
 		ENDSELECT
 	ELSE
 		SELECTCASE RAND:2
 			CASE 0
-				PRINTFORML 「......」
+				PRINTFORML 「……」
 				PRINTFORML （……不知为何被要求做膝枕了）
 				PRINTFORMW （好尴尬……）
 			CASE 1
-				PRINTFORML 「……我觉得我们的关系并没有親密到这种程度吧」
+				PRINTFORML 「……我觉得我们的关系并没有亲密到这种程度吧」
 				PRINTFORML 「非我不可吗……？」
-				PRINTFORMW 妖梦皱起了脸不愿与%CALLNAME:MASTER%对视……
+				PRINTFORMDW 妖梦皱起了脸不愿与%CALLNAME:MASTER%对视……
 		ENDSELECT
 	ENDIF
 ENDIF
@@ -1132,14 +1141,14 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	;時間停止中
+	;时间停止中
 	IF FLAG:70
 	;睡眠中、烂醉
 	ELSEIF CFLAG:睡眠 || TCVAR:烂醉 == 1
 	;勃然大怒or反感
 	ELSEIF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「…………」
-		PRINTFORMW 看到刀身从刀鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
+		PRINTFORMDW 看到刀身从刀鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
 	;恋慕
 	ELSEIF TALENT:恋慕
 		IF TALENT:妊娠
@@ -1148,7 +1157,7 @@ IF LOCAL
 			SELECTCASE RAND:2
 				CASE 0
 					CALL HPH_PRINT,@"「欸！？　咿、现在施加力量的话……呜、啊，啊啊啊！HPH」","L"
-					PRINTFORMW 由于抑制了膨胀，精液逆流到阴道口，妖梦因突如其来的性感而仰起身体
+					PRINTFORMDW 由于抑制了膨胀，精液逆流到阴道口，妖梦因突如其来的性感而仰起身体
 				CASE 1
 					PRINTFORML 「当成果能用眼睛看到时，甚至会涌现出成就感呢……」
 					PRINTFORMW 「没想到您会如此使用我……啊！？　这、这有点太强……っ！」
@@ -1157,10 +1166,10 @@ IF LOCAL
 			SELECTCASE RAND:4
 				CASE 0
 					PRINTFORML 「啊……%CALLNAME:MASTER%大人，不要随便乱摸……嗯っ，嗯嗯呜……」
-					PRINTFORMW 当手指沿着美丽纤细的腰部缓缓滑动时，任人摆布的妖梦有些害羞地扭动身体
+					PRINTFORMDW 当手指沿着美丽纤细的腰部缓缓滑动时，任人摆布的妖梦有些害羞地扭动身体
 				CASE 1
 					PRINTFORML 「欸欸……您这么喜欢吗……？」
-					PRINTFORMW 从紧致的身体曲线中产生的柔韧触感，似乎会让人上瘾……
+					PRINTFORMDW 从紧致的身体曲线中产生的柔韧触感，似乎会让人上瘾……
 				CASE 2
 					PRINTFORML 「欸欸欸……是半灵那边……？」
 					PRINTFORMW 「非要说的话，再往上一点吗……嘶！？　那、那里不对啦……！」
@@ -1169,7 +1178,7 @@ IF LOCAL
 						IF TALENT:66:恋慕
 							PRINTFORMW 「万一%CALLNAME:MASTER%大人能捏到肚子上的肉，或许会稍微控制一下食量吧……」
 						ELSE
-							PRINTFORMW 「……不过，这种事情，如果不是关系親密的人，立刻就会惹人不高兴吧。请您忘了吧」
+							PRINTFORMW 「……不过，这种事情，如果不是关系亲密的人，立刻就会惹人不高兴吧。请您忘了吧」
 						ENDIF
 			ENDSELECT
 		ENDIF
@@ -1179,10 +1188,10 @@ IF LOCAL
 		
 		ELSEIF 充填率(TARGET,1) > 30
 			PRINTDATAL
-				DATAFORM 「っ！？　你、你这家伙、别开玩……ッ」
+				DATAFORM 「！？　你、你这家伙、别开玩……」
 				DATAFORM 「呜、呜啊！？　这、这种东西……！！」
 			ENDDATA
-			PRINTDATAW
+			PRINTDATADW
 				DATAFORM 感觉到毫不客气地注入的子种在里面静静地悸动着……
 				DATAFORM 充分倾泻的精液仿佛在说“太挤了”一样地自我主张着……
 			ENDDATA
@@ -1193,14 +1202,14 @@ IF LOCAL
 					PRINTFORMW 「哈啊……我当然有锻炼，不如说松弛了才是大问题啊」
 				CASE 1
 					PRINTFORML 「……是不是太随便了」
-					PRINTFORMW 虽然眉间紧锁，但目前还没有要甩开的迹象
+					PRINTFORMDW 虽然眉间紧锁，但目前还没有要甩开的迹象
 			ENDSELECT
 		ELSE
 			PRINTDATAL
 				DATAFORM 「哈……哈！？　你、你要摸哪里……！」
 				DATAFORM 「……那个，手臂飞了可别怪我哦？」
 			ENDDATA
-			PRINTFORMW 警戒的妖梦正要将手伸向刀柄……
+			PRINTFORMDW 警戒的妖梦正要将手伸向刀柄……
 		ENDIF
 	ENDIF
 ENDIF
@@ -1235,49 +1244,49 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	;時間停止中
+	;时间停止中
 	IF FLAG:70
 	;睡眠中、烂醉
 	ELSEIF CFLAG:睡眠 || TCVAR:烂醉 == 1
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
 		PRINTFORML 「…………」
-		PRINTFORMW 看到刀身从刀鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
-	;反発刻印有
+		PRINTFORMDW 看到刀身从刀鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
+	;反感刻印有
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……请您住手」
-		PRINTFORMW 妖梦毫不客气地甩开了%CALLNAME:MASTER%的手……
+		PRINTFORMDW 妖梦毫不客气地甩开了%CALLNAME:MASTER%的手……
 	;失败
 	ELSEIF TFLAG:193 == -1
 		IF TALENT:恋慕
 			PRINTFORML 「嗯呜……！　%CALLNAME:MASTER%大人，稍微、稍微用力过猛了啦……」
-			PRINTFORMW 似乎稍微用力拉得太猛了……
+			PRINTFORMDW 似乎稍微用力拉得太猛了……
 		ELSEIF ABL:親密 > 5
 			PRINTFORML 「……唔……」
-			PRINTFORMW 似乎不太情愿，被妖梦拉扯的脸颊有点疼……
+			PRINTFORMDW 似乎不太情愿，被妖梦拉扯的脸颊有点疼……
 		ELSEIF ABL:従順 > 4
 			PRINTFORML 「……太不客气了」
-			PRINTFORMW 本人虽然没有抵抗，但半灵却厌烦地用尾巴拍打着……
+			PRINTFORMDW 本人虽然没有抵抗，但半灵却厌烦地用尾巴拍打着……
 		ELSE
 			PRINTFORML 「太自来熟了吧……！」
-			PRINTFORMW 妖梦显得非常警惕……
+			PRINTFORMDW 妖梦显得非常警惕……
 		ENDIF
 	;成功
 	ELSE
 		IF TALENT:恋慕
 			SELECTCASE RAND:3
 				CASE 0
-					PRINTFORMW %CALLNAME:MASTER%捏了捏旁边的半灵
+					PRINTFORMDW %CALLNAME:MASTER%捏了捏旁边的半灵
 					PRINTFORML 「啊，那种地方……那么我也要用同样的方式」
-					PRINTFORMW 妖梦愉快地戳着%TEXTR("腋下/上臂/")%。看来捏的地方不是脸颊……
+					PRINTFORMDW 妖梦愉快地戳着%TEXTR("腋下/上臂/")%。看来捏的地方不是脸颊……
 				CASE 1
 					PRINTFORMW 「哇噗……怎、怎么了吗？」
 					PRINTFORMW 「嗯呜呜，真是的……那我也要做了哦～？」
-					PRINTFORMW 妖梦和%CALLNAME:MASTER%玩了一会儿互相拉扯脸颊的游戏
+					PRINTFORMDW 妖梦和%CALLNAME:MASTER%玩了一会儿互相拉扯脸颊的游戏
 				CASE 2
 					PRINTFORMW 「嘿……啊……」
 					PRINTFORML 「虽、虽然现在说有点晚了……真、真近呢……」
-					PRINTFORMW 传递着冰凉触感的指尖开始带上热度……
+					PRINTFORMDW 传递着冰凉触感的指尖开始带上热度……
 			ENDSELECT
 		ELSEIF ABL:親密 > 5
 			SELECTCASE RAND:3
@@ -1296,13 +1305,13 @@ IF LOCAL
 				DATAFORM 「那个，从刚才开始在做什么……？」
 				DATAFORM 「呜……这有什么意义吗……？」
 			ENDDATA
-			PRINTFORMW 妖梦虽然困惑，但目前没有抵抗的迹象
+			PRINTFORMDW 妖梦虽然困惑，但目前没有抵抗的迹象
 		ELSE
 			PRINTDATAL
 				DATAFORM 「哈！？　……哈、请放开我」
 				DATAFORM 「……我们不是可以随便亲近的关系吧」
 			ENDDATA
-			PRINTFORMW 妖梦从%CALLNAME:MASTER%身边后退了几步，拉开了距离……
+			PRINTFORMDW 妖梦从%CALLNAME:MASTER%身边后退了几步，拉开了距离……
 		ENDIF
 	ENDIF
 
@@ -1370,27 +1379,27 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	;時間停止中
+	;时间停止中
 	IF FLAG:70
 	;睡眠中、烂醉
 	ELSEIF CFLAG:睡眠 || TCVAR:烂醉 == 1
 	;通常
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 看到刀身从鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
-	;反発刻印有
+		PRINTFORML 「……」
+		PRINTFORMDW 看到刀身从鞘中露出，%CALLNAME:MASTER%下意识地缩回了手……
+	;反感刻印有
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……请停止」
-		PRINTFORMW 妖梦无情地拂开了%CALLNAME:MASTER%的手……
+		PRINTFORMDW 妖梦无情地拂开了%CALLNAME:MASTER%的手……
 	;失败
 	ELSEIF TFLAG:193 == -1
 		IF TALENT:恋慕
 			PRINTFORML 「哇哇……%CALLNAME:MASTER%先生，请稍微轻柔一点……」
-			PRINTFORMW 有点过于强势地抚摸了……
+			PRINTFORMDW 有点过于强势地抚摸了……
 		ELSE
 			PRINTFORML 「随意地摸别人的头……」
-			PRINTFORMW 妖梦显得警惕……
+			PRINTFORMDW 妖梦显得警惕……
 		ENDIF
 	;恋慕
 	ELSEIF TALENT:恋慕
@@ -1399,28 +1408,28 @@ IF LOCAL
 				PRINTFORML 「被这样抚摸感觉就像被夸奖一样……」
 				PRINTFORMW 「……有点上瘾的感觉」
 			CASE 1
-				PRINTFORMW %CALLNAME:MASTER%抚摸妖梦时，半灵贪婪地靠近
+				PRINTFORMDW %CALLNAME:MASTER%抚摸妖梦时，半灵贪婪地靠近
 				PRINTFORML 「不、不是那样的意思……也不是没有意思……」
-				PRINTFORMW %CALLNAME:MASTER%用空闲的手也抚摸了半灵
+				PRINTFORMDW %CALLNAME:MASTER%用空闲的手也抚摸了半灵
 			CASE 2
 				PRINTFORML 「嗯……」
-				PRINTFORMW 妖梦闭着眼睛，将身体交托给%CALLNAME:MASTER%的手
+				PRINTFORMDW 妖梦闭着眼睛，将身体交托给%CALLNAME:MASTER%的手
 			CASE 3
 				PRINTFORML 「如果你对我温柔……随你喜欢」
-				PRINTFORMW 妖梦微妙地靠近%CALLNAME:MASTER%，示意可以继续抚摸
+				PRINTFORMDW 妖梦微妙地靠近%CALLNAME:MASTER%，示意可以继续抚摸
 		ENDSELECT
-	;親密6以上
+	;亲密6以上
 	ELSEIF ABL:親密 > 5
 		SELECTCASE RAND:3
 			CASE 0
 				PRINTFORML 「至少对发箍温柔点……」
-				PRINTFORMW 妖梦虽然感到不舒服，但目前并没有挣脱的迹象
+				PRINTFORMDW 妖梦虽然感到不舒服，但目前并没有挣脱的迹象
 			CASE 1
 				PRINTFORML 「……我又不是小孩子」
-				PRINTFORMW 妖梦虽然不满，但还是让%CALLNAME:MASTER%抚摸了头发
+				PRINTFORMDW 妖梦虽然不满，但还是让%CALLNAME:MASTER%抚摸了头发
 			CASE 2
 				PRINTFORML 「你觉得很有趣吗？……那么，嗯」
-				PRINTFORMW 妖梦虽然感到疑惑，但并没有表现出太大的厌恶
+				PRINTFORMDW 妖梦虽然感到疑惑，但并没有表现出太大的厌恶
 		ENDSELECT
 	;その他
 	ELSE
@@ -1428,7 +1437,7 @@ IF LOCAL
 			DATAFORM 「诶、哈！？ 突、突然做这种事……！」
 			DATAFORM 「呃……即使要惊吓也有其他方法……」
 		ENDDATA
-		PRINTFORMW 妖梦从%CALLNAME:MASTER%那里稍微往后退了一步……
+		PRINTFORMDW 妖梦从%CALLNAME:MASTER%那里稍微往后退了一步……
 	ENDIF
 
 ENDIF
@@ -1456,10 +1465,81 @@ RETURN RESULT
 @M_KOJO_别人版_MESSAGE_COM_K23_331_1
 ;-------------------------------------------------
 ;记入チェック（=0, 非表示、1, 表示）
-LOCAL = 0
+LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	IF TCVAR:烂醉 == 1
+		PRINTFORML
+	ELSE
+		SELECTCASE TFLAG:193
+			;失敗
+			CASE -1
+				;ブチギレor反発
+				IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
+					PRINTFORMDL 妖梦把脸凑近茶碗“嘶”地一闻，随即皱起眉头，瞪着%CALLNAME:MASTER%
+					PRINTFORMW 「这茶可真“棒”啊？简直不敢下口呢。」
+				ELSE
+					PRINTDATAL
+						DATAFORM 「……呃，那个……这颜色到底……？」
+						DATAFORM 「这、这是茶……？看起来可不像能喝的东西……」
+					ENDDATA
+					IF TALENT:恋慕
+						PRINTFORMW 「实在抱歉，就算这是%CALLNAME:MASTER%桑的好意，但是恕我无法…」
+					ELSE
+						PRINTFORMW 「……如果非要我喝的话，请您先喝一口给我看看吧。」
+					ENDIF
+				ENDIF
+			;成功
+			CASEELSE
+				;暴怒或反抗
+				IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
+					PRINTFORML 「…………」
+					PRINTFORMDL 妖梦狐疑地看着茶碗，但还是不情愿地喝了一口。
+					PRINTFORMDW 药效很快就会发作吧……
+				ELSE
+					PRINTFORMW 「谢谢您，那我喝了。咕噜……」
+					PRINTFORML
+					;媚药
+					IF TCVAR:媚薬 == 210
+						PRINTFORML 「……啊，咧？……呜……？」
+							IF TALENT:恋慕
+								PRINTFORML （……怎么办。对%CALLNAME:MASTER%桑不好的妄想一个接一个地冒出来……得、得压制住杂念）
+							ELSE
+								PRINTFORML （身体，好热……怎么回事……？）
+							ENDIF
+						PRINTFORMDW 妖梦脸颊泛红，像是要保护自己般抱住身体。药效似乎发作了。
+					;利尿剂
+					ELSEIF TCVAR:利尿剤 == 210
+						PRINTFORML 「…………嗯？…………！？」
+							IF TALENT:恋慕 && RAND:2 == 0
+								PRINTFORML （～～……！为、为什么偏偏在这种时候……看样子是忍不了多久了……）
+							ELSE
+								PRINTFORML （是、是喝太多了吗……？附近有厕所吗……）
+							ENDIF
+						PRINTFORMDW 妖梦在原地不安地挪动着双脚。药效似乎发作了。
+					;迷情剂
+					ELSEIF TCVAR:催情薬 == 210
+						PRINTFORML 「……嗯？咦……总觉得……」
+							IF TALENT:恋慕
+								PRINTFORML （%CALLNAME:MASTER%桑看起来比平时更加迷人了……呵，我竟然会变得这样）
+								PRINTFORMDW 不知为何，妖梦和半灵都迷迷糊糊地摇着头。药效是发作了吗……
+							ELSE
+								PRINTFORML （眼睛…移不开…%CALLNAME:MASTER%桑，竟然如此…❤❤…？）
+								PRINTFORMDW 妖梦呆呆地望着%CALLNAME:MASTER%。药效似乎发作了。
+							ENDIF
+					;安眠药
+					ELSEIF TCVAR:睡眠薬強度 == 2
+						PRINTFORML 「……！……？……对、对不起……有点……」
+							IF TALENT:恋慕 && RAND:2 == 0
+								PRINTFORML （这种时候竟然犯困……明明在%CALLNAME:MASTER%桑面前，真是太不合时宜了……）
+							ELSE
+								PRINTFORML （是累了吗……？也许应该找时间小睡一下……）
+							ENDIF
+						PRINTFORMDW 妖梦用手捂着眼睛，低着头。药效似乎发作了。
+					ENDIF
+				ENDIF
+		ENDSELECT
+	ENDIF
 ENDIF
 RETURN 1
 ;==================================================
@@ -1547,7 +1627,7 @@ IF LOCAL
 			ELSE
 				PRINTFORML 「――您根本没在听我说话吧？」
 			ENDIF
-			PRINTFORMW 妖梦突然面无表情地想要握住刀，被%CALLNAME:MASTER%及时阻止了……
+			PRINTFORMDW 妖梦突然面无表情地想要握住刀，被%CALLNAME:MASTER%及时阻止了……
 		CASE 3
 		;大成功
 			SELECTCASE RAND:2
@@ -1604,7 +1684,7 @@ RETURN 1
 ;==================================================
 ;334,碰杯
 ;TFLAG:193(1=大成功 0=成功 -1=失败)
-;CFLAG:妊娠自觉状态(1=吃饭)
+;CFLAG:妊娠自覚状態(1=吃饭)
 ;TALENT:酒耐性(-2=吃饭)
 ;==================================================
 @M_KOJO_别人版_SUCCESS_COM_K23_334
@@ -1706,13 +1786,13 @@ IF LOCAL
 	
 	ELSEIF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……既然是膝枕的话、那只要有膝盖就足够了吧？」
-		PRINTFORMW 察觉到危险气息的%CALLNAME:MASTER%慌忙把妖梦扶起来……
+		PRINTFORMDW 察觉到危险气息的%CALLNAME:MASTER%慌忙把妖梦扶起来……
 	ELSEIF TFLAG:193 > 0
 	;寝ちゃった
 		IF TALENT:恋慕 && RAND:2 == 0
 			PRINTFORMW 「……呼……」
-			PRINTFORML 或许是因为十分安心、妖梦毫无防备地睡着了
-			PRINTFORMW %CALLNAME:MASTER%感受着这份信赖、悠闲地等待着妖梦醒来
+			PRINTFORMDL 或许是因为十分安心、妖梦毫无防备地睡着了
+			PRINTFORMDW %CALLNAME:MASTER%感受着这份信赖、悠闲地等待着妖梦醒来
 		ELSE
 			PRINTFORML 「嗯呜…………嗯？　我、什么时候……哈」
 			PRINTFORMW 「失、失礼了！　占用了您的大腿这么长时间」
@@ -1735,15 +1815,15 @@ IF LOCAL
 				PRINTFORMW （其实我紧张得根本没空去想舒不舒服、不过话说回来、我还是希望这段时间能再长一点……！）
 				PRINTFORMW （……啊！　和%CALLNAME:MASTER%先生的眼神对上了……我、我的表情会不会很奇怪……！？）
 			CASEELSE
-				PRINTFORMW 妖梦和半灵在%CALLNAME:MASTER%的面前以一种非同寻常的气氛面对面（？）地贴近着……
+				PRINTFORMDW 妖梦和半灵在%CALLNAME:MASTER%的面前以一种非同寻常的气氛面对面（？）地贴近着……
 				PRINTFORML
 					SELECTCASE RAND:2
 						CASE 0
 							PRINTFORML 「……哼哼」
-							PRINTFORMW 过了一会儿、妖梦得意地哼了一声、推开半灵、把头靠在%CALLNAME:MASTER%的大腿上
+							PRINTFORMDW 过了一会儿、妖梦得意地哼了一声、推开半灵、把头靠在%CALLNAME:MASTER%的大腿上
 						CASE 1
 							PRINTFORML 「……咕……！」
-							PRINTFORMW 过了一会儿、半灵无视懊恼地扭过脸的妖梦、得意洋洋地占据了%CALLNAME:MASTER%的大腿
+							PRINTFORMDW 过了一会儿、半灵无视懊恼地扭过脸的妖梦、得意洋洋地占据了%CALLNAME:MASTER%的大腿
 					ENDSELECT
 		ENDSELECT
 	ELSEIF ABL:親密 > 4
@@ -1759,18 +1839,18 @@ IF LOCAL
 			CASE 1
 				PRINTFORML 「呜呜……这个、比我想象的更需要心理准备……」
 				PRINTFORMW （但是就这样把已经做好准备的%CALLNAME:MASTER%先生晾在一边也太…………有了！）
-				PRINTFORMW 妖梦猛地抬起头、将\@ TALENT:思慕 ? 焦躁不安的 # 一脸不服气的 \@半灵轻轻地放在%CALLNAME:MASTER%空着的大腿上……
+				PRINTFORMDW 妖梦猛地抬起头、将\@ TALENT:思慕 ? 焦躁不安的 # 一脸不服气的 \@半灵轻轻地放在%CALLNAME:MASTER%空着的大腿上……
 		ENDSELECT
 	ELSE
 		SELECTCASE RAND:2
 			CASE 0
-				PRINTFORML 「......」
+				PRINTFORML 「……」
 				PRINTFORML （……不知为何就顺势躺下来了）
 				PRINTFORMW （感觉快要窒息了……）
 			CASE 1
-				PRINTFORML 「……这种事情应该是关系更加親密的人之间才会做吧」
+				PRINTFORML 「……这种事情应该是关系更加亲密的人之间才会做吧」
 				PRINTFORML 「现在这样反而让我放松不下来……」
-				PRINTFORMW 也许是因为尴尬、旁边的半灵显得有些不安……
+				PRINTFORMDW 也许是因为尴尬、旁边的半灵显得有些不安……
 		ENDSELECT
 	ENDIF
 ENDIF
@@ -1804,7 +1884,7 @@ IF LOCAL
 	ELSEIF TCVAR:烂醉 == 1
 		IF TFLAG:194 > 0
 			PRINTFORML 「呕欸欸……如、如果有什么事的话……能不能稍后再说……」
-			PRINTFORMW 看来现在不是做这个的时候……
+			PRINTFORMDW 看来现在不是做这个的时候……
 		ELSEIF TALENT:恋慕
 			PRINTFORML 「唔、嗯……%CALLNAME:MASTER%，先生……？」
 			PRINTFORMW 「……现、现在……」
@@ -1821,7 +1901,7 @@ IF LOCAL
 					PRINTFORMW 「这、这种胆量不需要！」
 				ELSEIF TALENT:思慕
 					PRINTFORML 「在这里……这、这不行」
-					PRINTFORMW 妖梦脸红地环顾四周……
+					PRINTFORMDW 妖梦脸红地环顾四周……
 				ELSE
 					PRINTFORMW 「……这种爱好无法理解」
 				ENDIF
@@ -1831,7 +1911,7 @@ IF LOCAL
 					PRINTFORMW 「……这、这个地方比较安静，更适合」
 				ELSEIF TALENT:思慕
 					PRINTFORML 「在、在外面？开玩笑吧……？」
-					PRINTFORMW 妖梦脸色发青地后退了……
+					PRINTFORMDW 妖梦脸色发青地后退了……
 				ELSE
 					PRINTFORMW 「……这种爱好无法理解」
 				ENDIF
@@ -1841,7 +1921,7 @@ IF LOCAL
 					PRINTFORMW 「这种时候希望你只看着我……」
 				ELSEIF TALENT:思慕
 					PRINTFORML 「如果想把我算作勾搭对象，请去找别人」
-					PRINTFORMW 妖梦板着脸扭过头去……
+					PRINTFORMDW 妖梦板着脸扭过头去……
 				ELSE
 					PRINTFORMW 「……这种爱好无法理解」
 				ENDIF
@@ -1867,10 +1947,10 @@ IF LOCAL
 				ELSEIF TALENT:思慕
 					PRINTFORMW 「不、不行。我们之间没有那种关系……」
 					PRINTFORMW （……但如果有这方面经验，也许就不会被视为半熟手了，也许）
-					PRINTFORMW 略显犹豫后，妖梦放松了抵抗的手势……
+					PRINTFORMDW 略显犹豫后，妖梦放松了抵抗的手势……
 				ELSE
 					PRINTFORMW 「你、你要……做、什么……？」
-					PRINTFORMW 在妖梦眼花缭乱之际，%CALLNAME:MASTER%开始了行動……
+					PRINTFORMDW 在妖梦眼花缭乱之际，%CALLNAME:MASTER%开始了行动……
 				ENDIF
 			CASE 2
 				IF TALENT:恋慕
@@ -1882,7 +1962,7 @@ IF LOCAL
 					PRINTFORMW （在、在世俗看来不亲吻就是正常的吗……！？）
 				ELSE
 					PRINTFORMW 「你、你要……做、什么……？」
-					PRINTFORMW 在妖梦眼花缭乱之际，%CALLNAME:MASTER%开始了行動……
+					PRINTFORMDW 在妖梦眼花缭乱之际，%CALLNAME:MASTER%开始了行动……
 				ENDIF
 			CASE 3
 				IF TALENT:恋慕
@@ -1895,7 +1975,7 @@ IF LOCAL
 					CALL HPH_PRINT,@"（…………嗯，%CALLNAME:MASTER%这样也不错呢……HPH）","W"
 				ELSE
 					PRINTFORMW 「停、停下……！」
-					PRINTFORMW 妖梦全神贯注于内心情感，她的抵抗显得极为脆弱……
+					PRINTFORMDW 妖梦全神贯注于内心情感，她的抵抗显得极为脆弱……
 				ENDIF
 			CASE 4
 				IF TALENT:恋慕
@@ -1910,7 +1990,7 @@ IF LOCAL
 					PRINTFORMW （无法拒绝……）
 				ELSE
 					PRINTFORMW 「啊、啊？这么轻易就让你碰身体……咿啊！？」
-					PRINTFORMW %CALLNAME:MASTER%的手一触及，妖梦身体剧烈颤抖，无力地倒下……
+					PRINTFORMDW %CALLNAME:MASTER%的手一触及，妖梦身体剧烈颤抖，无力地倒下……
 					PRINTFORMW （为什么……力气，没了……？）
 				ENDIF
 			CASE 5
@@ -1945,7 +2025,7 @@ IF LOCAL
 				ELSE
 					PRINTFORML 「被如此轻视，已经不只是惊讶，而是愤怒了」
 					PRINTFORMW 「我要再次提醒我是剑士吗？」
-					PRINTFORMW 妖梦仿佛要拔剑的气势……
+					PRINTFORMDW 妖梦仿佛要拔剑的气势……
 				ENDIF
 		ENDSELECT
 	ELSE
@@ -1969,7 +2049,7 @@ IF LOCAL
 						CALL HPH_PRINT,@"「这样下去如果有人进来一眼就能看到、啊、啊啊啊HPH」","W"
 				ENDSELECT
 			;振られた状态＆2分の1
-			ELSEIF CFLAG:23:2001 == 1 && RAND:2 == 0
+			ELSEIF CFLAG:23:1001 == 1 && RAND:2 == 0
 				PRINTFORMW 「即使只是身体上的需求，我也会觉得很幸福」
 				PRINTFORMW 「……在你的怀抱中，让我忘记一切吧」
 			ELSE
@@ -1982,7 +2062,7 @@ IF LOCAL
 						CALL HPH_PRINT,@"「所以，请再刻印在我心中……HPH」","W"
 					CASE 2
 						PRINTFORML 「虽然不是第一次，但还是有点紧张呢……」
-						PRINTFORMW 当%CALLNAME:MASTER%温柔地拥抱时，妖梦仿佛放松了身体，释放了力量
+						PRINTFORMDW 当%CALLNAME:MASTER%温柔地拥抱时，妖梦仿佛放松了身体，释放了力量
 				ENDSELECT
 			ENDIF
 		ELSEIF TALENT:思慕
@@ -2027,11 +2107,11 @@ IF LOCAL
 		;醉っぱらっている
 		IF ALCOHOL_FACE(23) == "醉酒" || ALCOHOL_FACE(23) == "不省人事"
 			PRINTFORML 「啊，诶？ ……稍微晒晒太阳，想要感受一下风……」
-			PRINTFORMW 似乎觉得情况不妙，妖梦毫不犹豫地握住了%CALLNAME:MASTER%的手
-		;勃然大怒、または反発刻印2以上
+			PRINTFORMDW 似乎觉得情况不妙，妖梦毫不犹豫地握住了%CALLNAME:MASTER%的手
+		;勃然大怒、または反感刻印2以上
 		ELSEIF CFLAG:318 == 1 || MARK:23:反発刻印 > 1
-			PRINTFORML 「......」
-			PRINTFORMW 似乎勉强会跟着过来……
+			PRINTFORML 「……」
+			PRINTFORMDW 似乎勉强会跟着过来……
 		;恋慕
 		ELSEIF TALENT:恋慕
 			IF BATHROOM(CFLAG:現在位置)
@@ -2071,7 +2151,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;352,告白
-;FLAG:甲斐性无(1=失败)
+;FLAG:甲斐性無(1=失败)
 ;TFLAG:193 (1=成功 0=失败)
 ;==================================================
 @M_KOJO_别人版_SUCCESS_COM_K23_352
@@ -2101,7 +2181,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;353,猥亵
-;FLAG:甲斐性无(1=失败)
+;FLAG:甲斐性無(1=失败)
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -2200,7 +2280,7 @@ IF LOCAL
 	IF TCVAR:烂醉 == 1
 		IF !TALENT:無知 && ABL:露出癖 + TALENT:羞恥心 < 3
 			PRINTFORML 「呕欸欸……如、如果有什么事的话……能不能稍后再说……」
-			PRINTFORMW 看来现在不是做这个的时候……
+			PRINTFORMDW 看来现在不是做这个的时候……
 		ELSEIF TALENT:恋慕
 			PRINTFORML 「唔、嗯……%CALLNAME:MASTER%，先生……？」
 			PRINTFORMW 「……现、现在……」
@@ -2246,7 +2326,7 @@ IF LOCAL
 	ELSE
 		IF !TALENT:無知 && ABL:露出癖 + TALENT:羞恥心 < 3
 			PRINTFORML 「……哈啊？　不如您在周围挖个洞怎么样？」
-			PRINTFORMW 从她瞪视的眼神中只能感受到蔑视和无奈……
+			PRINTFORMDW 从她瞪视的眼神中只能感受到蔑视和无奈……
 		ELSE
 			PRINTFORML 「在这里？……说再忍耐也没用吧」
 			PRINTFORMW （必须让半灵在附近警戒才行……）
@@ -2382,8 +2462,8 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;368,陪同行動 
-;技能系の行動は技能レベルが1以上なら发生
+;368,陪同行动 
+;技能系の行动は技能レベルが1以上なら发生
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -2404,10 +2484,10 @@ LOCAL = 1
 IF LOCAL
 	;Activity_Type =0考え事/=1玩游戏/=2吃饭/=3つまみ食い/=4扫除/=5运动/=6读书/=7料理
 	;				=8セッション/=9采集/=10钓鱼/=11调合/=12休憩/=13晩酌/=14买い物/=15说教/=16落とし穴
-	;勃然大怒or反発刻印有
+	;勃然大怒or反感刻印有
 	IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:3 == 0) || (MARK:23:反発刻印 > 1 && RAND:3 != 0)
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦对%CALLNAME:MASTER%视而不见……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦对%CALLNAME:MASTER%视而不见……
 	ELSE
 		SELECTCASE Activity_Type:TARGET
 			CASE 0
@@ -2469,11 +2549,11 @@ IF LOCAL
 						CASE 1
 							PRINTFORML 「这里看起来不错呢。那么下一个地方是……」
 								IF ABL:MASTER:清掃技能 >= ABL:清掃技能
-									PRINTFORM %CALLNAME:MASTER%在指导妖梦的同时
+									PRINTFORMD %CALLNAME:MASTER%在指导妖梦的同时
 								ELSE
-									PRINTFORM %CALLNAME:MASTER%在听从妖梦的指示
+									PRINTFORMD %CALLNAME:MASTER%在听从妖梦的指示
 								ENDIF
-							PRINTFORMW 两人一起开始周围的清洁工作
+							PRINTFORMDW 两人一起开始周围的清洁工作
 					ENDSELECT
 				ENDIF
 			CASE 5
@@ -2516,7 +2596,7 @@ IF LOCAL
 				IF TFLAG:193 == 2
 					PRINTFORML 「正在尝试用手头的食材做些什么」
 					PRINTFORMW 「慢慢地变得有趣起来了……%CALLNAME:MASTER%，您要一起吗？」
-					PRINTFORMW %CALLNAME:MASTER%与妖梦一起投入到料理创作中
+					PRINTFORMDW %CALLNAME:MASTER%与妖梦一起投入到料理创作中
 				ELSEIF TFLAG:193 == -1
 					PRINTFORMW 「诶……？那就不勉强塞下去了吧……」
 				ELSE
@@ -2571,7 +2651,7 @@ IF LOCAL
 						PRINTFORMW 「紧绷的神经也不好，该休息的时候就休息吧」
 					CASE 1
 						PRINTFORML 「很宁静呢……嗯，您怎么了？」
-						PRINTFORMW %CALLNAME:MASTER%在妖梦身边，忍住了想要把半灵抱作枕头的冲动……
+						PRINTFORMDW %CALLNAME:MASTER%在妖梦身边，忍住了想要把半灵抱作枕头的冲动……
 					CASE 2
 						PRINTFORML 「呼……哦，您泡了茶给我吗」
 						PRINTFORMW 「谢谢。那我虽然少量，也请您享用点心……」
@@ -2581,7 +2661,7 @@ IF LOCAL
 				;※酒耐性0以上のみ
 				IF TALENT:恋慕 && RAND:3 == 0
 					PRINTFORML （……这、这种氛围让人有点醉了……）
-					PRINTFORMW 妖梦脸红着为%CALLNAME:MASTER%斟酒
+					PRINTFORMDW 妖梦脸红着为%CALLNAME:MASTER%斟酒
 				ELSE
 					SELECTCASE RAND:2
 						CASE 0
@@ -2617,12 +2697,12 @@ IF LOCAL
 				;▼说教［样子をうかがう］
 				;※神灵・蓬莱人は除く
 				;TFLAG:193,-1
-				;PRINTFORMW 
+				;PRINTFORMDW 
 			CASE 16
 				;▼落とし穴［いたずらに交手］or［样子をうかがう］
 				;※三月精・琪露诺・克劳恩皮丝のみ
 				;それ以外は落ちる侧
-				;PRINTFORMW 
+				;PRINTFORMDW 
 			CASE 17
 				;▼雪だるま作り［一绪に雪作り］
 				;※冬之月のみ
@@ -2646,16 +2726,16 @@ IF LOCAL
 						PRINTFORMW 「如果桌上还摆着橘子和冰激凌的话，那岐命大人爬出来也会很费劲吧」
 					CASE 2
 						PRINTFORML 「能更多地享受这片刻的幸福，感觉有点优越……」
-						PRINTFORMW 妖梦与半灵一起享受着被炉的温暖……
+						PRINTFORMDW 妖梦与半灵一起享受着被炉的温暖……
 				ENDSELECT
 		ENDSELECT
 	ENDIF
 ENDIF
 RETURN 1
 
-;自由行動判定用函数
-;上记テンプレに对应するCASEでRETURN -1するとその自由行動をしなくなります
-@M_KOJO_别人版_自由行動判定_K23(ARG)
+;自由行动判定用函数
+;上记テンプレに对应するCASEでRETURN -1するとその自由行动をしなくなります
+@M_KOJO_别人版_自由行动判定_K23(ARG)
 SELECTCASE ARG
 	;CASE 1, 2, 5
 	;	RETURN -1
@@ -2687,18 +2767,18 @@ LOCAL = 1
 IF LOCAL
 	IF CFLAG:睡眠
 		IF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-			PRINTFORML 虽然妖梦的本体睡着了、但半灵却依旧在其周围缓缓漂浮着警戒着%CALLNAME:MASTER%
-			PRINTFORMW 没有办法的%CALLNAME:MASTER%只得在离她稍远的地方铺好了被褥准备就寝……
+			PRINTFORMDL 虽然妖梦的本体睡着了、但半灵却依旧在其周围缓缓漂浮着警戒着%CALLNAME:MASTER%
+			PRINTFORMDW 没有办法的%CALLNAME:MASTER%只得在离她稍远的地方铺好了被褥准备就寝……
 		ELSE
 			PRINTFORML 「……呼……」
-			PRINTFORMW %CALLNAME:MASTER%微笑地看了一会儿与半灵并排而眠的妖梦随后也躺下休息了
+			PRINTFORMDW %CALLNAME:MASTER%微笑地看了一会儿与半灵并排而眠的妖梦随后也躺下休息了
 		ENDIF
 	ELSEIF TCVAR:烂醉 == 1
 	
 	ELSEIF CFLAG:MASTER:初期位置 == CFLAG:23:初期位置 || CFLAG:MASTER:現在位置 == OMANEKIBEYA() || FLAG:一時滞在 == 23 || CFLAG:23:陪睡中
 		IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-			PRINTFORML 「......」
-			PRINTFORMW 妖梦什么也没说就这么早早地钻进被窝里了……
+			PRINTFORML 「……」
+			PRINTFORMDW 妖梦什么也没说就这么早早地钻进被窝里了……
 		ELSE
 			SELECTCASE RAND:3
 				CASE 0
@@ -2710,12 +2790,12 @@ IF LOCAL
 							CASE 4
 								PRINTFORML 「那样会着凉的、还是等天气暖和一点再说吧……」
 								PRINTFORML 「虽然不知道能不能代替半灵、但如果不嫌弃的话、我可以握着%CALLNAME:MASTER%您的手直到您入睡」
-								PRINTFORM 感受着从她的手中传来的温暖的体温
+								PRINTFORMD 感受着从她的手中传来的温暖的体温
 							CASEELSE
 								PRINTFORML 「诶诶诶、那个…………如、如果您愿意的话、请便……」
-								PRINTFORM 感受着半灵安静地依偎在手臂上那舒适的凉意和触感
+								PRINTFORMD 感受着半灵安静地依偎在手臂上那舒适的凉意和触感
 						ENDSELECT
-					PRINTFORMW 、%CALLNAME:MASTER%的意识渐渐沉入梦乡
+					PRINTFORMDW 、%CALLNAME:MASTER%的意识渐渐沉入梦乡
 				CASE 2
 					PRINTFORML 「……愿明天对您来说、会是比今天更加%TEXTR("幸福/美好/")%的一天」
 					PRINTFORMW 「晚安、%CALLNAME:MASTER%先生」
@@ -2723,8 +2803,8 @@ IF LOCAL
 		ENDIF
 	ELSEIF CFLAG:MASTER:現在位置 != CFLAG:30:初期位置
 		IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-			PRINTFORML 「......」
-			PRINTFORMW 看到%CALLNAME:MASTER%睡下、妖梦便快步离开了房间……
+			PRINTFORML 「……」
+			PRINTFORMDW 看到%CALLNAME:MASTER%睡下、妖梦便快步离开了房间……
 		ELSEIF TALENT:恋慕
 			SELECTCASE RAND:2
 				CASE 0
@@ -2740,8 +2820,8 @@ IF LOCAL
 		ENDIF
 	ELSE
 		IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-			PRINTFORML 虽然妖梦看起来很不高兴的样子、但还是为%CALLNAME:MASTER%准备好了被褥
-			PRINTFORMW 无法化解这尴尬的气氛、%CALLNAME:MASTER%只得默默躺下了……
+			PRINTFORMDL 虽然妖梦看起来很不高兴的样子、但还是为%CALLNAME:MASTER%准备好了被褥
+			PRINTFORMDW 无法化解这尴尬的气氛、%CALLNAME:MASTER%只得默默躺下了……
 		ELSE
 			PRINTFORML 「今天要住下是吗、我明白了」
 			PRINTFORMW 「我这就去准备被褥还请稍等片刻……」
@@ -2778,20 +2858,20 @@ IF LOCAL
 				DATAFORM 「对、对不起，让您费心了……呜噗……」
 				DATAFORM 「呜呜……帮、帮大忙了。我还有些、不舒服……」
 			ENDDATA
-			PRINTFORMW 摇摇晃晃地坐下的妖梦就那样和半灵一起瘫软在了地上……
+			PRINTFORMDW 摇摇晃晃地坐下的妖梦就那样和半灵一起瘫软在了地上……
 		ELSE
 			PRINTFORML 「……咕……得、得赶快、醒一醒酒才行……」
-			PRINTFORMW 旁边的半灵时不时地尝试让摇摇晃晃地坐下的妖梦清醒过来……
+			PRINTFORMDW 旁边的半灵时不时地尝试让摇摇晃晃地坐下的妖梦清醒过来……
 		ENDIF
-	;勃然大怒or反発刻印
+	;勃然大怒or反感刻印
 	ELSEIF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦没有放松警惕与%CALLNAME:MASTER%保持了足够距离后靠在了墙上……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦没有放松警惕与%CALLNAME:MASTER%保持了足够距离后靠在了墙上……
 	ELSE
-		;妖梦の体力or気力が半分以下
+		;妖梦の体力or气力が半分以下
 		IF BASE:TARGET:体力 <= (MAXBASE:TARGET:体力 / 2) || BASE:TARGET:気力 <= (MAXBASE:TARGET:気力 / 2)
 			IF TALENT:恋慕
-				SELECTCASE RAND:3
+				SELECTCASE RAND:2
 					CASE 0
 						PRINTFORML 「啊……果然瞒不过%CALLNAME:MASTER%先生的眼睛呢」
 						PRINTFORML 「虽然有些不好意思、但我确实有点累了、请让我在您身边休息一下吧」
@@ -2799,13 +2879,13 @@ IF LOCAL
 						PRINTFORML 「难道是在担心我吗……？　谢谢您的关心」
 						PRINTFORML 「强撑着装没事也没什么好处、我就稍微休息一下吧」
 				ENDSELECT
-				PRINTFORMW 妖梦坐在了%CALLNAME:MASTER%旁边、缓缓飘来的半灵则落在了%CALLNAME:MASTER%的另一侧
+				PRINTFORMDW 妖梦坐在了%CALLNAME:MASTER%旁边、缓缓飘来的半灵则落在了%CALLNAME:MASTER%的另一侧
 			ELSE
 				PRINTFORML 「诶、我看起来很累吗」
 				PRINTFORML 「……既然如此、那我就稍微休息一下吧」
-				PRINTFORMW 妖梦找了个合适的地方坐下了、半灵也缓缓地落在了她的旁边
+				PRINTFORMDW 妖梦找了个合适的地方坐下了、半灵也缓缓地落在了她的旁边
 			ENDIF
-		;MASTERの体力半分以下or気力1/4以下
+		;MASTERの体力半分以下or气力1/4以下
 		ELSEIF BASE:MASTER:体力 <= (MAXBASE:MASTER:体力 / 2) || BASE:MASTER:気力 <= (MAXBASE:MASTER:気力 / 4)
 			IF TALENT:恋慕
 				SELECTCASE RAND:2
@@ -2816,11 +2896,11 @@ IF LOCAL
 						PRINTFORML 「请放心休息吧、护卫本来就是我的工作之一」
 						PRINTFORML 「我会让半灵陪在您身边的、如果有什么需要请尽管吩咐吧」
 				ENDSELECT
-				PRINTFORMW 妖梦让半灵守在%CALLNAME:MASTER%身边、本体则在稍远的地方警戒着周边的情况……
+				PRINTFORMDW 妖梦让半灵守在%CALLNAME:MASTER%身边、本体则在稍远的地方警戒着周边的情况……
 			ELSE
 				PRINTFORML 「如果我没看错的话……您现在相当疲惫吧？」
 				PRINTFORML 「这样下去的话工作和锻炼都会受影响的、适当的休息也很重要哦。来、请坐在这里」
-				PRINTFORMW 看出%CALLNAME:MASTER%的疲惫的妖梦不知从哪里拿出了坐垫
+				PRINTFORMDW 看出%CALLNAME:MASTER%的疲惫的妖梦不知从哪里拿出了坐垫
 			ENDIF
 		ELSE
 			IF TALENT:恋慕
@@ -2828,16 +2908,16 @@ IF LOCAL
 					CASE 0
 						PRINTFORML 「您在冥想……应该不是。是想稍微打发一下时间吗？」
 						PRINTFORML 「那不如和我聊聊天吧……对了、其实最近发生了这样的事――」
-						PRINTFORMW 稍事休息、与妖梦一起愉快地谈笑了一会儿
+						PRINTFORMDW 稍事休息、与妖梦一起愉快地谈笑了一会儿
 					CASE 1
 						PRINTFORML 「有时候什么都不做、只是静静放松的时间也很重要哦」
 						PRINTFORML 「如果总是想着要做这做那、会很累的……是的、我自己就深有体会」
-						PRINTFORMW 虽然彼此都没说太多话、但气氛很不可思议的没有变得尴尬起来
+						PRINTFORMDW 虽然彼此都没说太多话、但气氛很不可思议的没有变得尴尬起来
 				ENDSELECT
 			ELSE
 				PRINTFORML 「嗯嗯？　您看起来并没有特别疲劳啊……」
 				PRINTFORML 「如果只是想打发一下时间的话、不如稍微来陪我锻炼一下如何？　那样会更有意义的哦！」
-				PRINTFORMW 从休息开始到结束、妖梦一直蠢蠢欲动着……
+				PRINTFORMDW 从休息开始到结束、妖梦一直蠢蠢欲动着……
 			ENDIF
 		ENDIF
 	ENDIF
@@ -2870,34 +2950,34 @@ IF LOCAL
 		IF TCVAR:烂醉 == 1
 			PRINTFORML
 		ELSEIF CFLAG:318 == 1 || MARK:23:反発刻印 > 1
-			PRINTFORML 「......」
-			PRINTFORMW 妖梦虽然皱着眉，但似乎愿意一起出门了……
+			PRINTFORML 「……」
+			PRINTFORMDW 妖梦虽然皱着眉，但似乎愿意一起出门了……
 		ELSEIF TALENT:恋慕
-			IF CFLAG:23:2001 == 1
-				PRINTFORML 和我约会...我明白了，让我加入吧。
-				PRINTFORMW （......还不想放弃......）
+			IF CFLAG:23:1001 == 1
+				PRINTFORMDL 和我约会…我明白了，让我加入吧。
+				PRINTFORMW （……还不想放弃……）
 			ELSE
 				SELECTCASE RAND:2
 					CASE 0
-						PRINTFORML 能被邀请真开心！
-						PRINTFORMW 如果需要便当，我会准备好的，请随意吩咐。
+						PRINTFORMDL 能被邀请真开心！
+						PRINTFORMDW 如果需要便当，我会准备好的，请随意吩咐。
 					CASE 1
-						PRINTFORML 今天我们会去哪里玩呢？
-						PRINTFORMW 请带我去%CALLNAME:MASTER%先生喜欢的地方吧。
+						PRINTFORMDL 今天我们会去哪里玩呢？
+						PRINTFORMDW 请带我去%CALLNAME:MASTER%先生喜欢的地方吧。
 				ENDSELECT
 			ENDIF
 		ELSEIF TALENT:思慕
 			SELECTCASE RAND:2
 				CASE 0
-					PRINTFORML 和我一起……嗯，嗯，我有时间。
+					PRINTFORMDL 和我一起……嗯，嗯，我有时间。
 					PRINTFORMW （这是通常所说的约会吗……？）
 				CASE 1
-					PRINTFORML 你要出去吗？……啊，我也要去吗……
+					PRINTFORMDL 你要出去吗？……啊，我也要去吗……
 					PRINTFORMW （嗯，突然有点在意起来了……）
 			ENDSELECT
 		ELSE
-			PRINTFORML 你可以出去吗？……嘿，我也可以吗？
-			PRINTFORMW 是的，没问题……
+			PRINTFORMDL 你可以出去吗？……嘿，我也可以吗？
+			PRINTFORMDW 是的，没问题……
 		ENDIF
 	;TARGET以外と约会
 	ELSEIF CFLAG:MASTER:同行
@@ -2906,23 +2986,20 @@ IF LOCAL
 		IF CFLAG:318 == 1 || MARK:23:反発刻印 > 1 || TCVAR:烂醉 == 1
 			PRINTFORML
 		ELSEIF TALENT:恋慕
-			PRINTDATAL
-				DATAFORM 「您要出门吗？祝您一路顺风」
-				DATAFORM 「您要出门吗？路上请小心」
-			ENDDATA
-			PRINTFORMW 妖梦向%CALLNAME:MASTER%鞠躬后目送他离开
+			PRINTFORML 「您要出门吗？%TEXTR("祝您一路顺风/路上请小心")%」
+			PRINTFORMDW 妖梦向%CALLNAME:MASTER%鞠躬后目送他离开
 		ELSEIF TALENT:思慕
 			PRINTFORML 「您要出门吗？路上请注意安全」
-			PRINTFORMW 妖梦轻轻挥手，目送%CALLNAME:MASTER%
+			PRINTFORMDW 妖梦轻轻挥手，目送%CALLNAME:MASTER%
 		ELSE
-			PRINTFORMW 你可以出门吗？请务必小心。
+			PRINTFORMW 「您要出门吗？请小心。」
 		ENDIF
 	ENDIF
 ENDIF
 RETURN 1
 ;==================================================
 ;410,扫除
-;FLAG:70(1=時間停止中
+;FLAG:70(1=时间停止中
 ;TFLAG:193(0=见てるだけ 1=一绪に扫除)
 ;TFLAG:194(3=污れ高 2=污れ中 1=污れ低 0=污れ最小
 ;OUTROOF(CFLAG:現在位置)(野外扫除（冬は扫雪
@@ -2952,19 +3029,19 @@ IF LOCAL
 			PRINTFORML 「……打扫，是吧……打扫？」
 			PRINTFORMW 「现在就去？……好、好的，我来帮忙……」
 		ELSE
-			PRINTFORML ......既然这样，不如我们就顺便把这里也整理完吧？
-			PRINTFORMW 我才不会让东西这么脏乱呢
+			PRINTFORMDL ……既然这样，不如我们就顺便把这里也整理完吧？
+			PRINTFORMDW 我才不会让东西这么脏乱呢
 		ENDIF
 	;手传う
 	ELSEIF TFLAG:193 == 1
 		;勃然大怒
 		IF CFLAG:318 == 1
-			PRINTFORML 「......」
-			PRINTFORMW %CALLNAME:MASTER%和妖梦默默地完成了清理，一言不发……
+			PRINTFORML 「……」
+			PRINTFORMDW %CALLNAME:MASTER%和妖梦默默地完成了清理，一言不发……
 		;反抗
 		ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 			PRINTFORML 「……我会帮忙的」
-			PRINTFORMW 在尴尬的气氛中，%CALLNAME:MASTER%和妖梦完成了清扫工作……
+			PRINTFORMDW 在尴尬的气氛中，%CALLNAME:MASTER%和妖梦完成了清扫工作……
 		;雪掻き
 		ELSEIF OUTROOF(CFLAG:現在位置) && DAY:2 == 4
 			;污れ多
@@ -2979,7 +3056,7 @@ IF LOCAL
 						PRINTFORMW 「这点雪算什么……！」
 						PRINTFORML 「那时候庭院也是！ 垃圾场前面也是！」
 						PRINTFORMW 「我一个人搞定的时候可是这样啊！！」
-						PRINTFORMW 一脸凶猛的妖梦正在与雪激烈战斗……
+						PRINTFORMDW 一脸凶猛的妖梦正在与雪激烈战斗……
 				ENDSELECT
 			;污れ中以下
 			ELSE
@@ -3000,31 +3077,31 @@ IF LOCAL
 					PRINTFORML 「庭院……！」
 					PRINTFORMW 「怎么会这样……明明只是修剪产生的垃圾而已……」
 					PRINTFORML 「唉……不管怎么说，这是我作为园艺师的懒惰……」
-					PRINTFORMW %CALLNAME:MASTER%一边安慰着泪眼汪汪的妖梦，一边清理庭园
+					PRINTFORMDW %CALLNAME:MASTER%一边安慰着泪眼汪汪的妖梦，一边清理庭园
 				ELSE
 					PRINTFORML 「嗯，有点乱了呢……」
 					PRINTFORMW 「抱歉，一个人的话很难处理细节」
 						IF TALENT:恋慕 && RAND:2 == 0
-							PRINTFORML 如果%CALLNAME:MASTER%先生能成为专属的话，我就专心于打理了……
-							PRINTFORMW 从妖梦的眼神中感受到了压力……
+							PRINTFORMDL 如果%CALLNAME:MASTER%先生能成为专属的话，我就专心于打理了……
+							PRINTFORMDW 从妖梦的眼神中感受到了压力……
 						ELSE
 							PRINTFORMW 「能借助%CALLNAME:MASTER%的帮助真是帮大忙了」
 						ENDIF
 				ENDIF
 			;污れ高
 			ELSEIF TFLAG:194 >= 3
-				PRINTFORMW 这垃圾的量，到底……不会又是精灵吧？！
+				PRINTFORMDW 这垃圾的量，到底……不会又是精灵吧？！
 					;幽幽子私室
 					IF CFLAG:MASTER:現在位置 == 623
 						IF CFLAG:66:現在位置 == CFLAG:23:現在位置
-							PRINTFORML 幽幽子小姐，请您稍等，我马上清理房间，您暂时轻松一下……！
+							PRINTFORMDL 幽幽子小姐，请您稍等，我马上清理房间，您暂时轻松一下……！
 						ELSE
-							PRINTFORML 无论如何，幽幽子小姐回来之前，我一定要把这里弄干净……！
+							PRINTFORMDL 无论如何，幽幽子小姐回来之前，我一定要把这里弄干净……！
 						ENDIF
-						PRINTFORMW 虽然不好意思，但请%CALLNAME:MASTER%先生大方地借我一臂之力吧！
+						PRINTFORMDW 虽然不好意思，但请%CALLNAME:MASTER%先生大方地借我一臂之力吧！
 					;妖梦私室
 					ELSEIF CFLAG:MASTER:現在位置 == 624
-						PRINTFORML 如果不快整理好……我得提前说清楚，平时这里可是更干净的哦？
+						PRINTFORMDL 如果不快整理好……我得提前说清楚，平时这里可是更干净的哦？
 						PRINTFORM 「啊，你那是什么眼神！
 							IF INRANGE(CFLAG:MASTER:初期位置, 623, 625)
 								PRINTFORMW %CALLNAME:MASTER%先生您也知道，因为住在\@ CFLAG:MASTER:初期位置 == 624 ? 房间 # 府邸 \@里，对吧！」
@@ -3034,97 +3111,97 @@ IF LOCAL
 					;空的房间（主人公私室）
 					ELSEIF CFLAG:MASTER:現在位置 == 625
 						IF CFLAG:MASTER:初期位置 == 625
-							PRINTFORML 房间这么乱，我可不能说‘自己来打扫’这样的话……当然，我也会帮忙的。
-							PRINTFORMW 如果有想要自己打扫的地方，请提前告诉我。
+							PRINTFORMDL 房间这么乱，我可不能说‘自己来打扫’这样的话……当然，我也会帮忙的。
+							PRINTFORMDW 如果有想要自己打扫的地方，请提前告诉我。
 						ELSE
-							PRINTFORML 这个房间平时很少使用，但不代表可以随意……
-							PRINTFORMW 如果能请%CALLNAME:MASTER%先生帮忙，那就趁这个机会彻底打扫干净吧！
+							PRINTFORMDL 这个房间平时很少使用，但不代表可以随意……
+							PRINTFORMDW 如果能请%CALLNAME:MASTER%先生帮忙，那就趁这个机会彻底打扫干净吧！
 						ENDIF
 					;厨房
 					ELSEIF CFLAG:MASTER:現在位置 == 626
-						PRINTFORML 我可不能让幽幽子小姐品尝在这种厨房里做出来的菜！
-						PRINTFORMW 必须尽快整理……非常感谢%CALLNAME:MASTER%先生的协助。
+						PRINTFORMDL 我可不能让幽幽子小姐品尝在这种厨房里做出来的菜！
+						PRINTFORMDW 必须尽快整理……非常感谢%CALLNAME:MASTER%先生的协助。
 					;澡堂
 					ELSEIF CFLAG:MASTER:現在位置 == 627
-						PRINTFORML 首先，不是身体需要清洗……如果有尴尬情况，那就不太合适了。
-						PRINTFORMW 即使在打扫后也不迟！一口气清理干净！
+						PRINTFORMDL 首先，不是身体需要清洗……如果有尴尬情况，那就不太合适了。
+						PRINTFORMDW 即使在打扫后也不迟！一口气清理干净！
 					;西行妖
 					ELSEIF CFLAG:MASTER:現在位置 == 629
-						PRINTFORML 随便散落西行妖周围的家伙……真是胆大妄为。
-						PRINTFORMW 当然要尽快清理，但如果没有事就太好了……
+						PRINTFORML 「竟然把西行妖周围弄得这么乱……真是胆大包天」
+						PRINTFORMW 「尽快收拾干净是当然的，但愿没什么事发生……」
 					ELSE
-						PRINTFORML 你这样放任不管，会牵扯到宅邸的名誉！
-						PRINTFORMW 请%CALLNAME:MASTER%先生帮个忙吧！
+						PRINTFORML 「把这么糟糕的样子放着不管会影响宅邸的声誉！」
+						PRINTFORMW 「%CALLNAME:MASTER%先生，请务必助我一臂之力！」
 					ENDIF
 			;污れ中以下
 			ELSE
-				PRINTFORM 「虽然打扫屋子也是我的任务、
+				PRINTFORM 「虽然打扫宅邸也是我的工作，
 					IF TALENT:恋慕
-						PRINTFORML 「如果%CALLNAME:MASTER%成为我的专属，我就可以专心照料了呢……」
+						PRINTFORMW 能得到%CALLNAME:MASTER%先生的帮忙真是太可靠了！」
 					ELSE
-						PRINTFORMW 「有%CALLNAME:MASTER%的帮助真是太好了」
+						PRINTFORMW 如果能得到帮忙就太感谢了」
 					ENDIF
 
 					;冥界之门
 					IF CFLAG:MASTER:現在位置 == 620
-						PRINTFORML  关于是否将这里包含在宅邸内，是个棘手的问题，但作为连接冥界必经之地，这是必要的。
-						PRINTFORMW  保持清洁是毋庸置疑的！
+						PRINTFORML 「这里是否能算作宅邸的一部分很难说，但这里是往返冥界必经之地呢」
+						PRINTFORMW 「保持清洁是再好不过的了！」
 					ELSEIF CFLAG:MASTER:現在位置 == 623
-						PRINTFORML  作为使用者，我尽量不想让主人为打扫自己的房间而烦恼。
+						PRINTFORML 「作为下仆，即使是主人房间的打扫，也尽量不想劳烦主人亲自动手」
 							IF CFLAG:MASTER:初期位置 == 623
-								PRINTFORMW ……嗯？ 如果要请%CALLNAME:MASTER%先生帮忙，与幽幽子小姐一起，该怎么判断呢……？
+								PRINTFORMW 「……嗯？但是，如果是和幽幽子大人在一起的%CALLNAME:MASTER%先生帮忙的话，该怎么判断呢……？」
 							ELSEIF TALENT:恋慕
-								PRINTFORMW 啊……是的，料理方面我已经准备好了，您如果从其他地方开始打扫就好……
+								PRINTFORMW 「啊…放着衣服的地方由我来做，请从那里以外的地方开始就好…」
 							ELSE
-								PRINTFORMW 打扫期间请不要开玩笑，太随意可能会有麻烦哦？
+								PRINTFORMW 「在这种场合打扫时请不要开玩笑。太随便的话之后会很可怕哦？」
 							ENDIF
 					ELSEIF CFLAG:MASTER:現在位置 == 624
 						IF CFLAG:MASTER:初期位置 == 624
-							PRINTFORML 可能是因为我们两个人共享一个房间，所以更容易积聚污垢吧？
-							PRINTFORMW 不不！并不是说这很麻烦，而是有说不出的满足感……两个人一起打扫各自的房间，真的很有成就感……
+							PRINTFORML 「果然因为是两个人用一个房间，所以更容易积灰尘吗？」
+							PRINTFORMW 「不、不是！绝不是因为觉得麻烦……两个人一起打扫两人的房间，有种难以言喻的满足感呢…」
 						ELSE
-							PRINTFORML 话虽如此，但如果是在自己的房间，就有点不好意思了……非常感谢您的关心。
+							PRINTFORML 「话虽如此，如果是自己的房间就有点不好意思了呢…感谢您的心意」
 								IF TALENT:恋慕 && RAND:2 == 0
-									PRINTFORMW （被看到的尴尬……应该、大概没有……）
+									PRINTFORMW （被看到会很尴尬的东西…………应、应该没有，才对……）
 								ELSE
-									PRINTFORMW 花盆周围可能会有点麻烦，那部分就拜托您了。
+									PRINTFORMW 「花盆周围有点麻烦，那附近就交给我吧」
 								ENDIF
 						ENDIF
 					ELSEIF CFLAG:MASTER:現在位置 == 625
 						IF CFLAG:MASTER:初期位置 == 625
 							IF TALENT:恋慕 && RAND:2 == 0
-								PRINTFORML ……诶！？ 你刚才怎么这么心神不宁？没、没事啦，只是错觉……！
-								PRINTFORMW %CALLNAME:MASTER%一边忙碌地监视着妖梦，一边开始打扫，视线并未闲着。
+								PRINTFORML 「……哎！？从刚才开始就坐立不安？那、那种事没有哦，是错觉…！」
+								PRINTFORMDW %CALLNAME:MASTER%一边监视着忙碌地转移视线的妖梦，一边投入到打扫中
 							ELSE
-								PRINTFORML 现在这个房间被%CALLNAME:MASTER%占用，我来打扫的话，心里多少有些不舒服……
-								PRINTFORMW 如果可以的话，那就另当别论了，我会毫不客气地开始整理的！
+								PRINTFORML 「现在这个房间是%CALLNAME:MASTER%先生在使用，我来打扫的话稍微有点不好意思…」
+								PRINTFORMW 「如果能得到许可就另当别论了，我会毫不客气地动手！」
 							ENDIF
 						ELSE
-							PRINTFORML 这里其实是用来接待客人的空闲房间，实际上很少用于那个目的……
+							PRINTFORML 「这里是给客人用的空房间，但实际上几乎没怎么用过」
 								IF TALENT:恋慕 && (CFLAG:MASTER:初期位置 != 623 && CFLAG:MASTER:初期位置 != 624) && RAND:2 == 0
-									PRINTFORMW ……所以，稍微整理一下，让别人住进来也没什么问题吧……您觉得呢？
+									PRINTFORMW 「……所以，稍微整理一下的话，谁来住也没问题吧……？」
 								ELSE
-									PRINTFORMW 所以有时候，不知不觉间就有人占据了。说服他们可是挺费劲的……
+									PRINTFORMW 「所以偶尔不知不觉就会有幽灵住下来。说服它们还挺费劲的…」
 								ENDIF
 						ENDIF
 					ELSEIF CFLAG:MASTER:現在位置 == 626
-						PRINTFORML 作为处理食材的地方，这里尤其需要保持清洁
-						PRINTFORMW 怎么能把在脏乱厨房里做出来的食物给幽幽子小姐呢，这无论如何都不合适啊
+						PRINTFORML 「既然是处理食材的地方，这里尤其要保持清洁」
+						PRINTFORMW 「把在脏厨房里做出来的东西端给幽幽子大人，简直是岂有此理呢」
 					ELSEIF CFLAG:MASTER:現在位置 == 627
 						IF TALENT:恋慕
-							PRINTFORML 虽然您很坚强，但……嗯，如果可以的话，不是现在……？
-							PRINTFORMW 啊，不，是的，如果%CALLNAME:MASTER%您这么说的话……
+							PRINTFORML 「……虽然很可靠，但是，那个，非得现在吗……？」
+							PRINTFORMW 「啊，不…是、是的，如果%CALLNAME:MASTER%先生这么说的话……」
 						ELSE
-							PRINTFORML 虽然我很感激，但……嗯，真的非得现在不可吗……？
-							PRINTFORMW 在剩下的都清理完之前……不行吗，是吗……
+							PRINTFORML 「……虽然很感谢，但是，那个，非得现在吗……？」
+							PRINTFORMW 「欸，必须在后面来的人进来之前…不能放任不管…是、是这样啊…」
 						ENDIF
-						PRINTFORMW %CALLNAME:MASTER%尴尬地缩成一团，决定振作起来打扫浴室。
+						PRINTFORMDW %CALLNAME:MASTER%和害羞地缩着身子的妖梦一起努力打扫澡堂。
 					ELSEIF CFLAG:MASTER:現在位置 == 629
-						PRINTFORML 一个人打扫这里总是会心虚的……
-						PRINTFORMW 既然开始了，就一点不漏地打扫干净吧……尽量让我不用经常打扫
+						PRINTFORML 「打扫这里一个人总觉得有点胆怯呢…」
+						PRINTFORMW 「难得的机会，就好好把每个角落都打扫干净吧…这样暂时就不用打扫了」
 					ELSE
-						PRINTFORML 白玉楼里除了我们，还有很多等待成佛的幽灵停留着
-						PRINTFORMW 如果你能表现得体一点，我希望你能稍微舒适一些
+						PRINTFORML 「白玉楼里不仅有我们，还有很多等待成佛的幽灵」
+						PRINTFORMW 「如果它们老实的话，希望它们能过得稍微舒服一些呢」
 					ENDIF
 			ENDIF
 		ELSE
@@ -3133,11 +3210,11 @@ IF LOCAL
 					CASE 0
 						PRINTFORML 「哇……真是让人惊讶，居然到了这个地步」
 						PRINTFORMW 「如果任其不管，也许会有一些看点……」
-						PRINTFORMW %CALLNAME:MASTER%与妖梦一起面对着污垢的堆积……
+						PRINTFORMDW %CALLNAME:MASTER%与妖梦一起面对着污垢的堆积……
 					CASE 1
 						PRINTFORML 「……有时候赶走了妖精群，这样的景象就会蔓延开来」
 						PRINTFORMW 「到底是从哪里冒出来的呢……？」
-						PRINTFORMW %CALLNAME:MASTER%想着要不要推荐黑色闪电，但觉得可能会引来更多妖精，于是停了下来
+						PRINTFORMDW %CALLNAME:MASTER%想着要不要推荐黑色闪电，但觉得可能会引来更多妖精，于是停了下来
 				ENDSELECT
 			ELSE
 				SELECTCASE RAND:3
@@ -3156,8 +3233,8 @@ IF LOCAL
 	;手传わない
 	ELSE
 		IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-			PRINTFORML 「......」
-			PRINTFORMW 妖梦站在一旁，看着%CALLNAME:MASTER%打扫……
+			PRINTFORML 「……」
+			PRINTFORMDW 妖梦站在一旁，看着%CALLNAME:MASTER%打扫……
 		ELSE
 			PRINTFORML 「……我也来帮忙」
 				IF OUTROOF(CFLAG:現在位置) && DAY:2 == 4
@@ -3165,7 +3242,7 @@ IF LOCAL
 				ELSE
 					PRINTFORMW 「让%CALLNAME:MASTER%独自清扫感觉有些对不起……」
 				ENDIF
-			PRINTFORMW 最初，妖梦只是观察着%CALLNAME:MASTER%的工作，但很快就伸出了援手
+			PRINTFORMDW 最初，妖梦只是观察着%CALLNAME:MASTER%的工作，但很快就伸出了援手
 		ENDIF
 	ENDIF
 ENDIF
@@ -3194,39 +3271,39 @@ IF LOCAL
 	;初回
 	IF FIRSTTIME(SELECTCOM)
 		PRINTFORML 「也就是说想进行锻炼吗……当然，我愿意！」
-		PRINTFORML 向妖梦表示想进行战斗训练，她兴致勃勃地同意了
-		PRINTFORML 半灵摆动着尾巴，仿佛要甩断一样……
+		PRINTFORMDL 向妖梦表示想进行战斗训练，她兴致勃勃地同意了
+		PRINTFORMDL 半灵摆动着尾巴，仿佛要甩断一样……
 		PRINTFORMW
 		PRINTFORML 「那么就马上……虽然我很想这样说，但首先让我们确认彼此的技艺吧」
 		PRINTFORML 「既然是一起锻炼，不了解对方的实力可是会弄巧成拙的」
 		PRINTFORML 「看起来我是『指南者』，那就交给我吧！」
 		PRINTFORMW
-		PRINTFORML 在妖梦的指导下，我轻轻地动了动身体……
+		PRINTFORMDL 在妖梦的指导下，我轻轻地动了动身体……
 		PRINTFORMW
-		PRINTFORMW ………
-		PRINTFORMW ……
-		PRINTFORML …
+		PRINTFORMDW ………
+		PRINTFORMDW ……
+		PRINTFORMDL …
 		PRINTFORMW
-			;MASTERの戦闘能力が6以上 && 妖梦の戦闘能力がMASTER未满
-			IF ABL:MASTER:戦闘能力 >= 6 && ABL:MASTER:戦闘能力 > ABL:戦闘能力
-				PRINTFORML 「这、这是……」
-				PRINTFORML （比我强得多……究竟经历了多少次战斗……）
-				PRINTFORMW
-				PRINTFORML 妖梦惊呆地站在那里，摇了摇头，调整了姿势
-				PRINTFORML 「……有点得意忘形了。测量你的技量，实在有些唐突」
-				PRINTFORML 「如果有时间的话，下次可否请你教教我？」
-				PRINTFORMW
-				PRINTFORML 妖梦和半灵向%CALLNAME:MASTER%庄重地鞠躬
-				PRINTFORMW 如果心情好的话，或许可以陪妖梦练习一下……
-			ELSEIF ABL:MASTER:戦闘能力 >= 4
+		;MASTERの战斗能力が6以上 && 妖梦の战斗能力がMASTER未满
+		IF ABL:MASTER:戦闘能力 >= 6 && ABL:MASTER:戦闘能力 > ABL:戦闘能力
+			PRINTFORML 「这、这是……」
+			PRINTFORML （比我强得多……究竟经历了多少次战斗……）
+			PRINTFORMW
+			PRINTFORMDL 妖梦惊呆地站在那里，摇了摇头，调整了姿势
+			PRINTFORML 「……有点得意忘形了。测量你的技量，实在有些唐突」
+			PRINTFORML 「如果有时间的话，下次可否请你教教我？」
+			PRINTFORMW
+			PRINTFORMDL 妖梦和半灵向%CALLNAME:MASTER%庄重地鞠躬
+			PRINTFORMDW 如果心情好的话，或许可以陪妖梦练习一下……
+		ELSE
+			IF ABL:MASTER:戦闘能力 >= 4
 				PRINTFORML 「哦哦……看起来是相当有实力的人啊」
 				PRINTFORML 「这样的话，从实战训练开始应该没有问题吧」
 				PRINTFORMW
 				PRINTFORML 「如果对手是个老手的话，我的斗志就会更高涨」
 				PRINTFORML 「辛苦了，从下次开始我们一起加油吧！」
 				PRINTFORMW
-				PRINTFORML 妖梦向%CALLNAME:MASTER%高兴地鞠躬
-				PRINTFORMW 看来在她心中，下次的练习已经确定了……
+				PRINTFORMDL 妖梦很高兴地朝%CALLNAME:MASTER%鞠了一躬。
 			ELSEIF ABL:MASTER:戦闘能力 >= 2
 				PRINTFORML 「原来如此，看来你有足够的实力保护自己」
 				PRINTFORML 「但在幻想乡生活，无论磨练多少，技艺都不会生锈」
@@ -3234,48 +3311,51 @@ IF LOCAL
 				PRINTFORML 「在确保基础的同时，慢慢增加实战意识的锻炼吧」
 				PRINTFORML 「辛苦了，下次的内容我会考虑好的！」
 				PRINTFORMW
-				PRINTFORML 妖梦向%CALLNAME:MASTER%快活地鞠躬
-				PRINTFORMW 看来在她心中，下次的练习已经确定了……
+				PRINTFORMDL 妖梦朝%CALLNAME:MASTER%爽快地鞠了一躬。
 			ELSE
-				PRINTFORML 「嗯……看起来你过去一直过着和战斗无关的生活呢」
-				PRINTFORML 「如果是因为目前的状况感到危机而开始锻炼，那是值得赞美的决断」
+				PRINTFORML 「嗯……看来您一直过着与争斗无缘的生活呢。」
+				PRINTFORML 「如果是因为目前的状况感到危机而开始锻炼，那是值得称赞的决断」
 				PRINTFORMW
-				PRINTFORML 「首先得增加体力。没有基础就无法建立更高的东西」
-				PRINTFORML 「辛苦了，我也喜欢锻炼，下次也请继续陪着我！」
 				PRINTFORMW
-				PRINTFORML 妖梦向%CALLNAME:MASTER%快活地鞠躬
-				PRINTFORMW 看来在她心中，下次的练习已经确定了……
+				PRINTFORML 「首先，我们来锻炼体力吧。没有基础，就无法建出任何东西。」
+				PRINTFORML 「您辛苦了。我也喜欢锻炼，下次也会陪您的！」
+				PRINTFORMW
+				PRINTFORMDL 妖梦朝%CALLNAME:MASTER%爽快地鞠了一躬。
 			ENDIF
+			PRINTFORMDW 看来在她心中，下次的练习已经是确定的事了……
+		ENDIF
 
 	;ここから二回目以降
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦无视%CALLNAME:MASTER%继续挥动她的武器……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦无视%CALLNAME:MASTER%继续挥动她的武器……
 	
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……我会陪你的」
-		PRINTFORMW 在尴尬的氛围中，%CALLNAME:MASTER%和妖梦进行了训练……
+		PRINTFORMDW 在尴尬的氛围中，%CALLNAME:MASTER%和妖梦进行了训练……
 	;炎天下
 	ELSEIF TFLAG:194 == 3
 		PRINTFORML 「啊、在这种烈日底下也没关系的……」
 		PRINTFORML 「当然我会陪你，但一旦感觉到危险就立刻停止训练吧」
-		PRINTFORMW 在烈热中，%CALLNAME:MASTER%和妖梦投入了训练中……
+		PRINTFORMDW 在烈热中，%CALLNAME:MASTER%和妖梦投入了训练中……
 	;ヤバい天气、恶劣天气
 	ELSEIF TFLAG:194 == 1 || TFLAG:194 == 2
 		PRINTFORML 「啊，在这样的天气里也没关系……不，你是认真的吗？」
 		PRINTFORML 「当然我会陪你，但要注意周围的情况」
-		PRINTFORMW 在恶劣的天气中，%CALLNAME:MASTER%和妖梦投入了训练中……
+		PRINTFORMDW 在恶劣的天气中，%CALLNAME:MASTER%和妖梦投入了训练中……
 	;通常
 	ELSE
 		IF ABL:MASTER:戦闘能力 >= 6 && ABL:MASTER:戦闘能力 > ABL:戦闘能力
 			PRINTFORML 「能接受我的训练吗？谢谢！」
-			PRINTFORML %CALLNAME:MASTER%决定陪妖梦进行训练
+			PRINTFORMDL %CALLNAME:MASTER%决定陪妖梦进行训练
 		ELSE
 			PRINTFORML 「是锻炼吗！那就开始吧！」
-			PRINTDATAL
-				DATAFORM 妖梦眼中闪烁着光芒……
-				DATAFORM 半灵围绕着%CALLNAME:MASTER%旋转着……
-			ENDDATA
+			SELECTCASE RAND:2
+				CASE 0
+					PRINTFORMDL 妖梦眼中闪烁着光芒……
+				CASE 1
+					PRINTFORMDL 半灵围绕着%CALLNAME:MASTER%旋转着……
+			ENDSELECT
 		ENDIF
 		PRINTFORMW
 		
@@ -3283,44 +3363,44 @@ IF LOCAL
 			SELECTCASE RAND:5
 				CASE 0
 					PRINTFORML 「能躲开吗！？」
-					PRINTFORML 妖梦和半灵的波动攻击，%CALLNAME:MASTER%轻松地躲避了！
+					PRINTFORMDL 妖梦和半灵的波动攻击，%CALLNAME:MASTER%轻松地躲避了！
 					PRINTFORML （竟然躲过了……身手真敏捷……！）
 				CASE 1
 					PRINTFORML 「就是这样！」
-					PRINTFORML 飞速袭来的半灵，%CALLNAME:MASTER%单手接住了！
+					PRINTFORMDL 飞速袭来的半灵，%CALLNAME:MASTER%单手接住了！
 					PRINTFORML （完全不动摇……力量差距如此之大……！）
 				CASE 2
 					PRINTFORML 「哈啊！！」
-					PRINTFORML 伴随着热烈的吼声，%CALLNAME:MASTER%用气势将释放的剑气弹开了！
+					PRINTFORMDL 伴随着热烈的吼声，%CALLNAME:MASTER%用气势将释放的剑气弹开了！
 					PRINTFORML （嗯，有点冒失！？但不能输……！）
 				CASE 3
 					PRINTFORML 「――」
-					PRINTFORML 妖梦绕到盲点发动的一击，被%CALLNAME:MASTER%用两根手指夹住了！
+					PRINTFORMDL 妖梦绕到盲点发动的一击，被%CALLNAME:MASTER%用两根手指夹住了！
 					PRINTFORML （完全被看穿了……速度还不够……！）
 				CASE 4
 					PRINTFORML 「这，也能成为锻炼吗……？」
-					PRINTFORML %CALLNAME:MASTER%在半灵上堆积物体，挑战平衡的极限
+					PRINTFORMDL %CALLNAME:MASTER%在半灵上堆积物体，挑战平衡的极限
 					PRINTFORML （崩塌了……哈！？比想象中更能集中注意力……）
 			ENDSELECT
 			PRINTFORMW
 			PRINTFORML 「谢谢你！下次也请多关照！」
-			PRINTFORMW 妖梦看起来很高兴能有好的训练……
+			PRINTFORMDW 妖梦看起来很高兴能有好的训练……
 			EXP:23:戦闘経験 += 3
 		
 		ELSEIF ABL:MASTER:戦闘能力 >= 4
 			SELECTCASE RAND:4
 				CASE 0
 					PRINTFORML 「躲避并命中，说起来容易做起来难……！」
-					PRINTFORML %CALLNAME:MASTER%进行了躲避飞舞半灵子弹并反击的训练
+					PRINTFORMDL %CALLNAME:MASTER%进行了躲避飞舞半灵子弹并反击的训练
 				CASE 1
 					PRINTFORML 「对于中近距离我很有信心，但远距离有点不擅长……」
-					PRINTFORML %CALLNAME:MASTER%和妖梦轮流进行弹幕对决，专注于战术和指导
+					PRINTFORMDL %CALLNAME:MASTER%和妖梦轮流进行弹幕对决，专注于战术和指导
 				CASE 2
 					PRINTFORML 「我准备了很多替补，尽管放手斩！！」
-					PRINTFORML %CALLNAME:MASTER%用妖梦带来的日本刀，不断斩倒摆放的稻草包
+					PRINTFORMDL %CALLNAME:MASTER%用妖梦带来的日本刀，不断斩倒摆放的稻草包
 				CASE 3
 					PRINTFORML 「基础中的基础，因此不能疏忽」
-					PRINTFORML %CALLNAME:MASTER%和妖梦使用模拟刀进行素振的训练
+					PRINTFORMDL %CALLNAME:MASTER%和妖梦使用模拟刀进行素振的训练
 			ENDSELECT
 			PRINTFORMW
 				IF TALENT:恋慕 && RAND:2 == 0
@@ -3328,7 +3408,7 @@ IF LOCAL
 				ELSE
 					PRINTFORML 「辛苦了！这样相互切磋确实更有集中力」
 				ENDIF
-			PRINTFORMW 互相进行了良好的训练……
+			PRINTFORMDW 互相进行了良好的训练……
 			EXP:MASTER:戦闘経験 += 2
 			EXP:23:戦闘経験 += 2
 		
@@ -3336,40 +3416,40 @@ IF LOCAL
 			SELECTCASE RAND:4
 				CASE 0
 					PRINTFORML 「不要手下留情地朝我射击吧、我可没打算做那些半吊子的训练！」
-					PRINTFORML %CALLNAME:MASTER%将四处飞动的半灵视为目标，努力进行弹幕练习
+					PRINTFORMDL %CALLNAME:MASTER%将四处飞动的半灵视为目标，努力进行弹幕练习
 				CASE 1
 					PRINTFORML 「再拉近一点，感受刚好躲避的感觉……」
-					PRINTFORML %CALLNAME:MASTER%在辨别飞来的半灵的同时进行回避练习
+					PRINTFORMDL %CALLNAME:MASTER%在辨别飞来的半灵的同时进行回避练习
 				CASE 2
 					PRINTFORML 「状态不错，那么再来一圈吧！」
-					PRINTFORML %CALLNAME:MASTER%和妖梦一起休息片刻，然后全力奔跑周围
+					PRINTFORMDL %CALLNAME:MASTER%和妖梦一起休息片刻，然后全力奔跑周围
 				CASE 3
 					PRINTFORML 「对我来说可能是最熟悉的锻炼方式了」
-					PRINTFORML %CALLNAME:MASTER%使用妖梦带来的木刀进行素振练习
+					PRINTFORMDL %CALLNAME:MASTER%使用妖梦带来的木刀进行素振练习
 			ENDSELECT
 			PRINTFORMW
 			PRINTFORML 「辛苦了！%TEXTR("不要心急，踏实地掌握/")%！」
-			PRINTFORMW 感觉这次的训练比平时要好……
+			PRINTFORMDW 感觉这次的训练比平时要好……
 			EXP:MASTER:戦闘経験 += 2
 		
 		ELSE
 			SELECTCASE RAND:4
 				CASE 0
 					PRINTFORML 「请保持一定的速度、如果累了也可以步行！」
-					PRINTFORML %CALLNAME:MASTER%和妖梦一起休息片刻，然后轻松地跑动周围
+					PRINTFORMDL %CALLNAME:MASTER%和妖梦一起休息片刻，然后轻松地跑动周围
 				CASE 1
 					PRINTFORML 「虽然是在无缘之冢捡到的，但这个东西还挺……」
-					PRINTFORML %CALLNAME:MASTER%用妖梦带来的跳绳进行体力训练
+					PRINTFORMDL %CALLNAME:MASTER%用妖梦带来的跳绳进行体力训练
 				CASE 2
 					PRINTFORML 「刀很重，上半身的力量也很关键！」
-					PRINTFORML %CALLNAME:MASTER%在妖梦带来的厚垫子上进行力量训练
+					PRINTFORMDL %CALLNAME:MASTER%在妖梦带来的厚垫子上进行力量训练
 				CASE 3
 					PRINTFORML 「不要小看只是走路，慢慢提高速度吧！」
-					PRINTFORML %CALLNAME:MASTER%和妖梦一起改变步伐在周围走动
+					PRINTFORMDL %CALLNAME:MASTER%和妖梦一起改变步伐在周围走动
 			ENDSELECT
 			PRINTFORMW
 			PRINTFORML 「辛苦了！%CALLNAME:MASTER%，%TEXTR("干得漂亮/")%！」
-			PRINTFORMW 感觉这次的训练比平时要好……
+			PRINTFORMDW 感觉这次的训练比平时要好……
 			EXP:MASTER:戦闘経験 += 1
 		ENDIF
 	ENDIF
@@ -3399,23 +3479,23 @@ IF LOCAL
 	IF CFLAG:睡眠 || FLAG:70 || TCVAR:烂醉 == 1
 		RETURN 1
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦无视%CALLNAME:MASTER%，陷入冥想中……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦无视%CALLNAME:MASTER%，陷入冥想中……
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……虽然确实是必需的」
-		PRINTFORMW 妖梦虽然有些不情愿，但还是和%CALLNAME:MASTER%一起面对着桌子……
+		PRINTFORMDW 妖梦虽然有些不情愿，但还是和%CALLNAME:MASTER%一起面对着桌子……
 	ELSE
 		PRINTFORML 「座学吗」
-		PRINTFORMW 妖梦明显地%TEXTR("皱眉/表情不悦/避开目光/")%……
+		PRINTFORMDW 妖梦明显地%TEXTR("皱眉/表情不悦/避开目光/")%……
 			SELECTCASE RAND:5
 				CASE 0
 					PRINTFORML 「我确实知道这是必要的，但总觉得没什么兴致……」
-					PRINTFORMW %CALLNAME:MASTER%劝说妖梦，二人一起投入学习
+					PRINTFORMDW %CALLNAME:MASTER%劝说妖梦，二人一起投入学习
 				CASE 1
 					PRINTFORML 「……不，正因为烦扰，不能一直回避。让我们一起挑战吧！」
-					PRINTFORMW %CALLNAME:MASTER%展现热情，与妖梦一同全力学习
+					PRINTFORMDW %CALLNAME:MASTER%展现热情，与妖梦一同全力学习
 					PRINTFORML
-					PRINTFORMW 互相感觉比平时更有知识积累……
+					PRINTFORMDW 互相感觉比平时更有知识积累……
 					EXP:MASTER:学習経験 += 2
 					EXP:23:学習経験 += 2
 				CASE 2, 4
@@ -3430,26 +3510,26 @@ IF LOCAL
 							DATAFORM 「刚醒来就感觉身体不适，这时候再学习只会更糟糕，为了安全起见，就素振动一下，静养一下好了……」
 							DATAFORM 「如果想着坐在桌前的时间能做多少次素振的话，反而会无法集中精神。所以这里应该先做完素振再……」
 						ENDDATA
-						PRINTFORMW %CALLNAME:MASTER%带着沉闷的妖梦开始勉强学习
+						PRINTFORMDW %CALLNAME:MASTER%带着沉闷的妖梦开始勉强学习
 					ENDIF
 				CASE 3
 					IF ABL:MASTER:教養 >= ABL:教養
 						PRINTFORML
 						PRINTFORML 「……哦，原来如此。得到%CALLNAME:MASTER%的指导会更加顺利啊」
-						PRINTFORML %CALLNAME:MASTER%时而解释，时而向妖梦传授学习之道
+						PRINTFORMDL %CALLNAME:MASTER%时而解释，时而向妖梦传授学习之道
 					ELSE
 						PRINTFORML
 						SELECTCASE RAND:2
 							CASE 0
 								PRINTFORML 「……嗯，是那个问题吗？那么——」
-								PRINTFORML %CALLNAME:MASTER%时而提问，时而向妖梦请教学问
+								PRINTFORMDL %CALLNAME:MASTER%时而提问，时而向妖梦请教学问
 							CASE 1
 								;广有射怪鸟事
 								PRINTFORML 「……哦哦，这读作『ひろありけちょうをいること（广有射怪鸟事）』」
 								PRINTFORML 「这个读法一定要记住哦」
 						ENDSELECT
 					ENDIF
-					PRINTFORMW 似乎不是因为对座学不感兴趣，而是难以振奋起来
+					PRINTFORMDW 似乎不是因为对座学不感兴趣，而是难以振奋起来
 			ENDSELECT
 	ENDIF
 ENDIF
@@ -3480,19 +3560,19 @@ IF LOCAL
 		RETURN 1
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦默默地完成了烹饪……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦默默地完成了烹饪……
 	;反抗
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……我会帮忙的」
-		PRINTFORMW 在尴尬的空气中，%CALLNAME:MASTER%和妖梦一起努力做菜……
+		PRINTFORMDW 在尴尬的空气中，%CALLNAME:MASTER%和妖梦一起努力做菜……
 	ELSE
-		SELECTCASE DISHNAME
-			CASE "酱菜"
+		SELECTCASE FLAG:20
+			CASE [[酱菜]]
 				PRINTFORMW 「嗯嗯……是泡菜吗？」
 				PRINTFORML 「在府邸我做的话完全不好吃」
 				PRINTFORMW 「但是这么短的时间里确实泡得很入味……有什么窍门吗？」
-			CASE "烤红薯"
+			CASE [[烤红薯]]
 				SELECTCASE DAY:2
 					CASE 1
 						PRINTFORMW 「您要做烤红薯吗？　那我去准备一下火堆吧」
@@ -3509,11 +3589,11 @@ IF LOCAL
 								PRINTFORMW 「如果是烤红薯的话、根据品种不同味道自然会有差异、但需要注意的是烤好后的口感也会有所不同、所以要根据个人喜好来选择呢」
 						ENDSELECT
 				ENDSELECT
-			CASE "鸸鹋肉"
+			CASE [[鸸鹋肉]]
 				PRINTFORMW 「澳——洲……什、什么？　材料是鸟肉和……咦！？　虫、虫子啊那是……！？」
 				PRINTFORML 「这数量已经不是能不能吃的问题了……这、这样不行！」
 				PRINTFORMW 「我身为掌管厨房的人、竟然在料理之前就对食材畏缩不前、真是太丢脸了……请指示我步骤！」
-			CASE "年节菜"
+			CASE [[年节菜]]
 				IF DAY:2 == 1 && DAY:3 <= 3
 					PRINTFORML 「鱼肉卷、鱼糕、萝卜沙拉和栗子羊羹……这些年菜都有适合新年的华丽感呢」
 					PRINTFORMW 「每种菜都有作为吉祥物的意义、所以缺少的食材中现在能准备的就赶快去准备吧」
@@ -3530,7 +3610,7 @@ IF LOCAL
 					PRINTFORML 「年、年菜？　啊ー……嗯、如果是练习做一道的话……嗯？」
 					PRINTFORMW （食盒、长盘子、连漆器都有……这该不会是要做全套吧……？）
 				ENDIF
-			CASE "惠方卷"
+			CASE [[惠方卷]]
 				IF DAY:2 == 4 && DAY:3 == 3
 					PRINTFORML 「今天是节分，用符合季节的吉祥物来点缀节日吧！」
 					PRINTFORMW 「难得的机会，想做得豪华一点，让人一眼就能看出不是普通的海苔卷」
@@ -3542,12 +3622,12 @@ IF LOCAL
 							PRINTFORMW 是、我知道了……」
 							PRINTFORMW （难道是在为下一个节分做准备吗……？）
 						ELSE
-							PRINTFORMW 我、我知道了啦……」
+							PRINTFORMDW 我、我知道了啦……」
 							PRINTFORMW （真是个在奇怪的地方讲究的人啊……）
 						ENDIF
 				ENDIF
 
-			CASE "白玉蜜豆"
+			CASE [[白玉蜜豆]]
 				IF FIRSTTIME("妖梦固有料理")
 					PRINTFORML 「想要向我学习食谱，呃……其实更希望是我教给你」
 					PRINTFORMW 「唔……」
@@ -3569,13 +3649,13 @@ IF LOCAL
 					PRINTFORML 「呜哇！？为什么突然拿着半灵的……」
 					PRINTFORML 「所以说！只是意识到而已，不是真的用到实物！」
 					PRINTFORMW
-					PRINTFORML 之后认真地从妖梦那里接受了指导……
+					PRINTFORMDL 之后认真地从妖梦那里接受了指导……
 					PRINTFORMW 「好了，完成了！再强调一下，白玉的煮熟程度要小心哦？」
 				ELSEIF STRCOUNT(DISH_TASTE, "练习")
 					PRINTFORML 「任何事情都需要反复练习才能掌握」
 					PRINTFORMW 「直到%CALLNAME:MASTER%满意为止，我都会教给你的！」
 					PRINTFORML 「……请不要用半灵！」
-					PRINTFORMW 已经在之前强调过了……
+					PRINTFORMDW 已经在之前强调过了……
 				ELSE
 					PRINTFORML 「你喜欢吗？如果是的话，我会很高兴！」
 					PRINTFORMW
@@ -3594,7 +3674,19 @@ IF LOCAL
 								ENDSELECT
 						ENDSELECT
 				ENDIF
-			CASE "樱饼"
+			CASE [[地狱拉面（极辣）]]
+				;既に作った事がある
+				IF CFLAG:23:1430 == 1
+					PRINTFORML 「您是要制作阎魔大人构思的那个东西吗……」
+					PRINTFORMW 「听说她本人正在积极推广，所以总有一天除了中有之道，也许也能在寻常店里看到它。」
+					PRINTFORMW 「我嘛……说实话，还是想谢绝。光是视觉和嗅觉，就能感受到非同寻常的辣味……」
+				ELSE
+					PRINTFORML 「把看起来这么辣的东西……您到底打算做什么？」
+					PRINTFORMW 「——哈，是拉面吗。我对中华料理不熟悉，但也有这种奇特的……」
+					PRINTFORMW 「哎！？　这是阎魔大人构思的菜单吗！？　难、难道说中有之道的那个……」
+					CFLAG:23:1430 = 1
+				ENDIF
+			CASE [[樱饼]]
 				SELECTCASE DAY:2
 					CASE 3
 						PRINTFORMW 「……哈？　樱、樱饼？　而且、现在就要做……？」
@@ -3613,10 +3705,25 @@ IF LOCAL
 							CASEELSE
 								PRINTFORMW 「您要做樱饼啊。是要用小麦粉还是道明寺粉呢？」
 								PRINTFORML 「我两种都可以、就按\@ TALENT:恋慕 ? %CALLNAME:MASTER%先生 # 您 \@的喜好来决定吧」
-								PRINTFORMW 熟练地进行准备工作的妖梦看起来心情不错
+								PRINTFORMDW 熟练地进行准备工作的妖梦看起来心情不错
 						ENDSELECT
 				ENDSELECT
-
+			CASE [[人魂棉花糖]]
+				IF CFLAG:23:1476 == 1
+					PRINTFORMW 「虽然在创意中落后了……但我毕竟是干这行的，对人魂的形状可是非常了解的。」
+					PRINTFORM 「也就是说，如果是我，应该能把人魂棉花糖做得更接近完美！……
+					PRINTDATAL
+						DATAFORM 这附近是不是该稍微削掉一点呢……」
+						DATAFORM 这里的圆润度总觉得不太满意……」
+						DATAFORM 尾巴的长度与其说是人魂不如说是半灵呢……」
+					ENDDATA
+					PRINTFORMDW 妖梦或许是出于一种莫名的对抗心，正沉浸在棉花糖的造型中……
+				ELSE
+					PRINTFORML 「这是……棉花糖机吗。那么，当然是要做——哎，以半灵为样本？」
+					PRINTFORMW 「虽然没关系，但普通地做会比较好……什么，您本来就打算做人魂棉花糖吗！？」
+					PRINTFORMW 「——哈，从死神那里得到的食谱啊。……原来如此，这么一说，倒也不是什么意料之外的来源呢。」
+					CFLAG:23:1476 = 1
+				ENDIF
 			CASEELSE
 				IF STRCOUNT(DISH_TASTE, "怪诞") || STRCOUNT(DISH_TASTE, "谜料理")
 					PRINTFORMW 「嗯……！？」
@@ -3649,7 +3756,7 @@ IF LOCAL
 							CASE 3
 								PRINTFORML 「两个人一起做让心情变得愉快」
 								PRINTFORML 「%CALLNAME:MASTER%你如果每餐都和我一起站在厨房……」
-								PRINTFORMW 妖梦眺望着远处，眼中带着一丝遥远的眼神……
+								PRINTFORMDW 妖梦眺望着远处，眼中带着一丝遥远的眼神……
 							CASE 4
 								PRINTFORML 「摆盘是这样……完成了！」
 								PRINTFORMW 「怎么样？形象也很重要哦」
@@ -3679,7 +3786,7 @@ IF LOCAL
 							CASE 2
 								PRINTFORMW 「其实，白玉楼的花费有九成都花在食物上」
 								PRINTFORML 「……开玩笑的啦？」
-								PRINTFORMW 妖梦一脸茫然的看着……
+								PRINTFORMDW 妖梦一脸茫然的看着……
 							CASE 3
 								PRINTFORML 「快、省、好吃。这是食物达到的最高点之一」
 								PRINTFORMW 「如果我也能在这方面有所造诣的话……」
@@ -3721,14 +3828,14 @@ IF LOCAL
 		RETURN 1
 	ELSEIF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……吃得很满足」
-		PRINTFORMW %CALLNAME:MASTER%和妖梦一言不发地结束了用餐……
+		PRINTFORMDW %CALLNAME:MASTER%和妖梦一言不发地结束了用餐……
 		RETURN 1
 	ELSE
-		CFLAG:23:2003 = 1
+		CFLAG:23:1003 = 1
 		CALL K23_REACTION_DISH
 		PRINTFORML
 		CALL K23_TASTE_DISH
-		CFLAG:23:2003 = 0
+		CFLAG:23:1003 = 0
 	ENDIF
 ENDIF
 RETURN 1
@@ -3762,8 +3869,8 @@ IF LOCAL
 	IF CFLAG:睡眠 || FLAG:70 || TCVAR:烂醉 == 1
 		RETURN 1
 	ELSEIF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦明显带着警惕的神情动起筷子……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦明显带着警惕的神情动起筷子……
 		RETURN 1
 	ELSE
 		CALL K23_REACTION_DISH
@@ -3777,9 +3884,9 @@ RETURN 1
 ;吃饭前の反应
 ;-------------------------------------------------
 @K23_REACTION_DISH
-SELECTCASE DISHNAME
+SELECTCASE FLAG:20
 	;CASE 124
-	CASE "酱菜"
+	CASE [[酱菜]]
 		IF DISH_ASSI == 23
 			PRINTFORML 「其实一直在关注，能一起品尝真是幸运」
 			PRINTFORMW 「外表虽然是份正宗的泡菜，但味道又如何呢……？」
@@ -3788,31 +3895,31 @@ SELECTCASE DISHNAME
 			PRINTFORMW 「自己做不好，有点得到好处的感觉呢」
 		ENDIF
 	;CASE 171
-	CASE "烤红薯"
+	CASE [[烤红薯]]
 		IF DISH_ASSI == 23
 			PRINTFORML 「好了好了、看来已经冷却到可以触摸的程度了。这样的话吃的时候至少不会烫伤手了」
 		ELSE
 			PRINTFORM 「这是……烤红薯吗？　
 				SELECTCASE DAY:2
 					CASE 1
-						PRINTFORML 在这个季节还真是少见呢……谢谢您」
+						PRINTFORMDL 在这个季节还真是少见呢……谢谢您」
 					CASEELSE
-						PRINTFORML 这次又烤了不少呢……诶、我也可以吃吗？　非常感谢！」
+						PRINTFORMDL 这次又烤了不少呢……诶、我也可以吃吗？　非常感谢！」
 				ENDSELECT
 		ENDIF
 		;吃饭
-		IF CFLAG:23:2003 == 1
+		IF CFLAG:23:1003 == 1
 			PRINTFORMW 「那么就赶快开始剥皮吧、嘿……」
 		;招待吃饭
 		ELSE
 			PRINTFORMW 「……诶、%CALLNAME:MASTER%先生不吃吗？　那个、把我的烤红薯分一半……但似乎有点难分呢」
 		ENDIF
 	;CASE 281
-	CASE "鸸鹋肉"
+	CASE [[鸸鹋肉]]
 		IF DISH_ASSI == 23
 			PRINTFORML 「说、说起来我也得吃吗？　确实、好不容易做的浪费掉可不行……」
 			PRINTFORMW 「您是说、趁热吃的话会比较好吃吗……我、我知道了」
-				IF CFLAG:23:2003 == 1
+				IF CFLAG:23:1003 == 1
 					PRINTFORMW （好像是把肉放进一个奇怪的盒子里做了些什么、究竟是怎么加工的……？）
 				ELSE
 					PRINTFORMW 「……为什么%CALLNAME:MASTER%先生要走开啊！？　这也太奇怪了吧！！」
@@ -3820,13 +3927,13 @@ SELECTCASE DISHNAME
 		ELSE
 			PRINTFORML 「诶、这盘卖相惊人的东西究竟是……莫、莫非是外界的求生料理！？」
 			PRINTFORMW 「你说要趁热吃才好吃……等、等一下！　太突然了、我还没认清楚情况……！」
-				IF CFLAG:23:2003 == 1
+				IF CFLAG:23:1003 == 1
 					PRINTFORMW （什么……诶？　……难道、真的要吃这个……！？）
 				ELSE
 					PRINTFORMW 「……为什么%CALLNAME:MASTER%先生不吃啊！？　至少也负起责任试个毒吧！！」
 				ENDIF
 		ENDIF
-	CASE "年节菜"
+	CASE [[年节菜]]
 		IF DISH_ASSI == 23
 			IF DAY:2 == 1 && DAY:3 <= 3
 				PRINTFORML 「哎呀～，结果做了各种各样的东西呢。但不可思议的是，并没有花多少时间……」
@@ -3836,7 +3943,7 @@ SELECTCASE DISHNAME
 					ELSE
 						PRINTFORMW 我们意外地很合得来呢」
 					ENDIF
-					IF CFLAG:23:2003 == 1
+					IF CFLAG:23:1003 == 1
 						PRINTFORMW 「那么我们立刻把料理摆好吧，色彩也是年菜的重要一环哦！」
 					ELSE
 						PRINTFORMW 「——欸？　做了这么多，稍微尝一口……是、是吗。那么就只用眼睛欣赏吧……」
@@ -3851,7 +3958,7 @@ SELECTCASE DISHNAME
 				PRINTFORMW （……难道说……这些不是提前做好的……！？）
 			ELSE
 				PRINTFORML （结果做了很多可以直接在元旦拿出来的东西……希望可以吃完）
-					IF CFLAG:23:2003 == 1
+					IF CFLAG:23:1003 == 1
 						PRINTFORMW 「……嗯。既然都准备好了，浪费是绝对不行的。确认味道也是预演的一部分」
 					ELSE
 						PRINTFORMW 「——哈！？　有、有这么多料理，就算只有一个人也应该多帮帮忙吧……！」
@@ -3876,7 +3983,7 @@ SELECTCASE DISHNAME
 				PRINTFORML （……嗯嗯？　那些料理的种类……难道是新年料理！？　在、在这个时期……！？）
 			ENDIF
 		ENDIF
-	CASE "惠方卷"
+	CASE [[惠方卷]]
 		IF DISH_ASSI == 23
 			IF DAY:2 == 4 && DAY:3 == 3
 				PRINTFORML 「一不小心就做了很长的惠方卷呢……」
@@ -3898,11 +4005,11 @@ SELECTCASE DISHNAME
 		ENDIF
 
 	;固有23
-	CASE "白玉蜜豆"
+	CASE [[白玉蜜豆]]
 		SELECTCASE DAY:2
 			CASE 2
 				PRINTFORML 「炎热的天气吃冰凉的麻糬……实在是别有风情啊」
-					IF CFLAG:23:2003 == 1
+					IF CFLAG:23:1003 == 1
 						PRINTFORMW 「就在这一刻，仿佛能成为幽幽子大人的水准人物」
 					ELSE
 						PRINTFORML 「……诶？ %CALLNAME:MASTER% 您不吃吗？」
@@ -3910,32 +4017,62 @@ SELECTCASE DISHNAME
 					ENDIF
 			CASEELSE
 				PRINTFORML 「既然都做好了，就别再纠结季节的问题了吧」
-					IF CFLAG:23:2003 == 1
+					IF CFLAG:23:1003 == 1
 						PRINTFORMW 「特意在这个时候吃冷的麻糬反而挺有趣的吧」
 					ELSE
 						PRINTFORML 「……诶？ %CALLNAME:MASTER% 您不吃吗？」
 						PRINTFORMW 「有点遗憾啊……」
 					ENDIF
 		ENDSELECT
+	;固有30
+	CASE [[地狱拉面（极辣）]]
+		PRINTFORML 「……这么辣的东西，我说真的不想吃。」
+		;映姬が同席且つフラグ有
+		IF (CFLAG:30:現在位置 == CFLAG:23:現在位置) && CFLAG:23:1430 == 1
+			PRINTFORMW 「喜欢吃这种东西的人会是什么吃相呢，从这个意义上来说我倒是有点兴趣——唏！？」
+			PRINTFORMDL 察觉到旁边映姬投来的视线，妖梦慌忙闭上了嘴。
+			PRINTFORMW 「……不、不是啦～……有时候挑战不擅长的东西也很重要对吧！说不定能帮助人慢慢克服呢……」
+		ELSE
+			IF DISH_ASSI == 23
+				PRINTFORML 「首先我也在旁边帮忙了，所以大概能猜到有多辣啦。」
+			ELSE
+				PRINTFORML 「再说这拉面本来就在中有之道的摊位上卖，我也知道不小心点了的人会怎么样。」
+			ENDIF
+			PRINTFORMW 「……真的有压制辣度吗？　真的真的吗？　不是装的吧？　那我就尝一点点……」
+		ENDIF
 	;固有66
-	CASE "樱饼"
+	CASE [[樱饼]]
 		IF DISH_ASSI == 23
 			PRINTFORML 「包叶子的步骤就交给您了、我很\@ DAY:2 == 3 ? 担心 # 期待 \@成品会是什么样」
 		ELSE
 			PRINTFORM 「您做了樱饼吗？　
 				SELECTCASE DAY:2
 					CASE 3
-						PRINTFORML 这个季节竟然能弄到盐渍樱花叶……难道是您自己做的？」
+						PRINTFORMDL 这个季节竟然能弄到盐渍樱花叶……难道是您自己做的？」
 					CASEELSE
-						PRINTFORML 很好吃吧、樱饼……我也很喜欢哦」
+						PRINTFORMDL 很好吃吧、樱饼……我也很喜欢哦」
 				ENDSELECT
 		ENDIF
-		IF CFLAG:23:2003 == 1
-			PRINTFORMW 「因为我个人对这种日式点心有点情结、所以就不客气地接受您的好意了」
+		IF CFLAG:23:1003 == 1
+			PRINTFORMW 「因为这种点心对我个人来说是很特别的、那就却之不恭了」
 		ELSE
 			PRINTFORMW 「……咦？　%CALLNAME:MASTER%先生不吃吗？　好不容易做的、至少吃一个……这、这样啊……」
 		ENDIF
-
+	;固有76
+	CASE [[人魂棉花糖]]
+		IF DISH_ASSI == 23
+			PRINTFORML 「虽然还有些想坚持的部分，但如果深究下去就会没完没了了呢」
+			PRINTFORML 「毕竟原本是在摊位上卖的东西，关键是在短时间内能做到多接近实物哦」
+				IF CFLAG:23:1003 == 1
+					PRINTFORMW 「那么%CALLNAME:MASTER%桑，让我们再来确认一下棉花糖做得怎么样吧！」
+				ELSE
+					PRINTFORMW 「——哎？『毕竟是棉花糖，也不会有什么负担』……唉，如果您这么说的话……」
+				ENDIF
+		ELSE
+			PRINTFORML 「啊，那是棉花糖呢。是在哪个摊位买的呢？」
+			PRINTFORML 「——哦，是您自己做的啊。还特意做了人魂棉花糖」
+			PRINTFORMW 「呵呵呵……人魂我见得多了，那就却之不恭了。不过，我对形状的评价可是会很严格的哦？」
+		ENDIF
 	CASEELSE
 		IF STRCOUNT(DISH_TASTE, "怪诞") || STRCOUNT(DISH_TASTE, "谜料理")
 			IF DISH_ASSI == 23
@@ -3943,7 +4080,7 @@ SELECTCASE DISHNAME
 			ELSE
 				PRINTFORML 「什……什么啊，这个料理……？」
 			ENDIF
-			IF CFLAG:23:2003 == 1
+			IF CFLAG:23:1003 == 1
 				PRINTFORMW 「不、不能挑剔食物……而且我也帮忙了，大概知道是什么……」
 				PRINTFORMW （虽然想拒绝，但感觉不是那种气氛……看来只能认命了……）
 			ELSE
@@ -3953,7 +4090,7 @@ SELECTCASE DISHNAME
 		ELSEIF TALENT:恋慕
 			IF DISH_ASSI == 23
 				PRINTFORML 「既然一起做了菜，希望能成为双方都满意的料理呢……」
-					IF CFLAG:23:2003 == 1
+					IF CFLAG:23:1003 == 1
 						IF ABL:MASTER:料理技能 > 4
 							PRINTFORMW 「这样，在%CALLNAME:MASTER%面前担心是否杞人忧天？」
 						ELSEIF ABL:MASTER:料理技能 > 1
@@ -3974,7 +4111,7 @@ SELECTCASE DISHNAME
 					IF ABL:MASTER:料理技能 > 4
 						PRINTFORMW 「%CALLNAME:MASTER%的手制料理就算是样品也是一流的！」
 					ENDIF
-					IF CFLAG:23:2003 == 1
+					IF CFLAG:23:1003 == 1
 						PRINTFORMW 「那么我开始了……我先开动了」
 					ELSE
 						PRINTFORMW 「……诶，%CALLNAME:MASTER% 您不吃吗？ 有点不好意思……」
@@ -3982,7 +4119,7 @@ SELECTCASE DISHNAME
 			ENDIF
 		ELSE
 			IF DISH_ASSI == 23
-				IF CFLAG:23:2003 == 1
+				IF CFLAG:23:1003 == 1
 					PRINTFORML 「要评判做好的菜是好是坏，尝试是最确切的方法」
 						IF ABL:MASTER:料理技能 > 4
 							PRINTFORMW 「不过这样太出色了……倒不如说我可能拖了后腿……」
@@ -4000,7 +4137,7 @@ SELECTCASE DISHNAME
 						ENDIF
 				ENDIF
 			ELSE
-				IF CFLAG:23:2003 == 1
+				IF CFLAG:23:1003 == 1
 					PRINTFORML 「我也可以一起吗？ 谢谢您」
 				ELSE
 					PRINTFORML 「我可以一起吃吗？ 谢谢您」
@@ -4017,8 +4154,8 @@ ENDSELECT
 ;吃饭の反应＠TW映姬口上参考
 ;-------------------------------------------------
 @K23_TASTE_DISH
-SELECTCASE DISHNAME
-	CASE "酱菜"
+SELECTCASE FLAG:20
+	CASE [[酱菜]]
 		IF TFLAG:193 == -1
 			PRINTFORML 「嗯嗯？ %CALLNAME:MASTER%，这个……」
 			PRINTFORMW 「不，这不是浅渍，甚至不是」
@@ -4032,7 +4169,7 @@ SELECTCASE DISHNAME
 				PRINTFORMW 「……刚腌的？ 又来这种玩笑……」
 			ENDIF
 		ENDIF
-	CASE "烤红薯"
+	CASE [[烤红薯]]
 		IF TFLAG:193 == -1
 			SELECTCASE RAND:2
 				CASE 0
@@ -4070,19 +4207,19 @@ SELECTCASE DISHNAME
 					PRINTFORMW 「不仅美味还能在放在手中取暖、真是最适合寒冷冬天的食物啊……啊姆、烫烫……」
 			ENDSELECT
 		ENDIF
-	CASE "鸸鹋肉"
+	CASE [[鸸鹋肉]]
 		IF TFLAG:193 == -1
 			PRINTFORML 「呜～……要对这道菜下筷还真是需要勇气和时间啊。比起吃这个还不如让我一个人去攻打月球……」
 			PRINTFORMW 「……嗯？　肉上面好像有什么东西在动――」
 			PRINTFORML 「？！？！　啊、啊、啊、那、那、那是、蛆……！？」
-			PRINTFORMW ……之后的事情、在各种意义上都变得非常不得了
+			PRINTFORMDW ……之后的事情、在各种意义上都变得非常不得了
 		;绝对无いとは思うが一应
 		ELSE
 			PRINTFORML 「……因为经过仔细的预处理\@ DISH_ASSI == 23 ? 、 # 、 \@入口即化的精妙滋味几乎让人感觉不到这是虫子」
 			PRINTFORMW 「再加上生鸡肉难以想象的浓郁醇厚的口感……不得不承认这道菜是经过深思熟虑的杰作」
 			PRINTFORMW 「……如果不考虑卖相的话的确味道不错。但如果盯着它看、就很难觉得它好吃了……」
 		ENDIF
-	CASE "年节菜"
+	CASE [[年节菜]]
 		IF TFLAG:193 == -1
 			IF (DAY:2 == 1 && DAY:3 <= 3) && (DAY:2 == 4 && DAY:3 >= 29)
 				IF DISH_ASSI == 23
@@ -4095,7 +4232,7 @@ SELECTCASE DISHNAME
 			ELSEIF DAY:2 == 2 && DAY:3 == 14
 				PRINTFORMW 「…………果然盂兰盆节和新年不应该同时到来呢。要是比现在更忙的话那可受不了」
 				PRINTFORML 「万一真的有那么一天……作为%CALLNAME:MASTER%先生这次胡来的赔罪、让您在府上工作一段时间如何」
-				PRINTFORMW 妖梦的眼神看起来很认真……
+				PRINTFORMDW 妖梦的眼神看起来很认真……
 			ELSE
 				IF DISH_ASSI == 23
 					PRINTFORML 「味道是无可挑剔、不过……」
@@ -4111,22 +4248,22 @@ SELECTCASE DISHNAME
 					CASE 0
 						PRINTFORMW 「真是壮观啊……\@ DISH_ASSI == 23 ? 真是没有白费我努力准备 # 这景象也完全可以算作一道风景 \@」
 						PRINTFORM 「光是看着肚子是不会饱的，但有这么多，该从哪个开始吃呢……
-							IF CFLAG:23:2003 == 1
+							IF CFLAG:23:1003 == 1
 								PRINTFORML 哇，是、是呢」
-								PRINTFORMW %CALLNAME:MASTER%催促着眼神闪耀却犹豫不决的妖梦，一起尽情享用了豪华的新年料理
+								PRINTFORMDW %CALLNAME:MASTER%催促着眼神闪耀却犹豫不决的妖梦，一起尽情享用了豪华的新年料理
 							ELSE
 								PRINTFORML 那就先从……」
-								PRINTFORMW %CALLNAME:MASTER%乐在其中地观察着妖梦对每道料理的不同反应
+								PRINTFORMDW %CALLNAME:MASTER%乐在其中地观察着妖梦对每道料理的不同反应
 							ENDIF
 					CASE 1
 						PRINTFORML 「嗯嗯……嗯～，真好吃♪　能这样慢慢品尝新年料理，真是求之不得的奢侈啊」
 						PRINTFORM 「在宅邸里准备的东西，因为要顾及幽幽子大人续餐，总是会变得很匆忙…………
 							IF CFLAG:66:現在位置 == CFLAG:23:現在位置
-								PRINTFORMW 嗯？」
+								PRINTFORMDW 嗯？」
 								PRINTFORML 「呜呜，幽幽子大人！？　失、失礼了，我马上准备追加的……！」
-								PRINTFORMW %CALLNAME:MASTER%为了之后能吃到，决定把妖梦的那份也分出来
+								PRINTFORMDW %CALLNAME:MASTER%为了之后能吃到，决定把妖梦的那份也分出来
 							ELSE
-								PRINTFORMW 欸？」
+								PRINTFORMDW 欸？」
 								PRINTFORML 「我、我吃了那么多甜食吗？　完全没有意识到……这、这真是丢人了……」
 							ENDIF
 				ENDSELECT
@@ -4148,14 +4285,14 @@ SELECTCASE DISHNAME
 				PRINTFORMW （……如果异变导致盂兰盆节和正月一起到来，新年料理就拜托%CALLNAME:MASTER%大人吧）
 			ENDIF
 		ENDIF
-	CASE "惠方卷"
+	CASE [[惠方卷]]
 		IF TFLAG:193 == -1
 			PRINTFORML 「……！　…………っ！？」
 			PRINTFORMW （果然，这个长度还是太勉强了……为了这种时候，应该练习一下吞刀的才艺……！）
-				IF CFLAG:23:2003 == 1
-					PRINTFORMW %CALLNAME:MASTER%一边看着妖梦苦战的样子，一边把自己的那份切成容易食用的大小
+				IF CFLAG:23:1003 == 1
+					PRINTFORMDW %CALLNAME:MASTER%一边看着妖梦苦战的样子，一边把自己的那份切成容易食用的大小
 				ELSE
-					PRINTFORMW %CALLNAME:MASTER%一边提心吊胆地看着妖梦努力吃惠方卷的样子
+					PRINTFORMDW %CALLNAME:MASTER%一边提心吊胆地看着妖梦努力吃惠方卷的样子
 				ENDIF
 		ELSE
 			IF DISH_ASSI == 23
@@ -4168,15 +4305,15 @@ SELECTCASE DISHNAME
 			ELSE
 				PRINTFORM 「本来就不是节分，没有必要讨什么好彩头，而且
 			ENDIF
-			PRINTFORML 因为吃饭变成苦行就本末倒置了」
-			IF CFLAG:23:2003 == 1
-				PRINTFORMW 妖梦重新熟练地切开惠方卷，大家一边谈笑一边享用
+			PRINTFORMDL 因为吃饭变成苦行就本末倒置了」
+			IF CFLAG:23:1003 == 1
+				PRINTFORMDW 妖梦重新熟练地切开惠方卷，大家一边谈笑一边享用
 			ELSE
 				PRINTFORMW 「%CALLNAME:MASTER%大人的份在这里……欸？　啊、啊，还是算了吧……」
 			ENDIF
 		ENDIF
 
-	CASE "白玉蜜豆"
+	CASE [[白玉蜜豆]]
 		IF TFLAG:193 == -1
 			PRINTFORML 「……这个白玉，相当粉状呢」
 			PRINTFORMW 「而且这边水可能放多了，都快要溶解了」
@@ -4200,10 +4337,30 @@ SELECTCASE DISHNAME
 					PRINTFORML 「嗯嗯……我真是太棒了，能够自夸自乐起来」
 					PRINTFORMW 「……嗯？」
 					PRINTFORML 「……如果你那么想尝一尝的话，那就拿去吧。来吧！ 来吧！！」
-					PRINTFORMW 差点被半灵吞下……
+					PRINTFORMDW 差点被半灵吞下……
 			ENDSELECT
 		ENDIF
-	CASE "樱饼"
+	CASE [[地狱拉面（极辣）]]
+		IF TFLAG:193 == -1
+			IF (CFLAG:30:現在位置 == CFLAG:23:現在位置) && CFLAG:23:1430 == 1
+				PRINTFORMW 「……嘶嘶嘶嘶……！？！？」
+				PRINTFORML 「…………哈，偶尔吃点辣的也不错呢。感觉内脏都得到锻炼了……」
+				PRINTFORMDW 妖梦脸上红一阵白一阵地，却仍假装平静，而她的脚边，半灵正在打滚……
+			ELSE
+				PRINTFORMW 「嘶嘶嘶嘶！？　辣、好辣啊！？　不对是好痛啊！？！？」
+				PRINTFORML 「根本就没有压制住嘛！？　这辣度搞不好会成为死因啊！！」
+				PRINTFORMDW 是因为辣得打滚吗，滚来滚去的半灵撞到脚好痛……
+			ENDIF
+		ELSE
+			PRINTFORML 「！　……辣，但还没到不能吃的程度。」
+			PRINTFORMW 「……难道我的这份辣度特地调低了？在您推荐这个的时候有些犹豫，现在说谢谢您还真有点不好意思……」
+				IF (CFLAG:30:現在位置 == CFLAG:23:現在位置) && CFLAG:23:1430 == 1
+					PRINTFORMW 「阎魔大人露出那种表情可不常见，我的反应要是扫了兴也太不解风情了呢」
+				ELSE
+					PRINTFORMW 「我这个甜食党想和这道料理互相理解恐怕很难，但一年吃一次左右也许也不错」
+				ENDIF
+		ENDIF
+	CASE [[樱饼]]
 		IF TFLAG:193 == -1
 			PRINTFORML 「……%CALLNAME:MASTER%先生、这……是柏树叶吧」
 			PRINTFORMW 「因为没有樱花叶所以用这个代替了吗……」
@@ -4213,22 +4370,70 @@ SELECTCASE DISHNAME
 				CASE 0
 					PRINTFORMW 「适度的咸味衬托出馅料的甜美、叶子的香味回味悠长……发明这种日式点心的人一定是一位精通风雅的匠人吧」
 					PRINTFORML 「啊啊……要是吃太多半灵变成樱花色了该怎么办……♪」
-					PRINTFORMW 妖梦幸福地吃着樱饼、拿取樱饼的手完全停不下来、但可惜的是半灵并没有变色
+					PRINTFORMDW 妖梦幸福地吃着樱饼、拿取樱饼的手完全停不下来、但可惜的是半灵并没有变色
 				;捏造
 				CASE 1
 					PRINTFORMW 「既然您学了做法、应该也猜到了、其实幽幽子大人自己就能做料理、而且做得还不错」
 					PRINTFORML 「我还小的时候、幽幽子大人有时会亲自做些甜点给我们吃……好怀念啊」
-					PRINTFORMW 妖梦停下手上的动作眯起眼睛、开心又怀念地看着手中的樱饼……
+					PRINTFORMDW 妖梦停下手上的动作眯起眼睛、开心又怀念地看着手中的樱饼……
 			ENDSELECT
 		ENDIF
-
+	CASE [[人魂棉花糖]]
+		IF TFLAG:193 == -1
+			IF DISH_ASSI == 23
+			PRINTFORML 「…………！」
+				PRINTFORMW 「……果然无法对自己说谎。这怎么看都是半灵棉花糖啊……！」
+				PRINTFORML 「竟然因为是自己的一部分就被意识所束缚，真是何等失策……！！」
+			ELSE
+				PRINTFORMW 「……嗯？　哎呀%CALLNAME:MASTER%桑，这怎么看都是怨灵棉花糖啊。」
+				PRINTFORML 「啊呜……作为甜点来说确实很好吃，但要说这是人魂棉花糖的话嘛……」
+			ENDIF
+			PRINTFORMDW 旁人看来可能没什么区别，但在妖梦的标准下似乎有着绝对的区别……
+		ELSE
+			IF ABL:MASTER:料理技能 >= 6
+				PRINTFORML 「这、这是……简直就是人魂本身！　如果放在路边，我都有自信会错认成真的带回家。」
+				PRINTFORMW 「不如说，我可以断言这明显比摊位上的做得更好。这是何等深厚的造诣啊……」
+				PRINTFORML 「……%CALLNAME:MASTER%桑，不如以这个为武器，去中有之道大赚一笔如何？」
+				PRINTFORMDW 妖梦的眼神认真得不能再认真了……
+			ELSEIF ABL:MASTER:料理技能 > 4
+				PRINTFORML 「哦～，做得和卖的没什么两样！　就算混在摊位上的棉花糖里，大概也分辨不出来。」
+				PRINTFORML 「啊呜……包括让人脊背发凉的部分在内，味道也十分完美。这里可不能马虎呢。」
+					IF DISH_ASSI == 23
+						PRINTFORMW 「……不过如果两人能做出这种水平的东西，真的拿去卖也不是梦想啊……」
+					ELSE
+						PRINTFORMW 「达到这种水平，我几乎没有什么可以提建议的地方了啊……真是失敬了。」
+					ENDIF
+			ELSEIF ABL:MASTER:料理技能 > 1
+				PRINTFORML 「嚯嚯，该控制的地方都控制得很好……但还有很大的改进空间呢。」
+				PRINTFORMW 「既然自称是“人魂”棉花糖，那么精益求精，使其更接近实物是不能懈怠的。」
+				PRINTFORM 「实物应该更像这样……
+				PRINTDATAL
+					DATAFORM 这附近应该更圆润一些——」
+					DATAFORM 尾巴部分应该更细更光滑一些——」
+					DATAFORM 整体上应该再大一圈——」
+				ENDDATA
+				PRINTFORMDW 从妖梦那里得到了关于人魂的建议。下次试着运用一下吧……
+				EXP:MASTER:料理経験 += 2
+			ELSE
+				PRINTFORML 「嗯嗯……老实说，要称作人魂棉花糖的话，成品有些勉强呢。」
+				PRINTFORM 「味道没问题，但形状果然还是……
+					IF DISH_ASSI == 23
+						PRINTFORMW 果然不应该以半灵为样本呢。」
+					ELSE
+						PRINTFORMW 啊，难道您是参考了半灵吗？」
+					ENDIF
+				PRINTFORML 「乍一看可能觉得一样，但严格来说完全不同——」
+				PRINTFORMDW 从妖梦那里听了关于人魂的讲解。下次能派上用场吗……
+				EXP:MASTER:料理経験 += 3
+			ENDIF
+		ENDIF
 	CASEELSE
 		IF STRCOUNT(DISH_TASTE, "怪诞") || STRCOUNT(DISH_TASTE, "谜料理")
 			IF TFLAG:193 == -1
 				PRINTFORMW 「…………」
 				PRINTFORML 「可惜了，我会吃完的」
 				PRINTFORMW 「我对这类料理不擅长，请务必记住……」
-				PRINTFORMW 妖梦身边躺着的半灵时不时地抽搐着……
+				PRINTFORMDW 妖梦身边躺着的半灵时不时地抽搐着……
 			ELSE
 				PRINTFORML 「咦，意外地……」
 				PRINTFORMW 「……虽然不算糟糕，但也不会特意去制作和品尝」
@@ -4237,31 +4442,31 @@ SELECTCASE DISHNAME
 			IF TFLAG:193 == -1
 				IF DISH_ASSI == 23
 					PRINTDATAL
-						DATAFORM 「……是不是哪里，遗漏了步骤……？」
-						DATAFORM 「……哪里出错了呢……？」
+						DATAFORM 「……是不是，漏掉了哪个步骤……？」
+						DATAFORM 「……是不是，忘记放了什么东西……？」
 					ENDDATA
-					PRINTFORMW 「无论如何这都是个问题……我也会学习的」
+					PRINTFORMW 「无论如何这都是个课题呢……我也会好好学习的。」
 				ELSE
-					PRINTFORMW 「……味道，很好吃，的，呢？」
-					PRINTFORML 「……抱歉」
-					PRINTFORMW 「如果能模仿舌头的动作就好了……」
+					PRINTFORMW 「……嗯，好吃，的，哦？」
+					PRINTFORML 「……呜，对不起。」
+					PRINTFORMW 「要是能做到调整口味这种巧妙的事就好了……」
 				ENDIF
 			ELSE
 				IF DISH_ASSI == 23
-					PRINTFORML 「好吃！ 做得这么好真是太好了」
+					PRINTFORML 「很好吃！　做得好真是太好了。」
 						IF ABL:MASTER:料理技能 > 4
-							PRINTFORMW 「为了不辱没旁边烹饪的人，我也要更加努力」
+							PRINTFORMW 「为了不愧于助手之名，我也必须更加精进才行。」
 						ELSEIF ABL:MASTER:料理技能 > 1
-							PRINTFORMW 「正因如此，下次要朝着更高水准努力了呢」
+							PRINTFORMW 「正因如此，下次我想尝试做出更上一层楼的成品呢。」
 						ELSE
-							PRINTFORMW （爱心果然……爱心能解决一切……！）
+							PRINTFORMW （果然是爱……爱能解决一切……！）
 						ENDIF
 				ELSE
-					PRINTFORML 「哇，好好吃！ 这是我喜欢的味道」
+					PRINTFORML 「哇，很好吃！　是合我口味的味道呢。」
 						IF ABL:MASTER:料理技能 > 4 && RAND:2 == 0
-							PRINTFORMW 「下次想请教一下这道菜的窍门。还有%CALLNAME:MASTER% 您喜欢的口味」
+							PRINTFORMW 「下次希望能请您教教这道菜的诀窍呢。还有%CALLNAME:MASTER%桑喜欢的口味。」
 						ELSE
-							PRINTFORMW 「单凭心意就足够了，但并不容易实现。您的厨艺真是了不起」
+							PRINTFORMW 「光凭心意可远远不够呢。真是精湛的手艺。」
 						ENDIF
 				ENDIF
 			ENDIF
@@ -4287,7 +4492,7 @@ SELECTCASE DISHNAME
 				ELSE
 					IF ABL:MASTER:料理技能 > 4
 						PRINTFORML 「……哦。这道菜，果然很好吃」
-						PRINTFORMW 「即使说您在人间开店，我也会相信，毫无怀疑」
+						PRINTFORMW 「即使说您在村里开店，我也绝对不会奇怪啊」
 					ELSE
 						PRINTFORML 「……哦。这道菜，很好吃」
 						PRINTFORMW 「特意迎合我的口味？ 那我就感到很高兴了」
@@ -4300,7 +4505,7 @@ ENDSELECT
 ;==================================================
 ;416,演奏
 ;TFLAG:193(1=大成功 0=成功 -1=失败)
-;TFLAG:使用乐器(1=电子琴 2=钢琴 3=吉他 4=小号 5=小提琴)
+;TFLAG:使用楽器(1=电子琴 2=钢琴 3=吉他 4=小号 5=小提琴)
 ;==================================================
 @M_KOJO_别人版_SUCCESS_COM_K23_416
 ;成否判定
@@ -4328,31 +4533,37 @@ IF LOCAL
 		PRINTFORML
 	;勃然大怒
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 被强烈的杀气所包围，仿佛在说“太吵了”……
-	;反発刻印有
+		PRINTFORML 「……」
+		PRINTFORMDW 被强烈的杀气所包围，仿佛在说“太吵了”……
+	;反感刻印有
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……刺耳」
-		PRINTFORMW 妖梦背对着%CALLNAME:MASTER%，小声嘀咕着……
+		PRINTFORMDW 妖梦背对着%CALLNAME:MASTER%，小声嘀咕着……
 
 	;失败
 	ELSEIF TFLAG:193 == -1
 		IF TALENT:恋慕
 			PRINTFORML 「呜呜呜……%CALLNAME:MASTER%先生，请不要灰心……」
-			PRINTDATAW
-				DATAFORM 拼命想留在原地的半灵最终力竭坠落了……
-				DATAFORM 「羞、羞愧地说我刚才有点困，现在完全清醒了……」
-				DATAFORM 「在、在这个领域帮不上忙真让人焦急……」
-			ENDDATA
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDW 拼命想要撑住的半灵力竭坠落了……
+				CASE 1
+					PRINTFORMW 「惭、惭愧，我刚才有点困意，这下彻底清醒了……」
+				CASE 2
+					PRINTFORMW 「在、在这个领域我似乎帮不上忙，真是令人焦急……」
+			ENDSELECT
 		ELSE
-			PRINTFORML 「失、失败对于任何人都是难免的！」
-			PRINTDATAW
-				DATAFORM 半灵摇摇晃晃地摔倒了……
-				DATAFORM 「但是下次请多多谅解……」
-				DATAFORM 「不过这段演奏就算是用来让人打起精神也有点太过强力了……」
-			ENDDATA
+			PRINTFORML 「谁、谁、谁都会有失败的时候啦！」
+			SELECTCASE RAND:3
+				CASE 0
+					PRINTFORMDW 动作不稳的半灵无力地坠落了……
+				CASE 1
+					PRINTFORMW 「但是下次能不能稍微手下留情一点……」
+				CASE 2
+					PRINTFORMW 「不过这段演奏就算是用来让人打起精神也有点太过强力了……」
+			ENDSELECT
 		ENDIF
-	;音楽技能无
+	;音乐技能无
 	ELSEIF ABL:MASTER:音楽技能 == 0
 		SELECTCASE RAND:2
 			CASE 0
@@ -4362,7 +4573,7 @@ IF LOCAL
 				PRINTFORML 「……如果您对演奏感兴趣的话，不妨再多练习一下，然后去拜访一下骚灵姐妹？」
 				PRINTFORMW 「虽然她们性格有些古怪，但至少比我能给出更准确的建议」
 		ENDSELECT
-		PRINTFORMW 妖梦毫无玩笑意味的认真眼神直直地刺入了%CALLNAME:MASTER%的胸膛……
+		PRINTFORMDW 妖梦毫无玩笑意味的认真眼神直直地刺入了%CALLNAME:MASTER%的胸膛……
 	;大成功
 	ELSEIF TFLAG:193 == 1
 		IF TALENT:恋慕
@@ -4387,7 +4598,7 @@ IF LOCAL
 							ENDIF
 					ENDIF
 			ENDSELECT
-			PRINTFORMW 妖梦带着赞叹的眼神，向%CALLNAME:MASTER%送上了热烈的掌声
+			PRINTFORMDW 妖梦带着赞叹的眼神，向%CALLNAME:MASTER%送上了热烈的掌声
 		ELSE
 			PRINTFORML 「太棒了，%CALLNAME:MASTER%！！」
 				IF ABL:MASTER:音楽技能 > 4 && RAND:2 == 0
@@ -4395,7 +4606,7 @@ IF LOCAL
 				ELSE
 					PRINTFORMW 「在这条路上肯定能走得很远！」
 				ENDIF
-			PRINTFORMW 妖梦眼中闪烁着光芒，向%CALLNAME:MASTER%热烈鼓掌
+			PRINTFORMDW 妖梦眼中闪烁着光芒，向%CALLNAME:MASTER%热烈鼓掌
 		ENDIF
 	;成功
 	ELSE
@@ -4411,7 +4622,7 @@ IF LOCAL
 						ENDIF
 				CASE 1
 					PRINTFORML 「不看手也不看乐谱就能演奏，不愧是%CALLNAME:MASTER%先生！」
-					PRINTFORMW 本人可能没有意识到，但看着随着音乐摇摆的半灵反而更容易把握节奏……
+					PRINTFORMDW 本人可能没有意识到，但看着随着音乐摇摆的半灵反而更容易把握节奏……
 				CASE 2
 					PRINTFORML 「如果我懂得乐器的话，也许还能为您的演奏伴奏呢……」
 					PRINTFORML 「——用唱的？不、不行不行，我的歌声实在不适合让人听……」
@@ -4427,13 +4638,13 @@ IF LOCAL
 			SELECTCASE RAND:3
 				CASE 0
 					PRINTFORML 「哇，太厉害了……」
-					PRINTFORMW 妖梦和半灵一起欢快地晃动着身体
+					PRINTFORMDW 妖梦和半灵一起欢快地晃动着身体
 				CASE 1
 					PRINTFORML 「%CALLNAME:MASTER%，太厉害了！」
-					PRINTFORMW 妖梦眼中闪烁着光芒，热情地鼓掌
+					PRINTFORMDW 妖梦眼中闪烁着光芒，热情地鼓掌
 				CASE 2
 					PRINTFORML 「～♪」
-					PRINTFORMW 似乎很喜欢，妖梦哼唱起刚才演奏的曲子
+					PRINTFORMDW 似乎很喜欢，妖梦哼唱起刚才演奏的曲子
 			ENDSELECT
 		ENDIF
 	ENDIF
@@ -4449,7 +4660,7 @@ RETURN 1
 ;Return 0 if description and KOJO should be shown, 1 if description should be hidden and KOJO shown, 2 if description should be shown and KOJO hidden, and 3 if both description and KOJO should be hidden.
 ;==================================================
 @M_KOJO_别人版_MESSAGE_MESSAGECHECK_COM_K23_417
-RETURN 0
+RETURN 1
 
 @M_KOJO_别人版_MESSAGE_COM_K23_417
 CALL M_KOJO_别人版_MESSAGE_COM_K23_417_1
@@ -4458,10 +4669,77 @@ RETURN RESULT
 @M_KOJO_别人版_MESSAGE_COM_K23_417_1
 ;-------------------------------------------------
 ;记入チェック（=0, 非表示、1, 表示）
-LOCAL = 0
+LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	;添い寝中
+	IF CFLAG:陪睡中
+		PRINTFORMDW 与半灵并排睡着的妖梦在%CALLNAME:PLAYER%的旁边发出安稳的鼾声……
+	;ブチギレ
+	ELSEIF CFLAG:318 == 1
+		PRINTFORMDW 妖梦看到%CALLNAME:PLAYER%要躺下，便快步走出了房间……
+		PRINTFORMW 「如果不是能让人放松的地方，身体也无法得到休息。」
+	;反発
+	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
+		IF TALENT:恋慕
+			PRINTFORMDL %CALLNAME:PLAYER%起身时发觉到从身上滑落的毯子
+			PRINTFORMDL 妖梦虽然在离得远远的，但似乎还是挂念着这边。
+			PRINTFORMW
+		ELSE
+			PRINTFORMDL %CALLNAME:PLAYER%醒来时，发现妖梦离得远远靠着墙。
+			PRINTFORMDL 看来她似乎没有在意这边，独自休息着……
+			PRINTFORMW
+		ENDIF
+	ELSEIF TALENT:恋慕
+		SELECTCASE RAND:5
+			CASE 0
+				PRINTFORMDL 总觉得手臂好沉……
+				PRINTFORMDL 疑惑着为何动弹不得，睁开眼一看，
+				PRINTFORMDL 妖梦正抱着%CALLNAME:PLAYER%的手臂睡觉，另一只手臂则触碰着半灵。
+				PRINTFORMDL 这样下去动弹不得，于是苦笑着轻轻摇了摇妖梦。
+				PRINTFORMW
+				PRINTFORML 「……呜……嗯呜…………嗯？」
+				PRINTFORML 「——！？　失、失礼了！　真是字面意义上地麻烦您了……！！」
+				PRINTFORMDW %CALLNAME:PLAYER%向脸红得跳起来的妖梦搭话，然后温柔地抚摸了一下旁边的半灵。
+			CASE 1
+				PRINTFORMDL %CALLNAME:PLAYER%醒来时，感觉大腿上有重物。
+				PRINTFORMDL 妖梦正把%CALLNAME:PLAYER%的身体当枕头睡觉。
+				PRINTFORMDL %CALLNAME:PLAYER%将身体从头下抽出来时，
+				PRINTFORMDL 妖梦像是受到了极大的惊吓，猛地弹了起来。
+				PRINTFORMW
+				PRINTFORML 「——啊哎！？　哇、哇……啊，对不起！」
+				PRINTFORML 「看着睡着的%CALLNAME:PLAYER%桑，就不由自主地想试试看……唉呜呜呜」
+				PRINTFORMDW 告诉她“要是需要，随时都可以把膝盖借给你”，妖梦的脸变得更红了，发出蚊子般细小的呻吟声。
+			CASE 2
+				PRINTFORMDL %CALLNAME:PLAYER%醒来时，眼前是妖梦的脸。
+				PRINTFORMDL 她脸上带着一丝满足，神情安详。
+				PRINTFORMDL 看来，睡相被看得一清二楚了……
+				PRINTFORMW
+				PRINTFORML 「啊……早上好。」
+				PRINTFORML 「您是不是做了个好梦啊？　怎么说呢……您的表情看起来非常满足。」
+				PRINTFORMDW 虽然不确定是否做了梦，但被她这么一说，总觉得好像在绝妙的时刻醒来了，有点可惜……
+			CASE 3
+				PRINTFORMDL %CALLNAME:PLAYER%醒来时，发现自己正枕在妖梦的膝盖上。
+				PRINTFORMDL 察觉到%CALLNAME:PLAYER%醒来，妖梦微笑着抚摸了%CALLNAME:PLAYER%的头。
+				PRINTFORMW
+				PRINTFORML 「虽然觉得有些多此一举……但如果能让您睡个好觉，那就再好不过了。」
+				PRINTFORML 「——再这样保持一会儿吗？　好的，直到腿麻为止，如您所愿。」
+				PRINTFORMDW 暂时将身体交给了妖梦触感冰冰凉的大腿。
+			CASE 4
+				PRINTFORMDL %CALLNAME:PLAYER%醒来时，发现头下有什么冰冷的东西。
+				PRINTFORMDL 改变角度确认时，视野的边缘出现了白色的Q弹物体。
+				PRINTFORMDL 这是……半灵。
+				PRINTFORMW
+				PRINTFORML 「……早上好，%CALLNAME:PLAYER%桑。」
+				PRINTFORML 「本来我是想给您膝枕的，但几经周折，结果就让它来代替了……」
+				PRINTFORMDW 旁边抱着膝盖的妖梦怨恨地盯着半灵……
+		ENDSELECT
+	ELSE
+		PRINTFORMDL %CALLNAME:PLAYER%醒来时，发现妖梦在附近靠着墙。
+		PRINTFORMW
+		PRINTFORML 「——嗯啊？　……哈！？　我、我好像也睡着了……」
+		PRINTFORMDW %CALLNAME:PLAYER%向慌忙站起来的妖梦打了个招呼，然后也慢慢地起身了。
+	ENDIF
 ENDIF
 RETURN 1
 ;==================================================
@@ -4517,40 +4795,46 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	IF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦和%CALLNAME:MASTER%保持着充分的距离、默默地继续洗着澡……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦和%CALLNAME:MASTER%保持着充分的距离、默默地继续洗着澡……
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……我身上有什么值得注意的地方吗？」
-		PRINTFORMW 每当自己想偷看妖梦时半灵总会恰到好处地挡在前面……
+		PRINTFORMDW 每当自己想偷看妖梦时半灵总会恰到好处地挡在前面……
 	ELSEIF TALENT:恋慕
 		SELECTCASE RAND:3
 			CASE 0
 				PRINTFORML 「呼呜、看来没有洗漏的地方了……那么我来给您搓背吧」
-				PRINTDATAW
-					DATAFORM 「――啊、确实前面也……前面！？　那、那个……实在是太让人羞耻了、还请您能放过我……」
-					DATAFORM 妖梦细心地帮%CALLNAME:MASTER%仔细搓洗了背部
-				ENDDATA
+				SELECTCASE RAND:2
+					CASE 0
+						PRINTFORMW 「——啊、确实前面也……！？那、那个…还是太羞人了、还请您放过我吧…」
+					CASE 1
+						PRINTFORMDW 妖梦细心地帮%CALLNAME:MASTER%仔细搓洗了背部
+				ENDSELECT
 			CASE 1
 				PRINTFORML （%CALLNAME:MASTER%先生的后背……近距离看比平时感觉宽广多了）
 				PRINTFORMW （这样接触着、感觉特别……安心……）
-				PRINTDATAW
-					DATAFORM 「――诶？　啊……对、对不起、刚才有点走神了。我马上帮您冲洗……！」
-					DATAFORM 静静抚过背部的指尖触感让人感觉有种说不出的痒意……
-				ENDDATA
+				SELECTCASE RAND:2
+					CASE 0
+						PRINTFORMW 「――诶？　啊……对、对不起、刚才有点走神了。我马上帮您冲洗……！」
+					CASE 1
+						PRINTFORMDW 静静抚过背部的指尖触感让人感觉有种说不出的痒意……
+				ENDSELECT
 			CASE 2
 				PRINTFORML 「～♪」
-				PRINTFORMW 妖梦哼着小调洗着身体、而%CALLNAME:MASTER%旁边的半灵则漂浮在浴缸里
-				PRINTDATAW
+				PRINTFORMDW 妖梦哼着小调洗着身体、而%CALLNAME:MASTER%旁边的半灵则漂浮在浴缸里
+				PRINTDATADW
 					DATAFORM 随意搭在半灵上面的毛巾看起来还挺像样的……
 					DATAFORM 随意抚摸了半灵一下、妖梦就肩膀一抖、手中的肥皂也随之滑落了
 				ENDDATA
 		ENDSELECT
 	ELSE
-		PRINTFORML 「......」
-		PRINTDATAW
-			DATAFORM 妖梦有些尴尬地缩在浴缸的角落里……
-			DATAFORM （现在这种情况、根本没法放松下来……）
-		ENDDATA
+		PRINTFORML 「……」
+		SELECTCASE RAND:2
+			CASE 0
+				PRINTFORMDW 妖梦有些尴尬地缩在浴缸的角落里……
+			CASE 1
+				PRINTFORMW （现在这种情况、根本没法放松下来……）
+		ENDSELECT
 	ENDIF
 ENDIF
 RETURN 1
@@ -4578,28 +4862,28 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	IF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 先一步入浴的妖梦注意到%CALLNAME:MASTER%后、投来了冷得像要让热水冰冷下来的视线……
+		PRINTFORML 「……」
+		PRINTFORMDW 先一步入浴的妖梦注意到%CALLNAME:MASTER%后、投来了冷得像要让热水冰冷下来的视线……
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「咦……」
-		PRINTFORMW %CALLNAME:MASTER%和几乎同时出来的妖梦撞了个正着、妖梦尴尬地移开了视线
+		PRINTFORMDW %CALLNAME:MASTER%和几乎同时出来的妖梦撞了个正着、妖梦尴尬地移开了视线
 	ELSEIF TALENT:恋慕
 		SELECTCASE RAND:3
 			CASE 0
-				PRINTFORMW %CALLNAME:MASTER%先一步洗完澡在店门口等了一会儿、妖梦就慌慌张张地跑了出来、连发箍都没戴
+				PRINTFORMDW %CALLNAME:MASTER%先一步洗完澡在店门口等了一会儿、妖梦就慌慌张张地跑了出来、连发箍都没戴
 				PRINTFORML 「让、让您久等了吗？　非常抱歉！」
 				PRINTDATAW
 					DATAFORM 「刚才偶遇了我常去的店里的老板娘、聊得有点忘我了……」
 					DATAFORM 「认真洗半灵的时候不小心花了太多时间……」
 				ENDDATA
 			CASE 1
-				PRINTFORMW %CALLNAME:MASTER%洗完澡出来后、发现妖梦已经先一步在店门口等候、注意到这边后她转过了身来
+				PRINTFORMDW %CALLNAME:MASTER%洗完澡出来后、发现妖梦已经先一步在店门口等候、注意到这边后她转过了身来
 				PRINTFORML 「%CALLNAME:MASTER%先生、您已经洗好了吗？　有没有忘记带什么东西……」
 				PRINTFORMW 「――不、请不用在意。像这样等待也意外地很有趣的」
 			CASE 2
 				PRINTFORML 「啊……」
-				PRINTFORMW 当%CALLNAME:MASTER%洗完澡准备从男浴室出来时、正好看到妖梦也要从女浴室出来
-				PRINTFORMW 同样看到%CALLNAME:MASTER%的妖梦脸上露出了笑容向这边走了过来
+				PRINTFORMDW 当%CALLNAME:MASTER%洗完澡准备从男浴室出来时、正好看到妖梦也要从女浴室出来
+				PRINTFORMDW 同样看到%CALLNAME:MASTER%的妖梦脸上露出了笑容向这边走了过来
 		ENDSELECT
 	ELSE
 		PRINTFORML 「哦呀、%CALLNAME:MASTER%先生也刚好洗完澡吗？」
@@ -4717,11 +5001,11 @@ IF LOCAL
 	IF TCVAR:烂醉 == 1
 		PRINTFORML
 	ELSEIF CFLAG:318 == 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦在离%CALLNAME:MASTER%有些距离的地方默默地忙碌着……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦在离%CALLNAME:MASTER%有些距离的地方默默地忙碌着……
 	ELSEIF (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
 		PRINTFORML 「……我会帮忙的」
-		PRINTFORMW 在有些别扭的气氛中，%CALLNAME:MASTER%和妖梦专心致志地采集着……
+		PRINTFORMDW 在有些别扭的气氛中，%CALLNAME:MASTER%和妖梦专心致志地采集着……
 	ELSEIF TFLAG:193 == 0
 		IF (TALENT:思慕 || TALENT:恋慕) && RAND:3 == 0
 			PRINTFORML 「好像没什么能用的东西呢……嗯？」
@@ -4733,7 +5017,7 @@ IF LOCAL
 					PRINTFORMW 「不管有多熟练，没有实物的话也没办法，这只能看运气了」
 				CASE 1
 					PRINTFORML 「这边没有，那边也没有……真是不如人意……」
-					PRINTFORMW 妖梦和半灵分头寻找，但看起来都没有找到能用的素材
+					PRINTFORMDW 妖梦和半灵分头寻找，但看起来都没有找到能用的素材
 			ENDSELECT
 		ENDIF
 	ELSE
@@ -4914,8 +5198,8 @@ IF LOCAL
 		PRINTFORMW
 		RETURN 1
 	ELSEIF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦拿着网子在离%CALLNAME:MASTER%稍远的地方练习……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦拿着网子在离%CALLNAME:MASTER%稍远的地方练习……
 		RETURN 1
 	ELSEIF FIRSTTIME(SELECTCOM)
 		;冥界の虫は基本幽灵だが、细かい事を气にして是けない
@@ -4932,11 +5216,11 @@ IF LOCAL
 				IF TALENT:恋慕
 					PRINTFORML 「你、你想要这只虫子吗？　我给你，先冷静一下……啊！？」
 					PRINTFORML 「啊，虫子……已经……」
-					PRINTFORMW 妖梦恨恨地瞪了%CALLNAME:MASTER%一眼……
+					PRINTFORMDW 妖梦恨恨地瞪了%CALLNAME:MASTER%一眼……
 				ELSE
 					PRINTFORML 「这、这只虫子你想要？　如果真的想要的话你自己去抓不是更好……哇！？」
 					PRINTFORML 「啊，虫子……都……！」
-					PRINTFORMW 妖梦责备的目光刺向了%CALLNAME:MASTER%……
+					PRINTFORMDW 妖梦责备的目光刺向了%CALLNAME:MASTER%……
 				ENDIF
 		CASE -1
 			CALL K23_REACTION_MUSHI
@@ -4946,11 +5230,11 @@ IF LOCAL
 					PRINTFORML 「诶，你想要这只虫子吗？　唔唔唔……」
 					PRINTFORMW 「……我觉得，还是亲自抓到时的成就感最重要」
 					PRINTFORML 「%CALLNAME:MASTER%的话肯定能抓到更厉害的虫子！」
-					PRINTFORMW 虽然没能从妖梦那里得到虫子，但收到了她的鼓励
+					PRINTFORMDW 虽然没能从妖梦那里得到虫子，但收到了她的鼓励
 				ELSE
 					PRINTFORML 「……哈，想要我把这只虫子给你」
 					PRINTFORML 「抱歉，这个我不能答应……我也有些想试试的事情」
-					PRINTFORMW 她的意志出乎意料地坚定，这次恐怕要放弃了……
+					PRINTFORMDW 她的意志出乎意料地坚定，这次恐怕要放弃了……
 				ENDIF
 		CASE 0
 			PRINTFORML （咳，%TEXTR("狡猾/敏捷")%……那我这边也认真点……！）
@@ -4958,7 +5242,7 @@ IF LOCAL
 			PRINTFORML
 			PRINTFORML 「哦，明明差一点就……啊，难道%CALLNAME:MASTER%有收获？」
 			PRINTFORML 「我也差一步就抓到了，结果被灵巧地逃掉了……啊哈，啊哈哈……」
-			PRINTDATAW
+			PRINTDATADW
 				DATAFORM 不知为何妖梦扯着嘴角苦笑……
 				DATAFORM 旁边的半灵看起来有些脸色发青……
 			ENDDATA
@@ -4968,10 +5252,10 @@ IF LOCAL
 			PRINTFORMW 「哦哦……这么轻易就活捉了真是了不起！」
 				IF (TALENT:思慕 || TALENT:恋慕) && ABL:MASTER:戦闘能力 > 3 && RAND:2 == 0
 					PRINTFORML 「以%CALLNAME:MASTER%的技术，峰打什么的肯定也不在话下」
-					PRINTFORMW 不知为何妖梦和半灵若有所思地点了点头
+					PRINTFORMDW 不知为何妖梦和半灵若有所思地点了点头
 				ELSE
 					PRINTFORML 「对付虫子手下留情还真是困难……要是再结实一点就好了」
-					PRINTFORMW 妖梦是不是把捉虫子误解成模拟战之类的了……
+					PRINTFORMDW 妖梦是不是把捉虫子误解成模拟战之类的了……
 				ENDIF
 		CASE 2
 			CALL K23_REACTION_MUSHI
@@ -4989,11 +5273,11 @@ IF LOCAL
 				IF TALENT:恋慕
 					PRINTFORML 「诶，你想要这只虫子？」
 					PRINTFORML 「啊，呃……既、既然%CALLNAME:MASTER%这么说，请拿去吧……」
-					PRINTFORMW 妖梦依依不舍地把抓到的虫子交给了%CALLNAME:MASTER%
+					PRINTFORMDW 妖梦依依不舍地把抓到的虫子交给了%CALLNAME:MASTER%
 				ELSE
 					PRINTFORML 「……哈，想要我把这只虫子给你」
 					PRINTFORML 「我、我知道了。被你用那种眼神看着也很难拒绝……」
-					PRINTFORMW 妖梦不情愿地把抓到的虫子交给了%CALLNAME:MASTER%
+					PRINTFORMDW 妖梦不情愿地把抓到的虫子交给了%CALLNAME:MASTER%
 				ENDIF
 		CASE 4
 			CALL K23_REACTION_MUSHI
@@ -5002,11 +5286,11 @@ IF LOCAL
 				IF TALENT:恋慕
 					PRINTFORML 「诶，你想要这只虫子？　我知道了」
 					PRINTFORML 「我可能照顾不好它，跟着%CALLNAME:MASTER%它会更幸福吧」
-					PRINTFORMW 妖梦微笑着把抓到的虫子交给了%CALLNAME:MASTER%
+					PRINTFORMDW 妖梦微笑着把抓到的虫子交给了%CALLNAME:MASTER%
 				ELSE
 					PRINTFORML 「……哈，想要我把这只虫子给你。没问题」
 					PRINTFORML 「虽然抓到了，但我正为该怎么办而烦恼。你能要太好了」
-					PRINTFORMW 妖梦爽快地把抓到的虫子交给了%CALLNAME:MASTER%
+					PRINTFORMDW 妖梦爽快地把抓到的虫子交给了%CALLNAME:MASTER%
 				ENDIF
 	ENDSELECT
 ENDIF
@@ -5067,6 +5351,24 @@ SELECTCASE MUSHI_NAME
 		PRINTFORML 「说起秋夜，就是它们了呢」
 		PRINTFORML 「我平时不太喜欢书法，但它们的叫声却总是能莫名地激起我的意欲，真是不可思议」
 		PRINTFORMW 「甚至会让我停下锻炼，真是不得不佩服」
+	CASE "怪物旱地沙螽"
+		PRINTFORML 「……这、这是蟋蟀？　普通的蟋蟀可没这么大啊。」
+		PRINTFORML 「——哦，叫怪物旱地沙螽啊。蟋蟀原本就是凶猛的虫子，但这个也太……」
+		PRINTFORMW 「这长相可不是被咬一口就能安然无恙的，抓它的话要小心行事。」
+
+	CASE "棕静螳", "大刀螳"
+		PRINTFORML 「举起镰刀相对，这是教科书般的威吓啊。或许是因为都是双刀流，总觉得这种虫子有点亲切呢。」
+		PRINTFORML 「……不，我可不会那么做。我的刀被侮辱成螳臂当车，简直是岂有此理。」
+		PRINTFORMW 「冥界有更凶恶的，但那种好像是相当稀有的虫子……」
+	CASE "花螳螂", "枯叶螳螂"
+		PRINTFORML 「——嗯？嗯嗯？……这是螳螂啊。看来是伪装起来等待猎物呢。」
+		PRINTFORML 「虽然伪装的虫子不少，但因为它的武器是武器，所以这只螳螂看起来更像个街头杀手呢……」
+		PRINTFORMW 「……嘛，嘛，我也有过做街头杀手般事情的时期，所以也没资格多说什么。」
+
+	CASE "蜜蜂"
+		PRINTFORML 「蓬松的体毛和圆润的身体，在蜜蜂中也算是特别讨人喜欢的一种吧？」
+		PRINTFORML 「这话是从人里那边听来的，蜂蜜自不必说，它们在作物授粉方面也很有用，所以很受重视呢。」
+		PRINTFORMW 「虽然很少会蜇人，但使用了毒针的蜜蜂就会直接死去。希望能和它们好好相处呢。」
 
 	CASE "鼠妇"
 		PRINTFORML 「哎呀，是普通的鼠妇呢」
@@ -5082,7 +5384,7 @@ SELECTCASE MUSHI_NAME
 		PRINTFORMW 「……哈？　那个、网呢……空、空手抓？　……我、我也要一起！？」
 
 	CASE "跳蛋"
-		IF CFLAG:23:2004 == 1
+		IF CFLAG:23:1004 == 1
 			PRINTFORML 「啊！？　这、这是……」
 			PRINTFORML 「……为什么这种东西能普通地存在于自然界中呢？虽然姑且也算不上妖怪」
 			PRINTFORMW 「放着不管会很吵，既然发现了，就想办法处理掉……」
@@ -5092,7 +5394,7 @@ SELECTCASE MUSHI_NAME
 			PRINTFORMW 「是不是在外面被驱除得太厉害了，所以才跑到这里来了？关于这方面，%CALLNAME:MASTER%大人知道些什么吗？」
 		ENDIF
 	CASE "黑死蝶"
-		IF CFLAG:23:3303 == 1
+		IF CFLAG:23:1303 == 1
 			PRINTFORML 「哦……那一只看起来相对安全」
 			PRINTFORML 「虽说是缠绕的诅咒减弱的季节，但似乎没有多少能抓住的个体」
 			PRINTFORMW 「不过肯定还是有危险……挑战的话要慎重一点」
@@ -5100,7 +5402,7 @@ SELECTCASE MUSHI_NAME
 			PRINTFORML 「啊！　那、那只蝴蝶……！！」
 			PRINTFORML 「因为很危险所以不要随意……咦？　那种程度的话好像没问题……」
 			PRINTFORMW 「平时根本不是能够触碰的东西……要试着抓住吗？」
-			CFLAG:23:3303 = 1
+			CFLAG:23:1303 = 1
 		ENDIF
 
 	CASE "噬菌原体", "纳米机械", "探测器", "无人机", "好奇号"
@@ -5109,7 +5411,7 @@ SELECTCASE MUSHI_NAME
 		PRINTFORMW 「月球原本就没有居住吗……还是已经被这些机械和月人一起消灭掉了呢？」
 
 	CASE "天竿鱼"
-		IF CFLAG:23:3313 == 1
+		IF CFLAG:23:1313 == 1
 			PRINTDATAL
 				DATAFORM 「咦？　%CALLNAME:MASTER%，网子里有什么……」
 				DATAFORM 「嗯？　半灵身上粘了什么……」
@@ -5120,10 +5422,10 @@ SELECTCASE MUSHI_NAME
 			PRINTFORML 「嗯？　%CALLNAME:MASTER%，网子里有什么……」
 			PRINTFORML 「这是，到底……恐怕是虫子之类的」
 			PRINTFORMW 「天空鱼？　这就是在村子里以惊人速度飞行的东西的真面目吗——啊啊，好像要逃走了！？」
-			CFLAG:23:3313 = 1
+			CFLAG:23:1313 = 1
 		ENDIF
 	CASE "三叶虫"
-		IF CFLAG:23:3319 == 1
+		IF CFLAG:23:1319 == 1
 			PRINTFORML 「……嗯？　那里有只三叶虫、呆在黑暗中差点没注意到」
 			PRINTFORML 「它这么老实又缓慢、要是遇到敌人攻击该怎么办呢？该不会就是因为这个才灭绝的吧」
 			PRINTFORMW 「――意、意外地很强吗？确实仔细想想、能在冥界生存下来、或许正是它作为古老强者的证明呢……」
@@ -5131,10 +5433,10 @@ SELECTCASE MUSHI_NAME
 			PRINTFORML 「哦呀？　这是那种有很多刺的鼠……妇？」
 			PRINTFORML 「――哦哦、原来叫三叶虫啊。不是鼠妇而是另一种虫子呢」
 			PRINTFORMW 「它在外界已经灭绝很久了吗。难怪只在冥界能看到……」
-			CFLAG:23:3319 = 1
+			CFLAG:23:1319 = 1
 		ENDIF
 	CASE "奇虾"
-		IF CFLAG:23:3320 == 1
+		IF CFLAG:23:1320 == 1
 			IF ABL:MASTER:教養 > 3
 				PRINTFORML 「原来如此，异虾的意思就是"奇怪的虾"啊……真是名副其实的名字」
 			ELSE
@@ -5145,7 +5447,7 @@ SELECTCASE MUSHI_NAME
 			PRINTFORML 「呜！？　这只虾是……！」
 			PRINTFORML 「啊，异虾？　原来叫这个名字啊……哇哇，好像要上来了……」
 			PRINTFORMW 「真、真的要抓吗？　吓死我了……」
-			CFLAG:23:3320 = 1
+			CFLAG:23:1320 = 1
 		ENDIF
 	CASE "蒙古死亡蠕虫"
 		PRINTFORML 「什、么……这是什么蚯蚓！？　……蚯蚓？」
@@ -5199,7 +5501,7 @@ RETURN 1
 ;   -1=失败
 ;    0=成功
 ;    1=大成功
-;    2=木刀で大成功（BOUNS点）
+;    2=木刀で大成功（BONUS点）
 ;TFLAG:194
 ;    0=正直者
 ;    1=ウソつき
@@ -5443,9 +5745,11 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	PRINTFORML
+	IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
+		PRINTFORML 「…………」
+		PRINTFORMDW 在始终散发着剑拔弩张气息的妖梦身旁，根本尝不出吃的东西是什么味道……
 	;人间之里
-	IF CFLAG:MASTER:現在位置 / 100 == 2
+	ELSEIF CFLAG:MASTER:現在位置 / 100 == 2
 		SELECTCASE RAND:4
 			CASE 0
 				PRINTFORML 「欸，我的？我一个人在外面吃饭的机会不多，所以不太清楚……」
@@ -5460,39 +5764,39 @@ IF LOCAL
 						CASE 4
 							PRINTFORML 「希望能进到公鱼……那个一旦吃了一口就很难停下来呢」
 					ENDSELECT
-				PRINTFORMW %CALLNAME:MASTER%他们进入了妖梦推荐的店，用当季的天妇罗填饱了肚子，心情也变得愉快起来
+				PRINTFORMDW %CALLNAME:MASTER%他们进入了妖梦推荐的店，用当季的天妇罗填饱了肚子，心情也变得愉快起来
 			CASE 1
-				PRINTFORML %CALLNAME:MASTER%和妖梦一起走进了热闹的食堂
+				PRINTFORMDL %CALLNAME:MASTER%和妖梦一起走进了热闹的食堂
 				PRINTFORML 「这个味噌汤，真好喝……是用什么做的高汤呢……米饭也这么蓬松……」
 				PRINTFORML 「是名副其实的定食。即使有扎实的主菜，光是味噌汤和白米饭就足够满足了」
 				PRINTFORML 「——嗯？不，我的点单是……欸！？%CALLNAME:MASTER%大人，再好吃也不能点太多啊……！」
 			CASE 2
-				PRINTFORML 人里也有很多以快餐和外带形式出售的商品
-				PRINTFORML %CALLNAME:MASTER%买了一些，和妖梦分着吃
+				PRINTFORMDL 人里也有很多以快餐和外带形式出售的商品
+				PRINTFORMDL %CALLNAME:MASTER%买了一些，和妖梦分着吃
 				PRINTFORML 「原来如此，两个人分着吃，可以吃到各种各样的东西，真开心呢」
 					IF TALENT:恋人
 						PRINTFORML 「——呵呵，那么我就不客气了……啊，啊～」
-						PRINTFORMW 和妖梦一起吃饭的时候，完全不在意周围的视线
+						PRINTFORMDW 和妖梦一起吃饭的时候，完全不在意周围的视线
 					ELSEIF TALENT:恋慕
 						PRINTFORML 「——欸、欸！？呜……如、如果大人想要的话……啊、啊～……」
-						PRINTFORMW 妖梦的脸变得通红，但还是乖乖地接受了%CALLNAME:MASTER%的要求
+						PRINTFORMDW 妖梦的脸变得通红，但还是乖乖地接受了%CALLNAME:MASTER%的要求
 					ELSEIF TALENT:思慕
 						PRINTFORML 「——欸？不、不要啦，在这种众目睽睽之下有点……」
 					ELSE
 						PRINTFORML 「——哈？不不，现在的情侣也不会做这种事吧」
 					ENDIF
 			CASE 3
-				PRINTFORML 在犹豫去哪里的时候，走进了一家看起来比较高级的店
+				PRINTFORMDL 在犹豫去哪里的时候，走进了一家看起来比较高级的店
 				PRINTFORML 「在、在这种看起来很贵的店里被请客，真的好吗？我也要付钱……」
 				PRINTFORML
 					SELECTCASE RAND:2
 						CASE 0
 							PRINTFORML 「……好厉害，这个价格竟然能吃到这么多……！而且餐具也很讲究……竟然有这样的店！」
-							PRINTFORMW 互相为发现了意想不到的宝地而高兴，尽情享受着端上来的料理
-							TALENT:心情 = +1
+							PRINTFORMDW 互相为发现了意想不到的宝地而高兴，尽情享受着端上来的料理
+							TALENT:心情 += 1
 						CASE 1
 							PRINTFORML 「啊、啊啊……%CALLNAME:MASTER%大人……这里的菜单，没有写价格啊……」
-							PRINTFORMW 果然结账的时候很贵，但最终还是和坚持要付钱的妖梦平分了
+							PRINTFORMDW 果然结账的时候很贵，但最终还是和坚持要付钱的妖梦平分了
 								IF TALENT:心情 == 1
 									TALENT:心情 = 0
 								ENDIF
@@ -5507,7 +5811,7 @@ IF LOCAL
 			DATAFORM 「幽幽子大人最近……会去散步…………如果实在有事，一定要…………」
 			DATAFORM 「如果最近要去……的话，就带上这个…………有三根的话，逃跑的时间就…………」
 		ENDDATA
-		PRINTFORMW 从摊位的后面传来让人不安的建议……
+		PRINTFORMDW 从摊位的后面传来让人不安的建议……
 	;三途川～冥界
 	ELSEIF CFLAG:MASTER:現在位置 / 100 == 6
 		SELECTCASE RAND:4
@@ -5517,58 +5821,73 @@ IF LOCAL
 				PRINTFORML 「……啊，还有意外的是」
 				PRINTFORML 「红魔馆的门卫，偶尔也会来喝酒。特意跑到这里来，看来是非常害怕女仆的目光啊」
 			CASE 1
-				PRINTFORML 在四处寻找看起来不错的东西时，发现了一个卖奇怪棉花糖的摊位
-				PRINTFORML 「哦，是人魂棉花糖呢。是冥界很受欢迎的甜点哦」
-				PRINTFORML 「虽然有点太冷了，但我也很喜欢……而且造型也太出色了」
-				PRINTFORML 「设计者至少和我一样，或者比我更习惯看到人魂……难道是，宅邸的幽灵……？」
+				IF CFLAG:23:1476 == 1
+					PRINTFORMDL 正在四处寻找有没有合适的东西时，发现了人魂棉花糖的摊位
+					PRINTFORMW 「哦，那个是……虽然有点不雅，但边走边吃正好呢」
+					PRINTFORML 「我原以为是宅邸里的哪个幽灵想出来的，但仔细一想，死神构思的说法更说得通」
+					PRINTFORMW 「只是即便死神大人开发了这个，在偷懒方面也没有得到通融呢，看来是非曲直厅的财政困难绝非小事啊……」
+				ELSE
+					PRINTFORMDL 在四处寻找看起来不错的东西时，发现了一个卖奇怪棉花糖的摊位
+					PRINTFORML 「哦，是人魂棉花糖呢。是冥界很受欢迎的甜点哦」
+					PRINTFORML 「虽然有点太冷了，但我也很喜欢……而且造型也太出色了」
+					PRINTFORML 「设计者至少和我一样，或者比我更习惯看到人魂……难道是，宅邸的幽灵……？」
+				ENDIF
 			CASE 2
-				PRINTFORML 在寻找合适的食物时，发现了一个散发着异彩的摊位
-				PRINTFORML 「那个只能用“红色”来形容的拉面到底是什么……欸，是阎魔大人设计的料理吗！？」
-				PRINTFORML 「——哈啊，说是比原案降低了很多辣度。即使这样，光是看着就觉得眼睛疼……」
-				PRINTFORML 「我不擅长吃辣，所以有普通的拉面真是帮大忙了……滋溜滋溜」
+				IF CFLAG:23:1430 == 1
+					PRINTFORMDL 正在寻找合适的食物时，在附近发现了一个拉面摊
+					PRINTFORMW 「那、那是地狱拉面…难道…%CALLNAME:MASTER%桑，很喜欢吗？」
+					PRINTFORML 「虽然我想说，这在嗜辣者中也是极少数人才能接受的……但在寻求刺激和试胆的目的上，无疑也有一定的需求。」
+					PRINTFORMW 「嘛，结果我点的还是普通的拉面就是了……哧溜哧溜」
+				ELSE
+					PRINTFORMDL 在寻找合适的食物时，发现了一个散发着异彩的摊位
+					PRINTFORML 「那个只能用“红色”来形容的拉面到底是什么……欸，是阎魔大人设计的料理吗！？」
+					PRINTFORML 「——哈啊，说是比原案降低了很多辣度。即使这样，光是看着就觉得眼睛疼……」
+					PRINTFORML 「我不擅长吃辣，所以有普通的拉面真是帮大忙了……滋溜滋溜」
+					CFLAG:23:1430 = 1
+				ENDIF
 			CASE 3
 				PRINTFORML 「哦哦，烤鱼和刺身都有。附近有河流，也有卖鱼的，不利用一下就太可惜了」
 				PRINTFORML 「……只是最近三途川里也住着奇怪的生物。当然，只要在能做成珍味的范围内就没问题」
 				PRINTFORML 「如果被强迫买下用稀奇古怪的东西做的活鱼刺身，就需要和店主进行郑重的“谈话”了」
-				PRINTFORMW %CALLNAME:MASTER%祈祷妖梦不要发现有卖挑战性菜单的摊位
+				PRINTFORMDW %CALLNAME:MASTER%祈祷妖梦不要发现有卖挑战性菜单的摊位
 		ENDSELECT
 	;地底
 	ELSEIF CFLAG:MASTER:現在位置 / 100 == 9
-		PRINTFORML 看到了写着也提供定食的招牌，和妖梦一起走进了最近的居酒屋
+		PRINTFORMDL 看到了写着也提供定食的招牌，和妖梦一起走进了最近的居酒屋
 			IF TALENT:恋人
-				PRINTFORMW 在一边谈笑一边等待料理的时候，妖梦不知不觉被凑过来的怨灵缠上了
+				PRINTFORMDW 在一边谈笑一边等待料理的时候，妖梦不知不觉被凑过来的怨灵缠上了
 				PRINTFORMW
 					SELECTCASE RAND:2
 						CASE 0
 							PRINTFORML 「——什、什么，交往的契机！？啊～，不～……从什么时候开始意识到的，其实有点模糊……」
-							PRINTFORMW 虽然被问个不停的妖梦吓了一跳，但幸运的是料理很快就端上来了
+							PRINTFORMDW 虽然被问个不停的妖梦吓了一跳，但幸运的是料理很快就端上来了
 						CASE 1
 							PRINTFORML 「——呵呵，羡慕吧？虽然自己说有点不好意思，但对我来说，他是个太优秀的男人了」
-							PRINTFORMW 得意洋洋地挺起胸膛的妖梦靠向%CALLNAME:MASTER%，半灵像推开怨灵一样地驱赶着它们
-							TALENT:心情 = +1
+							PRINTFORMDW 得意洋洋地挺起胸膛的妖梦靠向%CALLNAME:MASTER%，半灵像推开怨灵一样地驱赶着它们
+							TALENT:心情 += 1
 					ENDSELECT
 			ELSEIF TALENT:恋慕
-				PRINTFORMW 在凑在一起决定点什么菜的时候，妖梦不知不觉被凑过来的怨灵缠上了
+				PRINTFORMDW 在凑在一起决定点什么菜的时候，妖梦不知不觉被凑过来的怨灵缠上了
 				PRINTFORMW
 					SELECTCASE RAND:2
 						CASE 0
 							PRINTFORML 「——这、这么迫切！？呜、不，那样是不是有点太强硬了……虽然承认需要主动一点……」
-							PRINTFORMW 虽然听不懂怨灵在说什么，但到底被灌输了什么呢……
+							PRINTFORMDW 虽然听不懂怨灵在说什么，但到底被灌输了什么呢……
 						CASE 1
 							PRINTFORML 「——啊、是、是这样吗？还没有到那种关系，如果将来能那样就好了……」
-							PRINTFORMW 和怨灵对话（？）的妖梦看起来心情不错……
-							TALENT:心情 = +1
+							PRINTFORMDW 和怨灵对话（？）的妖梦看起来心情不错……
+							TALENT:心情 += 1
 					ENDSELECT
 			ELSEIF TALENT:思慕
-				PRINTFORMW 在轻松地聊天等待料理的时候，妖梦开始被附近的怨灵缠上了
+				PRINTFORMDW 在轻松地聊天等待料理的时候，妖梦开始被附近的怨灵缠上了
 				PRINTFORML
 				PRINTFORML 「——欸？绝对不是那种关系……虽然多少有点在意……你在说什么啊！」
-				PRINTFORMW 半灵狠狠地揍着怨灵……
+				PRINTFORMDW 半灵狠狠地揍着怨灵……
 			ELSE
-				PRINTFORMW 在默默地等待料理的时候，妖梦不知怎么被凑过来的怨灵缠上了
+				PRINTFORMDW 在默默地等待料理的时候，妖梦不知怎么被凑过来的怨灵缠上了
 				PRINTFORML
 				PRINTFORML 「——其实我也不太清楚为什么会被带到这里来……哈？迟钝？」
-				PRINTFORMW 妖梦似乎没有把这种情况当成约会……
+				PRINTFORMDW 妖梦似乎没有把这种情况当成约会……
 			ENDIF
 	ENDIF
 ENDIF
@@ -5631,25 +5950,25 @@ IF LOCAL
 						SELECTCASE RAND:2
 							CASE 0
 								PRINTFORML 「请不用在意我的时间。和%CALLNAME:MASTER%先生一起看商品很有趣呢」
-								PRINTFORMW 陪在%CALLNAME:MASTER%身边购物的妖梦看起来很开心
+								PRINTFORMDW 陪在%CALLNAME:MASTER%身边购物的妖梦看起来很开心
 							CASE 1
 								PRINTFORML 「……对了。既然来了，能不能多告诉我一些%CALLNAME:MASTER%先生喜欢的料理呢？」
-								PRINTFORMW %CALLNAME:MASTER%边和妖梦聊天边买齐了缺少的食材
+								PRINTFORMDW %CALLNAME:MASTER%边和妖梦聊天边买齐了缺少的食材
 						ENDSELECT
 				CASE 2
 					PRINTFORML 「如果是购物的话，请让我来帮您拿东西吧！」
 					PRINTFORMW 「呵呵呵……在这里没有比我更适合当您助手的人了」
 						IF RAND:10 == 0
-							PRINTFORML 与这份自信的宣言相反，妖梦似乎在寻找目标商品时遇到了一些困难……
+							PRINTFORMDL 与这份自信的宣言相反，妖梦似乎在寻找目标商品时遇到了一些困难……
 							PRINTFORMW （……啊，怎么会这样！？偏偏这种时候商品摆放的位置变了……！）
 						ELSE
-							PRINTFORMW 如她所说，熟悉店内陈列的妖梦很快就找到并拿来了目标商品
+							PRINTFORMDW 如她所说，熟悉店内陈列的妖梦很快就找到并拿来了目标商品
 						ENDIF
 			ENDSELECT
 		ELSEIF TALENT:思慕
 			PRINTFORMW 「难道是有什么东西不够了吗？既然来了，多买些备用也是明智之举哦」
 			PRINTFORML （……说起来，%CALLNAME:MASTER%先生喜欢什么样的料理呢？）
-			PRINTFORMW %TEXTR("妖梦凝视手边的视线/半灵探头探脑的摇动")%让购物变得有些困难……
+			PRINTFORMDW %TEXTR("妖梦凝视手边的视线/半灵探头探脑的摇动")%让购物变得有些困难……
 		ELSE
 			PRINTFORML 「原来如此，只是想找个人帮忙采购啊。那样的话直接说出来就好了嘛」
 			PRINTFORMW 「既然来了当然会帮忙的。我觉得自己对这里还是挺熟悉的」
@@ -5660,7 +5979,7 @@ IF LOCAL
 		ELSEIF TALENT:恋慕
 			PRINTFORML 「%CALLNAME:MASTER%先生也来采购吗？呃……我是不是碍事了」
 			PRINTFORMW 「那么作为打扰到您的赔礼，我让半灵来帮您拿东西吧！」
-			PRINTFORMW 停下工作飘到%CALLNAME:MASTER%身边的半灵帮忙拿起了购物袋
+			PRINTFORMDW 停下工作飘到%CALLNAME:MASTER%身边的半灵帮忙拿起了购物袋
 		ELSE
 			PRINTFORML 「%CALLNAME:MASTER%先生也是来采购的吗？我这边暂时走不开……」
 			PRINTFORMW 「我会尽量不打扰到您的，请多包涵」
@@ -5675,18 +5994,18 @@ IF LOCAL
 						PRINTFORML 「如果是购物的话，请让我来帮您拿东西吧！」
 						PRINTFORMW 「呵呵呵……在这里没有比我更适合当您助手的人了」
 							IF RAND:10 == 0
-								PRINTFORML 与宣言相反，妖梦似乎在寻找目标商品时遇到了一些困难……
+								PRINTFORMDL 与宣言相反，妖梦似乎在寻找目标商品时遇到了一些困难……
 								PRINTFORMW （……啊，怎么回事！？今天的商品摆放位置和平常不太一样……！）
 							ELSE
-								PRINTFORMW 如她所说，熟悉店内陈列的妖梦很快就找到并拿来了目标商品
+								PRINTFORMDW 如她所说，熟悉店内陈列的妖梦很快就找到并拿来了目标商品
 							ENDIF
 					ELSE
 						PRINTFORML 「是要去买东西吗？那我来帮忙吧」
 						PRINTFORM 「不，请不用在意。
 							IF TALENT:思慕
-								PRINTFORMW ……我只是对%CALLNAME:MASTER%先生喜欢的东西有点兴趣」
+								PRINTFORMDW ……我只是对%CALLNAME:MASTER%先生喜欢的东西有点兴趣」
 							ELSE
-								PRINTFORMW 我也想看看下次采购要买些什么」
+								PRINTFORMDW 我也想看看下次采购要买些什么」
 							ENDIF
 					ENDIF
 				CASE 1
@@ -5699,7 +6018,7 @@ IF LOCAL
 					ENDIF
 				CASE 2
 					PRINTFORML 「虽然自夸有点不好，但我是这里的贵客，其实能得到一些优待。……不过」
-					PRINTFORMW 妖梦说到这里停顿了一下，环顾四周后，小声对%CALLNAME:MASTER%耳语道
+					PRINTFORMDW 妖梦说到这里停顿了一下，环顾四周后，小声对%CALLNAME:MASTER%耳语道
 					PRINTFORMW 「即便如此，人里的商品……还是有点贵呢。尤其是那边蔬菜店的蔬菜……」
 			ENDSELECT
 		ENDIF
@@ -5729,7 +6048,10 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	IF TALENT:恋慕
+	IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
+		PRINTFORML 「…………」
+		PRINTFORMDW 在始终散发着剑拔弩张气息的妖梦身旁，根本尝不出吃的东西是什么味道……
+	ELSEIF TALENT:恋慕
 		IF ABL:料理技能 > 3
 			SELECTCASE RAND:2
 				CASE 0
@@ -5737,10 +6059,10 @@ IF LOCAL
 						SELECTCASE RAND:2
 							CASE 0
 								PRINTFORML 「如果对菜单有什么要求，下次我也可以为您准备！……诶，那、那种料理可能有点难……」
-								PRINTFORMW %CALLNAME:MASTER%一边逗弄妖梦，一边品尝着精美的便当
+								PRINTFORMDW %CALLNAME:MASTER%一边逗弄妖梦，一边品尝着精美的便当
 							CASE 1
 								PRINTFORML 「……这点您不用担心。不管做多少都绝对不会剩下的」
-								PRINTFORMW 妖梦看着食盒，发出了干笑……
+								PRINTFORMDW 妖梦看着食盒，发出了干笑……
 						ENDSELECT
 				CASE 1
 					PRINTFORMW 「我对您喜欢的料理已经有了很多了解，所以我自信这个便当非常符合%CALLNAME:MASTER%先生的口味！」
@@ -5748,7 +6070,7 @@ IF LOCAL
 						DATAFORM 「——呵呵呵，您想要的料理都在这个食盒里准备好了哦」
 						DATAFORM 「——是的。如果是腌菜的话，这里有从人里买来的」
 					ENDDATA
-					PRINTFORMW %CALLNAME:MASTER%对妖梦的手艺赞不绝口，尽情享用着丰盛的便当
+					PRINTFORMDW %CALLNAME:MASTER%对妖梦的手艺赞不绝口，尽情享用着丰盛的便当
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:2
@@ -5810,39 +6132,45 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-	SELECTCASE RAND:4
-		CASE 0
-			PRINTFORML 「哦～……这里主要经营西式点心吗」
-			PRINTFORML 「在宅邸里不太做西餐，更不用说是西式点心了」
-			PRINTFORML 「难得您带我来，点一些比较稀奇的东西尝尝也不错……」
-			PRINTFORML 「点哪个好呢…………好，决定了。就%TEXTR("这边的蛋糕/那边的蛋挞/那里的布丁/")%吧」
-		CASE 1
-			PRINTFORML 「%CALLNAME:MASTER%大人也知道这家店吗！我也经常光顾哦」
-			PRINTFORML 「幽幽子大人非常喜欢这里的铜锣烧，分给我吃的时候我也上瘾了……」
-			PRINTFORML 「不仅要买现在吃的，还想给宅邸带些伴手礼……稍微追加点单」
-			PRINTFORMW 「不好意思，铜锣烧要一盒……不，可能不够……请给我三盒——好的，您客气了，一直以来非常感谢」
-		CASE 2
-			PRINTFORML 「团子和茶，真是让人安心的搭配呢」
-			PRINTFORML 「……嗯……味道浓郁的茶和偏甜的%TEXTR("酱汁/豆沙/面皮/")%非常搭」
-			PRINTFORML 「一边喝茶一边眺望往来的人群，感觉比平时更有情趣」
-			PRINTFORMW 坐在店前的凉台上，悠闲地享受着休憩的时光
-		CASE 3
-			PRINTFORML 「……嗯？情侣圣代是什么……」
-			PRINTFORML 「那边吃的就是那个。确实是两人份的大小，应该不会错……」
-				IF TALENT:恋人
-					PRINTFORML 「——好的，我喂您吃。既然店家都这么命名了，我们也必须展现出相应的礼仪」
-					PRINTFORMW 花费时间直到精致的器皿空空如也，妖梦和%CALLNAME:MASTER%亲热的程度不亚于点的情侣圣代
-				ELSEIF TALENT:恋慕
-					PRINTFORML 「——好的，没关系哦。我也稍微有点兴趣……要、要试试互相喂食吗？」
-					PRINTFORMW %CALLNAME:MASTER%一边享受着妖梦和旁边扭捏不安的半灵的反应，一边悠闲地品尝着两人份的圣代
-				ELSEIF TALENT:思慕
-					PRINTFORML 「——啊～……要点吗？如果要点的话，我也陪您……但那可不是普通人一个人能吃完的量哦」
-					PRINTFORMW 虽然有些勉强，但还是得到了妖梦的同意，两人勉强吃完了点的圣代
-				ELSE
-					PRINTFORML 「——哈？我们又不是那种关系，而且本来就不能点吧」
-					PRINTFORMW 因为被毫不客气地拒绝了，所以各自点了普通的圣代……
-				ENDIF
-	ENDSELECT
+PRINTFORML
+	IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
+		PRINTFORML 「…………」
+		PRINTFORMDW 在始终散发着剑拔弩张气息的妖梦身旁，根本尝不出吃的东西是什么味道……
+	ELSE
+		SELECTCASE RAND:4
+			CASE 0
+				PRINTFORML 「哦～……这里主要经营西式点心吗」
+				PRINTFORML 「在宅邸里不太做西餐，更不用说是西式点心了」
+				PRINTFORML 「难得您带我来，点一些比较稀奇的东西尝尝也不错……」
+				PRINTFORML 「点哪个好呢…………好，决定了。就%TEXTR("这边的蛋糕/那边的蛋挞/那里的布丁/")%吧」
+			CASE 1
+				PRINTFORML 「%CALLNAME:MASTER%大人也知道这家店吗！我也经常光顾哦」
+				PRINTFORML 「幽幽子大人非常喜欢这里的铜锣烧，分给我吃的时候我也上瘾了……」
+				PRINTFORML 「不仅要买现在吃的，还想给宅邸带些伴手礼……稍微追加点单」
+				PRINTFORMW 「不好意思，铜锣烧要一盒……不，可能不够……请给我三盒——好的，您客气了，一直以来非常感谢」
+			CASE 2
+				PRINTFORML 「团子和茶，真是让人安心的搭配呢」
+				PRINTFORML 「……嗯……味道浓郁的茶和偏甜的%TEXTR("酱汁/豆沙/面皮/")%非常搭」
+				PRINTFORML 「一边喝茶一边眺望往来的人群，感觉比平时更有情趣」
+				PRINTFORMDW 坐在店前的凉台上，悠闲地享受着休憩的时光
+			CASE 3
+				PRINTFORML 「……嗯？情侣圣代是什么……」
+				PRINTFORML 「那边吃的就是那个。确实是两人份的大小，应该不会错……」
+					IF TALENT:恋人
+						PRINTFORML 「——好的，我喂您吃。既然店家都这么命名了，我们也必须展现出相应的礼仪」
+						PRINTFORMDW 花费时间直到精致的器皿空空如也，妖梦和%CALLNAME:MASTER%亲热的程度不亚于点的情侣圣代
+					ELSEIF TALENT:恋慕
+						PRINTFORML 「——好的，没关系哦。我也稍微有点兴趣……要、要试试互相喂食吗？」
+						PRINTFORMDW %CALLNAME:MASTER%一边享受着妖梦和旁边扭捏不安的半灵的反应，一边悠闲地品尝着两人份的圣代
+					ELSEIF TALENT:思慕
+						PRINTFORML 「——啊～……要点吗？如果要点的话，我也陪您……但那可不是普通人一个人能吃完的量哦」
+						PRINTFORMDW 虽然有些勉强，但还是得到了妖梦的同意，两人勉强吃完了点的圣代
+					ELSE
+						PRINTFORML 「——哈？我们又不是那种关系，而且本来就不能点吧」
+						PRINTFORMDW 因为被毫不客气地拒绝了，所以各自点了普通的圣代……
+					ENDIF
+		ENDSELECT
+	ENDIF
 ENDIF
 RETURN 1
 ;==================================================
@@ -5916,8 +6244,8 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	IF CFLAG:318 == 1 || (MARK:23:反発刻印 == 1 && RAND:2 == 0) || MARK:23:反発刻印 > 1
-		PRINTFORML 「......」
-		PRINTFORMW 妖梦将钓竿交给半灵，自己在远处练习挥舞……
+		PRINTFORML 「……」
+		PRINTFORMDW 妖梦将钓竿交给半灵，自己在远处练习挥舞……
 	ELSEIF TCVAR:烂醉 == 1
 		PRINTFORMW
 	;荒天
@@ -5930,8 +6258,8 @@ IF LOCAL
 				PRINTFORML 「……这也是与自己的较量呢」
 				PRINTFORMW 「这种时候更要保持冷静」
 			CASE 1
-				PRINTFORML 「......」
-				PRINTFORMW 妖梦一边用半灵的尾巴灵活地支撑着钓竿，一边冥想……
+				PRINTFORML 「……」
+				PRINTFORMDW 妖梦一边用半灵的尾巴灵活地支撑着钓竿，一边冥想……
 			CASE 2
 				PRINTFORML 「…………那个，%CALLNAME:MASTER%」
 				PRINTFORMW 「就算再怎么盯着看，半灵也不能当饵用哦……」
@@ -5949,7 +6277,7 @@ IF LOCAL
 				PRINTFORML 「咦？　确、确实有感觉到拉扯……」
 				PRINTFORMW 「……没有挂到底就已经谢天谢地了」
 			CASE "跳蛋"
-				IF CFLAG:23:2004 == 1
+				IF CFLAG:23:1004 == 1
 					PRINTFORML 「呜！？这、这是……」
 					PRINTFORML 「……为什么这种东西能普通地存在于湖泊河流中呢？完全看不出适应水生的样子」
 					PRINTFORML 「既然已经钓上来了——欸，%CALLNAME:MASTER%大人要？太、太感谢了……！」
@@ -5989,7 +6317,7 @@ IF LOCAL
 							PRINTFORMW 「不过这个看起来很容易取下来，要是缠绕得很奇怪就非常非常麻烦了……」
 					ENDSELECT
 			CASE "跳蛋"
-				IF CFLAG:23:2004 == 1
+				IF CFLAG:23:1004 == 1
 					PRINTFORML 「什么！？那、那是……」
 					PRINTFORML 「……为什么那种东西能普通地存在于湖泊河流中呢？难道是谁非法丢弃的？」
 					PRINTFORMW 「既然已经钓上来了，垃圾就要好好带回去吧……」
@@ -6025,8 +6353,8 @@ ENDIF
 RETURN 1
 ;==================================================
 ;626,土特产店＠TW映姬、TW​舞​口上を参考に何とか理解したい
-;TFLAG:194(行動结果(-2=ひやかし -1=ウィンドウショッピング 1=400点未满（BAD） 2=～699点（NOMAL） 3=700点以上（GOOD）
-;CFLAG:性格倾向による地の文分岐あり
+;TFLAG:194(行动结果(-2=ひやかし -1=ウィンドウショッピング 1=400点未满（BAD） 2=～699点（NOMAL） 3=700点以上（GOOD）
+;CFLAG:性格傾向による地の文分岐あり
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -6074,8 +6402,8 @@ IF LOCAL
 			IF MAIN_MAP != 5 && CFLAG:MASTER:現在位置 == 520
 				SELECTCASE RAND:2
 					CASE 0
-						PRINTFORML 「呜呜,那个店主...!」
-						PRINTFORMW 「...不,这次是我们失礼了。必须得控制住...」
+						PRINTFORML 「呜呜,那个店主…!」
+						PRINTFORMW 「…不,这次是我们失礼了。必须得控制住…」
 					CASE 1
 						PRINTFORML 「我们也有责任,但那家店也有问题!」
 						PRINTFORMW 「那里的不可出售商品太多了!」
@@ -6083,19 +6411,19 @@ IF LOCAL
 			ELSEIF TALENT:恋慕
 				SELECTCASE RAND:2
 					CASE 0
-						PRINTFORML 「啊哇哇...我太陶醉了」
-						PRINTFORMW 「给店家添麻烦了呢...」
+						PRINTFORML 「啊哇哇…我太陶醉了」
+						PRINTFORMW 「给店家添麻烦了呢…」
 					CASE 1
-						PRINTFORML 「糟糕,我忘记了时间...」
-						PRINTFORMW 「我也太专注于选择了...啊,请不要介意」
+						PRINTFORML 「糟糕,我忘记了时间…」
+						PRINTFORMW 「我也太专注于选择了…啊,请不要介意」
 				ENDSELECT
 			ELSE
 				SELECTCASE RAND:2
 					CASE 0
-						PRINTFORML 「看来我过于苦恼了呢...」
+						PRINTFORML 「看来我过于苦恼了呢…」
 						PRINTFORMW 「虽然要注意挑选,但也要考虑店家的情况」
 					CASE 1
-						PRINTFORML 「是花费了太多时间吗...」
+						PRINTFORML 「是花费了太多时间吗…」
 						PRINTFORMW 「我确实很执着,不过你究竟在找什么呢?」
 				ENDSELECT
 			ENDIF
@@ -6132,46 +6460,46 @@ IF LOCAL
 		;400点未满（BAD）
 		CASE 1
 			PRINTDATAL
-				DATAFORM 「那、那是给我的吗...?啊,不,那个...」
-				DATAFORM 「%CALLNAME:MASTER%先生的兴趣是这种...?给我?」
-				DATAFORM 「嗯?这个,我要...?」
+				DATAFORM 「那、那是给我的吗…?啊,不,那个…」
+				DATAFORM 「%CALLNAME:MASTER%先生的兴趣是这种…?给我?」
+				DATAFORM 「嗯?这个,我要…?」
 			ENDDATA
-			PRINTFORML 「啊,谢谢您...」
+			PRINTFORML 「啊,谢谢您…」
 				IF TALENT:恋慕
-					PRINTFORMW 妖梦虽然带着笑容接受了礼物,但嘴角还是有些扭曲...
+					PRINTFORMDW 妖梦虽然带着笑容接受了礼物,但嘴角还是有些扭曲…
 						IF MAIN_MAP != 5 && CFLAG:MASTER:現在位置 == 520
-							PRINTFORML (竟然把这种垃圾卖给%CALLNAME:MASTER%先生......)
-							PRINTFORMW (......不行,不能在%CALLNAME:MASTER%先生面前流露出这种失望)
+							PRINTFORMDL (竟然把这种垃圾卖给%CALLNAME:MASTER%先生……)
+							PRINTFORMDW (……不行,不能在%CALLNAME:MASTER%先生面前流露出这种失望)
 						ELSE
-							PRINTFORMW (该怎么办呢...我不能让%CALLNAME:MASTER%先生觉得我很挑剔啊...)
+							PRINTFORMDW (该怎么办呢…我不能让%CALLNAME:MASTER%先生觉得我很挑剔啊…)
 						ENDIF
 				ELSE
-					PRINTFORMW 妖梦似乎对这份颇为偏离自己口味的礼物感到疑惑...
+					PRINTFORMDW 妖梦似乎对这份颇为偏离自己口味的礼物感到疑惑…
 						IF MAIN_MAP != 5 && CFLAG:MASTER:現在位置 == 520
-							PRINTFORMW (难道我在这个垃圾堆中还抱有一丝期待,真是个白痴...)
+							PRINTFORMDW (难道我在这个垃圾堆中还抱有一丝期待,真是个白痴…)
 						ELSE
-							PRINTFORMW (难道这不是纪念品,而是有什么重要的隐藏意图吗?)
+							PRINTFORMDW (难道这不是纪念品,而是有什么重要的隐藏意图吗?)
 						ENDIF
 				ENDIF
 		;400点～699点（NOMAL）
 		CASE 2
 			PRINTDATAL
-				DATAFORM 「这是刚才您买的...我可以收下吗?」
-				DATAFORM 「这确实是个有些感兴趣的商品,能这样收到真是太好了...」
-				DATAFORM 「哇哦,我有点不好意思了...不,这种时候应该这样说」
+				DATAFORM 「这是刚才您买的…我可以收下吗?」
+				DATAFORM 「这确实是个有些感兴趣的商品,能这样收到真是太好了…」
+				DATAFORM 「哇哦,我有点不好意思了…不,这种时候应该这样说」
 			ENDDATA
 			PRINTFORML 「谢谢您,%CALLNAME:MASTER%先生」
 				IF TALENT:恋慕
-					PRINTFORMW 妖梦接过%CALLNAME:MASTER%的礼物,深深地鞠了一躬
+					PRINTFORMDW 妖梦接过%CALLNAME:MASTER%的礼物,深深地鞠了一躬
 						IF MAIN_MAP != 5 && CFLAG:MASTER:現在位置 == 520
 							PRINTFORMW 「从这么一个废品堆里竟然能找到有价值的东西,您真是太厉害了!」
 						ELSE
 							PRINTFORMW 「您能想到我,我感到很高兴,我会好好珍惜这份礼物的」
 						ENDIF
 				ELSE
-					PRINTFORMW 妖梦接过%CALLNAME:MASTER%的礼物,鞠了一躬
+					PRINTFORMDW 妖梦接过%CALLNAME:MASTER%的礼物,鞠了一躬
 						IF MAIN_MAP != 5 && CFLAG:MASTER:現在位置 == 520
-							PRINTFORMW 「...看来即使在这个废品堆里也会夹杂着可以作为商品的东西」
+							PRINTFORMW 「…看来即使在这个废品堆里也会夹杂着可以作为商品的东西」
 						ELSE
 							PRINTFORMW 「我很少有机会买这样的东西,能收到您的礼物我感到很幸运」
 						ENDIF
@@ -6180,16 +6508,16 @@ IF LOCAL
 		CASE 3
 			;形容词+本体名を取得
 			CALL GIFTNAME(TCVAR:23:今天的礼物)
-			PRINTFORML 「什、什么......这是,%RESULTS%……！？」
-			PRINTFORML 「不不不!这哪里是讨厌的,简直是相反呢......!」
+			PRINTFORML 「什、什么……这是,%RESULTS%……！？」
+			PRINTFORML 「不不不!这哪里是讨厌的,简直是相反呢……!」
 				IF MAIN_MAP != 5 && CFLAG:MASTER:現在位置 == 520
 					PRINTFORML 「能从这座垃圾堆里挖掘出如此杰作,您的眼光真是太棒了!」
 				ELSEIF TALENT:恋慕
-					PRINTFORML 「太激动了,我都不知道该如何表达感谢...」
+					PRINTFORML 「太激动了,我都不知道该如何表达感谢…」
 				ELSE
 					PRINTFORML 「您竟然如此准确地猜到我的喜好,我感到非常感激!」
 				ENDIF
-			PRINTFORMW 妖梦十分感动地接过礼物,深深地向%CALLNAME:MASTER%鞠了一躬
+			PRINTFORMDW 妖梦十分感动地接过礼物,深深地向%CALLNAME:MASTER%鞠了一躬
 			PRINTFORML
 				SELECTCASE 属性
 					;怀剑、护刀是ずれも眺める
@@ -6197,28 +6525,28 @@ IF LOCAL
 						IF 品名 == "怀剑" || 品名 == "护刀"
 							IF TALENT:恋慕
 								PRINTFORML 「回到房间就立刻把它挂在刀架上吧!」
-								PRINTFORMW 「——不过不能用哦!一旦在实战中弄坏了就太可怕了...」
+								PRINTFORMW 「——不过不能用哦!一旦在实战中弄坏了就太可怕了…」
 							ELSE
-								PRINTFORML 「啊,真想立刻试试手啊...」
-								PRINTFORMW 「...不过还是忍住吧。万一弄坏了可就解释不清了」
+								PRINTFORML 「啊,真想立刻试试手啊…」
+								PRINTFORMW 「…不过还是忍住吧。万一弄坏了可就解释不清了」
 							ENDIF
 						ELSE
 							PRINTFORMW 「在我这样物品稀少的房间里,无论放在哪里都一定会很衬托的」
 						ENDIF
 					CASE "抱住"
-						PRINTFORMW 「不小心掉落可就糟糕了,我得小心翼翼地抱住它...」
+						PRINTFORMW 「不小心掉落可就糟糕了,我得小心翼翼地抱住它…」
 					CASE "握住"
-						PRINTFORMW 「这感觉就像本来就是我的东西一样,我都想随身携带了呢...」
+						PRINTFORMW 「这感觉就像本来就是我的东西一样,我都想随身携带了呢…」
 					CASE "穿戴"
 						IF TALENT:恋慕
-							PRINTFORML 「啊,你想看我穿戴的样子吗?那个啊...抱歉,现在我还有点受不了」
+							PRINTFORML 「啊,你想看我穿戴的样子吗?那个啊…抱歉,现在我还有点受不了」
 							PRINTFORMW 「我现在的状态实在是兴奋得快晕过去了,说不定会真的晕过去」
 						ELSE
 							PRINTFORML 「啊,你对我穿戴的样子感兴趣吗?」
-							PRINTFORMW 「...害羞,以后再说吧」
+							PRINTFORMW 「…害羞,以后再说吧」
 						ENDIF
 				ENDSELECT
-			PRINTFORMW 「......真的非常感谢您,%CALLNAME:MASTER%先生。我一定会回馈您这份恩情的」
+			PRINTFORMW 「……真的非常感谢您,%CALLNAME:MASTER%先生。我一定会回馈您这份恩情的」
 	ENDSELECT
 ENDIF
 RETURN 1

@@ -1,57 +1,6 @@
-﻿;更新日期：2025年3月7日
-;=================================================
-
-; @FORMAT_VERSION(ARG)
-; #FUNCTIONS
-; RETURNF @"{ARG / 100}.{ARG % 100 / 10}.{ARG % 10}"
-
-; ;=================================================
-
-; @PRINT_DATE_F_YOUKAI_SEASON()
-; #FUNCTION
-; GETTIME
-; LOCAL:1 = (RESULT / 10000000000000) - 1885
-; RETURNF LOCAL:1
-
-; ;=================================================
-
-; @PRINT_DATE_F_YOUKAI(ARG, ARG:1)
-; #FUNCTIONS
-; LOCAL:1 = PRINT_DATE_F_YOUKAI_SEASON()
-; LOCAL = DAY_TO_DATE(ARG)
-; LOCAL:2 = LOCAL % 1000 / 100
-; LOCAL:3 = LOCAL % 1000 % 100
-; SELECTCASE ARG:1
-; 	CASE 1
-; 		LOCALS = %ORDINAL(LOCAL:3)% of %GET_MONTH(LOCAL:2)%, Season {LOCAL:1}
-; CASEELSE
-; 	LOCALS = On the %ORDINAL(LOCAL:3)% of %GET_MONTH(LOCAL:2)% in Season {LOCAL:1}
-; ENDSELECT
-; RETURNF LOCALS
-
-; ;=================================================
-
-; @TOSTR_BUSTSIZE_ATW(ARG:0)
-; #FUNCTIONS
-; SELECTCASE ARG:0
-; 	CASE -2
-; 		RETURNF "Flat"
-; 	CASE -1
-; 		RETURNF "Small"
-; 	CASE 0
-; 		RETURNF "Average"
-; 	CASE 1
-; 		RETURNF "Big"
-; 	CASE 2
-; 		RETURNF "巨躯"
-; 	; CASE 3
-; 	; 	RETURNF "Gigantic"
-; 	; CASE 4
-; 	; 	RETURNF "Mystifying"
-; ENDSELECT
-
+﻿;更新日期：2025年7月18日
 ;===================================================
-
+[SKIPSTART]
 @STR_TR(ARG:0)
 #FUNCTIONS
 SELECTCASE ARG:0
@@ -1352,7 +1301,7 @@ CASE 8208 ;雷鼓の部屋
 	LOCALS = Raiko's Boudoir
 CASE 8209 ;八橋の部屋
 	LOCALS = Yatsuhashi's Boudoir
-CASE 8210 ;弁々の部屋
+CASE 8210 ;弁弁の部屋
 	LOCALS = Benben's Boudoir
 CASE 8211
 	LOCALS = Liquor Store
@@ -2494,7 +2443,7 @@ CASE 10304 ;霊天　～ Spiritual Heaven
 	LOCALS = Reiten ～ Spiritual Heaven
 CASE 10305 ;Romantic Children
 	LOCALS = Romantic Children
-CASE 10306 ;プラスチックマインド
+CASE 10306 ;プラスチック​舞​ンド
 	LOCALS = Plastic Mind
 CASE 10307 ;メイプルワイズ
 	LOCALS = Maple Wise
@@ -3126,7 +3075,7 @@ CASEELSE
 	RETURNF STR:ARG
 ENDSELECT
 RETURNF LOCALS
-
+[SKIPEND]
 ;===================================================
 
 @CLEAN_GROUP_DATES()
@@ -3170,677 +3119,7 @@ ELSE
 ENDIF
 
 ;===================================================
-
-; @DIALOGUE_SEX(Character1,Character2,Part1,Part2,SexCount,ExposureGain,SadoMasoGain,UnawareGain,WaitAfter=1,FavorGain=1)
-; #DIM DYNAMIC Character1
-; #DIM DYNAMIC Character2
-; #DIM DYNAMIC Part1
-; #DIM DYNAMIC Part2
-; #DIM DYNAMIC SexCount
-; #DIM DYNAMIC ExposureGain
-; #DIM DYNAMIC SadoMasoGain
-; #DIM DYNAMIC UnawareGain
-; #DIM DYNAMIC WaitAfter
-; #DIM DYNAMIC FavorGain
-; #DIM DYNAMIC CurrentCharacter
-; #DIM DYNAMIC OtherCharacter
-; #DIM DYNAMIC CurrentPart
-; #DIM DYNAMIC OtherPart
-; #DIM DYNAMIC SexCountActual
-; #DIM DYNAMIC FirstKiss1
-; #DIM DYNAMIC FirstKiss2
-; #DIM DYNAMIC VirginityLoss
-; #DIM DYNAMIC MaleVirginityLoss
-; #DIM DYNAMIC OutsideEjaculation
-; #DIM DYNAMIC LowGain
-; #DIM DYNAMIC MediumGain
-; #DIM DYNAMIC HighGain
-; #DIM DYNAMIC LearningGain
-; #DIM DYNAMIC OutputMode
-; FirstKiss1 = 0
-; FirstKiss2 = 0
-; VirginityLoss = 0
-; MaleVirginityLoss = 0
-; OutsideEjaculation = 0
-; OutputMode = 1
-; ;If WaitAfter is -1, outputs will be muted.
-; IF WaitAfter != -1
-; 	PRINTFORMDL
-; ELSE
-; 	OutputMode = -1
-; ENDIF
-; ;Experience gain variables, will be multiplied by sex count. These simulate action repetitions per round, with some skills raising faster.
-; LowGain = 2
-; MediumGain = 4
-; HighGain = 6
-; SIF Character1 < 0
-; 	RETURN 0
-; SexCount = MIN(SexCount,100)
-; IF SexCount > 0 ;Set the sex count to SexCount if it's given as a positive number.
-; 	SexCountActual = SexCount
-; ELSEIF SexCount < 0 ;Set the sex count to 1 if it's given as a negative, so the round still simulates.
-; 	SexCountActual = 1
-; ELSEIF Character2 < 0 ;If there's no second character, don't compare ENE values.
-; 	SexCountActual = MAX(BASE:Character1:気力/200,1)
-; ELSEIF Part1 < 1 && Part2 < 1 ;If both characters are using their genitals, use a higher energy cost.
-; 	SexCountActual = MAX(BASE:Character1:気力/300,BASE:(Character2):気力/300)
-; 	SexCountActual = MAX(SexCountActual,OutputMode)
-; ELSE ;Otherwise, use a lower one.
-; 	SexCountActual = MAX(BASE:Character1:気力/200,BASE:(Character2):気力/200)
-; 	SexCountActual = MAX(SexCountActual,OutputMode)
-; ENDIF
-; LOCAL = (SexCountActual/3)+1
-; CurrentCharacter = Character1
-; IF Character2 > -1 ;Set up some variables for our arguments because we'll change them later.
-; 	OtherCharacter = Character2
-; 	OtherPart = Part2
-; ELSE
-; 	OtherCharacter = Character1
-; 	OtherPart = Part1
-; ENDIF
-; CurrentPart = Part1
-; SIF Character2 < 0
-; 	OtherPart = 9
-; $DIALOGUE_SEX_PARTS_PROCESS
-; LOCALS = 奉仕精神
-; LearningGain = CurrentPart > 0
-; SELECTCASE CurrentPart ;Begin processing for which body part is being used. We loop back here later if there are two characters.
-; 	CASE -2,-1,0 ;Genitals.
-; 		IF HAS_VAGINA(CurrentCharacter) && CurrentPart == -1 && OtherPart > 0 ;Use V sense, etc if the other character is going deep with something other than genitals.
-; 			LOCALS = Ｖ感覚
-; 			PALAM:(CurrentCharacter):快Ｖ = RAND(2000,9999) ;Set the PALAM randomly so it looks like some action has been done afterward.
-; 			CALL AddEXPOrdered("Ｖ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 			SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("無自覚Ｖ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add unaware experience if the character is unaware.
-; 			CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"快Ｖ","Ｖ感覚",LOCAL,OutputMode)
-; 			IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("Ｖ絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add climax experience if sex count was set to a positive.
-; 				SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("無自覚絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Unaware climax experience if both are true.
-; 			ENDIF
-; 		ENDIF
-; 		IF HAS_PENIS(CurrentCharacter) || !HAS_PENIS(OtherCharacter) || (OtherPart > 0 && CurrentPart != -1) ;Use C Sense, etc for penis, or vagina without penetration.
-; 			LOCALS = Ｃ感覚
-; 			PALAM:(CurrentCharacter):快Ｃ = RAND(2000,9999) ;Set the PALAM randomly so it looks like some action has been done afterward.
-; 			CALL AddEXPOrdered("Ｃ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 			SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("無自覚Ｃ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add unaware experience if the character is unaware.
-; 			CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"快Ｃ","Ｃ感覚",LOCAL,OutputMode)
-; 			IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("Ｃ絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add climax experience if sex count was set to a positive.
-; 				SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("無自覚絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Unaware climax experience if both are true.
-; 			ENDIF
-; 		ENDIF
-; 		IF OtherPart < 1
-; 			IF HAS_PENIS(CurrentCharacter) && HAS_VAGINA(OtherCharacter) ;Manage insertion and ejaculation if the character is penetrating with a penis.
-; 				IF !TALENT:(CurrentCharacter):非童貞
-; 					MaleVirginityLoss = 1
-; 					TALENT:(CurrentCharacter):非童貞 = 1
-; 				ENDIF
-; 				IF TALENT:(OtherCharacter):処女 == 1
-; 					VirginityLoss = 1
-; 					CALL SET_HISTORY_LOST_V(OtherCharacter, CurrentCharacter, "ペニス")
-; 				ENDIF
-; 				CALL AddEXPOrdered("挿入経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 				SIF (UnawareGain == 2 && CurrentCharacter == Character1) || (UnawareGain == 1 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("時姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Add time rape experience if the character is time raping.
-; 				SIF (UnawareGain == 4 && CurrentCharacter == Character1) || (UnawareGain == 3 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("睡眠姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Add sleep rape experience if the character is sleep raping.
-; 				IF CurrentPart != -2
-; 					IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 						LOCAL:2 = MAX((ABL:(OtherCharacter):膣 + 1) * 20 + BASE:(CurrentCharacter):精力 / 25, 1) ;Calculate the ejaculation amount
-; 						FOR LOCAL:4,0,SexCountActual
-; 							LOCAL:3 += LOCAL:2 + RAND:(LOCAL:2)
-; 						NEXT
-; 						LOCAL:3 = MIN(LOCAL:3, BASE:(CurrentCharacter):精力)
-; 						IF CurrentCharacter == MASTER ;If the ejaculating character is the player, use the dedicated function for that.
-; 							CALL ADD_SAMEN_V(OtherCharacter, LOCAL:3)
-; 						ELSE
-; 							CALL SAMEN_SHOOT3(LOCAL:3, CurrentCharacter, OtherCharacter)
-; 						ENDIF
-; 						SIF CurrentCharacter == MASTER && !Qol_Info_Dates_Array:OtherCharacter:Qol_Dates_Creampie
-; 							Qol_Info_Dates_Array:OtherCharacter:Qol_Dates_Creampie = DAY ;Add first creampie date if applicable.
-; 						OutsideEjaculation = -1
-; 					ENDIF
-; 				ENDIF
-; 			ENDIF
-; 			IF (HAS_PENIS(OtherCharacter) && HAS_VAGINA(CurrentCharacter)) || (CurrentPart == -1 && OtherPart == 7 && HAS_VAGINA(CurrentCharacter)) ;Use V if receiving penis penetration.
-; 				LOCALS = Ｖ感覚
-; 				PALAM:(CurrentCharacter):快Ｖ = RAND(2000,9999) ;Set the PALAM randomly so it looks like some action has been done afterward.
-; 				CALL AddEXPOrdered("Ｖ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 				SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("無自覚Ｖ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add unaware experience if the character is unaware.
-; 				CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"快Ｖ","Ｖ感覚",LOCAL,OutputMode)
-; 				SIF CurrentPart == -1 && OtherPart < 1
-; 					CALL AddEXPOrdered("子宮口開発経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode) ;Add cervix tease experience if using deep genitals.
-; 				IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("Ｖ絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add climax experience if sex count was set to a positive.
-; 					IF OtherPart == 0 || OtherPart == -1
-; 						IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character2) || (SexCount == -3 && CurrentCharacter == Character1)
-; 							CALL AddEXPOrdered("膣射経験", CurrentCharacter, SexCountActual,OutputMode) ;Add creampie experience if the other character ejaculated without a condom.
-; 						ENDIF
-; 					ENDIF
-; 					SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 						CALL AddEXPOrdered("無自覚絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add unaware climax experience if climaxing while unaware.
-; 				ENDIF
-; 				IF OtherCharacter == MASTER && HAS_PENIS(MASTER) && TALENT:(CurrentCharacter):恋慕 && !UnawareGain
-; 					CALL AddEXPOrdered("愛情経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode) ;Add love experience if the player is giving and the character is in love.
-; 				ENDIF
-; 			ENDIF
-; 		ELSEIF OtherPart == 6
-; 			IF HAS_PENIS(CurrentCharacter) ;Manage insertion and ejaculation for anal penetration.
-; 				CALL AddEXPOrdered("挿入経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 				SIF (UnawareGain == 2 && CurrentCharacter == Character1) || (UnawareGain == 1 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("時姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Add time rape experience if the character is time raping.
-; 				SIF (UnawareGain == 4 && CurrentCharacter == Character1) || (UnawareGain == 3 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("睡眠姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Add sleep rape experience if the character is sleep raping.
-; 				LOCAL:2 = MAX((ABL:(OtherCharacter):肛門 + 1) * 20 + BASE:(CurrentCharacter):精力 / 25, 1)
-; 				FOR LOCAL:4,0,SexCountActual
-; 					LOCAL:3 += LOCAL:2 + RAND:(LOCAL:2)
-; 				NEXT
-; 				LOCAL:3 = MIN(LOCAL:3, BASE:(CurrentCharacter):精力)
-; 				IF CurrentCharacter == MASTER
-; 					CALL ADD_SAMEN_A(OtherCharacter, LOCAL:3) ;If the ejaculating character is the player, use the dedicated function for that.
-; 				ELSE
-; 					EX:(OtherCharacter):肛門内精液 += LOCAL:3
-; 					CFLAG:(OtherCharacter):累計肛門精液 += LOCAL:3
-; 				ENDIF
-; 				SIF CurrentCharacter == MASTER && !Qol_Info_Dates_Array:OtherCharacter:Qol_Dates_ACreampie
-; 					Qol_Info_Dates_Array:OtherCharacter:Qol_Dates_ACreampie = DAY ;Add first anal creampie date if applicable.
-; 				OutsideEjaculation = -1
-; 			ENDIF
-; 		ENDIF
-; 		IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2) ;Add climax, ejaculation experience if appropriate
-; 			CALL AddEXPOrdered("絶頂経験", CurrentCharacter, SexCountActual,OutputMode)
-; 			IF HAS_PENIS(CurrentCharacter)
-; 				CALL AddEXPOrdered("射精経験", CurrentCharacter, SexCountActual,OutputMode)
-; 				SIF OutsideEjaculation > -1
-; 					OutsideEjaculation = 1
-; 			ENDIF
-; 		ENDIF
-; 	CASE 1 ;Hand.
-; 		CALL AddEXPOrdered("手淫経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 		CALL AddEXPOrdered("奉仕快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 	CASE 2 ;Mouth.
-; 		PALAM:(CurrentCharacter):快Ｍ = RAND(2000,9999) ;Set the PALAM randomly so it looks like some action has been done afterward.
-; 		CALL AddEXPOrdered("Ｍ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 		SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("無自覚Ｍ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add unaware experience if the character is unaware.
-; 		CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"快Ｍ","Ｍ感覚",LOCAL,OutputMode)
-; 		IF OtherPart == 2
-; 			LearningGain = 0
-; 			CALL AddEXPOrdered("接吻経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add kissing experience if both characters are using their mouth.
-; 			IF TALENT:(CurrentCharacter):無接吻経験
-; 				IF CurrentCharacter == Character1 ;Process first kiss if character hasn't kissed.
-; 					FirstKiss1 = 1
-; 				ELSE
-; 					FirstKiss2 = 1
-; 				ENDIF
-; 				SIF OtherCharacter == MASTER
-; 					SETBIT CFLAG:(CurrentCharacter):既成事実 , 0
-; 			ENDIF
-; 			IF OtherCharacter == MASTER && TALENT:(CurrentCharacter):恋慕 && !UnawareGain
-; 				CALL AddEXPOrdered("愛情経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode) ;Add love experience if kissing the player and in love.
-; 			ENDIF
-; 		ELSEIF OtherPart < 1 ;Add service, etc experience if using mouth on genitals.
-; 			CALL AddEXPOrdered("口淫経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 			CALL AddEXPOrdered("奉仕快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 			IF OtherCharacter == MASTER && TALENT:(CurrentCharacter):恋慕 && !UnawareGain
-; 				CALL AddEXPOrdered("愛情経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode) ;Add love experience if servicing the player and in love.
-; 			ENDIF
-; 			IF HAS_PENIS(OtherCharacter) ;Add unaware rape experience if sucking off an unaware character with a penis.
-; 				SIF (UnawareGain == 2 && CurrentCharacter == Character1) || (UnawareGain == 1 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("時姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Time stop
-; 				SIF (UnawareGain == 4 && CurrentCharacter == Character1) || (UnawareGain == 3 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("睡眠姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Sleep
-; 				IF OtherCharacter == MASTER
-; 					SIF !Qol_Info_Dates_Array:CurrentCharacter:Qol_Dates_Bj
-; 						Qol_Info_Dates_Array:CurrentCharacter:Qol_Dates_Bj = DAY ;Add first blowjob date if applicable.
-; 					SIF SexCount > -1 && !Qol_Info_Dates_Array:CurrentCharacter:Qol_Dates_Semen
-; 						Qol_Info_Dates_Array:CurrentCharacter:Qol_Dates_Semen = DAY ;Add first semen taste date if applicable.
-; 				ENDIF
-; 			ENDIF
-; 		ELSE
-; 			CALL AddEXPOrdered("奉仕快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode) ;Just add service experience if mouth is used on a different part.
-; 		ENDIF
-; 		IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("Ｍ絶頂経験", CurrentCharacter, MAX(SexCountActual/3,0),1) ;Add climax experience, mouth is more difficult.
-; 			CALL AddEXPOrdered("絶頂経験", CurrentCharacter, MAX(SexCountActual/3,0),1)
-; 			IF HAS_PENIS(CurrentCharacter)
-; 				CALL AddEXPOrdered("射精経験", CurrentCharacter, MAX(SexCountActual/3,0),1)
-; 				OutsideEjaculation = 1
-; 			ENDIF
-; 			SIF HAS_PENIS(OtherCharacter) && OtherPart < 1
-; 				CALL AddEXPOrdered("精飲経験", CurrentCharacter, SexCountActual,OutputMode) ;Add semen drinking experience if ejaculated in the mouth.
-; 			SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("無自覚絶頂経験", CurrentCharacter, MAX(SexCountActual/3,0),1) ;Add unaware climax experience if climaxing while unaware.
-; 		ENDIF
-; 	CASE 3 ;Chest.
-; 		IF !IS_MALE(CurrentCharacter) ;Only process female characters.
-; 			PALAM:(CurrentCharacter):快Ｂ = RAND(2000,9999) ;Set the PALAM randomly so it looks like some action has been done afterward.
-; 			CALL AddEXPOrdered("Ｂ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 			SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("無自覚Ｂ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add unaware experience if the character is unaware.
-; 			CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"快Ｂ","Ｂ感覚",LOCAL,OutputMode)
-; 			IF HAS_PENIS(OtherCharacter) && OtherPart < 1
-; 				CALL AddEXPOrdered("乳交経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add titjob experience if using chest on a penis.
-; 			ELSE
-; 				LearningGain = 0
-; 			ENDIF
-; 			IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("Ｂ絶頂経験", CurrentCharacter, MAX(SexCountActual/3,0),1) ;Add climax experience if sex count was set to a positive.
-; 				CALL AddEXPOrdered("絶頂経験", CurrentCharacter, SexCountActual,OutputMode)
-; 				IF HAS_PENIS(CurrentCharacter)
-; 					CALL AddEXPOrdered("射精経験", CurrentCharacter, SexCountActual,OutputMode)
-; 					OutsideEjaculation = 1
-; 				ENDIF
-; 				SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 					CALL AddEXPOrdered("無自覚絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add unaware climax experience if climaxing while unaware.
-; 			ENDIF
-; 			SIF OtherPart < 1 && HAS_PENIS(OtherCharacter)
-; 				CALL AddEXPOrdered("奉仕快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 		ENDIF
-; 	CASE 4 ;Thighs.
-; 		PALAM:(CurrentCharacter):快Ｃ = RAND(2000,9999) ;Set the PALAM randomly so it looks like some action has been done afterward.
-; 		CALL AddEXPOrdered("Ｃ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 		SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("無自覚Ｃ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add unaware experience if the character is unaware.
-; 		CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"快Ｃ","Ｃ感覚",LOCAL,OutputMode)
-; 		CALL AddEXPOrdered("奉仕快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 		IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add climax experience if sex count was set to a positive.
-; 			CALL AddEXPOrdered("Ｃ絶頂経験", CurrentCharacter, SexCountActual,OutputMode)
-; 			IF HAS_PENIS(CurrentCharacter)
-; 				CALL AddEXPOrdered("射精経験", CurrentCharacter, SexCountActual,OutputMode)
-; 				OutsideEjaculation = 1
-; 			ENDIF
-; 			SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("無自覚絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add unaware climax experience if climaxing while unaware.
-; 		ENDIF
-; 	CASE 5 ;Feet/other sadistic.
-; 		CALL AddEXPOrdered("奉仕快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 		IF (SadoMasoGain == 1 && CurrentCharacter == Character1) || (SadoMasoGain == 3 && CurrentCharacter == Character1) || (SadoMasoGain == 2 && CurrentCharacter == Character2) || (SadoMasoGain == 4 && CurrentCharacter == Character2)
-; 		ELSE
-; 			CALL AddEXPOrdered("嗜虐快楽経験", CurrentCharacter, LowGain*SexCountActual,OutputMode) ;Only add sadism here if it can't be merged with other sadism gains later.
-; 		ENDIF
-; 	CASE 6 ;Anus.
-; 		LOCALS = Ａ感覚
-; 		PALAM:(CurrentCharacter):快Ａ = RAND(2000,9999) ;Set the PALAM randomly so it looks like some action has been done afterward.
-; 		CALL AddEXPOrdered("Ａ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode)
-; 		SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("無自覚Ａ経験", CurrentCharacter, HighGain*SexCountActual,OutputMode) ;Add unaware experience if the character is unaware.
-; 		CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"快Ａ","Ａ感覚",LOCAL,OutputMode)
-; 		IF SexCount > -1 || (SexCount == -2 && CurrentCharacter == Character1) || (SexCount == -3 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("Ａ絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add climax experience if sex count was set to a positive.
-; 			CALL AddEXPOrdered("絶頂経験", CurrentCharacter, SexCountActual,OutputMode)
-; 			IF HAS_PENIS(CurrentCharacter)
-; 				CALL AddEXPOrdered("射精経験", CurrentCharacter, SexCountActual,OutputMode)
-; 				OutsideEjaculation = 1
-; 			ENDIF
-; 			SIF (UnawareGain == 1 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2) || (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 4 && CurrentCharacter == Character2)
-; 				CALL AddEXPOrdered("無自覚絶頂経験", CurrentCharacter, SexCountActual,OutputMode) ;Add unaware climax experience if climaxing while unaware.
-; 		ENDIF
-; 	CASE 7 ;Toy.
-; 		CALL AddEXPOrdered("道具使用経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 		IF OtherPart == -1 ;If the other character is a female virgin and using deep genitals, take virginity and count it as a vibrator.
-; 			IF HAS_VAGINA(OtherCharacter)
-; 				IF TALENT:(OtherCharacter):処女 == 1
-; 					VirginityLoss = 1
-; 					CALL SET_HISTORY_LOST_V(CurrentCharacter, OtherCharacter, "振動棒")
-; 				ENDIF
-; 			ENDIF
-; 		ENDIF
-; 		SIF (UnawareGain == 3 && CurrentCharacter == Character1) || (UnawareGain == 1 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("時姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Add time rape experience if the character is time raping.
-; 		SIF (UnawareGain == 4 && CurrentCharacter == Character1) || (UnawareGain == 2 && CurrentCharacter == Character2)
-; 			CALL AddEXPOrdered("睡眠姦経験", CurrentCharacter, SexCountActual,OutputMode) ;Add sleep rape experience if the character is sleep raping.
-; 	CASE 8 ;Other.
-; 		CALL AddEXPOrdered("奉仕快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; ENDSELECT
-; IF (SadoMasoGain == 2 && CurrentCharacter == Character1) || (SadoMasoGain == 4 && CurrentCharacter == Character1) || (SadoMasoGain == 1 && CurrentCharacter == Character2) || (SadoMasoGain == 3 && CurrentCharacter == Character2) ;Maso.
-; 	CALL AddEXPOrdered("苦痛快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 	CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"屈服",LOCALS,LOCAL,OutputMode)
-; 	CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"苦痛",LOCALS,LOCAL,OutputMode)
-; 	CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"恐怖",LOCALS,LOCAL,OutputMode)
-; 	PALAM:(CurrentCharacter):屈服 += (RAND(2000,2500)*SexCountActual) ;PALAMs are increased so it looks like some action was done afterward.
-; 	PALAM:(CurrentCharacter):苦痛 += (RAND(2000,2500)*SexCountActual)
-; 	PALAM:(CurrentCharacter):恐怖 += (RAND(2000,2500)*SexCountActual)
-; 	SIF (SadoMasoGain == 4 && CurrentCharacter == Character1) || (SadoMasoGain == 3 && CurrentCharacter == Character2)
-; 		CALL AddEXPOrdered("緊縛経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; ELSEIF (SadoMasoGain == 1 && CurrentCharacter == Character1) || (SadoMasoGain == 3 && CurrentCharacter == Character1) || (SadoMasoGain == 2 && CurrentCharacter == Character2) || (SadoMasoGain == 4 && CurrentCharacter == Character2) ;Sado.
-; 	LOCAL:5 = MediumGain*SexCountActual
-; 	LOCAL:6 = LOCAL
-; 	IF CurrentPart == 5
-; 		LOCAL:5 += LowGain*SexCountActual
-; 		LOCAL:6 += LOCAL
-; 	ENDIF
-; 	PALAM:(CurrentCharacter):優越 += (RAND(2000,2500)*SexCountActual) ;PALAM is increased so it looks like some action was done afterward.
-; 	CALL AddEXPOrdered("嗜虐快楽経験", CurrentCharacter, LOCAL:5,OutputMode)
-; 	CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"優越",LOCALS,LOCAL:6,OutputMode)
-; ENDIF
-; IF OutsideEjaculation == 1 ;Figure out how much semen to waste for ejaculations outside of a vagina or anus.
-; 	IF Character2 > -1 ;Calculate from the other character's technique depending on part used.
-; 		SELECTCASE OtherPart
-; 			CASE -2,-1,0
-; 				OutsideEjaculation = ABL:(OtherCharacter):膣 + 1
-; 			CASE 1
-; 				OutsideEjaculation = ABL:(OtherCharacter):指 + 1
-; 			CASE 2
-; 				OutsideEjaculation = ABL:(OtherCharacter):舌 + 1
-; 			CASE 3
-; 				OutsideEjaculation = ABL:(OtherCharacter):胸 + 1
-; 			CASE 4
-; 				OutsideEjaculation = ABL:(OtherCharacter):腰 + 1
-; 			CASE 5
-; 				OutsideEjaculation = ABL:(OtherCharacter):指 + 1
-; 			CASE 6
-; 				OutsideEjaculation = ABL:(OtherCharacter):肛門 + 1
-; 			CASEELSE 
-; 				OutsideEjaculation = ABL:(OtherCharacter):指 + 1
-; 		ENDSELECT
-; 		OutsideEjaculation = OutsideEjaculation * 20
-; 	ELSE ;Calculate from the character's own technique if alone.
-; 		SELECTCASE CurrentPart
-; 			CASE -2,-1,0
-; 				OutsideEjaculation = ABL:(CurrentCharacter):指 + 1
-; 			CASE 1
-; 				OutsideEjaculation = ABL:(CurrentCharacter):指 + 1
-; 			CASE 2
-; 				OutsideEjaculation = ABL:(CurrentCharacter):舌 + 1
-; 			CASE 3
-; 				OutsideEjaculation = ABL:(CurrentCharacter):胸 + 1
-; 			CASE 4
-; 				OutsideEjaculation = ABL:(CurrentCharacter):腰 + 1
-; 			CASE 5
-; 				OutsideEjaculation = ABL:(CurrentCharacter):指 + 1
-; 			CASE 6
-; 				OutsideEjaculation = ABL:(CurrentCharacter):肛門 + 1
-; 			CASEELSE 
-; 				OutsideEjaculation = ABL:(CurrentCharacter):指 + 1
-; 		ENDSELECT
-; 		OutsideEjaculation = OutsideEjaculation * 20
-; 	ENDIF
-; 	LOCAL:2 = MAX(OutsideEjaculation + BASE:(CurrentCharacter):精力 / 25, 1)
-; 	FOR LOCAL:4,0,SexCountActual
-; 		LOCAL:3 += LOCAL:2 + RAND:(LOCAL:2)
-; 	NEXT
-; 	LOCAL:3 = MIN(LOCAL:3, BASE:(CurrentCharacter):精力)
-; 	BASE:(CurrentCharacter):精力 -= LOCAL:3
-; 	SIF BASE:(CurrentCharacter):精力 < 0
-; 		BASE:(CurrentCharacter):精力 = 0
-; ENDIF
-; IF CurrentCharacter != MASTER
-; 	PALAM:(CurrentCharacter):欲情 += (RAND(2000,2500)*SexCountActual) ;PALAMs are increased so it looks like some action was done afterward.
-; 	SIF FavorGain > 0
-; 		PALAM:(CurrentCharacter):好意 += (RAND(2000,2500)*SexCountActual)
-; ENDIF
-; IF HAS_VAGINA(CurrentCharacter)
-; 	PALAM:(CurrentCharacter):潤滑 += (RAND(2000,2500)*SexCountActual)
-; 	CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"潤滑",LOCALS,LOCAL+5,OutputMode)
-; ENDIF
-; CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"欲情","欲望",LOCAL+5,OutputMode)
-; IF Character2 > -1 ;Add homosexual experience if both characters are the same sex.
-; 	IF IS_MALE(CurrentCharacter) && IS_MALE(OtherCharacter)
-; 		CALL AddEXPOrdered("断袖経験",CurrentCharacter,6*LOCAL,OutputMode)
-; 	ELSEIF !IS_MALE(CurrentCharacter) && !IS_MALE(OtherCharacter)
-; 		CALL AddEXPOrdered("百合経験",CurrentCharacter,6*LOCAL,OutputMode)
-; 	ENDIF
-; ENDIF
-; IF (CurrentCharacter != MASTER && Character1 == MASTER && FavorGain > 0) || (CurrentCharacter != MASTER && Character2 == MASTER && FavorGain > 0)
-; 	PALAM:(CurrentCharacter):恭順 += (RAND(2000,2500)*SexCountActual) ;PALAM is increased so it looks like some action was done afterward.
-; 	CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"恭順",LOCALS,LOCAL+5,OutputMode) ;Add loyalty if the player is involved and favor gain is on.
-; ENDIF
-; SIF Character2 == -1
-; 	CALL AddEXPOrdered("自慰経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode) ;If the character is alone, add masturbation experience.
-; IF (ExposureGain == 1 && CurrentCharacter == Character1) || (ExposureGain == 2 && CurrentCharacter == Character2) || ExposureGain == 3 ;Exposure.
-; 	PALAM:(CurrentCharacter):恥情 += (RAND(2000,2500)*SexCountActual) ;PALAM is increased so it looks like some action was done afterward.
-; 	CALL AddEXPOrdered("露出快楽経験", CurrentCharacter, MediumGain*SexCountActual,OutputMode)
-; 	CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"恥情","露出癖",LOCAL+5,OutputMode)
-; ENDIF
-; CFLAG:(CurrentCharacter):溜まってる度 -= MAX(40*MAX(SexCountActual,OutputMode),0) ;Reduce sexual frustration by 4% per sex count.
-; IF (CurrentCharacter == Character1 && SexCount == -3) || (CurrentCharacter == Character2 && SexCount == -2) ;Reduce energy based on sex count and parts used.
-; 	IF Part1 > 0 || Part2 > 0
-; 		IF LearningGain == 1
-; 			PALAM:(CurrentCharacter):習得 += (RAND(1000,1300)*SexCountActual) ;PALAM is increased so it looks like some action was done afterward.
-; 			CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"習得",LOCALS,LOCAL+5,OutputMode)
-; 		ENDIF
-; 		BASE:(CurrentCharacter):気力 -= SexCountActual*25
-; 		BASE:(CurrentCharacter):体力 -= SexCountActual*5
-; 	ELSE
-; 		BASE:(CurrentCharacter):気力 -= SexCountActual*150
-; 		BASE:(CurrentCharacter):体力 -= SexCountActual*75
-; 	ENDIF
-; ELSE
-; 	IF Part1 > 0 || Part2 > 0
-; 		IF LearningGain == 1
-; 			PALAM:(CurrentCharacter):習得 += (RAND(2000,2500)*SexCountActual) ;PALAM is increased so it looks like some action was done afterward.
-; 			CALL JUEL_UP_SPECIAL_ORDERED(CurrentCharacter,"習得",LOCALS,LOCAL+5,OutputMode)
-; 		ENDIF
-; 		BASE:(CurrentCharacter):気力 -= SexCountActual*200
-; 		BASE:(CurrentCharacter):体力 -= SexCountActual*100
-; 	ELSE
-; 		BASE:(CurrentCharacter):気力 -= SexCountActual*300
-; 		BASE:(CurrentCharacter):体力 -= SexCountActual*150
-; 	ENDIF
-; ENDIF
-; SIF BASE:(CurrentCharacter):気力 < 0
-; 	BASE:(CurrentCharacter):気力 = 0
-; SIF BASE:(CurrentCharacter):体力 < 0
-; 	BASE:(CurrentCharacter):体力 = 0
-; SIF WaitAfter != -1
-; 	PRINTFORMDL --------------------------------------------
-; IF CurrentCharacter == Character1 && Character2 > -1 ;When the first character is done, swap the variable assignments and loop back to process the second character.
-; 	CurrentCharacter = Character2
-; 	OtherCharacter = Character1
-; 	CurrentPart = Part2
-; 	OtherPart = Part1
-; 	GOTO DIALOGUE_SEX_PARTS_PROCESS
-; ENDIF
-; SIF FirstKiss1
-; 	CALL SET_FIRSTKISS(Character1, Character2, 0)
-; SIF FirstKiss2
-; 	CALL SET_FIRSTKISS(Character2, Character1, 0)
-; IF MaleVirginityLoss && WaitAfter != -1 ;Display virginity loss messages.
-; 	FONTBOLD
-; 	LOCAL:5 = GETCOLOR()
-; 	SETCOLOR 255,100,255
-; 	PRINTFORML Male Virginity Loss
-; 	FONTREGULAR
-; 	SETCOLOR LOCAL:5
-; ENDIF
-; IF VirginityLoss && WaitAfter != -1
-; 	LOCAL:5 = GETCOLOR()
-; 	SETCOLOR 247,171,166
-; 	PRINTFORML Virginity Loss
-; 	SETCOLOR LOCAL:5
-; ENDIF
-; IF FavorGain != 0 && (UnawareGain == 0 || (UnawareGain == 1 && Character1 == MASTER) || (UnawareGain == 2 && Character2 == MASTER) || (UnawareGain == 3 && Character1 == MASTER) || (UnawareGain == 4 && Character2 == MASTER)) && Character2 > -1
-; 	IF Character1 == MASTER ;Add or remove favor
-; 		IF FavorGain > 0
-; 			LOCAL:5 = MAX(((ABL:(Character2):欲望+RAND(-3,3))*3)*(MediumGain*SexCountActual),1)
-; 			CFLAG:(Character2):好感度 += LOCAL:5
-; 			SIF WaitAfter != -1
-; 				PRINTFORMDL %CFLAGNAME_TR("好感度")% +{LOCAL:5}
-; 		ELSE
-; 			LOCAL:5 = RAND(20,35)
-; 			CFLAG:(Character2):好感度 -= LOCAL:5
-; 			SIF WaitAfter != -1
-; 				PRINTFORMDL %CFLAGNAME_TR("好感度")% -{LOCAL:5}
-; 		ENDIF
-; 	ELSEIF Character2 == MASTER
-; 		IF FavorGain > 0
-; 			LOCAL:5 = MAX(((ABL:Character1:欲望+RAND(-3,3))*3)*(MediumGain*SexCountActual),1)
-; 			CFLAG:Character1:好感度 += LOCAL:5
-; 			SIF WaitAfter != -1
-; 				PRINTFORMDL %CFLAGNAME_TR("好感度")% +{LOCAL:5}
-; 		ELSE
-; 			LOCAL:5 = RAND(20,35)
-; 			CFLAG:Character1:好感度 -= LOCAL:5
-; 			SIF WaitAfter != -1
-; 				PRINTFORMDL %CFLAGNAME_TR("好感度")% -{LOCAL:5}
-; 		ENDIF
-; 	ENDIF
-; ENDIF
-; IF UnawareGain == 1 || UnawareGain == 2 ;Advance time, or consume TSP if the player is time raping another character
-; 	IF (UnawareGain == 1 && Character2 == MASTER) || (UnawareGain == 2 && Character1 == MASTER)
-; 		IF SexCount == -2 || SexCount == -3
-; 			BASE:MASTER:TSP -= 15*SexCountActual
-; 		ELSE
-; 			BASE:MASTER:TSP -= 30*SexCountActual
-; 		ENDIF
-; 		IF BASE:MASTER:TSP < 0
-; 			BASE:MASTER:TSP = 0
-; 		ENDIF
-; 	ENDIF
-; ELSE
-; 	IF SexCount == -2 || SexCount == -3
-; 		TIME += 5*SexCountActual
-; 	ELSE
-; 		TIME += 10*SexCountActual
-; 	ENDIF
-; ENDIF
-; SIF WaitAfter == 1
-; 	WAIT
-
-;===================================================
-
-; @AddEXPOrdered(VAR_NAME,C_ID,変動数,OutputMode)
-; #DIMS VAR_NAME
-; #DIM VAR_ID
-; #DIM C_ID
-; #DIM 変動数
-; #DIM OutputMode
-; SIF 変動数 == 0
-; 	RETURN
-; VAR_ID = FINDELEMENT(EXPNAME, VAR_NAME,,,1)
-; EXP:C_ID:VAR_ID += 変動数
-; IF OutputMode == 1
-; 	CALL COLORMESSAGE(@"%CALLNAME:C_ID+"'s",14,LEFT% %EXP_TR(VAR_ID),18,LEFT% ＋%DIGIT_GROUP(変動数)%",C_YELLOW,1)
-; ELSEIF OutputMode == 0
-; 	CALL COLORMESSAGE(@"%CALLNAME:C_ID+"'s"% %EXP_TR(VAR_ID)% ＋%DIGIT_GROUP(変動数)%",C_YELLOW,2)
-; ENDIF
-
-;===================================================
-
-; @JUEL_UP_SPECIAL_ORDERED(ARG,増やす珠,参照能力,PERCENTAGE,OutputMode,PATTERN)
-; #DIMS 増やす珠
-; #DIMS 参照能力
-; #DIM UP_JL
-; #DIM UP_ABL
-; #DIM PERCENTAGE
-; #DIM OutputMode
-; #DIM PATTERN
-; #DIM 上昇量
-; UP_ABL = FINDELEMENT(ABLNAME, 参照能力,,,1)
-; UP_JL = FINDELEMENT(PALAMNAME, 増やす珠,,,1)
-; SELECTCASE UP_ABL
-; 	CASE 0
-; 		LOCAL = JUEL_DEMAND_0(PATTERN,UP_JL,ARG)
-; 		LOCAL = LOCAL * (2 + TALENT:ARG:Ｃ感度) / 2
-; 	CASE 1
-; 		LOCAL = JUEL_DEMAND_1(PATTERN,UP_JL,ARG)
-; 		LOCAL = LOCAL * (2 + TALENT:ARG:Ｖ感度) / 2
-; 	CASE 2
-; 		LOCAL = JUEL_DEMAND_2(PATTERN,UP_JL,ARG)
-; 		LOCAL = LOCAL * (2 + TALENT:ARG:Ａ感度) / 2
-; 	CASE 3
-; 		LOCAL = JUEL_DEMAND_3(PATTERN,UP_JL,ARG)
-; 		LOCAL = LOCAL * (2 + TALENT:ARG:Ｂ感度) / 2
-; 	CASE 4
-; 		LOCAL = JUEL_DEMAND_4(PATTERN,UP_JL,ARG)
-; 		LOCAL = LOCAL * (2 + TALENT:ARG:Ｍ感度) / 2
-; 	CASE 10
-; 		LOCAL = JUEL_DEMAND_10(PATTERN,UP_JL,ARG)
-; 	CASE 11
-; 		LOCAL = JUEL_DEMAND_11(PATTERN,UP_JL,ARG)
-; 	CASE 12
-; 		LOCAL = JUEL_DEMAND_12(PATTERN,UP_JL,ARG)
-; 	CASE 13
-; 		LOCAL = JUEL_DEMAND_13(PATTERN,UP_JL,ARG)
-; 	CASE 14
-; 		LOCAL = JUEL_DEMAND_14(PATTERN,UP_JL,ARG)
-; 	CASE 15
-; 		LOCAL = JUEL_DEMAND_15(PATTERN,UP_JL,ARG)
-; 	CASE 16
-; 		LOCAL = JUEL_DEMAND_16(PATTERN,UP_JL,ARG)
-; 	CASE 17
-; 		LOCAL = JUEL_DEMAND_17(PATTERN,UP_JL,ARG)
-; 	CASE 18
-; 		LOCAL = JUEL_DEMAND_18(PATTERN,UP_JL,ARG)
-; 	CASE 30
-; 		LOCAL = JUEL_DEMAND_30(PATTERN,UP_JL,ARG)
-; 	CASE 31
-; 		LOCAL = JUEL_DEMAND_31(PATTERN,UP_JL,ARG)
-; 	CASE 32
-; 		LOCAL = JUEL_DEMAND_32(PATTERN,UP_JL,ARG)
-; 	CASE 33
-; 		LOCAL = JUEL_DEMAND_33(PATTERN,UP_JL,ARG)
-; 	CASE 34
-; 		LOCAL = JUEL_DEMAND_34(PATTERN,UP_JL,ARG)
-; 	CASE 35
-; 		LOCAL = JUEL_DEMAND_35(PATTERN,UP_JL,ARG)
-; 	CASE 39 ;Hypno Addiction, added
-; 		LOCAL = JUEL_DEMAND_39(PATTERN,UP_JL,ARG)
-; ENDSELECT
-; 上昇量 = MAX(LOCAL * PERCENTAGE / 100, PERCENTAGE)
-; JUEL:ARG:UP_JL += 上昇量
-; IF OutputMode == 1
-; 	CALL COLORMESSAGE(@"%CALLNAME:ARG+"'s",14,LEFT% %PALAM_TR(PALAMNAME:UP_JL)+" Gems",18,LEFT% ＋%DIGIT_GROUP(上昇量)%",C_PINK,1)
-; ELSEIF OUTPUTMODE == 0
-; 	CALL COLORMESSAGE(@"%CALLNAME:ARG+"'s"% %PALAM_TR(PALAMNAME:UP_JL)+" Gems"% ＋%DIGIT_GROUP(上昇量)%",C_PINK,1)
-; ENDIF
-
-;===================================================
-
-@JUEL_DEMAND_39(ARG,ARG:1,ARG:2)
-#FUNCTION
-VARSET LOCAL
-;屈服の珠(LOCAL:12)で上げる
-	SELECTCASE ABL:(ARG:2):催眠奴隷
-		CASE 0
-			LOCAL:12 = 100
-			LOCAL:11 = 20
-		CASE 1
-			LOCAL:12 = 1200
-			LOCAL:11 = 100
-		CASE 2
-			LOCAL:12 = 5000
-			LOCAL:11 = 600
-		CASE 3
-			LOCAL:12 = 10000
-			LOCAL:11 = 2000
-		CASE 4
-			LOCAL:12 = 30000
-			LOCAL:11 = 8000
-		CASE 5
-			LOCAL:12 = 35000
-			LOCAL:11 = 8500
-		CASE 6
-			LOCAL:12 = 40000
-			LOCAL:11 = 10000
-		CASE 7
-			LOCAL:12 = 45000
-			LOCAL:11 = 15000
-		CASE 8
-			LOCAL:12 = 50000
-			LOCAL:11 = 20000
-		CASE 9
-			LOCAL:12 = 60000
-			LOCAL:11 = 30000
-		CASEELSE
-			LOCAL:12 = 10000 + 20000 * (ABL:(ARG:2):催眠奴隷 - 7)
-			LOCAL:11 = 10000 + 20000 * (ABL:(ARG:2):催眠奴隷 - 7)
-	ENDSELECT
-;難以越過的底線
-IF TALENT:(ARG:2):難以越過的底線
-	TIMES LOCAL:11 , 0.50
-	TIMES LOCAL:12 , 0.50
-ENDIF
-RETURNF LOCAL:(ARG:1)
-
-;===================================================
-
+[SKIPSTART]
 @PALAM_TR(ARGS, ARGS:1)
 #FUNCTIONS
 SELECTCASE ARGS
@@ -3939,7 +3218,7 @@ SELECTCASE ARGS
 		LOCALS = %ARGS%
 ENDSELECT
 RETURNF LOCALS
-
+[SKIPEND]
 ;===================================================
 
 @COMMISSION_STALL(Commission)
@@ -4132,7 +3411,7 @@ SELECTCASE ARG
 		ELSEIF ARG:1 == 1
 			RETURNF "自尊心高"
 		ENDIF
-	;ツンデレ
+	;傲嬌
 	CASE 14
 		SIF ARG:1
 			RETURNF "Tsundere"
@@ -4193,11 +3472,11 @@ SELECTCASE ARG
 		ELSEIF ARG:1 == 1
 			RETURNF "開朗"
 		ENDIF
-	;一線越えない
+	;難以越過的底線
 	CASE 25
 		SIF ARG:1
 			RETURNF "Reserved"
-	;目立ちたがり
+	;喜歡引人注目
 	CASE 26
 		SIF ARG:1 == 1
 			RETURNF "Show-off"
@@ -4941,7 +4220,7 @@ SELECTCASE ARG
 		ELSEIF ARG:1 == 4; 積み石ベテラン
 			RETURNF "積み石ベテラン"
 		ELSEIF ARG:1 == 5; 積み石マスター
-			RETURNF "積み石マ斯塔"
+			RETURNF "積み石マスター"
 		ELSEIF ARG:1 == 6; 積み石王
 			RETURNF "積み石王"
 	ENDIF
@@ -5522,7 +4801,7 @@ ENDSELECT
 RETURNF LOCALS
 
 ;===================================================
-
+[SKIPSTART]
 @DISHNAME_TR(ARGS)
 #FUNCTIONS
 SIF ARGS == ""
@@ -5578,7 +4857,7 @@ SELECTCASE ARGS
 		LOCALS = Hamburger
 	CASE "スコーン"
 		LOCALS = Scone
-	CASE "シウマイ"
+	CASE "シウ​舞​"
 		LOCALS = Shumai
 	CASE "肉まん"
 		LOCALS = Meat Bun
@@ -6379,11 +5658,11 @@ SELECTCASE ARG
 		LOCALS = Brown Candy
 	CASE 78
 		LOCALS = Light Blue Candy
-	CASE 81 ;安物食材
+	CASE 81 ;平价食材
 		LOCALS = Cheap Ingredients
-	CASE 82 ;上質食材
+	CASE 82 ;优质食材
 		LOCALS = Fine Ingredients
-	CASE 83 ;高級食材
+	CASE 83 ;高级食材
 		LOCALS = Great Ingredients
 	CASE 84 ;甘味材
 		LOCALS = Sweetener
@@ -6833,7 +6112,7 @@ SELECTCASE ARG
 		LOCALS = Oak Sofa
 	CASE 907 ;カスタム竹箒, 掃除力に補正
 		LOCALS = Custom Bamboo Broom
-CASE 920 ;空色の勾玉
+	CASE 920 ;空色の勾玉
 		LOCALS = Sky-Blue Magatama
 	CASE 921 ;酸素マスク
 		LOCALS = Oxygen Mask
@@ -6931,7 +6210,7 @@ SELECTCASE ARGS
 		LOCALS = pumpkin pants
 	CASE "スラックス"
 		LOCALS = dress pants
-	CASE "作務衣（下）"
+	CASE "作务裤"
 		LOCALS = samue (bottom)
 	CASE "眼帯"
 		LOCALS = eyepatch
@@ -7015,7 +6294,7 @@ SELECTCASE ARGS
 		LOCALS = bag
 	CASE "勾玉"
 		LOCALS = Magatama
-	CASE "三脚"
+	CASE "三脚架"
 		LOCALS = tripod
 	CASE "スプーン"
 		LOCALS = spoon
@@ -7167,7 +6446,7 @@ SELECTCASE ARGS
 		LOCALS = tentacle bra
 	CASE "ビキニトップ"
 		LOCALS = bikini top
-	CASE "マイクロトップ"
+	CASE "​舞​クロトップ"
 		LOCALS = micro top
 	CASE "赤いフリルつきのブラ" ; Unique clothes
 		LOCALS = red-frilled bra
@@ -7177,7 +6456,7 @@ SELECTCASE ARGS
 		LOCALS = belt
 	CASE "ビキニトップ"
 		LOCALS = bikini top
-	CASE "マイクロブラ"
+	CASE "​舞​クロブラ"
 		LOCALS = micro bra
 	CASE "カラーシャツ"
 		LOCALS = colored dress shirt
@@ -7317,9 +6596,9 @@ SELECTCASE ARGS
 		LOCALS = headband
 	CASE "面"
 		LOCALS = mask
-	CASE "頭巾"
+	CASE "头巾"
 		LOCALS = hood
-	CASE "烏帽子"
+	CASE "乌帽子"
 		LOCALS = eboshi
 	CASE "兎耳ヘアーバンド"
 		LOCALS = rabbit ear headband
@@ -7349,7 +6628,7 @@ SELECTCASE ARGS
 		LOCALS = Santa hat
 	CASE "サンバイザー"
 		LOCALS = sports visor
-	CASE "麦藁帽子"
+	CASE "草帽"
 		LOCALS = straw hat
 	CASE "学帽"
 		LOCALS = student cap
@@ -7421,7 +6700,7 @@ SELECTCASE ARGS
 		LOCALS = double vibrating panties
 	CASE "ビキニボトム"
 		LOCALS = bikini bottom
-	CASE "マイクロボトム"
+	CASE "​舞​クロボトム"
 		LOCALS = micro bikini bottom
 	CASE "フロントリボンショーツ"
 		LOCALS = front-ribbon panties
@@ -7934,7 +7213,7 @@ SELECTCASE ARGS
 		LOCALS = doggy bra
 	CASE "ロンググローブ"
 		LOCALS = 粗大的gloves
-	CASE "金輪" ;biten wears this on her head
+	CASE "金箍" ;biten wears this on her head
 		LOCALS = gold circlet
 	CASE "おサルパンツ"
 		LOCALS = monkey breechcloth
@@ -8000,9 +7279,9 @@ ENDSELECT
 SIF ARG
 	LOCALS '= @"%CAPITALIZE(LOCALS)%"
 RETURNF LOCALS
-
+[SKIPEND]
 ;===================================================
-
+[SKIPSTART]
 @TALENT_TR(ARG)
 #FUNCTIONS
 SELECTCASE ARG
@@ -8344,7 +7623,7 @@ SELECTCASE ARG
 		LOCALS = %TALENTNAME:ARG%
 ENDSELECT
 RETURNF LOCALS
-
+[SKIPEND]
 ;===================================================
 
 @SLIT_TR(ARG = -1, ARG:1 = 0)
@@ -8445,55 +7724,55 @@ IF TALENT:ARG:体型 == -2 && TALENT:ARG:ヒップサイズ <= -2
 ELSEIF TALENT:ARG:ヒップサイズ < 0
 	SELECTCASE RAND:3
 	CASE 0
-		LOCALS += "thin ass"
+		LOCALS += "瘦屁股"
 	CASE 1
 		LOCALS += "摸起来好像要把手吸住一様的屁股"
 	CASE 2
-		LOCALS += "small ass"
+		LOCALS += "小屁股"
 	ENDSELECT
 ELSEIF TALENT:ARG:ヒップサイズ == 4
 	SELECTCASE RAND:4
 	CASE 0
-		LOCALS += "overflowing ass"
+		LOCALS += "满溢而出的屁股"
 	CASE 1
-		LOCALS += "jaw-droppingly huge ass"
+		LOCALS += "令人瞠目结舌的巨大屁股"
 	CASE 2
-		LOCALS += "colossal ass"
+		LOCALS += "巨大的屁股"
 	CASE 3
-		LOCALS += "titanic ass"
+		LOCALS += "庞然巨臀"
 	ENDSELECT
 ELSEIF TALENT:ARG:ヒップサイズ == 3
 	SELECTCASE RAND:4
 	CASE 0
-		LOCALS += "enormous ass"
+		LOCALS += "超大的屁股"
 	CASE 1
-		LOCALS += "massive ass"
+		LOCALS += "厚实的屁股"
 	CASE 2
-		LOCALS += "gigantic ass"
+		LOCALS += "硕大的屁股"
 	CASE 3
-		LOCALS += "extremely huge ass"
+		LOCALS += "极度巨大的屁股"
 	ENDSELECT
 ELSEIF TALENT:ARG:ヒップサイズ == 2
 	SELECTCASE RAND:4
 	CASE 0
-		LOCALS += "extremely well-padded ass"
+		LOCALS += "肉感十足的屁股"
 	CASE 1
-		LOCALS += "huge ass"
+		LOCALS += "大屁股"
 	CASE 2
-		LOCALS += "impressively large ass"
+		LOCALS += "大得惊人的屁股"
 	CASE 3
-		LOCALS += "extremely voluptuous ass"
+		LOCALS += "极度丰满的屁股"
 	ENDSELECT
 ELSEIF TALENT:ARG:ヒップサイズ == 1
 	SELECTCASE RAND:4
 	CASE 0
-		LOCALS += "well-padded ass"
+		LOCALS += "肉肉的屁股"
 	CASE 1
-		LOCALS += "plentiful ass"
+		LOCALS += "丰腴的屁股"
 	CASE 2
-		LOCALS += "plump ass"
+		LOCALS += "圆润的屁股"
 	CASE 3
-		LOCALS += "voluptuous ass"
+		LOCALS += "丰满的屁股"
 	;Removed "child-bearing" since it could sort of duplicate
 	ENDSELECT
 ELSEIF TALENT:ARG:ヒップサイズ == 0
@@ -8529,14 +7808,14 @@ ENDIF
 IF PALAM:ARG:欲情 >= PALAMLV:4 && !RAND:6
 	;Nopan should block this, but somehow doesn't
 	IF CFLAG:ARG:没穿内裤 || STRCOUNT(TOLOWER(PANTSNAME(EQUIP:ARG:下半身内衣２, ARG)), "no underwear") >= 1
-		LOCALS += " dripping with beads of sweat"
+		LOCALS += "滴着汗珠"
 	ELSE
-		LOCALS += @", %HE_SHE_CN(ARG)% %PANTSNAME(EQUIP:ARG:下半身内衣２, ARG)% clinging to the skin, transparent with sweat"
+		LOCALS += @", %HE_SHE_CN(ARG)% %PANTSNAME(EQUIP:ARG:下半身内衣２, ARG)%紧贴肌肤，被汗浸透变得透明"
 	ENDIF
 ELSEIF !RAND:5 && EXP:ARG:出産経験 && TALENT:ARG:ヒップサイズ <= 0
-	LOCALS += @" that belies her having given birth to {EXP:ARG:出産経験} children"
+	LOCALS += @"与其生过{EXP:ARG:出産経験}个孩子的经历不符"
 ELSEIF !RAND:5 && TALENT:ARG:ヒップサイズ > 0
-	LOCALS += " that seems made to rear children"
+	LOCALS += "仿佛天生就是为了养育孩子"
 ENDIF
 IF LOCALS == LOCALS:1 && !ARG:1 ;If it is about to return the same thing in a row
 	FOR LOCAL, 0, 3
@@ -8563,23 +7842,23 @@ SIF !HAS_PENIS(ARG)
 	RETURNF @"strapon%COND_STR("s", ARG:3)%"
 ;地の文と辻褄合わせが必要なのでとりあえず汚れ描写は保留
 ;[SKIPSTART]
-IF GETBIT(STAIN:ARG:2,64)
+IF GETBIT(STAIN:ARG:2,6)
 	LOCALS = 破瓜血
 	LOCAL ++
 ENDIF
-IF GETBIT(STAIN:ARG:2,8)
+IF GETBIT(STAIN:ARG:2,3)
 	SIF LOCAL
 		LOCALS += "和"
 	LOCALS += "腸液"
 	LOCAL ++
 ENDIF
-IF GETBIT(STAIN:ARG:2,4)
+IF GETBIT(STAIN:ARG:2,2)
 	SIF LOCAL
 		LOCALS += "和"
 	LOCALS += "精液"
 	LOCAL ++
 ENDIF
-IF GETBIT(STAIN:ARG:2,1)
+IF GETBIT(STAIN:ARG:2,0)
 	SIF LOCAL
 		LOCALS += "和"
 	LOCALS += "愛液"
@@ -8755,133 +8034,6 @@ CALL AddEXP("接吻経験", ARG, 1)
 @DAYEVENT_COND_LEWD(ARG)
 #FUNCTION
 RETURNF GROUPMATCH(ARG, 1, 2, 3, 10)
-
-;===================================================
-
-; @DIALOGUE_GROUP_SEX(ARG,ARG:1=-1,ARG:2=-1,ARG:3=-1,ARG:4=-1,ARG:5=-1,Part1,Part2,SexCount,ExposureGain,SadoMasoGain,UnawareGain,WaitAfter=1,FavorGain=1)
-; #DIM DYNAMIC Character1
-; #DIM DYNAMIC Character2
-; #DIM DYNAMIC Character3
-; #DIM DYNAMIC Character4
-; #DIM DYNAMIC Character5
-; #DIM DYNAMIC Character6
-; #DIM DYNAMIC Part1
-; #DIM DYNAMIC Part2
-; #DIM DYNAMIC SexCount
-; #DIM DYNAMIC ExposureGain
-; #DIM DYNAMIC SadoMasoGain
-; #DIM DYNAMIC UnawareGain
-; #DIM DYNAMIC WaitAfter
-; #DIM DYNAMIC FavorGain
-; #DIM DYNAMIC SexCountActual
-; #DIM DYNAMIC CharacterCount
-; #DIM DYNAMIC OutputMode
-; OutputMode = 0
-; SIF WaitAfter == -1
-; 	OutputMode = -1
-; Character1 = ARG
-; Character2 = ARG:1
-; Character3 = ARG:2
-; Character4 = ARG:3
-; Character5 = ARG:4
-; Character6 = ARG:5
-; SIF Character1 < 0
-; 	RETURN 0
-; IF SexCount
-; 	SexCountActual = SexCount
-; ELSEIF !Part1 && !Part2
-; 	SexCountActual = MAX(BASE:Character1:気力/300,1)
-; ELSE
-; 	SexCountActual = MAX(BASE:Character1:気力/50,1)
-; ENDIF
-; IF Character6 > -1
-; 	CharacterCount = 6
-; ELSEIF Character5 > -1
-; 	CharacterCount = 5
-; ELSEIF Character4 > -1
-; 	CharacterCount = 4
-; ELSEIF Character3 > -1
-; 	CharacterCount = 3
-; ELSE
-; 	CharacterCount = 2
-; ENDIF
-; SexCountActual = MAX(SexCountActual/(CharacterCount-1),1)
-; FOR LOCAL, 1, CharacterCount
-; 	IF LOCAL < CharacterCount-1
-; 		CALL DIALOGUE_SEX(Character1,ARG:LOCAL,Part1,Part2,SexCountActual,ExposureGain,SadoMasoGain,UnawareGain,OutputMode,FavorGain)
-; 	ELSE
-; 		CALL DIALOGUE_SEX(Character1,ARG:LOCAL,Part1,Part2,SexCountActual,ExposureGain,SadoMasoGain,UnawareGain,WaitAfter,FavorGain)
-; 	ENDIF
-; NEXT
-
-;===================================================
-
-@NUM_COUNT(ARG, ARGS = "num", ARG:1)
-#FUNCTIONS
-
-LOCALS =
-
-IF ARG < 0
-	LOCALS '= "minus "
-ENDIF
-ARG = ABS(ARG)
-SIF ARG >= 100000
-	RETURNF LOCALS + "a lot"
-
-IF ARG >= 1000
-	IF ARG/1000 < 20
-		LOCALS += nCountUnderTwenty:(ARG/1000) + " thousand"
-	ELSE
-		LOCALS += nCountTens:(ARG/10000) + ( (ARG/1000)%10 != 0 ? "-" + nCountUnderTwenty:((ARG/1000)%10) # "") + " thousand"
-	ENDIF
-ENDIF
-
-IF ARG >= 100 
-	;IF ARG >= 1000 && ARG % 1000 != 0
-	;	LOCALS += ", "
-	;ENDIF
-	IF ARG >= 1000 && ARG % 1000 != 0
-		IF ARG*10%10000 % 1000 == 0
-			LOCALS += " and "
-		ELSEIF ARG*10%10000 > 1000
-			LOCALS += ", "
-		ENDIF
-	ENDIF
-
-	ARG = ARG % 1000
-	IF ( !STRLENS(LOCALS) || ARG >= 100) 
-		LOCALS += nCountUnderTwenty:(ARG/100) + " hundred"
-	ENDIF
-	IF ARG % 100 != 0
-		LOCALS += " and "
-		ARG = ARG % 100
-	ELSEIF ARGS != "num"
-		LOCALS += "th"
-	ENDIF
-ENDIF
-
-IF (ARG % 100) < 20
-	IF (ARG%100 == 0)
-		IF !STRLENS(LOCALS)
-			RETURNF "zero"
-		ENDIF
-	ELSE
-		LOCALS += (ARGS == "num" ? nCountUnderTwenty:(ARG%100) # nCountPosUnderTwenty:(ARG%100) )
-	ENDIF
-ELSEIF ARG % 10 == 0 && ARGS != "num"
-	LOCALS += nCountPosTens:((ARG%100)/10)
-ELSE
-	LOCALS += nCountTens:((ARG%100)/10) + ( (ARG%10!=0) ? "-"+(ARGS == "num" ? nCountUnderTwenty:(ARG%10) # nCountPosUnderTwenty:(ARG%10) )# "")
-ENDIF
-
-SELECTCASE ARG:1
-	CASE 1
-		LOCALS '= CAPITALIZE(LOCALS)
-	CASE 2
-		LOCALS '= CAP_WORD(LOCALS)
-ENDSELECT
-		
-RETURNF LOCALS
 
 ;===================================================
 
@@ -9100,1227 +8252,6 @@ SELECTCASE ARG
 ENDSELECT
 RETURNF LOCALS + NAME_FROM_PLACE(ARG)
 
-;===================================================
-
-@GIFT_ADJECTIVE_TR(ARGS)
-#FUNCTIONS
-SELECTCASE ARGS
-	CASE "シンプルな"
-		LOCALS = simplistic
-	CASE "キュートな"
-		LOCALS = cute
-	CASE "アンティークな"
-		LOCALS = antique
-	CASE "ゴシックな"
-		LOCALS = gothic
-	CASE "ポップな"
-		LOCALS = pop
-	CASE "モダンな"
-		LOCALS = modern
-	CASE "レトロな"
-		LOCALS = retro-style
-	CASE "ミステリアスな"
-		LOCALS = mysterious
-	CASE "オリエンタルな"
-		LOCALS = oriental
-	CASE "ユニークな"
-		LOCALS = unique
-	CASE "ブランド的"
-		LOCALS = brand
-	CASE "ゴージャスな"
-		LOCALS = gorgeous
-	CASE "ファンシーな"
-		LOCALS = fancy
-	CASE "ホラーな"
-		LOCALS = horrific
-	CASE "中世風的"
-		LOCALS = feudal-era
-	CASE "和風的"
-		LOCALS = Japanese-style
-	CASE "南国風的"
-		LOCALS = tropical-style
-	CASE "民族風的"
-		LOCALS = ethnic-style
-	CASE "大陸風的"
-		LOCALS = Chinese-style
-	CASE "北欧風的"
-		LOCALS = Nordic-style
-	CASE "異国風的"
-		LOCALS = foreign-style
-	CASE "美しい"
-		LOCALS = lovely 
-	CASE "大陸風"
-		LOCALS = continental 
-	CASE "美麗な"
-		LOCALS = beautiful
-	CASE "瀟洒な"
-		LOCALS = elegant
-	CASE "幽玄な" ;subtle and profound
-		LOCALS = ethereal
-	CASE "侘寂な"
-		LOCALS = wabisabi
-	CASE "魅惑的"
-		LOCALS = captivating
-	CASE "妖艶な"
-		LOCALS = bewitching
-	CASE "イカす"
-		LOCALS = cool
-	CASE "オシャレな"
-		LOCALS = stylish
-	CASE "ナウい"
-		LOCALS = trendy
-	CASE "神秘的な"
-		LOCALS = esoteric
-	CASE "芸術的な"
-		LOCALS = artistic
-	CASE "絢爛たる"
-		LOCALS = dazzling
-	CASE "奇妙な"
-		LOCALS = bizarre
-	CASE "怪奇な"
-		LOCALS = strange
-	CASE "不気味な"
-		LOCALS = creepy
-	CASE "不思議な"
-		LOCALS = marvelous
-	CASE "ダークな"
-		LOCALS = dark-style
-	CASE "愉快な"
-		LOCALS = funny
-	CASE "前衛的な"
-		LOCALS = avant-garde
-	CASE "パンクな"
-		LOCALS = punk
-	CASE "コズミックな"
-		LOCALS = cosmic
-	CASE "レトロフューチャーな"
-		LOCALS = retro-futuristic
-	CASE "近未来風的"
-		LOCALS = futuristic style
-	CASE "オカルティックな"
-		LOCALS = occult
-	CASE "クレイジーな"
-		LOCALS = crazy
-	CASE "パンデモニックな"
-		LOCALS = pandemonic
-	CASE "エニグマティクな"
-		LOCALS = enigmatic
-	CASE "マニアックな"
-		LOCALS = maniacal
-	CASE "モノクロ的"
-		LOCALS = black and white
-	CASE "カラフルな"
-		LOCALS = colorful
-	CASE "セピア的"
-		LOCALS = sepia
-	CASE "透明な"
-		LOCALS = transparent
-	CASE "真紅的"
-		LOCALS = crimson
-	CASE "漆黒的"
-		LOCALS = jet-black
-	CASE "純白的"
-		LOCALS = pure white
-	CASE "白銀的"
-		LOCALS = silver-white
-	CASE "瑠璃色的"
-		LOCALS = lapis lazuli-blue
-	CASE "浅葱色的"
-		LOCALS = pale blue-green
-	CASE "橘色的"
-		LOCALS = mandarin-colored
-	CASE "七色的"
-		LOCALS = rainbow-colored
-	CASE "極彩的"
-		LOCALS = radiant
-	CASE "永遠に紅い"
-		LOCALS = eternally red
-	CASE "ハート的"
-		LOCALS = heart
-	CASE "精神"
-		LOCALS = spirit
-	CASE "音符的"
-		LOCALS = clef
-	CASE "十字型的"
-		LOCALS = cross-shaped
-	CASE "星型的"
-		LOCALS = star-shaped
-	CASE "うずまき的"
-		LOCALS = whirlpool
-	CASE "幾何学模様的"
-		LOCALS = geometrically patterned
-	CASE "水玉的"
-		LOCALS = polka dotted
-	CASE "キャンディ的"
-		LOCALS = candy
-	CASE "ドクロ的"
-		LOCALS = skull
-	CASE "瞳的"
-		LOCALS = shut-eyed
-	CASE "タマゴ的"
-		LOCALS = egg-like
-	CASE "翼的"
-		LOCALS = winged
-	CASE "錨的"
-		LOCALS = anchor
-	CASE "鬼形的"
-		LOCALS = beast-shaped
-	CASE "キャラクター的"
-		LOCALS = namesake
-	CASE "ゆるキャラ的"
-		LOCALS = mascot's
-	CASE "怪獣的"
-		LOCALS = kaijuu's
-	CASE "怪物的"
-		LOCALS = monster's
-	CASE "魔法少女的"
-		LOCALS = magical girl's
-	CASE "ヒーロー的"
-		LOCALS = hero's
-	CASE "ゆきだるま的"
-		LOCALS = snowman's
-	CASE "はにわ的"
-		LOCALS = haniwa's
-	CASE "伝説的"
-		LOCALS = legendary
-	CASE "古的"
-		LOCALS = antiquated
-	CASE "太古的"
-		LOCALS = ancient
-	CASE "始原的"
-		LOCALS = primordial
-	CASE "懐かしき"
-		LOCALS = nostalgic
-	CASE "神さびた"
-		LOCALS = majestic
-	CASE "千年的"
-		LOCALS = millennial
-	CASE "神代的"
-		LOCALS = divine
-	CASE "過去的"
-		LOCALS = reincarnated
-	CASE "木的"
-		LOCALS = wooden
-	CASE "竹的"
-		LOCALS = bamboo
-	CASE "石的"
-		LOCALS = stone
-	CASE "青銅的"
-		LOCALS = bronze
-	CASE "鉄的"
-		LOCALS = iron
-	CASE "銀的"
-		LOCALS = silver
-	CASE "黄金的"
-		LOCALS = golden
-	CASE "翠玉的"
-		LOCALS = emerald
-	CASE "紅玉的"
-		LOCALS = ruby
-	CASE "青玉的"
-		LOCALS = sapphire
-	CASE "金剛石的"
-		LOCALS = diamond
-	CASE "翡翠的"
-		LOCALS = jade
-	CASE "黄玉的"
-		LOCALS = topaz
-	CASE "琥珀的"
-		LOCALS = amber
-	CASE "紺珠的"
-		LOCALS = ultramarine
-	CASE "白金的"
-		LOCALS = platinum
-	CASE "猫目石的"
-		LOCALS = cat's-eye
-	CASE "黒曜石的"
-		LOCALS = obsidian
-	CASE "黒玉的"
-		LOCALS = jet
-	CASE "白亜的"
-		LOCALS = chalk
-	CASE "瑪瑙的"
-		LOCALS = agate
-	CASE "真鍮的"
-		LOCALS = brass
-	CASE "電気石的"
-		LOCALS = tourmaline
-	CASE "柘榴石的"
-		LOCALS = garnet
-	CASE "蛍石的"
-		LOCALS = fluorite
-	CASE "月長石的"
-		LOCALS = moonstone
-	CASE "太陽石的"
-		LOCALS = sunstone
-	CASE "宝石的"
-		LOCALS = bejeweled
-	CASE "骨的"
-		LOCALS = bone
-	CASE "鋼鉄的"
-		LOCALS = steel
-	CASE "プラスチック的"
-		LOCALS = plastic
-	CASE "ガラス的"
-		LOCALS = glass
-	CASE "クリスタル的"
-		LOCALS = crystal
-	CASE "オリハルコン的"
-		LOCALS = orichalcum
-	CASE "メテオライト的"
-		LOCALS = meteorite
-	CASE "セラミック的"
-		LOCALS = ceramic
-	CASE "ミスリル的"
-		LOCALS = mithril
-	CASE "精霊銀的"
-		LOCALS = soul-silver
-	CASE "魔石的"
-		LOCALS = magic stone
-	CASE "要石的"
-		LOCALS = keystone
-	CASE "サンゴ的"
-		LOCALS = coral
-	CASE "貝殻的"
-		LOCALS = seashell
-	CASE "真珠的"
-		LOCALS = pearl
-	CASE "ふにゃふにゃ的"
-		LOCALS = flabby
-	CASE "つるつる的"
-		LOCALS = slippery
-	CASE "木綿的"
-		LOCALS = cotton
-	CASE "絹的"
-		LOCALS = silk
-	CASE "麻的"
-		LOCALS = hemp
-	CASE "蜘蛛糸的"
-		LOCALS = spider silk
-	CASE "注連縄的"
-		LOCALS = shimenawa
-	CASE "フェムトファイバー的"
-		LOCALS = femtofiber
-	CASE "鎖的"
-		LOCALS = chain
-	CASE "茨的"
-		LOCALS = thorny
-	CASE "ふかふか的"
-		LOCALS = soft
-	CASE "ふわふわ的"
-		LOCALS = fluffy
-	CASE "もこもこ的"
-		LOCALS = lumpy
-	CASE "ふさふさ的"
-		LOCALS = tufty
-	CASE "もふもふ的"
-		LOCALS = fuzzy
-	CASE "にょろにょろ的"
-		LOCALS = slick
-	CASE "獣的"
-		LOCALS = beastly
-	CASE "サクラ的"
-		LOCALS = cherry blossom
-	CASE "バラ的"
-		LOCALS = rose
-	CASE "ヒマワリ的"
-		LOCALS = sunflower
-	CASE "スミレ的"
-		LOCALS = violet
-	CASE "ユリ的"
-		LOCALS = lily
-	CASE "キク的"
-		LOCALS = chrysanthemum
-	CASE "アジサイ的"
-		LOCALS = hydrangea
-	CASE "スズラン的"
-		LOCALS = lily of the valley
-	CASE "カエデ的"
-		LOCALS = maple
-	CASE "キノコ的"
-		LOCALS = mushroom
-	CASE "リンゴ的"
-		LOCALS = apple
-	CASE "モモ的"
-		LOCALS = peach
-	CASE "オレンジ的"
-		LOCALS = orange
-	CASE "イチゴ的"
-		LOCALS = strawberry
-	CASE "ブドウ的"
-		LOCALS = grape
-	CASE "サクランボ的"
-		LOCALS = cherry
-	CASE "スイカ的"
-		LOCALS = watermelon
-	CASE "キュウリ的"
-		LOCALS = cucumber
-	CASE "四葉的"
-		LOCALS = four leaves
-	CASE "紅葉的"
-		LOCALS = autumn leaf
-	CASE "葉っぱ的"
-		LOCALS = leaf
-	CASE "妖精的"
-		LOCALS = fairy's
-	CASE "妖怪的"
-		LOCALS = youkai's
-	CASE "妖魔的"
-		LOCALS = youma's
-	CASE "幻獣的"
-		LOCALS = cryptid's
-	CASE "河童的"
-		LOCALS = kappa's
-	CASE "天狗的"
-		LOCALS = tengu's
-	CASE "鬼的"
-		LOCALS = oni's
-	CASE "人魚的"
-		LOCALS = mermaid's
-	CASE "小人的"
-		LOCALS = inchling's
-	CASE "氷精的"
-		LOCALS = ice spirit's
-	CASE "白蛇的"
-		LOCALS = mishaguji's
-	CASE "鳳凰的"
-		LOCALS = Chinese phoenix's
-	CASE "天馬的"
-		LOCALS = pegasus'
-	CASE "龍的"
-		LOCALS = great serpent's
-	CASE "海神的"
-		LOCALS = sea god's
-	CASE "水神的"
-		LOCALS = water god's
-	CASE "龍神的"
-		LOCALS = dragon god's
-	CASE "天使的"
-		LOCALS = angel's
-	CASE "悪魔的"
-		LOCALS = demon's
-	CASE "ドラゴン的"
-		LOCALS = dragon's
-	CASE "亡霊的"
-		LOCALS = ghost's
-	CASE "死霊的"
-		LOCALS = departed soul's
-	CASE "地霊的"
-		LOCALS = Chireiden's
-	CASE "死神的"
-		LOCALS = shinigami's
-	CASE "魔女的"
-		LOCALS = witch's
-	CASE "紅魔的"
-		LOCALS = scarlet devil's
-	CASE "神霊的"
-		LOCALS = divine spirit's
-	CASE "風神的"
-		LOCALS = wind god's
-	CASE "雷神的"
-		LOCALS = thunder god's
-	CASE "魔神的"
-		LOCALS = devil's
-	CASE "仙人的"
-		LOCALS = hermit's
-	CASE "天人的"
-		LOCALS = celestial's
-	CASE "天女的"
-		LOCALS = nymph's
-	CASE "女神的"
-		LOCALS = goddess'
-	CASE "冥王的"
-		LOCALS = emperor's
-	CASE "メイド的"
-		LOCALS = maid's
-	CASE "騎士的"
-		LOCALS = knight's
-	CASE "王女的"
-		LOCALS = princess'
-	CASE "女王的"
-		LOCALS = queen's
-	CASE "王者的"
-		LOCALS = king's
-	CASE "酔神的"
-		LOCALS = drunken god's
-	CASE "呑んべぇ的"
-		LOCALS = drunkard's
-	CASE "酔人的"
-		LOCALS = heavy drinker's
-	CASE "賢者的"
-		LOCALS = sage's
-	CASE "巫女的"
-		LOCALS = shrine maiden's
-	CASE "式神的"
-		LOCALS = shikigami's
-	CASE "憑坐的"
-		LOCALS = paper doll's
-	CASE "火的"
-		LOCALS = fire
-	CASE "水的"
-		LOCALS = water
-	CASE "土的"
-		LOCALS = earth
-	CASE "風的"
-		LOCALS = wind
-	CASE "氷的"
-		LOCALS = icy
-	CASE "炎的"
-		LOCALS = flame
-	CASE "大地的"
-		LOCALS = earthly
-	CASE "天空的"
-		LOCALS = heavenly
-	CASE "光的"
-		LOCALS = light
-	CASE "闇的"
-		LOCALS = dark
-	CASE "太陽的"
-		LOCALS = solar
-	CASE "星的"
-		LOCALS = star
-	CASE "月的"
-		LOCALS = moon
-	CASE "雲的"
-		LOCALS = cloud
-	CASE "雨的"
-		LOCALS = rain
-	CASE "霞的"
-		LOCALS = mist
-	CASE "霧的"
-		LOCALS = fog
-	CASE "雪的"
-		LOCALS = snow
-	CASE "雷的"
-		LOCALS = lightning
-	CASE "嵐的"
-		LOCALS = storm
-	CASE "虹的"
-		LOCALS = rainbow
-	CASE "森的"
-		LOCALS = forest
-	CASE "花的"
-		LOCALS = flower
-	CASE "華的"
-		LOCALS = blossoming
-	CASE "海的"
-		LOCALS = sea
-	CASE "山的"
-		LOCALS = mountain
-	CASE "凍った"
-		LOCALS = frozen
-	CASE "燃える"
-		LOCALS = burning
-	CASE "核熱的"
-		LOCALS = nuclear-heated
-	CASE "氷結的"
-		LOCALS = freezing
-	CASE "東方的"
-		LOCALS = eastern
-	CASE "故郷的"
-		LOCALS = native
-	CASE "聖域的"
-		LOCALS = consecrated
-	CASE "世界的"
-		LOCALS = worldly
-	CASE "地上的"
-		LOCALS = groundly
-	CASE "冥界的"
-		LOCALS = netherworldly
-	CASE "霊界的"
-		LOCALS = Reikai's
-	CASE "冥府的"
-		LOCALS = Meifu's
-	CASE "彼岸的"
-		LOCALS = Higan's
-	CASE "幽明的"
-		LOCALS = Yuumei's
-	CASE "非想非非想的"
-		LOCALS = Hisouhihisou's
-	CASE "星界的"
-		LOCALS = starworldly
-	CASE "蓬莱的"
-		LOCALS = Hourai's
-	CASE "地獄的"
-		LOCALS = Hell's
-	CASE "廃獄的"
-		LOCALS = Deserted Hell's
-	CASE "地底的"
-		LOCALS = Underworld's
-	CASE "深淵的"
-		LOCALS = Abyss'
-	CASE "魔界的"
-		LOCALS = Makai's
-	CASE "法界的"
-		LOCALS = Hokkai's
-	CASE "後戸的"
-		LOCALS = Back Door's
-	CASE "異界的"
-		LOCALS = Otherworld's
-	CASE "外界的"
-		LOCALS = Outerworld's
-	CASE "鏡的国的"
-		LOCALS = Mirrorworld's
-	CASE "博霊的"
-		LOCALS = Hakurei's
-	CASE "守矢的"
-		LOCALS = Moriya's
-	CASE "畜生界的"
-		LOCALS = Animal Realm's
-	CASE "黄泉的"
-		LOCALS = Yomi's
-	CASE "魔法的"
-		LOCALS = witching
-	CASE "魔力的"
-		LOCALS = magic
-	CASE "霊力的"
-		LOCALS = sacred
-	CASE "幽霊的"
-		LOCALS = phantom's
-	CASE "七曜的"
-		LOCALS = luminarian
-	CASE "ルーン的"
-		LOCALS = rune
-	CASE "輝き的"
-		LOCALS = glittering
-	CASE "神秘的"
-		LOCALS = arcane
-	CASE "聖なる"
-		LOCALS = holy
-	CASE "祝福された"
-		LOCALS = blessed
-	CASE "豊穣的"
-		LOCALS = fertile
-	CASE "封魔的"
-		LOCALS = demon-sealing
-	CASE "封呪的"
-		LOCALS = curse-sealing
-	CASE "守護的"
-		LOCALS = guardian's
-	CASE "不滅的"
-		LOCALS = immortal's
-	CASE "完全なる"
-		LOCALS = perfect
-	CASE "穢れなき"
-		LOCALS = pristine
-	CASE "純粋な"
-		LOCALS = pure
-	CASE "邪悪な"
-		LOCALS = wicked
-	CASE "不吉な"
-		LOCALS = ominous
-	CASE "厄い"
-		LOCALS = unlucky
-	CASE "危険な"
-		LOCALS = dangerous
-	CASE "血的"
-		LOCALS = blood
-	CASE "毒的"
-		LOCALS = poison
-	CASE "呪われた"
-		LOCALS = cursed
-	CASE "呪詛的"
-		LOCALS = hexed
-	CASE "殺意的"
-		LOCALS = murderous
-	CASE "血に飢えた"
-		LOCALS = bloodthirsty
-	CASE "禁断的"
-		LOCALS = forbidden
-	CASE "禁忌的"
-		LOCALS = taboo
-	CASE "封印されし"
-		LOCALS = sealed
-	CASE "機械仕掛け的"
-		LOCALS = mechanized
-	CASE "最新鋭的"
-		LOCALS = state of the art
-	CASE "からくり的"
-		LOCALS = karakuri
-	CASE "伝来的"
-		LOCALS = ancestral
-	CASE "変形型"
-		LOCALS = deformed
-	CASE "光学技術/的"
-		LOCALS = optical
-	CASE "造形術的"
-		LOCALS = modeling
-	CASE "電子工学的"
-		LOCALS = electronic
-	CASE "ナノテクノロジー的"
-		LOCALS = nanotech
-	CASE "ロストテクノロジー的"
-		LOCALS = lost tech
-	CASE "光学技術的"
-		LOCALS = optical tech
-	CASE "量子的"
-		LOCALS = quantum
-	CASE "暗器仕込み的"
-		LOCALS = concealment
-	CASE "スチームパンク的"
-		LOCALS = steampunk
-	CASE "歩く"
-		LOCALS = walking
-	CASE "動く"
-		LOCALS = moving
-	CASE "蠢く"
-		LOCALS = wriggling
-	CASE "歌う"
-		LOCALS = singing
-	CASE "踊る"
-		LOCALS = hopping
-	CASE "奏でる"
-		LOCALS = playing
-	CASE "浮かぶ"
-		LOCALS = floating
-	CASE "幻想的"
-		LOCALS = fantasy
-	CASE "永遠的"
-		LOCALS = eternal
-	CASE "悠久的"
-		LOCALS = perpetual
-	CASE "夢幻的"
-		LOCALS = Mugen's
-	CASE "音的"
-		LOCALS = noisy
-	CASE "旋律的"
-		LOCALS = melodious
-	CASE "舞踊的"
-		LOCALS = dancing
-	CASE "知恵的"
-		LOCALS = wise
-	CASE "知識的"
-		LOCALS = knowledgeable
-	CASE "記憶的"
-		LOCALS = recollecting
-	CASE "謎的"
-		LOCALS = puzzling
-	CASE "未知的"
-		LOCALS = unknown
-	CASE "魅知的"
-		LOCALS = enchanted
-	CASE "霊知的"
-		LOCALS = mystic
-	CASE "平和的"
-		LOCALS = peaceful
-	CASE "刹那的"
-		LOCALS = momentary
-	CASE "須臾的"
-		LOCALS = instantaneous
-	CASE "力的"
-		LOCALS = forceful
-	CASE "肉体的"
-		LOCALS = bodily
-	CASE "心的"
-		LOCALS = mental
-	CASE "精神的"
-		LOCALS = spiritual
-	CASE "魂的"
-		LOCALS = soulful
-	CASE "愛的"
-		LOCALS = loving
-	CASE "涙的"
-		LOCALS = crying
-	CASE "運命的"
-		LOCALS = fateful 
-	CASE "理的"
-		LOCALS = reasoning
-	CASE "夢的"
-		LOCALS = dreamy
-	CASE "眠り的"
-		LOCALS = sleepy
-	CASE "死的"
-		LOCALS = deathly
-	CASE "無的"
-		LOCALS = hollow
-	CASE "虚空的"
-		LOCALS = empty
-	CASE "幻的"
-		LOCALS = 幻的
-	CASE "幻影的"
-		LOCALS = illusionary
-	CASE "蜃気楼的"
-		LOCALS = mirage
-	CASE "歓び的"
-		LOCALS = joyous
-	CASE "安らぎ的"
-		LOCALS = tranquil
-	CASE "嫉妬的"
-		LOCALS = jealous
-	CASE "慈愛的"
-		LOCALS = affectionate
-	CASE "奇跡的"
-		LOCALS = miraculous
-	CASE "究極的"
-		LOCALS = ultimate
-	CASE "最後的"
-		LOCALS = final
-	CASE "恋色的"
-		LOCALS = Love-colored
-	CASE "小さな小さな"
-		LOCALS = tiny little
-	CASE "厳つがましい"
-		LOCALS = grim
-	CASE "正体不明的"
-		LOCALS = unidentifiable
-	CASE "逆転する"
-		LOCALS = reversing
-	CASE "トリニタリアンな"
-		LOCALS = trinitarian
-	CASE "秘匿された"
-		LOCALS = hidden
-	CASE "ダサい"
-		LOCALS = lame
-	CASE "ボロい"
-		LOCALS = worn-out
-	CASE "古びた"
-		LOCALS = old
-	CASE "粗末な"
-		LOCALS = crude
-	CASE "欠けた"
-		LOCALS = chipped
-	CASE "歪んだ"
-		LOCALS = warped
-	CASE "偽物的"
-		LOCALS = fake
-	CASE "逆さま的"
-		LOCALS = upside down
-	CASE "錆びた"
-		LOCALS = rusted
-	CASE "壊れた"
-		LOCALS = broken
-	CASE "おもちゃ的"
-		LOCALS = toy
-	CASE "砂漠的"
-		LOCALS = desert
-	CASE "回る"
-		LOCALS = rotating
-	CASE "山吹的"
-		LOCALS = bright yellow
-	CASE "空色的"
-		LOCALS = azure
-	CASE "マーブルな"
-		LOCALS = marble
-	CASE "やみかわな"
-		LOCALS = sickly cute
-	CASE "ゆめかわな"
-		LOCALS = girly cute
-	CASE "深緑的"
-		LOCALS = dark green
-	CASE "反射的"
-		LOCALS = reflective
-	CASE "ダマスカス的"
-		LOCALS = Damascus
-	CASE "毛皮的"
-		LOCALS = fur
-	CASE "魔彩光的"
-		LOCALS = magically luminous
-	CASE "緋緋色金的"
-		;mythical Japanese alloy that is said to glow in a way that resembles flames
-		LOCALS = Hihirogane
-	CASE "喋る"
-		LOCALS = talking
-	CASE "大樹的"
-		LOCALS = big tree's
-	CASE "ピンク的"
-		LOCALS = pink-colored
-	CASE "星砂的"
-		LOCALS = star sand
-	CASE "消える"
-		LOCALS = fading
-	CASE "白雪的"
-		LOCALS = snow-white
-	CASE "神話的"
-		LOCALS = mythical
-	CASE "高貴な"
-		LOCALS = noble
-	CASE "感情的"
-		LOCALS = emotional
-	CASE "失われた"
-		LOCALS = lost
-	CASE "神々が恋した"
-		LOCALS = divinely favored
-	CASE "灰的"
-		LOCALS = ashen
-	CASE "無間的"
-		LOCALS = dimensionless
-	CASE "強欲な"
-		LOCALS = greedy
-	CASE "剛欲な"
-		LOCALS = avaricious
-	CASE "深紫的"
-		LOCALS = deep purple
-	CASE "痺れる"
-		LOCALS = numbing
-	CASE "千里的"
-		LOCALS = swift traveler's
-	CASE "忘れられた"
-		LOCALS = forgotten
-	CASE "龍珠的" 
-		LOCALS = Dragon Gem
-	CASE "煙的"
-		LOCALS = smoky
-	CASE "月虹的"
-		LOCALS = moonbow
-	CASE "職人仕立て的"
-		LOCALS = masterwork
-	CASE "世界に一つだけ的"
-		LOCALS = one of a kind
-	CASE "輝く"
-		LOCALS = shiny
-	CASE "ギラついた" ;sparkly
-		LOCALS = glistening
-	CASE "流行り的"
-		LOCALS = vogue
-	CASE "上品な"
-		LOCALS = premium
-	CASE "シュールな"
-		LOCALS = surreal
-	CASE "儚い"
-		LOCALS = ephemeral
-	CASE "ワイルドな"
-		LOCALS = wild
-	CASE "メタリックな"
-		LOCALS = metallic
-	CASE "ゲーミング"
-		LOCALS = gaming
-	CASE "秘密的"
-		LOCALS = secret
-	CASE "ぷにぷに的"
-		LOCALS = squishy
-	CASE "ありがたい"
-		LOCALS = gratifying
-	CASE "発光する"
-		LOCALS = luminescent
-	CASE "最強的"
-		LOCALS = almighty
-	CASE "脆い"
-		LOCALS = fragile
-	
-	;special cases where adjective is at the end (tweak at misc.erb for item generation pattern as well)
-	
-	CASE "レアメタル的"
-		;made from rare metals more like
-		LOCALS = of rare metals
-	CASE "夢と現的"
-		LOCALS = of Dreams and Reality
-	CASE "幼心地的"
-		LOCALS = of Child's Mind
-	CASE "妖力的"
-		LOCALS = of spirit power
-	CASE "鬼力的"
-		LOCALS = of demonic power
-	CASE "忘却的"
-		LOCALS = of forgetfulness
-	CASE "憂鬱的"
-		LOCALS = of depression
-	CASE "秩序的"
-		LOCALS = of order
-	CASE "混沌的"
-		LOCALS = of chaos
-	CASE "天輪的"
-		LOCALS = of celestial order
-	CASE "希望的"
-		LOCALS = of hope
-	CASE "勇気的"
-		LOCALS = of courage
-	CASE "幸せ的"
-		LOCALS = of happiness
-	CASE "狂気的"
-		LOCALS = of madness
-	CASE "憤怒的"
-		LOCALS = of anger
-	CASE "恐怖的"
-		LOCALS = of fear
-	CASE "欲望的"
-		LOCALS = of lust
-	CASE "温もり的"
-		LOCALS = of warmth
-	CASE "悲しみ的"
-		LOCALS = of sadness
-	CASE "生と死的"
-		LOCALS = of life and death
-	CASE "生命的"
-		LOCALS = of life
-	CASE "時的"
-		LOCALS = of time
-	CASE "時空的"
-		LOCALS = of space-time
-	CASE "秋風的"
-		LOCALS = of autumn breeze
-	CASE "春風的"
-		LOCALS = of spring breeze
-	CASE "幻葬的" 
-		LOCALS = of Illusionary Funeral
-	CASE "霊天的" 
-		LOCALS = of Spiritual Heaven
-		
-	CASE "鳥的"
-		LOCALS = of the bird
-	CASE "魚的"
-		LOCALS = of the fish
-	CASE "イヌ的"
-		LOCALS = of the dog
-	CASE "ネコ的"
-		LOCALS = of the cat
-	CASE "トラ的"
-		LOCALS = of the tiger
-	CASE "ネズミ的"
-		LOCALS = of the rat
-	CASE "ウシ的"
-		LOCALS = of the cow
-	CASE "ウサギ的"
-		LOCALS = of the rabbit
-	CASE "クマ的"
-		LOCALS = of the bear
-	CASE "ヒツジ的"
-		LOCALS = of the sheep
-	CASE "キツネ的"
-		LOCALS = of the fox
-	CASE "タヌキ的"
-		LOCALS = of the raccoon
-	CASE "オオカミ的"
-		LOCALS = of the wolf
-	CASE "ウマ的"
-		LOCALS = of the horse
-	CASE "バク的"
-		LOCALS = of the baku
-	CASE "カワウソ的"
-		LOCALS = of the otter
-	CASE "カエル的"
-		LOCALS = of the frog
-	CASE "ヘビ的"
-		LOCALS = of the snake
-	CASE "コウモリ的"
-		LOCALS = of the bat
-	CASE "スズメ的"
-		LOCALS = of the sparrow
-	CASE "カラス的"
-		LOCALS = of the crow
-	CASE "ワシ的"
-		LOCALS = of the eagle
-	CASE "タカ的"
-		LOCALS = of the hawk
-	CASE "ニワトリ的"
-		LOCALS = of the chicken
-	CASE "ミミズク的"
-		LOCALS = of the horned owl
-	CASE "カメ的"
-		LOCALS = of the turtle
-	CASE "クラゲ的"
-		LOCALS = of the jellyfish
-	CASE "イルカ的"
-		LOCALS = of the dolphin
-	CASE "クジラ的"
-		LOCALS = of the whale
-	CASE "揚羽蝶的"
-		LOCALS = of the swallowtail butterfly
-	CASE "蓮花蝶的"
-		LOCALS = of the lotus butterfly
-	CASE "黒死蝶的"
-		LOCALS = of the death omen butterfly
-	CASE "魔界蝶的"
-		LOCALS = of the makai butterfly
-	CASE "蜘蛛的"
-		LOCALS = of the spider
-	CASE "毒蛾的"
-		LOCALS = of the poisonous moth
-	CASE "深海魚的"
-		LOCALS = of the deep-sea fish
-	CASE "古代魚的"
-		LOCALS = of the ancient fish
-	CASE "獅子的"
-		LOCALS = of the lion
-	CASE "麒麟的"
-		LOCALS = of the giraffe
-	CASE "パンダ的"
-		LOCALS = of the panda
-	CASE "サル的"
-		LOCALS = of the monkey
-	CASE "チュパカブラ的"
-		LOCALS = of the chupacabra
-	CASE "天界的"
-		LOCALS = of heavens
-	CASE "氷河的"
-		LOCALS = of glacier
-	CASE "稲妻的"
-		LOCALS = of lightning flash
-	CASE "晴天的"
-		LOCALS = of clear sky
-	CASE "暁的"
-		LOCALS = of dawn
-	CASE "夜明け的"
-		LOCALS = of daybreak
-	CASE "日輪的"
-		LOCALS = of sun
-	CASE "幻日的"
-		LOCALS = of sundog
-	CASE "極光的"
-		LOCALS = of northern lights
-	CASE "陽光的"
-		LOCALS = of sunlight
-	CASE "黄昏的"
-		LOCALS = of twilight
-	CASE "宵闇的"
-		LOCALS = of dusk
-	CASE "夜的"
-		LOCALS = of night
-	CASE "夜帳的"
-		LOCALS = of nightfall
-	CASE "永夜的"
-		LOCALS = of eternal night
-	CASE "星空的"
-		LOCALS = of starry sky
-	CASE "星光的"
-		LOCALS = of starlight
-	CASE "真夜中的"
-		LOCALS = of midnight
-	CASE "夜空的"
-		LOCALS = of night sky
-	CASE "月見的"
-		LOCALS = of evening
-	CASE "夕焼け的"
-		LOCALS = of sunset
-	CASE "七星的"
-		LOCALS = of the Big Dipper
-	CASE "彗星的"
-		LOCALS = of comet
-	CASE "星座的"
-		LOCALS = of constellation
-	CASE "星屑的"
-		LOCALS = of stardust
-	CASE "客星的"
-		LOCALS = of guest star
-	CASE "星降る"
-		LOCALS = of starfall
-	CASE "三日月的"
-		LOCALS = of new moon
-	CASE "満月的"
-		LOCALS = of full moon
-	CASE "月輪的"
-		LOCALS = of moon ring
-	CASE "月光的"
-		LOCALS = of moonlight
-	CASE "月影的"
-		LOCALS = of moonshade
-	CASE "四季的"
-		LOCALS = of four seasons
-	CASE "春的"
-		LOCALS = of spring
-	CASE "夏的"
-		LOCALS = of summer
-	CASE "秋的"
-		LOCALS = of autumn
-	CASE "冬的"
-		LOCALS = of winter
-	CASE "業火的"
-		LOCALS = of hellfire
-	CASE "深海的"
-		LOCALS = of deep-sea
-	CASE "疾風的"
-		LOCALS = of gale
-	CASE "神風的"
-		LOCALS = of divine wind
-	CASE "蛍火的"
-		LOCALS = of firefly light
-	CASE "新緑的"
-		LOCALS = of fresh verdure
-	CASE "ヴァカンス的"
-		LOCALS = of vacation
-	CASE "楽園的"
-		LOCALS = of paradise
-	CASE "緋想的"
-		LOCALS = of scarlet weather
-	CASE "陰陽的"
-		LOCALS = of Yin-Yang
-	CASE "霊気的"
-		LOCALS = of aura
-	CASE "風水的"
-		LOCALS = of feng shui
-	CASE "呪術的"
-		LOCALS = of sorcery
-	CASE "幸運的"
-		LOCALS = of good-luck
-	CASE "退魔的"
-		LOCALS = of demon-eradication
-	CASE "喪心的"
-		LOCALS = of stupor
-	CASE "死出的"
-		LOCALS = of untimely death
-	CASE "正義的"
-		LOCALS = of justice
-	CASE "終末的"
-		LOCALS = of doomsday
-	CASE "弾幕的"
-		LOCALS = of Danmaku
-	CASE "救世的"
-		LOCALS = of salvation
-	CASE "悪夢的"
-		LOCALS = of nightmare
-	CASE "絶望的"
-		LOCALS = of despair
-	CASE "裏切り的"
-		LOCALS = of betrayal
-	CASE "孤独的"
-		LOCALS = of isolation
-	CASE "破滅的"
-		LOCALS = of ruin
-	CASE "万物的"
-		LOCALS = of all of creation
-	CASE "真実的"
-		LOCALS = of truth
-	CASE "境界的"
-		LOCALS = of boundary
-	CASE "隙間的"
-		LOCALS = of the Gap
-	CASE "イド的"
-		LOCALS = of id
-	CASE "エゴ的"
-		LOCALS = of ego
-	CASE "紫電的"
-		LOCALS = of purple lightning
-	CASE "閃光的"
-		LOCALS = of flash
-	CASE "機力的"
-		LOCALS = of retry
-	CASE "自由的"
-		LOCALS = of freedom
-	CASE "暗黒的"
-		LOCALS = of darkness
-	CASE "神速的"
-		LOCALS = of speed
-	CASE "怨み的"
-		LOCALS = of resentment
-	CASE "虚無的"
-		LOCALS = of nihility
-	CASE "勝利的"
-		LOCALS = of victory
-	CASE "森閑的"
-		LOCALS = of stillness
-	CASE "蓮華蝶的"
-		LOCALS = lotus flower butterfly's
-	CASE "パワフル"
-		LOCALS = Powerful
-	CASEELSE 
-		RETURNF ARGS
-ENDSELECT
-RETURNF LOCALS
-
-;===================================================
-
-@IS_COM_SEX(ARGS)
-#FUNCTION
-IF GROUPMATCH(ARGS, "tflag", "tflagv", "tflaga")
-	SIF ARGS == "tflagv" || ARGS == "tflag"
-		RETURNF GROUPMATCH(TFLAG:3, 60, 61, 65, 67, 68, 71, 72, 73)
-	SIF ARGS == "tflaga" || ARGS == "tflag"
-		RETURNF GROUPMATCH(TFLAG:3, 62, 63, 66, 69, 70, 74, 75)
-ENDIF
-
-SIF ARGS == "v" || ARGS == ""
-	RETURNF IS_SELECTCOM("正常位/後背位/騎乗位/対面座位/背面座位/二穴挿し/挿入Ｇスポット責め/挿入子宮口責め") || GROUPMATCH(TCVAR:Counter行動, 80, 83, 85)
-SIF ARGS == "a" || ARGS == ""
-	RETURNF IS_SELECTCOM("正常位肛門/後背位肛門/騎乗位肛門/対面座位肛門/背面座位肛門/Ｓ状結腸責め/膣裏責め") || GROUPMATCH(TCVAR:Counter行動, 87)
 
 ;===================================================
 
@@ -11142,44 +9073,6 @@ ENDIF
 
 ;===================================================
 
-; @CHILD_MULTIPLE_COUNT(Character,Child,SameMother=1)
-; 	;Returns the total number of children in the given child's birthing.
-; 	;If SameMother is 0, it will also count children of other characters born on the same day.
-; #FUNCTION
-; #DIM DYNAMIC Character
-; #DIM DYNAMIC Child
-; #DIM DYNAMIC SameMother
-; #DIM DYNAMIC ChildCount
-; SIF Child > CFLAG:Character:兒童人数 || Child < 1
-; 	RETURNF 0
-; FOR LOCAL,1,CFLAG:Character:兒童人数+1
-; 	SIF CHILD_BIRTHDATE:Character:LOCAL == CHILD_BIRTHDATE:Character:Child
-; 		ChildCount++
-; NEXT
-; IF !SameMother
-; 	FOR LOCAL:1,1,CHARANUM
-; 		SIF LOCAL:1 == Character
-; 			CONTINUE
-; 		FOR LOCAL,1,CFLAG:(LOCAL:1):兒童人数+1
-; 			SIF CHILD_BIRTHDATE:(LOCAL:1):LOCAL == CHILD_BIRTHDATE:Character:Child
-; 				ChildCount++
-; 		NEXT
-; 	NEXT
-; ENDIF
-; RETURNF ChildCount
-
-; ;===================================================
-
-; @BABYMULTIAWARE(Character)
-; 	;Returns true if the character would normally be aware that she's carrying more than one child.
-; #FUNCTION
-; #DIM DYNAMIC Character
-; SIF CFLAG:Character:LatestChildCount > 1 && TALENT:Character:PregnancyType && !(TALENT:Character:PregnancyType == 2 && FLAG:EGGNANCY)
-; 	RETURNF 1
-; RETURNF 0
-
-;===================================================
-
 @MUSHI_NAME_TR(ARGS)
 #FUNCTIONS
 SELECTCASE ARGS
@@ -11195,7 +9088,7 @@ SELECTCASE ARGS
 		LOCALS = Chinese Windmill
 	CASE "オオゴマダラ"
 		LOCALS = Tree Nymph Butterfly
-	CASE "オオムラサキ"
+	CASE "オオ村紗キ"
 		LOCALS = Great Purple Emperor
 	CASE "アオバセセリ"
 		LOCALS = Indian Awlking
@@ -11313,7 +9206,7 @@ SELECTCASE ARGS
 		LOCALS = Cissites Cephalotes
 	CASE "ゴミムシ"
 		LOCALS = Ground Beetle
-	CASE "マイマイカブリ"
+	CASE "​舞​​舞​カブリ"
 		LOCALS = Carabus Blaptoides
 	CASE "タマムシ"
 		LOCALS = Jewel Beetle
@@ -11526,74 +9419,134 @@ RETURNF LOCALS
 
 ;===================================================
 
-; @CHILD_MULTIPLE_FIRST(Character,Child)
-; 	;Returns the firstborn child in a single birthing.
-; #FUNCTION
-; #DIM DYNAMIC Character
-; #DIM DYNAMIC Child
-; FOR LOCAL,1,CFLAG:Character:兒童人数+1
-; 	SIF CHILD_BIRTHDATE:Character:LOCAL == CHILD_BIRTHDATE:Character:Child
-; 		RETURNF LOCAL
-; NEXT
-; RETURNF -1
-
-; ;===================================================
-
-; @CHILD_MULTIPLE_LAST(Character,Child)
-; 	;Returns the lastborn child in a single birthing.
-; #FUNCTION
-; #DIM DYNAMIC Character
-; #DIM DYNAMIC Child
-; #DIM DYNAMIC LastChild
-; LastChild = -1
-; FOR LOCAL,1,CFLAG:Character:兒童人数+1
-; 	IF CHILD_BIRTHDATE:Character:LOCAL == CHILD_BIRTHDATE:Character:Child
-; 		LastChild = LOCAL
-; 		SIF LOCAL == CFLAG:Character:兒童人数
-; 			RETURNF LastChild
-; 	ELSEIF LastChild > -1
-; 		RETURNF LastChild
-; 	ENDIF
-; NEXT
-; RETURNF -1
+@BABYCONDSTR(String,Character,Reverse)
+	;Returns a string if the character would normally be aware that she's carrying more than one child, or would not be aware if Reverse is true.
+#FUNCTIONS
+#DIMS DYNAMIC String
+#DIM DYNAMIC Character
+#DIM DYNAMIC Reverse
+SIF Reverse
+	RETURNF COND_STR(String,!BABYMULTIAWARE(Character))
+RETURNF COND_STR(String,BABYMULTIAWARE(Character))
 
 ;===================================================
 
-; @ORGASM_COUNT(ARG = -1)
-; #FUNCTION
-; SIF ARG == -1
-; 	ARG = TARGET
-; RETURNF SUMARRAY(EX:ARG:0, 0, 5)
+@BABYPLVERB(Verb,Character)
+	;Calls PLVERB() if the character would normally be aware that she's carrying more than one child.
+#FUNCTIONS
+#DIMS DYNAMIC Verb
+#DIM DYNAMIC Character
+SIF BABYMULTIAWARE(Character)
+	RETURNF PLVERB(Verb,CFLAG:Character:WithChildCount)
+RETURNF Verb
 
-; ;===================================================
 
-; @TOTAL_CONCEPTION_COUNT(Character,All)
-; 	;Returns the number of times the character has conceived.
-; 	;If the maximum number of children has been exceeded, the result may be incorrect.
-; 	;Set All to 1 if you want to include conceptions whose pregnancy event hasn't happened yet.
-; #FUNCTION
-; #DIM DYNAMIC Character
-; #DIM DYNAMIC LastNumber
-; #DIM DYNAMIC ConceptionCount
-; #DIM DYNAMIC All
-; SIF !CFLAG:Character:兒童人数 && !CFLAG:Character:WithChildCount
-; 	RETURNF 0
-; LastNumber = -1
-; IF CFLAG:Character:兒童人数
-; 	FOR LOCAL,1,CFLAG:Character:兒童人数+1
-; 		IF CHILD_BIRTHDATE:Character:LOCAL > LastNumber
-; 			ConceptionCount++
-; 			LastNumber = CHILD_BIRTHDATE:Character:LOCAL
-; 		ENDIF
-; 	NEXT
-; ENDIF
-; LastNumber = 1000000
-; IF CFLAG:Character:WithChildCount
-; 	FOR LOCAL,0,CFLAG:Character:WithChildCount
-; 		IF VAR_OR_DEFAULT(@"PregnancyProgress:{Character}:{LOCAL}") < LastNumber && (All || GROUPMATCH(TALENT:Character:PregnancyType,2,3) || VAR_OR_DEFAULT(@"PregnancyProgress:{Character}:{LOCAL}") > 19)
-; 			ConceptionCount++
-; 			LastNumber = VAR_OR_DEFAULT(@"PregnancyProgress:{Character}:{LOCAL}")
-; 		ENDIF
-; 	NEXT
-; ENDIF
-; RETURNF ConceptionCount
+;--------------------------------------------------
+;ARG パターン
+;JUEL:(ARG:1)が必要ならLOCAL:(ARG:1)に代入してその値を返す
+;--------------------------------------------------
+@JUEL_DEMAND_39(ARG,ARG:1,ARG:2)
+#FUNCTION
+VARSET LOCAL
+;屈服の珠(LOCAL:12)で上げる
+	SELECTCASE ABL:(ARG:2):催眠奴隷
+		CASE 0
+			LOCAL:12 = 100
+			LOCAL:11 = 20
+		CASE 1
+			LOCAL:12 = 1200
+			LOCAL:11 = 100
+		CASE 2
+			LOCAL:12 = 5000
+			LOCAL:11 = 600
+		CASE 3
+			LOCAL:12 = 10000
+			LOCAL:11 = 2000
+		CASE 4
+			LOCAL:12 = 30000
+			LOCAL:11 = 8000
+		CASE 5
+			LOCAL:12 = 35000
+			LOCAL:11 = 8500
+		CASE 6
+			LOCAL:12 = 40000
+			LOCAL:11 = 10000
+		CASE 7
+			LOCAL:12 = 45000
+			LOCAL:11 = 15000
+		CASE 8
+			LOCAL:12 = 50000
+			LOCAL:11 = 20000
+		CASE 9
+			LOCAL:12 = 60000
+			LOCAL:11 = 30000
+		CASEELSE
+			LOCAL:12 = 10000 + 20000 * (ABL:(ARG:2):催眠奴隷 - 7)
+			LOCAL:11 = 10000 + 20000 * (ABL:(ARG:2):催眠奴隷 - 7)
+	ENDSELECT
+;難以越過的底線
+IF TALENT:(ARG:2):難以越過的底線
+	TIMES LOCAL:11 , 0.50
+	TIMES LOCAL:12 , 0.50
+ENDIF
+RETURNF LOCAL:(ARG:1)
+
+;===================================================
+
+@PREGNANCY_MULTIPLES(ARG)
+#FUNCTION
+SIF !ARG
+	ARG = TARGET
+RETURNF TALENT:ARG:PREGNANCY_TYPE > 0
+
+;===================================================
+
+@VISITOR_LOCATION(LocationMatch)
+	;Returns the visitor map substitute for a given in-game location, regardless of whether that map is the home map.
+	;The location given must still be relative to the current game state, e.g. a home map location for the home map, or a visitor location for a visitor map.
+#FUNCTION
+#DIM DYNAMIC LocationMatch
+LOCAL = -1
+IF MAIN_MAP == LocationMatch / 100
+		;TRYCALLFORM won't return anything, and I'd rather not add a RESULT assignment to a core function, so these have to be called manually.
+	SELECTCASE LocationMatch / 100
+		CASE 0
+			LOCAL = MAP_SEARCH_REPLACEMENT_0(LocationMatch)
+		CASE 1
+			LOCAL = MAP_SEARCH_REPLACEMENT_1(LocationMatch)
+		CASE 2
+			LOCAL = MAP_SEARCH_REPLACEMENT_2(LocationMatch)
+		CASE 3
+			LOCAL = MAP_SEARCH_REPLACEMENT_3(LocationMatch)
+		CASE 4
+			LOCAL = MAP_SEARCH_REPLACEMENT_4(LocationMatch)
+		CASE 5
+			LOCAL = MAP_SEARCH_REPLACEMENT_5(LocationMatch)
+		CASE 6
+			LOCAL = MAP_SEARCH_REPLACEMENT_6(LocationMatch)
+		CASE 7
+			LOCAL = MAP_SEARCH_REPLACEMENT_7(LocationMatch)
+		CASE 8
+			LOCAL = MAP_SEARCH_REPLACEMENT_8(LocationMatch)
+		CASE 9
+			LOCAL = MAP_SEARCH_REPLACEMENT_9(LocationMatch)
+		CASE 10
+			LOCAL = MAP_SEARCH_REPLACEMENT_10(LocationMatch)
+	ENDSELECT
+ELSE
+	LOCAL = LocationMatch
+ENDIF
+RETURNF LOCAL
+
+;===================================================
+
+@LATEST_CHILD(Character,Child)
+	;Returns the number of a specific child from the character's latest (or current ongoing) birthing. 1 for the first child in the litter, and so on.
+#FUNCTION
+#DIM DYNAMIC Character
+#DIM DYNAMIC Child
+Child = MIN(Child,CFLAG:Character:LatestChildCount)
+Child = (CFLAG:Character:子供人数-CFLAG:Character:LatestChildCount+Child) % MAXCHILD
+SIF !(Child % MAXCHILD)
+	Child = MAXCHILD
+RETURNF Child

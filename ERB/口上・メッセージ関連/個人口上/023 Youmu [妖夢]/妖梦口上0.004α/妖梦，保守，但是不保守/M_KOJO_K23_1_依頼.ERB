@@ -1,68 +1,4 @@
-﻿@M_KOJO_审查中_IRAIEXIST_K23(IRAI_NO)
-#DIM  IRAI_NO   ;抑制させる一般依頼ナンバー
-;動きを抑制させたい場合は、”RETURN 0”に変更すること
-SELECTCASE IRAI_NO
-	;掃除を手伝って（発生条件：TARGETがメインマップ在住）
-	CASE 1
-		RETURN 1
-	;お花に水をあげて（発生条件：TARGETがMASTER侵入可能の自宅住まいかつ、メインマップ在住かつ、親密２以上）
-	CASE 2
-		RETURN 1
-	;いっしょにあそぼ（発生条件：TARGETがTALENT:幼稚持ち）
-	CASE 3
-		RETURN 1
-	;料理上手になりたい（発生条件：TARGETの料理技能がMASTER未満かつ、MASTERの料理技能が２以上かつ、親密が３以上）
-	CASE 4
-		RETURN 1
-	;特訓につきあって（発生条件：TARGETの戦闘能力がMASTER以下かつ、親密が２以上かつ人里以外）
-	CASE 5
-		RETURN 1
-	;誰か教えて！（発生条件：TARGETの教養がMASTER以下）
-	CASE 6
-		RETURN 1
-	;大掃除が終わらない（発生条件：TARGETがメインマップ在住かつ、冬の15日から31日までかつ、親密が３以上）
-	CASE 7
-		RETURN 1
-	;手紙を届けて（発生条件：TARGETの信頼度が30以上かつ、TARGETに文通相手が設定されている（FUNC_IRAI.ERBの965目以降に存在）
-	CASE 8
-		RETURN 1
-	;誰かの落とし物（発生条件：TARGETの信頼度が30以上）
-	CASE 9
-		RETURN 1
-	;どうしてもみつからない(そのまま落ちてる)（発生条件：TARGETの信頼度が30以上）
-	CASE 10
-		RETURN 1
-	;どうしてもみつからない(誰かが拾ってる)（発生条件：TARGETの信頼度が30以上）
-	CASE 11
-		RETURN 1
-	;懲らしめて！（発生条件：TARGETのCSVに戦闘能力が１以上ある場合）
-	CASE 12
-		RETURN 1
-	;うまい魚が食べたいなぁ（発生条件：わかさぎ姫以外）
-	CASE 13
-		RETURN 1
-	;薪を切らしてる（未実装）
-	CASE 14
-		RETURN 1
-	;あなたに抱かれたい（発生条件：セフレor愛欲かつ溜まってる度700以上 or ヤリマン）
-	CASE 15
-		SIF TALENT:愛欲 || (TALENT:炮友 && TALENT:風騷)
-			RETURN 1
-		RETURN 0
-	;お悩み相談（発生条件：MASTERの話術技能が1以上）
-	CASE 16
-		SIF CFLAG:信賴度 < 30
-			RETURN 0
-		RETURN 1
-[SKIPSTART]
-	;現状無し
-	CASEELSE
-		RETURN 1
-[SKIPEND]
-ENDSELECT
-
-
-;==================================================
+﻿;==================================================
 ;依頼口上・各依頼で共通の口上
 ;==================================================
 @M_KOJO_审查中_IRAI_K23(ROLE, SCENE, IRAI_ID)
@@ -523,7 +459,7 @@ SELECTCASE SCENE
 		IF IS_LIBRARY(CFLAG:MASTER:現在位置) && TARGET == CLIENT_ID
 	;［しらべもの］と［教えてあげる］が重なっている場合
 	;【◆口上】
-	;【L ［あなた］は［彼女］の疑問に答えるために［現在地］を訪れた】
+	;【L ［あなた］は［彼女］の疑问に答えるために［現在地］を訪れた】
 	;【L ここなら役に立つ資料が見つかりそうだ】
 	;【INPUT（しらべもの/教えてあげる）】
 	;【しらべもの＞［あなた］と［彼女］は［現在地］で調べ物をした】
@@ -541,8 +477,8 @@ SELECTCASE SCENE
 		ELSE
 	;［教えてあげる］時（依頼主がTARGET）
 	;【◆口上】
-	;【L ［あなた］は［彼女］の疑問に答えた】
-	;【成功：［彼女］の疑問は氷解した！】
+	;【L ［あなた］は［彼女］の疑问に答えた】
+	;【成功：［彼女］の疑问は氷解した！】
 	;【失敗：［彼女］は納得できなかったようだ……】
 	;【▼そのまま下の口上へ】
 
@@ -1020,7 +956,7 @@ SELECTCASE SCENE
 
 		RETURN 0
 	CASE "成功報告時"
-;報酬：白米３個
+;報酬：白米３个
 
 		RETURN 0
 	CASE "失敗報告時"
@@ -1426,12 +1362,12 @@ SELECTCASE SCENE
 												PRINTFORMDW 与此同时，双手熟练地解开妖梦的衣服，伸进里面直接揉起了%OPPAI_DESCRIPTION(TARGET,1)%
 												PALAM:潤滑 += PALAMLV:2
 												PRINTFORMDW 过了一会，%CALLNAME:MASTER%的右手沿着身体的曲线缓缓向下，滑进了妖梦那已经变得湿漉漉的裙底
-												PRINTFORML 「啊……过头了呀%UNICODE(0x2665)%」
+												PRINTFORML 「啊……过头了呀♥」
 												PRINTFORMDW 妖梦想抓住%CALLNAME:MASTER%那伸向裙里的手，但稍后的快感便让她完全动弹不得
 												PRINTFORMDL 随后%CALLNAME:MASTER%抽出手，拉开了妖梦的上衣，随之露出的%OPPAI_DESCRIPTION(TARGET,1)%便完全映入眼帘
 												PRINTFORMDW %CALLNAME:MASTER%俯下身，吮吸着上面的%NIPPLE_DESCRIPTION(TARGET,1)%的同时毫不留情地用手指侵入了妖梦的%SLIT(TARGET)%
 												PRINTFORMDW 伴随着一阵苦闷的呻吟，妖梦便被%CALLNAME:MASTER%引至绝顶，全身都在颤抖着
-												PRINTFORMW 「嗯%UNICODE(0x2665)%……你就喜欢这样欺负人家吗%UNICODE(0x2665)%……？」
+												PRINTFORMW 「嗯♥……你就喜欢这样欺负人家吗♥……？」
 												PRINTFORMDW 从刚刚因为高潮而收紧的%SLIT(TARGET)%中缓缓抽出沾满蜜液的手指的%CALLNAME:MASTER%笑了笑，温柔地摸了摸妖梦的头
 												SOURCE:快Ｃ += 40 + ABL:MASTER:指 * 4
 												SOURCE:快Ｂ += 20 + ABL:MASTER:舌 * 20 + ABL:MASTER:指 * 4
@@ -1469,7 +1405,7 @@ SELECTCASE SCENE
 												IF ABL:技巧 >= 3
 													PRINTFORMDL 似乎预知了%CALLNAME:MASTER%的要求，妖梦将眼前的%TINKO(MASTER)%吞入口中
 													PRINTFORMDW 看到刚才还面露难色的妖梦现在正专心侍奉着自己，%CALLNAME:MASTER%突然感到了一丝罪恶感
-													PRINTFORMW 「呜……嗯%UNICODE(0x2665)%……啾呜%UNICODE(0x2665)%……」
+													PRINTFORMW 「呜……嗯♥……啾呜♥……」
 													PRINTFORMDW 不过%CALLNAME:MASTER%突然听见了身下某处发出了莫名的声音……
 													PRINTFORMDL 正如%CALLNAME:MASTER%所想，妖梦一边口交，一边将手伸入自己的股间开始了自慰
 													PRINTFORMDW 看到此情此景，%CALLNAME:MASTER%心中刚刚诞生的罪恶感瞬间一扫而空……
@@ -1532,11 +1468,11 @@ SELECTCASE SCENE
 													PRINTFORMDW 不过在持续的抽插之后，内部分泌出来的爱液逐渐使快感占据了优势
 													PALAM:潤滑 += PALAMLV:2
 												ENDIF
-												PRINTFORMW 「嗯%UNICODE(0x2665)%……变态%UNICODE(0x2665)%……」
+												PRINTFORMW 「嗯♥……变态♥……」
 												PRINTFORMDL 妖梦紧紧抱住%CALLNAME:MASTER%，慢慢感受着%TINKO(MASTER)%在里面进出的感觉
 												PRINTFORMDW 不一会，察觉到动作越来越快的妖梦，把另一只脚也搭了上来，整个人依附在%CALLNAME:MASTER%的身上
-												PRINTFORMW 「要射了吗%UNICODE(0x2665)%……」
-												PRINTFORMW 「这边……呀%UNICODE(0x2665)%……也要去了呢%UNICODE(0x2665)%……」
+												PRINTFORMW 「要射了吗♥……」
+												PRINTFORMW 「这边……呀♥……也要去了呢♥……」
 												PRINTFORMDW 随后二人紧紧抱在一起，同时达到了高潮
 												PRINTFORMDW %CALLNAME:MASTER%的肉棒被收缩的内壁引至最深处，向里面注入了%SAMEN_DESCRIPTION(MASTER)%
 												PRINTFORMDW 直到射精停止，二人抱住彼此，享受着事后的接吻……

@@ -347,32 +347,32 @@ IF LOCAL
 			IF TALENT:恋人 || TALENT:恋慕
 				SELECTCASE RAND:4
 					CASE 0
-						PRINTFORML 「......啊......%UNICODE(0x2665) *1%」
-						PRINTFORML 「......稍微一下%UNICODE(0x2665) *1%」
-						PRINTFORMW 「真是的......%UNICODE(0x2665) *1%」
+						PRINTFORML 「......啊......♥」
+						PRINTFORML 「......稍微一下♥」
+						PRINTFORMW 「真是的......♥」
 				CASE 1
 					PRINTFORMDL %CALLNAME:PLAYER%抚摸着%CALLNAME:TARGET%的全身...
 					PRINTFORMW 「呵呵...再靠近一点吧」
 				CASE 2
 					PRINTFORMDL %CALLNAME:PLAYER%抚摸着%CALLNAME:TARGET%的脚...
 					PRINTFORML 「我倒无所谓，但这种事情可不能随便找人哦？」
-					PRINTFORMW 「嗯...%UNICODE(0x2665) *1%...你听到了吗？」
+					PRINTFORMW 「嗯...♥...你听到了吗？」
 				CASE 3
 					PRINTFORMDL %CALLNAME:PLAYER%抚摸着%CALLNAME:TARGET%的腋下...
 					PRINTFORML 「喂！？好痒啊，别...」
-					PRINTFORML 「哈哈哈，别...别...%UNICODE(0x2665) *1%」
-					PRINTFORMW 「嗯%UNICODE(0x2665) *1%...嗯啊%UNICODE(0x2665) *1%」
+					PRINTFORML 「哈哈哈，别...别...♥」
+					PRINTFORMW 「嗯♥...嗯啊♥」
 			ENDSELECT
 		ELSEIF TALENT:思慕
 			SELECTCASE RAND:3
 				CASE 0
 					PRINTFORMDL %CALLNAME:PLAYER%抚摸着%CALLNAME:TARGET%的脚...
 					PRINTFORML 「我倒无所谓，但这种事情可不能随便找人哦？」
-					PRINTFORMW 「嗯...%UNICODE(0x2665) *1%...你听到了吗？」
+					PRINTFORMW 「嗯...♥...你听到了吗？」
 				CASE 1
 					PRINTFORMDL %CALLNAME:PLAYER%抚摸着%CALLNAME:TARGET%的腋下...
 					PRINTFORML 「喂！好痒啊...！」
-					PRINTFORML 「啊%UNICODE(0x2665) *1%」
+					PRINTFORML 「啊♥」
 					PRINTFORMW （嗯...发出了奇怪的声音）
 				CASE 2
 					PRINTFORMDL %CALLNAME:PLAYER%揉着%CALLNAME:TARGET%的肩膀...
@@ -545,13 +545,13 @@ IF LOCAL
 	IF TALENT:恋人 || TALENT:恋慕
 		SELECTCASE RAND:3
 			CASE 0
-				PRINTFORML 「累了吗？当然可以，呵呵%UNICODE(0x2665) *1%」
+				PRINTFORML 「累了吗？当然可以，呵呵♥」
 				PRINTFORMW 「即使睡着也没关系哦」
 			CASE 1
-				PRINTFORML 「乖孩子...乖孩子...%UNICODE(0x2665) *1%」
+				PRINTFORML 「乖孩子...乖孩子...♥」
 				PRINTFORMW 「嗯？害羞了吗？呵呵」
 			CASE 2
-				PRINTFORML 「看这边...然后伸出手来%UNICODE(0x2665) *1%」
+				PRINTFORML 「看这边...然后伸出手来♥」
 				PRINTFORMDL %CALLNAME:PLAYER%和%CALLNAME:TARGET%牵起了手，相互凝视着...
 		ENDSELECT
 	ELSEIF TALENT:思慕
@@ -705,12 +705,12 @@ IF LOCAL
 		SELECTCASE RAND:3
 			CASE 0
 				PRINTFORML 「啊...感觉好安心」
-				PRINTFORMW 「呵呵%UNICODE(0x2665) *1%」
+				PRINTFORMW 「呵呵♥」
 			CASE 1
-				PRINTFORML 「嗯嗯...啊...%UNICODE(0x2665) *1%」
+				PRINTFORML 「嗯嗯...啊...♥」
 				PRINTFORMW 「嗯？只摸头吗...？」
 			CASE 2
-				PRINTFORML 「更多...拜托了%UNICODE(0x2665) *1%」
+				PRINTFORML 「更多...拜托了♥」
 				PRINTFORMDW %CALLNAME:TARGET%用媚眼看着我...
 		ENDSELECT
 	ELSEIF TALENT:思慕
@@ -780,7 +780,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_早苗追加_SUCCESS_COM_K31_332
@@ -971,8 +971,8 @@ IF LOCAL
 	IF TFLAG:194 != 0
 		IF TFLAG:194 == 100
 			CALL M_KOJO_早苗追加_COLOR_K31
-			PRINTFORML 「其实你喜欢被攻击吧？我知道的%UNICODE(0x2665) *1%」
-			PRINTFORML 「呵呵%UNICODE(0x2665) *1% 如果你期待着那样的表情，我......%UNICODE(0x2665) *1%」
+			PRINTFORML 「其实你喜欢被攻击吧？我知道的♥」
+			PRINTFORML 「呵呵♥ 如果你期待着那样的表情，我......♥」
 			PRINTL
 			RESETCOLOR
 			RETURN 1
@@ -1042,29 +1042,29 @@ IF LOCAL
 	
 	;成功
 	IF TALENT:恋人
-		PRINTFORML 「嗯...%UNICODE(0x2665) *1%，可以的」
-		PRINTFORML 「请确保让我感到舒服哦%UNICODE(0x2665) *1%」
-		PRINTFORMW 「今天要怎么做呢...？%UNICODE(0x2665) *1%」
+		PRINTFORML 「嗯...♥，可以的」
+		PRINTFORML 「请确保让我感到舒服哦♥」
+		PRINTFORMW 「今天要怎么做呢...？♥」
 	ELSEIF TALENT:恋慕
 		IF TALENT:MASTER:恋人
-			PRINTFORML 「啊...%UNICODE(0x2665) *1%...哦...%UNICODE(0x2665) *1%」
+			PRINTFORML 「啊...♥...哦...♥」
 			PRINTFORML 「对不起，放弃恋人而出轨是不好的人呢」
 			PRINTFORMW （虽然接受这一点的我也不怎么样...）
 		ELSE
-			PRINTFORML 「嗯...%UNICODE(0x2665) *1%，可以的」
-			PRINTFORML 「请确保让我感到舒服哦%UNICODE(0x2665) *1%」
-			PRINTFORMW 「今天要怎么做呢...？%UNICODE(0x2665) *1%」
+			PRINTFORML 「嗯...♥，可以的」
+			PRINTFORML 「请确保让我感到舒服哦♥」
+			PRINTFORMW 「今天要怎么做呢...？♥」
 		ENDIF
 	ELSEIF TALENT:思慕
 		IF TALENT:MASTER:恋人
-			PRINTFORML 「真是的...%UNICODE(0x2665) *1%，放弃恋人而出轨是不好的人呢」
+			PRINTFORML 「真是的...♥，放弃恋人而出轨是不好的人呢」
 			PRINTFORMW （虽然接受这一点的我也不怎么样...）
 		ELSE
-			PRINTFORML 「啊...%UNICODE(0x2665) *1%...又来了...%UNICODE(0x2665) *1%」
+			PRINTFORML 「啊...♥...又来了...♥」
 			PRINTFORMW 「好的，请多关照...」
 		ENDIF
 	ELSE
-		PRINTFORML 「啊...%UNICODE(0x2665) *1%」
+		PRINTFORML 「啊...♥」
 		PRINTFORMDL 完全没有抵抗的样子...
 	ENDIF
 	
@@ -1089,8 +1089,8 @@ IF LOCAL
     CFLAG:TARGET:积攒度 += CFLAG:31:K31_MASTER逆転刻印*50
     IF CFLAG:同行 == 60
         IF TALENT:恋人 || TALENT:恋慕
-            PRINTFORML 「啊……%UNICODE(0x2665) *1%」
-            PRINTFORMW 「要带我去哪里呢...%UNICODE(0x2665) *1%」
+            PRINTFORML 「啊……♥」
+            PRINTFORMW 「要带我去哪里呢...♥」
         ELSEIF TALENT:思慕
             PRINTFORML 「想要我陪着吗？」
             PRINTFORMW 「当然可以，顺便问一下，要去哪里？」
@@ -1214,7 +1214,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_早苗追加_MESSAGE_COM_K31_360
 
@@ -1231,31 +1231,31 @@ IF LOCAL
 	SELECTCASE RAND:10
 		CASE 0
 			PRINTFORML 「......？ 好安静啊」
-			PRINTFORML 「随你喜欢哦？%UNICODE(0x2665) *1%」
+			PRINTFORML 「随你喜欢哦？♥」
 		CASE 1
-			PRINTFORML 「没错，就这样就好了......%UNICODE(0x2665) *1%」
-			PRINTFORML 「把一切都交给我吧%UNICODE(0x2665) *1% 放松一点...%UNICODE(0x2665) *1%」
+			PRINTFORML 「没错，就这样就好了......♥」
+			PRINTFORML 「把一切都交给我吧♥ 放松一点...♥」
 		CASE 2
-			PRINTFORML 「呵呵，随你喜欢......%UNICODE(0x2665) *1%」
-			PRINTFORML 「我会让你更舒服的......%UNICODE(0x2665) *1%」
+			PRINTFORML 「呵呵，随你喜欢......♥」
+			PRINTFORML 「我会让你更舒服的......♥」
 		CASE 4
-			PRINTFORML 「也许你是累得动不了吧......%UNICODE(0x2665) *1%」
-			PRINTFORML 「即使是这样，也无关紧要......%UNICODE(0x2665) *1%」
+			PRINTFORML 「也许你是累得动不了吧......♥」
+			PRINTFORML 「即使是这样，也无关紧要......♥」
 		CASE 5
-			PRINTFORML 「即使你没有抵抗，我也不会停下来......%UNICODE(0x2665) *1%」
-			PRINTFORML 「给我看更好的表情吧......%UNICODE(0x2665) *1%」
+			PRINTFORML 「即使你没有抵抗，我也不会停下来......♥」
+			PRINTFORML 「给我看更好的表情吧......♥」
 		CASE 6
-			PRINTFORML 「哈哈......%UNICODE(0x2665) *1%」
-			PRINTFORML 「当然，我们还可以继续下去吧...？%UNICODE(0x2665) *1%」
+			PRINTFORML 「哈哈......♥」
+			PRINTFORML 「当然，我们还可以继续下去吧...？♥」
 		CASE 7
-			PRINTFORML 「喂，别一动不动的......%UNICODE(0x2665) *1%」
-			PRINTFORML 「动起来吧......%UNICODE(0x2665) *1%」
+			PRINTFORML 「喂，别一动不动的......♥」
+			PRINTFORML 「动起来吧......♥」
 		CASE 8
-			PRINTFORML 「嘻嘻......%UNICODE(0x2665) *1%」
-			PRINTFORML 「做好觉悟吧......%UNICODE(0x2665) *1%」
+			PRINTFORML 「嘻嘻......♥」
+			PRINTFORML 「做好觉悟吧......♥」
 		CASE 9
-			PRINTFORML 「哈哈......%UNICODE(0x2665) *1%」
-			PRINTFORML 「你不打算抵抗吗......？%UNICODE(0x2665) *1%」
+			PRINTFORML 「哈哈......♥」
+			PRINTFORML 「你不打算抵抗吗......？♥」
 	ENDSELECT
 	CALL K31_MASTER逆転経験取得(1)
 	PRINTFORMW
@@ -1263,7 +1263,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;361,抵抗
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_早苗追加_MESSAGE_COM_K31_361
 
@@ -1280,29 +1280,29 @@ IF LOCAL
 	SELECTCASE RAND:9
 		CASE 0
 			PRINTFORML 「怎么了？不喜欢吗？」
-			PRINTFORML 「哦...%UNICODE(0x2665) *1% 这样啊...%UNICODE(0x2665) *1%」
-			PRINTFORML 「身体是诚实的呢...呵呵%UNICODE(0x2665) *1%」
+			PRINTFORML 「哦...♥ 这样啊...♥」
+			PRINTFORML 「身体是诚实的呢...呵呵♥」
 		CASE 1
-			PRINTFORML 「我不会放过你的%UNICODE(0x2665) *1%」
-			PRINTFORML 「看吧%UNICODE(0x2665) *1% 看吧%UNICODE(0x2665) *1%」
+			PRINTFORML 「我不会放过你的♥」
+			PRINTFORML 「看吧♥ 看吧♥」
 		CASE 2
-			PRINTFORML 「你想抵抗吗...？%UNICODE(0x2665) *1%」
-			PRINTFORML 「那我就让你没有抵抗的欲望......%UNICODE(0x2665) *1%」
+			PRINTFORML 「你想抵抗吗...？♥」
+			PRINTFORML 「那我就让你没有抵抗的欲望......♥」
 		CASE 4
-			PRINTFORML 「也许你很累动不了吧...%UNICODE(0x2665) *1%」
-			PRINTFORML 「即使是这样，也无关紧要......%UNICODE(0x2665) *1%」
+			PRINTFORML 「也许你很累动不了吧...♥」
+			PRINTFORML 「即使是这样，也无关紧要......♥」
 		CASE 5
-			PRINTFORML 「就算你抵抗，我也不会停下来的......%UNICODE(0x2665) *1%」
-			PRINTFORML 「给我看更好的表情吧......%UNICODE(0x2665) *1%」
+			PRINTFORML 「就算你抵抗，我也不会停下来的......♥」
+			PRINTFORML 「给我看更好的表情吧......♥」
 		CASE 6
-			PRINTFORML 「啊哈哈......%UNICODE(0x2665) *1%」
-			PRINTFORML 「你是故意这样做的吧...？%UNICODE(0x2665) *1%」
+			PRINTFORML 「啊哈哈......♥」
+			PRINTFORML 「你是故意这样做的吧...？♥」
 		CASE 7
-			PRINTFORML 「哦...%UNICODE(0x2665) *1% 你抵抗啊...？%UNICODE(0x2665) *1%」
-			PRINTFORML 「我会让你明白的......%UNICODE(0x2665) *1%」
+			PRINTFORML 「哦...♥ 你抵抗啊...？♥」
+			PRINTFORML 「我会让你明白的......♥」
 		CASE 8
-			PRINTFORML 「啊哈哈......%UNICODE(0x2665) *1%」
-			PRINTFORML 「放弃吧，乖乖安静下来吧......%UNICODE(0x2665) *1%」
+			PRINTFORML 「啊哈哈......♥」
+			PRINTFORML 「放弃吧，乖乖安静下来吧......♥」
 	ENDSELECT
 	CALL K31_MASTER逆転経験取得(1)
 	PRINTFORMW
@@ -1335,7 +1335,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_早苗追加_MESSAGE_COM_K31_364
@@ -1448,12 +1448,12 @@ IF LOCAL
 			;▼買い物［買い物を手伝う］
 			;PRINTFORMW 
 		CASE 15
-			;▼説教［様子をうかがう］
+			;▼説教［样子をうかがう］
 			;※神霊・蓬莱人は除く
 			;TFLAG:193,-1
 			;PRINTFORMW 
 		CASE 16
-			;▼落とし穴［いたずらに交手］or［様子をうかがう］
+			;▼落とし穴［いたずらに交手］or［样子をうかがう］
 			;※三月精・琪露諾・克勞恩皮絲のみ
 			;それ以外は落ちる側
 			;PRINTFORMW 
@@ -1889,7 +1889,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -1996,7 +1996,7 @@ RETURN 1
 ;==================================================
 ;445,採集
 ;TFLAG:193(採集物のID, 0=『何も見つからなかった…』
-;TFLAG:194(今回採集した個数
+;TFLAG:194(今回採集した个数
 ;==================================================
 @M_KOJO_早苗追加_MESSAGE_COM_K31_445
 
@@ -2193,10 +2193,10 @@ LOCAL = 1
 IF LOCAL
 
 	IF TALENT:恋人 || TALENT:恋慕
-	    PRINTFORMW 「嘿嘿...约会就该这样，对吧%UNICODE(0x2665) *1%」
+	    PRINTFORMW 「嘿嘿...约会就该这样，对吧♥」
 	    PRINTFORMDL 早苗紧紧地抱住了%CALLNAME:MASTER%的胳膊...
 	ELSEIF TALENT:思慕
-	    PRINTFORML 「啊...手...%UNICODE(0x2665) *1%」
+	    PRINTFORML 「啊...手...♥」
 	    PRINTFORMW 「嘿嘿，谢谢你♪」
 	ELSE
 	    PRINTFORML 「......啊...呃...」
@@ -2434,7 +2434,7 @@ IF LOCAL
 		;ひやかし
 		CASE -2
 			PRINTFORML 「这种店，就算只是看着也很有趣呢」
-		;果然還是放棄（見送り）
+		;果然還是放弃（見送り）
 		CASE -1
 			PRINTFORML 「这种店，就算只是看着也很有趣呢」
 		;400点未満（BAD）
@@ -2445,7 +2445,7 @@ IF LOCAL
 			PRINTFORML 「礼物吗？谢谢你♪」
 		;700点以上（GOOD）
 		CASE 3
-			PRINTFORML 「哇………%UNICODE(0x2665) *1%　谢你♪ 我会好好珍惜的！」
+			PRINTFORML 「哇………♥　谢你♪ 我会好好珍惜的！」
 	ENDSELECT
 ENDIF
 RETURN 1

@@ -1787,7 +1787,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	;酔っぱらってる状態で連れ出す
-	IF ALCOHOL_FACE(131) == "酔酒" || ALCOHOL_FACE(131) == "趴窝"
+	IF ALCOHOL_FACE(131) == "醉酒" || ALCOHOL_FACE(131) == "不省人事"
 		PRINTFORML 「或许喝太多了…隔——」
 		PRINTFORML 「%CALLNAME:MASTER%…抱歉，能借个肩膀吗？」
 		PRINTFORMDW 与磨弓相互搀扶着，慢慢迈开了脚步…
@@ -3138,7 +3138,7 @@ IF LOCAL
 		PRINTFORMDW 好可怕！这就是埴轮的实力么...
 		PRINTFORMDW 在暴风雨般的恶劣天气中与磨弓一起进行了训练......
 	ELSE
-		;根據你的戰鬥力分歧。S以上時變更・生化人！
+		;根據你的戰鬥力分歧。S以上時变更・生化人！
 		SELECTCASE RAND:4
 			CASE 0
 				IF ABL:MASTER:戦闘能力 >= 5

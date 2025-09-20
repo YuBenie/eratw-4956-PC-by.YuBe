@@ -25,7 +25,7 @@ IF LOCAL
 		IF RAND:3 == 0
 			PRINTFORMW 「……对不起，我现在有点忙」
 		ELSEIF RAND:2 == 0
-			PRINTFORMW 「啊，对不起，我现在很忙，一会儿见%UNICODE(0x2665) *1%」
+			PRINTFORMW 「啊，对不起，我现在很忙，一会儿见♥」
 		ELSE
 			PRINTFORMW 「不好意思，可以待会吗？」
 		ENDIF
@@ -85,7 +85,7 @@ IF LOCAL
 			PRINTFORMW 「心情变好了呢，变得燥热起来了♪」
 		ELSE
 			PRINTFORMW 「啊，好热啊——」
-			PRINTFORMW 「脱了就好了……%UNICODE(0x2665) *1%」
+			PRINTFORMW 「脱了就好了……♥」
 			PRINTFORMW 雷鼓一边这样说着，一边袒露着胸口。
 		ENDIF
 	;微醺
@@ -967,7 +967,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_MESSAGE_COM_K96_332
@@ -1048,7 +1048,7 @@ IF LOCAL
 					PRINTFORMW 「好的，那么——」
 					PRINTFORMW 「干杯~~~！」
 					PRINTFORMW 雷鼓说着与我交了杯。。
-					PRINTFORMW 「嗯…好喝…%UNICODE(0x2665) *1%」
+					PRINTFORMW 「嗯…好喝…♥」
 				ELSEIF RAND:2 == 0
 					PRINTFORMW 「哈……」
 					PRINTFORMW 「美味的酒呢……」
@@ -1130,7 +1130,7 @@ IF LOCAL
 					PRINTFORMW 「好的，那么——」
 					PRINTFORMW 「干杯~~~！」
 					PRINTFORMW 雷鼓说着与我交了杯。。
-					PRINTFORMW 「嗯…好喝…%UNICODE(0x2665) *1%」
+					PRINTFORMW 「嗯…好喝…♥」
 				ELSEIF RAND:2 == 0
 					PRINTFORMW 「哈……」
 					PRINTFORMW 「美味的酒呢……」
@@ -1369,28 +1369,28 @@ IF LOCAL
 			CASE 3
 				IF TALENT:恋人
 					PRINTFORMW 「这个…」
-					PRINTFORMW 「…即使不做那样的事…如果是你的话…%UNICODE(0x2665) *1%」
+					PRINTFORMW 「…即使不做那样的事…如果是你的话…♥」
 					PRINTFORMW 「用药什么的……」
 				ELSEIF TALENT:恋慕
-					PRINTFORMW 「啊…什么……这个%UNICODE(0x2665) *1%」
+					PRINTFORMW 「啊…什么……这个♥」
 					PRINTFORMW 「…变得奇怪……了？」
-					PRINTFORMW 「就算不做那样的事……明明可以的…%UNICODE(0x2665) *1%」
+					PRINTFORMW 「就算不做那样的事……明明可以的…♥」
 				ELSEIF TALENT:思慕
-					PRINTFORMW 「哈…嗯啊%UNICODE(0x2665) *1%」
-					PRINTFORMW 「讨厌…无法抵抗…%UNICODE(0x2665) *1%」
+					PRINTFORMW 「哈…嗯啊♥」
+					PRINTFORMW 「讨厌…无法抵抗…♥」
 				ELSE
-					PRINTFORMW 「啊……嗯%UNICODE(0x2665) *1%」
-					PRINTFORMW 「这样的话…讨厌…啊%UNICODE(0x2665) *1%」
+					PRINTFORMW 「啊……嗯♥」
+					PRINTFORMW 「这样的话…讨厌…啊♥」
 				ENDIF
 			CASE 4
 				IF TALENT:恋人
 					PRINTFORMW 「为什么…」
 					PRINTFORMW 「舒服的事…能帮我做吗…?」
-					PRINTFORMW 「那么…拜托了…%UNICODE(0x2665) *1%」
+					PRINTFORMW 「那么…拜托了…♥」
 				ELSEIF TALENT:恋慕
 					PRINTFORMW 「总觉得……即使这样……」
 					PRINTFORMW 「…不要做奇怪的事哦？」
-					PRINTFORMW 「可以的话…好温柔啊…%UNICODE(0x2665) *1%」
+					PRINTFORMW 「可以的话…好温柔啊…♥」
 				ELSEIF TALENT:思慕
 					PRINTFORMW 「呜！？」
 					PRINTFORMW 「你…好吧…」
@@ -1633,7 +1633,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;360,任憑擺佈
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 @M_KOJO_MESSAGE_COM_K96_360
 CALL M_KOJO_MESSAGE_COM_K96_360_1
@@ -1668,7 +1668,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_MESSAGE_COM_K96_364
@@ -1888,7 +1888,7 @@ IF LOCAL
 					CALL MASTER_CALLNAME_K96
 					PRINTFORMW 也能喝吧！一起喝吧！」
 				ELSEIF RAND:2 == 0
-					PRINTFORMW 「呜呼呼%UNICODE(0x2665) *1%好幸福%UNICODE(0x2665) *1%」
+					PRINTFORMW 「呜呼呼♥好幸福♥」
 					PRINTFORMW 雷鼓红着脸晩酌着。
 				ELSE
 					PRINTFORMW 「来、干杯ー！」
@@ -2298,7 +2298,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -2404,7 +2404,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;442以降の指令は、実行しても口上はおそらく表示されないので貂プレでもスルー
+;442以降の指令は、実行しても口上はおそらく表示されないのでテンプレでもスルー
 ;==================================================
 
 
@@ -2866,7 +2866,7 @@ LOCAL = 1
 		ELSE
 			PRINTFORMW 「啊哈哈、不行哦冷场什么的」
 			ENDIF
-	;果然還是放棄（見送り）
+	;果然還是放弃（見送り）
 	CASE -1
 		IF RAND:3 == 0
 			PRINTFORMW 「好像没有太中意的东西呢」

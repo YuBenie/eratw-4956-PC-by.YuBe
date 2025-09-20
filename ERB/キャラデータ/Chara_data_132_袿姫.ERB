@@ -52,7 +52,7 @@ CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（连衣裙）套")
 
 CASE "便装：帽子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "頭巾"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("帽子", "头巾"))
 CASE "便装：連衣裙"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("連衣裙", "連衣裙"))
 CASE "便装：外搭"
@@ -61,15 +61,17 @@ CASE "便装：靴"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "涼鞋"))
 CASE "便装：飾品"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("飾品", "首飾"))
+CASE "便装：其他１"
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("其他１", "雕刻刀"))
 
 CASE "固有内衣形容詞"
-	CALLF MAKE_STR(V_NAME, "造形術で仕立てた")
+	CALLF MAKE_STR(V_NAME, "用造型术制作的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "クリエイター三角胖次")
+	CALLF MAKE_STR(V_NAME, "造物神胖次")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "クリエイターブラ")
+	CALLF MAKE_STR(V_NAME, "造物神胸罩")
 CASE "固有内衣着用条件"
 	SIF !RAND:(3 - (2 * 勝負内衣判定([[袿姫]])))
 		CALLF MAKE_INT(V_NAME, 1)
@@ -89,7 +91,7 @@ CASE "料理：助手効果"
 	CALLF MAKE_STR(V_NAME, "彩り/隠し味/")
 ;贈り物関連
 CASE "感性：好き"
-	CALLF MAKE_STR(V_NAME, "青/秩序/美的/芸術的/懷舊/威厳/" + "土/付喪神/巫術/美術品/人形/幾何学模様の/" * 3 + "鬼形の/埴轮の/造形術の/手办/雕刻/" * 5)
+	CALLF MAKE_STR(V_NAME, "青/秩序/美的/芸術的/懷舊/威厳/" + "土/付喪神/巫術/美術品/人形/几何学模様の/" * 3 + "鬼形の/埴轮の/造形術の/手办/雕刻/" * 5)
 CASE "感性：嫌い"
 	CALLF MAKE_STR(V_NAME, "混沌/樸素/" + "妖怪/生体品/" * 3 + "狼の/水獭の/鹫の/" * 10)
 ENDSELECT

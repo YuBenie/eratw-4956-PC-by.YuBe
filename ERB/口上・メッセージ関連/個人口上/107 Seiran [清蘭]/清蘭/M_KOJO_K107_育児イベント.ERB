@@ -4,7 +4,7 @@
 ;CFLAG等のキャラ变量を使う场合、キャラ番号の指定が必要になります。
 ;置き换えではありません。必要な场合は上下のSKIPSTART~SKIPENDを外してください。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_恢复
+@M_KOJO_EVENT_K107_CHILD_RAISING_回復
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 PRINTFORMDL 
@@ -21,7 +21,7 @@ PRINTFORMDW 清兰的脸色完全好转，展现出了以往的活力之姿。
 ;デフォルトのものと置き换えたい场合は上下のSKIPSTART~SKIPENDを外してください。
 ;置き换える气がないならスルー。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_离乳
+@M_KOJO_EVENT_K107_CHILD_RAISING_離乳
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 PRINTFORMDL 
@@ -56,7 +56,7 @@ PRINTFORMDW 清兰童心大发，玩起了积木，而在她身后，%CHILDNAME:
 ;デフォルトのものと置き换えたい场合は上下のSKIPSTART~SKIPENDを外してください。
 ;置き换える气がないならスルー。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_扶物行走
+@M_KOJO_EVENT_K107_CHILD_RAISING_つかまり立ち
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 PRINTFORMDL 
@@ -77,7 +77,7 @@ PRINTFORMDW 清兰惊讶得仿佛时间停滞一般呆立在原地……
 ;デフォルトのものと置き换えたい场合は上下のSKIPSTART~SKIPENDを外してください。
 ;置き换える气がないならスルー。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_蹒跚学步
+@M_KOJO_EVENT_K107_CHILD_RAISING_よちよち
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 PRINTFORMDL 
@@ -95,7 +95,7 @@ PRINTFORMDW 清兰看着%CHILDNAME:107:(TALENT:107:育児中)%的眼神，已经
 ;デフォルトのものと置き换えたい场合は上下のSKIPSTART~SKIPENDを外してください。
 ;置き换える气がないならスルー。これは复数回发生します。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_将会说话
+@M_KOJO_EVENT_K107_CHILD_RAISING_会話寸前
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 SELECTCASE RAND:3
@@ -133,7 +133,7 @@ ENDSELECT
 ;デフォルトのものと置き换えたい场合は上下のSKIPSTART~SKIPENDを外してください。
 ;置き换える气がないならスルー。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_对话
+@M_KOJO_EVENT_K107_CHILD_RAISING_喋る
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 PRINTFORMDL 
@@ -157,7 +157,7 @@ PRINTFORMDW ―要是自己也能使用心灵感应就好了…一边这么想�
 ;デフォルトのものと置き换えたい场合は上下のSKIPSTART~SKIPENDを外してください。
 ;置き换える气がないならスルー。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_词汇
+@M_KOJO_EVENT_K107_CHILD_RAISING_語彙
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 PRINTFORMDL 
@@ -178,7 +178,7 @@ PRINTFORMDW 不需要告诉他多余的事情。
 ;デフォルトのものと置き换えたい场合は上下のSKIPSTART~SKIPENDを外してください。
 ;置き换える气がないならスルー。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_管教
+@M_KOJO_EVENT_K107_CHILD_RAISING_しつけ
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 PRINTFORMDL 
@@ -250,7 +250,7 @@ PRINTFORMDW 轻轻拍着%CHILDNAME:107:(TALENT:107:育児中)%的头，看着她
 ;-------------------------------------------------
 ;育儿イベント登下校时の地の文。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_上下学(ARGS,ARG,ARG:1)
+@M_KOJO_EVENT_K107_CHILD_RAISING_登下校(ARGS,ARG,ARG:1)
 SETCOLOR 0x00A9D4
 IF !ARG
 	;登校时
@@ -284,7 +284,7 @@ ENDIF
 ;-------------------------------------------------
 ;育儿イベント食事时。
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_RAISING_吃饭(ARGS,ARG,ARG:1)
+@M_KOJO_EVENT_K107_CHILD_RAISING_吃飯(ARGS,ARG,ARG:1)
 SETCOLOR 0x00A9D4
 IF ARGS == "授乳"
 	SELECTCASE RAND:2
@@ -296,7 +296,7 @@ IF ARGS == "授乳"
 			CALL HPH_PRINT,@"「……%CALLNAME:MASTER%稍后再……哦HPH」","L"
 			PRINTFORMDW %CALLNAME:MASTER%有些尴尬地避开了目光……
 	ENDSELECT
-ELSEIF ARGS == "离乳食"
+ELSEIF ARGS == "離乳食"
 	SELECTCASE RAND:2
 		CASE 0
 			PRINTFORML 「呼～呼～…好了，拿去吧」
@@ -332,7 +332,7 @@ ENDIF
 ;-------------------------------------------------
 @M_KOJO_EVENT_K107_CHILD_RAISING_BATH(ARGS,ARG,ARG:1)
 SETCOLOR 0x00A9D4
-IF ARGS == "幼儿期"
+IF ARGS == "幼児期"
 	SELECTCASE RAND:2
 		CASE 0
 			CALL HPH_PRINT,@"「好～♪%CHILDNAME:107:(TALENT:107:育児中)%酱，不可怕的没关系哦～HPH」","L"
@@ -369,7 +369,7 @@ ENDIF
 ;-------------------------------------------------
 @M_KOJO_EVENT_K107_CHILD_RAISING_SLEEPING(ARGS,ARG,ARG:1)
 SETCOLOR 0x00A9D4
-IF ARGS == "幼儿期"
+IF ARGS == "幼児期"
 	SELECTCASE RAND:2
 		CASE 0
 			PRINTFORML 「……呼～，终于睡着了…」
@@ -409,7 +409,7 @@ PRINTFORML
 ;-------------------------------------------------
 @M_KOJO_EVENT_K107_CHILD_RAISING_TOY(ARGS,ARG,ARG:1)
 SETCOLOR 0x00A9D4
-IF ARGS == "幼儿期"
+IF ARGS == "幼児期"
 	SELECTCASE RAND:2
 		CASE 0
 			PRINTFORMDL %CHILDNAME:107:(TALENT:107:育児中)%好像很喜欢积木，闲暇时总是摆出来玩耍。
@@ -446,7 +446,7 @@ ENDIF
 ;育儿イベントその他。一番よく表示される。
 ;-------------------------------------------------
 @M_KOJO_EVENT_K107_CHILD_RAISING_OTHER(ARGS,ARG,ARG:1)
-IF ARGS == "幼儿期"
+IF ARGS == "幼児期"
 SETCOLOR 0x00A9D4
 	SELECTCASE RAND:2
 		CASE 0
@@ -512,7 +512,7 @@ ENDIF
 ;手纸イベント时に1/2の概率でこちらが发生します。
 ;ARG 儿童の番号（例：儿童_姓名は『%CHILDNAME:X:ARG%』）
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_DAIRY_口上手纸(ARG)
+@M_KOJO_EVENT_K107_CHILD_DAIRY_口上手紙(ARG)
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 SELECTCASE RAND:3
@@ -540,21 +540,21 @@ ENDSELECT
 ;置き换える气がないならスルー。
 ;ARG	儿童の番号（例：儿童_姓名は『%CHILDNAME:X:ARG%』）
 ;-------------------------------------------------
-@M_KOJO_EVENT_K107_CHILD_DAIRY_共通手纸(ARG, ARGS)
+@M_KOJO_EVENT_K107_CHILD_DAIRY_共通手紙(ARG, ARGS)
 ;-------------------------------------------------
 SETCOLOR 0x00A9D4
 IF ARGS == "すけこまし"
 	PRINTFORML 「啊！%CALLNAME:MASTER%！%CHILDNAME:107:ARG%收到了一封信！」
 	PRINTFORML 「那孩子还特意给我们分别写信，真是用心呢～♪」
 	PRINTFORMDL 从清兰的喜悦中可以推测，信中一定写着令人非常高兴的事情。
-	PRINTFORMDW 自己的信中写了些什么呢…？%CALLNAME:MASTER%满怀期待地打开信封上写着“给爸爸%UNICODE(0x2764)%”的信。
+	PRINTFORMDW 自己的信中写了些什么呢…？%CALLNAME:MASTER%满怀期待地打开信封上写着“给爸爸❤”的信。
 	SETCOLOR 0xFE0000
 	PRINTFORML      
 	PRINTFORML      出轨饶不了你
 	PRINTFORMDL       
 	PRINTFORMDL 　　　　　　　　　　　　%CHILDNAME:107:ARG%谨上
 	PRINTFORMDW 
-ELSEIF ARGS == "金の无心"
+ELSEIF ARGS == "金の無心"
 	PRINTFORML 「啊！%CALLNAME:MASTER%！%CHILDNAME:107:ARG%收到了一封信！」
 	PRINTFORMW 「到底写了什么呢？真让人期待～♪」
 	PRINTFORML 
@@ -573,7 +573,7 @@ ELSEIF ARGS == "仕送り"
 	PRINTFORML  给爸爸和妈妈
 	PRINTFORML 
 	PRINTFORMDL 收到工资了，寄给你们
-	PRINTFORMDL 一起去吃点好吃的吧%UNICODE(0x2764)%
+	PRINTFORMDL 一起去吃点好吃的吧❤
 	PRINTFORMDL 　　　　　　　　　　　　　　　　　%CHILDNAME:107:ARG%
 	PRINTFORMDW 
 	PRINTFORML 「唉，那孩子啊…♪」

@@ -2689,12 +2689,12 @@ IF LOCAL
 						PRINTFORMW 「果然找你帮忙是正确的选择。非常感谢」
 					CASE 2
 						;显示笑容图（如果选项未开启则不会显示）
-						CALL PRINT_FACE, [[依姫]], "笑容", "服装", "", ""
+						CALL PRINT_FACE, [[依姫]], "笑顔",, "", ""
 						PRINTFORML 「不好意思。请把这个……小猫摆件……」
 						PRINTFORMDL 你买完东西后叫了一声%CALLNAME:TARGET%,她突然把手里的摆件使劲一扔
 						PRINTFORMDW ……远处传来了什么东西碎裂的声音和一片惨叫
 						;显示发情表情（如果选项未开启则不会显示）
-						CALL PRINT_FACE, [[依姫]], "发情", "服装", "", ""
+						CALL PRINT_FACE, [[依姫]], "発情",, "", ""
 						PRINTFORMW 「啊……」
 				ENDSELECT
 			;其他
@@ -2706,7 +2706,7 @@ IF LOCAL
 						PRINTFORMDW 抱着一大堆东西的你,受到了周围人同情的目光……
 					CASE 1
 						;显示笑容图（如果选项未开启则不会显示）
-						CALL PRINT_FACE, [[依姫]], "笑容", "服装", "", ""
+						CALL PRINT_FACE, [[依姫]], "笑顔",, "", ""
 						PRINTFORML （怎、怎么办……要买下来吗……）
 						PRINTFORMDL %CALLNAME:TARGET%拿起一个兔子摆件仔细端详
 						PRINTFORMDW 你说『要不要我买给你?』,%CALLNAME:TARGET%慌忙把摆件放回了架子上
@@ -3385,7 +3385,7 @@ IF LOCAL
 						PRINTFORMDW 不知为何，她的侧脸看起来很开心
 					CASE 1
 						PRINTFORML 「今天要做什么菜呢？」
-						PRINTFORML 「——%DISHNAME%吗。那么，我就……」
+						PRINTFORML 「——%DISHNAME_TR()%吗。那么，我就……」
 						PRINTFORMDW 你和%CALLNAME:TARGET%分工合作，一起做起了饭菜
 					CASE 2
 						PRINTFORML 「——不看笔记也可以吗？」
@@ -3405,7 +3405,7 @@ IF LOCAL
 						PRINTFORML 「嗯，因为平时的饭菜都是兔子们准备的……」
 						PRINTFORMDW %CALLNAME:TARGET%一边多次查看笔记，一边努力完成了菜肴
 					CASE 2
-						PRINTFORML 「%DISHNAME%吗，知道了」
+						PRINTFORML 「%DISHNAME_TR()%吗，知道了」
 						PRINTFORML 「嗯，首先是这个食材……」
 						PRINTFORMDL %CALLNAME:TARGET%似乎喜欢按照步骤进行
 						PRINTFORMDW 嗯，这样应该不会失败
@@ -3564,14 +3564,17 @@ IF LOCAL
 		IF ABL:MASTER:音楽技能 >= 3
 			SELECTCASE RAND:3
 				CASE 0
-					PRINTFORML 「兔子们非常喜欢你的演奏呢」
-					PRINTFORML 「嗯，虽然为了听演奏而逃离练习是个小瑕疵……」
-					PRINTFORMDL 原来如此，偶尔感受到视线的原因就是这个吗
-					PRINTFORMDW 如果下次再感受到视线，我应该试着搭话……
+					PRINTFORML 「想让人认可你的演奏能力、至少先把场地和时间选好吧」
+					PRINTFORMDL 『为什么？』你向%CALLNAME:TARGET%反问道
+					PRINTFORML 「月兔们会因为想听你的演奏而翘掉训练，这样一来会让我很困扰啊」
+					PRINTFORMDL 原来如此、难怪总是感受到莫名的视线
+					PRINTFORMDW 下次要是感受到了视线就跟她们试着打声招呼吧……
 				CASE 1
-					PRINTFORML 「确实，你的音乐可能并不适合月亮的文化」
-					PRINTFORML 「但是，就我个人而言……我觉得非常好」
-					PRINTFORMDW %CALLNAME:TARGET%称赞了我的演奏。虽然开心，但有点害羞
+					PRINTFORML 「――你问我会不会弹奏乐器？？」
+					PRINTFORML 「不会、我一直都是伴舞的一方……啊啊但是」
+					PRINTFORMDL %CALLNAME:TARGET%指向了一旁的乐器
+					PRINTFORML 「姐姐大人起舞时、我也有过帮她伴过乐。不过、已经相当久远的事了」
+					PRINTFORMDW 何时能看到姐妹二人共同舞动的姿态呢。你这么想到
 				CASE 2
 					PRINTFORML 「――下一首想听什么曲子？」
 					PRINTFORML 「那么……再来一次现在的曲子吧」
@@ -3973,7 +3976,7 @@ RETURN 1
 ;==================================================
 ;445,採集する
 ;TFLAG:193(採集物のID, 0=『何も見つからなかった…』
-;TFLAG:194(今回採集した個数
+;TFLAG:194(今回採集した个数
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -4250,10 +4253,75 @@ RETURN RESULT
 @M_KOJO_MESSAGE_COM_K98_603_1
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
-LOCAL = 0
+LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	;恋人
+	IF TALENT:恋人
+		SELECTCASE RAND:3
+			CASE 0
+				PRINTFORML 「来、%CALLNAME:MASTER%。牵住我的手」
+				PRINTFORMDL 和%CALLNAME:TARGET%的手纠缠着、指头互相交络着述说着情意
+				PRINTFORMDW 在身旁绕着的%CALLNAME:TARGET%、如花期的少女般灿烂着天真无邪的笑容
+			CASE 1
+				PRINTFORML 「――不再近点吗？ 保持这样就好吗？」
+				PRINTFORMDL 一边抱着%CALLNAME:TARGET%的双臂一边牵着纤细的手
+				PRINTFORMDW ……这种难以动弹的感觉、让人很满足呢
+			CASE 2
+				PRINTFORMDL 和%CALLNAME:TARGET%牵着手走着
+				PRINTFORML 「――啊っ」
+				PRINTFORMDL 虽说%CALLNAME:TARGET%会因为在人流中感到害羞时不时松开手指
+				PRINTFORMDW 但、却绝不会松开紧握的手
+		ENDSELECT
+	;恋慕
+	ELSEIF TALENT:恋慕
+		SELECTCASE RAND:3
+			CASE 0
+				PRINTFORML 「那个、要是你不嫌麻烦的话……」
+				PRINTFORMDL %CALLNAME:TARGET%扭捏地摆动着手上的动作
+				PRINTFORMDW 你点头示意后、二人的手如恋人般十指相扣着
+			CASE 1
+				PRINTFORML 「――你可不要错会意了哦？」
+				PRINTFORML 「我可不是……啊っ、不、不是那个意思」
+				PRINTFORMDW 那是什么意思呢。%CALLNAME:TARGET%一幅慌慌张张的样子
+			CASE 2
+				PRINTFORMDL 你说出『想牵下』后、%CALLNAME:TARGET%自然地就把伸了
+				PRINTFORML 「――？ 不牵了吗？」
+				PRINTFORMDW 手牵上后、%CALLNAME:TARGET%也紧紧地握住了你的手作为回应
+		ENDSELECT
+	;思慕
+	ELSEIF TALENT:思慕
+		SELECTCASE RAND:3
+			CASE 0
+				PRINTFORML 「――牵手？ ……只是一会的话」
+				PRINTFORMDL 你和%CALLNAME:TARGET%互相牵着对方的手
+				PRINTFORMDW ……她的手、有些微微濡湿
+			CASE 1
+				PRINTFORML 「手、请不要前后摆动」
+				PRINTFORMDL 和%CALLNAME:TARGET%牵着手走着
+				PRINTFORMDW %CALLNAME:TARGET%貌似有些害羞地在意着周围的视线……
+			CASE 2
+				PRINTFORML 「牵手、有那么开心吗？」
+				PRINTFORML 「……果然、你和姐姐大人很像呢」
+				PRINTFORMDW %CALLNAME:TARGET%这么说着、温柔地握住了你的手
+		ENDSELECT
+	;それ以外
+	ELSE
+		SELECTCASE RAND:3
+			CASE 0
+				PRINTFORML 「――脸、脸红？」
+				PRINTFORML 「……是你的错觉吧？」
+				PRINTFORMDW 好不容易牵到手、%CALLNAME:TARGET%却不看这边一眼
+			CASE 1
+				PRINTFORML （仅仅只是牵个手……）
+				PRINTFORML （只是……牵着手而已、可是……）
+				PRINTFORMDW %CALLNAME:TARGET%心中的计数器跳动着。但却没发现自己的想法已经暴露了
+			CASE 2
+				PRINTFORML 「牵……牵手！？」
+				PRINTFORML 「――っ、这种事肯定干过啊！ ……在小时候」
+				PRINTFORMDW 虎头蛇尾的回答、没法没听清最后一句话
+		ENDSELECT
+	ENDIF
 ENDIF
 RETURN 1
 
@@ -4815,9 +4883,9 @@ IF LOCAL
 		CASE 1 TO 20, 22 TO 60
 			LOCALS = %FISH_NAME(TFLAG:193)%
 		CASE 21
-			LOCALS = ローター
+			LOCALS = 跳蛋
 		CASEELSE
-			LOCALS = %ITEMNAME:(TFLAG:193)%
+			LOCALS = %ITEMNAME_TR((TFLAG:193))%
 	ENDSELECT
 	;依姫が釣った
 	IF TFLAG:194 > 1000
@@ -4856,22 +4924,22 @@ IF LOCAL
 				PRINTFORML 「这是……没记错的话是%LOCALS%」
 				PRINTFORML 「在古书上写着是很珍贵的材料……」
 				PRINTFORMDW 得到了好东西。就算不用来调配,卖了也能换不少钱吧
-			CASE "石斑魚"
+			CASE "石斑鱼"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「这是……没记错的话,是叫石斑魚的鱼」
 				PRINTFORML 「听说到了春天,雄鱼会长出鲜艳的婚姻色」
 				PRINTFORMDW 顺便一提,这鱼的味道似乎褒贬不一。总之先留着吧
-			CASE "皐月鱒"
+			CASE "皋月鳟"
 				CALL PRINT_FACE, [[依姫]], "笑顔", "服", "", ""
 				PRINTFORML 「啊,这鱼我知道」
 				PRINTFORML 「因为姐姐说过很好吃,然后就吃掉了」
 				PRINTFORMDW 那味道应该错不了。你从红点鲑身上取下鱼钩,把它扔进了鱼篓里
-			CASE "山女"
+			CASE "山女鱼"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「这是……山女鳟吧」
 				PRINTFORML 「因为连接着海和山所以很吉利,姐姐也很喜欢呢」
 				PRINTFORMDW 顺便一提,一生都在河里度过的叫山女鳟,回到海里的叫樱花鳟
-			CASE "岩魚"
+			CASE "岩鱼"
 				CALL PRINT_FACE, [[依姫]], "笑脸", "服", "", ""
 				PRINTFORML 「看起来很好吃呢。我们吃了吧」
 				PRINTFORMDW 这孩子突然在说什么啊……
@@ -4885,12 +4953,12 @@ IF LOCAL
 				CALL PRINT_FACE, [[依姫]], "笑脸", "服", "", ""
 				PRINTFORML 「原来如此……那么,味道如何？」
 				PRINTFORMDW 虽然严禁生吃,但意外的还不错
-			CASE "鲫魚"
+			CASE "鲫鱼"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「总之先留着吧」
 				PRINTFORMDL %CALLNAME:TARGET%取下鲫鱼上的鱼钩,把它放进了鱼篓里
 				PRINTFORMDW 动作很熟练。%CALLNAME:TARGET%似乎很有当钓手的天赋
-			CASE "食人魚"
+			CASE "食人鱼"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「这就是食人鱼……听说在度假胜地经常袭击人……」
 				PRINTFORMDL 这里的食人鱼没有主动袭击人,也没有被军队改良成武器
@@ -4900,61 +4968,61 @@ IF LOCAL
 				PRINTFORML 「好奇特的鱼。总觉得有点像鳄鱼」
 				PRINTFORMDL 没想到能钓到这样的鱼
 				PRINTFORMDW 是不是有人丢弃的鱼在这里顽强地活了下来呢
-			CASE "蓝鳃太阳魚"
+			CASE "蓝鳃太阳鱼"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「蓝鳃太阳鱼……这个名字我听说过」
 				PRINTFORML 「好像作为入侵物种,在各地肆虐……」
 				PRINTFORMDW 确实如此。一定要抓住,不能放跑
-			CASE "鮭魚"
+			CASE "鲑鱼"
 				PRINTFORMDL %CALLNAME:TARGET%问这条鱼叫什么名字
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「――哈？不就是普通的鲑鱼吗？」
 				PRINTFORMDW %CALLNAME:TARGET%属于读作サケ派,不是シャケ派
-			CASE "西太公魚"
+			CASE "西太公鱼"
 				CALL PRINT_FACE, [[依姫]], "笑顔", "服", "", ""
 				PRINTFORML 「是西太公魚呢。是姐姐大人最喜欢的食物之一」
 				PRINTFORMDL 烧烤、天妇罗、炸鸡、南蛮渍……
 				PRINTFORMDW ……肚子饿了
-			CASE "虹鱒"
+			CASE "虹鳟"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「鲷鱼和比目鱼钓不到吗」
 				PRINTFORMDW 在这种地方要是能钓到那么大的鱼就太惊人了
-			CASE "八目鰻"
+			CASE "八目鳗"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「这就是……盲鳗……?」
 				PRINTFORML 「比想象中要更加怪异……」
 				PRINTFORMDW 嗯,确实不是什么很可爱的生物……
-			CASE "雷魚"
+			CASE "雷鱼"
 				PRINTFORMDL 钓到了雷魚。可能叫哲罗鲑更有名
 				CALL PRINT_FACE, [[依姫]], "笑顔", "服", "", ""
 				PRINTFORML 「是个难缠的对手。差点以为鱼竿要断了……」
 				PRINTFORMDW 因为成功钓上来了,%CALLNAME:TARGET%看起来很满足
-			CASE "杜父魚"
+			CASE "杜父鱼"
 				CALL PRINT_FACE, [[依姫]], "笑脸", "服", "", ""
 				PRINTFORML 「是杜父鱼呢。这也是姐姐大人的最爱」
 				PRINTFORMDL 那个姐姐有什么讨厌的食物吗
 				PRINTFORMDW %CALLNAME:TARGET%熟练地取下鱼钩,把杜父鱼放进了鱼篓里
-			CASE "香魚"
+			CASE "香鱼"
 				CALL PRINT_FACE, [[依姫]], "笑脸", "服", "", ""
 				PRINTFORML 「钓到了香魚呢」
 				PRINTFORML 「虽然只是偶尔,但有时会莫名其妙地想吃这种鱼」
 				PRINTFORMDW 香鱼盐烧很好吃。如果是自己钓的就更好了
-			CASE "鲶魚"
+			CASE "鲶鱼"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「说到鲶鱼,以前姐姐大人养过一条白鲶……」
 				PRINTFORMDL 那个姐姐什么都要当宠物养啊……
 				PRINTFORMDW 你取下鱼钩,把鲶鱼放进了鱼篓里
-			CASE "鰻魚"
+			CASE "鳗鱼"
 				PRINTFORMDL 是鳗鱼!不仅味道好,营养价值也很高,吃了能补精
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「补精……说起来,好像有一段时间姐姐大人一直在吃鳗鱼……」
 				PRINTFORMDW 顺带一提,鳗鱼含有丰富的B族维生素。也就是说,就是那个意思吧
-			CASE "姫鱒"
+			CASE "姬鳟"
 				CALL PRINT_FACE, [[依姫]], "笑顔", "服", "", ""
 				PRINTFORML 「钓到了好吃的鱼呢」
 				PRINTFORMDL 钓上来后的第一句话就是这个吗……
 				PRINTFORMDW 有其姐必有其妹,就是这么回事吧……
-			CASE "鯉魚"
+			CASE "鲤鱼"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「跃过龙门的鲤鱼终将化为龙」
 				PRINTFORML 「这条鲤鱼,是否也梦想着变成龙呢?」
@@ -4970,21 +5038,21 @@ IF LOCAL
 				CALL PRINT_FACE, [[依姫]], "笑顔", "服", "", ""
 				PRINTFORML 「钓到鱼子酱了呢。我们吃吧」
 				PRINTFORMDW 这孩子到底是怎么了……
-			CASE "国鱒"
+			CASE "国鳟"
 				PRINTFORMDL 这条鱼……我听说已经灭绝了……
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「要吃掉吗?」
 				PRINTFORMDW 虽然放生比较好,但还是很在意它的味道……
-			CASE "草魚"
+			CASE "草鱼"
 				CALL PRINT_FACE, [[依姫]], "笑顔", "服", "", ""
-				PRINTFORML 「是草魚呢。是很美味的鱼」
+				PRINTFORML 「是草鱼呢。是很美味的鱼」
 				PRINTFORMDW 看来%CALLNAME:TARGET%对美味的鱼记忆力很好
 			CASE "高身鲫"
 				CALL PRINT_FACE, [[依姫]], "通常", "服", "", ""
 				PRINTFORML 「听说钓鱼是从白鲑开始,也以白鲑结束」
 				PRINTFORML 「如果能钓到那种程度,我看到的景色也会改变吗?」
 				PRINTFORMDW 那是当然的,你试试看吧!
-			CASE "伊富魚"
+			CASE "伊富鱼"
 				CALL PRINT_FACE, [[依姫]], "笑顔", "服", "", ""
 				PRINTFORML 「光看外表就知道了。绝对是美味的鱼」
 				PRINTFORMDW %CALLNAME:TARGET%心情非常好
@@ -4994,7 +5062,7 @@ IF LOCAL
 				PRINTFORML 「明智的判断呢」
 				PRINTFORMDW 这样是否能多少保护一些本土物种呢
 			CASE "巨骨舌鱼"
-				CALL PRINT_FACE, [[依姫]], "发情", "服", "", ""
+				CALL PRINT_FACE, [[依姫]], "発情", "服", "", ""
 				PRINTFORML 「哈……哈……」
 				PRINTFORML 「没想到……能钓到这样大的鱼……」
 				PRINTFORMDW %CALLNAME:TARGET%和你两个人合力钓上了世界最大的淡水鱼!
@@ -5285,10 +5353,10 @@ IF LOCAL
 								CALL GET_ITEM("烧酒", 1, 1)
 								PRINTFORMDW %CALLNAME:TARGET%送的礼物是正宗芋烧酒!
 							CASE 1
-								CALL GET_ITEM("陈酿紅酒", 1, 1)
+								CALL GET_ITEM("陈酿红酒", 1, 1)
 								PRINTFORMDW %CALLNAME:TARGET%送的礼物是看起来很贵的陈年红酒!
 							CASE 2
-								CALL GET_ITEM("吟醸酒", 1, 1)
+								CALL GET_ITEM("吟酿酒", 1, 1)
 								PRINTFORMDW %CALLNAME:TARGET%送的礼物是装在桐木盒里的吟酿清酒!
 						ENDSELECT
 				ENDSELECT
@@ -5705,9 +5773,29 @@ RETURN RESULT
 @M_KOJO_MESSAGE_SCOM_K98_80_1
 ;-------------------------------------------------
 ;記入チェック（=0, 非表示、1, 表示）
-LOCAL = 0
+LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	;恋人
+	IF TALENT:恋人
+		PRINTFORML 「我说、要是不好好看前面――」
+		PRINTFORMDL 牵起%CALLNAME:TARGET%的手、乘风破浪般往目的地行进着
+		PRINTFORMDW 回过头、%CALLNAME:TARGET%像个孩子透出天真烂漫的笑容
+	;恋慕
+	ELSEIF TALENT:恋慕
+		PRINTFORMDL 一开始、还是牵着%CALLNAME:TARGET%的手向前走着……
+		PRINTFORML 「――要休息吗？ 刚好那边有树阴……」
+		PRINTFORMDW 在不经意间、立场就发生了转变……
+	;思慕
+	ELSEIF TALENT:思慕
+		PRINTFORMDL 牵着%CALLNAME:TARGET%的手赶着路……目前为止没什么特别的事
+		PRINTFORML 「稍微放慢点速度吧？」
+		PRINTFORMDW 在%CALLNAME:TARGET%之前、就要把自己的体力耗光了……
+	;それ以外
+	ELSE
+		PRINTFORML 「哪怕急着赶路、也没必要牵着手吧……」
+		PRINTFORMDL %CALLNAME:TARGET%和一起、从小路匆忙地赶往目的地
+		PRINTFORMDW 看了看情况是否要放缓速度、结果来看是没这个必要了
+	ENDIF
 ENDIF
 RETURN 1

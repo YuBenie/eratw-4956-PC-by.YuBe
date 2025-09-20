@@ -26,7 +26,7 @@ SIF BASE:MASTER:気力 <= 0
 SIF FLAG:70
 	RETURN 0
 ;非陷落不可
-SIF YUBE_陷落状态(16) == "未陷落"
+SIF YUBE_FALLEN(16) == 0
 	RETURN 0
 
 RETURN 1

@@ -50,7 +50,7 @@ IF LOCAL
 	GUEST:1 = RESULT:1
 	GUESTS = %RESULTS%
 	;ここに口上書いて下さい
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		PRINTFORML %CALLNAME:PLAYER%试着和%CALLNAME:TARGET%搭话、但是%CALLNAME:TARGET%只是哼哼了两句、听不懂在说什么
 	ELSEIF TCVAR:[[小鈴]]:発情
 		PRINTFORML %CALLNAME:PLAYER%尝试与表现异常的%CALLNAME:TARGET%交谈
@@ -136,7 +136,7 @@ IF LOCAL
 		    ENDSELECT
 		ENDIF
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("会話")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -760,7 +760,7 @@ IF LOCAL
 	ELSEIF !GETBIT(TCVAR:[[小鈴]]:359, 33) && CFLAG:[[小鈴]]:現在位置 == CFLAG:MASTER:初期位置 && !CMATCH(CFLAG:初期位置, CFLAG:MASTER:初期位置, 1)
 		CALL M_KOJO_K70_TALKSET("状況会話", 33)
 	;34,相合い傘中
-	ELSEIF !GETBIT(TCVAR:[[小鈴]]:359, 34) && TEQUIP:[[小鈴]]:共用雨伞
+	ELSEIF !GETBIT(TCVAR:[[小鈴]]:359, 34) && TEQUIP:[[小鈴]]:相合伞
 		CALL M_KOJO_K70_TALKSET("状況会話", 34)
 	;35,マイブームの話,思慕以上
 	ELSEIF !GETBIT(TCVAR:[[小鈴]]:359, 35) && INRANGE(CFLAG:[[小鈴]]:1080, 1, 9) && (TALENT:[[小鈴]]:思慕 || TALENT:[[小鈴]]:恋慕)
@@ -2038,7 +2038,7 @@ CASE "おすすめの本"
 		PRINTFORMW 『马马虎虎的心得』！」
 		PRINTFORML 「适合努力养育孩子的奶爸！」
 		IF !CFLAG:70:無自覚妊娠 && (TALENT:70:育児中 || TALENT:70:妊娠)
-			PRINTFORMW 「呼呼呼，%CALLNAME:MASTER%先生我想请你成为一名出色的父亲，ね%UNICODE(0x2764)%」
+			PRINTFORMW 「呼呼呼，%CALLNAME:MASTER%先生我想请你成为一名出色的父亲，ね❤」
 		ELSE
 			PRINTFORMW 「虽然很辛苦，但是请读这个加油吧！」
 		ENDIF
@@ -2876,7 +2876,7 @@ CASE 8
 				PRINTFORMW 「看来还是挺普通的房间呢」
 			ENDSELECT
 		ENDIF
-	;共用雨伞
+	;相合伞
 	CASE 34
 		IF TALENT:[[小鈴]]:恋慕
 			SELECTCASE RAND:5
@@ -2886,7 +2886,7 @@ CASE 8
 				PRINTFORML 「抱歉，麻烦你拿着雨伞了」
 				PRINTFORMW 「我拿的话可能会碰到%CALLNAME:MASTER%先生的头……」
 			CASE 3
-				PRINTFORMW 「嘿嘿……一直都有点向往共用雨伞呢」
+				PRINTFORMW 「嘿嘿……一直都有点向往相合伞呢」
 			CASE 4
 				PRINTFORMW 「一起撑伞的时候，感觉这里只有我们两个人的空间……❤」
 			CASEELSE
@@ -2894,7 +2894,7 @@ CASE 8
 				PRINTFORMW 「我们靠得更近一些吧♪」
 			ENDSELECT
 		ELSE
-			PRINTFORML 「这、这就是所谓的共用雨伞吗……」
+			PRINTFORML 「这、这就是所谓的相合伞吗……」
 			PRINTFORMW 「没关系，只是有点害羞啦……❤」
 		ENDIF
 	;我的兴趣谈话
@@ -4124,7 +4124,7 @@ IF LOCAL
 	PRINTW 
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("茶")
 	;発情
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -4212,7 +4212,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		PRINTFORMDL %CALLNAME:MASTER%因为喝醉了，碰到了%CALLNAME:TARGET%的身体
 		PRINTW 
 		CALL M_KOJO_K70_DRUNK("スキンシップ")
@@ -4638,7 +4638,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	PRINTL 
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("仕事を手伝う")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -4768,7 +4768,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("膝枕してもらう")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -4930,7 +4930,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	IF FLAG:時間停止
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("お腹を撫でる")
 ;	;発情中,ラブラブ分岐に移行
 ;	ELSEIF TCVAR:[[小鈴]]:発情
@@ -5011,7 +5011,7 @@ IF LOCAL
 		PRINTFORMDL %CALLNAME:PLAYER%伸出手触摸了%CALLNAME:TARGET%的脸颊…
 		PRINTFORMDW 被停止时间的%CALLNAME:TARGET%无抵抗地被摸着脸颊…
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("頬をつまむ")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -5141,13 +5141,13 @@ IF LOCAL
 		PRINTW 
 		PRINTFORMW 「呼……」
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		PRINTFORMDL %CALLNAME:PLAYER%は酔っ払っている%CALLNAME:TARGET%の頭を撫でた
 		PRINTW 
 		CALL M_KOJO_K70_DRUNK("頭を撫でる")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
-		PRINTFORMDL %CALLNAME:PLAYER%は様子のおかしい%CALLNAME:TARGET%の頭を撫でた
+		PRINTFORMDL %CALLNAME:PLAYER%は样子のおかしい%CALLNAME:TARGET%の頭を撫でた
 		PRINTW 
 		IF TALENT:[[小鈴]]:恋人
 			SELECTCASE RAND:5
@@ -5357,7 +5357,7 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	IF FLAG:時間停止 || CFLAG:70:睡眠
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("尻を撫でる")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -5514,7 +5514,7 @@ IF LOCAL
 			ENDIF
 		ENDSELECT
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("抱き付く")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -5967,7 +5967,7 @@ IF LOCAL
 			CSTR:70:初吻喪失履歴 = %PRINT_DATE_F(DAY)%，在%NAME_FROM_PLACE(CFLAG:70:現在位置)%，%LOCALS%%CALLNAME:MASTER%夺走了她的初吻
 		ENDIF
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("キスする")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -6348,7 +6348,7 @@ IF LOCAL
 	ELSEIF CFLAG:70:睡眠
 		CALL M_KOJO_K70_日常愛撫("睡眠")
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("胸愛撫")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -6606,7 +6606,7 @@ IF LOCAL
 	ELSEIF CFLAG:70:睡眠
 		CALL M_KOJO_K70_日常愛撫("睡眠")
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("アナル愛撫")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -6677,7 +6677,7 @@ IF LOCAL
 	ELSEIF CFLAG:70:睡眠
 		CALL M_KOJO_K70_日常愛撫("睡眠")
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("クリ愛撫")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -6728,7 +6728,7 @@ IF LOCAL
 	ELSEIF CFLAG:70:睡眠
 		CALL M_KOJO_K70_日常愛撫("睡眠")
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("指挿入れ")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -6861,7 +6861,7 @@ IF M_KOJO_K70_FUKIGEN([[小鈴]])
 	DRAWLINE
 ELSEIF TFLAG:193 >= 0
 	DRAWLINE
-ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 	DRAWLINE
 ELSEIF M_KOJO_K70_FUKIGEN([[小鈴]])
 	DRAWLINE
@@ -6882,7 +6882,7 @@ LOCAL = 1
 IF LOCAL
 	IF FLAG:時間停止
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		;地の文カット
 		PRINTFORMDL %CALLNAME:MASTER%醉醺醺地翻开了%CALLNAME:TARGET%的%SHOW_BOTTOM(TARGET,1)%！
 		PRINTW 
@@ -7045,7 +7045,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("茶")
 	;発情
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -7104,9 +7104,9 @@ CASE IS <= 2
 CASE IS <= MAXBASE:[[小鈴]]:酒気 / 10 * 5
 	RETURNF "微醺"
 CASE IS <= MAXBASE:[[小鈴]]:酒気 / 10 * 8
-	RETURNF "酔酒"
+	RETURNF "醉酒"
 CASEELSE
-	RETURNF "趴窝"
+	RETURNF "不省人事"
 ENDSELECT
 
 @M_KOJO_MESSAGE_COM_K70_332
@@ -7122,9 +7122,9 @@ IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;同梱CSVを前提としています
 	;[酒に弱い]ので どぶろく=10, 清酒=8, 鬼殺し=5
-	IF M_KOJO_K70_ALCOHOL_FACE(TCVAR:[[小鈴]]:382) == "趴窝"
+	IF M_KOJO_K70_ALCOHOL_FACE(TCVAR:[[小鈴]]:382) == "不省人事"
 		PRINTFORMW 「きゅ～～～…………」
-	ELSEIF M_KOJO_K70_ALCOHOL_FACE(TCVAR:[[小鈴]]:382) == "酔酒"
+	ELSEIF M_KOJO_K70_ALCOHOL_FACE(TCVAR:[[小鈴]]:382) == "醉酒"
 		PRINTFORMW 「う～～ん、うんうんうんうん……」
 	;発情＞ほろ酔い,ここは段階があるので関数使わない
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -7156,7 +7156,7 @@ IF LOCAL
 	ENDIF
 	PRINTL 
 	;ここも酔いどれ＞発情＞ほろ酔い
-	IF TCVAR:[[小鈴]]:発情 && ALCOHOL_FACE(70) != "不省人事" && ALCOHOL_FACE(70) != "酔酒"
+	IF TCVAR:[[小鈴]]:発情 && ALCOHOL_FACE(70) != "不省人事" && ALCOHOL_FACE(70) != "醉酒"
 		PRINTFORML 「嘻嘻❤ 喝醉啦～❤」
 		IF TALENT:[[小鈴]]:恋慕
 			SELECTCASE RAND:3
@@ -7174,7 +7174,7 @@ IF LOCAL
 	ELSEIF ALCOHOL_TASTE(TFLAG:194) <= 5
 		IF ALCOHOL_FACE(70) == "不省人事"
 			PRINTFORMW 「んくんく、んくんく……～～ッ！！＠＃！＄％！？＊＊＊＊ッ！！」
-		ELSEIF ALCOHOL_FACE(70) == "酔酒"
+		ELSEIF ALCOHOL_FACE(70) == "醉酒"
 			PRINTFORML 「嗯嗯嗯……嗯嗯～～～～呜姆！！」
 			PRINTFORMW 「再～～～～～来一次～～～！！！」
 		ELSE
@@ -7185,7 +7185,7 @@ IF LOCAL
 	ELSEIF ALCOHOL_TASTE(TFLAG:194) >= 10
 		IF ALCOHOL_FACE(70) == "不省人事"
 			PRINTFORMW 「嗯嗯嗯，嗯嗯嗯……王の御前へ～～！ 御免あさい～～……」
-		ELSEIF ALCOHOL_FACE(70) == "酔酒"
+		ELSEIF ALCOHOL_FACE(70) == "醉酒"
 			PRINTFORMW 「嗯嗯嗯……嗯嗯～～！ 这种感觉真是太美妙了～」
 		ELSE
 			PRINTFORMW 「嗯嗯……嗯～♪ 我喜欢这种略微温和的感觉～♪」
@@ -7194,7 +7194,7 @@ IF LOCAL
 	ELSE
 		IF ALCOHOL_FACE(70) == "不省人事"
 			PRINTFORMW 「嗯嗯嗯，嗯嗯嗯……啊嗚啊～♪ 好舒服～♪ 心情真是棒极了～～～♪♪」
-		ELSEIF ALCOHOL_FACE(70) == "酔酒"
+		ELSEIF ALCOHOL_FACE(70) == "醉酒"
 			PRINTFORMW 「嗯嗯嗯……很有趣，很美味呢～，这料理真是赛高呐～♪」
 		ELSE
 			PRINTFORML 「嗯嗯……嗯～！ 这个真是美味呢……！」
@@ -7493,7 +7493,7 @@ IF LOCAL
 	寝ちゃうフラグ = 1
 	SIF M_KOJO_K70_FUKIGEN([[小鈴]])
 		寝ちゃうフラグ = 0
-	SIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	SIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		寝ちゃうフラグ = 0
 	SIF TCVAR:[[小鈴]]:発情
 		寝ちゃうフラグ = 0
@@ -7522,7 +7522,7 @@ IF LOCAL
 			PRINTFORMDW %CALLNAME:TARGET%正尽情享受着膝上的时光
 		ENDSELECT
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("膝枕する")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -8793,12 +8793,12 @@ IF LOCAL
 			PRINTFORMW 「消费税……？那是什么？」
 		ENDSELECT
 	CASE 15
-		;▼説教［様子をうかがう］
+		;▼説教［样子をうかがう］
 		;※神霊・蓬莱人は除く
 		;TFLAG:193,-1
 		;PRINTFORMW 
 	CASE 16
-		;▼落とし穴［いたずらに付き合う］or［様子をうかがう］
+		;▼落とし穴［いたずらに付き合う］or［样子をうかがう］
 		;※三月精・チルノ・クラウンピースのみ
 		;それ以外は落ちる側
 		;PRINTFORMW 
@@ -8896,7 +8896,7 @@ IF LOCAL
 	IF CFLAG:70:睡眠
 		PRINTFORMW 「嗯ぅ……」
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("休憩")
 	;発情
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -8952,7 +8952,7 @@ IF LOCAL
 	;小鈴とデート
 	IF CFLAG:70:同行
 		;酔ってる
-		IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+		IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 			CALL M_KOJO_K70_DRUNK("デート")
 		ELSEIF TCVAR:[[小鈴]]:発情
 			PRINTFORMW 「嘻嘻～❤ 我们去旅馆吧❤」
@@ -9108,7 +9108,7 @@ IF LOCAL
 	ELSEIF CFLAG:70:诶嘿嘿
 		PRINTFORMW 「诶？那个……这、这是现在要做的事情吗……？」
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("掃除")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -9155,7 +9155,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		PRINTFORML 「哦嚯哇～，暴风雨般的黑暗来袭啦～！？ 这可不妙哦～！」
 		PRINTFORMW 「哈呀～！ 死亡之书『醉人之生，死亡的幻梦』！」
 	;発情中
@@ -9205,7 +9205,7 @@ LOCAL = 1
 IF LOCAL
 	IF CFLAG:70:睡眠
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		PRINTFORMDL %CALLNAME:MASTER%尝试和喝醉的%CALLNAME:TARGET%学习
 		PRINTW 
 		CALL M_KOJO_K70_DRUNK("勉強")
@@ -9269,7 +9269,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL && DISH_ASSI == 70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("料理")
 		RETURN 1
 	;発情中
@@ -9308,7 +9308,7 @@ IF LOCAL && DISH_ASSI == 70
 	PRINTW 
 	;季節外れ
 	IF STRCOUNT(DISH_TASTE, "过季")
-		PRINTFORML 「诶！？现在不是%DISHNAME%的时候吧……」
+		PRINTFORML 「诶！？现在不是%DISHNAME_TR()%的时候吧……」
 		PRINTFORML 「嘛，如果是%CALLNAME:MASTER%先生做的话……」
 		CALL M_KOJO_K70_COOKSET("料理", 3)
 	;カエル料理
@@ -9322,7 +9322,7 @@ IF LOCAL && DISH_ASSI == 70
 		PRINTFORML 「嗯，看起来并不怎么好吃呢……」
 	;ローター料理
 	ELSEIF STRCOUNT(DISH_TASTE, "跳蛋")
-		PRINTFORML 「%DISHNAME%吗，嗯，做法是……诶？」
+		PRINTFORML 「%DISHNAME_TR()%吗，嗯，做法是……诶？」
 		PRINTFORML 「那个，嗯，这是，料理吗……？」
 		PRINTL 
 		PRINTFORMDW 小鈴无心地做着料理。
@@ -9336,7 +9336,7 @@ IF LOCAL && DISH_ASSI == 70
 			IF LEARNED_MENU:[[小鈴]] < 100
 				IF FIRSTTIME("铃铛蛋糕")
 					PRINTFORML 「诶？想学一些特别的料理吗……？」
-					PRINTFORMW 「嗯，我知道的大概就%DISHNAME%了吧」
+					PRINTFORMW 「嗯，我知道的大概就%DISHNAME_TR()%了吧」
 				ELSE
 					PRINTFORML 「想学卡斯特拉的做法吗？」
 					PRINTFORMW 「嘿嘿，好啊，我可以一遍又一遍地教给你♪」
@@ -9375,26 +9375,26 @@ IF LOCAL && DISH_ASSI == 70
 				PRINTFORML 「那个，酸酸的味道，挺淡雅的」
 				PRINTFORML 「好像吃什么都能提高记忆力呢」
 			ELSE
-				PRINTFORML 「%DISHNAME%吗……」
+				PRINTFORML 「%DISHNAME_TR()%吗……」
 				PRINTFORML 「据说这个是传统的秘方呢」
 				PRINTFORML 「因为觉得没太必要夸夸其谈，似乎是从阿求那一代开始公开的」
 			ENDIF
 			CALL M_KOJO_K70_COOKSET("料理", 3)
 		CASE "海龟汤"
 			IF FIRSTTIME("海龟汤")
-				PRINTFORML 「%DISHNAME%……听说过这个」
+				PRINTFORML 「%DISHNAME_TR()%……听说过这个」
 				PRINTFORML 「虽然是普通的汤，但总感觉有些不安定的氛围呢……」
 				PRINTFORMW 「那么，怎么制作呢？」
 				PRINTFORML 「诶！？原料是秘密！？为、为什么呢！？」
 				PRINTFORML 「这样的话该怎么做才好呢……」
 			ELSE
-				PRINTFORML 「%DISHNAME%……确实是海龟汤吗…？」
+				PRINTFORML 「%DISHNAME_TR()%……确实是海龟汤吗…？」
 				PRINTFORML 「吃了不会有事吧…？」
 			ENDIF
 			CALL M_KOJO_K70_COOKSET("わからない")
 		CASE "烤年糕"
 			IF TALENT:[[小鈴]]:恋慕
-				PRINTFORML 「%DISHNAME%什么的，简单啦～」
+				PRINTFORML 「%DISHNAME_TR()%什么的，简单啦～」
 				PRINTFORML 「简…单……吧……」
 				PRINTFORML 「唔……换个角度来看，变得有点悲伤了呢……」
 				PRINTL 
@@ -9403,7 +9403,7 @@ IF LOCAL && DISH_ASSI == 70
 				PRINTFORML 「好，完成了……」
 				PRINTFORML 「我、我可不是在嫉妒什么哦！」
 			ELSE
-				PRINTFORML 「%DISHNAME%什么的，不过是简单地烤个饼干而已～！很简单的～」
+				PRINTFORML 「%DISHNAME_TR()%什么的，不过是简单地烤个饼干而已～！很简单的～」
 				CALL M_KOJO_K70_COOKSET("テキパキ")
 			ENDIF
 		CASE "鲵吞亭秘传炖菜"
@@ -9411,7 +9411,7 @@ IF LOCAL && DISH_ASSI == 70
 				PRINTFORML 「鲇吞亭的秘传！？ %CALLNAME:MASTER%先生，您什么时候传授的？」
 				PRINTFORML 「我，我也可以学吗……？」
 			ELSE
-				PRINTFORML 「又是%DISHNAME%呢……」
+				PRINTFORML 「又是%DISHNAME_TR()%呢……」
 				PRINTFORML 「%CALLNAME:MASTER%先生，您真是教导得不错啊」
 				PRINTFORML 「是怎么教导您的？」
 				PRINTFORML 「那边的侍者……那个，侍者好像没在吧…？」
@@ -9421,7 +9421,7 @@ IF LOCAL && DISH_ASSI == 70
 		CASE "刨冰", "猫饭", "生洋蔥沙拉", "日式鸡肉串", "单面煎蛋", "炒堅果", "红叶天妇罗", "水果三明治", "犬饭", "炒豆芽"
 			CALL M_KOJO_K70_COOKSET("料理：イージー")
 		;知ってるけど作り方は知らないような料理
-		CASE "红白馒头", "威士忌酒心巧克力", "稻荷寿司", "蜂王浆", "烤七鳃鳗", "芝士蛋糕", "中華饅", "软绵绵綿菓子"
+		CASE "红白馒头", "威士忌酒心巧克力", "稻荷寿司", "蜂王浆", "烤七鳃鳗", "芝士蛋糕", "中華饅", "软绵绵棉花糖"
 			CALL M_KOJO_K70_COOKSET("料理：ノーマル")
 		CASE "素齋", "野味菜", "牡丹火鍋", "枫叶馒头", "桜餅", "满月乌冬面", "狸猫荞麦面", "日式烤红薯", "雏霰", "深海料理", "碗子荞麦面"
 			CALL M_KOJO_K70_COOKSET("料理：ノーマル")
@@ -9442,7 +9442,7 @@ IF LOCAL && DISH_ASSI == 70
 		SELECTCASE DISHNAME
 		CASE "蛋澆飯"
 			IF FIRSTTIME(DISHNAME)
-				PRINTFORML 「%DISHNAME%嘛……那种程度当然是能做出来的！」
+				PRINTFORML 「%DISHNAME_TR()%嘛……那种程度当然是能做出来的！」
 				PRINTFORML 「只是漂亮地打个蛋而已，看，这样」
 				IF ABL:[[小鈴]]:料理技能 >= 2
 					CALL M_KOJO_K70_COOKSET("卵割り：成功")
@@ -9451,11 +9451,11 @@ IF LOCAL && DISH_ASSI == 70
 					CALL M_KOJO_K70_COOKSET("卵割り：失敗")
 				ENDIF
 			ELSEIF ABL:[[小鈴]]:料理技能 >= 2
-				PRINTFORML 「%DISHNAME%吗，正好在小腹饿的时候很合适呢」
+				PRINTFORML 「%DISHNAME_TR()%吗，正好在小腹饿的时候很合适呢」
 				CALL M_KOJO_K70_COOKSET("卵割り：成功")
 				CALL M_KOJO_K70_COOKSET("完成：良好")
 			ELSE
-				PRINTFORML 「又是%DISHNAME%呢……」
+				PRINTFORML 「又是%DISHNAME_TR()%呢……」
 				PRINTFORML 「上次只是碰巧失败了而已！」
 				PRINTFORML 「连打个蛋这种事我也能……！」
 				IF !RAND:(2 + ABL:[[小鈴]]:料理技能)
@@ -9467,24 +9467,24 @@ IF LOCAL && DISH_ASSI == 70
 			ENDIF
 		CASE "飯団"
 			IF FIRSTTIME(DISHNAME)
-				PRINTFORML 「%DISHNAME%这种料理可不在我的菜单范围内～」
+				PRINTFORML 「%DISHNAME_TR()%这种料理可不在我的菜单范围内～」
 			ELSE
-				PRINTFORML 「%DISHNAME%吗～，我还是喜欢鲑鱼呢～」
+				PRINTFORML 「%DISHNAME_TR()%吗～，我还是喜欢鲑鱼呢～」
 				PRINTFORML 「%CALLNAME:MASTER%先生喜欢放些什么～？」
 			ENDIF
 			PRINTL 
 			IF ABL:70:料理技能 >= 2
-				PRINTFORMDW 小鈴熟练地、轻快地制作起%DISHNAME%来。
+				PRINTFORMDW 小鈴熟练地、轻快地制作起%DISHNAME_TR()%来。
 				PRINTL 
 				CALL M_KOJO_K70_COOKSET("完成：良好")
 			ELSE
-				PRINTFORMDW 小鈴虽然面带从容的表情，但摆在那里的%DISHNAME%却呈现出不规则的形状……。
+				PRINTFORMDW 小鈴虽然面带从容的表情，但摆在那里的%DISHNAME_TR()%却呈现出不规则的形状……。
 				PRINTL 
 				PRINTFORML 「嗯，这个是……」
 				PRINTFORML 「呃，试图表达一下艺术性……」
 			ENDIF
 		CASE "盛的滿滿的飯", "漬物大碗飯"
-			PRINTFORML 「%DISHNAME%是一道菜吗……」
+			PRINTFORML 「%DISHNAME_TR()%是一道菜吗……」
 			PRINTL 
 			PRINTFORMDW 小鈴小心翼翼地盛上了饭，生怕溢出碗外。
 			PRINTL 
@@ -9499,13 +9499,13 @@ IF LOCAL && DISH_ASSI == 70
 		;CASE "焼き魚"
 		CASE "照焼鱼"
 			IF ABL:[[小鈴]]:料理技能 >= 3
-				PRINTFORML 「虽说是%DISHNAME%，但烹调和调味方式可以让它变得不同！」
+				PRINTFORML 「虽说是%DISHNAME_TR()%，但烹调和调味方式可以让它变得不同！」
 				PRINTL 
 				PRINTFORMDW 小鈴一脸认真地煎着鱼。
 				PRINTL 
 				CALL M_KOJO_K70_COOKSET("完成：良好")
 			ELSE
-				PRINTFORML 「%DISHNAME%只需要烧烤吗？」
+				PRINTFORML 「%DISHNAME_TR()%只需要烧烤吗？」
 				PRINTL 
 				PRINTFORMDW 小鈴悠然地在烤鱼。
 				PRINTL 
@@ -9516,15 +9516,15 @@ IF LOCAL && DISH_ASSI == 70
 				ENDIF
 			ENDIF
 		CASE "小蛋糕", "巧克力蛋糕"
-			PRINTFORML 「要做%DISHNAME%吗？是某种奖励吗？」
+			PRINTFORML 「要做%DISHNAME_TR()%吗？是某种奖励吗？」
 			IF ABL:[[小鈴]]:料理技能 >= 3
 				PRINTFORML 「嘛，做点点心还是挺有趣的嘛～」
 				PRINTL 
-				PRINTFORMDW 小鈴一边轻快地哼着歌，一边充满干劲地制作出了%DISHNAME%。
+				PRINTFORMDW 小鈴一边轻快地哼着歌，一边充满干劲地制作出了%DISHNAME_TR()%。
 			ELSE
 				PRINTFORML 「啊，我能做出那么厉害的东西吗……」
 				PRINTL 
-				PRINTFORMDW 小鈴一边盯着食谱，一边努力地制作出了一个小巧玲珑的%DISHNAME%。
+				PRINTFORMDW 小鈴一边盯着食谱，一边努力地制作出了一个小巧玲珑的%DISHNAME_TR()%。
 			ENDIF
 			PRINTL 
 			IF ABL:[[小鈴]]:料理技能 >= 3
@@ -9534,29 +9534,29 @@ IF LOCAL && DISH_ASSI == 70
 			ENDIF
 		CASE "年节菜"
 			IF ABL:[[小鈴]]:料理技能 >= 3
-				PRINTFORML 「做%DISHNAME%啊～！太好了！」
+				PRINTFORML 「做%DISHNAME_TR()%啊～！太好了！」
 				PRINTFORML 「我喜欢这种甜腻腻的卷状寿司哦～」
 				PRINTL 
-				PRINTFORMDW 小鈴利落地准备着%DISHNAME%的配料，忙着摆放盛装。
+				PRINTFORMDW 小鈴利落地准备着%DISHNAME_TR()%的配料，忙着摆放盛装。
 				PRINTL 
 				CALL M_KOJO_K70_COOKSET("完成：良好")
 			ELSE
-				PRINTFORML 「要做%DISHNAME%吗～！？」
+				PRINTFORML 「要做%DISHNAME_TR()%吗～！？」
 				PRINTFORML 「啊，我能做出那么厉害的东西吗……」
 				PRINTL 
-				PRINTFORMDW 小鈴一边盯着食谱，一边手忙脚乱地制作出了一个%DISHNAME%。
+				PRINTFORMDW 小鈴一边盯着食谱，一边手忙脚乱地制作出了一个%DISHNAME_TR()%。
 				PRINTL 
 				CALL M_KOJO_K70_COOKSET("完成：微妙")
 			ENDIF
 		CASE "江户卷"
-			PRINTFORML 「%DISHNAME%吗，说起来今天是节分呢」
+			PRINTFORML 「%DISHNAME_TR()%吗，说起来今天是节分呢」
 			CALL M_KOJO_K70_COOKSET("料理", 3)
 		CASE "跨年荞麦麺"
-			PRINTFORML 「%DISHNAME%吗～！太好了呢！」
+			PRINTFORML 「%DISHNAME_TR()%吗～！太好了呢！」
 			CALL M_KOJO_K70_COOKSET("料理", 3)
 		CASE "興奮劑高湯"
 			IF FIRSTTIME(DISHNAME)
-				PRINTFORML 「%DISHNAME%？那是什么？？」
+				PRINTFORML 「%DISHNAME_TR()%？那是什么？？」
 				PRINTFORML 「是外面漫画上介绍的一道料理，原料有洋葱、大蒜、高汤、肌肉……咦？」
 				CALL M_KOJO_K70_COOKSET("DCS")
 			ELSEIF ABL:[[小鈴]]:料理技能 >= 3
@@ -9566,7 +9566,7 @@ IF LOCAL && DISH_ASSI == 70
 				PRINTL 
 				CALL M_KOJO_K70_COOKSET("完成：良好")
 			ELSE
-				PRINTFORML 「%DISHNAME%……你还要做那个吗……」
+				PRINTFORML 「%DISHNAME_TR()%……你还要做那个吗……」
 				CALL M_KOJO_K70_COOKSET("DCS")
 			ENDIF
 		CASE "奶酪番茄沙拉"
@@ -9574,7 +9574,7 @@ IF LOCAL && DISH_ASSI == 70
 				PRINTFORML 「Moz、Mozzarella？嗯，用什么奶酪做沙拉就好了吧」
 				CALL M_KOJO_K70_COOKSET("料理", 3)
 			ELSEIF ABL:[[小鈴]]:料理技能 >= 3
-				PRINTFORML 「%DISHNAME%吗！%CALLNAME:MASTER%先生，首先用肥皂洗手！」
+				PRINTFORML 「%DISHNAME_TR()%吗！%CALLNAME:MASTER%先生，首先用肥皂洗手！」
 				PRINTFORML 「厨房必须保持清洁！！」
 				PRINTL 
 				PRINTFORMDL 小鈴用认真的眼神在做料理。
@@ -9595,13 +9595,13 @@ IF LOCAL && DISH_ASSI == 70
 			ENDIF
 			CALL M_KOJO_K70_COOKSET("JAN")
 		CASE "银吉獣料理"
-			PRINTFORML 「%DISHNAME%？ 听起来不太熟悉的料理呢」
+			PRINTFORML 「%DISHNAME_TR()%？ 听起来不太熟悉的料理呢」
 			CALL M_KOJO_K70_COOKSET("テキパキ")
 		CASE "杯麺"
 			IF FIRSTTIME("杯麺")
-				PRINTFORML 「%DISHNAME%って……这也算是料理吗……」
+				PRINTFORML 「%DISHNAME_TR()%って……这也算是料理吗……」
 			ELSE
-				PRINTFORML 「%DISHNAME%……不算是料理吧……」
+				PRINTFORML 「%DISHNAME_TR()%……不算是料理吧……」
 				PRINTFORML 「话说你是在哪弄到这个的…？」
 			ENDIF
 			PRINTL 
@@ -9609,7 +9609,7 @@ IF LOCAL && DISH_ASSI == 70
 			PRINTL 
 			PRINTFORML 「……好了！已经过了3分钟！」
 		CASE "茶泡饭"
-			PRINTFORML 「%DISHNAME%嘛，不就是泡茶嘛～」
+			PRINTFORML 「%DISHNAME_TR()%嘛，不就是泡茶嘛～」
 			PRINTL 
 			IF ABL:70:料理技能 >= 2
 				PRINTFORMDW 小鈴熟练地往一碗米饭里倒上了茶汤。
@@ -9619,31 +9619,31 @@ IF LOCAL && DISH_ASSI == 70
 			PRINTL 
 			CALL M_KOJO_K70_COOKSET("完成：良好")
 		CASE "红豆饭"
-			PRINTFORML 「%DISHNAME%吗？是不是有什么庆祝的事情？」
+			PRINTFORML 「%DISHNAME_TR()%吗？是不是有什么庆祝的事情？」
 			CALL M_KOJO_K70_COOKSET("料理", 3)
 		CASE "儿童午餐", "红魔馆午餐"
-			PRINTFORML 「%DISHNAME%…？究竟是怎么一回事…？」
+			PRINTFORML 「%DISHNAME_TR()%…？究竟是怎么一回事…？」
 			CALL M_KOJO_K70_COOKSET("料理", 3)
 		CASE "七草汤"
-			PRINTFORML 「%DISHNAME%吗，听起来不错呢～」
+			PRINTFORML 「%DISHNAME_TR()%吗，听起来不错呢～」
 			PRINTFORML 「%CALLNAME:MASTER%先生能说出所有的七草吗？」
 			IF ABL:[[小鈴]]:教養 >= 4
-				PRINTFORML 「嗯，是雪里红、薺、須佐之男、鈴白、火鳥草、箱根花、五行草……对吧！」
+				PRINTFORML 「嗯，水芹、荠菜、芜菁、萝卜、宝盖草、繁缕、鼠曲草……是这些哦！」
 			ELSEIF ABL:[[小鈴]]:教養 >= 3
-				PRINTFORML 「嗯，是雪里红、薺、須佐之男、鈴白、火鳥草、箱根花……还有一个！」
+				PRINTFORML 「嗯，水芹、荠菜、芜菁、萝卜、宝盖草、繁缕……还差一个！」
 			ELSEIF ABL:[[小鈴]]:教養 >= 2
-				PRINTFORML 「嗯……是雪里红、薺、須佐之男、鈴白、火鳥草……嗯……」
+				PRINTFORML 「嗯……水芹、荠菜、芜菁……萝卜、宝盖草……唔……」
 			ELSE
-				PRINTFORML 「嗯……是雪里红、薺……嗯、須佐之男……」
+				PRINTFORML 「呃——……水芹、荠菜……芜、芜菁……」
 			ENDIF
 			CALL M_KOJO_K70_COOKSET("料理", 3)
 		CASE "万圣节蛋糕", "圣诞蛋糕"
-			PRINTFORML 「今日は%FESTIVAL()%ですもんね♪」
+			PRINTFORML 「今日是%FESTIVAL_TR()%的说呐♪」
 			PRINTL 
 			IF ABL:70:料理技能 >= 3
-				PRINTFORMDW 小鈴充满兴致，充满干劲地制作了美味的%DISHNAME%。
+				PRINTFORMDW 小鈴充满兴致，充满干劲地制作了美味的%DISHNAME_TR()%。
 			ELSE
-				PRINTFORMDW 小鈴在欢快的心情中制作了小巧可爱的%DISHNAME%。
+				PRINTFORMDW 小鈴在欢快的心情中制作了小巧可爱的%DISHNAME_TR()%。
 			ENDIF
 			PRINTL 
 			IF ABL:[[小鈴]]:料理技能 >= 3
@@ -9652,7 +9652,7 @@ IF LOCAL && DISH_ASSI == 70
 				CALL M_KOJO_K70_COOKSET("完成：微妙")
 			ENDIF
 		CASE "竹輪", "納豆", "豆腐", "梅干"
-			PRINTFORML 「要制作%DISHNAME%吗？这是从哪里得到的……？」
+			PRINTFORML 「要制作%DISHNAME_TR()%吗？这是从哪里得到的……？」
 			CALL M_KOJO_K70_COOKSET("わからない")
 			PRINTL 
 			PRINTFORML 「嗯……是怎么完成的呢……」
@@ -9666,7 +9666,7 @@ IF LOCAL && DISH_ASSI == 70
 		;知らない料理
 		CASE "煎蛋吐司", "墨西哥巻餅", "文也鱼", "醋浸鱼", "芝士火锅", "罗宋汤", "面包碗燉菜", "蛇羹", "油淋鶏", "仰望星空派", "珍珠奶茶"
 			CALL M_KOJO_K70_COOKSET("料理：ハード")
-		CASE "草莓豆腐", 
+		CASE "草莓豆腐"
 			CALL M_KOJO_K70_COOKSET("料理：ハード")
 		;知ってるけど作り方は知らないような料理
 		CASEELSE
@@ -9782,58 +9782,58 @@ CASE "わからない"
 	RESTART
 CASE "料理：イージー"
 	IF FIRSTTIME(DISHNAME)
-		PRINTFORML 「%DISHNAME%这种料理我可以做的！\@ ABL:[[小鈴]]:料理技能 < 3 ?  ……大概吧 # \@」
+		PRINTFORML 「%DISHNAME_TR()%这种料理我可以做的！\@ ABL:[[小鈴]]:料理技能 < 3 ?  ……大概吧 # \@」
 	ELSEIF ABL:[[小鈴]]:料理技能 >= 3
-		PRINTFORML 「%DISHNAME%呀！轻松搞定♪」
+		PRINTFORML 「%DISHNAME_TR()%呀！轻松搞定♪」
 	ELSEIF ABL:[[小鈴]]:料理技能 >= 1
-		PRINTFORML 「%DISHNAME%呀！简单易行♪ 简单易行♪」
+		PRINTFORML 「%DISHNAME_TR()%呀！简单易行♪ 简单易行♪」
 	ELSE
-		PRINTFORML 「%DISHNAME%呀！交给我吧！」
+		PRINTFORML 「%DISHNAME_TR()%呀！交给我吧！」
 	ENDIF
 	ARGS = テキパキ
 	RESTART
 CASE "料理：ノーマル"
 	IF FIRSTTIME(DISHNAME)
-		PRINTFORML 「%DISHNAME%的食谱是～嗯……」
+		PRINTFORML 「%DISHNAME_TR()%的食谱是～嗯……」
 		PRINTFORML 「哇，原来是这样做的啊」
 		PRINTFORML 「嗯，首先是……」
 		ARGS = がんばる
 	ELSEIF ABL:[[小鈴]]:料理技能 >= 3
-		PRINTFORML 「%DISHNAME%呀！交给我吧！」
-		PRINTFORML 「或许我擅长做%DISHNAME%哦♪」
+		PRINTFORML 「%DISHNAME_TR()%呀！交给我吧！」
+		PRINTFORML 「或许我擅长做%DISHNAME_TR()%哦♪」
 		ARGS = テキパキ
 	ELSE
-		PRINTFORML 「%DISHNAME%我记住了哦～！交给我吧！」
+		PRINTFORML 「%DISHNAME_TR()%我记住了哦～！交给我吧！」
 		ARGS = がんばる
 	ENDIF
 	RESTART
 CASE "料理：ハード"
 	IF FIRSTTIME(DISHNAME)
-		PRINTFORML 「%DISHNAME%是什么呢……？」
+		PRINTFORML 「%DISHNAME_TR()%是什么呢……？」
 		PRINTFORML 「在这本书里…………找到了！」
 		PRINTFORML 「嗯嗯，原来如此」
 		PRINTFORML 「那么，要怎么做呢……」
 		ARGS = がんばる
 	ELSEIF ABL:70:料理技能 >= 3
-		PRINTFORML 「平时不怎么吃%DISHNAME%，所以只有在和%CALLNAME:MASTER%先生一起的时候才有机会做呢～」
+		PRINTFORML 「平时不怎么吃%DISHNAME_TR()%，所以只有在和%CALLNAME:MASTER%先生一起的时候才有机会做呢～」
 		ARGS = テキパキ
 	ELSE
-		PRINTFORML 「%DISHNAME%我记住了哦～！交给我吧！」
+		PRINTFORML 「%DISHNAME_TR()%我记住了哦～！交给我吧！」
 		ARGS = がんばる
 	ENDIF
 	RESTART
 CASE "料理：ルナティック"
 	IF FIRSTTIME(DISHNAME)
-		PRINTFORML 「%DISHNAME%是什么呢……？」
+		PRINTFORML 「%DISHNAME_TR()%是什么呢……？」
 		PRINTFORML 「嗯，哪本书都没有记载……怎么办呢……」
 		PRINTFORML 「嗯？只要试着做就会明白吗？」
 		PRINTFORML 「真的可以这样吗……」
 		ARGS = わからない
 	ELSEIF ABL:70:料理技能 >= 3
-		PRINTFORML 「%DISHNAME%……之前做过一次，我大致记住了！我会努力的！」
+		PRINTFORML 「%DISHNAME_TR()%……之前做过一次，我大致记住了！我会努力的！」
 		ARGS = 手練
 	ELSE
-		PRINTFORML 「%DISHNAME%……虽然记得是什么料理，但能做好吗……」
+		PRINTFORML 「%DISHNAME_TR()%……虽然记得是什么料理，但能做好吗……」
 		ARGS = わからない
 	ENDIF
 	RESTART
@@ -9880,7 +9880,7 @@ LOCAL = 1
 IF LOCAL && !CFLAG:70:睡眠
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("食事")
 		RETURN 1
 	;発情中
@@ -10454,7 +10454,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("待つ")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -10505,7 +10505,7 @@ RETURN 1
 ;;==================================================
 ;;445,採集する
 ;;TFLAG:193(採集物のID, 0=『何も見つからなかった…』
-;;TFLAG:194(今回採集した個数
+;;TFLAG:194(今回採集した个数
 ;;==================================================
 ;@M_KOJO_MESSAGE_COM_K70_445
 ;CALL M_KOJO_MESSAGE_COM_K70_445_1
@@ -10658,7 +10658,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("手を繋ぐ")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -10736,7 +10736,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	;酔ってるor発情中だと表示しない
-	SIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事" || TCVAR:[[小鈴]]:発情
+	SIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事" || TCVAR:[[小鈴]]:発情
 		RETURN 1
 	;試しにデート会話をこっちに持ってきた
 	IF ABL:[[小鈴]]:親密 >= 7 && !デート会話:(CFLAG:[[小鈴]]:現在位置 / 10)
@@ -11091,7 +11091,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("寄り道する")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -11206,7 +11206,7 @@ IF LOCAL
 	ENDIF
 	PRINTW 
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("食事に誘う")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -11309,7 +11309,7 @@ LOCAL = 1
 IF LOCAL && CFLAG:[[小鈴]]:同行
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("食材の買い出し")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -11350,7 +11350,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("お弁当を食べる")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -11455,7 +11455,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("甘味処に誘う")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -11527,7 +11527,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("釣魚")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -11598,19 +11598,19 @@ IF LOCAL
 				PRINTFORML 「哇~！好漂亮~！这是什么？」
 			CASE "龍涎香"
 				PRINTFORML 「诶？ 这块石头看起来很稀有呢……」
-			CASE "食人魚"
+			CASE "食人鱼"
 				IF TFLAG:194 > 1000
 					PRINTFORML 「啊啊！！ 怎么会有这种东西ー！」
 				ELSE
 					PRINTFORML 「啊啊！！ 有东西要咬人了ー！」
 				ENDIF
-			CASE "雀鳝", "雷魚", "鲟", "伊富魚", "巨骨舌鱼", "泷太郎"
+			CASE "雀鳝", "雷鱼", "鲟", "伊富鱼", "巨骨舌鱼", "泷太郎"
 				IF TFLAG:194 > 1000
 					PRINTFORML 「哦，好重～！ %CALLNAME:MASTER%先生帮帮忙～！」
 				ELSE
 					PRINTFORML 「哇哦！好大一个！我、我也来帮忙！」
 				ENDIF
-			CASE "鰻魚", "八目鰻", "鲶魚"
+			CASE "鳗鱼", "八目鳗", "鲶鱼"
 				IF TFLAG:194 > 1000
 					PRINTFORML 「啊！滑溜溜的好恶心……」
 				ELSE
@@ -11633,7 +11633,7 @@ IF LOCAL
 			ENDSELECT
 			PRINTL 
 			PRINTFORML 「嗯嗯……看起来这是%LOCALS%呢」
-			SIF GROUPMATCH(LOCALS, "雀鳝", "巨骨舌鱼", "食人魚")
+			SIF GROUPMATCH(LOCALS, "雀鳝", "巨骨舌鱼", "食人鱼")
 				PRINTFORML 「诶！？ %LOCALS%！？」
 			WAIT
 		ENDSELECT
@@ -11679,7 +11679,7 @@ LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
 	; 喝醉了
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("土産屋")
 ;	;発情中,発情中も変わらない
 ;	ELSEIF TCVAR:[[小鈴]]:発情
@@ -11973,7 +11973,7 @@ LOCAL = 1
 ;なお、地の文の前半部分（你は本棚にあった～）は省略不可
 IF LOCAL
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("読書")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -12051,7 +12051,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		PRINTFORML 「哦哦哦～，啊啊啊，嘻嘻！」
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -12121,7 +12121,7 @@ LOCAL = 1
 IF LOCAL
 	CALL M_KOJO_COLOR_K70
 	;酔ってる
-	IF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	IF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("耳かき")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -12204,7 +12204,7 @@ IF LOCAL
 	ELSEIF CFLAG:70:睡眠
 		PRINTFORMW 「嗯……」
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		CALL M_KOJO_K70_DRUNK("デコちゅー")
 	;発情中
 	ELSEIF TCVAR:[[小鈴]]:発情
@@ -12274,7 +12274,7 @@ IF LOCAL
 		;[キスする]に転送
 		CALL M_KOJO_MESSAGE_COM_K70_312_1
 	;酔ってる
-	ELSEIF ALCOHOL_FACE(70) == "酔酒" || ALCOHOL_FACE(70) == "不省人事"
+	ELSEIF ALCOHOL_FACE(70) == "醉酒" || ALCOHOL_FACE(70) == "不省人事"
 		;"キスする"と共通
 		CALL M_KOJO_K70_DRUNK("キスする")
 	;発情中

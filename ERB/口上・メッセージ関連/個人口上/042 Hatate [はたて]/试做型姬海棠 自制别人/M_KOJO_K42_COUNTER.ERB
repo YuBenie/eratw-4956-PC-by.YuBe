@@ -103,15 +103,15 @@ RETURN RESULT
 
 ;両方の穴に射精していた場合、かつ2分の1
 IF 充填率(TARGET,1) > 0 & 充填率(TARGET,2) > 0 & RAND:2 == 0
-	IF 充填率(TARGET,3) >= 1000
+	IF 充填率(TARGET,3) >= 290
 		PRINTFORML 从%CALLNAME:TARGET%的两穴中，不断地有\@ TALENT:MASTER:濃厚精液? 散发着浓烈腥味的# \@精液涌出……
-	ELSEIF 充填率(TARGET,3) >= 100
-		PRINTFORML 从%CALLNAME:TARGET%的两穴中，时不时有\@ TALENT:MASTER:濃厚精液? 互相牵连着的浓稠# \@精液溢出……
 	ELSEIF 充填率(TARGET,3) >= 50
+		PRINTFORML 从%CALLNAME:TARGET%的两穴中，时不时有\@ TALENT:MASTER:濃厚精液? 互相牵连着的浓稠# \@精液溢出……
+	ELSEIF 充填率(TARGET,3) >= 25
 		PRINTFORML 从%CALLNAME:TARGET%的两穴中，断断续续地有\@ TALENT:MASTER:濃厚精液? 互相牵连着的浓稠# \@精液滴落下来……
 	ENDIF
 ELSE
-	IF 充填率(TARGET,1) >= 1000
+	IF 充填率(TARGET,1) >= 290
 		PRINTFORML 从%CALLNAME:TARGET%的阴道口，不断地溢出\@ TALENT:MASTER:濃厚精液? 互相牵连着的浓稠# \@精液，完全无法掩饰……
 	ELSEIF 充填率(TARGET,1) >= 100
 		PRINTFORML 从%CALLNAME:TARGET%的阴道口，一道\@ TALENT:MASTER:濃厚精液? 黏稠的# \@精液，顺着大腿内侧流淌了下来……
@@ -119,7 +119,7 @@ ELSE
 		PRINTFORML %CALLNAME:TARGET%的子宫被注入了\@ TALENT:MASTER:濃厚精液? 几乎凝结成团的浓厚 # \@精液……
 	ENDIF
 
-	IF 充填率(TARGET,2) >= 1000
+	IF 充填率(TARGET,2) >= 290
 		PRINTFORML 从%CALLNAME:TARGET%的肛门口，\@ TALENT:MASTER:濃厚精液? 近乎凝结成固态的大量黏稠# 大量的\@精液喷涌而出……
 	ELSEIF 充填率(TARGET,2) >= 100
 		PRINTFORML %CALLNAME:TARGET%的肠内被\@ TALENT:MASTER:濃厚精液? 异常浓厚的# \@精液完全填满了……
@@ -617,20 +617,20 @@ RETURN RESULT
 IF TALENT:TARGET:処女 == 1 || TALENT:TARGET:処女 == -1
 	PRINTFORML %CALLNAME:TARGET%带着紧张的神色，张開双腿，在%CALLNAME:MASTER%面前轻轻掰開了蜜穴
 	PRINTFORML 「%CALLNAME:MASTER%……我想要把我的处女……献给你」
-	PRINTFORML 「吶，请、让我变成女人吧%UNICODE(0x2665)%」
+	PRINTFORML 「吶，请、让我变成女人吧♥」
 ELSE
 	PRINTFORML %CALLNAME:TARGET%挑逗似的张開双腿，用手指的尖端在蜜穴口浅出浅入着……
 	IF TALENT:MASTER:性別 & 2
 		IF TALENT:恋慕 || TALENT:愛欲 || TALENT:風騷
 			SELECTCASE RAND:4
 			CASE 1
-				PRINTFORMW 「请给我……拜托了%UNICODE(0x2665)%」
+				PRINTFORMW 「请给我……拜托了♥」
 			CASE 2
-				PRINTFORMW 「有点、忍不住了……想要%CALLNAME:MASTER%的那个……请、进到我的里面来%UNICODE(0x2665)%」
+				PRINTFORMW 「有点、忍不住了……想要%CALLNAME:MASTER%的那个……请、进到我的里面来♥」
 			CASE 3
-				PRINTFORMW 「那么……%CALLNAME:MASTER%的肉棒……能稍微、打搅一下吗？%UNICODE(0x2665)%」
+				PRINTFORMW 「那么……%CALLNAME:MASTER%的肉棒……能稍微、打搅一下吗？♥」
 			CASEELSE
-				PRINTFORMW 「%CALLNAME:TARGET%的小穴……%CALLNAME:MASTER%的话随意使用也没问题%UNICODE(0x2665)%」
+				PRINTFORMW 「%CALLNAME:TARGET%的小穴……%CALLNAME:MASTER%的话随意使用也没问题♥」
 			ENDSELECT
 		ELSE
 			PRINTFORML 「我的里面、像是在渴望什么一样……%CALLNAME:MASTER%……」
@@ -651,18 +651,18 @@ RETURN RESULT
 IF TALENT:TARGET:処女 == 1 || TALENT:TARGET:処女 == -1
 	PRINTFORML %CALLNAME:TARGET%带着紧张的神色，抬起臀部，在%CALLNAME:MASTER%面前轻轻掰開了蜜穴
 	PRINTFORML 「%CALLNAME:MASTER%……我想要把我的处女……献给你」
-	PRINTFORML 「请让我变成女人吧……拜托了%UNICODE(0x2665)%」
+	PRINTFORML 「请让我变成女人吧……拜托了♥」
 ELSE
 	PRINTFORML %CALLNAME:TARGET%撅起了臀部，用两只手将两片湿润的花瓣掰開……
 	IF TALENT:MASTER:性別 & 2
 		IF TALENT:恋慕 || TALENT:愛欲 || TALENT:風騷
 			SELECTCASE RAND:3
 			CASE 1
-				PRINTFORMW 「想要你……从后面进来。拜托了%UNICODE(0x2665)%」
+				PRINTFORMW 「想要你……从后面进来。拜托了♥」
 			CASE 2
-				PRINTFORMW 「请从后面……尽管乱来、也没有关系%UNICODE(0x2665)%」
+				PRINTFORMW 「请从后面……尽管乱来、也没有关系♥」
 			CASEELSE
-				PRINTFORMW 「请吧%CALLNAME:MASTER%的那个……从后面、放进来%UNICODE(0x2665)%」
+				PRINTFORMW 「请吧%CALLNAME:MASTER%的那个……从后面、放进来♥」
 			ENDSELECT
 		ELSE
 			PRINTFORMW 「我已经、忍不住了、拜托……」
@@ -687,9 +687,9 @@ IF TALENT:MASTER:性別 & 2
 	IF TALENT:風騷 || TALENT:恋慕 || TALENT:愛欲
 		SELECTCASE RAND:2
 		CASE 1
-			PRINTFORMW 「后边的洞、已经……难以忍受了……%UNICODE(0x2665)%」
+			PRINTFORMW 「后边的洞、已经……难以忍受了……♥」
 		CASEELSE
-			PRINTFORMW 「屁股那里……想要……%UNICODE(0x2665)%」
+			PRINTFORMW 「屁股那里……想要……♥」
 		ENDSELECT
 	ELSE
 		PRINTFORMW 「虽然很变态，唔……请、请插进来……屁股那里……」
@@ -1048,7 +1048,7 @@ CALL M_KOJO_中文自制_MESSAGE_COUNTER_K42_77_1
 RETURN RESULT
 @M_KOJO_中文自制_MESSAGE_COUNTER_K42_77_1
 IF TALENT:恋慕 || TALENT:愛欲 || TALENT:風騷
-	PRINTFORML 「%CALLNAME:MASTER%竟然吸的这么认真……简直像个小宝宝一样%UNICODE(0x2665)%」
+	PRINTFORML 「%CALLNAME:MASTER%竟然吸的这么认真……简直像个小宝宝一样♥」
 	PRINTFORMW %CALLNAME:TARGET%闭上眼睛，沉浸在快感与满足感中……
 ELSE
 	PRINTFORML 「胸部……更多……」
@@ -1099,7 +1099,7 @@ PRINTFORMW
 RETURN 1
 
 ;==================================================
-;だいしゅき大堂ド
+;だいしゅきホールド
 ;==================================================
 @M_KOJO_中文自制_MESSAGE_COUNTER_K42_86
 CALL EVENT_COUNTER_MESSAGE

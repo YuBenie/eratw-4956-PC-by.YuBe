@@ -1,5 +1,6 @@
 ﻿;変数の書き換えなどを伴なうバージョンUP用
 @VERSION_UP
+
 SIF !GETBIT(FLAG:1000, 1)
 	CALL KAISYONASI
 SIF !GETBIT(FLAG:1000, 2) && FLAG:地主
@@ -24,14 +25,19 @@ IF SAVESTR:本体バージョン != eraTW_Version
 	NEXT
 	PRINTFORML exp数据存储更新完成
 	;孕相关数据更新
-	PRINTFORML 正在更新孕相关数据
-	FOR LOCAL, 0, CHARANUM
-		FOR LOCAL:1, 1, 11
-			CHILD_DADDY:LOCAL:(LOCAL:1) = CFLAG:LOCAL:(880 + LOCAL:1)
-			CFLAG:LOCAL:(880 + LOCAL:1) = 0
+	;没想到这个数据转移这么蠢，连版本都不做区分。只能大致圈定一个范围了（4.973确认）
+	IF modding_version < 20250413
+		PRINTFORML 正在更新孕相关数据
+		FOR LOCAL, 0, CHARANUM
+			FOR LOCAL:1, 1, 11
+				IF CFLAG:LOCAL:(880 + LOCAL:1)
+					CHILD_DADDY:LOCAL:(LOCAL:1) = CFLAG:LOCAL:(880 + LOCAL:1)
+					CFLAG:LOCAL:(880 + LOCAL:1) = 0
+				ENDIF
+			NEXT
 		NEXT
-	NEXT
-	PRINTFORML 孕相关数据更新完成
+		PRINTFORML 孕相关数据更新完成
+	ENDIF
 	IF GETBIT(ACCELERATE_PREGANCY_AND_RAISING_CHILD, 0) && FLAG:妊娠日程倍率 > 0 && !GETBIT(ACCELERATE_PREGANCY_AND_RAISING_CHILD, 10)
 		SETCOLOR C_YELLOW
 		FONTBOLD
@@ -39,12 +45,12 @@ IF SAVESTR:本体バージョン != eraTW_Version
 		FONTREGULAR
 		RESETCOLOR
 		PRINTL
-		PRINTFORML 检测到“加速怀孕和育儿”补丁和“妊娠期間設定”功能同时开启
+		PRINTFORML 检测到“加速怀孕和育儿”补丁和“妊娠期间设定”功能同时开启
 		PRINTFORML 二者存在功能冲突，建议关闭其一
 		PRINTFORML 请选择需要关闭的进程
 		VARSET RESULT
 		PRINTFORML [0] 关闭“加速怀孕和育儿”补丁
-		PRINTFORML [1] 关闭“妊娠期間設定”功能
+		PRINTFORML [1] 关闭“妊娠期间设定”功能
 		PRINTFORML [2] 不关闭
 		INPUT
 		IF RESULT == 0
@@ -55,7 +61,7 @@ IF SAVESTR:本体バージョン != eraTW_Version
 			PRINTFORMW 补丁已关闭
 		ELSEIF RESULT == 1
 			FLAG:妊娠日程倍率 = 0
-			PRINTFORMW “妊娠期間設定”功能已关闭
+			PRINTFORMW “妊娠期间设定”功能已关闭
 		ELSE
 			SETCOLOR C_YELLOW
 			FONTBOLD
@@ -69,11 +75,11 @@ IF SAVESTR:本体バージョン != eraTW_Version
 				SETBIT ACCELERATE_PREGANCY_AND_RAISING_CHILD, 10
 				SETCOLOR C_YELLOW
 				FONTBOLD
-				PRINTFORMW 已设置不再提醒“妊娠期間設定”与“加速怀孕和育儿”补丁存在冲突
+				PRINTFORMW 已设置不再提醒“妊娠期间设定”与“加速怀孕和育儿”补丁存在冲突
 				FONTREGULAR
 				RESETCOLOR
 			ELSE
-				PRINTFORMW 未关闭“妊娠期間設定”与“加速怀孕和育儿”补丁冲突提示
+				PRINTFORMW 未关闭“妊娠期间设定”与“加速怀孕和育儿”补丁冲突提示
 			ENDIF
 		ENDIF
 	ENDIF
@@ -126,14 +132,14 @@ IF modding_version < 20240525
 						LOCAL:1 = CFLAG:LOCAL:妊娠経過日数
 					TIMES CFLAG:LOCAL:妊娠経過日数, 3.7
 					SIF LOCAL:2 == 1
-						PRINTFORML 　　妊娠経過日数：{LOCAL:1} －＞ {CFLAG:LOCAL:妊娠経過日数}
+						PRINTFORML 　　妊娠经过日数：{LOCAL:1} －＞ {CFLAG:LOCAL:妊娠経過日数}
 				ENDIF
 				IF CFLAG:LOCAL:出産経過日 > 0
 					SIF LOCAL:2 == 1
 						LOCAL:1 = CFLAG:LOCAL:出産経過日
 					TIMES CFLAG:LOCAL:出産経過日, 4
 					SIF LOCAL:2 == 1
-						PRINTFORML 　　出産経過日：{LOCAL:1} －＞ {CFLAG:LOCAL:出産経過日}
+						PRINTFORML 　　分娩经过日：{LOCAL:1} －＞ {CFLAG:LOCAL:出産経過日}
 				ENDIF
 			NEXT
 			SIF LOCAL:2 == 1
@@ -146,7 +152,8 @@ IF modding_version < 20240525
 ENDIF
 IF modding_version < 20250112
 	FOR LOCAL, 0, CHARANUM
-		SWAP CFLAG:LOCAL:950, CFLAG:LOCAL:970
+		CFLAG:LOCAL:950 = 0
+		CFLAG:LOCAL:970 = 0
 		SIF NO:LOCAL == [[鵺]] || NO:LOCAL == [[猯藏]]
 			TALENT:LOCAL:変化 = 1
 	NEXT
@@ -157,16 +164,34 @@ IF modding_version < 20250501
 		TALENT:LOCAL:711 = 0
 	NEXT
 ENDIF
-modding_version = 20250701
+;做一次工作情报的重置
+IF modding_version < 20250901
+	FOR LOCAL, 0, CHARANUM
+		CSTR:LOCAL:2 =
+		CSTR:LOCAL:3 =
+	NEXT
+ENDIF
+;做一次剧本的重置
+IF modding_version < 20250908
+	SIF CFLAG:12:998
+		CALL RESET_KOJO_CHARA(12)
+	SIF CFLAG:118:998
+		CALL RESET_KOJO_CHARA(118)
+	CFLAG:12:998 = 0
+	CFLAG:118:998 = 0
+ENDIF
+SIF modding_version > NOW_VERSION
+	PRINTFORML ※您正在将版本更高的存档加载到游戏
+modding_version = NOW_VERSION
 @KAISYONASI
 SETBIT FLAG:1000, 1
-PRINTFORML 有主动向對方告白的膽量嗎？
-CALL ASK_YN("那是當然","做不到的")
+PRINTFORML 有主动向对方告白的胆量吗？
+CALL ASK_YN("那是当然","做不到的")
 IF !RESULT
-	PRINTFORMW 沒有使用無志氣模式
+	PRINTFORMW 没有使用无志气模式
 	FLAG:甲斐性無 = 0
 ELSE
-	PRINTFORMW 開啓了無志氣模式（部分命令不能使用・加强被推倒的概率）
+	PRINTFORMW 开启了无志气模式（部分命令不能使用・加强被推倒的概率）
 	FLAG:甲斐性無 = 1
 ENDIF
 
@@ -174,7 +199,7 @@ ENDIF
 VARSET LOCAL
 
 PRINTFORML 为了消除以前版本的BUG、把恋人重置到只剩一个了
-PRINTFORMW 送上奇跡之石以表达歉意
+PRINTFORMW 送上奇迹之石以表达歉意
 
 FLAG:追加恋人枠 = 0
 ITEM:奇跡之石 += 1
@@ -190,7 +215,7 @@ SIF LOCAL:1 <= 1
 	RETURN
 
 
-PRINTFORML 请选择要維持恋人状態的角色
+PRINTFORML 请选择要维持恋人状态的角色
 
 FOR LOCAL,1,CHARANUM
 	SIF TALENT:LOCAL:恋人

@@ -1947,7 +1947,7 @@ IF LOCAL
 				PRINTFORML	「咕……喝得太多了啦……」
 				PRINTFORMDW	琪露诺的眼睛都快睁不开了。
 		ENDSELECT
-	ELSEIF ALCOHOL_FACE(14) == "酔酒"
+	ELSEIF ALCOHOL_FACE(14) == "醉酒"
 		SELECTCASE RAND:3
 			CASE 0
 				PRINTFORML	「嗯……还要再喝吗……」
@@ -2531,7 +2531,7 @@ IF LOCAL
 	;TARGET連れ出し
 	IF CFLAG:同行
 		IF TALENT:恋慕
-			IF ALCOHOL_FACE(14) == "酔酒"
+			IF ALCOHOL_FACE(14) == "醉酒"
 				PRINTFORMW 「呼哇、%CALLNAME:MASTER%、来继续喝嘛——」
 				PRINTFORMDW 搀扶着大醉的琪露诺一起走了。
 			ELSE
@@ -2570,7 +2570,7 @@ IF LOCAL
 				ENDSELECT
 			ENDIF
 		ELSEIF TALENT:思慕
-			IF ALCOHOL_FACE(14) == "酔酒"
+			IF ALCOHOL_FACE(14) == "醉酒"
 				PRINTFORMW 「呼哇、咱还要喝——」
 				PRINTFORMDW 拉着醉到迷糊的妖精一起走了。
 			ELSEIF MARK:時姦刻印 == 3
@@ -2590,7 +2590,7 @@ IF LOCAL
 				ENDSELECT
 			ENDIF
 		ELSEIF CFLAG:好感度 >= 500 || BASE:10 >= 1000
-			IF ALCOHOL_FACE(14) == "酔酒"
+			IF ALCOHOL_FACE(14) == "醉酒"
 				PRINTFORMW 「唔、要到哪里去呀……」
 				PRINTFORMDW 引诱醉到迷糊的妖精一起走了。
 			ELSEIF CFLAG:403 == 2
@@ -2610,7 +2610,7 @@ IF LOCAL
 				ENDSELECT
 			ENDIF
 		ELSE
-			IF ALCOHOL_FACE(14) == "酔酒"
+			IF ALCOHOL_FACE(14) == "醉酒"
 				PRINTFORMW 「唔、头晕晕的……」
 				PRINTFORMDW 引诱醉到迷糊的妖精一起走了。
 			ELSEIF CFLAG:403 == 2
@@ -3042,12 +3042,12 @@ IF LOCAL
 			;▼買い物［買い物を手伝う］
 			;PRINTFORMW 
 		CASE 15
-			;▼説教［様子をうかがう］
+			;▼説教［样子をうかがう］
 			;※神霊・蓬莱人は除く
 			;TFLAG:193,-1
 			;PRINTFORMW 
 		CASE 16
-			;▼落とし穴［いたずらに付き合う］or［様子をうかがう］
+			;▼落とし穴［いたずらに付き合う］or［样子をうかがう］
 			;※三月精・チルノ・クラウンピースのみ
 			;それ以外は落ちる側
 			PRINTFORML 「哼哼——这样就行了！」
@@ -4547,7 +4547,7 @@ IF LOCAL
 						ELSEIF GET_MAPID(CFLAG:MASTER:現在位置) == 9
 							;分别是水桥勇仪和空燐。也还是觉在写吧大概。
 							PRINTFORML	「『于是高大的鬼姬便夺取了守在桥上的少女的唇』……呜哇、这是什么呀……」
-							PRINTFORML	「『摇动着双尾的小猫就这样被粗壮的制御棒贯穿』……好可怕的书哇……」
+							PRINTFORML	「『摇动着双尾的小猫就这样被粗壮的控制棒贯穿』……好可怕的书哇……」
 							PRINTFORMDW	琪露诺脸红耳赤地阅读着一叠可疑的手写稿件。
 						ELSE
 							;诹访子和神奈子。但是也可能是诹访子和早苗。或者诹访子和触手。甚至可能是诹访子自交。难说了。
@@ -4660,7 +4660,7 @@ RETURN 1
 ;==================================================
 ;445,採集する
 ;TFLAG:193(採集物のID, 0=『何も見つからなかった…』
-;TFLAG:194(今回採集した個数
+;TFLAG:194(今回採集した个数
 ;==================================================
 @M_KOJO_9_MESSAGE_COM_K14_445
 CALL M_KOJO_9_MESSAGE_COM_K14_445_1

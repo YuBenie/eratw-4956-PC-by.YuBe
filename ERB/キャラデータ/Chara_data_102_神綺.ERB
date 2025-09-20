@@ -53,20 +53,20 @@ CASE "今天的睡衣"
 	CALLF MAKE_STR(V_NAME, "睡衣（裤子）套")
 
 CASE "便装：靴"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "靴"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("靴", "鞋子"))
 CASE "便装：襪子"
-	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "襪子"))
+	CALLF MAKE_INT(V_NAME, CLOTHES_ID("襪子", "袜子"))
 CASE "便装：連衣裙"
 	CALLF MAKE_INT(V_NAME, CLOTHES_ID("連衣裙", "晚禮服"))
 
 CASE "固有内衣形容詞"
 	CALLF MAKE_STR(V_NAME, "无法创造出来的")
 CASE "固有下半身内衣名"
-	CALLF MAKE_STR(V_NAME, "魔界神様の胖次")
+	CALLF MAKE_STR(V_NAME, "魔神胖次")
 CASE "固有上半身内衣"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有上半身内衣名"
-	CALLF MAKE_STR(V_NAME, "魔界神大人の胸罩")
+	CALLF MAKE_STR(V_NAME, "魔神胸罩")
 CASE "固有内衣着用条件"
 	CALLF MAKE_INT(V_NAME, 1)
 CASE "固有内衣半透明(前)"
@@ -93,7 +93,7 @@ ENDSELECT
 @SPECIAL_MENU_102
 DISH_NAME = 魔界风菌菜烘蛋
 RESULTS = 主食
-CALL 材料設定("南瓜", "胡蘿卜", "马铃薯", "普通的菌菇")
+CALL 材料設定("南瓜", "胡萝卜", "马铃薯", "普通的菌菇")
 DISH_TASTE = 洋食/卵/野菜/乳酪/咸/濃厚/温暖/上品/家庭的/家庭的/魔界風/软绵绵/
 DISH_COMMENT = 类似于日本的茶碗蒸，但是用烤箱烤制，同样非常松软。代表性的法式家常菜。
 RETURN 1

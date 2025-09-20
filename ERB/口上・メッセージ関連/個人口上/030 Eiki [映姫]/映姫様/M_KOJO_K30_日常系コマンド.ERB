@@ -1450,7 +1450,7 @@ IF TALENT:恋人 && RAND:3 != 0
 ;恋慕＠1/3で下へ恋人ならここまで
 ELSEIF TALENT:恋慕 && RAND:3 != 1 || TALENT:恋人
 	;恋慕初回会話、二人きりだと呼び名変更提案
-	IF FIRSTTIME("称呼",1) && K30_BE_SEEN() == 0
+	IF FIRSTTIME("稱呼",1) && K30_BE_SEEN() == 0
 		PRINTFORML 「吶、%K30_C_NAME(MASTER)%」
 		PRINTFORMW 
 		PRINTFORMW 「在我看来，你果然是个特别的人。所以，那个……」
@@ -1474,7 +1474,7 @@ ELSEIF TALENT:恋慕 && RAND:3 != 1 || TALENT:恋人
 			PRINTFORMW 「我是不是有点太得意了……」
 			PRINTFORMDW 映姫面红耳赤
 		ENDIF
-		CSTR:30:0 += "称呼/"
+		CSTR:30:0 = %CSTR:(30):0%呼び名/
 		RETURN 1
 	ENDIF
 	SELECTCASE RAND:8
@@ -2149,10 +2149,10 @@ ELSE
 	SELECTCASE LOCAL:回数
 		CASE 0
 			IF CFLAG:MASTER:現在位置 == CFLAG:113:現在位置
-				PRINTFORML 「赫卡提亚大人称赞适合我」
+				PRINTFORML 「赫喀提亚大人称赞适合我」
 				PRINTFORMW 「嗯，是非常棒的笑容…」
 			ELSE
-				PRINTFORML 「赫卡提亚大人看到我，会说什么呢？」
+				PRINTFORML 「赫喀提亚大人看到我，会说什么呢？」
 				PRINTFORMW 「很期待呢。呵呵呵…」
 				PRINTFORMDW 映姬的嘴上笑着，但美目依然死气沉沉……
 				RETURN 1
@@ -2183,7 +2183,7 @@ ELSE
 			ENDIF
 		CASE 4
 			PRINTFORML 「穿着这身衣服就能保持那种实力和威严」
-			PRINTFORMW 「赫卡提亚大人果然很厉害」
+			PRINTFORMW 「赫喀提亚大人果然很厉害」
 			PRINTFORMW 「我无论如何也做不到…」
 		CASE 5
 			PRINTFORML 「如果是在外面的世界，这个样子也没有违和感吧」
@@ -2197,7 +2197,7 @@ ELSE
 			PRINTFORMW 「………」
 			PRINTFORMW 「不可思议啊。这样的事情我一次也没想过…」
 		CASE 8
-			PRINTFORML 「赫卡提亚大人是个会照顾人的非常温柔的人」
+			PRINTFORML 「赫喀提亚大人是个会照顾人的非常温柔的人」
 			PRINTFORMW 「也许是她无法衡量我的想法，或者说和在一般感性上有偏差……」
 		CASE 9
 			IF !CHARA_HOLIDAY(30, 1) 
@@ -2219,7 +2219,7 @@ ELSE
 					PRINTFORML 「……今天其他人也换上了这件衣服吧?」
 					PRINTFORMW 「没错，不应该只有我有这样的遭遇……」
 				ELSE
-					PRINTFORML 「哎呀……这件衣服，我\@ CFLAG:MASTER:現在位置 == CFLAG:113:現在位置 ? 赫卡提亚大人 # \@只穿了这样的…」
+					PRINTFORML 「哎呀……这件衣服，我\@ CFLAG:MASTER:現在位置 == CFLAG:113:現在位置 ? 赫喀提亞大人 # \@只穿了这样的…」
 					PRINTFORML 「唉、心理作用？　……是这様吗，是啊……」
 					SIF CFLAG:MASTER:衣装一時変更 == 62
 						PRINTFORML 「甚至连无关的你都换了衣服…一定是这样的吧…」
@@ -2243,12 +2243,12 @@ ELSE
 			PRINTFORMW 「也许确实可以放松，但是……到底还是让我阻止了……」
 		CASE 15
 			PRINTFORML 「……项圈是戴不上的」
-			PRINTFORMW 「那个项圈是赫卡提亚大人力量到达三个世界的标志」
+			PRINTFORMW 「那个项圈是赫喀提亚大人力量到达三个世界的标志」
 			PRINTFORMW 「既不能模仿，也不能由我来代替」
 			PRINTFORMW 「……绝对不是无法接受那个性的外表……」
 		;勝手版も面白いよ
 		CASE 16
-			PRINTFORML 「只是模仿了赫卡提亚大人的随身物品，确实这件衬衫可以称为神器」
+			PRINTFORML 「只是模仿了赫喀提亚大人的随身物品，确实这件衬衫可以称为神器」
 			PRINTFORMW 「香霖堂的店主看过一次，那个时候确实说…」
 			PRINTFORML 「对四元素和地狱、麻痹、恐怖、疯狂有耐性之类的」
 			PRINTFORMW 「不明白意思？嗯，我也完全不懂。…」
@@ -2260,7 +2260,7 @@ ELSE
 				PRINTFORMW 「看起来很開心……」
 			ELSE
 				;クラピ裤襪の映姫様誰かうｐして
-				PRINTFORML 「赫卡提亚大人觉得真的很好，所以向我推荐这件衣服」
+				PRINTFORML 「赫喀提亚大人觉得真的很好，所以向我推荐这件衣服」
 				PRINTFORMW 「所以，如果不喜欢的话，会换成其他的衣服吧」
 				PRINTFORML 「但是，在那种情况下，下一个候选恐怕…」
 				PRINTFORMW 「最近很喜欢那种地狱妖精般的小丑服…」
@@ -3666,7 +3666,7 @@ RETURN 1
 ;==================================================
 ;306,撫摸肚子
 ;TFLAG:193(1=ABL:親密6以上かつ妊娠時 0=成功 -1=ABL:親密5以下)
-;果口上構文参考にしています
+;極口上構文参考にしています
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -4198,7 +4198,7 @@ RETURN 1
 @M_KOJO_SUCCESS_COM_K30_331
 ;成否判定
 ;TFLAG:192(-2=強制失敗(注、非指令終了）、-1＝強制失敗、0=COM依存、1=強制成功or大成功(注、睡眠薬冰淇淋ティーは眠気を感じていると飲まない)
-;イベント前提条件-周りに誰也不在、合意あり、恋慕で高信賴度、妊娠無、媚薬在庫2個以上、媚薬茶を用意、心情悪くなくて、反発0、一日一回、1日おき
+;イベント前提条件-周りに誰也不在、合意あり、恋慕で高信賴度、妊娠無、媚薬在庫2个以上、媚薬茶を用意、心情悪くなくて、反発0、一日一回、1日おき
 IF K30_KIMESEKU() && K30_BE_SEEN() == 0  && TFLAG:131 == 41 && !TCVAR:30:379
 	;後は口上とパラメータをいじって、薬盛る→えっちになる→推倒てくる、が自然な流れでつながる…かも
 	IF !STRCOUNT(CSTR:30:0, "キメセク")
@@ -4364,7 +4364,7 @@ RETURN 1
 ;==================================================
 ;332,勸酒
 ;TFLAG:193(0=不會喝酒成功 -1=不會喝酒失敗 -2=不會喝酒大失敗 -5=不會喝酒あきらめ)
-;TFLAG:194(51=濁酒 52=清酒 53=鬼殺酒)
+;TFLAG:194(51=浊酒 52=清酒 53=鬼杀酒)
 ;ALCOHOL_TASTE(TFLAG:194)(15以上=気に入る 9以下=口に合わない)
 ;==================================================
 @M_KOJO_SUCCESS_COM_K30_332
@@ -5617,7 +5617,7 @@ RETURN 1
 ;==================================================
 ;360,任憑擺佈＠とりあえずEVENT_MESSAGE_COM.300とCOUNTER_MESSAGEの分岐を拾ってみる
 ;使われてないやつ書いてたら泣ける
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -5719,7 +5719,7 @@ IF LOCAL
 					PRINTFORMW 「怎么样？兴奋起来了吗……？」
 				ELSE
 					PRINTFORMW 「能看清吧……我的,这里」
-					PRINTFORMW 「这样……黏糊糊的……太下流了…♥」
+					PRINTFORMW 「这样……粘糊糊的……太下流了…♥」
 				ENDIF
 			ELSE
 				IF RAND:2 == 1
@@ -5822,7 +5822,7 @@ IF LOCAL
 				PRINTFORMW 「我也摩擦的…很舒服♥」
 				IF NOWEX:噴乳
 					PRINTFORML 「啊嗯~…♥　奶子…前端，阵阵发麻…」
-					PRINTFORMW 「欧金金…把它，弄得更加黏糊糊的吧♥」
+					PRINTFORMW 「欧金金…把它，弄得更加粘糊糊的吧♥」
 				ENDIF
 			ENDIF
 		;足交
@@ -5929,7 +5929,7 @@ IF LOCAL
 				PRINTFORML 「呼呼♥　就这样，交给我吧，吶」
 				PRINTFORMW 「好好的，舒服的，为你做哦♥♥」
 			ENDIF
-		;だいしゅき大堂ド
+		;だいしゅきホールド
 		CASE 86
 			PRINTFORML 「嗯嗯♥　哈啊~…♥　心颤颤的啊，好爽呀！　…%K30_C_NAME(MASTER)%、%K30_C_NAME(MASTER)%！」
 			IF  (TALENT:妊娠願望 || GETBIT(CFLAG:1502, 4)) && !TEQUIP:PLAYER:避孕套 && !TCVAR:口服避孕薬
@@ -6034,7 +6034,7 @@ ENDIF
 RETURN 1
 ;==================================================
 ;361,抵抗＠なんか変なことやってるけど、一応これで全部に反応があるはず
-;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅき大堂ド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
+;TCVAR:20(27=谷間を見せる 32=前から抱きつく 35=裙子の中を見せる 53=乳交 73=ぱふぱふ 77=乳を吸わせる 85=Ｖ挿入する 86=だいしゅきホールド 87=Ａ挿入する 88=腰振りＶ 89=腰振りＡ
 ;==================================================
 ;==================================================
 ;Optional: Determines if the standard description should be skipped.
@@ -6475,7 +6475,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;==================================================
-;364,撒豆子(萃香、勇儀、斯喀雷特姉妹用
+;364,撒豆子(萃香、勇儀、斯卡蕾特姉妹用
 ;TFLAG:193(撒豆子に参加してる人数
 ;==================================================
 @M_KOJO_MESSAGE_COM_K30_364
@@ -6731,7 +6731,7 @@ ENDIF
 RETURN 1
 
 ;自由行動判定用関数
-;上記貂プレに対応するCASEでRETURN -1するとその自由行動をしなくなります
+;上記テンプレに対応するCASEでRETURN -1するとその自由行動をしなくなります
 ;調合/休憩/買い物/炬燵を制限
 @M_KOJO_自由行動判定_K30(ARG)
 SELECTCASE ARG
@@ -7065,7 +7065,7 @@ IF LOCAL
 				ENDIF
 			ENDIF
 		;小町的房間
-		;小町口上での映姫様個室的家捜し感がとても良かったのでまねしてみました。小町口上作者様、ありがとうございます
+		;小町口上での映姫様个室的家捜し感がとても良かったのでまねしてみました。小町口上作者様、ありがとうございます
 		ELSEIF CFLAG:MASTER:現在位置 == CFLAG:76:初期位置
 			IF TFLAG:194 > 1
 				PRINTFORML 「哇……那个孩子的房间果然是一如既往的……没事……」
@@ -7452,7 +7452,7 @@ IF LOCAL
 			PRINTFORMW 「%K30_C_NAME(MASTER)%,\@  ABL:MASTER:料理技能 > 1 ? 能教我一下如何做料理么 # 要和我一起学学如何烹饪么 \@」
 			PRINTFORMW 「好不容易做的话，我想给你做好吃的料理…」
 		ELSE
-			PRINTFORML 「%DISHNAME%吗？　那么一起做吧」
+			PRINTFORML 「%DISHNAME_TR()%吗？　那么一起做吧」
 			PRINTFORMW 
 			IF ABL:MASTER:料理技能 < 2
 				PRINTFORML 「啊拉？　手法很差…」
@@ -7593,7 +7593,7 @@ IF LOCAL
 ENDIF
 RETURN 1
 ;-------------------------------------------------
-;吃飯の反応＠爱莲・影狼口上参考にしています
+;吃飯の反応＠艾倫・影狼口上参考にしています
 ;-------------------------------------------------
 @K30_TASTE_DISH
 #DIM 顔
@@ -7699,7 +7699,7 @@ ELSE
 					PRINTFORML 「如果说还差点什么的话……」
 					PRINTFORMW 「不，和大家一起吃的话，这些就够了呢」
 				CASE 2
-					PRINTFORML 「%DISHNAME%知道我喜欢辣的」
+					PRINTFORML 「%DISHNAME_TR()%知道我喜欢辣的」
 					PRINTFORML 「但是，我是说啊……」
 					PRINTFORMW 「你不觉得再辣一点会更好吃吗？」
 				CASE 3
@@ -7955,7 +7955,7 @@ IF LOCAL
 		PRINTFORMDL 睁開眼睛旁边坐着映姬
 		PRINTFORMDL 当她发现%CALLNAME:MASTER%已经醒了时，慌忙地连连往后退…
 		CALL K30_SPTALK, "発情", "「……！！」"
-		PRINTFORMDL 为什么红唇边隐约有白色黏稠物
+		PRINTFORMDL 为什么红唇边隐约有白色粘稠物
 		PRINTFORMDL 你在午睡时做了什么啊…
 		PRINTFORMW 
 		PRINTFORMW 「……%K30_C_NAME(MASTER)%也不好哦？」
@@ -8142,7 +8142,7 @@ IF LOCAL
 	RESETCOLOR
 	{
 	CALL ASK_M("希望你能改变称呼", !GETBIT(CFLAG:1803, 2),
-	"改变二人独处时的称呼", FIRSTTIME("称呼",1) == 0 && K30_BE_SEEN() == 0,
+	"改变二人独处时的称呼", FIRSTTIME("稱呼",1) == 0 && K30_BE_SEEN() == 0,
 	@"%LOCALS:0%", CFLAG:MASTER:初期位置 == CFLAG:30:初期位置 && STRCOUNT(CSTR:30:0, "朝から") && ABL:精液中毒 > 4 && K30_BE_SEEN() == 0,
 	@"关于约会时的小玩具", GETBIT(CFLAG:1609, 3) && K30_BE_SEEN() == 0,
 	"没有什么要谈的",1)
@@ -8279,7 +8279,7 @@ ENDIF
 RETURN 1
 
 ;==================================================
-;422～430は、特殊指令なので貂プレでは対応しません
+;422～430は、特殊指令なのでテンプレでは対応しません
 ;==================================================
 
 ;==================================================
@@ -8509,7 +8509,7 @@ RETURN 1
 ;==================================================
 ;445,採集
 ;TFLAG:193(採集物のID, 0=『何も見つからなかった…』
-;TFLAG:194(見つけた個数
+;TFLAG:194(見つけた个数
 ;==================================================
 @M_KOJO_MESSAGE_COM_K30_445
 CALL M_KOJO_MESSAGE_COM_K30_445_1
@@ -8566,7 +8566,7 @@ IF LOCAL
 					PRINTFORML 「嗯，算了……而且掉在那边了…」
 					PRINTFORMW 「我觉得随便拿多少都没关系」
 					PRINTFORMW 「…那个，请不要拿着靠近我」
-				;5個以上採れた
+				;5个以上採れた
 				ELSEIF TFLAG:194 > 4
 					PRINTFORML 「这一带经常采集到%LOCALS%呢」
 					PRINTFORMW 「不用客气，拿去吧」
@@ -8617,7 +8617,7 @@ RETURN 1
 ;==================================================
 ;446,調合する
 ;TFLAG:193(調合物のID)
-;TFLAG:194(今回調合した個数)
+;TFLAG:194(今回調合した个数)
 ;マイ口上参考にしました
 ;==================================================
 @M_KOJO_MESSAGE_COM_K30_446
@@ -9418,11 +9418,11 @@ IF LOCAL
 			PRINTFORMDL 呢喃了一句，映姬满脸通红地低下了头
 		ELSE
 			PRINTFORML （%K30_C_NAME(MASTER)%的话、我……）
-			PRINTFORMDL 映姬沉默着，跟着%CALLNAME:MASTER%に来了
+			PRINTFORMDL 映姬沉默着，跟着%CALLNAME:MASTER%去了
 		ENDIF
 	ELSEIF K30_FIND_LOVER() == 2
 		PRINTFORML 「啊………」
-		PRINTFORMDL 映姫在%CALLNAME:(TALENT:MASTER:恋人)%注意到前尴尬地低下头躲闪着…
+		PRINTFORMDL 映姫在%CALLNAME:(TALENT:MASTER:恋人)%注意到前，尴尬地低下头躲闪着…
 	ENDIF
 ENDIF
 RETURN 1
@@ -9567,7 +9567,7 @@ RETURN 1
 ;==================================================
 ;614,採購食材
 ;TFLAG:193(1=購入＆約會経験UP 0=購入 -1=非購入)
-;非購入の場合(TFLAG =-1)はここに飛んでこない様子
+;非購入の場合(TFLAG =-1)はここに飛んでこない样子
 ;==================================================
 @M_KOJO_MESSAGE_COM_K30_614
 CALL M_KOJO_MESSAGE_COM_K30_614_1
@@ -10118,7 +10118,7 @@ IF LOCAL
 					PRINTFORMW 「我不能理解」
 				ENDIF
 			ENDIF
-		;果然還是放棄（見送り）
+		;果然還是放弃（見送り）
 		CASE -1
 			IF TALENT:恋慕
 				IF RAND:2 == 1
