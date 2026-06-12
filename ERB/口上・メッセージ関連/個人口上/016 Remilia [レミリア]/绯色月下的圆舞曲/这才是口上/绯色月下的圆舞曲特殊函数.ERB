@@ -442,4 +442,97 @@ SIF 抽选 < 1
 ;最后在池子里随机抽一个啦。
 RETURNF LOCAL:(RAND(抽选))
 
+;==================================================
+@YUBE_STATUS(ARG,V_EVENT)
+#FUNCTION
+#DIMS V_EVENT
+#DIM V_RESULT 
 
+SELECTCASE V_EVENT
+	CASE "宴会"
+		;  宴会开始与否1 参加者还是举办者2 宴会濒临尾声4 宴会前30分钟标记8 是否在会场16
+		SELECTCASE CFLAG:ARG:20
+			CASE 0
+				RETURNF 
+			CASE 1
+				CLEARBIT LOCAL, 1
+			CASE 2
+				SETBIT LOCAL, 1
+			CASE 3
+				SETBIT LOCAL, 2
+		ENDSELECT
+		; 决定是参加者还是举办者、由于宴会结束不会区分举办者还是参加者
+
+		SIF (TIME > FLAG:33 - 30) && (TIME < FLAG:33)
+			SETBIT LOCAL, 8
+		; 宴会前的三十分钟
+
+		SIF 宴会開始日判定() && TIME >= FLAG:33
+			SETBIT LOCAL, 0
+		; 宴会开始
+
+		SIF	CFLAG:ARG:300 == TFLAG:32
+			SETBIT LOCAL, 4
+		; 在不在会场
+		V_RESULT = LOCAL
+		LOCAL = 0
+	CASEELSE
+		V_RESULT = 10086
+		
+ENDSELECT
+RETURNF V_RESULT
+
+;==================================================
+@YUBE_STATUS2(ARG,V_EVENT)
+; #FUNCTION
+#DIMS V_EVENT
+#DIM V_RESULT 
+VARSET LOCAL
+LOCAL = 0
+SELECTCASE V_EVENT
+	CASE "宴会"
+		;  宴会开始与否1 参加者还是举办者2 宴会濒临尾声4 宴会前30分钟标记8 是否在会场16
+		SELECTCASE CFLAG:ARG:20
+			; CASE 0
+			; 	RETURNF 
+			; CASE 1
+			; 	CLEARBIT LOCAL, 1
+			CASE 2
+				SETBIT LOCAL, 1
+			CASE 3
+				SETBIT LOCAL, 2
+		ENDSELECT
+
+		PRINTFORMDL	{LOCAL}
+		PRINTFORMDL	{V_RESULT}
+		; 决定是参加者还是举办者、由于宴会结束不会区分举办者还是参加者
+		SIF (TIME > FLAG:33 - 30) && (TIME < FLAG:33)
+			SETBIT LOCAL, 8
+		; 宴会前的三十分钟
+		PRINTFORMDL	{LOCAL}
+		PRINTFORMDL	{V_RESULT}
+
+		SIF 宴会開始日判定() && TIME >= FLAG:33
+			SETBIT LOCAL, 0
+		; 宴会开始
+		PRINTFORMDL	{LOCAL}
+		PRINTFORMDL	{V_RESULT}
+
+		SIF	CFLAG:ARG:300 == TFLAG:32
+			SETBIT LOCAL, 4
+		; 在不在会场
+		PRINTFORMDL	{LOCAL}
+		PRINTFORMDL	{V_RESULT}
+		V_RESULT = LOCAL
+	CASE "奇怪的穿着"
+		RETURN
+	CASEELSE
+		V_RESULT = 10086
+		PRINTFORMDL	{LOCAL}
+		PRINTFORMDL	{V_RESULT}
+ENDSELECT
+; RETURNF V_RESULT
+
+
+
+; 这是一行测试
