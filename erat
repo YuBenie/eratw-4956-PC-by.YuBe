@@ -1,0 +1,218 @@
+# eraTW 核心系统详解
+
+> 基于对 ERB 文件夹（除口上・メッセージ関連）实际代码的阅读
+
+## 1. 指令系统（コマンド関連）
+
+### 1.1 指令执行流程
+
+```
+玩家选择指令 N
+  → USERCOM.ERB 接收 RESULT（用户选择值）
+  → 特殊指令分流（催眠=666, 摄影=770/771, 调试=777, 一键扫除=778）
+  → 指令注册检查（TRAINNAME:RESULT 非空 或 270~299 范围）
+  → SELECTCOM = RESULT, TFLAG:3 = SELECTCOM
+  → 特殊限制检查（孕妇限制 SM 指令等）
+  → 调用 @COM{N} 主逻辑
+    → 内部调用 SOURCE 情绪源计算
+    → 更新状态/经验/好感度
+    → 显示文本
+  → RETURN 结果
+```
+
+### 1.2 指令编号分配
+
+| 编号范围 | 类型 | 目录 |
+|---------|------|------|
+| 0~99 | 基本爱抚/调教 | `COMF/` |
+| 100~199 | SM/道具/特殊 | `COMF/` |
+| 200~269 | 辅助指令 | `COMF/` |
+| 270~299 | 自定义口上指令 | `COMF/` |
+| 300~399 | 日常系指令 | `COMF/日常系/` |
+| 400~499 | 日常/休闲 | `COMF/日常系/` |
+| 500~599 | 派生指令 (SCOM) | `SCOMF/` |
+| 700~799 | 自慰系 | `COMF/700 自慰系/` |
+| 666 | 催眠 | 特殊分流 |
+| 770~771 | 摄影系统 | DLC 分流 |
+| 777 | 调试模式 | 特殊分流 |
+| 778 | 一键扫除 | DLC 分流 |
+| 900 | 性纹管理 | 特殊分流 |
+
+### 1.3 COM 函数标签体系
+
+每个指令由多个标签构成：
+
+| 标签 | 作用 |
+|------|------|
+| `@COM{N}_DISPLAY` | 动态指令名显示（#FUNCTIONS） |
+| `@COM_ABLE{N}` | 可用性判定（RETURN 0/1） |
+| `@COM{N}` | 指令主逻辑 |
+| `@COM{N}_TAGS` | 指令分类标签 |
+| `@COM{N}_TOUCH(ARG)` | 接触/体位判定 |
+
+### 1.4 USERCOM 特殊处理
+
+从 USERCOM.ERB 观察到：
+- **自定义指令集成**: `CALL Add_Custom_USERCOM(RESULT)` 先处理 fromEN 自定义指令
+- **口上封锁检查**: `CALL KOJO_CHECK(TARGET, "COM_BLOCKED",,LOCAL)` 允许口上阻止指令
+- **烂醉确认**: 角色烂醉且快醒时要求玩家确认
+- **泥醉/睡眠状态处理**: 特殊状态下指令行为不同
+
+## 2. 事件系统（イベント関連）
+
+### 2.1 核心流程调用
+
+| 阶段 | 函数/文件 | 说明 |
+|------|----------|------|
+| 调教前 | `BEFORETRAIN.ERB` | 一日开始时（来訪判定） |
+| 回合结束 | `EVENTTURNEND.ERB` | 每日结束的核心回调 |
+| 调教后 | `AFTERTRA.ERB`（@EVENTEND） | 调教终了处理：存档、射精重置、心情刷新 |
+| 事件结束 | `EVENTCOMEND.ERB` / `EVENTCOMEND2.ERB` | 事件收尾 |
+| 遭遇判定 | `遭遇判定.ERB` | 地图遭遇 |
+| 来訪 | `来訪フラグ.ERB` | 角色来访判定 |
+
+### 2.2 AFTERTRA（@EVENTEND）关键处理
+
+从 AFTERTRA.ERB 代码观察：
+```
+- SAVEGLOBAL 自动存档
+- CALL DLCEVENT DLC 事件结算
+- 射精标志重置（膣内/肛門/口内/脸上/手上精液 = 0）
+- 神签标志重置
+- DAYEVENT 日夜事件处理
+- 每位角色：精液中毒等级计算心情恢复（SELECTCASE ABL:精液中毒）
+- 喜欢的体位自动判定（比较 EXP:100 系列经验）
+- 服装恢复（TCVAR:本来的服装 → CFLAG:基本服装セット）
+- SEMEN_MATRIX 精液矩阵数据处理
+```
+
+### 2.3 妊娠子系统
+
+```
+PREGNANCY.ERB → CYCLE.ERB（周期）→ OGAMITAOSHI.ERB（懐妊判定）
+→ 出産経過.ERB（分娩）→ BIRTH.ERB（出生）→ CHILD_MOVEMENT.ERB（子育）
+→ 汎用キャラ用名前付け（命名）→ HININSHITE.ERB（孕期禁止）
+```
+
+### 2.4 宴会/赠礼/日记
+
+- **宴会**: `ENKAI_0_BLANK` 模板 + `ENKAI_1~12` 实例（灵梦/年忘れ/月见酒等），`ENKAI_SUB` 公共逻辑
+- **赠礼**: `贈り物.ERB` + 数据（本体/形容词），物品组合描述
+- **日记**: `CHARA_DIARY.ERB` 角色日记 + `DIARY.ERH`
+
+## 3. 数值计算（ステータス計算関連）
+
+### 3.1 情绪源系统（SOURCE/）
+
+`SOURCE.ERB` 是调教核心计算引擎：
+- 入口 `@SOURCE_CHECK`：接收 SELECTCOM（从 TFLAG:3 恢复）
+- `TRACHECK_TIME` 消费时间
+- 遍历所有角色更新 TEQUIP 接触状态
+- 处理接触/插入的连续状态
+- 计算各种情绪源增减
+
+### 3.2 调教检测（TRACHECK_*.ERB）
+
+| 文件 | 功能 |
+|------|------|
+| `TRACHECK.ERB` | 调教总检测入口 |
+| `TRACHECK_刻印取得.ERB` | 刻印获取判定（苦痛/時姦/快乐/不埒） |
+| `TRACHECK_ORGASM.ERB` | 绝顶处理（C/V/A/B/M 五感判定） |
+| `TRACHECK_LOST_VIRGIN.ERB` | 破瓜检测 |
+| `TRACHECK_EQUIP.ERB` | 装备状态检测 |
+| `TRACHECK_PAIN.ERB` | 痛苦检测 |
+| `TRACHECK_ABLUP.ERB` | 能力提升 |
+| `TRACHECK_好感度上昇処理.ERB` | 好感度变化 |
+| `TRACHECK_信頼度上昇処理.ERB` | 信赖度变化 |
+
+### 3.3 绝顶判定核心
+
+从 `TRACHECK_ORGASM.ERB` 观察：
+- 五路快感：`快Ｃ`（阴蒂）/`快Ｖ`（阴道）/`快Ａ`（肛）/`快Ｂ`（乳）/`快Ｍ`（精神）
+- `CUP:ARG:快Ｘ + PALAM:ARG:快Ｘ >= PALAMLV:4` 为达到绝顶阈值
+- 多路同时绝顶给予更高加成（5路=5000, 4路=3000...）
+- 挑逗模式（寸止め）支持：`TEQUIP:ARG:挑逗モード` → 挑逗発生 → 攒到下次
+
+### 3.4 刻印获取阈值
+
+从 `TRACHECK_刻印取得.ERB` 观察：
+```
+苦痛刻印: CUP:苦痛 >= 2000 → Lv1, >= 4000 → Lv2, >= 8000 → Lv3
+時姦刻印: TCVAR:時姦刻印取得用 == 1/2/3 → Lv1/2/3
+快乐刻印: TCVAR:快楽強度 == 1/2/3 → Lv1/2/3
+不埒刻印: FLAG:70(时停)或恶作剧触发
+```
+
+### 3.5 反击系统（COUNTER/）
+
+```
+COUNTER_COMMON.ERB     # 反击公共逻辑
+COUNTER_SELECT.ERB     # 反击选择
+COUNTER_SOURCE.ERB     # 反击情绪源
+COUNTER_MESSAGE.ERB    # 反击消息
+COUNTER_POSE.ERB       # 反击体位
+COUNTER_TYPE.ERB       # 反击类型
+COUNTER_PUNISHMENT.ERB # 惩罚反击
+COUNTER_MASTERへの苦痛.ERB # 对玩家的痛苦
+COUNTER_CONBINATION.ERB    # 组合反击
+CCOMF/                 # 反击指令
+```
+
+## 4. 状态显示（ステータス表示関連）
+
+### 4.1 角色信息显示
+
+- `INFO.ERB` - 角色信息主显示
+- `Look.ERB` - 外表描述（根据服装/状态生成）
+- `PRINT_STATE.ERB` / `PRINT_STATE2.ERB` - 状态打印
+- `能力表示.ERB` - 能力显示（配合 QOL_能力表示）
+- `PRINT_TALENTNAME.ERB` - 特质名显示
+
+### 4.2 图像渲染
+
+- `顔絵表示.ERB` - 脸部立绘（表情差分）
+- `IMAGE.ERB` / `IMAGE2.ERB` - 图片处理
+- `ANIMATION.ERB` - 动画
+- `BAR.ERB` - 数值条
+- `COLOR.ERB` - 颜色管理
+- `CN_GRAPHIC/` - 中文社区图形化渲染
+- `EagloV/` - 图像化渲染补丁
+
+## 5. 角色系统（キャラデータ）
+
+- `Chara_data_{编号}_{名字}.ERB`（160+ 文件）：每个角色的初始数据设定
+- `FUNCTION/FChara_data_{编号}_{名字}.ERB`：角色专属函数
+- 角色初始化函数模式：`@CHARA{编号}_DATA` 设定 TALENT/BASE/ABL 等
+- `キャラの挙動メモ.txt`：角色行为设计文档
+
+## 6. 移动/地图（MOVEMENTS）
+
+### 6.1 核心流程
+```
+MOVEMENT.ERB → MOVEMENT2.ERB → MOVEMENT_SUB.ERB
+→ MOVEMENT_キャラ移動処理.ERB（角色移动）
+→ DRAW_MAP.ERB（地图绘制）
+→ 物件関連/（各地图地点分支）
+```
+
+### 6.2 地点系统（物件関連）
+- `PLACE_拠点別分岐.ERB` / `PLACE_拠点共通.ERB`：地点公共逻辑
+- 12 个地点目录：00神社/01寺/02人間の里/03紅魔館/04竹林/05魔法の森/06冥界/07山麓/08山頂/09地底/10月/11魔界
+- `FIELD.ERB`: 野外地图处理
+- `MAP_MANAGE.ERB`: 地图管理
+- `JOB_MANAGE.ERB`: 工作管理
+
+### 6.3 自由行动
+- `自由行動/FREE_ACT_0~19.ERB`：各种自由活动（打扫/说教/落穴/雪人/炬燵/抱卵等）
+- `UNIQUE_FREE_ACT_XX.ERB`：角色专属自由行动
+- `MOVEMENT_自由行動.ERB`：自由行动入口
+
+## 7. 商店（SHOP関連）
+
+- `SHOP.ERB` - 商店入口
+- `SHOP_ITEM.ERB` - 物品买卖
+- `SHOP住環境設定.ERB` - 居住环境
+- `ITEMDATA.ERB` - 物品数据
+- `OPTION.ERB` - 选项设置
+- `キャラメイク.ERB` - 角色创建
+- `UPDATE.ERB` - 版本更新
