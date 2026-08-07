@@ -2037,7 +2037,15 @@ TFLAG:口上特殊補正 = 0
 RETURN 0
 
 @M_KOJO_暮光碎片_MESSAGE_COM_K50_332
-CALL M_KOJO_暮光碎片_MESSAGE_COM_K50_332_1
+IF CFLAG:1101 == 1
+	CALL M_KOJO_暮光碎片_MESSAGE_COM_K50_332_1
+ELSEIF CFLAG:1102 == 1
+	CALL M_KOJO_暮光碎片_MESSAGE_COM_K50_332_2
+ELSEIF CFLAG:1103 == 1
+	CALL M_KOJO_暮光碎片_MESSAGE_COM_K50_332_3
+ELSEIF CFLAG:1104 == 1
+	CALL M_KOJO_暮光碎片_MESSAGE_COM_K50_332_4
+ENDIF
 RETURN RESULT
 
 @M_KOJO_暮光碎片_MESSAGE_COM_K50_332_1
@@ -2046,6 +2054,211 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+
+ENDIF
+RETURN 1
+@M_KOJO_暮光碎片_MESSAGE_COM_K50_332_2
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+	; 首次，无论什么酒，统一
+	PRINTFORMDL	%CALLNAME:MASTER%身上总是带着酒的
+	PRINTFORMDW	并不是说%CALLNAME:MASTER%嗜酒如命，没有酒就没有动力
+	PRINTFORMDL	而是在幻想乡，酒总是能解决一些问题，或者麻烦
+	PRINTFORMDW	当然，酒也是好用的借口，或者工具
+	PRINTFORMDW	当然，如果这种工具被自己以外的人对自己利用，即使是%CALLNAME:MASTER%也会些许头痛
+	PRINTFORMDL	不过，对于拥有着操纵时间的能力的自己而言，也只是些许罢了……
+	PRINTFORMDW	……………
+	PRINTFORMDW	…………吗？
+	PRINTFORMDL	
+	PRINTFORML	「酒？」
+	PRINTFORMDL	不知何时，芙兰朵露出现在%CALLNAME:MASTER%的身后，无声无息，手中还拿着一个容器，已经被打开
+	PRINTFORMDW	%CALLNAME:MASTER%认得，那是自己随身携带的酒壶
+	PRINTFORMDW	「表情那么有趣干嘛～我手上拿的又不是你的脊椎～」
+	PRINTFORMDW	「不过，酒啊～%CALLNAME:MASTER%居然会随身携带这种东西～」
+	PRINTFORMDW	「酒精会麻痹感觉，蒙骗大脑，%CALLNAME:MASTER%就不怕醉酒之后，连自己是怎么死的都无法得知嘛～哈哈哈哈哈～」
+	PRINTFORMDL	芙兰说着，举起酒壶一饮而尽
+	PRINTFORMDW	而后，嘶哑着笑着，但是酒香却从芙兰身上弥散着
+	PRINTFORMDL	「也许对于%CALLNAME:MASTER%而言，不知道死法反而是种享受呢～」
+	PRINTFORMDL	芙兰说着意义不明的话，嗤笑着
+	PRINTFORMDL	%CALLNAME:MASTER%只觉得自己的反应开始出现迟钝…眼前似乎出现了一些奇怪的……
+	SELECTCASE TFLAG:194
+		CASE 51
+		;浊酒
+			; 清醒 大概会在这里添加醉酒度的判断，但是Fumo没有写别的，空之空之
+			PRINTFORMDL	芙兰突然从%CALLNAME:MASTER%身边掠过，手中拿着的赫然是%CALLNAME:MASTER%的酒壶
+			PRINTFORMDL	「欢迎来到……」
+			PRINTFORMDL	红雾涌起
+			PRINTFORMDL	%CALLNAME:MASTER%站在锈蚀的欢迎牌前，上面写的什么已经难以看清了，只有［欢迎来到……］尚可分辨
+
+			PRINTL [0] - 驻足
+			PRINTL [1] - 后退
+			PRINTL [2] - 前进
+
+			SELECTCASE RESULT
+				CASE 0
+					PRINTFORMDL	%CALLNAME:MASTER%停在原地
+					PRINTFORMDW	自己完全记不清自己究竟是怎么来到这里，又为何来到这里
+					PRINTFORMDL	%CALLNAME:MASTER%只是呆愣着，环境只剩压抑
+					PRINTFORMDW	也许红雾之中隐藏着，也许危险即将到来
+					PRINTFORMDW	潜意识在催促，催促%CALLNAME:MASTER%行动，继续待着这里，决定不是什么好事
+					PRINTFORML	［棱…棱…］
+					PRINTFORMDL	钢铁在地面上摩擦的声音渐渐响起，像是在四周，又像是在附近，忽远忽近
+					PRINTFORMDW	雾中，%CALLNAME:MASTER%完全失去了距离感，继续等待显然是不明智的举动
+					PRINTFORMDW	可是，%CALLNAME:MASTER%只觉得自己的腿仿佛是灌了铅，自己的思绪仿佛被石子卡了带，只是驻足着
+					PRINTFORMDL	终于，摩擦声停止了，停在自己面前
+					PRINTFORMDW	微弱的呼吸声与细微的气流一齐刺激着%CALLNAME:MASTER%的神经
+					PRINTFORMDL	什么东西被举起了
+					PRINTFORMDL	什么东西落下了
+					PRINTFORMDW	什么东西，是鲜红色的
+					PRINTFORMDL	如同溺水者呼吸到的最后一口空气，少女鲜红色的眼眸仿佛将%CALLNAME:MASTER%的恐惧驱散
+					PRINTFORMDW	金发的少女，或者说，芙兰朵露微笑着看着你
+					PRINTFORMW	「What is it that you fear?」
+				CASE 1
+					PRINTFORMDL	显然，留在这里并非明智之举
+					PRINTFORMDL	纵使完全忘记自己是怎么来到这里的，但离开肯定不会有危险
+					PRINTFORMDW	于是%CALLNAME:MASTER%转身，却只觉得脚步轻飘，没走几步就撞到一个人身上，跌倒在地
+					PRINTFORMDW	%CALLNAME:MASTER%挣扎着想要起身，却被对方踩住脚踝
+					PRINTFORMDL	比起疼痛，%CALLNAME:MASTER%更多的是感觉到麻痹感，完全失去了腿的知觉
+					PRINTFORMDL	随着另一脚同时被踩住，%CALLNAME:MASTER%彻底失去了逃走的可能，而此时%CALLNAME:MASTER%才正式看清自己所撞到的，所谓人——
+					PRINTFORMDW	是由两双腿自腰间间耦合的，X形的疑似生物
+					PRINTFORMDL	X中心的微微张开，细小的触手确认着%CALLNAME:MASTER%的位置，而后缠住%CALLNAME:MASTER%的脖颈
+					PRINTFORMDW	窒息感压迫着%CALLNAME:MASTER%的理智，恐惧迫使%CALLNAME:MASTER%无意思的嘶吼，却只是将肺部最后的氧气排出
+					PRINTFORMDW	然后，是肺
+					PRINTFORMDW	是脏器
+					PRINTFORMDW	是…………
+					PRINTFORMW	「Huh！！！！…………」
+					PRINTFORMDL	%CALLNAME:MASTER%松开自己僵硬且麻痹的手，贪婪的呼吸着
+					PRINTFORMDL	伴随着呼吸，脖颈间传来丝丝刺痛，自己的指尖划破了自己的皮肤，血正沿着肌肤缓慢的流淌着
+					PRINTFORMDW	直到被眼前的金发少女，或者说芙兰朵露舔舐
+					PRINTFORMW	「多谢款待～」
+				CASE 2
+					PRINTFORMDL	%CALLNAME:MASTER%不知道自己为何而来，只是觉得，自己应该进去
+					PRINTFORMDL	这种感觉就像是某种不可抗拒的召唤，仿佛小镇的每一个角落都在对你低语，诉说着你应该知晓的秘密
+					PRINTFORMDW	这里是个古朴的小镇，老旧的招牌摇曳着，吱呀，吱呀，似乎在诉说着往日的一切
+					PRINTFORMDL	街道两旁的房屋，墙壁被岁月侵蚀得斑驳陆离，窗户上挂着的窗帘随风轻轻摆动，像是在窥视着过往行者的秘密
+					PRINTFORMDW	红雾中弥漫着一种潮湿而陈旧的气息，让人不禁想起那些被遗忘的往事
+					PRINTFORMDW	%CALLNAME:MASTER%记起了，自己是来找她的，一个金发的小女孩，她就下了消息，自己是来将她带回的
+					PRINTFORMDW	%CALLNAME:MASTER%迈着沉重的步伐走进小镇，可是每一步却都像是在踏过自己内心的深渊
+					PRINTFORMDL	自己似乎正在想起与她的关系，她仰慕着自己，向自己宣誓着无尽的爱恋，自己却一次又一次的将这爱恋拒之门外
+					PRINTFORMDL	直到她的失踪，熟悉的日常不再温馨，自己才明白，原来自己已然离不开她
+					PRINTFORMDW	%CALLNAME:MASTER%的目光在四周游移，试图寻找一丝熟悉的痕迹，但眼前的一切却陌生得让你感到不安
+					PRINTFORMDL	小镇的宁静中透着一股诡异的压抑，仿佛隐藏着无尽的黑暗
+					PRINTFORMDL	你来到了一家破旧的酒馆前，木门上刻满了岁月的痕迹，门把手冰冷而粗糙
+					PRINTFORMDW	%CALLNAME:MASTER%推开门，吱呀一声，门缓缓打开，发出刺耳的声响
+					PRINTFORMDL	酒馆内昏暗而寂静，空气中弥漫着酒精和烟草的味道。几张破旧的桌子随意摆放着，上面满是划痕和污渍
+					PRINTFORMDW	角落里，一个身影背对着你，似乎在等待着什么
+					PRINTFORMDW	「芙兰…」
+					PRINTFORMDL	%CALLNAME:MASTER%脱口而出，声音在寂静的酒馆内回荡，带着一丝颤抖。
+					PRINTFORMW	「你来了」那个身影缓缓转过身，露出一张苍白而憔悴的脸
+					PRINTFORMW	鲜红的眼睛深邃而空洞，仿佛能看透人心。「我来找你了」
+					PRINTFORMDL	%CALLNAME:MASTER%的声音有些犹豫，不知为何违和感，在自己与她见面的那一刻起就游荡在自己的心头
+					PRINTFORMW	「太好了…」
+					PRINTFORMDL	芙兰缓缓站起身，走向%CALLNAME:MASTER%
+					PRINTFORMW	「%CALLNAME:MASTER%终于来找我了」
+					PRINTFORMDL	芙兰开心的笑着，埋头扑进%CALLNAME:MASTER%的怀里，抽泣着，似乎正在流泪
+					PRINTFORMW	「可是……可是……」
+					PRINTFORMW	「可是芙兰不是被你杀死了吗」
+					PRINTFORMDL	%CALLNAME:MASTER%的心脏似乎慢了一拍，皱起眉头，试图理解这句话的含义
+					PRINTFORMDL	突然间的疼痛以来，自己的胸口已然被撕咬下一大片，肋骨正裸露在外
+					PRINTFORMW	芙兰的眼神变得冷冽，「你无法逃避，它们一直跟随着你！」
+					PRINTFORMDL	芙兰大笑着，扑向%CALLNAME:MASTER%，%CALLNAME:MASTER%虽然颤抖着，但还是伸出手，扼住她的咽喉，刹那间，周围的场景改变了
+					PRINTFORMDL	酒馆消失了，取而代之的是陌生的墙壁，酒精和烟草的味道也被浓烈的消毒水味取代
+					PRINTFORMDW	自己手中的芙兰也变成了正在颤抖着的医护人员
+					PRINTFORMDL	%CALLNAME:MASTER%的心猛地一沉，急忙松开手，但还是被赶来的警卫殴打，控制
+					PRINTFORMDL	突然的头疼袭来，你想起了自己曾经的罪
+					PRINTFORMDL	被你伤害过的，芙兰的脸，像幻影一样在你眼前闪过
+					PRINTFORMDL	%CALLNAME:MASTER%试图驱散这些记忆，但它们却如影随形，挥之不去
+					PRINTFORMDW	最终，停留在了那张床上，自己强奸了她，扼杀了她
+					PRINTFORMDL	%CALLNAME:MASTER%的意识在痛苦中逐渐模糊，你感到自己被拖入了一个更深的黑暗之中
+					PRINTFORMDL	当你再次睁开眼睛时，发现自己躺在一张冰冷的病床上，四周是一片白色的病房
+					PRINTFORMDL	墙壁上挂着的医疗设备和仪器发出微弱的光芒，而空气中弥漫着浓烈的消毒水味，让人感到窒息
+					PRINTFORMW	「你醒了」
+					PRINTFORMDL	一个声音从门口传来，%CALLNAME:MASTER%转过头，看到一个穿着白大褂的医生站在门口
+					PRINTFORMDL	她的脸上带着一副无框眼镜，眼神冷漠而疏离
+					PRINTFORMDL	%CALLNAME:MASTER%没有回应，只是注视着天花板
+					PRINTFORMDW	医生缓缓走进房间，坐在床边的椅子上
+					PRINTFORML	「你知道自己为什么在这里吗？」
+					PRINTFORMDW	%CALLNAME:MASTER%摇了摇头，你的记忆仍然混乱不堪，只记得自己在小镇上的经历
+					PRINTFORML	「你犯下了不可饶恕的罪行，但你却一直逃避」
+					PRINTFORMDW	医生的声音平静而坚定
+					PRINTFORMDW	「我……我杀了芙兰…」%CALLNAME:MASTER%的声音中带着一丝颤抖，你试图坐起来，但身体却无法动弹，仿佛是被什么捆绑住
+					PRINTFORMW	「是的，你杀了我」医生点了点头，掐住自己的脸，用力一挠，鲜血之下，正是芙兰朵露
+					PRINTFORMDL	惨白的墙壁变成了布满血迹的囚笼
+					PRINTFORMDW	%CALLNAME:MASTER%正躺在十字架上，被捆住手脚
+					PRINTFORML	「但你不仅仅杀了我，你还伤害了更多的人」
+					PRINTFORML	「你的罪恶深重，但你却一直试图隐藏，逃避…」
+					PRINTFORMW	「这个小镇，这个病房，这个监狱，都是你内心深处的映射」
+					PRINTFORML	「你的罪恶和恐惧在这里被放大，无处可逃」
+					PRINTFORMW	「我要怎么才能解脱？」%CALLNAME:MASTER%的声音中带着一丝绝望
+					PRINTFORMDL	回应她的，却是芙兰的双手
+					PRINTFORMDL	如同那一夜一般，扼住自己的咽喉
+					PRINTFORMDW	芙兰跨坐在你的身上，痛苦与快感同时侵犯着你的思绪，死亡是你苦苦不得的结束
+					PRINTFORMW	「You know the truth. It’s time to face it.」
+					PRINTFORMDL	随着高潮的到来，%CALLNAME:MASTER%失去了意识
+					PRINTFORMW	「啧…流水…呵呵呵…」
+					PRINTFORMDL	芙兰看着被浊酒腐蚀露骨的手，虽然疼痛，但是她很满意自己破坏造成的幻觉
+					PRINTFORMW	「真期待%CALLNAME:MASTER%的表情啊～呵呵呵呵～」
+					PRINTFORMDL	芙兰舔舐着自己的手指，等待着你醒来
+					; 好长的差分、
+				CASEELSE
+					PRINTFORMDL	请选择正确的选项喔~
+					PRINTFORMDW	那么，重新来过吧~
+					RESTART
+			ENDSELECT
+		CASE 52
+		;清酒
+
+			ENDIF
+		CASE 53
+		;鬼杀酒
+
+		CASE 54
+		;红酒
+
+		CASE 55
+		;神酒
+
+			ENDIF
+		CASE 56
+		;甜酒
+
+			ENDIF
+		CASE 57
+		;梅酒
+
+			ENDIF
+		CASE 59
+		;药酒
+
+	ENDSELECT
+ENDIF
+RETURN 1
+@M_KOJO_暮光碎片_MESSAGE_COM_K50_332_3
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+
+ENDIF
+RETURN 1
+@M_KOJO_暮光碎片_MESSAGE_COM_K50_332_4
+;-------------------------------------------------
+;启用（=0, 非表示、1, 表示）
+LOCAL = 1
+;-------------------------------------------------
+IF LOCAL
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
 
 ENDIF
 RETURN 1
@@ -2858,7 +3071,8 @@ RETURN RESULT
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
 	IF TALENT:恋慕
 
 	ELSEIF TALENT:思慕
@@ -2886,35 +3100,317 @@ IF LOCAL
 			; 想要再冒充一下地文……再想想怎么冒充
 			PRINTDL
 			IF !RESULT
-			PRINTFORMDW	直到%CALLNAME:MASTER%听得倦了，甚至有些烦了，芙兰方才停下，粗略打量一番%CALLNAME:MASTER%，不易察觉的叹了口气
-			PRINTDL
-			PRINTFORMDW	「如果把我刚才所述当作教学的一部分，那我显然无法令%CALLNAME:MASTER%提起学习的兴趣。毫无疑问，我并不适合成为%CALLNAME:MASTER%学习路上的帮手，还请%CALLNAME:MASTER%为了自己考虑，不要再在学习方面与我玩笑。」
-			PRINTFORMDW	%CALLNAME:MASTER%愣了愣，下意识的想要开口为自己辩解，可芙兰已经转身离开去做自己的事了
-			CFLAG:1201 = 1
+				PRINTFORMDW	直到%CALLNAME:MASTER%听得倦了，甚至有些烦了，芙兰方才停下，粗略打量一番%CALLNAME:MASTER%，不易察觉的叹了口气
+				PRINTDL
+				PRINTFORMDW	「如果把我刚才所述当作教学的一部分，那我显然无法令%CALLNAME:MASTER%提起学习的兴趣。毫无疑问，我并不适合成为%CALLNAME:MASTER%学习路上的帮手，还请%CALLNAME:MASTER%为了自己考虑，不要再在学习方面与我玩笑。」
+				PRINTFORMDW	%CALLNAME:MASTER%愣了愣，下意识的想要开口为自己辩解，可芙兰已经转身离开去做自己的事了
+			CFLAG:1201 = 1 
 			ELSE
-			PRINTFORMDW	%CALLNAME:MASTER%点了点头，也在思考是否要换个地方，换个帮手指导自己学习
-			PRINTDL
-			PRINTFORMDL	芙兰见此，不可察觉的点了点头，微微一笑，不过转瞬间又恢复如初
-			PRINTFORMW	「不过既然%CALLNAME:MASTER%开口，且提出了合理的请求，我虽学疏浅薄，倒愿意解囊相授。」
-			PRINTDL
-			PRINTFORMDL	芙兰随手一捏，整个地下室的亮度开始缓慢提升，而后向%CALLNAME:MASTER%伸出了手
-			PRINTFORMW	「芙兰虽不才，哲学、文学、理学、医学、管理学、艺术学均有涉猎，今后请多多指教。」
-			PRINTDL
-			PRINTFORMDL	%CALLNAME:MASTER%愣了愣，连忙握住芙兰的手，谢道，今后请多多指教
+				PRINTFORMDW	%CALLNAME:MASTER%点了点头，也在思考是否要换个地方，换个帮手指导自己学习
+				PRINTDL
+				PRINTFORMDL	芙兰见此，不可察觉的点了点头，微微一笑，不过转瞬间又恢复如初
+				PRINTFORMW	「不过既然%CALLNAME:MASTER%开口，且提出了合理的请求，我虽学疏浅薄，倒愿意解囊相授。」
+				PRINTDL
+				PRINTFORMDL	芙兰随手一捏，整个地下室的亮度开始缓慢提升，而后向%CALLNAME:MASTER%伸出了手
+				PRINTFORMW	「芙兰虽不才，哲学、文学、理学、医学、管理学、艺术学均有涉猎，今后请多多指教。」
+				PRINTDL
+				PRINTFORMDL	%CALLNAME:MASTER%愣了愣，连忙握住芙兰的手，谢道，今后请多多指教
 			; 没变化、这个CFLAG默认是0的
 			ENDIF
+		ELSEIF ONCE("每日第一次学习") && CFLAG:1201
+			CALL M_KOJO_暮光碎片_STUDENT_1101
+			CFLAG:1412 ++
+			; 大概我还要去把学习这个按钮禁了吧，咕咕咕
 		ELSE
-
+			; 这里fumo没写啊，如果前面选项没有进入学习线的话再在这里学习就空了啊
+			PRINTFORMDL	%CALLNAME:MASTER%独自学习着，芙兰对其视作空气
 		ENDIF
 	ENDIF
 ENDIF
 RETURN 1
+
+@M_KOJO_暮光碎片_STUDENT_1101
+	; 学习的差分：稳
+	SELECTCASE CFLAG:1201
+		CASE 1
+			PRINTFORMDL	自从芙兰答应指导%CALLNAME:MASTER%学习已经过去一段时间，可是这段时间内芙兰就和往常一样冷漠
+			PRINTFORMDW	也许需要自己主动开口，可要如何开口又成了问题
+			PRINTFORMDL	是要直接叫芙兰吗？
+			PRINTFORMDL	还是说要叫老师？
+			PRINTFORMDW	亦或是芙兰老师？
+			PRINTFORML	「%CALLNAME:MASTER%是在苦恼礼仪吗？」
+			PRINTFORMDW	似乎是察觉到%CALLNAME:MASTER%的纠结，芙兰突然开口
+			PRINTFORML	「虽然礼仪之邦有着“一日为师，终身为父”的观念，但我还是希望我们之间的能够维持平等的，独立的关系」
+			PRINTFORMW	「如果你想要从我这里学到什么时，你可以称呼我为老师，我会以弟子回应你」
+			PRINTFORML	「此外的时间我会仍以%CALLNAME:MASTER%，或者%CALLNAME:MASTER%先生，%CALLNAME:MASTER%君一类的称呼。当然，尊重程度取决于%CALLNAME:MASTER%所展现出来的礼仪」
+			PRINTFORMDL	芙兰说完，不等%CALLNAME:MASTER%反应便继续去做自己的事情了
+			PRINTFORMDW	%CALLNAME:MASTER%小小的叹了口气，至少知道要怎么开口了
+		CASE 2
+			PRINTFORMDW	芙兰老师，请指导我
+			PRINTFORML	「止称老师即可，不过我并不介意“芙兰老师”这个称呼」
+			PRINTFORMDW	芙兰暂停手中的事，随手捏住了什么后，来到%CALLNAME:MASTER%面前
+			PRINTFORMDW	一套桌椅就这么出现在芙兰身边
+			PRINTFORML	「不必惊讶，只是对自己能力的复杂运用，以后有机会我会给予解释」
+			PRINTFORMDW	%CALLNAME:MASTER%点了点头，坐了下来
+			PRINTFORML	「那么，第一节课，就教导弟子吸血鬼的相关知识」
+			PRINTFORMDW	芙兰又是随手一捏，空中便浮现出一块悬浮的黑板，图画就像是投影一般在黑板中映射
+			PRINTFORML	「吸血鬼是肉体极为强大的种族，少数个体还存在着常人难以想象的能力，不过目前为止幻想乡内拥有特殊能力的吸血鬼只有两位，所以暂时不需要弟子你了解」
+			PRINTFORML	「吸血鬼肉体强大，为了方便弟子理解，可以简易换算，同体型同体重的吸血鬼力量大约是同体型同体重的人类力量的一百倍，部分个体存在部分差异，不过幻想乡内并没有拥有力量强化能力的吸血鬼，弟子你不需要考虑」
+			PRINTFORML	「因此弟子你在与一般吸血鬼相处时需要尽可能避免与吸血鬼的肉体接触」
+			PRINTFORML	「尺有所短，寸有所长。吸血鬼也有着无法摒弃的弱点，光线的照射与流水的侵蚀就可以让绝大多数吸血鬼失去行动能力」
+			PRINTFORMW	「因此，几乎所有吸血鬼都是夜行，绝大多数吸血鬼会选择居住在远离江河湖海的深山老林的城堡之中」
+			PRINTFORML	「而人类的重要城镇大多不会距离水源太远，所以只要不是刻意寻找，一般人类一辈子都不会与吸血鬼产生交集」
+			PRINTFORMW	「至于红魔馆，其建立在雾之湖畔有着不可复制的原因，故可以视作特例」
+			PRINTFORMDL	%CALLNAME:MASTER%点了点头
+			PRINTFORMDW	见此，芙兰随手一挥动，桌子与黑板便消失不见了
+		CASE 3
+			PRINTFORMDW	芙兰老师，请指导我
+			PRINTFORMDL	桌椅与黑板再一次出现在%CALLNAME:MASTER%附近
+			PRINTFORMDL	芙兰本人也是近乎瞬移一般出现在黑板之前
+			PRINTFORML	「之前指导了弟子吸血鬼的相关知识，那么现在教导弟子你如果不幸遭遇吸血鬼叨扰要如何处理」
+			PRINTFORMDW	语毕，桌面上出现一杯水与一幅太阳的画像
+			PRINTFORML	「如果是在白天，无论是阴晴雨雪，只要没有遮挡物让你完全处于黑暗之中，你就是安全的，没有吸血鬼能顶着重伤甚至死亡的代价袭击你」
+			PRINTFORML	「不要担心阴影，即使是极为高大的建筑物的影子，也无法完全遮挡阳光，即使是再大的暴风也无法阻断太阳的光辉」
+			PRINTFORMW	「只有毫无光亮进入的建筑内部，山洞内部，地下空间，吸血鬼才能在其中活动」
+			PRINTFORML	「至于我的姐姐可以只依靠一把洋伞就可以在太阳之下活动，是因为我姐姐是极少数可以利用能力规避伤害的吸血鬼，弟子可以将其当做特例」
+			PRINTFORMDW	芙兰顿了顿，将太阳画像消除，而后端起%CALLNAME:MASTER%面前的水杯
+			PRINTFORML	「如果弟子极为不幸或者好奇心旺盛，进入了吸血鬼的洞穴或者在夜晚偶遇吸血鬼，那么就要作好反抗的准备」
+			PRINTFORMDL	芙兰说着，将水倒在自己的手上，如同被硫酸灼烧一般，细微的白烟从芙兰的手上冒出
+			PRINTFORMDW	很快，%CALLNAME:MASTER%看到了芙兰的血肉，却又在瞬间复原
+			PRINTFORML	「流水可以对付吸血鬼，不过这种量的水只能让吸血鬼感觉到些许疼痛，更多的是麻痹感，想要让吸血鬼完全失去袭击你的能力需要足够覆盖它全身的水量」
+			PRINTFORML	「显然弟子你并没有随身携带如此多的水，所以需要注意水的用法」
+			PRINTFORMW	「比如含在嘴里，喷射而出，可以定点袭击吸血鬼的眼睛，鼻子，脖颈一类的位置」
+			PRINTFORMDL	「不过这有些难，弟子有时间可以多多练习，这里就不多赘述了」
+			PRINTFORMW	%CALLNAME:MASTER%点了点头
+			PRINTFORMDL	芙兰没有多说，黑板与桌子再一次消失了
+			PRINTFORMW	「顺带一提，在幻想乡里可以先用弹幕对战应付，如果无法战胜在考虑利用水逃跑」
+		CASE 4
+			PRINTFORMDL	芙兰老师，请指导我
+			PRINTFORMDL	芙兰抬起手，触碰了什么
+			PRINTFORMDW	整个地下室突然变得虚幻起来，明明%CALLNAME:MASTER%仍在原地，但却能明确的感觉到自己正身处密林之中
+			PRINTFORML	「读万卷书，行万里路，两者本不可兼得，但很幸运的是，你的老师是我」
+			PRINTFORMDW	芙兰的声音从四周传来，%CALLNAME:MASTER%下意识的打量起来，可是只见数不清的树，以及帐篷与篝火
+			PRINTFORMDW	冷风悄悄流过，%CALLNAME:MASTER%突然有种不安感，难以描述
+			PRINTFORML	「切莫教条主义，现在你正处于某只吸血鬼的狩猎范围内」
+			PRINTFORMW	「此时将近子夜，距离太阳升起还有5个小时46分钟」
+			PRINTFORML	「帐篷内有你的背包，里面有少量食物与水」「篝火还能继续燃烧十分钟，除非你填入可燃物」
+			PRINTFORML	「而你应该已经有了被一只普通的吸血鬼已经盯上的感觉」
+			PRINTFORMDW	芙兰默默的将%CALLNAME:MASTER%的处境简述一遍后，便不再开口
+			PRINTFORMDL	虽然%CALLNAME:MASTER%不理解芙兰做了什么，但是目前为止芙兰只教导了自己如何对付吸血鬼，想来这就是一次考试
+			PRINTFORMDW	想到此，%CALLNAME:MASTER%决定
+			PRINTFORMDL
+			PRINT [0] - 被动应对
+			PRINT [1] - 主动出击
+			PRINT [2] - 「the world」
+			PRINTFORMDL
+			SELECTCASE RESULT
+				CASE 0
+					; 选择［被动］
+					PRINTFORMDL	你回到帐篷，背起包
+					PRINTFORMDL	并利用睡袋与帐篷支架制作了一个简易火把，打算等篝火完全燃尽之前再将其点燃
+					PRINTFORMDW	风依旧冰冷，不安感逐渐侵蚀着你的理智
+					PRINTFORMDL	密林的黑暗中似乎随时都会冒出什么你并不想见到的东西
+					PRINTFORMDL	终于，篝火熄灭了
+					PRINTFORMDW	风依旧，它来了
+					PRINTFORMDW	它真的很快，当%CALLNAME:MASTER%感觉到疼痛的时候，已经飞出了至少五米，直到狠狠的撞到一棵树上
+					PRINTFORMDL	噼啪噼啪…
+					PRINTFORMDL	火光在远处颤抖着，即将熄灭
+					PRINTFORMDL	哗哗哗～
+					PRINTFORMDW	树叶被撞击震落，将%CALLNAME:MASTER%笼罩
+					PRINTFORMDL	可是%CALLNAME:MASTER%只能听到自己沉重的呼吸与心跳，剧烈的疼痛让%CALLNAME:MASTER%暂时失去思考能力，只是下意识的哀嚎着，想要爬起，却感觉自己失去了对腿的控制
+					PRINTFORMDW	脊椎似乎断了
+					PRINTFORMDL	风依旧冰冷，%CALLNAME:MASTER%感觉自己的后背传来刺骨的寒，是背包中装水的容器在刚才的碰撞中碎裂了
+					PRINTFORMDL	疼痛开始变得模糊，%CALLNAME:MASTER%感觉自己被人扼住咽喉，比风更寒冷的喘息贴近自己的脖颈
+					PRINTFORMDW	随后，你喷出一股血水，握住你脖颈的手下意识的松开
+					PRINTFORMDL	这是唯一的机会
+					PRINTFORMDL	你抹下嘴角的血迹，向着可能的眼睛的地方狠狠扣去
+					PRINTFORMDW	你感觉到了，不带有温度的柔软之物
+					PRINTFORML	「虽然你让它短暂失去了视力…」
+					PRINTFORMDW	芙兰的声音从你的身后响起，可是你不是正躺在地上吗
+					PRINTFORML	「但是以吸血鬼的恢复能力而言，只是小伤，但脊椎这段的你完全失去了逃走的能力」
+					PRINTFORMDW	%CALLNAME:MASTER%向后看去，自己已经回到了地下室，自己身上也没有什么血迹或是伤口，自己仿佛根本没有受到任何伤害
+					PRINTFORML	「也许是我对你的期望过高了，下次我会极大程度的降低难度」
+					PRINTFORMW	「虽然弟子你没有受到任何伤害，但是精神恐怕已经到达极限了吧，早些休息」
+				CASE 1
+					; 选择「主动」
+					PRINTFORMDL	你回到帐篷，背起包
+					PRINTFORMDW	并利用睡袋与帐篷支架制作了一个简易火把，并点燃
+					PRINTFORMDL	风依旧冰冷，不安感逐渐侵蚀着你的理智
+					PRINTFORMDL	密林的黑暗中似乎随时都会冒出什么你并不想见到的东西
+					PRINTFORMDL	你鼓足勇气，举着火把进入密林之中
+					PRINTFORMDL	噼啪噼啪…
+					PRINTFORMDW	火把不自然的燃烧着
+					PRINTFORMDL	哒，哒，哒…
+					PRINTFORMDL	地面的石子因为你的迈步滚动着
+					PRINTFORMDL	火把并不能燃烧太久，而你已经距离篝火太远了
+					PRINTFORMDL	火把暗淡，你只感觉到什么东西向着你的面门袭来…
+					PRINTFORMDW	然后，你看到芙兰正站在你的面前，你已经回到了地下室
+					PRINTFORML	「被暗处的吸血鬼直接砍掉头颅了吗」
+					PRINTFORML	「进入自己丝毫不熟悉的密林之中，在对方的猎场搜索着猎人的踪迹，是对自己的能力过于自信了吗」
+					PRINTFORMW	「不…归根到底是我对你的期望过高了，下次我会极大程度的降低难度」
+				CASE 2
+					; 选择「the world」
+					PRINTFORMDL	你暂停了时间
+					PRINTFORMDL	很快，你变找到了躲藏在一棵树上的吸血鬼
+					PRINTFORMDL	它的体型很小，比芙兰朵露还要小上一圈，看上去弱不经风的，似乎还有严重的影响不良
+					PRINTFORMDW	完全没有威胁嘛
+					PRINTFORMDL	你将水仔细涂抹在她的眼睛，鼻子，嘴，甚至是脖颈上
+					PRINTFORMDL	为了保险，你还将自己的衣物浸湿，包在她的头上
+					PRINTFORMDW	而后时间恢复流动
+					PRINTFORMDW	咚！
+					PRINTFORMDL	克制不住抽搐的吸血鬼重重的摔在地上，虽然她很快就恢复了部分行动能力，可是面对拥有暂停时间能力的你，根本不是问题
+					PRINTFORMDL	直到，太阳升起
+					PRINTFORMDW	她燃烧着
+					PRINTFORML	「完美」
+					PRINTFORMW	芙兰的声音从燃烧着的吸血鬼那边传来，%CALLNAME:MASTER%揉揉眼睛，发觉自己不知何时已经回到了地下室，芙兰正站在自己面前
+					PRINTFORML	「不必担心，我不会深究弟子的能力，秘密只有自己知晓才是秘密，直到你愿意主动告诉我，或者做出我无法容忍的事情之前，我不会思考你的能力」
+					PRINTFORML	「说回这次对弟子的考验，我很满意」
+					PRINTFORMDW	说完，芙兰第一次向%CALLNAME:MASTER%露出明显的笑容
+					PRINTFORMW	「早些休息吧」
+			ENDSELECT
+		CASE 5
+			PRINTFORMDW	芙兰老师，请指导我
+			PRINTFORML	「你已经了解了吸血鬼的危险以及应对吸血鬼的应急手段，期望你永远也用不上这些知识」
+			PRINTFORML	「大部分吸血鬼处于吸血鬼温饱线之下，所以会无差别的袭击其他生物」
+			PRINTFORMW	「但另一部分吸血鬼或是因为有着稳定的食物来源，或是单纯的性格使然，她们会表现的较为友善，可能会让你失去对她们的警惕」
+			PRINTFORML	「吸血鬼虽然有着不弱于人类的智力，甚至部分个体智力远超人类想象，但本质上永远都是掠食者」
+			PRINTFORML	「今天我教你如何分辨吸血鬼表现出来的善意背后的意图」
+			PRINTFORMDW	芙兰说完，伸出手掌，轻轻合拢，整个地下室转变成为富丽堂皇的殿堂
+			PRINTFORMDW	殿堂无窗，烛光摇曳，空气中弥漫铁锈与檀香，仿佛时间停滞，唯有黑暗与压抑共存
+			PRINTFORMDL	「上帝规定，唯有得到许可方可进入他人的房屋」
+			PRINTFORMDL	优雅且慵懒的声音自%CALLNAME:MASTER%身后响起，回过头去，一位高挑的美丽金发女性正打量着%CALLNAME:MASTER%
+			PRINTFORMDW	而芙兰这是翘腿漂坐在你们中间，而那女性仿佛无法看到芙兰一般
+			PRINTFORML	「注意她的微表情，必要时我会出手」
+			PRINTFORMDW	芙兰说完便不再言语
+			PRINTFORMDW	那女性则是微微行礼，开了口
+			PRINTFORMDL	「但幸运的是，余不信仰上帝，也不对人类男性感兴趣，请坐吧」
+			PRINTFORMDL	「自我介绍一下，余乃是卡蜜拉，此处正是余的宫殿，余很好奇，汝究竟是如何在不惊动余的前提下闯入的」
+			PRINTFORMDL	%CALLNAME:MASTER%想了想
+			PRINTFORMDL	
+			PRINT [0] -- 随意糊弄
+			PRINT [1] -- 认真糊弄
+			PRINT [2] -- 全盘托出
+			PRINTFORMDL	
+			SELECTCASE RESULT
+				CASE 0
+					PRINTFORMDL	%CALLNAME:MASTER%自称走楼梯上来的
+					PRINTFORMDL	「哼…哼哼哼…很好的笑话，人类」
+					PRINTFORMDW	卡蜜拉阴森森的笑着，但是%CALLNAME:MASTER%看得出来她很不高兴
+					PRINTFORMDW	就在思索接下来要怎么办的时候，卡蜜拉突然出手袭向%CALLNAME:MASTER%
+					PRINTFORMDW	「无所谓了，把你制成我的使徒，什么样的秘密我都会知晓」
+					PRINTFORMDL	咔！
+					PRINTFORMDW	咯！
+					PRINTFORMDW	卡蜜拉的手臂在触碰到%CALLNAME:MASTER%的瞬间扭曲成一团，可她却只是注视着空中
+					PRINTFORMDL	「这种能力，是传说中的那个［史尔特尔］吗」
+					PRINTFORMDL	「呵，恭喜你啊人类，你被一个对于吸血鬼都感到恐惧的家伙」
+					PRINTFORMDW	卡蜜拉与她的宫殿同时消失不见，%CALLNAME:MASTER%已经回到了地下室
+					PRINTFORMDL	「弟子或许有问题想问，我会解释，但不是现在」
+					PRINTFORMDL	「现在我们来分析一下弟子你在刚才的情景中犯下了哪些错误」
+					PRINTFORMDW	芙兰并没有数落%CALLNAME:MASTER%，但%CALLNAME:MASTER%还是感觉自己有愧
+				CASE 1
+					PRINTFORMDL	%CALLNAME:MASTER%自称自己会瞬间移动，并利用时停演示了一次
+					PRINTFORMDL	「真是惊奇，区区人类居然也可以拥有这般强大的能力」
+					PRINTFORMDW	卡蜜拉称赞着，慢慢靠近%CALLNAME:MASTER%
+					PRINTFORMDL	「这样的能力，即使是男性，也想要制成使徒啊…」
+					PRINTFORMDL	然后，她的上半身突然折叠成一团
+					PRINTFORMDW	她极快的后退，身体却没能恢复
+					PRINTFORMDL	「怎么可能…这种能力，难道是传说中的那个［史尔特尔］！」
+					PRINTFORMDL	「为什么…［史尔特尔］会袭击余，可恶，头受损了，无法思考…」
+					PRINTFORMDW	卡蜜拉与她的宫殿同时消失不见，%CALLNAME:MASTER%已经回到了地下室
+					PRINTFORMDL	「弟子或许有问题想问，我会解释，但不是现在」
+					PRINTFORMDL	「现在我们来分析一下弟子你在刚才的情景中犯下了哪些错误」
+					PRINTFORMDW	芙兰并没有数落%CALLNAME:MASTER%，但%CALLNAME:MASTER%还是感觉自己有愧
+				CASE 2
+					PRINTFORMDL	%CALLNAME:MASTER%打算把芙兰说出来
+					PRINTFORMDW	只是当%CALLNAME:MASTER%把［芙兰朵露.斯卡雷特］这个名字说出来的时候，卡蜜拉剧烈的颤抖了一下，直接打断了%CALLNAME:MASTER%讲话
+					PRINTFORMDL	「你居然敢直呼那位！」
+					PRINTFORMDW	「传说中的［史尔特尔］…这件事居然和她有关…」
+					PRINTFORMDL	［原来我的僭越，［史尔特尔］，我会好好招待这个人类］
+					PRINTFORMDW	见此，芙兰默默的看了%CALLNAME:MASTER%一眼，随手一捏，名为卡蜜拉的存在就彻底压缩为一个小黑洞
+					PRINTFORMDW	整个宫殿开始不断坍塌，直到这里仿佛什么都没存在过
+					PRINTFORML	「暴露自己与另一只吸血鬼的关系确实是个好办法，只是弟子你似乎假设我的实力强于这个吸血鬼」
+					PRINTFORMDW	芙兰并没有数落%CALLNAME:MASTER%，只是说
+					PRINTFORML	「很幸运，老师我强于所有的吸血鬼」
+					PRINTFORMW	「我知道你有很多疑问，等下次上课我会做出解释」
+			ENDSELECT
+		CASE 6
+			PRINTFORMDL	芙兰老师，请指导我
+			PRINTFORMDL	%CALLNAME:MASTER%等待了一会，这一次芙兰并没有立即出现
+			PRINTFORMDW	就在%CALLNAME:MASTER%疑惑的时候，芙兰从%CALLNAME:MASTER%身后走来
+			PRINTFORML	「关于［史尔特尔］这个称号，解释起来可能会漫长，而且相对晦涩难懂，我会尽可能的用你能理解的词汇描述」
+			PRINTFORML	「我，芙兰朵露.斯卡雷特，天生拥有着看见事物最为脆弱的［眼］，并将其在手中呈现的能力」
+			PRINTFORML	「因此，只要我将事物的［眼］掌握手中，我就可以轻易将事物摧毁」
+			PRINTFORMDW	说着，芙兰的手心突然出现一块钻石，而另一只手中若隐若现着一个点
+			PRINTFORMDL	随着芙兰握拳，对着那个点施力，钻石上开始出现裂纹
+			PRINTFORMDL	裂纹不断扩张，增加
+			PRINTFORMDW	等到芙兰完全握住那个点时，钻石已经化作了粉尘
+			PRINTFORMW	「弟子应该看到了，我对其破坏的过程并不是瞬间造成的」
+			PRINTFORMDL	又一颗钻石出现在芙兰的手中
+			PRINTFORMDL	这一次，芙兰轻轻的揉搓那个点，钻石开始不断破裂
+			PRINTFORMDW	直到钻石形成了一个精致的雕像，是%CALLNAME:MASTER%的样子
+			PRINTFORML	「就当做老师赠予学生的礼物吧」
+			PRINTFORMDW	芙兰将钻石雕像放到了你的手上，继续讲解
+			PRINTFORML	「通过对事物进行特定程度的破坏，我便可以对世间万物进行我想要的改造」
+			PRINTFORMDW	芙兰对着空地伸手，你以前的椅子与黑板出现那里
+			PRINTFORML	「弟子你可以理解为我破坏了［空间］，所以物品可以出现在我需要其出现的位置，可以以折纸类比，我把一张纸上的两个点通过对折让他们同时出现在一个位置」
+			PRINTFORMDW	芙兰又举起双手，地下室的天花板已经变成了夜空
+			PRINTFORMDW	群星开始游动，月亮东升西落，太阳西升东落
+			PRINTFORML	［星，月，日都没有动，我破坏的只是光线］
+			PRINTFORML	［只要我把事物因时间而改变的一部分通过破坏增加或者消减，我便可以出现在现在，过去，未来任何时间节点的复刻场景，弟子你可以理解我我破坏了［时间］］
+			PRINTFORMDW	天空不再流动，芙兰正站在燃烧着的巨人之前
+			PRINTFORMDW	那是，北欧神话中，诸神黄昏后毁灭世界的——
+			PRINTFORML	［史尔特尔］
+			PRINTFORML	「我的能力运应到极限，理论上是可以实现真正意义上的穿越时空，只是现在的我还没有进行」
+			PRINTFORMW	「我无法保证我能够承受巨大的蝴蝶效应所造成的影响，我与过去的任何接触都可能毁灭世界」
+			PRINTFORML	「所以，我警戒自己，如果在未来我进行了真正禁忌，穿越时空」
+			PRINTFORML	「我将以「史尔特尔」的名义行事，以此留下线索」
+			PRINTFORMDW	芙兰顿了顿，%CALLNAME:MASTER%感觉到她似乎是在注视自己
+			PRINTFORMDW	却什么都没有说
+			PRINTFORMW	「好了，此问题已解惑，%CALLNAME:MASTER%好好休息去吧，明天我们进行其他科目」
+	ENDSELECT
+
 @M_KOJO_暮光碎片_MESSAGE_COM_K50_412_2
 ;-------------------------------------------------
 ;启用（=0, 非表示、1, 表示）
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+	SELECTCASE RAND:5
+		CASE 0
+			PRINTFORMDL	%CALLNAME:MASTER%计算着什么
+			PRINTFORMDL	芙兰只是静静的看着，不只是在想着什么
+			PRINTFORMDW	只是是不是的发出短暂的笑声
+		CASE 1
+			PRINTFORMDL	%CALLNAME:MASTER%在芙兰面前拿出几本书
+			PRINTFORML	「喂，你是打算在这里学而时习之？」
+			PRINTFORMW	「呵呵呵～和我在一起是这么无聊嘛～那你靠近一些，我会让相处变得更有趣一些～」
+		CASE 2
+			PRINTFORMDL	%CALLNAME:MASTER%在芙兰面前翻阅着一本书
+			PRINTFORMDL	书本上的内容突然变得模糊不清，似乎有什么液体渗透而出
+			PRINTFORMDW	%CALLNAME:MASTER%揉了揉眼睛，一切却又恢复了正常
+		CASE 3
+			PRINTFORMDL	%CALLNAME:MASTER%在芙兰面前检查着书本
+			PRINTFORMDL	剧烈的恶臭却从手上的书本中传来，触感也变得粘稠
+			PRINTFORMDL	可转瞬间却又恢复正常
+			PRINTFORMDW	%CALLNAME:MASTER%看向芙兰，芙兰只是笑了笑
+		CASE 4
+			PRINTFORMDL	%CALLNAME:MASTER%开始写着什么东西
+			PRINTFORMW	「喂，你知道嘛，有一本书记载着一些好玩的东西，你帮我找过来，如何～」
+			PRINTFORMDL	
+				PRINT [0] -- 不理会
+				PRINT [1] -- 答应
+			PRINTFORMDL	
+			SELECTCASE RESULT
+				CASE 0
+					PRINTFORMDL	你忽视了芙兰
+					PRINTFORMDW	芙兰见此也只是坏笑着
+				CASE 1
+					PRINTFORMDL	是什么书，你问到
+					PRINTFORMW	「呼呼呼～你会知道的～」
+			ENDSELECT
+	ENDSELECT
 
 ENDIF
 RETURN 1
@@ -2924,7 +3420,29 @@ RETURN 1
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+	SELECTCASE RAND:5
+		CASE 0
+			PRINTFORMDL	%CALLNAME:MASTER%在芙兰面前拿出几本书
+			PRINTFORMDW	芙兰见此只是默默的注视着
+		CASE 1
+			PRINTFORMDL	%CALLNAME:MASTER%在芙兰面前翻阅着一本书
+			PRINTFORML	「真想知道…书本上的内容啊…」
+			PRINTFORML	「不…%CALLNAME:MASTER%愿意呆在芙兰身边就很好了…」
+			PRINTFORMW	「芙兰…不应该奢求的…」
+		CASE 2
+			PRINTFORMDL	%CALLNAME:MASTER%在芙兰面前检查着书本
+			PRINTFORMDL	芙兰在心中默默的祈祷着
+			PRINTFORMW	「千万…不要让芙兰的能力…把%CALLNAME:MASTER%的物品弄坏…」
+		CASE 3
+			PRINTFORMDL	%CALLNAME:MASTER%开始写着什么东西
+			PRINTFORMDL	芙兰只是静静的看着
+			PRINTFORMDW	周围只剩下了呼吸与笔触的声音
+		CASE 4
+			PRINTFORMDL	%CALLNAME:MASTER%计算着什么
+			PRINTFORMDW	芙兰捂住自己的嘴，生怕干扰到%CALLNAME:MASTER%的计算
+	ENDSELECT
 ENDIF
 RETURN 1
 @M_KOJO_暮光碎片_MESSAGE_COM_K50_412_4
@@ -2933,7 +3451,33 @@ RETURN 1
 LOCAL = 1
 ;-------------------------------------------------
 IF LOCAL
-
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_暮光碎片_COLOR_K50
+	SELECTCASE RAND:5
+		CASE 0
+			PRINTFORMDL	%CALLNAME:MASTER%拿出几本书
+			PRINTFORMDL	却被芙兰抢走了
+			PRINTFORMW	「下属！你在看什么啊！」
+			PRINTFORMDL	芙兰翻看起来
+			PRINTFORMDL	然后就这么睡着了
+			PRINTFORMDW	不过就在%CALLNAME:MASTER%把书拿走之后，芙兰就醒了
+		CASE 1
+			PRINTFORMDL	%CALLNAME:MASTER%翻看着一本书
+			PRINTFORMDW	芙兰偷偷的站到%CALLNAME:MASTER%的身后，和%CALLNAME:MASTER%一起看起书来
+		CASE 2
+			PRINTFORMDL	%CALLNAME:MASTER%检查着书本
+			PRINTFORML	「下属！书本有什么好看的！」
+			PRINTFORMW	「快来看看芙兰！」
+		CASE 3
+			PRINTFORMDL	%CALLNAME:MASTER%开始写着什么
+			PRINTFORMDL	芙兰打量了一翻
+			PRINTFORML	「哇～哦」
+			PRINTFORMDW	只是不明觉厉而已吧
+		CASE 4
+			PRINTFORMDL	%CALLNAME:MASTER%计算着什么
+			PRINTFORMDL	芙兰只是静静的吃着草莓布丁蛋糕
+			PRINTFORMDW	要是她突然闹起来的话，计算会被打乱吧
+	ENDSELECT
 ENDIF
 RETURN 1
 ;==================================================

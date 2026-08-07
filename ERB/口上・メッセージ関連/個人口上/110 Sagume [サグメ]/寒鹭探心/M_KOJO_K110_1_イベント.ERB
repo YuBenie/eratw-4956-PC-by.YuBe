@@ -25,7 +25,7 @@
 RESULTS =_寒鹭探心
 ;初期口上とは違う事を明示するため、口上選択時に表示されます、必ずＸＸＸを変更してください
 RESULTS:1 = 寒鹭探心
-RESULTS:2 = 国人自制<br>内容量超多
+RESULTS:2 = 国人自制<br>内容量超多（有效输出行：15655行）
 ;本简介由画蛇添足制作组补充，若原作者想自行补充请联系我们
 ;口上存在判定です、けしてコメントアウトしないでください
 ;他の処理は一切行わないように
@@ -69,18 +69,19 @@ ENDIF
 
 ;### 口上色判定 ###################################
 @M_KOJO_寒鹭探心_COLOR_K110
-
+#LOCALSIZE 1
+#LOCALSSIZE 1
 ;ここでSETCOLORすることで口上に色を付けられます
 ;例：SETCOLOR 0xC07070
 SETCOLOR 0xEAECF5
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
 ;"UPDATE判定"
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
-@M_KOJO_寒鹭探心_UPDATE_K110
-;口上独自のUPDATE用
-;ENCOUNTER専用に独自分岐フラグを仕込んだ場合等にどうぞ
-;UPDATE判定でCFLAG等のキャラ変数を使う場合、キャラ番号の指定が必要になります
-RETURN 1
+;@M_KOJO_寒鹭探心_UPDATE_K110
+;;口上独自のUPDATE用
+;;ENCOUNTER専用に独自分岐フラグを仕込んだ場合等にどうぞ
+;;UPDATE判定でCFLAG等のキャラ変数を使う場合、キャラ番号の指定が必要になります
+;RETURN 1
 
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
 ;"ENCOUNTER"系イベント（エクストラ構文）
@@ -88,7 +89,7 @@ RETURN 1
 @M_KOJO_寒鹭探心_ENCOUNTER_K110
 ;初対面、挨拶のタイミング
 ;TALENTの変更はここでどうぞ。
-IF CFLAG:MASTER:現在位置 / 100 == 10
+IF GET_MAPID(CFLAG:MASTER:現在位置) == 10
 ;月都
     	PRINTFORMW  %CALLNAME:MASTER%通过了第四槐安通道来到了里月，放眼望去，似乎并不像那些人说的那样荒凉。
         PRINTFORMW  眼前的充满古风的建筑，古风古韵仿佛是一首永恒的诗篇，凝固了时间的记忆。
@@ -245,7 +246,7 @@ ELSE
 ENDIF
         PRINTFORMW  
 RETURN 1
-@K110_BEFORETRAIN_寒鹭探心
+;@K110_BEFORETRAIN_寒鹭探心
 ;一日の開始時、正確には来訪判定時に読み込む関数
 ;ここでCFLAG:XX:翌日来訪を設定して確実に来訪させたりTCVAR:XX:発情で朝っぱらからサカらせることもできる
 ;ただし「毎朝例外なく読み込まれる」ため、条件を設定しておくことが望ましい
@@ -532,7 +533,7 @@ IF LOCAL
 				CASE 1
 					PRINTW
 					PRINTFORML 「....…要结束了吗....今天....很开心呢」
-					PRINTFORML  探女微笑面向着%CALLNAME:MASTER%闭上了眼睛，一副任君采撷的的样子。
+					PRINTFORML  探女微笑面向着%CALLNAME:MASTER%闭上了眼睛，一副任君采撷的样子。
 					PRINTFORML  ？...怎么了吗？%CALLNAME:MASTER%一脸疑惑的看着。
 					PRINTFORML 「……唉.....%CALLNAME:MASTER%...还真是迟钝...」
 					PRINTFORML 探女牵起了%CALLNAME:MASTER%用力的拉到自己的身边。
@@ -2856,7 +2857,7 @@ IF LOCAL
 				PRINTFORMW  「继续…做…不行吗？」
 				PRINTFORMW 抚摸着仍要求继续的探女的头。
 				PRINTFORMW 「我知道了…就这样吧…」
-				PRINTFORMW  探女叹了口气，惋惜地离開了%CALLNAME:MASTER%的身边。
+				PRINTFORMW  探女叹了口气，惋惜地离开了%CALLNAME:MASTER%的身边。
 			ENDIF
 			RETURN 1
 		ENDIF
@@ -3037,7 +3038,7 @@ IF LOCAL
 		ELSE
 			PRINTFORMW 探女注意到了闯入浴室的不速之客
 			PRINTFORMW 「……偷窥？」
-			PRINTFORMW 做着用翅膀和手赶出去的动作。。
+			PRINTFORMW 做着用翅膀和手赶出去的动作…
 		ENDIF
 		RETURN 1
 	ENDIF
@@ -3342,7 +3343,7 @@ IF LOCAL
 			PRINTFORMW  探女红着脸，侧着头，那一种软惜娇羞、轻怜痛惜之情让人心生怜爱。
 		ELSEIF TALENT:思慕
 			PRINTFORMW 「…嗯…今天就结束了……」
-			PRINTFORMW 探女恋恋不舍地离開了你。
+			PRINTFORMW 探女恋恋不舍地离开了你。
 		ENDIF
 		RETURN 1
 	ENDIF
@@ -3539,7 +3540,7 @@ IF LOCAL
 				PRINTFORML  「……累了....能帮我穿上衣服吗」
 				PRINTFORMW  面对这么迷人的邀请，%CALLNAME:MASTER%毫不犹豫的答应了。
 				PRINTFORMW  因为刚性爱结束的关系，探女的全身还比较敏感。
-				PRINTFORMW  %CALLNAME:MASTER%轻轻用手碰了一下探女的的肩膀，触感随着敏感的肌肤传递，使探女一阵抽搐，显得涩情又可爱。
+				PRINTFORMW  %CALLNAME:MASTER%轻轻用手碰了一下探女的肩膀，触感随着敏感的肌肤传递，使探女一阵抽搐，显得涩情又可爱。
 				PRINTFORMW  「……唔❤....还很敏感❤」
 				PRINTFORMW  兴趣使然，%CALLNAME:MASTER%用双手轻轻的攻击着探女的敏感点，感受探女因为被攻击敏感点而产生的反馈。
 				PRINTFORMW  「……不要恶作剧❤....会忍不住的❤」
@@ -3627,7 +3628,7 @@ RETURN 1
 		ELSEIF CFLAG:TARGET:衰弱
 			PRINTFORML 探女疲憊不堪地睡著了。
 			PRINTFORMW  「……」
-			PRINTFORML %CALLNAME:MASTER%輕輕地摸了摸她的頭，感受着发丝传来的柔顺感。
+			PRINTFORML %CALLNAME:MASTER%轻轻地摸了摸她的頭，感受着发丝传来的柔顺感。
 			PRINTFORMW  感受到头部传来的温暖感，探女也满足的露出了微笑。
 			PRINTFORMW 撫摸持續了一會兒，你從悄悄的被窩裏溜了出來。
 			PRINTFORML 「….要走了吗....」
@@ -3918,7 +3919,7 @@ IF LOCAL
 			PRINTFORMW 「…%CALLNAME:MASTER%....会负起责任的吧....」
 			PRINTFORMW 「......唉好吧…」
 			PRINTFORMW  「…请....用爱呵护我…」
-			PRINTFORMW  探女下定决心的点了点头，臉上浮現出平靜的微笑，對著你伸出了雙臂。
+			PRINTFORMW  探女下定决心的点了点头，臉上浮現出平靜的微笑，对著你伸出了双臂。
 			PRINTFORMW  「……请抱住我....永不分开」
 			PRINTFORMW  探女接受了危险日不避妊做爱。
 		ENDIF
@@ -4065,7 +4066,7 @@ IF LOCAL
 		IF TALENT:恋人
 			PRINTFORMW 「.明明还想再多待一会的说」
 			PRINTFORMW 「…嘛，既然是%CALLNAME:MASTER%说的话…...今天很开心、回头见」
-			PRINTFORMW  探女臉上浮現出平靜的微笑，對著你伸出了雙臂
+			PRINTFORMW  探女臉上浮現出平靜的微笑，对著你伸出了双臂
 			PRINTFORMW  %CALLNAME:MASTER%也明白了探女的暗示，抱了上去。
 			PRINTFORMW 「…明天也要一起呢…」
 			PRINTFORMW  说罢，探女满怀欣喜的离开了。
@@ -4481,13 +4482,13 @@ IF LOCAL
 	LOCAL:1 = 1
 	;-------------------------------------------------
 	IF LOCAL:1 && ARG == 1    
-		IF CFLAG:好感度 <= 200 || CFLAG:信賴度 <= 50
+		IF CFLAG:好感度 <= 200 || CFLAG:信赖度 <= 50
 			IF TCVAR:発情
 				PRINTFORMW  探女忍耐不住情欲的猛攻，呼吸还是变得糜乱，脸也变得通红。
 				PRINTFORML 探女掙扎著想要平息情欲燃燒的肉體。
 				PRINTFORML  将自己的手伸向私处，抚摸，刺激阴蒂，深入，刺激阴道，G点来缓和情欲的攻击。
 				PRINTFORMW 不知不觉间，蜜穴流出来春水已经将床单浸湿一大片。
-				PRINTFORMW 「...唔，為什么.....會这样——♥」
+				PRINTFORMW 「...唔，为什么.....會这样——♥」
 				PRINTFORMW  探女将头埋在枕头里，忍耐着没释放完的性欲强行睡着了。
 			ELSE
 				PRINTFORMW  探女无意识的将手伸入私处玩弄。
@@ -4548,7 +4549,7 @@ IF LOCAL
 		IF TCVAR:発情
 			PRINTFORMW 「唔…，%CALLNAME:MASTER%…♥」
 			PRINTFORML  探女似乎忍耐不住了，呼出炽热的气息以及淫靡的音色，渴求着%CALLNAME:MASTER%的疼爱。
-			PRINTFORMW 「為什么…♥　%CALLNAME:MASTER%坏心眼——」
+			PRINTFORMW 「为什么…♥　%CALLNAME:MASTER%坏心眼——」
 			PRINTFORML  随后探女将%CALLNAME:MASTER%的裤子轻轻的褪去，用手开始侍奉起了肉棒大人。
 			PRINTFORMW 探女用将唾液滴在挺立的肉棒上作润滑
 			PRINTFORML 然後把塗滿唾液裏的肉棒慢慢地靠近女性的私密之處。
@@ -4574,7 +4575,7 @@ IF LOCAL
 		;通常
 		ELSE
 			PRINTFORMW 「哈…、%CALLNAME:MASTER%…」
-			PRINTFORML 為了不吵醒你，探女抑制住聲音，悄悄地自慰著
+			PRINTFORML 为了不吵醒你，探女抑制住聲音，悄悄地自慰著
 			PRINTFORML 在安靜的室内，声音渐渐变得靡乱，不久就慢慢地安靜了下來。
 		ENDIF
 		RETURN 1
@@ -5153,7 +5154,7 @@ IF LOCAL
 				PRINTFORMW  处于精疲力尽随时可能睡着状态的探女，呼唤着你的名字，粉润的小脸上渡着一层自然如珍珠般的光泽，小手握成拳头状摆放在脸侧，十分可爱。
 				PRINTFORMW  看着探女可爱的睡颜，以及被自己侵犯的股间流出的白浊液体，显得可爱又涩情。
 				PRINTFORMW  %CALLNAME:MASTER%一边抚摸着探女的小脸，一边看着因为自己的精液注入而微微凸起的小腹，感到了十足的征服欲。		
-				PRINTFORMW   感受到爱人的爱抚，探女臉上浮現出平靜的微笑，對著你伸出了雙臂。
+				PRINTFORMW   感受到爱人的爱抚，探女臉上浮現出平靜的微笑，对著你伸出了双臂。
                 PRINTFORMW  明白了意思的%CALLNAME:MASTER%抱住了床上的探女，将舌头侵入对方的口中，感受着唾液的香甜感，互相交换着涎水与爱意。
                 PRINTFORMW  「…%CALLNAME:MASTER%❤....爱你❤…」
                 PRINTFORMW   说罢探女沉浸在%CALLNAME:MASTER%的爱意与疲惫感中，沉沉的睡去了。
@@ -5192,9 +5193,9 @@ ENDIF
 ;RETURN -1で強制失敗、RETURN 1で強制成功
 @M_KOJO_寒鹭探心_EVENT_K110_26_1(ARGS)
 #DIM 補正値
-IF ARGS == "どうぞそのまま"
+IF ARGS == OPR_就这样
 
-ELSEIF ARGS == "二人で"
+ELSEIF ARGS == OPR_二人
 
 ENDIF
 
@@ -5795,7 +5796,7 @@ IF LOCAL
 		PRINTFORMW  「…那么…」
 		PRINTFORMDW  梦探女看向了正浑身颤抖的探女，将其抱起来送到了%CALLNAME:MASTER%的身上。
 		PRINTFORMDW  毫不知情的探女只能任由着二人玩弄自己的身体取乐而沉浸在欲望的海洋中。
-		PRINTFORMDW  两人很快坐在了%CALLNAME:MASTER%身上，梦探女从后方将手伸向了探女的胸前柔软的的小白兔开始了揉捏。
+		PRINTFORMDW  两人很快坐在了%CALLNAME:MASTER%身上，梦探女从后方将手伸向了探女的胸前柔软的小白兔开始了揉捏。
 		PRINTFORMDW  随着快感不断的侵袭探女的全身，已然完全沉浸于肉欲的探女开始主动索取着%CALLNAME:MASTER%的身体。
 		PRINTFORMDW  似乎等不及一般，将早已湿润不已的蜜穴张开，坐在了坚挺的肉棒上开始扭动着腰肢侍奉。
 		PRINTFORMDW  少女不断上下扭动着纤腰，每次下沉着腰身体就会因为子宫口被亲吻而颤抖着。
@@ -6278,12 +6279,12 @@ RETURN 1
 @M_KOJO_寒鹭探心_EVENT_K110_ONABARE_1(ARG)
 ;-------------------------------------------------
 :口上色を付けるならコメントアウトを外しXをキャラ番号に
-;CALL M_KOJO_COLOR_K110
+;CALL SET_KOJO_COLOR(110)
 
 IF ARG
-	PRINTFORML A弄ってる場合
+	PRINTFORML 玩弄A的情况
 ELSE
-	PRINTFORML V弄ってる場合
+	PRINTFORML 玩弄V的情况
 ENDIF
 ;-------------------------------------------------
 [SKIPEND]
@@ -6298,12 +6299,12 @@ ENDIF
 @M_KOJO_寒鹭探心_EVENT_K110_ONABARE_2(ARG)
 ;-------------------------------------------------
 :口上色を付けるならコメントアウトを外しXをキャラ番号に
-;CALL M_KOJO_COLOR_K110
+;CALL SET_KOJO_COLOR(110)
 
 IF ARG
-	PRINTFORML A弄ってる場合
+	PRINTFORML 玩弄A的情况
 ELSE
-	PRINTFORML V弄ってる場合
+	PRINTFORML 玩弄V的情况
 ENDIF
 ;-------------------------------------------------
 [SKIPEND]
@@ -6325,21 +6326,21 @@ ENDIF
 #DIM 回数
 
 :口上色を付けるならコメントアウトを外しXをキャラ番号に
-;CALL M_KOJO_COLOR_K110
+;CALL SET_KOJO_COLOR(110)
 
 SELECTCASE 前戯１
 	CASE 1
-		PRINTFORML Ｃ責め
+		PRINTFORML 欺负Ｃ
 	CASE 2
-		PRINTFORML Ｂ責め
+		PRINTFORML 欺负Ｂ
 	CASE 3
-		PRINTFORML Ｍ責め
+		PRINTFORML 欺负Ｍ
 ENDSELECT
 
 IF 本番はどっちか
-	PRINTFORML Aで本番
+	PRINTFORML A插入
 ELSE
-	PRINTFORML Vで本番
+	PRINTFORML V插入
 ENDIF
 ;-------------------------------------------------
 [SKIPEND]
@@ -6445,7 +6446,7 @@ IF ARG == 1
 ;一日の終わりに今日貰った贈り物を大事にする（700点以上）
 ;--------------------------------------------------------------------------------------------------
 ELSEIF ARG == 2
-	IF STRCOUNT(SENSE, "可愛的/")
+	IF STRCOUNT(SENSE, "かわいい/")
 		PRINTFORMW 「...可爱的东西....」
 	    PRINTFORMW  「…适合我吗....」
 	    PRINTFORMW  「…不是很懂…」
@@ -6572,7 +6573,7 @@ RETURN 1
 #DIM 残りムシ数
 #DIM 順位
 SELECTCASE ARGS
-CASE "試合前"
+CASE OPR_赛前
 	;-------------------------------------------------
 	;キャラセレクト時,ARGは使えません
 	;全角50文字くらいまで
@@ -6582,7 +6583,7 @@ CASE "試合前"
 	IF LOCAL:1
 ;		RESULTS = 「ぶっとばしてさしあげますわ！」
 	ENDIF
-CASE "戦場に出した"
+CASE OPR_上场
 	;-------------------------------------------------
 	;"【（キャラ）】は《（ムシ）》を戦場に出した！」"の直後
 	;全角40文字まで（カギカッコ含む）
@@ -6593,7 +6594,7 @@ CASE "戦場に出した"
 	IF LOCAL:1
 ;		RESULTS = 「%MUSHI_NAME%！キミにきめた！」
 	ENDIF
-CASE "攻撃時"
+CASE OPR_攻击时
 	;-------------------------------------------------
 	;"【（キャラ）】《（ムシ）》の『（攻撃名）』！」"の直前
 	;全角40文字まで（カギカッコ含む）
@@ -6604,7 +6605,7 @@ CASE "攻撃時"
 	IF LOCAL:1
 ;		RESULTS = 「ぶっとばせ！%MUSHI_NAME%！」
 	ENDIF
-CASE "倒れた時"
+CASE OPR_倒下时
 	;-------------------------------------------------
 	;"【（キャラ）】《（ムシ）》は倒れた！！"の直後
 	;全角40文字まで（カギカッコ含む）
@@ -6615,7 +6616,7 @@ CASE "倒れた時"
 	IF LOCAL:1
 ;		RESULTS = 「ああっ！私の%MUSHI_NAME%がっ！」
 	ENDIF
-CASE "敗退時"
+CASE OPR_败退时
 	;-------------------------------------------------
 	;"【（キャラ）】敗退！！"の直後
 	;全角40文字まで（カギカッコ含む）
@@ -6626,7 +6627,7 @@ CASE "敗退時"
 	IF LOCAL:1
 ;		RESULTS = 「私のムシが全滅めつめつ……」
 	ENDIF
-CASE "タイマン：勝ち"
+CASE OPR_单挑胜
 	;-------------------------------------------------
 	;順位は1位
 	;全角20文字まで（カギカッコ含む）
@@ -6637,7 +6638,7 @@ CASE "タイマン：勝ち"
 	IF LOCAL:1
 ;		RESULTS = 「%CALLNAME:MASTER%よわーい！」
 	ENDIF
-CASE "タイマン：負け"
+CASE OPR_单挑负
 	;-------------------------------------------------
 	;順位は2位
 	;全角20文字まで（カギカッコ含む）
@@ -6648,7 +6649,7 @@ CASE "タイマン：負け"
 	IF LOCAL:1
 ;		RESULTS = 「%CALLNAME:MASTER%つよーい！」
 	ENDIF
-CASE "バトルロイヤル：優勝"
+CASE OPR_大混战优胜
 	;-------------------------------------------------
 	;順位は1位
 	;全角30文字まで（カギカッコ含む）
@@ -6659,7 +6660,7 @@ CASE "バトルロイヤル：優勝"
 	IF LOCAL:1
 ;		RESULTS = 「やったー！」
 	ENDIF
-CASE "バトルロイヤル：２位以下"
+CASE OPR_大混战二位以下
 	;-------------------------------------------------
 	;順位は2～4位
 	;全角30文字まで（カギカッコ含む）
@@ -6670,7 +6671,7 @@ CASE "バトルロイヤル：２位以下"
 	IF LOCAL:1
 ;		RESULTS = 「くやし～！」
 	ENDIF
-CASE "チーム戦：勝ち"
+CASE OPR_团队战胜
 	;-------------------------------------------------
 	;順位は1位（やられていても）
 	;全角32文字まで（カギカッコ含む）
@@ -6681,7 +6682,7 @@ CASE "チーム戦：勝ち"
 	IF LOCAL:1
 ;		RESULTS = 「私のおかげね！」
 	ENDIF
-CASE "チーム戦：負け"
+CASE OPR_团队战负
 	;-------------------------------------------------
 	;順位は2位
 	;全角32文字まで（カギカッコ含む）
@@ -6741,8 +6742,8 @@ SIF 0
 ;スイカ割りの口上はムシバトル同様、PRINTを使うのではなく、
 ;台詞一行のみをRESULTSに入れてください
 ;カギ括弧は自動で付きます
-;"衝突","結果"のみ、口上色が自動で付きます
-;"衝突","結果"以外は半角26文字（全角13文字）までの文字数制限があります。はみ出ないように気をつけてください
+;OPR_冲突,OPR_结果のみ、口上色が自動で付きます
+;OPR_冲突,OPR_结果以外は半角26文字（全角13文字）までの文字数制限があります。はみ出ないように気をつけてください
 ;数パターンあると雰囲気が出ます（%TEXTR( / )%を使うと良い）
 ;==================================================
 @M_KOJO_寒鹭探心_MESSAGE_COM_K110_SUIKA(ARGS, ARG)
@@ -6752,37 +6753,37 @@ LOCAL:1 = 1
 ;-------------------------------------------------
 IF LOCAL:1
 	SELECTCASE ARGS
-	CASE "衝突"
+	CASE OPR_冲突
 		;-------------------------------------------------
 		;場外に出てあなたがキャラと衝突した際の台詞
 		;文字数制限はありません,汎用台詞もありません
 		;-------------------------------------------------
-		RESULTS = いたっ！ ちょっと、危ないじゃないのよ！
-	CASE "そこだ！"
-		RESULTS = %TEXTR("そこ！/今！")%
-	CASE "近い"
-		RESULTS = %TEXTR("近い！近いよ！/近づいてるよ！/あとちょっと！")%
-	CASE "遠い"
-		RESULTS = %TEXTR("まだ遠いよ/まだまだ～")%
-	CASE "かなり遠い"
-		RESULTS = %TEXTR("全然遠いよー/まだまだずっと遠いー")%
-	CASE "前"
-		RESULTS = %TEXTR("前にあるよ/そのまま、そのまま/そっちそっち")%
-	CASE "少し前"
-		RESULTS = %TEXTR("ちょっとだけ前！/すこーし前/あと一歩！")%
-	CASE "後ろ"
-		RESULTS = %TEXTR("後ろ向いてる！/逆、逆！/そっちじゃないよー")%
-	CASE "少し後ろ"
-		RESULTS = %TEXTR("すぐ後ろだよ！/すこーし後ろ/一歩後ろ！")%
-	CASE "右"
-		RESULTS = %TEXTR("右だよ/右、右/もっと右")%
-	CASE "少し右"
-		RESULTS = %TEXTR("ちょっとだけ右/まだ右かな")%
-	CASE "左"
-		RESULTS = %TEXTR("左だよ/左、左/もっと左")%
-	CASE "少し左"
-		RESULTS = %TEXTR("ちょっとだけ左/まだ左かな")%
-	CASE "結果"
+		RESULTS = 好痛！喂，很危险啊！
+	CASE OPR_就在那里
+		RESULTS = %TEXTR("就是那里！/就是现在！")%
+	CASE OPR_近
+		RESULTS = %TEXTR("近了！很近了哦！/快到了哦！/再一点点！")%
+	CASE OPR_远
+		RESULTS = %TEXTR("还很远哦/还早着呢～")%
+	CASE OPR_相当远
+		RESULTS = %TEXTR("还远着呢～/还远远的呢～")%
+	CASE OPR_前
+		RESULTS = %TEXTR("在前面哦/就这样，就这样/那边那边")%
+	CASE OPR_稍前
+		RESULTS = %TEXTR("就一点点前面！/稍微前面一点/再一步！")%
+	CASE OPR_后
+		RESULTS = %TEXTR("面向后面了！/反了，反了！/不是那边哦～")%
+	CASE OPR_稍后
+		RESULTS = %TEXTR("就在后面哦！/稍微后面一点/一步后面！")%
+	CASE OPR_右
+		RESULTS = %TEXTR("在右边哦/右边，右边/再往右")%
+	CASE OPR_稍右
+		RESULTS = %TEXTR("就一点点右边/还是右边吧")%
+	CASE OPR_左
+		RESULTS = %TEXTR("在左边哦/左边，左边/再往左")%
+	CASE OPR_稍左
+		RESULTS = %TEXTR("就一点点左边/还是左边吧")%
+	CASE OPR_结果
 		;-------------------------------------------------
 		;終了後の一言
 		;文字数制限はありません,汎用台詞もありません
@@ -6797,13 +6798,13 @@ IF LOCAL:1
 		;-------------------------------------------------
 		SELECTCASE TFLAG:193
 		CASE -1
-			RESULTS = ざんね～ん
+			RESULTS = 可惜了～
 		CASE 0
-			RESULTS = やったね！
+			RESULTS = 太好了！
 		CASE 1
-			RESULTS = すごーい！
+			RESULTS = 好厉害！
 		CASE 2
-			RESULTS = すごい綺麗に割れた！
+			RESULTS = 完美劈开！
 		ENDSELECT
 	ENDSELECT
 ENDIF
@@ -6822,17 +6823,17 @@ ENDIF
 ;	RETURN 1
 
 ;セフレ契約用
-;"補正"でRETURNした数値が理性判定に加算されるので、
+;OPR_补正でRETURNした数値が理性判定に加算されるので、
 ;簡単にセフレにしたいならマイナス、難易度を上げたかったり実質不可能にしたいならプラスすべし
 @KOJO_寒鹭探心_SF_CONTRACT_K110(ARGS)
 SELECTCASE ARGS
-	CASE "導入"
+	CASE OPR_导入
 		;PRINTFORML 「セフレって、ええー」
-	CASE "補正"
+	CASE OPR_补正
 		;PRINTFORML （サクッとヤりたいなあ）
 		;RETURN -1000
-	CASE "成功"
+	CASE OPR_成功
 		;PRINTFORML 「いいよー」
-	CASE "失敗"
+	CASE OPR_失败
 		;PRINTFORML 「おことわりだー」
 ENDSELECT

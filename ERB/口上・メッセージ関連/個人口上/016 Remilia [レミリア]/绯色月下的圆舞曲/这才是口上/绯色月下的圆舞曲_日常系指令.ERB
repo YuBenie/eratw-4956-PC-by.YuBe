@@ -49,9 +49,11 @@ IF LOCAL
 	; 当天有蕾咪举办的宴会
 	; 优先级：覆盖
 	;-------------------------------------------------
-	IF FLAG:30 == 6
-		IF TIME >= FLAG:33
-			; 宴会中
+	IF FLAG:30 == 6 && CFLAG:20
+		; PRINTFORMDL {YUBE_STATUS(16,"宴会")}
+		CALL YUBE_STATUS2(16,"宴会")
+		IF GETBIT(YUBE_STATUS(16,"宴会"), 1) && !GETBIT(YUBE_STATUS(16,"宴会"), 2)
+		; 宴会中
 			SELECTCASE BASE:酒気
 				CASE IS > (MAXBASE:酒気 / 10) * 5
 					;"酔酒"
@@ -97,6 +99,44 @@ IF LOCAL
 						ENDIF
 					ENDSELECT
 			ENDSELECT
+		ELSEIF	GETBIT(YUBE_STATUS(16,"宴会"), 2)
+			; 宴会结束
+			IF	GETBIT(YUBE_STATUS(16,"宴会"), 4)
+				; 在宴会场
+				; 施工
+				SELECTCASE BASE:酒気
+					CASE IS > (MAXBASE:酒気 / 10) * 5
+						;"酔酒"
+						PRINTFORMDL	宴会已经结束了、宾客们陆续离场，但是宴会的主人已经醉得有点不省人事了
+						PRINTFORMDL	蕾米莉亚的翅膀耷拉着，显然已经失去了平日的活力，若不是还要维持住威严、现在的她恐怕已经趴下了吧
+						PRINTDL
+						PRINTFORML	「……仆从？你还想...想再喝点吗、」
+						PRINTFORMW	「我随时奉陪、我可是很...很能喝...的哦」
+						PRINTDL
+						PRINTFORMDL	看样子已经醉得很厉害了
+						CALL ASK_YN("准备一杯解酒茶","就这样放着不管")
+						IF !RESULT
+							PRINTFORML	「……咕」
+							PRINTFORMDL	蕾米莉亚喝下了你为她准备的解酒茶，看样子好多了
+							CALL RECOVER(TARGET,50, "気力","来自解酒茶")
+							CALL CHANGE_CFLAG(4,16,+5)
+							BASE:酒気 -= 50
+						ELSE
+						ENDIF
+					CASE IS <= (MAXBASE:酒気 / 10) * 5
+						;"微醺"
+						PRINTFORMDL
+				ENDSELECT
+			ELSE
+				; 别的地方遇到
+				; 施工
+				SELECTCASE BASE:酒気
+					CASE IS > (MAXBASE:酒気 / 10) * 5
+						;"酔酒"
+					CASE IS <= (MAXBASE:酒気 / 10) * 5
+						;"微醺"
+				ENDSELECT
+			ENDIF
 		ELSE
 			SELECTCASE RAND:3
 				CASE 0
@@ -135,11 +175,11 @@ IF LOCAL
 	; 不过我有打算改一下蕾咪的作息表
 	; 这个差分还是写一下吧
 	;-------------------------------------------------
-	ELSEIF FLAG:30 && FLAG:30 != 6 && (GET_MAPID(FLAG:32) == GET_MAPID(CFLAG:300))
-		IF (TIME > FLAG:33 - 30) && (TIME < FLAG:33)
-		; 宴会开始前的30分钟
-			SELECTCASE YUBE_陷落状态(16)
-				CASE "未陷落"
+	ELSEIF FLAG:30 && FLAG:30 != 6 && (GET_MAPID(FLAG:32) == GET_MAPID(CFLAG:300)) && CFLAG:20
+		IF GETBIT(YUBE_STATUS(16,"宴会"),3)
+		; 宴会开始前的30分钟、蕾米参加
+			SELECTCASE YUBE_FALLEN(16)
+				CASE 0
 					;-------------------------------------------------
 					SELECTCASE RAND:5
 						CASE 0
@@ -190,7 +230,7 @@ IF LOCAL
 					ENDSELECT
 					;-------------------------------------------------
 			ENDSELECT
-		ELSEIF TIME >= FLAG:33
+		ELSEIF GETBIT(YUBE_STATUS(16,"宴会"),1)
 		; 宴会开始后
 			SELECTCASE BASE:酒気
 				CASE IS > (MAXBASE:酒気 / 10) * 5
@@ -255,7 +295,7 @@ IF LOCAL
 	; 思慕以下不可触发
 	;-------------------------------------------------
 	ELSEIF	!RAND:4 && !YUBE_FALLEN(16)
-		CALL YUBE_天气(16)
+		CALL 绯色之诗_天气(16)
 	;-------------------------------------------------
 	; 通用
 	ELSE
@@ -296,90 +336,173 @@ IF LOCAL
 					PRINTFORMW	「嗯...作为我的仆从，你表现得还是有模有样的嘛」
 					SIF CFLAG:2 > 3000
 					PRINTFORMW	「看来仆从是越来越适应红魔馆的生活了啊，嗯呣，我很满意~」
-			BREAK
-		ENDIF
+		ELSE
 		; 以下为常规对话
-		SELECTCASE RAND:100
-			CASE 0
-				; 大小姐喜欢什么，饮食篇
-				PRINTFORMW	「嗯？关于我的饮食喜好吗？这个倒是不需要担心，红魔馆的膳食基本都是咲夜负责的哟，你想了解的话去找咲夜更清楚一点吧」
-				PRINTDL
-				PRINTFORML	「嘛、让我猜猜，仆从这么问...|加个停顿|是想要在我面前展现一下你的厨艺吗？如果是这样的话去问咲夜或许不会是一种好选择呢，呵呵~」
-				PRINTFORML	「毕竟...这可是要做给我的食物，让咲夜来的话一定会不留余地好好地操练你一番的，恐怕在做到完美之前都不会放你离开厨房吧」
-				; 蕾咪眼中大概咲夜是一个追求完美的人吧、至少在当女仆这一块儿，嘛、我也挺像的，不过追求完美在某种程度上也算是一种钻牛角尖吧
-				PRINTFORMW	「嗯呣，要我给你一点提示的话也不是不可以，让我想想啊...」
-				PRINTFORML	「要不……|加个停顿|仆从就从点心做起吧，我和芙兰都挺喜欢吃甜甜的东西呢」
-				; 要不要加一个函数呢，到时候看看蕾咪喜欢的菜谱什么的，然后rand一个菜替换这里的点心
-				PRINTFORMW	「当然啦，我的口味可是很挑剔的，你可要好好表现哟」
-				; 下面加一个进阶吧、应该说扩展内容才对
-				IF ABL:11 > 7 && !RAND:3 
-					; 扩展对话
-					PRINTFORMDL	蕾米莉亚忽然之间饶有兴致地看着你
-					PRINTFORMW	「哦~对了，看起来还有另一种选择呢，你应该很清楚才对」
-					PRINTFORMDL	显然你并没有理解话中话是什么意思，是自己遗漏了什么吗？还是说……在你还在苦思大小姐究竟喜欢什么样的料理的时候，不知何时蕾米莉亚就已经来到了你的跟前，距离你脸仅有咫尺，不，应该说……脖子？
-					; 我的妈呀，描写苦手啊我
-					PRINTFORMDW	细滑的手指没有经过你的同意肆意地拂过你的脖颈，突如其来的触感如触电般将你的思绪从千里之外拽回到了眼前之人
-					PRINTFORMDW	蕾米莉亚的手指搭在你的血管之上，即便她仅仅只是这样轻轻地放在上面，你也能通过手指感受到自己那因血液的流动而搏动着的脉搏，她的寓意已经很明显了
-					PRINTFORMDW	……
-					PRINTFORMW	「哈哈、不用那么紧张嘛~」
-					PRINTFORMDL	蕾米莉亚大笑着收回了自己的手，宣称刚才不过只是一个玩笑，仿佛刚才什么都没有发生一样
-					PRINTFORMW	「因为看着仆从的反应很有趣嘛，所以就忍不住逗一逗啦」
-				ENDIF
-			CASE 1
-				; 大小姐讨厌什么，饮食篇
-				PRINTFORML	「以前咲夜曾经做过一种用“苦瓜”制作的料理」
-				PRINTFORML	「就像它的名字一样，味道也是一样糟糕……这种东西为什么会存在呢，灭绝、绝对要灭绝」
-				PRINTFORML	「想起那种味道就觉得……咳咳，我、我才不怕苦呢」
-				PRINTFORML	「仆从你要是敢做那种……非常难吃的料理，我可是会给你从红魔馆的露台上丢出去的哦，听清楚了吗」
-			CASE 2
-				; 大小姐讨厌什么，器具篇
-				PRINTFORML	「外面的人们总喜欢用十字架来对付吸血鬼，认为只要用这种东西就能对付我们」
-				PRINTFORML	「嘛，这根本是无稽之谈...只用两根棍子就能摆出来的东西我为什么会害怕呢」
-				PRINTFORMW	「不过总有些人看见我就拿出这种东西在我面前晃悠、久而久之...就讨厌上了，毕竟看到就觉得有一种莫名的烦躁嘛」
-			CASE 3
-				; 大小姐讨厌什么，器具篇2
-				PRINTFORML	「大蒜啊、沙丁鱼头什么的，最好是有多远拿多远」
-				PRINTFORML	「这种东西别说靠近了、简直是见到就会犯恶心……仆从也是，要是让我看到你拿着这东西靠近我，我会毫不犹豫地把你丢出去的」
-				PRINTFORML	「真是的，我为什么会害怕这种东西啊(小声)」
-			CASE 4
-				; 红魔馆来访的人很多
-				; 先不谈蕾米会不会随便放人进来，反正TW就是这么个逻辑，美玲即便站那也还是一堆人进来
-				; ——这里写条件——
-				PRINTFORML	「哦呀？今天好像很热闹的样子嘛，今天是什么特殊日子嘛？不是？嗯……」
-				PRINTFORML	「要不要趁机摆一个宴会呢……说不定这是一个好主意呢~」
-				PRINTFORML	「仆从，是你出场的时候了，来让这些来访的客人们感受一下我们红魔馆的待客之道」
-			CASE 5
-				; 小馋猫
-				PRINTFORML	「稍微有点口渴了...嗯？泡好了茶吗、倒是很有眼力见呢」
-				PRINTFORML	「不过我现在不想喝茶、你那是什么表情，我不是讨厌你泡的茶啦，只是偶尔也想喝一点其他口味的……」
-				PRINTFORML	「诶、快把手里的茶叶放下，真是的...不是让你泡另一壶茶的意思啦」
-				PRINTFORMDL	蕾米莉亚四下张望、确保没有人注意到这边，将你的脑袋拉低到自己跟前，故弄玄虚地对你耳语
-				PRINTFORML	「那、那个……你去厨房那里，给我带一瓶牛奶过来，记住不要让任何人发现啊，知道了吗？」
-				IF CFLAG:15:300 ==  CFLAG:300
-				; 咲夜也在这里
-				ELSE
-					PRINTFORMDL	你听后点了点头，作为仆从的你自然对红魔馆中的结构了如指掌，不一会儿你就带了一瓶新鲜的牛奶回来
-					PRINTFORML	「嗯呣，仆从的手脚挺利落的嘛……作为奖励，这瓶牛奶也分你一点好了」
-					PRINTFORMDL	和大小姐享受了一段惬意的牛奶时光……
-					TIME += 10
-					CALL RECOVER(MASTER,50, "体力","非常好喝的牛奶")
-					CALL RECOVER(MASTER,50, "気力","非常好喝的牛奶")
-					CALL RECOVER(TARGET,50, "体力","非常好喝的牛奶")
-					CALL RECOVER(TARGET,50, "気力","非常好喝的牛奶")
+			SELECTCASE RAND:100
+				CASE 0
+					; 大小姐喜欢什么，饮食篇
+					PRINTFORMW	「嗯？关于我的饮食喜好吗？这个倒是不需要担心，红魔馆的膳食基本都是咲夜负责的哟，你想了解的话去找咲夜更清楚一点吧」
 					PRINTDL
-					CALL CHANGE_CFLAG(2, 16, +10)
-					CALL CHANGE_CFLAG(4, 16, +5)
-				ENDIF
-			CASE 6
-				PRINTFORML	「」
-			CASE 7
-				PRINTFORML	「」
-			CASE 8
-				PRINTFORML	「」
-			CASE 9
-				PRINTFORML	「」
-			CASE 100
-		ENDSELECT
+					PRINTFORML	「嘛、让我猜猜，仆从这么问...|加个停顿|是想要在我面前展现一下你的厨艺吗？如果是这样的话去问咲夜或许不会是一种好选择呢，呵呵~」
+					PRINTFORML	「毕竟...这可是要做给我的食物，让咲夜来的话一定会不留余地好好地操练你一番的，恐怕在做到完美之前都不会放你离开厨房吧」
+					; 蕾咪眼中大概咲夜是一个追求完美的人吧、至少在当女仆这一块儿，嘛、我也挺像的，不过追求完美在某种程度上也算是一种钻牛角尖吧
+					PRINTFORMW	「嗯呣，要我给你一点提示的话也不是不可以，让我想想啊...」
+					PRINTFORML	「要不……|加个停顿|仆从就从点心做起吧，我和芙兰都挺喜欢吃甜甜的东西呢」
+					; 要不要加一个函数呢，到时候看看蕾咪喜欢的菜谱什么的，然后rand一个菜替换这里的点心
+					PRINTFORMW	「当然啦，我的口味可是很挑剔的，你可要好好表现哟」
+					; 下面加一个进阶吧、应该说扩展内容才对
+					IF ABL:11 > 7 && !RAND:3 
+						; 扩展对话
+						PRINTFORMDL	蕾米莉亚忽然之间饶有兴致地看着你
+						PRINTFORMW	「哦~对了，看起来还有另一种选择呢，你应该很清楚才对」
+						PRINTFORMDL	显然你并没有理解话中话是什么意思，是自己遗漏了什么吗？还是说……在你还在苦思大小姐究竟喜欢什么样的料理的时候，不知何时蕾米莉亚就已经来到了你的跟前，距离你脸仅有咫尺，不，应该说……脖子？
+						; 我的妈呀，描写苦手啊我
+						PRINTFORMDW	细滑的手指没有经过你的同意肆意地拂过你的脖颈，突如其来的触感如触电般将你的思绪从千里之外拽回到了眼前之人
+						PRINTFORMDW	蕾米莉亚的手指搭在你的血管之上，即便她仅仅只是这样轻轻地放在上面，你也能通过手指感受到自己那因血液的流动而搏动着的脉搏，她的寓意已经很明显了
+						PRINTFORMDW	……
+						PRINTFORMW	「哈哈、不用那么紧张嘛~」
+						PRINTFORMDL	蕾米莉亚大笑着收回了自己的手，宣称刚才不过只是一个玩笑，仿佛刚才什么都没有发生一样
+						PRINTFORMW	「因为看着仆从的反应很有趣嘛，所以就忍不住逗一逗啦」
+					ENDIF
+				CASE 1
+					; 大小姐讨厌什么，饮食篇
+					PRINTFORML	「以前咲夜曾经做过一种用“苦瓜”制作的料理」
+					PRINTFORML	「就像它的名字一样，味道也是一样糟糕……这种东西为什么会存在呢，灭绝、绝对要灭绝」
+					PRINTFORML	「想起那种味道就觉得……咳咳，我、我才不怕苦呢」
+					PRINTFORML	「仆从你要是敢做那种……非常难吃的料理，我可是会给你从红魔馆的露台上丢出去的哦，听清楚了吗」
+				CASE 2
+					; 大小姐讨厌什么，器具篇
+					PRINTFORML	「外面的人们总喜欢用十字架来对付吸血鬼，认为只要用这种东西就能对付我们」
+					PRINTFORML	「嘛，这根本是无稽之谈...只用两根棍子就能摆出来的东西我为什么会害怕呢」
+					PRINTFORMW	「不过总有些人看见我就拿出这种东西在我面前晃悠、久而久之...就讨厌上了，毕竟看到就觉得有一种莫名的烦躁嘛」
+				CASE 3
+					; 大小姐讨厌什么，器具篇2
+					PRINTFORML	「大蒜啊、沙丁鱼头什么的，最好是有多远拿多远」
+					PRINTFORML	「这种东西别说靠近了、简直是见到就会犯恶心……仆从也是，要是让我看到你拿着这东西靠近我，我会毫不犹豫地把你丢出去的」
+					PRINTFORML	「真是的，我为什么会害怕这种东西啊(小声)」
+				CASE 4
+					; 红魔馆来访的人很多
+					; 先不谈蕾米会不会随便放人进来，反正TW就是这么个逻辑，美玲即便站那也还是一堆人进来
+					; ——这里写条件——
+					PRINTFORML	「哦呀？今天好像很热闹的样子嘛，今天是什么特殊日子嘛？不是？嗯……」
+					PRINTFORML	「要不要趁机摆一个宴会呢……说不定这是一个好主意呢~」
+					PRINTFORML	「仆从，是你出场的时候了，来让这些来访的客人们感受一下我们红魔馆的待客之道」
+				CASE 5
+					; 小馋猫
+					PRINTFORML	「稍微有点口渴了...嗯？泡好了茶吗、倒是很有眼力见呢」
+					PRINTFORML	「不过我现在不想喝茶、你那是什么表情，我不是讨厌你泡的茶啦，只是偶尔也想喝一点其他口味的……」
+					PRINTFORML	「诶、快把手里的茶叶放下，真是的...不是让你泡另一壶茶的意思啦」
+					PRINTFORMDL	蕾米莉亚四下张望、确保没有人注意到这边，将你的脑袋拉低到自己跟前，故弄玄虚地对你耳语
+					PRINTFORML	「那、那个……你去厨房那里，给我带一瓶牛奶过来，记住千万不要让任何人发现啊，尤其是咲夜……知道了吗？」
+					IF CFLAG:15:300 ==  CFLAG:300
+					; 咲夜也在这里
+						PRINTDW		啪嗒——
+						CALL CHARA_TEXT(15,"不能让我发现什么？可以跟我说一说吗、大·小·姐？")
+						PRINTFORMDL	熟悉的声音在你的耳边响起……\@ YUBE_FALLEN(15) ?你很容易就认出来这个声音属于馆内最严厉的女仆长 #从蕾米莉亚瞬间僵硬的身体大概可以猜出来说话的人是谁了\@
+						PRINTDW
+						PRINTFORML	「额...咲、咲夜刚才你听错了...我和仆从什、什么也没说，没错，就是这样！」
+						CALL CHARA_TEXT(15,@"唉，大小姐我都听到了喔,就在刚才我已经把牛奶藏到了即使是%CALLNAME:MASTER%都找不到的地方去了")
+						CALL CHARA_TEXT(15,@"真是的，%CALLNAME:MASTER%也是，不要总是纵容着大小姐的任性请求啊","W")
+						PRINTFORMDL	
+					ELSE
+						PRINTFORMDL	你听后点了点头，作为仆从的你自然对红魔馆中的结构了如指掌，不一会儿你就带了一瓶新鲜的牛奶回来
+						PRINTFORMDL	见你回来……不，见你带着牛奶回来的蕾米莉亚眼睛瞬间放光，虽然只有一瞬但还是被你捕捉到了
+						PRINTFORMW	「嗯呣，仆从的手脚挺利落的嘛……作为奖励，这瓶牛奶也分你一点好了」
+						PRINTDL
+						PRINTFORMDL	和大小姐享受了一段惬意的牛奶时光……
+						TIME += 10
+						CALL RECOVER(MASTER,50, "体力","非常好喝的牛奶")
+						CALL RECOVER(MASTER,50, "気力","非常好喝的牛奶")
+						CALL RECOVER(TARGET,50, "体力","非常好喝的牛奶")
+						CALL RECOVER(TARGET,50, "気力","非常好喝的牛奶")
+						PRINTDL
+						CALL CHANGE_CFLAG(2, 16, +10)
+						CALL CHANGE_CFLAG(4, 16, +5)
+					ENDIF
+				CASE 6
+					; 彼此的关系1
+					PRINTFORML	「主从关系……没错，这就是你与我之间理应存在的关系」
+					PRINTFORMW	「全心全意奉献自己的"服从者"……以及在彼此关系之间对另一方拥有支配权的"拥有者"」
+					PRINTFORML	「换句话说，那就是——服从于我，这么说你应该很容易就能理解吧？」
+					PRINTFORML	「还是说……你有不一样的想法？呵呵」
+				CASE 7
+					; 大小姐喜欢什么 ???篇
+					PRINTFORML	「喜欢什么东西、么？虽说是我先提出让仆从动动嘴皮子来缓解一下我的无聊的，没想到仆从倒是提出了一个有意思的话题呢……」
+					PRINTFORMW	「喜欢的东西就是自己想要的东西吧、这个范围对我来说未免有点太大了哟」
+					PRINTFORMW	「嗯...唔......现在最想得到的东西吗？这倒是没有呢」
+					PRINTFORML	「不过最感兴趣的东西现在就有一个……我才不告诉你」
+				CASE 8
+					PRINTFORML	「仆从是属于我红魔馆的仆从，也是我蕾米莉亚所看上的仆从」
+					PRINTFORML	「我可接受不了看到你谄媚地向除了我之外的家伙喊主人」
+				CASE 9
+					PRINTFORML	「即使是吸血鬼，在幻想乡也是极为罕见的存在」
+					PRINTFORML	「至少除了我和芙兰，你应该找不到其他吸血鬼的踪迹了吧……『如果见到其他吸血鬼怎么办』、那用不着你来费心」
+					PRINTFORML	「我会亲自出面解决的，我保证」
+					PRINTFORMDL	一改往日的随意，蕾米莉亚似乎没有在开玩笑
+				CASE 10
+					IF YUBE_STATUS(16,"奇怪的穿着")
+						PRINTFORML	「」
+					ELSE
+						RESTART
+					ENDIF
+				CASE 11
+					PRINTFORML	正打算说些什么，你发现蕾米莉亚在盯着你
+					PRINTDW
+					PRINTFORML	「忽然发现仆从你好像……」
+					PRINTFORML	「不……没什么，就当什么都没有发生吧」
+					PRINTFORML	她很快就别过头去了
+				CASE 12
+					PRINTFORML	你和蕾米莉亚谈论了一些最近发生的事情……
+					PRINTFORML	「最近啊……」
+					PRINTFORML	在百无聊赖地说着一些没有营养的琐事，尽管你后知后觉话题显得有点无聊，但是她好像并没有表现出排斥，这或许是关系变好的证明
+				CASE 13
+					PRINTFORML	「你相信命运吗？」
+					PRINTFORML	「有的人穷极一生未能如愿，有的人却能轻易得到想要的一切」
+					PRINTFORML	「我觉得这就是命运的捉弄吧，呵呵……」
+					PRINTFORML	「%CALLNAME:MASTER%你呢？你有什么想要却又得不到的东西吗？跟我说出你的愿望吧，说不定命运会眷顾于你……」
+					IF RAND:3
+						PRINTFORML	「"%TEXTR("能扫出来别人的零钱/今晚做一个好梦/今天想要钓一条大鱼")%？"呃、就没有更宏大一点的愿望吗……」
+					ELSEIF RAND:2
+						PRINTFORML	「"%TEXTR("想要和大小姐处好关系/希望大小姐能够开心/想得到大小姐的夸奖")%？"说、说什么呢……笨蛋仆从！笨蛋！」
+						PRINTFORMDL	蕾米莉亚的表情变得有些微妙,扭扭捏捏地别过头去
+					ELSE
+						PRINTFORML	「"%TEXTR("想在工作上得到女仆长的认可/想要跟馆内的各位好好相处/想要变得更受欢迎/想和待在图书馆的那位打好关系")%？嘛、我知道了……"」
+						PRINTFORML	似乎这并不是蕾米莉亚想要的答案，她有些不满
+					ENDIF
+				CASE 14
+					PRINTFORML	「芙兰她又把红魔馆的围墙弄出了个窟窿、这已经是第几次了！？」
+					PRINTFORML	「失礼了，稍后我会处理好这件事的」
+					PRINTFORMDL	似乎是妹妹的缘故，蕾米莉亚有点焦头烂额
+				CASE 15
+				; 总感觉这里用dq会好一点
+					PRINTFORML	「在——忙——吗」
+					PRINTFORML	「仆——从——快——和——我——聊——天」
+					PRINTFORML	「我——好——无——聊——啊」
+					PRINTDW		……
+					PRINTFORMDL	和大小姐玩了拖长音说话的游戏，好了，现在你也无聊起来了
+				CASE 16
+					PRINTFORML	「呐~%CALLNAME:MASTER%~你怕痒的吗？」
+					CALL ASK_YN("怕","不怕")
+					PRINTFORMDL	然而她并不是询问，你的回答并不重要，她的一双小手已经来到你的咯吱窝底下了
+					PRINTFORML	「接招！咯吱咯吱……」
+					PRINTFORMDL	大小姐的手劲不是很大，但她的手指却像是有魔力一样，轻轻一碰就能让你笑得停不下来
+				CASE 17
+					PRINTFORML	「呐、%CALLNAME:MASTER%」
+					PRINTFORML	蕾米莉亚的手指轻轻地碰了碰你的脸颊
+					PRINTFORMW	「我好像没怎么见过%CALLNAME:MASTER%你吃过一日三餐呢，你难道不会觉得饿吗？」
+					PRINTFORML	「偶尔、这种事情怎么能是偶尔做呢，你难道不会觉得饿吗？」
+					IF MAIN_MAP == 3
+						PRINTFORML	「既然你都住在我的红魔馆里了，我怎么能让你饿肚子呢」
+						PRINTFORML	「总之、厨房随便你用，可别怠慢自己了」
+						PRINTFORMDL	蕾米莉亚的语气中带着一丝责备，似乎在暗示你不该让自己饿肚子
+					ELSE
+						PRINTFORML	「你这过得都是什么生活啊、是这里的主人怠慢了你吗？」
+						PRINTFORML	「要不要考虑搬过去我那里？」
+						PRINTFORMDL	蕾米莉亚别过头去，似乎不想让你看到她脸上的微红
+					ENDIF
+				CASE 100
+			ENDSELECT
+		ENDIF
 	;-------------------------------------------------
 	; ↑接思慕
 	ELSEIF ABL:9 > 2
@@ -664,42 +787,51 @@ IF LOCAL
 		ENDSELECT
 	ELSEIF TALENT:思慕
 		SELECTCASE RAND:10
-		CASE 0
-		CASE 1
-		CASE 2
-		CASE 3
-		CASE 4
-		CASE 5
-		CASE 6
-		CASE 7
-		CASE 8
-		CASE 9
+			CASE 0
+				PRINTFORML	「是茶吗、我还不是很渴……」
+				PRINTFORML	「怎、怎么用这种眼神看着我，我喝还不行嘛」
+			CASE 1
+				PRINTFORML	「哈~身体暖暖的」
+				PRINTFORMDL	蕾米一口气喝掉了你泡的茶，似乎很喜欢的样子
+				PRINTFORMDL	似乎意识到刚才的举止不是很优雅，蕾米莉亚赶紧把茶杯放回了桌子上
+				PRINTFORML	「啊、谢谢你了，仆从」
+			CASE 2
+				PRINTFORMDL	蕾米莉亚接过你递来的红茶，细细地抿了一口
+				PRINTFORML	「啊，是锡兰红茶啊，有一种独特的香气，类似花香、果香，你选得不错」
+				PRINTFORML	「下次要不要试试加点奶？味道非常美味的喔」
+			CASE 3
+			CASE 4
+			CASE 5
+			CASE 6
+			CASE 7
+			CASE 8
+			CASE 9
 		ENDSELECT
 	ELSEIF ABL:9 > 2
 		SELECTCASE RAND:10
-		CASE 0
-		PRINTFORML	「想要我做一下评价？倒是很会找人嘛」
-		PRINTFORML	「……」
-		PRINTFORML	「对人类来说这种程度已经很不错了喔、当然了，和咲夜的比起来还是有一定差距的」
-		CASE 1
-		PRINTFORML	「这么说起来、仆从平时会喝茶的嘛……」
-		PRINTFORML	「虽然总是能看到你不知从哪里拿出来一杯泡好的茶、但是几乎没看你喝过」
-		CASE 2
-		PRINTFORML	「偶尔尝尝咲夜之外的茶、似乎也是一种新奇的体验」
-		CASE 3
-		PRINTFORML	吸溜~
-		PRINTFORML	刚泡好的茶、似乎还有点烫舌头，蕾米莉亚只是轻轻地在茶杯边缘小啜一口
-		CASE 4
-		PRINTFORML	「茶？给我的？」
-		IF TCVAR:351 >= 10
-		PRINTFORML	「今天喝得似乎有点多了、还是算了吧」
-		ELSE
-		PRINTFORML	「啊、麻烦你了，正好想喝呢」
-		ENDIF
-		CASE 5
-		PRINTFORML	「这是什么？茶嘛、看起来有点太淡了，和白开水差不多了哟」
-		CASEELSE
-			GOTO	陌生人泡茶
+			CASE 0
+				PRINTFORML	「想要我做一下评价？倒是很会找人嘛」
+				PRINTFORML	「……」
+				PRINTFORML	「对人类来说这种程度已经很不错了喔、当然了，和咲夜的比起来还是有一定差距的」
+			CASE 1
+				PRINTFORML	「这么说起来、仆从平时会喝茶的嘛……」
+				PRINTFORML	「虽然总是能看到你不知从哪里拿出来一杯泡好的茶、但是几乎没看你喝过」
+			CASE 2
+				PRINTFORML	「偶尔尝尝咲夜之外的茶、似乎也是一种新奇的体验」
+			CASE 3
+				PRINTFORML	吸溜~
+				PRINTFORML	刚泡好的茶、似乎还有点烫舌头，蕾米莉亚只是轻轻地在茶杯边缘小啜一口
+			CASE 4
+				PRINTFORML	「茶？给我的？」
+				IF TCVAR:351 >= 10
+					PRINTFORML	「今天喝得似乎有点多了、还是算了吧」
+				ELSE
+					PRINTFORML	「啊、麻烦你了，正好想喝呢」
+				ENDIF
+			CASE 5
+			PRINTFORML	「这是什么？茶嘛、看起来有点太淡了，和白开水差不多了哟」
+			CASEELSE
+				GOTO	陌生人泡茶
 		ENDSELECT
 	ELSE
 		$陌生人泡茶
@@ -732,19 +864,25 @@ IF LOCAL
 					PRINTFORML	「嘛……算你过关」
 				ENDSELECT
 			CASEELSE
-				PRINTFORML	「茶？从哪里端出来的」
-				PRINTFORMDL	虽然有点疑惑，但蕾米莉亚还是喝了下去
-				PRINTDATAL
-				DATAFORM 「太凉了啦」
-				DATAFORM 「太烫了啦」
-				DATAFORM 「太苦了啦」
-				DATAFORM 「太淡了啦」
-				ENDDATA
-				PRINTDL
-				PRINTFORMDL	蕾米莉亚一边抱怨着、一边把手中的茶杯推回来
-				PRINTFORMDL	好挑剔啊……
-				PRINTFORMDL	不信邪的你决定亲自尝一下
-				PRINTFORMDL	好像没有反驳的底气了...
+				SELECTCASE RAND : 1
+					CASE 0
+						PRINTFORML	「茶？从哪里端出来的」
+						PRINTFORMDL	虽然有点疑惑，但蕾米莉亚还是喝了下去
+						PRINTDATAL
+						DATAFORM 「太凉了啦」
+						DATAFORM 「太烫了啦」
+						DATAFORM 「太苦了啦」
+						DATAFORM 「太淡了啦」
+						ENDDATA
+						PRINTDL
+						PRINTFORMDL	蕾米莉亚一边抱怨着、一边把手中的茶杯推回来
+						PRINTFORMDL	好挑剔啊……
+						PRINTFORMDL	不信邪的你决定亲自尝一下
+						PRINTFORMDL	好像没有反驳的底气了...
+					CASE 1
+						PRINTFORML	「是茶吗……我还不渴，拿下去吧」
+				ENDSELECT
+
 		ENDSELECT
 	ENDIF
 	PRINTDW
@@ -2116,7 +2254,7 @@ IF LOCAL
 			ELSEIF TALENT:恋慕
 			ELSEIF TALENT:思慕
 			ELSE
-				PRINTFORMDL	年幼的吸血鬼似乎陷入了安定的睡眠当中，\@MAIN_MAP == 3 && CFLAG:MASTER:300 == 326 ?这里是大小姐的房间，而你却贸然地闯入了这里。 # \@
+				PRINTFORMDL	年幼的吸血鬼似乎陷入了安定的睡眠当中\@MAIN_MAP == 3 && CFLAG:MASTER:300 == 326 ?,这里是大小姐的房间，而你却贸然地闯入了这里。 # \@
 				PRINTFORMDL	所幸的是，你的存在并没有打扰到她的美梦，但不管怎么说，你仍然是这个房间里最多余的那个
 				PRINTDL
 				PRINTFORMDL	稍微偷懒一下也没问题的，对吧？

@@ -121,10 +121,11 @@ ELSEIF	TCVAR:16:発情
 ELSE
 	SETCOLOR 0xF3E4FF
 ENDIF
+
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
 ;"UPDATE判定"
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
-@M_KOJO_YUBE_UPDATE_K16
+; @M_KOJO_YUBE_UPDATE_K16
 ;口上独自的UPDATE用
 ;当您专门为 ENCOUNTER 准备了自己的分支标志时，请使用它（原文如此）
 ;在UPDATE判断中使用字符变量（如CFLAG）时，不会有自动填充，需要自己指定角色编号
@@ -163,108 +164,128 @@ ENDIF
 ; 「为什么……我会知道你的名字呢？人类」
 
 ; ————————————————————————————————————————————————————————————————————————————————————
-#DIM UPDATELINE
-UPDATELINE = LINECOUNT
-; CALL FRONT_绯色之诗_AA(0)
-CALL SOMETHING_AATEST
-SIF FLAG:口上色
-	CALLFORM M_KOJO_YUBE_COLOR_K16
-PRINTFORML	嘛,这里是口上UPDATE的地方吧
-PRINTFORML				————by.想被蕾咪咬手手的月白
-PRINTFORML	为了方便测试，这里做支线设置吧
-PRINTFORML	也就是说，这里
-PRINTFORML	那么，开始吧
-PRINTDL
-PRINTL [0] - 这是什么？点一下
-PRINTL [1] - 一些作者想要的小改动
-PRINTL [2] - 一些作者的碎碎念
-PRINTL [999] - 退出啦
-INPUT
-SELECTCASE RESULT
-	CASE 0
-	PRINTFORMW	关于测试
-;-----------------------------------------------------
-; 于此输入测试内容
-	PRINTFORMW {YUBE_FALLEN(16)}
 
-;-----------------------------------------------------
-	PRINTDW	
-	CLEARLINE LINECOUNT - UPDATELINE
-	RESTART
-	CASE 1
-	PRINTFORML	哈喽~
-	PRINTFORML	首先呢感谢游玩大小姐的“绯色之诗”口上
-	PRINTFORML	老实说我不打算发布这个口上的，毕竟作者本人比较内向、社恐嘛……哈哈
-	PRINTFORML	那不发布口上的话这段话给谁看的？
-	PRINTFORMW	大概率给自己（作者纯纯精分）？又或者有幸看到这个口上的某人吧……哈哈（会是谁呢……）
-	PRINTFORML	好了该进入正题~
-	PRINTFORML	因为我本身并非元老级、资深级车万人……哎呀理由去看[2]就行啦~
-	PRINTFORML	简单而言，就是可能会因为作者本人的xp问题而可能会导致的ooc啦~
-	PRINTFORML	而点进来这个按钮呢正好与这个相关~
-	PRINTFORMW	首先——！
-	PRINTFORMW	本口上的大小姐是没有[无知]的喔，不然某些地方演绎起来太尴尬了
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;Custom dialogue settings, custom code
+;※※※※※※※※※※※※※※※※※※※※※※※※※※
+;made it as a way to speed up the update process and separate simple flag updates from various customization options
+@KOJO_YUBE_OPTION_EXIST_K16
+#LOCALSIZE 1
+#LOCALSSIZE 1
+;note: options start from 1!
+@KOJO_YUBE_OPTION_K16
+#LOCALSIZE 1
+#LOCALSSIZE 1
+LOCAL = TARGET
+TARGET = 11
+CALL SET_KOJO_COLOR
+CALL KOJO_OPTION_ITEM("纳尼？新版的update到这了！？", 1)
+TARGET = LOCAL
+RESETCOLOR
+;process the input portion
+@KOJO_YUBE_OPTION_K16_RESULT_1
+	#LOCALSIZE 1
+	#LOCALSSIZE 1
+	#DIM UPDATELINE
+	UPDATELINE = LINECOUNT
+	; CALL FRONT_绯色之诗_AA(0)
+	CALL SOMETHING_AATEST
+	SIF FLAG:口上色
+		CALLFORM M_KOJO_YUBE_COLOR_K16
+	PRINTFORML	嘛,这里是口上UPDATE的地方吧
+	PRINTFORML				————by.想被蕾咪咬手手的月白
+	PRINTFORML	为了方便测试，这里做支线设置吧
+	PRINTFORML	也就是说，这里
+	PRINTFORML	那么，开始吧
 	PRINTDL
-	CALL ASK_YN("好好好","不好不好")
-	IF !RESULT
-	PRINTFORML	感谢理解~
-	PRINTFORMW	蕾米莉亚失去了[无知]
-	PRINTFORMW	祝你游戏愉快~
-	ELSE
-	PRINTFORML	嘛，意见不同也是没办法的事
-	PRINTFORMW	不过也不会影响游戏的进行就对啦~
-	PRINTFORMW	祝你游戏愉快~
-	ENDIF
-	PRINTDL
-	PRINTFORMW	……且慢
-	PRINTFORMW	接下来才是……有关作者xp的地方……
-	PRINTFORMW	你是否也是一个……傲娇控？
-	PRINTFORMW	傲娇永远都不能退环境口牙！（怒吼）
-	PRINTFORMW	你，是否愿意背负可能会ooc的风险，来打开这个……开关呢！？
-	PRINTFORMW	内容只多不少的，真的！我保证……(可能、可能会让逆告白之类的各种事件有点……小变化)
-	PRINTDL
-	CALL ASK_YN("这个按钮……要按下去啊！！！")
-	IF !RESULT
-	; CFLAG:16:1410 = 1
-	PRINTFORML	你同意了是吧！？你同意了是吧！？
-	PRINTFORMW	不能反悔喔！？我要启动这个标签了喔
-	PRINTFORMW	开玩笑的啦，如果你不喜欢的话,别打上[傲娇]开关就行，一般也就逆告白之类的小事件会有变化啦
-	PRINTFORMDL	那么……是否要为蕾米莉亚加上[傲娇]呢？
-	PRINTDL
-	CALL ASK_YN("打开","关闭")
-		IF !RESULT
-		; TALENT:16:14 = 1
+	PRINTL [0] - 这是什么？点一下
+	PRINTL [1] - 一些作者想要的小改动
+	PRINTL [2] - 一些作者的碎碎念
+	PRINTL [999] - 退出啦
+	INPUT
+	SELECTCASE RESULT
+		CASE 0
+		PRINTFORMW	关于测试
+	;-----------------------------------------------------
+	; 于此输入测试内容
+	;-----------------------------------------------------
+		PRINTDW	
+		CLEARLINE LINECOUNT - UPDATELINE
+		RESTART
+		CASE 1
+		PRINTFORML	哈喽~
+		PRINTFORML	首先呢感谢游玩大小姐的“绯色之诗”口上
+		PRINTFORML	老实说我不打算发布这个口上的，毕竟作者本人比较内向、社恐嘛……哈哈
+		PRINTFORML	那不发布口上的话这段话给谁看的？
+		PRINTFORMW	大概率给自己（作者纯纯精分）？又或者有幸看到这个口上的某人吧……哈哈（会是谁呢……）
+		PRINTFORML	好了该进入正题~
+		PRINTFORML	因为我本身并非元老级、资深级车万人……哎呀理由去看[2]就行啦~
+		PRINTFORML	简单而言，就是可能会因为作者本人的xp问题而可能会导致的ooc啦~
+		PRINTFORML	而点进来这个按钮呢正好与这个相关~
+		PRINTFORMW	首先——！
+		PRINTFORMW	本口上的大小姐是没有[无知]的喔，不然某些地方演绎起来太尴尬了
 		PRINTDL
-		PRINTFORMW	蕾米莉亚获得了[傲娇]
-		PRINTFORMW	看在同好的份上告诉你一个情报吧~
-		PRINTFORM	本口上部分文本会跟自机的素质相关喔，可能会影响部分行动什么什么的
-		SETCOLOR	0X1C1C1C
-		PRINTFORMW	         如果自机也有傲娇的话……嚯嚯，蕾米莉亚可是会主动出击的喔
-		SIF FLAG:口上色
-			CALLFORM M_KOJO_YUBE_COLOR_K16
-		PRINTFORMW	那么，祝你游戏愉快~
+		CALL ASK_YN("好好好","不好不好")
+		IF !RESULT
+		PRINTFORML	感谢理解~
+		PRINTFORMW	蕾米莉亚失去了[无知]
+		PRINTFORMW	祝你游戏愉快~
 		ELSE
+		PRINTFORML	嘛，意见不同也是没办法的事
+		PRINTFORMW	不过也不会影响游戏的进行就对啦~
+		PRINTFORMW	祝你游戏愉快~
 		ENDIF
-	ELSE
-	PRINTFORMW	呜呜呜我都没做按钮了你都能到这里
-	PRINTFORMW	泪目了~
-	PRINTFORMW	不要的话……那就算了
-	PRINTFORMW	再次，祝你游戏愉快~(商业笑容)
-	ENDIF
-	CLEARLINE LINECOUNT - UPDATELINE
-	RESTART
-	CASE 2
-	PRINTFORML	哈喽啊~
-	PRINTFORMW	待施工啦~
-	CLEARLINE LINECOUNT - UPDATELINE
-	RESTART
-	CASE 999
-	CASEELSE
-	CLEARLINE LINECOUNT - UPDATELINE
-	RESTART
-ENDSELECT
-PRINTFORMDL	
-PRINTDW
-RETURN 1
+		PRINTDL
+		PRINTFORMW	……且慢
+		PRINTFORMW	接下来才是……有关作者xp的地方……
+		PRINTFORMW	你是否也是一个……傲娇控？
+		PRINTFORMW	傲娇永远都不能退环境口牙！（怒吼）
+		PRINTFORMW	你，是否愿意背负可能会ooc的风险，来打开这个……开关呢！？
+		PRINTFORMW	内容只多不少的，真的！我保证……(可能、可能会让逆告白之类的各种事件有点……小变化)
+		PRINTDL
+		CALL ASK_YN("这个按钮……要按下去啊！！！")
+		IF !RESULT
+		; CFLAG:16:1410 = 1
+		PRINTFORML	你同意了是吧！？你同意了是吧！？
+		PRINTFORMW	不能反悔喔！？我要启动这个标签了喔
+		PRINTFORMW	开玩笑的啦，如果你不喜欢的话,别打上[傲娇]开关就行，一般也就逆告白之类的小事件会有变化啦
+		PRINTFORMDL	那么……是否要为蕾米莉亚加上[傲娇]呢？
+		PRINTDL
+		CALL ASK_YN("打开","关闭")
+			IF !RESULT
+			; TALENT:16:14 = 1
+			PRINTDL
+			PRINTFORMW	蕾米莉亚获得了[傲娇]
+			PRINTFORMW	看在同好的份上告诉你一个情报吧~
+			PRINTFORM	本口上部分文本会跟自机的素质相关喔，可能会影响部分行动什么什么的
+			SETCOLOR	0X1C1C1C
+			PRINTFORMW	         如果自机也有傲娇的话……嚯嚯，蕾米莉亚可是会主动出击的喔
+			SIF FLAG:口上色
+				CALLFORM M_KOJO_YUBE_COLOR_K16
+			PRINTFORMW	那么，祝你游戏愉快~
+			ELSE
+			ENDIF
+		ELSE
+		PRINTFORMW	呜呜呜我都没做按钮了你都能到这里
+		PRINTFORMW	泪目了~
+		PRINTFORMW	不要的话……那就算了
+		PRINTFORMW	再次，祝你游戏愉快~(商业笑容)
+		ENDIF
+		CLEARLINE LINECOUNT - UPDATELINE
+		RESTART
+		CASE 2
+		PRINTFORML	哈喽啊~
+		PRINTFORMW	待施工啦~
+		CLEARLINE LINECOUNT - UPDATELINE
+		RESTART
+		CASE 999
+		CASEELSE
+		CLEARLINE LINECOUNT - UPDATELINE
+		RESTART
+	ENDSELECT
+	PRINTFORMDL	
+	PRINTDW
+	RETURN 1
 
 ;※※※※※※※※※※※※※※※※※※※※※※※※※※
 ;"ENCOUNTER"系事件（额外语法）

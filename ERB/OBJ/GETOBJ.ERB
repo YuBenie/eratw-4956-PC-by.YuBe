@@ -4,12 +4,11 @@
 ;OBJのINT情報の参照関数
 @GET_INT(ARG, CLASS_NAME, O_ID, O_DATA)
 #FUNCTION
-#DIMS CLASS_NAME  ;OBJの名前（例：WEAPON） 类名
-#DIM  O_ID        ;参照するOBJのID（例：1） 唯一ID
-#DIMS O_DATA      ;参照したい情報の名前（例：価格） 查询的属性名
+#DIMS CLASS_NAME  ;OBJの名前（例：WEAPON）
+#DIM  O_ID        ;参照するOBJのID（例：1）
+#DIMS O_DATA      ;参照したい情報の名前（例：価格）
 ;DEBUGPRINTFORML GET_INT ARG：{ARG}, CLASS_NAME：%CLASS_NAME%, O_ID：{O_ID}, O_DATA：%O_DATA%
-LOCALS = %GET_OBJ(ARG, CLASS_NAME, O_ID, O_DATA)% 
-; 调用底层函数获取原始数据
+LOCALS = %GET_OBJ(ARG, CLASS_NAME, O_ID, O_DATA)%
 ;DEBUGPRINTFORML GET_INT LOCALS：%LOCALS%
 SIF !STRLENS(LOCALS)
 	RETURNF 0
@@ -34,30 +33,26 @@ RETURNF GET_OBJ(ARG, CLASS_NAME, O_ID, O_DATA)
 ;GET_INT側でTOINTしとけば参照元での手間が省けるってしょーもない理由
 @GET_OBJ(ARG, CLASS_NAME, O_ID, O_DATA)
 #FUNCTIONS
-#DIMS CLASS_NAME    ;CLASSの名前（例：WEAPON） 类名
-#DIM  O_ID          ;参照するOBJのID（例：1） 对象ID
-#DIMS O_DATA        ;参照したい情報の名前（例：価格） 需要查询的属性名
-#DIM  STACK         ;调用OBJ的栈计数器 处理嵌套调用的变量冲突
-#DIMS V_NAME , 100  ;VAR変数名の保持 临时变量名数组
-#DIMS T_NAME        ;TEMP、初期化の都合上退避の必要があるので 临时结果缓存
+#DIMS CLASS_NAME    ;CLASSの名前（例：WEAPON）
+#DIM  O_ID          ;参照するOBJのID（例：1）
+#DIMS O_DATA        ;参照したい情報の名前（例：価格）
+#DIM  STACK         ;呼び出しOBJのスタックカウンタ
+#DIMS V_NAME , 100  ;VAR変数名の保持
+#DIMS T_NAME        ;TEMP、初期化の都合上退避の必要があるので
 
 ;全OBJのIDの範囲外である
-; 对象合法性校验
 SIF !INRANGE(O_ID, OBJ_ID_FIRST, OBJ_ID_LAST)
-; 判断是否在有效范围内
 	RETURNF
 ;OBJにそのIDが存在しない
-SIF !GET_EXIST(CLASS_NAME, O_ID)
-; 判断该类名是否有此ID的对象
+SIF !GET_EXIST(CLASS_NAME, O_ID, 1)
 	RETURNF
 
-STACK ++ ; 栈计数+1，标记当前调用层级
+STACK ++
 V_NAME:STACK = VAR{STACK}_%CLASS_NAME%{O_ID}_%O_DATA%
 CALLFORMF %CLASS_NAME%{O_ID}(ARG, O_DATA, V_NAME:STACK)
-; 这里是把这个函数的值存入V_NAME:STACK里面
 T_NAME = %V_NAME:STACK%
 V_NAME:STACK =
-STACK -- ; 释放栈
+STACK --
 ;DEBUGPRINTFORML GET_OBJ T_NAME＝%T_NAME%
 
 ;変数が作成されなかった時は弾く
@@ -92,6 +87,8 @@ SELECTCASE COMMAND
 CASE "RESET"
 	CALLFORMF %CLASS_NAME%_ID(ARG, COMMAND)
 CASE "GET"
+	;跳转
+	RETURNF GETMETH_OBJNAME_TO_ID(ARG, CLASS_NAME, KEY)
 	STACK ++
 	V_NAME:STACK = %CLASS_NAME%{STACK}_%COMMAND%
 	CALLFORMF %CLASS_NAME%_ID(ARG, KEY, V_NAME:STACK)
@@ -109,6 +106,8 @@ ENDSELECT
 ;一回以上設定する必要はない
 ;-----------------------------------------------
 @MAKE_ALL_CLASS_LIST
+#LOCALSIZE 1
+#LOCALSSIZE 1
 SIF LOCAL
 	RETURN
 CALL SETLIST_EXIST("キャラデータ", 0, 人物数量上限)
@@ -127,8 +126,8 @@ CALL SETLIST_EXIST("外搭", 0, OBJ_ID_LAST)
 CALL SETLIST_EXIST("下半身内衣_ずらし不可", 0, OBJ_ID_LAST)
 CALL SETLIST_EXIST("下半身内衣_ずらし可能", 0, OBJ_ID_LAST)
 CALL SETLIST_EXIST("連衣裙", 0, OBJ_ID_LAST)
-CALL SETLIST_EXIST("緊身内衣", 0, OBJ_ID_LAST)
-CALL SETLIST_EXIST("連体内衣", 0, OBJ_ID_LAST)
+CALL SETLIST_EXIST("レオタード", 0, OBJ_ID_LAST)
+CALL SETLIST_EXIST("ボディースーツ", 0, OBJ_ID_LAST)
 CALL SETLIST_EXIST("其他衣装", 0, OBJ_ID_LAST)
 CALL SETLIST_EXIST("裤子", 0, OBJ_ID_LAST)
 CALL SETLIST_EXIST("裙子", 0, OBJ_ID_LAST)
